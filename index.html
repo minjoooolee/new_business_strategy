@@ -1,0 +1,2581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신사업전략 부서 로드맵 현황판</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c14;
+    --surface: #111520;
+    --surface2: #181d2e;
+    --border: #232a40;
+    --accent: #4f7fff;
+    --accent2: #00e5b0;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --text: #e8ecf5;
+    --text-muted: #6b7694;
+    --text-dim: #3a4260;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo-badge {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .header-title h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .header-title p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent2);
+    background: rgba(0,229,176,0.08);
+    border: 1px solid rgba(0,229,176,0.2);
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .stat-card.blue::before { background: linear-gradient(90deg, var(--accent), transparent); }
+  .stat-card.green::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .stat-card.yellow::before { background: linear-gradient(90deg, var(--accent4), transparent); }
+  .stat-card.red::before { background: linear-gradient(90deg, var(--accent3), transparent); }
+
+  .stat-card:hover { border-color: var(--accent); }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .stat-card.blue .stat-value { color: var(--accent); }
+  .stat-card.green .stat-value { color: var(--accent2); }
+  .stat-card.yellow .stat-value { color: var(--accent4); }
+  .stat-card.red .stat-value { color: var(--accent3); }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ===== SECTION TITLE ===== */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  /* ===== ROADMAP TIMELINE ===== */
+  .timeline-section {
+    margin-bottom: 48px;
+  }
+
+  .timeline-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    overflow-x: auto;
+  }
+
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 0;
+    min-width: 900px;
+  }
+
+  .tl-header-cell {
+    padding: 8px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tl-header-cell:first-child { text-align: left; }
+
+  .tl-quarter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .tl-quarter-label {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .tl-quarter-sub {
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .tl-row {
+    display: contents;
+  }
+
+  .tl-category-cell {
+    padding: 16px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tl-category-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tl-category-name {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .tl-bar-cell {
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .tl-bar {
+    height: 28px;
+    border-radius: 6px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    cursor: default;
+    transition: filter 0.2s;
+  }
+
+  .tl-bar:hover { filter: brightness(1.2); }
+
+  .tl-empty { opacity: 0; }
+
+  .tl-bar.span-2 { grid-column: span 2; }
+
+  /* ===== ITEMS TABLE ===== */
+  .items-section {
+    margin-bottom: 48px;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+  }
+
+  .item-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(79,127,255,0.04), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .item-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(79,127,255,0.12);
+  }
+
+  .item-card:hover::after { opacity: 1; }
+
+  .item-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .item-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.4;
+  }
+
+  .status-badge {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .status-planning { background: rgba(107,118,148,0.15); color: var(--text-muted); border: 1px solid rgba(107,118,148,0.3); }
+  .status-inprogress { background: rgba(79,127,255,0.12); color: var(--accent); border: 1px solid rgba(79,127,255,0.3); }
+  .status-review { background: rgba(255,209,102,0.12); color: var(--accent4); border: 1px solid rgba(255,209,102,0.3); }
+  .status-done { background: rgba(0,229,176,0.1); color: var(--accent2); border: 1px solid rgba(0,229,176,0.25); }
+
+  .item-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .item-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .meta-chip svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0.6;
+  }
+
+  .priority-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .priority-high { background: var(--accent3); }
+  .priority-mid { background: var(--accent4); }
+  .priority-low { background: var(--text-dim); }
+
+  .progress-bar-wrap {
+    margin-top: 14px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.8s ease;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    width: 560px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 36px;
+    position: relative;
+    animation: modalIn 0.2s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--border);
+    border: none;
+    color: var(--text-muted);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: var(--accent); color: #fff; }
+
+  .modal-category {
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .modal-title {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .modal-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  .modal-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .modal-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .modal-meta-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  .modal-meta-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 4px;
+  }
+
+  .modal-meta-value {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .modal-tasks {
+    margin-top: 20px;
+  }
+
+  .modal-tasks-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 10px;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .task-item:last-child { border-bottom: none; }
+
+  .task-check {
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    color: var(--accent2);
+  }
+
+  .task-check.done {
+    background: rgba(0,229,176,0.1);
+    border-color: var(--accent2);
+  }
+
+  .task-text.done { color: var(--text-muted); text-decoration: line-through; }
+
+  /* ===== ADD BUTTON ===== */
+  .add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--accent), #3a5fd9);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(79,127,255,0.3);
+  }
+
+  .add-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(79,127,255,0.45);
+  }
+
+  /* ===== ADD MODAL FORM ===== */
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(79,127,255,0.15);
+  }
+
+  .form-select option { background: var(--surface2); }
+
+  .form-textarea { resize: vertical; min-height: 80px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .save-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--accent), #3a5fd9);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(79,127,255,0.3);
+  }
+
+  .save-btn:hover { filter: brightness(1.1); }
+
+  /* ===== GNB ===== */
+  .gnb {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: rgba(10, 12, 20, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gnb-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .gnb-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 40px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .gnb-logo-badge {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .gnb-logo-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+  }
+
+  .gnb-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    margin-right: 40px;
+    flex-shrink: 0;
+  }
+
+  .gnb-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .gnb-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.18s;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .gnb-link svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .gnb-link:hover {
+    color: var(--text);
+    background: var(--surface);
+    border-color: var(--border);
+  }
+
+  .gnb-link.active {
+    color: var(--accent);
+    background: rgba(79,127,255,0.1);
+    border-color: rgba(79,127,255,0.25);
+  }
+
+  .gnb-link.active svg { opacity: 1; }
+
+  .gnb-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  .gnb-notification {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+
+  .gnb-notification:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(79,127,255,0.08);
+  }
+
+  .gnb-notification svg { width: 16px; height: 16px; }
+
+  .notif-dot {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    border: 1.5px solid var(--bg);
+  }
+
+  .gnb-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #4f7fff44, #00e5b044);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .gnb-avatar:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(79,127,255,0.2);
+  }
+
+
+  /* ===== GNB 최종목표 드롭다운 ===== */
+  .gnb-goal-wrap {
+    position: relative;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  .gnb-goal-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,209,102,0.35);
+    background: rgba(255,209,102,0.07);
+    color: var(--accent4);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .gnb-goal-btn:hover {
+    background: rgba(255,209,102,0.14);
+    border-color: var(--accent4);
+    box-shadow: 0 0 12px rgba(255,209,102,0.15);
+  }
+
+  .gnb-goal-btn svg { width: 14px; height: 14px; }
+  .gnb-goal-btn .chevron { transition: transform 0.2s; }
+  .gnb-goal-btn.open .chevron { transform: rotate(180deg); }
+
+  .gnb-goal-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 500px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    z-index: 9999;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+    animation: dropIn 0.18s ease;
+  }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .gnb-goal-dropdown.open { display: block; }
+
+  .goal-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .goal-dropdown-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255,209,102,0.18), rgba(255,107,107,0.1));
+    border: 1px solid rgba(255,209,102,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .goal-dropdown-meta { flex: 1; }
+
+  .goal-dropdown-label {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 3px;
+  }
+
+  .goal-dropdown-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .goal-vision {
+    background: linear-gradient(135deg, rgba(255,209,102,0.07), rgba(79,127,255,0.05));
+    border: 1px solid rgba(255,209,102,0.2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+
+  .goal-vision-label {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  .goal-vision-text {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+  }
+
+  .goal-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .goal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .goal-item:hover { border-color: rgba(255,209,102,0.25); }
+
+  .goal-item-num {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .goal-item-body { flex: 1; }
+
+  .goal-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+    letter-spacing: -0.2px;
+  }
+
+  .goal-item-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .goal-item-tag {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 8px;
+    align-self: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .goal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .goal-footer-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .goal-kpis { display: flex; gap: 20px; }
+
+  .goal-kpi-item { text-align: right; }
+
+  .goal-kpi-value {
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    font-family: 'Space Mono', monospace;
+    line-height: 1;
+  }
+
+  .goal-kpi-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* container top padding for sticky GNB */
+  .container {
+    padding-top: 0;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .items-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .container { padding: 0 16px 60px; }
+    .gnb-inner { padding: 0 16px; }
+    .gnb-logo-text { display: none; }
+    .gnb-divider { display: none; }
+    .gnb-link span { display: none; }
+    .gnb-link { padding: 6px 10px; }
+  }
+
+  /* ===== GOAL PAGE ===== */
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  .goal-page {
+    padding: 40px 0 80px;
+    animation: fadeUp 0.3s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .goal-page-title {
+    margin-bottom: 40px;
+  }
+
+  .goal-page-title h2 {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .goal-page-title p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Vision + Core Value */
+  .goal-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .goal-vision-card {
+    background: linear-gradient(135deg, rgba(79,127,255,0.1), rgba(0,229,176,0.06));
+    border: 1px solid rgba(79,127,255,0.25);
+    border-radius: 20px;
+    padding: 28px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .goal-vision-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .goal-card-eyebrow {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .goal-vision-card .goal-card-eyebrow { color: var(--accent); }
+  .goal-value-card .goal-card-eyebrow { color: var(--accent2); }
+
+  .goal-vision-card h3 {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.45;
+    color: var(--text);
+  }
+
+  .goal-value-card {
+    background: linear-gradient(135deg, rgba(0,229,176,0.08), rgba(79,127,255,0.05));
+    border: 1px solid rgba(0,229,176,0.2);
+    border-radius: 20px;
+    padding: 28px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .goal-value-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+
+  .goal-value-card h3 {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.45;
+    color: var(--text);
+  }
+
+  /* 방향성 섹션 공통 */
+  .roadmap-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .direction-card {
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .direction-card.current {
+    border-color: rgba(107,118,148,0.3);
+    opacity: 0.75;
+  }
+
+  .direction-card.strategy {
+    border-color: rgba(79,127,255,0.3);
+    background: linear-gradient(145deg, rgba(79,127,255,0.05), var(--surface));
+  }
+
+  .dir-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dir-badge {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .dir-badge.current { background: rgba(107,118,148,0.15); color: var(--text-muted); border: 1px solid rgba(107,118,148,0.2); }
+  .dir-badge.strategy { background: rgba(79,127,255,0.12); color: var(--accent); border: 1px solid rgba(79,127,255,0.25); }
+
+  .dir-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  /* 플로우 스텝 */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 32px;
+    bottom: -4px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .flow-step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .flow-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  .flow-dot.gray { background: rgba(107,118,148,0.15); color: var(--text-muted); border: 1px solid rgba(107,118,148,0.2); }
+  .flow-dot.blue { background: rgba(79,127,255,0.15); color: var(--accent); border: 1px solid rgba(79,127,255,0.25); }
+  .flow-dot.green { background: rgba(0,229,176,0.12); color: var(--accent2); border: 1px solid rgba(0,229,176,0.2); }
+  .flow-dot.gold { background: rgba(255,209,102,0.12); color: var(--accent4); border: 1px solid rgba(255,209,102,0.2); }
+
+  .flow-body {
+    padding-bottom: 20px;
+    flex: 1;
+  }
+
+  .flow-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+
+  .flow-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .flow-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-top: 6px;
+  }
+
+  /* AI 에이전트 섹션 */
+  .agent-section {
+    margin-bottom: 32px;
+  }
+
+  .agent-section-title {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .agent-section-title::before {
+    content: '';
+    display: block;
+    width: 16px; height: 2px;
+    background: var(--accent);
+  }
+
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .agent-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .agent-card.core::before { background: var(--accent); }
+  .agent-card.cancer::before { background: var(--accent3); }
+  .agent-card.support::before { background: var(--accent4); }
+
+  .agent-card:hover {
+    border-color: rgba(79,127,255,0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+  }
+
+  .agent-icon { font-size: 22px; margin-bottom: 8px; }
+
+  .agent-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+
+  .agent-role {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .agent-type-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-family: 'Space Mono', monospace;
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Gap 분석 */
+  .gap-section {
+    background: var(--surface);
+    border: 1px solid rgba(255,107,107,0.2);
+    border-radius: 20px;
+    padding: 28px 30px;
+    margin-bottom: 32px;
+  }
+
+  .gap-title {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gap-title::before {
+    content: '';
+    display: block;
+    width: 16px; height: 2px;
+    background: var(--accent3);
+  }
+
+  .gap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .gap-item {
+    background: rgba(255,107,107,0.05);
+    border: 1px solid rgba(255,107,107,0.15);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .gap-item-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent3);
+    margin-bottom: 5px;
+  }
+
+  .gap-item-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .goal-top-row { flex-direction: column; }
+    .roadmap-compare { grid-template-columns: 1fr; }
+    .gap-grid { grid-template-columns: 1fr; }
+    .agent-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ===== 우리가 갖게 되는 것 ===== */
+  .outcome-section {
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  .outcome-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .outcome-header-eyebrow {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .outcome-header-title {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .outcome-header-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .outcome-header-sub strong {
+    color: var(--accent2);
+    font-weight: 700;
+  }
+
+  /* 흐름 화살표 */
+  .outcome-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .outcome-flow-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .outcome-flow-pill.highlight {
+    background: linear-gradient(135deg, rgba(0,229,176,0.1), rgba(79,127,255,0.08));
+    border-color: rgba(0,229,176,0.3);
+    color: var(--accent2);
+  }
+
+  .outcome-flow-arrow {
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .outcome-flow-arrow svg { width: 16px; height: 16px; }
+
+  /* 3개 카드 */
+  .outcome-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .outcome-card {
+    border-radius: 20px;
+    padding: 26px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .outcome-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+
+  .outcome-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .outcome-card.infra {
+    background: linear-gradient(145deg, rgba(79,127,255,0.08), rgba(79,127,255,0.03));
+    border: 1px solid rgba(79,127,255,0.2);
+  }
+  .outcome-card.infra::before { background: linear-gradient(90deg, var(--accent), transparent); }
+
+  .outcome-card.data {
+    background: linear-gradient(145deg, rgba(0,229,176,0.08), rgba(0,229,176,0.03));
+    border: 1px solid rgba(0,229,176,0.2);
+  }
+  .outcome-card.data::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+
+  .outcome-card.pro {
+    background: linear-gradient(145deg, rgba(255,209,102,0.08), rgba(255,209,102,0.03));
+    border: 1px solid rgba(255,209,102,0.2);
+  }
+  .outcome-card.pro::before { background: linear-gradient(90deg, var(--accent4), transparent); }
+
+  .outcome-card-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .outcome-card-num {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.3;
+  }
+
+  .outcome-card.infra .outcome-card-num { color: var(--accent); }
+  .outcome-card.data .outcome-card-num { color: var(--accent2); }
+  .outcome-card.pro .outcome-card-num { color: var(--accent4); }
+
+  .outcome-card-title {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+  }
+
+  .outcome-card.infra .outcome-card-title { color: var(--accent); }
+  .outcome-card.data .outcome-card-title { color: var(--accent2); }
+  .outcome-card.pro .outcome-card-title { color: var(--accent4); }
+
+  .outcome-card-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .outcome-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .outcome-tag {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 3px 9px;
+    border-radius: 8px;
+  }
+
+  .outcome-card.infra .outcome-tag { background: rgba(79,127,255,0.12); color: var(--accent); }
+  .outcome-card.data .outcome-tag { background: rgba(0,229,176,0.1); color: var(--accent2); }
+  .outcome-card.pro .outcome-tag { background: rgba(255,209,102,0.1); color: var(--accent4); }
+
+  /* 최종 가치 배너 */
+  .outcome-banner {
+    background: linear-gradient(135deg, rgba(79,127,255,0.08), rgba(0,229,176,0.06), rgba(255,209,102,0.05));
+    border: 1px solid rgba(79,127,255,0.2);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .outcome-banner-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+    line-height: 1.5;
+  }
+
+  .outcome-banner-text span { color: var(--accent2); }
+
+  .outcome-banner-kpis {
+    display: flex;
+    gap: 28px;
+    flex-shrink: 0;
+  }
+
+  .outcome-banner-kpi { text-align: center; }
+
+  .outcome-banner-kpi-val {
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .outcome-banner-kpi-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .outcome-cards { grid-template-columns: 1fr; }
+    .outcome-banner { flex-direction: column; }
+    .outcome-flow { gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- GNB -->
+<nav class="gnb">
+  <div class="gnb-inner">
+    <a class="gnb-logo" href="#">
+      <div class="gnb-logo-badge">NS</div>
+      <span class="gnb-logo-text">신사업전략부서</span>
+    </a>
+    <div class="gnb-divider"></div>
+    <div class="gnb-nav">
+      <a class="gnb-link active" onclick="setPage('goal', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        <span>최종목표</span>
+      </a>
+      <a class="gnb-link" onclick="setPage('pinkcare', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>핑크케어</span>
+      </a>
+      <a class="gnb-link" onclick="setPage('vcare', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span>브이케어</span>
+      </a>
+      <a class="gnb-link" onclick="setPage('vdoc', this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h1m4 0h1M12 8v4"/></svg>
+        <span>브이닥 엔터프라이즈</span>
+      </a>
+      <a class="gnb-link" onclick="setPage('dashboard', this)" style="margin-left:auto;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>대시보드</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="page-section goal-page active" id="page-goal">
+    <div class="goal-page-title">
+      <h2>🎯 신사업전략부서의 최종 목표</h2>
+      <p>NEW BUSINESS STRATEGY · FINAL GOAL & DIRECTION</p>
+    </div>
+
+    <!-- 비전 + 핵심가치 -->
+    <div class="goal-top-row">
+      <div class="goal-vision-card">
+        <div class="goal-card-eyebrow">Final Goal · Vision</div>
+        <h3>지능형 AI 의료 전문<br>커뮤니티 구축</h3>
+      </div>
+      <div class="goal-value-card">
+        <div class="goal-card-eyebrow">Core Value · 핵심가치</div>
+        <h3>환우들에게 건강과 관련된<br>신뢰를 줄 수 있는 커뮤니티</h3>
+      </div>
+    </div>
+
+    <!-- ===== 우리가 갖게 되는 것 ===== -->
+    <div class="outcome-section">
+      <div class="outcome-header">
+        <div class="outcome-header-eyebrow">What We Gain · 우리가 갖게 되는 것</div>
+        <div class="outcome-header-title">Vision × 핵심가치 실현의 결과물</div>
+        <div class="outcome-header-sub">
+          질병에 관심 있는 <strong>누구나</strong>가 브이케어(에이아이트릭스)를 찾게 되면서<br>
+          우리는 3가지 핵심 자산을 축적하게 됩니다
+        </div>
+      </div>
+
+      <!-- 흐름 -->
+      <div class="outcome-flow">
+        <div class="outcome-flow-pill">🏥 지능형 AI 의료 커뮤니티</div>
+        <div class="outcome-flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="outcome-flow-pill">👥 질병에 관심 있는 누구나 유입</div>
+        <div class="outcome-flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="outcome-flow-pill highlight">⚡ 3가지 핵심 자산 축적</div>
+      </div>
+
+      <!-- 3가지 자산 카드 -->
+      <div class="outcome-cards">
+
+        <div class="outcome-card infra">
+          <div class="outcome-card-num">01</div>
+          <div class="outcome-card-icon">🏗️</div>
+          <div class="outcome-card-title">인적 인프라</div>
+          <div class="outcome-card-desc">
+            환자·보호자·의료진·예비 환자까지 질병에 관심 있는 모든 사람이 자발적으로 모이는 헬스케어 특화 커뮤니티. 단순 사용자가 아닌 신뢰 기반의 충성도 높은 의료 인적 네트워크를 구축하게 됩니다.
+          </div>
+          <div class="outcome-card-tags">
+            <span class="outcome-tag">환자 네트워크</span>
+            <span class="outcome-tag">보호자</span>
+            <span class="outcome-tag">의료진</span>
+            <span class="outcome-tag">예비 환자</span>
+          </div>
+        </div>
+
+        <div class="outcome-card data">
+          <div class="outcome-card-num">02</div>
+          <div class="outcome-card-icon">🗄️</div>
+          <div class="outcome-card-title">헬스케어 데이터 가치</div>
+          <div class="outcome-card-desc">
+            커뮤니티 활동·질문·반응 데이터가 곧 고품질 헬스케어 데이터셋으로 축적. AI 에이전트 고도화의 연료가 되며, 향후 의료 AI 모델 학습 및 B2B 데이터 비즈니스의 핵심 자산이 됩니다.
+          </div>
+          <div class="outcome-card-tags">
+            <span class="outcome-tag">질환별 데이터</span>
+            <span class="outcome-tag">AI 학습셋</span>
+            <span class="outcome-tag">B2B 자산</span>
+          </div>
+        </div>
+
+        <div class="outcome-card pro">
+          <div class="outcome-card-num">03</div>
+          <div class="outcome-card-icon">📊</div>
+          <div class="outcome-card-title">PRO 데이터</div>
+          <div class="outcome-card-desc">
+            Patient-Reported Outcomes — 환자가 직접 보고하는 증상·경과·삶의 질 데이터. 임상 현장에서 수집 불가능한 실생활 기반 데이터로, 제약사·병원·연구기관이 필요로 하는 희소 가치 자산입니다.
+          </div>
+          <div class="outcome-card-tags">
+            <span class="outcome-tag">환자 직접 보고</span>
+            <span class="outcome-tag">실생활 데이터</span>
+            <span class="outcome-tag">임상 연계</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 최종 가치 배너 -->
+      <div class="outcome-banner">
+        <div class="outcome-banner-text">
+          이 3가지 자산은 브이케어(에이아이트릭스)를<br>
+          <span>단순 커뮤니티를 넘어 대체 불가능한 헬스케어 플랫폼</span>으로 만드는 핵심 해자(Moat)입니다
+        </div>
+        <div class="outcome-banner-kpis">
+          <div class="outcome-banner-kpi">
+            <div class="outcome-banner-kpi-val" style="color:var(--accent);">인적</div>
+            <div class="outcome-banner-kpi-label">인프라</div>
+          </div>
+          <div class="outcome-banner-kpi">
+            <div class="outcome-banner-kpi-val" style="color:var(--accent2);">데이터</div>
+            <div class="outcome-banner-kpi-label">헬스케어 가치</div>
+          </div>
+          <div class="outcome-banner-kpi">
+            <div class="outcome-banner-kpi-val" style="color:var(--accent4);">PRO</div>
+            <div class="outcome-banner-kpi-label">환자 보고 데이터</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- 방향성 비교 -->
+    <div class="agent-section-title" style="margin-bottom:16px;">방향성 비교</div>
+    <div class="roadmap-compare">
+
+      <!-- 대표님 방향성 -->
+      <div class="direction-card current">
+        <div class="dir-header">
+          <div class="dir-badge current">현재 대표님 방향성</div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot gray">1</div></div>
+            <div class="flow-body">
+              <div class="flow-name">카카오톡 오픈채팅</div>
+              <div class="flow-desc">초기 환우 커뮤니티 채널</div>
+              <span class="flow-tag" style="background:rgba(107,118,148,0.12); color:var(--text-muted);">현재 운영중</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot gray">2</div></div>
+            <div class="flow-body">
+              <div class="flow-name">핑크케어</div>
+              <div class="flow-desc">게시판 기능 추가된 커뮤니티 플랫폼</div>
+              <span class="flow-tag" style="background:rgba(107,118,148,0.12); color:var(--text-muted);">진행중</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot gray">3</div></div>
+            <div class="flow-body">
+              <div class="flow-name">브이케어</div>
+              <div class="flow-desc">다질환 확장 커뮤니티</div>
+              <span class="flow-tag" style="background:rgba(107,118,148,0.12); color:var(--text-muted);">예정</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot gray">4</div></div>
+            <div class="flow-body">
+              <div class="flow-name">브이닥</div>
+              <div class="flow-desc">최종 목적지 — 의료 플랫폼</div>
+              <span class="flow-tag" style="background:rgba(255,107,107,0.1); color:var(--accent3);">End-Goal (현재 한계)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 신사업전략 방향성 -->
+      <div class="direction-card strategy">
+        <div class="dir-header">
+          <div class="dir-badge strategy">신사업전략부서 방향성</div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot blue">1</div></div>
+            <div class="flow-body">
+              <div class="flow-name">카카오톡 오픈채팅</div>
+              <div class="flow-desc">초기 환우 커뮤니티 채널</div>
+              <span class="flow-tag" style="background:rgba(79,127,255,0.1); color:var(--accent);">현재 운영중</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot blue">2</div></div>
+            <div class="flow-body">
+              <div class="flow-name">핑크케어</div>
+              <div class="flow-desc">게시판 기능 추가된 커뮤니티 플랫폼</div>
+              <span class="flow-tag" style="background:rgba(79,127,255,0.1); color:var(--accent);">진행중</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot green">3</div></div>
+            <div class="flow-body">
+              <div class="flow-name">브이케어 + AI 에이전트</div>
+              <div class="flow-desc">다질환 커뮤니티에 AI 에이전트들이 게시판과 결합 — 커뮤니티 자체가 지능형 플랫폼으로 진화</div>
+              <span class="flow-tag" style="background:rgba(0,229,176,0.1); color:var(--accent2);">진행 방향</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot gold">4</div></div>
+            <div class="flow-body">
+              <div class="flow-name">닥터앤서 3.0 기능 통합</div>
+              <div class="flow-desc">닥터앤서 3.0의 의료 AI 기능들을 커뮤니티 플랫폼에 추가 — 진단 보조·임상 정보 등 전문 의료 역량을 커뮤니티 안으로 흡수</div>
+              <span class="flow-tag" style="background:rgba(255,209,102,0.1); color:var(--accent4);">기능 확장</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-left"><div class="flow-dot gold">5</div></div>
+            <div class="flow-body">
+              <div class="flow-name">AI 에이전트 생태계 확장</div>
+              <div class="flow-desc">질환별·기능별 AI 에이전트를 지속 추가하며 커뮤니티가 스스로 진화하는 지능형 헬스케어 플랫폼으로 완성</div>
+              <span class="flow-tag" style="background:rgba(255,209,102,0.15); color:var(--accent4);">최종 목표 ★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gap 분석 -->
+    <div class="gap-section">
+      <div class="gap-title">브이닥 End-Goal의 현재 한계</div>
+      <div class="gap-grid">
+        <div class="gap-item">
+          <div class="gap-item-label">상품성 부족</div>
+          <div class="gap-item-desc">현재 브이닥은 독립된 End-Goal로서 사용자에게 충분한 가치와 경쟁력을 제공하기 어려운 상태</div>
+        </div>
+        <div class="gap-item">
+          <div class="gap-item-label">기술성 부족</div>
+          <div class="gap-item-desc">자체 보유 기술이 MOCA 엔진에 한정되어 있어 풀스택 의료 플랫폼 구현에 기술 스택이 불충분</div>
+        </div>
+        <div class="gap-item" style="background:rgba(0,229,176,0.05); border-color:rgba(0,229,176,0.2);">
+          <div class="gap-item-label" style="color:var(--accent2);">신사업전략 대안</div>
+          <div class="gap-item-desc">브이닥으로의 무리한 도약 대신, 브이케어에 AI 에이전트를 붙여 플랫폼 자체를 End-Goal로 격상</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI 에이전트 -->
+    <div class="agent-section">
+      <div class="agent-section-title">브이케어 탑재 AI 에이전트</div>
+      <div class="agent-grid">
+        <div class="agent-card core">
+          <div class="agent-icon">🤖</div>
+          <div class="agent-name">챗봇 Agent</div>
+          <div class="agent-role">커뮤니티 내 환우 질문 응답 및 정보 안내 전반을 담당</div>
+          <span class="agent-type-tag" style="background:rgba(79,127,255,0.12); color:var(--accent);">Core</span>
+        </div>
+        <div class="agent-card core">
+          <div class="agent-icon">📋</div>
+          <div class="agent-name">사전문진 Agent</div>
+          <div class="agent-role">진료 전 증상 수집 및 구조화, 의료진 연계 효율화</div>
+          <span class="agent-type-tag" style="background:rgba(79,127,255,0.12); color:var(--accent);">Core</span>
+        </div>
+        <div class="agent-card cancer">
+          <div class="agent-icon">🎗️</div>
+          <div class="agent-name">유방암 Agent</div>
+          <div class="agent-role">유방암 환우 특화 정보 제공, 핑크케어 연계</div>
+          <span class="agent-type-tag" style="background:rgba(255,107,107,0.1); color:var(--accent3);">질환 특화</span>
+        </div>
+        <div class="agent-card cancer">
+          <div class="agent-icon">🔬</div>
+          <div class="agent-name">위암 Agent</div>
+          <div class="agent-role">위암 관련 식이·치료 정보, 커뮤니티 게시판 통합</div>
+          <span class="agent-type-tag" style="background:rgba(255,107,107,0.1); color:var(--accent3);">질환 특화</span>
+        </div>
+        <div class="agent-card cancer">
+          <div class="agent-icon">🩺</div>
+          <div class="agent-name">대장암 Agent</div>
+          <div class="agent-role">대장암 환우 케어 플로우 및 생활 가이드 제공</div>
+          <span class="agent-type-tag" style="background:rgba(255,107,107,0.1); color:var(--accent3);">질환 특화</span>
+        </div>
+        <div class="agent-card support">
+          <div class="agent-icon">➕</div>
+          <div class="agent-name">확장 Agent</div>
+          <div class="agent-role">추후 다질환 확장 시 신규 질환 Agent 지속 추가 예정</div>
+          <span class="agent-type-tag" style="background:rgba(255,209,102,0.1); color:var(--accent4);">확장 예정</span>
+        </div>
+      </div>
+
+
+  <!-- ===== DASHBOARD PAGE ===== -->
+  <div class="page-section" id="page-dashboard">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <div class="logo-badge">NS</div>
+      <div class="header-title">
+        <h1>신사업전략부서 로드맵 현황판</h1>
+        <p>NEW BUSINESS STRATEGY · ROADMAP DASHBOARD</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        <span id="currentDate"></span>
+      </div>
+      <button class="add-btn" onclick="openAddModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        아이템 추가
+      </button>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card blue">
+      <div class="stat-label">총 아이템</div>
+      <div class="stat-value" id="totalCount">0</div>
+      <div class="stat-sub">전략 과제</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">진행중</div>
+      <div class="stat-value" id="inprogressCount">0</div>
+      <div class="stat-sub">활성 프로젝트</div>
+    </div>
+    <div class="stat-card yellow">
+      <div class="stat-label">검토중</div>
+      <div class="stat-value" id="reviewCount">0</div>
+      <div class="stat-sub">리뷰 대기</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-label">완료</div>
+      <div class="stat-value" id="doneCount">0</div>
+      <div class="stat-sub">달성 과제</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline-section">
+    <div class="section-header">
+      <div class="section-title">2025 로드맵 타임라인</div>
+    </div>
+    <div class="timeline-wrapper">
+      <div class="timeline-grid">
+        <!-- Header -->
+        <div class="tl-header-cell">카테고리</div>
+        <div class="tl-header-cell">
+          <div class="tl-quarter"><span class="tl-quarter-label">Q1</span><span class="tl-quarter-sub">Jan–Mar</span></div>
+        </div>
+        <div class="tl-header-cell">
+          <div class="tl-quarter"><span class="tl-quarter-label">Q2</span><span class="tl-quarter-sub">Apr–Jun</span></div>
+        </div>
+        <div class="tl-header-cell">
+          <div class="tl-quarter"><span class="tl-quarter-label">Q3</span><span class="tl-quarter-sub">Jul–Sep</span></div>
+        </div>
+        <div class="tl-header-cell">
+          <div class="tl-quarter"><span class="tl-quarter-label">Q4</span><span class="tl-quarter-sub">Oct–Dec</span></div>
+        </div>
+
+        <!-- Row 1: AI / 디지털 -->
+        <div class="tl-category-cell">
+          <div class="tl-category-dot" style="background:#4f7fff"></div>
+          <span class="tl-category-name" style="font-size:12px">AI / 디지털</span>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(79,127,255,0.25); color:var(--accent);">AI 전략 수립</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(79,127,255,0.35); color:var(--accent);">PoC 진행</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(79,127,255,0.5); color:var(--accent);">파일럿 론칭</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar tl-empty">-</div>
+        </div>
+
+        <!-- Row 2: 글로벌 확장 -->
+        <div class="tl-category-cell">
+          <div class="tl-category-dot" style="background:#00e5b0"></div>
+          <span class="tl-category-name" style="font-size:12px">글로벌 확장</span>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar tl-empty">-</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(0,229,176,0.2); color:var(--accent2);">시장 조사</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(0,229,176,0.3); color:var(--accent2);">파트너 발굴</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(0,229,176,0.45); color:var(--accent2);">MOU 체결</div>
+        </div>
+
+        <!-- Row 3: 신규 BM -->
+        <div class="tl-category-cell">
+          <div class="tl-category-dot" style="background:#ffd166"></div>
+          <span class="tl-category-name" style="font-size:12px">신규 BM</span>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(255,209,102,0.2); color:var(--accent4);">아이디에이션</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(255,209,102,0.3); color:var(--accent4);">BM 검증</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar tl-empty">-</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(255,209,102,0.45); color:var(--accent4);">사업 개시</div>
+        </div>
+
+        <!-- Row 4: 투자/M&A -->
+        <div class="tl-category-cell">
+          <div class="tl-category-dot" style="background:#ff6b6b"></div>
+          <span class="tl-category-name" style="font-size:12px">투자 / M&A</span>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(255,107,107,0.2); color:var(--accent3);">파이프라인 구축</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(255,107,107,0.3); color:var(--accent3);">DD 수행</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar" style="background:rgba(255,107,107,0.4); color:var(--accent3);">협상</div>
+        </div>
+        <div class="tl-bar-cell">
+          <div class="tl-bar tl-empty">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITEMS -->
+  <div class="items-section">
+    <div class="section-header">
+      <div class="section-title">전략 아이템</div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterItems('all', this)">전체</button>
+      <button class="filter-btn" onclick="filterItems('inprogress', this)">진행중</button>
+      <button class="filter-btn" onclick="filterItems('review', this)">검토중</button>
+      <button class="filter-btn" onclick="filterItems('planning', this)">기획중</button>
+      <button class="filter-btn" onclick="filterItems('done', this)">완료</button>
+    </div>
+    <div class="items-grid" id="itemsGrid"></div>
+  </div>
+
+  </div><!-- /page-dashboard -->
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('detailModal').classList.remove('open')">✕</button>
+    <div class="modal-category" id="modalCategory"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-desc" id="modalDesc"></div>
+    <div class="modal-divider"></div>
+    <div class="modal-meta-grid" id="modalMeta"></div>
+    <div class="modal-tasks" id="modalTasks"></div>
+    <div class="progress-bar-wrap" style="margin-top:20px">
+      <div class="progress-bar-fill" id="modalProgress" style="width:0%"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('addModal').classList.remove('open')">✕</button>
+    <div class="modal-title" style="font-size:18px;margin-bottom:24px;">새 아이템 추가</div>
+    <div class="form-group">
+      <label class="form-label">아이템명 *</label>
+      <input type="text" class="form-input" id="newTitle" placeholder="전략 과제명 입력">
+    </div>
+    <div class="form-group">
+      <label class="form-label">설명</label>
+      <textarea class="form-textarea" id="newDesc" placeholder="과제 설명 입력"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">카테고리</label>
+        <select class="form-select" id="newCategory">
+          <option value="AI / 디지털">AI / 디지털</option>
+          <option value="글로벌 확장">글로벌 확장</option>
+          <option value="신규 BM">신규 BM</option>
+          <option value="투자 / M&A">투자 / M&A</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">상태</label>
+        <select class="form-select" id="newStatus">
+          <option value="planning">기획중</option>
+          <option value="inprogress">진행중</option>
+          <option value="review">검토중</option>
+          <option value="done">완료</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">담당자</label>
+        <input type="text" class="form-input" id="newOwner" placeholder="홍길동">
+      </div>
+      <div class="form-group">
+        <label class="form-label">목표 기한</label>
+        <input type="text" class="form-input" id="newDeadline" placeholder="2025 Q3">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">우선순위</label>
+        <select class="form-select" id="newPriority">
+          <option value="high">높음</option>
+          <option value="mid">중간</option>
+          <option value="low">낮음</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">진행률 (%)</label>
+        <input type="number" class="form-input" id="newProgress" min="0" max="100" placeholder="0" value="0">
+      </div>
+    </div>
+    <button class="save-btn" onclick="addItem()">저장하기</button>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+let items = [
+  {
+    id: 1,
+    title: "AI 기반 고객 분석 플랫폼 구축",
+    category: "AI / 디지털",
+    categoryColor: "#4f7fff",
+    status: "inprogress",
+    priority: "high",
+    owner: "김전략",
+    deadline: "2025 Q2",
+    progress: 65,
+    desc: "머신러닝 기반 고객 행동 분석 플랫폼을 내재화하여 신사업 타겟 세그먼트를 식별하고, 개인화 마케팅 역량을 확보하는 과제입니다.",
+    tasks: [
+      { text: "데이터 인프라 설계 완료", done: true },
+      { text: "ML 모델 PoC 수행", done: true },
+      { text: "파일럿 고객군 선정", done: false },
+      { text: "플랫폼 내재화 개발", done: false },
+    ]
+  },
+  {
+    id: 2,
+    title: "동남아시아 시장 진출 전략 수립",
+    category: "글로벌 확장",
+    categoryColor: "#00e5b0",
+    status: "review",
+    priority: "high",
+    owner: "이글로벌",
+    deadline: "2025 Q3",
+    progress: 40,
+    desc: "베트남·인도네시아를 1차 타겟으로 한 진출 전략을 수립합니다. 현지 파트너사 발굴 및 규제 분석을 포함합니다.",
+    tasks: [
+      { text: "베트남 시장 조사 완료", done: true },
+      { text: "인도네시아 규제 분석", done: true },
+      { text: "로컬 파트너사 후보 정리", done: false },
+      { text: "이사회 보고", done: false },
+    ]
+  },
+  {
+    id: 3,
+    title: "구독형 B2B SaaS 비즈니스 모델 검토",
+    category: "신규 BM",
+    categoryColor: "#ffd166",
+    status: "planning",
+    priority: "mid",
+    owner: "박비엠",
+    deadline: "2025 Q4",
+    progress: 15,
+    desc: "기존 솔루션의 SaaS 전환 가능성을 검토하고 구독 단가·번들링 구조를 설계합니다. 유사 사례 벤치마킹 포함.",
+    tasks: [
+      { text: "경쟁사 벤치마킹", done: true },
+      { text: "수익 모델 시뮬레이션", done: false },
+      { text: "고객 인터뷰 10건", done: false },
+      { text: "경영진 보고", done: false },
+    ]
+  },
+  {
+    id: 4,
+    title: "스타트업 M&A 파이프라인 구축",
+    category: "투자 / M&A",
+    categoryColor: "#ff6b6b",
+    status: "inprogress",
+    priority: "high",
+    owner: "최인수",
+    deadline: "2025 Q3",
+    progress: 50,
+    desc: "기술 내재화 및 시장 선점을 위해 5~10개 스타트업 M&A 후보군을 발굴하고 우선순위를 정의합니다.",
+    tasks: [
+      { text: "타겟 섹터 정의 (AI, 물류, 헬스케어)", done: true },
+      { text: "1차 롱리스트 30개 완성", done: true },
+      { text: "쇼트리스트 10개 선정", done: false },
+      { text: "DD 프로세스 착수", done: false },
+    ]
+  },
+  {
+    id: 5,
+    title: "탄소중립 신사업 기회 발굴",
+    category: "신규 BM",
+    categoryColor: "#ffd166",
+    status: "planning",
+    priority: "mid",
+    owner: "강그린",
+    deadline: "2025 Q4",
+    progress: 10,
+    desc: "ESG 경영 기조에 맞춰 탄소 크레딧, 친환경 소재 등 탄소중립 관련 신사업 기회를 탐색합니다.",
+    tasks: [
+      { text: "정책/규제 동향 조사", done: true },
+      { text: "국내외 사례 분석", done: false },
+      { text: "사업화 후보 아이템 도출", done: false },
+    ]
+  },
+  {
+    id: 6,
+    title: "디지털 트윈 파일럿 프로젝트",
+    category: "AI / 디지털",
+    categoryColor: "#4f7fff",
+    status: "done",
+    priority: "low",
+    owner: "윤디지털",
+    deadline: "2025 Q1",
+    progress: 100,
+    desc: "제조 공정에 디지털 트윈 기술을 적용하는 파일럿을 완료했습니다. 효율 개선 12% 확인 및 확산 검토 예정입니다.",
+    tasks: [
+      { text: "파일럿 공장 선정", done: true },
+      { text: "3D 모델링 구축", done: true },
+      { text: "시뮬레이션 테스트", done: true },
+      { text: "성과 분석 보고서", done: true },
+    ]
+  }
+];
+
+const statusMap = {
+  planning: { label: "기획중", cls: "status-planning" },
+  inprogress: { label: "진행중", cls: "status-inprogress" },
+  review: { label: "검토중", cls: "status-review" },
+  done: { label: "완료", cls: "status-done" },
+};
+
+const priorityMap = {
+  high: { label: "높음", cls: "priority-high" },
+  mid: { label: "중간", cls: "priority-mid" },
+  low: { label: "낮음", cls: "priority-low" },
+};
+
+// ===== RENDER =====
+function renderItems(filter = 'all') {
+  const grid = document.getElementById('itemsGrid');
+  const filtered = filter === 'all' ? items : items.filter(i => i.status === filter);
+
+  grid.innerHTML = filtered.map(item => `
+    <div class="item-card" onclick="openDetail(${item.id})">
+      <div class="item-top">
+        <div class="item-title">${item.title}</div>
+        <span class="status-badge ${statusMap[item.status].cls}">${statusMap[item.status].label}</span>
+      </div>
+      <div class="item-desc">${item.desc.slice(0, 80)}...</div>
+      <div class="item-meta">
+        <div class="meta-chip">
+          <div class="priority-dot ${priorityMap[item.priority].cls}"></div>
+          <span>${priorityMap[item.priority].label}</span>
+        </div>
+        <div class="meta-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>${item.deadline}</span>
+        </div>
+        <div class="meta-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>${item.owner}</span>
+        </div>
+        <div class="meta-chip" style="margin-left:auto; color: ${item.categoryColor}; font-size:10px">
+          ${item.category}
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" style="width:${item.progress}%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('totalCount').textContent = items.length;
+  document.getElementById('inprogressCount').textContent = items.filter(i => i.status === 'inprogress').length;
+  document.getElementById('reviewCount').textContent = items.filter(i => i.status === 'review').length;
+  document.getElementById('doneCount').textContent = items.filter(i => i.status === 'done').length;
+}
+
+// ===== FILTER =====
+function filterItems(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderItems(filter);
+}
+
+// ===== DETAIL MODAL =====
+function openDetail(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+
+  document.getElementById('modalCategory').textContent = item.category;
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalDesc').textContent = item.desc;
+  document.getElementById('modalProgress').style.width = item.progress + '%';
+
+  document.getElementById('modalMeta').innerHTML = `
+    <div class="modal-meta-item">
+      <div class="modal-meta-label">상태</div>
+      <div class="modal-meta-value"><span class="status-badge ${statusMap[item.status].cls}">${statusMap[item.status].label}</span></div>
+    </div>
+    <div class="modal-meta-item">
+      <div class="modal-meta-label">담당자</div>
+      <div class="modal-meta-value">${item.owner}</div>
+    </div>
+    <div class="modal-meta-item">
+      <div class="modal-meta-label">목표 기한</div>
+      <div class="modal-meta-value">${item.deadline}</div>
+    </div>
+    <div class="modal-meta-item">
+      <div class="modal-meta-label">진행률</div>
+      <div class="modal-meta-value">${item.progress}%</div>
+    </div>
+  `;
+
+  document.getElementById('modalTasks').innerHTML = `
+    <div class="modal-tasks-title">세부 태스크</div>
+    ${item.tasks.map(t => `
+      <div class="task-item">
+        <div class="task-check ${t.done ? 'done' : ''}">${t.done ? '✓' : ''}</div>
+        <span class="task-text ${t.done ? 'done' : ''}">${t.text}</span>
+      </div>
+    `).join('')}
+  `;
+
+  document.getElementById('detailModal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('detailModal')) {
+    document.getElementById('detailModal').classList.remove('open');
+  }
+}
+
+// ===== ADD MODAL =====
+function openAddModal() {
+  document.getElementById('addModal').classList.add('open');
+}
+
+function closeAddModal(e) {
+  if (e.target === document.getElementById('addModal')) {
+    document.getElementById('addModal').classList.remove('open');
+  }
+}
+
+function addItem() {
+  const title = document.getElementById('newTitle').value.trim();
+  if (!title) { alert('아이템명을 입력하세요.'); return; }
+
+  const categoryColors = {
+    "AI / 디지털": "#4f7fff",
+    "글로벌 확장": "#00e5b0",
+    "신규 BM": "#ffd166",
+    "투자 / M&A": "#ff6b6b",
+    "기타": "#9d8cff"
+  };
+
+  const category = document.getElementById('newCategory').value;
+  const newItem = {
+    id: Date.now(),
+    title,
+    category,
+    categoryColor: categoryColors[category] || "#9d8cff",
+    status: document.getElementById('newStatus').value,
+    priority: document.getElementById('newPriority').value,
+    owner: document.getElementById('newOwner').value || "미배정",
+    deadline: document.getElementById('newDeadline').value || "미정",
+    progress: parseInt(document.getElementById('newProgress').value) || 0,
+    desc: document.getElementById('newDesc').value || "설명 없음",
+    tasks: []
+  };
+
+  items.unshift(newItem);
+  document.getElementById('addModal').classList.remove('open');
+  document.getElementById('newTitle').value = '';
+  document.getElementById('newDesc').value = '';
+  document.getElementById('newOwner').value = '';
+  document.getElementById('newDeadline').value = '';
+  document.getElementById('newProgress').value = '0';
+  renderItems('all');
+  document.querySelectorAll('.filter-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+}
+
+// ===== DATE =====
+function setDate() {
+  const d = new Date();
+  document.getElementById('currentDate').textContent =
+    `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// ===== 최종목표 드롭다운 =====
+function toggleGoal() {
+  const btn = document.getElementById('goalBtn');
+  const dropdown = document.getElementById('goalDropdown');
+  btn.classList.toggle('open');
+  dropdown.classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('goalWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('goalBtn').classList.remove('open');
+    document.getElementById('goalDropdown').classList.remove('open');
+  }
+});
+
+// ===== GNB PAGE NAV =====
+function setPage(page, el) {
+  document.querySelectorAll('.gnb-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+
+  // 페이지 단위 전환
+  if (page === 'goal') {
+    document.getElementById('page-goal').classList.add('active');
+    document.getElementById('page-dashboard').classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  document.getElementById('page-goal').classList.remove('active');
+  document.getElementById('page-dashboard').classList.add('active');
+
+  const targets = {
+    dashboard: null,
+    roadmap: '.timeline-section',
+    items: '.items-section',
+    report: '.items-section',
+    settings: '.items-section',
+  };
+  const selector = targets[page];
+  setTimeout(() => {
+    if (selector) {
+      const el2 = document.querySelector(selector);
+      if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, 50);
+}
+
+// ===== INIT =====
+setDate();
+renderItems();
+</script>
+</body>
+</html>
