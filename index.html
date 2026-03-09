@@ -1752,6 +1752,276 @@
       </div>
     </div>
 
+    <!-- ===== 사용자 이동 구조도 ===== -->
+    <div id="med-diagram-wrap" style="margin-top:28px;font-family:'Noto Sans KR','Apple SD Gothic Neo',system-ui,sans-serif;background:linear-gradient(145deg,#f0f4ff 0%,#faf5ff 50%,#f0fff4 100%);border-radius:16px;padding:24px 24px 40px;position:relative;">
+      <!-- 헤더 -->
+      <div style="margin-bottom:20px;">
+        <div style="font-size:16px;font-weight:900;color:#0D1B4A;letter-spacing:-0.5px;margin-bottom:3px;">🏥 지능형 의료 커뮤니티 — 사용자 이동 구조도</div>
+        <div style="font-size:10.5px;color:#6B7280;font-weight:500;">카카오톡 오픈채팅 → 핑크케어 → 브이케어 · 지능형 의료 커뮤니티 → 브이닥 → V.Doc Enterprise</div>
+        <div style="display:inline-flex;align-items:center;flex-wrap:wrap;row-gap:4px;background:#fff;border-radius:40px;padding:4px 14px;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-top:10px;">
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:#f9d923;"></div><span style="font-size:10px;font-weight:600;color:#374151;">시작점</span></div>
+          <span style="color:#D1D5DB;margin:0 4px;">›</span>
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:#f78fb3;"></div><span style="font-size:10px;font-weight:600;color:#374151;">핑크케어</span></div>
+          <span style="color:#D1D5DB;margin:0 4px;">›</span>
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:#60a5fa;"></div><span style="font-size:10px;font-weight:600;color:#374151;">브이케어 · 지능형 커뮤니티</span></div>
+          <span style="color:#D1D5DB;margin:0 4px;">›</span>
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:#e53e3e;"></div><span style="font-size:10px;font-weight:600;color:#374151;">브이닥 (전략 재검토)</span></div>
+          <span style="color:#D1D5DB;margin:0 4px;">›</span>
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:#34d399;"></div><span style="font-size:10px;font-weight:600;color:#374151;">V.Doc Enterprise</span></div>
+        </div>
+      </div>
+
+      <!-- 다이어그램 -->
+      <div id="med-container" style="position:relative;display:flex;align-items:flex-start;gap:36px;overflow-x:auto;padding-bottom:80px;padding-top:4px;">
+        <svg id="med-svg" style="position:absolute;top:0;left:0;pointer-events:none;overflow:visible;"></svg>
+
+        <!-- 1. 카카오 -->
+        <div id="med-r1" style="border:2px dashed #f9d923;background:#fffde8;border-radius:16px;padding:13px;width:178px;flex-shrink:0;box-shadow:0 4px 18px #f9d92328;">
+          <div style="font-size:10.5px;font-weight:800;color:#b08a00;margin-bottom:9px;padding-bottom:7px;border-bottom:1px dashed #f9d92388;">💬 시작점</div>
+          <div style="background:#fff;border-radius:12px;padding:11px 13px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+              <div style="width:26px;height:26px;border-radius:7px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">💬</div>
+              <div style="font-size:12px;font-weight:700;color:#1a1a2e;line-height:1.3;">카카오톡 오픈채팅</div>
+            </div>
+            <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">환자 · 보호자 자발 모임</div>
+            <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">경험 기반 정보 교류</div>
+            <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">커뮤니티의 씨앗</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+            <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>📌</span><span>현황</span></div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 채널 개설 운영 중</div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 유방암 유튜버 중심 운영</div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 의료진 적극적 참여 필요</div>
+          </div>
+        </div>
+
+        <!-- 2. 핑크케어 -->
+        <div id="med-r2" style="border:2px dashed #f78fb3;background:#fff0f5;border-radius:16px;padding:13px;width:193px;flex-shrink:0;box-shadow:0 4px 18px #f78fb328;">
+          <div style="font-size:10.5px;font-weight:800;color:#c0145a;margin-bottom:9px;padding-bottom:7px;border-bottom:1px dashed #f78fb388;">🌸 핑크케어</div>
+          <div style="background:#fff;border-radius:12px;padding:11px 13px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+              <div style="width:26px;height:26px;border-radius:7px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">🎀</div>
+              <div style="font-size:12px;font-weight:700;color:#1a1a2e;line-height:1.3;">핑크케어</div>
+            </div>
+            <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">유방암 특화</div>
+            <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">환자 커뮤니티 플랫폼</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+            <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>💌</span><span>응원 / 경험 게시판</span></div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 치료 경험 공유</div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 환자 간 응원 메시지</div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 회복 스토리 아카이브</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+            <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>📋</span><span>검사기록지 설명 게시판</span></div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 검사 결과 쉬운 해설</div>
+          </div>
+        </div>
+
+        <!-- 3. 브이케어 -->
+        <div id="med-r3" style="border:2px dashed #60a5fa;background:#eff6ff;border-radius:16px;padding:13px;width:295px;flex-shrink:0;box-shadow:0 6px 28px #60a5fa38;">
+          <div style="font-size:11px;font-weight:800;color:#1d4ed8;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed #60a5fa88;">🧠 브이케어 — 지능형 의료 커뮤니티</div>
+          <div style="background:linear-gradient(150deg,#0D3C8A 0%,#1976D2 60%,#42A5F5 100%);border-radius:12px;padding:14px 14px 12px;color:#fff;box-shadow:0 6px 22px rgba(21,101,192,0.32);margin-bottom:9px;">
+            <div style="font-size:12.5px;font-weight:900;margin-bottom:3px;letter-spacing:-0.3px;">브이케어 · 지능형 의료 커뮤니티</div>
+            <div style="font-size:9px;opacity:0.75;line-height:1.6;margin-bottom:10px;">암 · 만성질환 전방위 AI 기반 환자 중심 통합 플랫폼</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+              <div style="background:rgba(255,255,255,0.13);border-radius:7px;padding:6px 9px;font-size:9.5px;font-weight:600;display:flex;align-items:flex-start;gap:5px;border:1px solid rgba(255,255,255,0.1);"><span style="flex-shrink:0;">📊</span><span style="line-height:1.5;">AI 검색 에이전트</span></div>
+              <div style="background:rgba(255,255,255,0.13);border-radius:7px;padding:6px 9px;font-size:9.5px;font-weight:600;display:flex;align-items:flex-start;gap:5px;border:1px solid rgba(255,255,255,0.1);"><span style="flex-shrink:0;">🤝</span><span style="line-height:1.5;">질환별 AI 답변 에이전트<br>(닥터앤서3.0 연계)</span></div>
+              <div style="background:rgba(255,255,255,0.13);border-radius:7px;padding:6px 9px;font-size:9.5px;font-weight:600;display:flex;align-items:flex-start;gap:5px;border:1px solid rgba(255,255,255,0.1);"><span style="flex-shrink:0;">📚</span><span style="line-height:1.5;">맞춤 콘텐츠 큐레이션</span></div>
+              <div style="background:rgba(255,255,255,0.13);border-radius:7px;padding:6px 9px;font-size:9.5px;font-weight:600;display:flex;align-items:flex-start;gap:5px;border:1px solid rgba(255,255,255,0.1);"><span style="flex-shrink:0;">🔔</span><span style="line-height:1.5;">내 증상 연계글<br>우선노출 에이전트</span></div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+            <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>🎗️</span><span>질환별 커뮤니티</span></div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;padding-left:16px;">
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#FFF0F5;color:#c0145a;border:1.5px solid #f78fb3;">유방암</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#FFF7ED;color:#C2410C;border:1.5px solid #FDBA74;">위암</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;">대장암</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#FEFCE8;color:#854D0E;border:1.5px solid #FCD34D;">췌장암</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#EEF2FF;color:#3730A3;border:1.5px solid #A5B4FC;">공황장애</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#ECFDF5;color:#065F46;border:1.5px solid #6EE7B7;">소아성장</span>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+            <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>🔗</span><span>공통 기능</span></div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 내 증상과 유사한 게시물 우선 노출 에이전트</div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 검사기록지 설명</div>
+            <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 의료진 답변</div>
+          </div>
+        </div>
+
+        <!-- 4. 브이닥 + V.Doc Enterprise (세로 배치) -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <!-- 브이닥 -->
+          <div id="med-r4" style="border:2px dashed #94a3b8;background:#f8fafc;border-radius:16px;padding:13px;width:193px;flex-shrink:0;box-shadow:0 4px 18px #94a3b828;">
+            <div style="font-size:10.5px;font-weight:800;color:#475569;margin-bottom:9px;padding-bottom:7px;border-bottom:1px dashed #94a3b888;">🩺 브이닥</div>
+            <div style="background:#fff;border-radius:12px;padding:11px 13px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">👨‍⚕️</div>
+                <div style="font-size:12px;font-weight:700;color:#1a1a2e;line-height:1.3;">브이닥</div>
+              </div>
+              <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">건강한 일반인 대상</div>
+              <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">AI 활용 사전 문진 서비스</div>
+            </div>
+            <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;">
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#FEF3C7;color:#92400E;border:1.5px solid #FCD34D;">⚠ 상품성 부족</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:#FEE2E2;color:#991B1B;border:1.5px solid #FCA5A5;">🔧 기술성 부족</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+              <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>📌</span><span>개선 필요 영역</span></div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 타겟 시장 설정 부족</div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· Willingness to pay(WTP) 검증 부족</div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 사전문진 외 답변 처리 불가</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+              <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>🚀</span><span>목표 방향</span></div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· V.Doc Enterprise로 피봇팅</div>
+            </div>
+          </div>
+
+          <!-- V.Doc Enterprise -->
+          <div id="med-enterprise" style="border:2px dashed #34d399;background:#ecfdf5;border-radius:16px;padding:13px;width:193px;flex-shrink:0;box-shadow:0 4px 18px #34d39928;">
+            <div style="font-size:10.5px;font-weight:800;color:#065f46;margin-bottom:9px;padding-bottom:7px;border-bottom:1px dashed #34d39988;">🏢 V.Doc Enterprise</div>
+            <div style="background:#fff;border-radius:12px;padding:11px 13px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">🏢</div>
+                <div style="font-size:12px;font-weight:700;color:#1a1a2e;line-height:1.3;">V.Doc Enterprise</div>
+              </div>
+              <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">기업 대상 B2B 헬스케어</div>
+              <div style="font-size:10px;color:#666;line-height:1.65;padding-left:33px;">AI 문진 솔루션</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.75);border-radius:9px;padding:9px 11px;margin-top:7px;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+              <div style="font-size:10.5px;font-weight:700;color:#222;margin-bottom:3px;display:flex;align-items:center;gap:5px;"><span>✅</span><span>피봇팅 방향</span></div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 기업 임직원 신체적 정신적 건강관리</div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 기업의 HR 리소스 절감</div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 중대재해법 강화로 인한 WTP 높음</div>
+              <div style="font-size:9.5px;color:#777;line-height:1.65;padding-left:16px;">· 브이케어 커뮤니티 연계</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 범례 -->
+      <div style="margin-top:18px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <span style="font-size:9.5px;font-weight:700;color:#9CA3AF;">연결 유형</span>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#e05a8a" stroke-width="1.8" stroke-linecap="round"/><polygon points="20,2 27,5 20,8" fill="#e05a8a"/></svg>
+          <span style="font-size:9.5px;color:#555;font-weight:500;">발전</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#7c5cbf" stroke-width="1.8" stroke-linecap="round"/><polygon points="20,2 27,5 20,8" fill="#7c5cbf"/></svg>
+          <span style="font-size:9.5px;color:#555;font-weight:500;">확장</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="44" height="10">
+            <line x1="0" y1="5" x2="12" y2="5" stroke="#e53e3e" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="20" cy="5" r="5" fill="#fff" stroke="#e53e3e" stroke-width="1.3"/>
+            <line x1="17" y1="2" x2="23" y2="8" stroke="#e53e3e" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="23" y1="2" x2="17" y2="8" stroke="#e53e3e" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="28" y1="5" x2="40" y2="5" stroke="#e53e3e" stroke-width="1.4" stroke-dasharray="3,3" stroke-opacity="0.35"/>
+          </svg>
+          <span style="font-size:9.5px;color:#555;font-weight:500;">전략 재검토</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <svg width="32" height="10">
+            <line x1="32" y1="5" x2="10" y2="5" stroke="#10b981" stroke-width="1.8" stroke-linecap="round"/>
+            <polygon points="10,2 2,5 10,8" fill="#10b981"/>
+          </svg>
+          <span style="font-size:9.5px;color:#555;font-weight:500;">피봇팅 연계</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      function drawMedArrows() {
+        var container = document.getElementById('med-container');
+        var svg = document.getElementById('med-svg');
+        var r1 = document.getElementById('med-r1');
+        var r2 = document.getElementById('med-r2');
+        var r3 = document.getElementById('med-r3');
+        var r4 = document.getElementById('med-r4');
+        var ent = document.getElementById('med-enterprise');
+        if (!container || !svg || !r1 || !r2 || !r3 || !r4 || !ent) return;
+
+        var cb = container.getBoundingClientRect();
+        var W = container.scrollWidth;
+        var H = container.scrollHeight + 80;
+        svg.setAttribute('width', W);
+        svg.setAttribute('height', H);
+        svg.innerHTML = '';
+
+        // defs
+        svg.innerHTML = '<defs></defs>';
+
+        var sections = [
+          { el: r1, next: r2, color: '#e05a8a', label: '발전', broken: false },
+          { el: r2, next: r3, color: '#7c5cbf', label: '확장', broken: false },
+          { el: r3, next: r4, color: '#e53e3e', label: '연계', broken: true  },
+        ];
+
+        sections.forEach(function(cfg, i) {
+          var ar = cfg.el.getBoundingClientRect();
+          var br = cfg.next.getBoundingClientRect();
+          var x1 = ar.right - cb.left;
+          var x2 = br.left - cb.left;
+          var y  = ar.top + Math.min(ar.height, br.height) * 0.28 - cb.top;
+          var mx = (x1 + x2) / 2;
+          var c  = cfg.color;
+
+          if (cfg.broken) {
+            var breakX = x1 + (x2 - x1) * 0.48;
+            // line to break
+            svg.innerHTML += '<line x1="'+x1+'" y1="'+y+'" x2="'+(breakX-14)+'" y2="'+y+'" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round"/>';
+            // X circle
+            svg.innerHTML += '<circle cx="'+breakX+'" cy="'+y+'" r="11" fill="#fff" stroke="'+c+'" stroke-width="1.5"/>';
+            svg.innerHTML += '<line x1="'+(breakX-5)+'" y1="'+(y-5)+'" x2="'+(breakX+5)+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="2" stroke-linecap="round"/>';
+            svg.innerHTML += '<line x1="'+(breakX+5)+'" y1="'+(y-5)+'" x2="'+(breakX-5)+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="2" stroke-linecap="round"/>';
+            // dashed after
+            svg.innerHTML += '<line x1="'+(breakX+14)+'" y1="'+y+'" x2="'+(x2-7)+'" y2="'+y+'" stroke="'+c+'" stroke-width="1.4" stroke-dasharray="4,4" stroke-opacity="0.3" stroke-linecap="round"/>';
+            svg.innerHTML += '<polygon points="'+(x2-7)+','+(y-4)+' '+x2+','+y+' '+(x2-7)+','+(y+4)+'" fill="'+c+'" opacity="0.2"/>';
+            // label
+            svg.innerHTML += '<rect x="'+(breakX+17)+'" y="'+(y-9)+'" width="58" height="17" rx="8" fill="#fff" stroke="'+c+'" stroke-width="1.2"/>';
+            svg.innerHTML += '<text x="'+(breakX+46)+'" y="'+(y+4)+'" text-anchor="middle" font-size="8.5" font-weight="700" fill="'+c+'" font-family="system-ui,sans-serif">전략 재검토</text>';
+          } else {
+            svg.innerHTML += '<line x1="'+x1+'" y1="'+y+'" x2="'+(x2-7)+'" y2="'+y+'" stroke="'+c+'" stroke-width="1.8" stroke-linecap="round"/>';
+            svg.innerHTML += '<polygon points="'+(x2-7)+','+(y-4)+' '+x2+','+y+' '+(x2-7)+','+(y+4)+'" fill="'+c+'"/>';
+            svg.innerHTML += '<rect x="'+(mx-16)+'" y="'+(y-9)+'" width="32" height="17" rx="8" fill="#fff" stroke="'+c+'" stroke-width="1.2"/>';
+            svg.innerHTML += '<text x="'+mx+'" y="'+(y+4)+'" text-anchor="middle" font-size="9" font-weight="700" fill="'+c+'" font-family="system-ui,sans-serif">'+cfg.label+'</text>';
+          }
+        });
+
+        // 역방향: Enterprise 왼쪽 → 갭 → 브이케어 오른쪽
+        var er  = ent.getBoundingClientRect();
+        var vr  = r3.getBoundingClientRect();
+        var vdr = r4.getBoundingClientRect();
+        var revColor = '#10b981';
+        var sx = er.left - cb.left;
+        var sy = er.top + er.height / 2 - cb.top;
+        var gapX = vr.right - cb.left + (vdr.left - cb.left - (vr.right - cb.left)) / 2;
+        var ex = vr.right - cb.left;
+        var ey = vr.top + vr.height / 2 - cb.top;
+        var d = 'M '+sx+' '+sy+' L '+gapX+' '+sy+' L '+gapX+' '+ey+' L '+(ex+7)+' '+ey;
+        svg.innerHTML += '<path d="'+d+'" stroke="'+revColor+'" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+        svg.innerHTML += '<polygon points="'+(ex+7)+','+(ey-4)+' '+ex+','+ey+' '+(ex+7)+','+(ey+4)+'" fill="'+revColor+'"/>';
+        var lx = gapX;
+        var ly = (sy + ey) / 2;
+        svg.innerHTML += '<rect x="'+(lx+5)+'" y="'+(ly-9)+'" width="60" height="17" rx="8" fill="#fff" stroke="'+revColor+'" stroke-width="1.2"/>';
+        svg.innerHTML += '<text x="'+(lx+35)+'" y="'+(ly+4)+'" text-anchor="middle" font-size="8.5" font-weight="700" fill="'+revColor+'" font-family="system-ui,sans-serif">피봇팅 연계</text>';
+      }
+
+      // 페이지 로드 후 + 탭 전환 시 재계산
+      setTimeout(drawMedArrows, 300);
+      window.addEventListener('resize', drawMedArrows);
+
+      // goal 탭 클릭 시 재계산
+      var goalTab = document.querySelector('[data-page="goal"]');
+      if (goalTab) goalTab.addEventListener('click', function(){ setTimeout(drawMedArrows, 300); });
+    })();
+    </script>
+
     <!-- ===== 우리가 갖게 되는 것 ===== -->
     <div class="outcome-section">
       <div class="outcome-header">
