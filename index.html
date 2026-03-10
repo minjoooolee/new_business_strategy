@@ -2975,7 +2975,12 @@
       <a class="cd-nav-pill" href="#cd-s2">세대 진화</a>
       <a class="cd-nav-pill" href="#cd-s3">자산적 우위</a>
       <a class="cd-nav-pill" href="#cd-s4">데이터 가치</a>
+      <a class="cd-nav-pill" href="#upd-s1">유저 니즈</a>
+      <a class="cd-nav-pill" href="#upd-s3">LLM 역할</a>
       <a class="cd-nav-pill" href="#cd-s5">핵심 목표</a>
+      <a class="cd-nav-pill" href="#trust-s1">환자 심리</a>
+      <a class="cd-nav-pill" href="#trust-s2">신뢰 설계</a>
+      <a class="cd-nav-pill" href="#trust-s3">콘텐츠 가치</a>
     </div>
   </nav>
 
@@ -4014,10 +4019,6 @@
         </div>
       </div>
     </div>
-    <div class="doc-footer">
-      <div class="doc-footer-left">aitrics · 신사업전략부서<br>Trust &amp; User Psychology Document</div>
-      <div class="doc-footer-right">Confidential · 2026<br>Internal Use Only</div>
-    </div>
   </div>
   <script>
     (function() {
@@ -4707,7 +4708,7 @@ renderItems();
   window.addEventListener('scroll', function() {
     const retroPage = document.getElementById('page-pinkcare-retrospective');
     if (!retroPage || !retroPage.classList.contains('active')) return;
-    const sections = retroPage.querySelectorAll('.cd-section[id]');
+    const sections = retroPage.querySelectorAll('.cd-section[id], #upd-doc .section[id], #trust-doc .section[id]');
     const pills = retroPage.querySelectorAll('.cd-nav-pill');
     let current = '';
     sections.forEach(function(s) {
