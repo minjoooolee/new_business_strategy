@@ -3137,6 +3137,292 @@
 
     <div class="cd-divider"></div>
 
+    <!-- ===== 유저가 커뮤니티를 찾는 이유 ===== -->
+    <style>
+      @keyframes upd-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+      #upd-doc .section { margin-bottom:120px; opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+      #upd-doc .section.visible { opacity:1; transform:translateY(0); }
+      #upd-doc .hero { text-align:center; padding:60px 0 40px; margin-bottom:100px; animation:fadeUp .8s ease forwards; }
+      #upd-doc .hero-eyebrow { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:20px; font-weight:500; }
+      #upd-doc .hero-title { font-size:48px; font-weight:900; letter-spacing:-2px; line-height:1.15; margin-bottom:24px; color:var(--text); }
+      #upd-doc .hero-title em { font-style:normal; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+      #upd-doc .hero-sub { font-size:16px; color:var(--text-muted); line-height:1.8; max-width:560px; margin:0 auto 36px; }
+      #upd-doc .hero-meta { display:flex; align-items:center; justify-content:center; gap:24px; font-size:11px; font-weight:500; letter-spacing:1px; color:var(--text-dim); text-transform:uppercase; }
+      #upd-doc .hero-meta-divider { width:1px; height:12px; background:var(--border); }
+      #upd-doc .sec-label { display:flex; align-items:center; gap:10px; font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+      #upd-doc .sec-label::before { content:''; display:block; width:20px; height:1px; background:var(--accent); }
+      #upd-doc .sec-title { font-size:32px; font-weight:900; letter-spacing:-1px; line-height:1.35; margin-bottom:12px; color:var(--text); }
+      #upd-doc .sec-title em { font-style:normal; color:var(--accent2); }
+      #upd-doc .sec-lead { font-size:15px; color:var(--text-muted); line-height:1.8; margin-bottom:40px; max-width:680px; }
+      #upd-doc .divider { height:1px; background:linear-gradient(90deg,var(--border),transparent); margin:60px 0; }
+      #upd-doc .info-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:32px; }
+      #upd-doc .info-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 22px; position:relative; overflow:hidden; transition:transform .2s,border-color .2s; }
+      #upd-doc .info-card:hover { transform:translateY(-3px); }
+      #upd-doc .info-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+      #upd-doc .info-card.type1::before { background:var(--accent2); }
+      #upd-doc .info-card.type2::before { background:var(--accent); }
+      #upd-doc .info-card.type3::before { background:var(--accent3); }
+      #upd-doc .info-card.type1 { border-color:rgba(0,212,160,.15); }
+      #upd-doc .info-card.type2 { border-color:rgba(61,127,255,.15); }
+      #upd-doc .info-card.type3 { border-color:rgba(240,165,0,.15); }
+      #upd-doc .info-num { font-size:10px; font-weight:700; letter-spacing:1.5px; margin-bottom:14px; font-family:monospace; color:var(--text-dim); }
+      #upd-doc .info-icon { font-size:26px; margin-bottom:12px; }
+      #upd-doc .info-type { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+      #upd-doc .info-card.type1 .info-type { color:var(--accent2); }
+      #upd-doc .info-card.type2 .info-type { color:var(--accent); }
+      #upd-doc .info-card.type3 .info-type { color:var(--accent3); }
+      #upd-doc .info-title { font-size:16px; font-weight:800; letter-spacing:-.3px; margin-bottom:10px; color:var(--text); }
+      #upd-doc .info-desc { font-size:12px; color:var(--text-muted); line-height:1.7; margin-bottom:14px; }
+      #upd-doc .info-provider { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; padding:7px 12px; border-radius:8px; }
+      #upd-doc .info-card.type1 .info-provider { background:rgba(0,212,160,.08); color:var(--accent2); }
+      #upd-doc .info-card.type2 .info-provider { background:rgba(61,127,255,.08); color:var(--accent); }
+      #upd-doc .info-card.type3 .info-provider { background:rgba(240,165,0,.08); color:var(--accent3); }
+      #upd-doc .decay-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:30px 32px; margin-bottom:14px; position:relative; overflow:hidden; }
+      #upd-doc .decay-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent4),transparent); }
+      #upd-doc .decay-title { font-size:15px; font-weight:700; color:var(--text); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+      #upd-doc .decay-bar-wrap { display:flex; align-items:center; gap:16px; margin-bottom:10px; }
+      #upd-doc .decay-bar-label { font-size:11px; color:var(--text-muted); width:56px; flex-shrink:0; }
+      #upd-doc .decay-bar-track { flex:1; height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+      #upd-doc .decay-bar-fill { height:100%; border-radius:4px; }
+      #upd-doc .decay-bar-val { font-size:11px; font-weight:700; width:36px; text-align:right; flex-shrink:0; }
+      #upd-doc .req-row { display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+      #upd-doc .req-item { display:flex; align-items:flex-start; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 20px; transition:border-color .2s; }
+      #upd-doc .req-item:hover { border-color:rgba(61,127,255,.25); }
+      #upd-doc .req-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+      #upd-doc .req-body { flex:1; }
+      #upd-doc .req-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:3px; }
+      #upd-doc .req-desc { font-size:12px; color:var(--text-muted); line-height:1.6; }
+      #upd-doc .req-tag { font-size:10px; padding:3px 10px; border-radius:8px; font-weight:600; align-self:center; flex-shrink:0; white-space:nowrap; }
+      #upd-doc .llm-roles { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+      #upd-doc .llm-role-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 18px; transition:all .2s; position:relative; overflow:hidden; }
+      #upd-doc .llm-role-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,var(--accent),var(--accent2),transparent); opacity:0; transition:opacity .2s; }
+      #upd-doc .llm-role-card:hover { border-color:rgba(61,127,255,.3); transform:translateY(-2px); }
+      #upd-doc .llm-role-card:hover::before { opacity:1; }
+      #upd-doc .llm-role-icon { font-size:22px; margin-bottom:10px; }
+      #upd-doc .llm-role-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:6px; letter-spacing:-.2px; }
+      #upd-doc .llm-role-desc { font-size:11px; color:var(--text-muted); line-height:1.6; }
+      #upd-doc .chat-evolution { display:grid; grid-template-columns:1fr 48px 1fr; align-items:center; margin-bottom:32px; }
+      #upd-doc .chat-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:28px 26px; }
+      #upd-doc .chat-card.current { opacity:.65; }
+      #upd-doc .chat-card.next { background:linear-gradient(145deg,rgba(61,127,255,.07),var(--surface)); border-color:rgba(61,127,255,.25); }
+      #upd-doc .chat-badge { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px; }
+      #upd-doc .chat-card.current .chat-badge { color:var(--text-dim); }
+      #upd-doc .chat-card.next .chat-badge { color:var(--accent); }
+      #upd-doc .chat-title { font-size:17px; font-weight:800; letter-spacing:-.4px; margin-bottom:12px; color:var(--text); }
+      #upd-doc .chat-participants { display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
+      #upd-doc .chat-participant { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-muted); }
+      #upd-doc .chat-participant-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+      #upd-doc .chat-desc { font-size:12px; color:var(--text-muted); line-height:1.7; padding-top:12px; border-top:1px solid var(--border); }
+      #upd-doc .chat-arrow { display:flex; align-items:center; justify-content:center; color:var(--text-dim); }
+      #upd-doc .chat-arrow svg { width:20px; height:20px; }
+      #upd-doc .insight-box { background:linear-gradient(135deg,rgba(61,127,255,.07),rgba(0,212,160,.04)); border:1px solid rgba(61,127,255,.2); border-radius:16px; padding:24px 28px; margin-bottom:24px; }
+      #upd-doc .insight-box-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+      #upd-doc .insight-box-text { font-size:15px; font-weight:600; color:var(--text); line-height:1.7; letter-spacing:-.2px; }
+      #upd-doc .insight-box-text strong { color:var(--accent2); }
+      #upd-doc .final-card { background:linear-gradient(135deg,rgba(61,127,255,.1),rgba(0,212,160,.07)); border:1px solid rgba(61,127,255,.25); border-radius:20px; padding:36px 40px; position:relative; overflow:hidden; margin-bottom:32px; }
+      #upd-doc .final-card-label { font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+      #upd-doc .final-card-title { font-size:22px; font-weight:900; letter-spacing:-.5px; color:var(--text); margin-bottom:12px; line-height:1.4; }
+      #upd-doc .final-card-title em { font-style:normal; color:var(--accent2); }
+      #upd-doc .final-card-desc { font-size:14px; color:var(--text-muted); line-height:1.8; }
+      #upd-doc .final-card-desc strong { color:var(--text); }
+      #upd-doc .doc-footer { border-top:1px solid var(--border); padding-top:40px; display:flex; align-items:center; justify-content:space-between; opacity:.5; margin-top:60px; }
+      #upd-doc .doc-footer-left, #upd-doc .doc-footer-right { font-size:11px; color:var(--text-muted); line-height:1.8; }
+      #upd-doc .doc-footer-right { text-align:right; }
+      @media (max-width:768px) {
+        #upd-doc .hero-title { font-size:32px; }
+        #upd-doc .info-grid { grid-template-columns:1fr; }
+        #upd-doc .llm-roles { grid-template-columns:1fr 1fr; }
+        #upd-doc .chat-evolution { grid-template-columns:1fr; }
+        #upd-doc .chat-arrow { display:none; }
+      }
+    </style>
+    <div id="upd-doc">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-eyebrow">aitrics · User Perspective</div>
+        <h1 class="hero-title">유저는 왜<br><em>커뮤니티</em>를 찾는가</h1>
+        <p class="hero-sub">기업의 자산 가치를 넘어, 실제 사용자가 커뮤니티를 필요로 하는 본질적인 이유와 그것이 LLM과 결합될 때 만들어지는 새로운 가능성을 설명합니다.</p>
+        <div class="hero-meta">
+          <span>신사업전략부서</span>
+          <div class="hero-meta-divider"></div>
+          <span>2025</span>
+          <div class="hero-meta-divider"></div>
+          <span>Confidential</span>
+        </div>
+      </div>
+      <!-- S1: 커뮤니티 니즈 -->
+      <div class="section" id="upd-s1">
+        <div class="sec-label">01 · User Needs</div>
+        <h2 class="sec-title">사람들이 커뮤니티를<br>찾는 단 하나의 이유</h2>
+        <p class="sec-lead">사람들이 커뮤니티를 필요로 하는 순간은 명확합니다. 바로 <strong style="color:var(--text);">원하는 정보를 얻을 수 있을 때</strong>입니다. 그 정보의 유형은 크게 세 가지로 나뉩니다.</p>
+        <div class="info-grid">
+          <div class="info-card type1">
+            <div class="info-num">TYPE 01</div>
+            <div class="info-icon">🤝</div>
+            <div class="info-type">경험 기반 정보</div>
+            <div class="info-title">같은 경험을<br>가진 사람의 이야기</div>
+            <div class="info-desc">같은 질환을 겪은 사람만이 줄 수 있는 생생한 경험과 실질적인 조언. 어떤 전문가도 대체할 수 없는 당사자의 목소리입니다.</div>
+            <div class="info-provider"><span>👥</span> 커뮤니티 사용자 간 공유</div>
+          </div>
+          <div class="info-card type2">
+            <div class="info-num">TYPE 02</div>
+            <div class="info-icon">🔍</div>
+            <div class="info-type">전문적 정보</div>
+            <div class="info-title">획득 기회가 적은<br>고품질 정보</div>
+            <div class="info-desc">일반 검색으로는 접근하기 어려운 의학적 근거 기반의 정보. 정확하고 신뢰할 수 있는 헬스케어 지식이 필요한 순간입니다.</div>
+            <div class="info-provider"><span>🤖</span> aitrics 제공 (AI 기반)</div>
+          </div>
+          <div class="info-card type3">
+            <div class="info-num">TYPE 03</div>
+            <div class="info-icon">👨‍⚕️</div>
+            <div class="info-type">전문가 정보</div>
+            <div class="info-title">의료진이 직접<br>전달하는 정보</div>
+            <div class="info-desc">임상 경험을 바탕으로 한 의료진의 판단과 조언. 환자가 가장 신뢰하고 원하지만, 접근이 가장 어려운 정보입니다.</div>
+            <div class="info-provider"><span>🏥</span> 의료진 직접 제공</div>
+          </div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-box-label">Key Insight</div>
+          <div class="insight-box-text">세 가지 정보 유형이 <strong>하나의 플랫폼 안에서 동시에 제공</strong>될 때, 사용자는 그 커뮤니티를 떠날 이유가 없어집니다. 이것이 우리가 지향하는 지능형 헬스케어 커뮤니티의 핵심 설계 원칙입니다.</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- S2: 정보의 가치 -->
+      <div class="section" id="upd-s2">
+        <div class="sec-label">02 · Information Value</div>
+        <h2 class="sec-title">정보는 <em>시간이 지날수록</em><br>가치를 잃는다</h2>
+        <p class="sec-lead">정보에는 유통 기한이 있습니다. 의료 정보는 특히 더 그렇습니다. 오래된 정보는 오히려 해가 될 수 있기 때문에, 우리가 제공하는 정보의 기준은 명확해야 합니다.</p>
+        <div class="decay-card">
+          <div class="decay-title">⏱ 정보 가치의 시간적 감쇠</div>
+          <div class="decay-bar-wrap">
+            <div class="decay-bar-label" style="color:#e6ebf5;font-weight:700;">실시간</div>
+            <div class="decay-bar-track"><div class="decay-bar-fill" style="width:96%;background:linear-gradient(90deg,#00d4a0,#3d7fff);"></div></div>
+            <div class="decay-bar-val" style="color:var(--accent2);">높음</div>
+          </div>
+          <div class="decay-bar-wrap">
+            <div class="decay-bar-label">1일 후</div>
+            <div class="decay-bar-track"><div class="decay-bar-fill" style="width:70%;background:#3d7fff;"></div></div>
+            <div class="decay-bar-val" style="color:var(--accent);">보통</div>
+          </div>
+          <div class="decay-bar-wrap">
+            <div class="decay-bar-label">1주 후</div>
+            <div class="decay-bar-track"><div class="decay-bar-fill" style="width:38%;background:var(--accent3);"></div></div>
+            <div class="decay-bar-val" style="color:var(--accent3);">낮음</div>
+          </div>
+          <div class="decay-bar-wrap">
+            <div class="decay-bar-label">1달 후</div>
+            <div class="decay-bar-track"><div class="decay-bar-fill" style="width:12%;background:var(--accent4);"></div></div>
+            <div class="decay-bar-val" style="color:var(--accent4);">미미</div>
+          </div>
+        </div>
+        <div class="req-row">
+          <div class="req-item">
+            <div class="req-icon" style="background:rgba(0,212,160,.1);">⚡</div>
+            <div class="req-body">
+              <div class="req-title">실시간성</div>
+              <div class="req-desc">사용자의 질문이 발생하는 순간, 가장 최신의 정보를 즉각적으로 제공해야 합니다. 지연된 정보는 신뢰를 잃습니다.</div>
+            </div>
+            <div class="req-tag" style="background:rgba(0,212,160,.1);color:var(--accent2);">필수</div>
+          </div>
+          <div class="req-item">
+            <div class="req-icon" style="background:rgba(61,127,255,.1);">📚</div>
+            <div class="req-body">
+              <div class="req-title">근거 기반 신뢰도 (Evidence-Based)</div>
+              <div class="req-desc">의학적 근거에 기반한 정보만이 환자에게 실질적인 가치를 줍니다. 검증되지 않은 정보는 오히려 해가 될 수 있습니다.</div>
+            </div>
+            <div class="req-tag" style="background:rgba(61,127,255,.1);color:var(--accent);">필수</div>
+          </div>
+          <div class="req-item">
+            <div class="req-icon" style="background:rgba(240,165,0,.1);">🩺</div>
+            <div class="req-body">
+              <div class="req-title">임상적 판단의 동반</div>
+              <div class="req-desc">단순 정보 전달을 넘어, 임상적 맥락과 판단이 녹아든 정보가 제공될 때 사용자는 실질적인 도움을 받을 수 있습니다.</div>
+            </div>
+            <div class="req-tag" style="background:rgba(240,165,0,.1);color:var(--accent3);">필수</div>
+          </div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-box-label">Conclusion</div>
+          <div class="insight-box-text">실시간성 · 근거 기반 신뢰도 · 임상적 판단, 이 세 가지 기준을 동시에 충족하려면 결국 <strong>LLM이 필요합니다.</strong> 이것이 커뮤니티와 LLM의 결합이 필연적인 이유입니다.</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- S3: LLM의 역할 -->
+      <div class="section" id="upd-s3">
+        <div class="sec-label">03 · LLM's Role</div>
+        <h2 class="sec-title">커뮤니티 안에서<br><em>LLM이 해야 할 일</em></h2>
+        <p class="sec-lead">LLM은 커뮤니티의 정보 품질을 결정하는 핵심 엔진입니다. 단순한 챗봇을 넘어, 커뮤니티 내 정보 흐름 전반을 지원하는 다양한 역할을 수행합니다.</p>
+        <div class="llm-roles">
+          <div class="llm-role-card"><div class="llm-role-icon">🔎</div><div class="llm-role-title">실시간 정보 서칭</div><div class="llm-role-desc">사용자의 질문에 대해 최신 의학 정보를 실시간으로 탐색하고 요약 제공</div></div>
+          <div class="llm-role-card"><div class="llm-role-icon">🔗</div><div class="llm-role-title">유사 사례 연결</div><div class="llm-role-desc">비슷한 증상이나 경험을 가진 사용자들을 연결하여 경험 기반 정보 교류 촉진</div></div>
+          <div class="llm-role-card"><div class="llm-role-icon">📝</div><div class="llm-role-title">정보 요약 · 정리</div><div class="llm-role-desc">Pre-trained 모델이 복잡한 의학 정보를 사용자 수준에 맞게 요약하여 전달</div></div>
+          <div class="llm-role-card"><div class="llm-role-icon">💬</div><div class="llm-role-title">실시간 호응</div><div class="llm-role-desc">사용자의 게시글과 질문에 즉각적으로 반응하며 커뮤니티의 활성도를 유지</div></div>
+          <div class="llm-role-card"><div class="llm-role-icon">🤗</div><div class="llm-role-title">공감 · 위로</div><div class="llm-role-desc">질환을 가진 환우들의 정서적 어려움에 공감하고, 심리적 지지를 제공</div></div>
+          <div class="llm-role-card"><div class="llm-role-icon">🧭</div><div class="llm-role-title">정보 신뢰도 검증</div><div class="llm-role-desc">커뮤니티 내 유통되는 정보의 의학적 정확성을 보조하여 신뢰도 있는 환경 유지</div></div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-box-label">Key Insight</div>
+          <div class="insight-box-text">LLM과 커뮤니티의 결합은 단순한 기능 추가가 아닙니다. <strong>정보의 실시간성, 신뢰도, 전문성을 동시에 확보</strong>하면서 사용자 경험을 근본적으로 바꾸는 구조적 혁신입니다. 이것이 바로 차세대 지능형 커뮤니티의 본질입니다.</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- S4: 대화 구조 진화 -->
+      <div class="section" id="upd-s4">
+        <div class="sec-label">04 · Conversation Evolution</div>
+        <h2 class="sec-title">LLM 도입으로 달라지는<br><em>대화의 구조</em></h2>
+        <p class="sec-lead">LLM의 도입은 커뮤니티 내 대화 방식 자체를 바꿉니다. 1대1의 제한적 소통에서 다자간 실시간 정보 교류로 진화합니다.</p>
+        <div class="chat-evolution">
+          <div class="chat-card current">
+            <div class="chat-badge">현재 구조</div>
+            <div class="chat-title">1:1 채팅</div>
+            <div class="chat-participants">
+              <div class="chat-participant"><div class="chat-participant-dot" style="background:var(--text-dim);"></div>사용자 (환자 · 보호자)</div>
+              <div class="chat-participant"><div class="chat-participant-dot" style="background:var(--text-dim);"></div>Expert (의료 전문가)</div>
+            </div>
+            <div class="chat-desc">사람과 전문가가 1대1로 만나는 구조. 전문가의 가용 시간에 의존하며, 정보 전달의 속도와 범위에 한계가 있습니다.</div>
+          </div>
+          <div class="chat-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="chat-card next">
+            <div class="chat-badge">LLM 도입 후</div>
+            <div class="chat-title">다자간 실시간 대화</div>
+            <div class="chat-participants">
+              <div class="chat-participant"><div class="chat-participant-dot" style="background:var(--accent2);"></div>사용자 (환자 · 보호자)</div>
+              <div class="chat-participant"><div class="chat-participant-dot" style="background:var(--accent3);"></div>Expert (의료 전문가)</div>
+              <div class="chat-participant"><div class="chat-participant-dot" style="background:var(--accent);"></div>AI (LLM) — 실시간 정보 지원</div>
+            </div>
+            <div class="chat-desc">사용자 · 전문가 · AI가 함께하는 다자간 구조. 전문가의 판단에 AI의 실시간 정보력이 더해져, <strong style="color:var(--text);">정확한 정보를 가장 빠르게</strong> 전달할 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="insight-box" style="border-color:rgba(0,212,160,.25);background:linear-gradient(135deg,rgba(0,212,160,.07),rgba(61,127,255,.04));">
+          <div class="insight-box-label" style="color:var(--accent2);">Effect</div>
+          <div class="insight-box-text">AI가 대화에 참여함으로써 전문가의 부담은 줄고, 사용자에게 전달되는 정보의 <strong>속도와 정확도는 동시에 높아집니다.</strong> 이는 의료 커뮤니티에서 전례 없던 사용자 경험입니다.</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- S5: 결론 -->
+      <div class="section" id="upd-s5">
+        <div class="sec-label">05 · Conclusion</div>
+        <h2 class="sec-title">LLM + Community =<br><em>차세대 지능형 커뮤니티</em></h2>
+        <div class="final-card">
+          <div class="final-card-label">Final Thesis</div>
+          <div class="final-card-title">커뮤니티가 필요로 하는 정보의 조건을<br><em>LLM이 완성한다</em></div>
+          <div class="final-card-desc">사용자가 커뮤니티에서 원하는 것은 <strong>경험 기반 정보, 전문 정보, 의료진 정보</strong>입니다. 이 정보들이 실시간으로, 근거 기반으로, 임상적 맥락과 함께 제공되려면 LLM의 역할이 필수적입니다. LLM과 커뮤니티의 결합은 선택이 아닌 필연이며, 이것이 aitrics가 구축하고자 하는 차세대 지능형 의료 커뮤니티의 완성 형태입니다.</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function() {
+        const obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('#upd-doc .section').forEach(function(s) { obs.observe(s); });
+      })();
+    </script>
+
+    <div class="cd-divider"></div>
+
     <!-- S5: 핵심 목표 -->
     <div class="cd-section" id="cd-s5">
       <div class="cd-sec-label">05 · Final Goal</div>
