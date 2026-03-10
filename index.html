@@ -3338,6 +3338,9 @@
         <marker id="cm-arrow-ret" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
           <path d="M0,0 L0,6 L6,3 z" fill="url(#cm-grad-return2)"/>
         </marker>
+        <marker id="cm-arrow-ret2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L6,3 z" fill="url(#cm-grad-return2)"/>
+        </marker>
         <linearGradient id="cm-grad-return2" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#00d4a0"/>
           <stop offset="100%" stop-color="#3d7fff"/>
@@ -3372,14 +3375,18 @@
       <line x1="210" y1="100" x2="320" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
       <line x1="540" y1="100" x2="620" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
       <path d="M720,138 C720,260 540,330 540,330" fill="none" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
-      <!-- 환류 화살표: LLM 상단 → Community 상단 (단일 아치) -->
+      <!-- 환류 화살표: V.Doc 우측 → LLM 우측 (오른쪽 호) -->
+      <path d="M540,375 C720,440 880,280 820,100" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
+            stroke-dasharray="700" stroke-dashoffset="700" marker-end="url(#cm-arrow-ret2)"
+            style="animation: cm-dash 1.4s ease 0.6s forwards;" filter="url(#cm-glow-green2)"/>
+      <!-- 환류 화살표: LLM 상단 → Community 상단 (위 아치) -->
       <path d="M720,62 C720,-80 430,-80 430,30" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
             stroke-dasharray="800" stroke-dashoffset="800" marker-end="url(#cm-arrow-ret)"
-            style="animation: cm-dash 1.6s ease 0.8s forwards;" filter="url(#cm-glow-green2)"/>
+            style="animation: cm-dash 1.6s ease 1.2s forwards;" filter="url(#cm-glow-green2)"/>
       <!-- 환류 라벨 -->
       <text x="575" y="-55" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
             font-size="10" font-weight="700" fill="#00d4a0" letter-spacing="1" opacity="0.85">
-        LLM → Community 환류 (선순환)
+        선순환 환류
       </text>
       <!-- 1. Communication -->
       <rect x="20" y="62" width="190" height="76" rx="14" fill="url(#cm-grad-comm2)" stroke="#2a3a5c" stroke-width="1.2"/>
