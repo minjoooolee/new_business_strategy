@@ -3321,13 +3321,16 @@
         height: 3px;
         box-shadow: 0 0 6px rgba(0,212,160,0.4);
       }
+      @keyframes cm-dash {
+        to { stroke-dashoffset: 0; }
+      }
     </style>
     <div class="cm-diagram-header">
       <div class="cm-diagram-eyebrow">aitrics · Structure Diagram</div>
       <div class="cm-diagram-title">Community 핵심 구조도</div>
       <div class="cm-diagram-sub">Communication에서 시작해 Community가 LLM을 고도화하고,<br>다시 Community로 환류하는 선순환 구조</div>
     </div>
-    <svg class="cm-diagram" viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg">
+    <svg class="cm-diagram" viewBox="0 -100 860 620" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="cm-arrow-fwd" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L0,6 L8,3 z" fill="#2a3a5c"/>
@@ -3371,16 +3374,17 @@
       <!-- 순방향 화살표 -->
       <line x1="210" y1="100" x2="320" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
       <line x1="540" y1="100" x2="620" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
-      <path d="M720,138 C720,240 530,330 530,330" fill="none" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
-      <!-- 환류 화살표 -->
-      <path d="M530,390 C630,390 720,350 720,100" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
-            stroke-dasharray="600" stroke-dashoffset="600" marker-end="url(#cm-arrow-ret)"
-            style="animation: cm-dash 1.4s ease 0.8s forwards;" filter="url(#cm-glow-green2)"/>
-      <path d="M670,68 C670,20 430,20 430,68" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
-            stroke-dasharray="400" stroke-dashoffset="400" marker-end="url(#cm-arrow-ret2)"
-            style="animation: cm-dash 1.2s ease 1.2s forwards;" filter="url(#cm-glow-green2)"/>
+      <path d="M720,138 C720,260 540,330 540,330" fill="none" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
+      <!-- 환류 화살표: V.Doc 우측 → LLM 우측 (오른쪽 큰 호) -->
+      <path d="M540,375 C720,440 880,280 820,100" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
+            stroke-dasharray="700" stroke-dashoffset="700" marker-end="url(#cm-arrow-ret)"
+            style="animation: cm-dash 1.6s ease 0.6s forwards;" filter="url(#cm-glow-green2)"/>
+      <!-- 환류 화살표: LLM 상단 → Community 상단 (위로 큰 아치, Community에 꽂힘) -->
+      <path d="M720,62 C720,-80 430,-80 430,30" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
+            stroke-dasharray="700" stroke-dashoffset="700" marker-end="url(#cm-arrow-ret2)"
+            style="animation: cm-dash 1.4s ease 1.0s forwards;" filter="url(#cm-glow-green2)"/>
       <!-- 환류 라벨 -->
-      <text x="550" y="14" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+      <text x="575" y="-55" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
             font-size="10" font-weight="700" fill="#00d4a0" letter-spacing="1" opacity="0.85">
         LLM → Community 환류 (선순환)
       </text>
@@ -3415,20 +3419,8 @@
       <rect x="320" y="330" width="220" height="2" rx="1" fill="#3a3a6a"/>
       <text x="430" y="368" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
             font-size="18" font-weight="900" fill="#c0c8e0">V.Doc</text>
-      <rect x="360" y="378" width="140" height="20" rx="8" fill="rgba(80,80,140,0.2)" stroke="rgba(80,80,140,0.35)" stroke-width="1"/>
       <text x="430" y="392" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-            font-size="10" font-weight="600" fill="#6060a0">MOCA 엔진 한정</text>
-      <text x="430" y="410" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-            font-size="10" fill="#3a3a6a">현재 기술 범위</text>
-      <!-- V.Doc 한계 주석 -->
-      <rect x="560" y="348" width="170" height="52" rx="10" fill="rgba(255,80,80,0.05)" stroke="rgba(255,80,80,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
-      <text x="645" y="368" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-            font-size="10" fill="#ff6060" font-weight="600">⚠ 현재 한계</text>
-      <text x="645" y="384" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-            font-size="10" fill="#804040">사전문진 외 답변 불가</text>
-      <text x="645" y="398" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-            font-size="10" fill="#804040">타겟 시장 미정의</text>
-      <line x1="540" y1="375" x2="560" y2="375" stroke="rgba(255,80,80,0.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            font-size="11" fill="#5050a0">지능형 의료 문서 플랫폼</text>
     </svg>
     <div class="cm-legend">
       <div class="cm-legend-item">
