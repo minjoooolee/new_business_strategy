@@ -887,31 +887,79 @@
 
   .pinkcare-tab-content.active { display: block; }
 
-  .pinkcare-pdf-wrap {
-    height: 420px;
+  .pinkcare-page-link-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface2);
     border-radius: 10px;
-    overflow: hidden;
-    background: #f0f4ff;
-    position: relative;
+    border: 1px solid var(--border);
   }
 
-  .pinkcare-pdf-placeholder {
-    position: absolute;
-    inset: 0;
+  .pinkcare-page-link-icon { font-size: 36px; flex-shrink: 0; }
+
+  .pinkcare-page-link-info { flex: 1; min-width: 0; }
+  .pinkcare-page-link-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .pinkcare-page-link-sub { font-size: 12px; color: var(--text-muted); }
+
+  .pinkcare-page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .pinkcare-back-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .pinkcare-back-btn:hover { color: var(--text); background: var(--surface3, #2a2a3a); }
+
+  .pinkcare-page-title-wrap h2 { font-size: 22px; font-weight: 800; color: var(--text); margin: 0 0 4px; }
+  .pinkcare-page-title-wrap p { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+  .pinkcare-pdf-page-wrap {
+    width: 100%;
+    height: calc(100vh - 200px);
+    min-height: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pinkcare-pdf-page-wrap embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .pinkcare-pdf-page-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    color: #9ca3af;
-    background: var(--surface2);
-    border-radius: 10px;
-    border: 2px dashed var(--border);
+    gap: 12px;
+    color: var(--text-muted);
+    text-align: center;
   }
-
-  .pinkcare-pdf-placeholder-icon { font-size: 44px; opacity: 0.6; }
-  .pinkcare-pdf-placeholder-title { font-size: 14px; font-weight: 700; color: var(--text-muted); }
-  .pinkcare-pdf-placeholder-sub { font-size: 11px; color: var(--text-dim); }
+  .pinkcare-pdf-page-placeholder-icon { font-size: 56px; opacity: 0.5; }
+  .pinkcare-pdf-page-placeholder-title { font-size: 16px; font-weight: 700; color: var(--text-muted); }
+  .pinkcare-pdf-page-placeholder-sub { font-size: 13px; color: var(--text-dim); }
 
   .pinkcare-website-wrap { display: flex; flex-direction: column; gap: 12px; }
 
@@ -1906,14 +1954,16 @@
           </div>
           <!-- 제안서 탭 -->
           <div class="pinkcare-tab-content active" id="pinkcare-tab-proposal">
-            <div class="pinkcare-pdf-wrap">
-              <!-- PDF가 준비되면 아래 src에 경로 입력 (예: src="proposal.pdf") -->
-              <embed id="pinkcarePdfEmbed" src="" type="application/pdf" style="display:none;width:100%;height:100%;"/>
-              <div class="pinkcare-pdf-placeholder" id="pinkcarePdfPlaceholder">
-                <div class="pinkcare-pdf-placeholder-icon">📄</div>
-                <div class="pinkcare-pdf-placeholder-title">제안서 PDF 준비 중</div>
-                <div class="pinkcare-pdf-placeholder-sub">PDF 파일이 추가되면 여기서 바로 확인할 수 있어요</div>
+            <div class="pinkcare-page-link-wrap">
+              <div class="pinkcare-page-link-icon">📄</div>
+              <div class="pinkcare-page-link-info">
+                <div class="pinkcare-page-link-title">핑크케어 제안서</div>
+                <div class="pinkcare-page-link-sub">제안서 PDF를 전용 페이지에서 확인하세요</div>
               </div>
+              <button class="pinkcare-open-btn" onclick="goToPinkcarePage()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                페이지로 이동
+              </button>
             </div>
           </div>
           <!-- 웹사이트 탭 -->
@@ -2511,6 +2561,26 @@
   </div><!-- /page-goal -->
 
 
+  <!-- ===== PINKCARE PAGE ===== -->
+  <div class="page-section" id="page-pinkcare">
+    <div class="pinkcare-page-header">
+      <button class="pinkcare-back-btn" onclick="goBack()">← 돌아가기</button>
+      <div class="pinkcare-page-title-wrap">
+        <h2>🎀 핑크케어 제안서</h2>
+        <p>유방암 특화 환자 커뮤니티 플랫폼</p>
+      </div>
+    </div>
+    <div class="pinkcare-pdf-page-wrap" id="pinkcarePdfPageWrap">
+      <!-- PDF가 준비되면 아래 src에 경로 입력 (예: src="pinkcare-proposal.pdf") -->
+      <embed id="pinkcarePdfEmbed" src="" type="application/pdf" style="display:none;width:100%;height:100%;"/>
+      <div class="pinkcare-pdf-page-placeholder" id="pinkcarePdfPagePlaceholder">
+        <div class="pinkcare-pdf-page-placeholder-icon">📄</div>
+        <div class="pinkcare-pdf-page-placeholder-title">제안서 PDF 준비 중</div>
+        <div class="pinkcare-pdf-page-placeholder-sub">PDF 파일이 추가되면 여기서 바로 확인할 수 있어요</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
 
@@ -3097,6 +3167,36 @@ function switchPinkcareTab(tab, btn) {
   }
 }
 
+// ===== PINKCARE PAGE NAV =====
+let _prevPage = null;
+
+function showOnlyPage(pageId) {
+  ['page-goal', 'page-pinkcare', 'page-dashboard'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('active', id === pageId);
+  });
+}
+
+function goToPinkcarePage() {
+  closePinkcareDropdown();
+  _prevPage = document.querySelector('.page-section.active')?.id || 'page-dashboard';
+  showOnlyPage('page-pinkcare');
+
+  // PDF가 있으면 embed 표시, 없으면 placeholder
+  const embed = document.getElementById('pinkcarePdfEmbed');
+  const placeholder = document.getElementById('pinkcarePdfPagePlaceholder');
+  if (embed && embed.src && embed.src !== window.location.href) {
+    embed.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack() {
+  showOnlyPage(_prevPage || 'page-dashboard');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // ===== GNB PAGE NAV =====
 function setPage(page, el) {
   closePinkcareDropdown();
@@ -3105,14 +3205,12 @@ function setPage(page, el) {
 
   // 페이지 단위 전환
   if (page === 'goal') {
-    document.getElementById('page-goal').classList.add('active');
-    document.getElementById('page-dashboard').classList.remove('active');
+    showOnlyPage('page-goal');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
 
-  document.getElementById('page-goal').classList.remove('active');
-  document.getElementById('page-dashboard').classList.add('active');
+  showOnlyPage('page-dashboard');
 
   const targets = {
     dashboard: null,
