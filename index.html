@@ -1998,10 +1998,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h1m4 0h1M12 8v4"/></svg>
         <span>브이닥 엔터프라이즈</span>
       </a>
-      <a class="gnb-link" onclick="setPage('community', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><circle cx="4" cy="10" r="2.5"/><path d="M1 20c0-2.5 1.3-4.5 3-5"/><circle cx="20" cy="10" r="2.5"/><path d="M23 20c0-2.5-1.3-4.5-3-5"/></svg>
-        <span>Community 구조도</span>
-      </a>
       <a class="gnb-link" onclick="setPage('dashboard', this)" style="margin-left:auto;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span>대시보드</span>
@@ -3268,6 +3264,184 @@
     </div>
   </div><!-- /cd-wrapper -->
 
+  <!-- ===== Community 핵심 구조도 ===== -->
+  <div style="width:100%;max-width:860px;margin:80px auto 0;padding:0 40px 60px;">
+    <style>
+      #page-pinkcare-retrospective .cm-diagram-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      #page-pinkcare-retrospective .cm-diagram-eyebrow {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #3d7fff;
+        margin-bottom: 14px;
+      }
+      #page-pinkcare-retrospective .cm-diagram-title {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        color: #e6ebf5;
+        margin-bottom: 10px;
+      }
+      #page-pinkcare-retrospective .cm-diagram-sub {
+        font-size: 14px;
+        color: #5e6e90;
+        line-height: 1.7;
+      }
+      #page-pinkcare-retrospective svg.cm-diagram {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      #page-pinkcare-retrospective .cm-legend {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        margin-top: 36px;
+      }
+      #page-pinkcare-retrospective .cm-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: #5e6e90;
+      }
+      #page-pinkcare-retrospective .cm-legend-line {
+        width: 28px;
+        height: 2px;
+        border-radius: 2px;
+      }
+      #page-pinkcare-retrospective .cm-legend-line.forward { background: #2a3350; }
+      #page-pinkcare-retrospective .cm-legend-line.return {
+        background: linear-gradient(90deg, #00d4a0, #3d7fff);
+        height: 3px;
+        box-shadow: 0 0 6px rgba(0,212,160,0.4);
+      }
+    </style>
+    <div class="cm-diagram-header">
+      <div class="cm-diagram-eyebrow">aitrics · Structure Diagram</div>
+      <div class="cm-diagram-title">Community 핵심 구조도</div>
+      <div class="cm-diagram-sub">Communication에서 시작해 Community가 LLM을 고도화하고,<br>다시 Community로 환류하는 선순환 구조</div>
+    </div>
+    <svg class="cm-diagram" viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="cm-arrow-fwd" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#2a3a5c"/>
+        </marker>
+        <marker id="cm-arrow-ret" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L0,8 L10,4 z" fill="url(#cm-grad-return2)"/>
+        </marker>
+        <marker id="cm-arrow-ret2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L0,8 L10,4 z" fill="url(#cm-grad-return2)"/>
+        </marker>
+        <linearGradient id="cm-grad-return2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#00d4a0"/>
+          <stop offset="100%" stop-color="#3d7fff"/>
+        </linearGradient>
+        <linearGradient id="cm-grad-comm2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1a2540"/>
+          <stop offset="100%" stop-color="#111827"/>
+        </linearGradient>
+        <linearGradient id="cm-grad-community2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0d2040"/>
+          <stop offset="100%" stop-color="#0f1a30"/>
+        </linearGradient>
+        <linearGradient id="cm-grad-llm2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0d2535"/>
+          <stop offset="100%" stop-color="#0a1a28"/>
+        </linearGradient>
+        <linearGradient id="cm-grad-vdoc2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1a1a2e"/>
+          <stop offset="100%" stop-color="#12121f"/>
+        </linearGradient>
+        <filter id="cm-glow-blue2" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="cm-glow-green2" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0  1 0 0 0 0.83  0 0 0 0 0.63  0 0 0 0.6 0" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- 순방향 화살표 -->
+      <line x1="210" y1="100" x2="320" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
+      <line x1="540" y1="100" x2="620" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
+      <path d="M720,138 C720,240 530,330 530,330" fill="none" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
+      <!-- 환류 화살표 -->
+      <path d="M530,390 C630,390 720,350 720,100" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
+            stroke-dasharray="600" stroke-dashoffset="600" marker-end="url(#cm-arrow-ret)"
+            style="animation: cm-dash 1.4s ease 0.8s forwards;" filter="url(#cm-glow-green2)"/>
+      <path d="M670,68 C670,20 430,20 430,68" fill="none" stroke="url(#cm-grad-return2)" stroke-width="2.5"
+            stroke-dasharray="400" stroke-dashoffset="400" marker-end="url(#cm-arrow-ret2)"
+            style="animation: cm-dash 1.2s ease 1.2s forwards;" filter="url(#cm-glow-green2)"/>
+      <!-- 환류 라벨 -->
+      <text x="550" y="14" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" font-weight="700" fill="#00d4a0" letter-spacing="1" opacity="0.85">
+        LLM → Community 환류 (선순환)
+      </text>
+      <!-- 1. Communication -->
+      <rect x="20" y="62" width="190" height="76" rx="14" fill="url(#cm-grad-comm2)" stroke="#2a3a5c" stroke-width="1.2"/>
+      <rect x="20" y="62" width="190" height="2" rx="1" fill="#2a3a5c"/>
+      <text x="115" y="96" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="16" font-weight="700" fill="#8899bb">Communication</text>
+      <text x="115" y="118" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="11" fill="#3a4a6a">소통 · 정보 탐색 · 경험 공유</text>
+      <!-- 2. Community -->
+      <rect x="320" y="30" width="220" height="140" rx="16" fill="url(#cm-grad-community2)" stroke="#3d7fff" stroke-width="1.5" filter="url(#cm-glow-blue2)"/>
+      <rect x="320" y="30" width="220" height="2.5" rx="1" fill="url(#cm-grad-return2)"/>
+      <rect x="382" y="44" width="96" height="20" rx="10" fill="rgba(61,127,255,0.15)" stroke="rgba(61,127,255,0.3)" stroke-width="1"/>
+      <text x="430" y="58" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="9" font-weight="700" fill="#3d7fff" letter-spacing="2">CORE</text>
+      <text x="430" y="90" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="20" font-weight="900" fill="#e6ebf5">Community</text>
+      <text x="430" y="114" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="11" fill="#4a6090">지능형 헬스케어 커뮤니티</text>
+      <text x="430" y="134" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" fill="#2e4070">인적 인프라 · 데이터 · PRO</text>
+      <!-- 3. LLM -->
+      <rect x="620" y="62" width="200" height="76" rx="14" fill="url(#cm-grad-llm2)" stroke="#00d4a0" stroke-width="1.2"/>
+      <rect x="620" y="62" width="200" height="2" rx="1" fill="url(#cm-grad-return2)"/>
+      <text x="720" y="96" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="18" font-weight="900" fill="#e6ebf5">LLM</text>
+      <text x="720" y="116" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="11" fill="#2a6050">의료 특화 언어모델 학습</text>
+      <!-- 4. V.Doc -->
+      <rect x="320" y="330" width="220" height="90" rx="14" fill="url(#cm-grad-vdoc2)" stroke="#2a2a4a" stroke-width="1.2"/>
+      <rect x="320" y="330" width="220" height="2" rx="1" fill="#3a3a6a"/>
+      <text x="430" y="368" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="18" font-weight="900" fill="#c0c8e0">V.Doc</text>
+      <rect x="360" y="378" width="140" height="20" rx="8" fill="rgba(80,80,140,0.2)" stroke="rgba(80,80,140,0.35)" stroke-width="1"/>
+      <text x="430" y="392" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" font-weight="600" fill="#6060a0">MOCA 엔진 한정</text>
+      <text x="430" y="410" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" fill="#3a3a6a">현재 기술 범위</text>
+      <!-- V.Doc 한계 주석 -->
+      <rect x="560" y="348" width="170" height="52" rx="10" fill="rgba(255,80,80,0.05)" stroke="rgba(255,80,80,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
+      <text x="645" y="368" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" fill="#ff6060" font-weight="600">⚠ 현재 한계</text>
+      <text x="645" y="384" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" fill="#804040">사전문진 외 답변 불가</text>
+      <text x="645" y="398" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
+            font-size="10" fill="#804040">타겟 시장 미정의</text>
+      <line x1="540" y1="375" x2="560" y2="375" stroke="rgba(255,80,80,0.2)" stroke-width="1" stroke-dasharray="3 2"/>
+    </svg>
+    <div class="cm-legend">
+      <div class="cm-legend-item">
+        <div class="cm-legend-line forward"></div>
+        <span>순방향 흐름</span>
+      </div>
+      <div class="cm-legend-item">
+        <div class="cm-legend-line return"></div>
+        <span>환류 선순환 (강조)</span>
+      </div>
+    </div>
+  </div><!-- /Community 구조도 -->
+
   </div><!-- /page-pinkcare-retrospective -->
 
 
@@ -3433,217 +3607,6 @@
 
   </div><!-- /page-dashboard -->
 
-  <!-- ===================== Community 구조도 페이지 ===================== -->
-  <div class="page-section" id="page-community">
-    <style>
-      #page-community {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 60px 40px;
-        position: relative;
-      }
-      #page-community::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(61,127,255,0.05) 0%, transparent 70%);
-        pointer-events: none;
-      }
-      #page-community .doc-header {
-        text-align: center;
-        margin-bottom: 64px;
-        animation: cm-fadeUp 0.7s ease forwards;
-      }
-      #page-community .doc-eyebrow {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: #3d7fff;
-        margin-bottom: 14px;
-      }
-      #page-community .doc-title {
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: -1px;
-        color: #e6ebf5;
-        margin-bottom: 10px;
-      }
-      #page-community .doc-sub {
-        font-size: 14px;
-        color: #5e6e90;
-        line-height: 1.7;
-      }
-      #page-community .diagram-wrap {
-        position: relative;
-        width: 100%;
-        max-width: 860px;
-        animation: cm-fadeUp 0.9s ease 0.2s both;
-      }
-      #page-community svg.diagram {
-        width: 100%;
-        height: auto;
-        overflow: visible;
-      }
-      #page-community .cm-legend {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 32px;
-        margin-top: 48px;
-        animation: cm-fadeUp 0.9s ease 0.5s both;
-      }
-      #page-community .cm-legend-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12px;
-        color: #5e6e90;
-      }
-      #page-community .cm-legend-line {
-        width: 28px;
-        height: 2px;
-        border-radius: 2px;
-      }
-      #page-community .cm-legend-line.forward { background: #2a3350; }
-      #page-community .cm-legend-line.return {
-        background: linear-gradient(90deg, #00d4a0, #3d7fff);
-        height: 3px;
-        box-shadow: 0 0 6px rgba(0,212,160,0.4);
-      }
-      @keyframes cm-fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes cm-dash {
-        to { stroke-dashoffset: 0; }
-      }
-    </style>
-
-    <div class="doc-header">
-      <div class="doc-eyebrow">aitrics · Structure Diagram</div>
-      <div class="doc-title">Community 핵심 구조도</div>
-      <div class="doc-sub">Communication에서 시작해 Community가 LLM을 고도화하고,<br>다시 Community로 환류하는 선순환 구조</div>
-    </div>
-    <div class="diagram-wrap">
-      <svg class="diagram" viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="cm-arrow-fwd" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#2a3a5c"/>
-          </marker>
-          <marker id="cm-arrow-ret" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
-            <path d="M0,0 L0,8 L10,4 z" fill="url(#cm-grad-return)"/>
-          </marker>
-          <marker id="cm-arrow-ret2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
-            <path d="M0,0 L0,8 L10,4 z" fill="url(#cm-grad-return)"/>
-          </marker>
-          <linearGradient id="cm-grad-return" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00d4a0"/>
-            <stop offset="100%" stop-color="#3d7fff"/>
-          </linearGradient>
-          <linearGradient id="cm-grad-comm" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1a2540"/>
-            <stop offset="100%" stop-color="#111827"/>
-          </linearGradient>
-          <linearGradient id="cm-grad-community" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#0d2040"/>
-            <stop offset="100%" stop-color="#0f1a30"/>
-          </linearGradient>
-          <linearGradient id="cm-grad-llm" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#0d2535"/>
-            <stop offset="100%" stop-color="#0a1a28"/>
-          </linearGradient>
-          <linearGradient id="cm-grad-vdoc" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1a1a2e"/>
-            <stop offset="100%" stop-color="#12121f"/>
-          </linearGradient>
-          <filter id="cm-glow-blue" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <filter id="cm-glow-green" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="5" result="blur"/>
-            <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0  1 0 0 0 0.83  0 0 0 0 0.63  0 0 0 0.6 0" result="glow"/>
-            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <!-- 순방향 화살표 -->
-        <line x1="210" y1="100" x2="320" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
-        <line x1="540" y1="100" x2="620" y2="100" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
-        <path d="M720,138 C720,240 530,330 530,330" fill="none" stroke="#2a3a5c" stroke-width="1.5" marker-end="url(#cm-arrow-fwd)"/>
-        <!-- 환류 화살표 -->
-        <path d="M530,390 C630,390 720,350 720,100" fill="none" stroke="url(#cm-grad-return)" stroke-width="2.5"
-              stroke-dasharray="600" stroke-dashoffset="600" marker-end="url(#cm-arrow-ret)"
-              style="animation: cm-dash 1.4s ease 0.8s forwards;" filter="url(#cm-glow-green)"/>
-        <path d="M670,68 C670,20 430,20 430,68" fill="none" stroke="url(#cm-grad-return)" stroke-width="2.5"
-              stroke-dasharray="400" stroke-dashoffset="400" marker-end="url(#cm-arrow-ret2)"
-              style="animation: cm-dash 1.2s ease 1.2s forwards;" filter="url(#cm-glow-green)"/>
-        <!-- 환류 라벨 -->
-        <text x="550" y="14" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" font-weight="700" fill="#00d4a0" letter-spacing="1" opacity="0.85">
-          LLM → Community 환류 (선순환)
-        </text>
-        <!-- 1. Communication -->
-        <rect x="20" y="62" width="190" height="76" rx="14" fill="url(#cm-grad-comm)" stroke="#2a3a5c" stroke-width="1.2"/>
-        <rect x="20" y="62" width="190" height="2" rx="1" fill="#2a3a5c"/>
-        <text x="115" y="96" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="16" font-weight="700" fill="#8899bb">Communication</text>
-        <text x="115" y="118" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="11" fill="#3a4a6a">소통 · 정보 탐색 · 경험 공유</text>
-        <!-- 2. Community -->
-        <rect x="320" y="30" width="220" height="140" rx="16" fill="url(#cm-grad-community)" stroke="#3d7fff" stroke-width="1.5" filter="url(#cm-glow-blue)"/>
-        <rect x="320" y="30" width="220" height="2.5" rx="1" fill="url(#cm-grad-return)"/>
-        <rect x="382" y="44" width="96" height="20" rx="10" fill="rgba(61,127,255,0.15)" stroke="rgba(61,127,255,0.3)" stroke-width="1"/>
-        <text x="430" y="58" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="9" font-weight="700" fill="#3d7fff" letter-spacing="2">CORE</text>
-        <text x="430" y="90" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="20" font-weight="900" fill="#e6ebf5">Community</text>
-        <text x="430" y="114" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="11" fill="#4a6090">지능형 헬스케어 커뮤니티</text>
-        <text x="430" y="134" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" fill="#2e4070">인적 인프라 · 데이터 · PRO</text>
-        <!-- 3. LLM -->
-        <rect x="620" y="62" width="200" height="76" rx="14" fill="url(#cm-grad-llm)" stroke="#00d4a0" stroke-width="1.2"/>
-        <rect x="620" y="62" width="200" height="2" rx="1" fill="url(#cm-grad-return)"/>
-        <text x="720" y="96" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="18" font-weight="900" fill="#e6ebf5">LLM</text>
-        <text x="720" y="116" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="11" fill="#2a6050">의료 특화 언어모델 학습</text>
-        <!-- 4. V.Doc -->
-        <rect x="320" y="330" width="220" height="90" rx="14" fill="url(#cm-grad-vdoc)" stroke="#2a2a4a" stroke-width="1.2"/>
-        <rect x="320" y="330" width="220" height="2" rx="1" fill="#3a3a6a"/>
-        <text x="430" y="368" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="18" font-weight="900" fill="#c0c8e0">V.Doc</text>
-        <rect x="360" y="378" width="140" height="20" rx="8" fill="rgba(80,80,140,0.2)" stroke="rgba(80,80,140,0.35)" stroke-width="1"/>
-        <text x="430" y="392" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" font-weight="600" fill="#6060a0">MOCA 엔진 한정</text>
-        <text x="430" y="410" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" fill="#3a3a6a">현재 기술 범위</text>
-        <!-- V.Doc 한계 주석 -->
-        <rect x="560" y="348" width="170" height="52" rx="10" fill="rgba(255,80,80,0.05)" stroke="rgba(255,80,80,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
-        <text x="645" y="368" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" fill="#ff6060" font-weight="600">⚠ 현재 한계</text>
-        <text x="645" y="384" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" fill="#804040">사전문진 외 답변 불가</text>
-        <text x="645" y="398" text-anchor="middle" font-family="Noto Sans KR, sans-serif"
-              font-size="10" fill="#804040">타겟 시장 미정의</text>
-        <line x1="540" y1="375" x2="560" y2="375" stroke="rgba(255,80,80,0.2)" stroke-width="1" stroke-dasharray="3 2"/>
-      </svg>
-    </div>
-    <div class="cm-legend">
-      <div class="cm-legend-item">
-        <div class="cm-legend-line forward"></div>
-        <span>순방향 흐름</span>
-      </div>
-      <div class="cm-legend-item">
-        <div class="cm-legend-line return"></div>
-        <span>환류 선순환 (강조)</span>
-      </div>
-    </div>
-  </div><!-- /page-community -->
 
 <!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
