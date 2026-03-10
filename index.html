@@ -2008,7 +2008,7 @@
 
 <div class="container">
 
-  <div class="page-section goal-page active" id="page-goal">
+  <div class="page-section goal-page" id="page-goal">
     <div class="goal-page-title">
       <h2>🎯 신사업전략부서의 최종 목표</h2>
       <p>NEW BUSINESS STRATEGY · FINAL GOAL & DIRECTION</p>
@@ -4618,12 +4618,7 @@ function navigatePinkcare(sub, e) {
   closePinkcareDropdown();
 
   if (sub === 'retrospective') {
-    document.querySelectorAll('.gnb-link').forEach(l => l.classList.remove('active'));
-    document.getElementById('pinkcareBtn').classList.add('active');
-    document.getElementById('page-goal').classList.remove('active');
-    document.getElementById('page-dashboard').classList.remove('active');
-    document.getElementById('page-pinkcare-retrospective').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = 'pinkcare-retrospective';
   } else if (sub === 'proposal') {
     // 제안서 PDF가 준비되면 링크를 업데이트하세요
     alert('제안서 파일이 준비되면 이곳에서 열립니다.');
@@ -4633,52 +4628,63 @@ function navigatePinkcare(sub, e) {
 // ===== GNB PAGE NAV =====
 function setPage(page, el) {
   closePinkcareDropdown();
-  document.querySelectorAll('.gnb-link').forEach(l => l.classList.remove('active'));
-  el.classList.add('active');
-
-  document.getElementById('page-pinkcare-retrospective').classList.remove('active');
-  document.getElementById('page-community').classList.remove('active');
-
-  // 페이지 단위 전환
-  if (page === 'goal') {
-    document.getElementById('page-goal').classList.add('active');
-    document.getElementById('page-dashboard').classList.remove('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    return;
-  }
-
-  if (page === 'community') {
-    document.getElementById('page-goal').classList.remove('active');
-    document.getElementById('page-dashboard').classList.remove('active');
-    document.getElementById('page-community').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    return;
-  }
-
-  document.getElementById('page-goal').classList.remove('active');
-  document.getElementById('page-dashboard').classList.add('active');
-
-  const targets = {
-    dashboard: null,
-    roadmap: '.timeline-section',
-    items: '.items-section',
-    report: '.items-section',
-    settings: '.items-section',
-  };
-  const selector = targets[page];
-  setTimeout(() => {
-    if (selector) {
-      const el2 = document.querySelector(selector);
-      if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, 50);
+  window.location.hash = page;
 }
+
+// ===== HASH ROUTER =====
+function applyHash(hash) {
+  const page = hash.replace(/^#/, '') || 'goal';
+
+  const allPages = document.querySelectorAll('.page-section');
+  allPages.forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.gnb-link').forEach(l => l.classList.remove('active'));
+
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
+
+  // GNB active 처리
+  const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal'];
+  if (pinkcarePages.includes(page)) {
+    document.getElementById('pinkcareBtn').classList.add('active');
+  } else {
+    document.querySelectorAll('.gnb-link').forEach(el => {
+      const onclick = el.getAttribute('onclick') || '';
+      if (onclick.includes("'" + page + "'")) el.classList.add('active');
+    });
+  }
+
+  const dashboardPages = ['vcare', 'vdoc', 'dashboard', 'roadmap', 'items', 'report', 'settings'];
+  if (dashboardPages.includes(page)) {
+    const dashEl = document.getElementById('page-dashboard');
+    if (dashEl) dashEl.classList.add('active');
+    const targets = {
+      roadmap: '.timeline-section',
+      items: '.items-section',
+      report: '.items-section',
+      settings: '.items-section',
+    };
+    const selector = targets[page];
+    setTimeout(() => {
+      if (selector) {
+        const el2 = document.querySelector(selector);
+        if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 50);
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+window.addEventListener('hashchange', function() {
+  applyHash(window.location.hash);
+});
 
 // ===== INIT =====
 setDate();
 renderItems();
+applyHash(window.location.hash || '#goal');
 
 // ===== 프로젝트 회고 페이지 인터랙션 =====
 (function() {
