@@ -2018,11 +2018,11 @@
     <div class="goal-top-row">
       <div class="goal-vision-card">
         <div class="goal-card-eyebrow">Final Goal · Vision</div>
-        <h3>지능형 AI 의료 전문<br>커뮤니티 구축</h3>
+        <h3>Beyond the ward — VC는 병원 안에서 생명을 지킨다.<br>우리는 병원 문 밖에서 시작되는 의료 경험을 설계한다.</h3>
       </div>
       <div class="goal-value-card">
         <div class="goal-card-eyebrow">Core Value · 핵심가치</div>
-        <h3>환우들에게 건강과 관련된<br>신뢰를 줄 수 있는 커뮤니티</h3>
+        <h3>Prove or Pivot — 증명하거나, 방향을 바꿔라.</h3>
       </div>
     </div>
 
@@ -2310,11 +2310,18 @@
 
       // 페이지 로드 후 + 탭 전환 시 재계산
       setTimeout(drawMedArrows, 300);
+      setTimeout(drawMedArrows, 800);
       window.addEventListener('resize', drawMedArrows);
 
       // goal 탭 클릭 시 재계산
       var goalTab = document.querySelector('[data-page="goal"]');
       if (goalTab) goalTab.addEventListener('click', function(){ setTimeout(drawMedArrows, 300); });
+
+      // hash 라우팅으로 goal 페이지 진입 시 재계산
+      window.addEventListener('hashchange', function() {
+        var h = window.location.hash.replace(/^#/, '') || 'goal';
+        if (h === 'goal') { setTimeout(drawMedArrows, 300); }
+      });
     })();
     </script>
 
