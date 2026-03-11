@@ -3339,6 +3339,7 @@
       <a class="cd-nav-pill" href="#cd-s1">커뮤니티 정의</a>
       <a class="cd-nav-pill" href="#cd-s2">세대 진화</a>
       <a class="cd-nav-pill" href="#cd-s2b">핑크케어 구조</a>
+      <a class="cd-nav-pill" href="#cd-s2c">페인포인트 &amp; LLM</a>
       <a class="cd-nav-pill" href="#cd-s3">자산적 우위</a>
       <a class="cd-nav-pill" href="#cd-s4">데이터 가치</a>
       <a class="cd-nav-pill" href="#upd-s1">유저 니즈</a>
@@ -3650,6 +3651,230 @@
             <div class="pc-item"><div class="pc-dot"></div>콘텐츠 신뢰도 보증</div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="cd-divider"></div>
+
+    <!-- S2c: 핑크케어 페인포인트 & LLM -->
+    <div class="cd-section" id="cd-s2c">
+      <div class="cd-sec-label">02c · Pain Point &amp; Solution</div>
+      <h2 class="cd-sec-title">각 축의 <em>페인포인트</em>와 LLM의 역할</h2>
+      <p class="cd-sec-lead">핑크케어를 구성하는 세 축에서 발생하는 핵심 문제와, LLM이 이를 해결하는 방향</p>
+
+      <style>
+        .ppllm-table-wrap {
+          background: var(--surface, #0f1219);
+          border: 1px solid var(--border, #1e2535);
+          border-radius: 18px;
+          overflow: hidden;
+          margin-bottom: 0;
+        }
+        .ppllm-table { width: 100%; border-collapse: collapse; }
+        .ppllm-table thead tr {
+          background: var(--surface2, #161c28);
+          border-bottom: 1px solid var(--border, #1e2535);
+        }
+        .ppllm-table th {
+          padding: 14px 22px;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: var(--text-dim, #2a3350);
+          text-align: left;
+        }
+        .ppllm-col-axis { width: 14%; }
+        .ppllm-col-pain { width: 43%; }
+        .ppllm-col-llm  { width: 43%; }
+        .ppllm-table tbody tr {
+          border-bottom: 1px solid var(--border, #1e2535);
+          vertical-align: top;
+        }
+        .ppllm-table tbody tr:last-child { border-bottom: none; }
+        .ppllm-table tbody tr:hover td { background: rgba(255,255,255,0.012); }
+        .ppllm-table td { padding: 24px 22px; }
+        .ppllm-axis-cell { border-right: 1px solid var(--border, #1e2535); }
+        .ppllm-axis-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 12px;
+          font-weight: 800;
+          padding: 5px 12px;
+          border-radius: 10px;
+          margin-bottom: 7px;
+          white-space: nowrap;
+        }
+        .ppllm-axis-badge.ppllm-user   { background: rgba(255,110,180,0.1); color: #ff6eb4; border: 1px solid rgba(255,110,180,0.22); }
+        .ppllm-axis-badge.ppllm-info   { background: rgba(0,212,160,0.08);  color: #00d4a0; border: 1px solid rgba(0,212,160,0.22); }
+        .ppllm-axis-badge.ppllm-doctor { background: rgba(240,165,0,0.08);  color: #f0a500; border: 1px solid rgba(240,165,0,0.22); }
+        .ppllm-axis-sub { font-size: 10px; color: var(--text-dim, #2a3350); padding-left: 2px; }
+        .ppllm-pain-cell { border-right: 1px solid var(--border, #1e2535); }
+        .ppllm-pain-item { display: flex; gap: 10px; margin-bottom: 18px; }
+        .ppllm-pain-item:last-child { margin-bottom: 0; }
+        .ppllm-pain-dot {
+          width: 5px; height: 5px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          margin-top: 6px;
+        }
+        .ppllm-pain-dot.ppllm-user   { background: #ff6eb4; }
+        .ppllm-pain-dot.ppllm-info   { background: #00d4a0; }
+        .ppllm-pain-dot.ppllm-doctor { background: #f0a500; }
+        .ppllm-pain-item-title { font-size: 12px; font-weight: 700; color: var(--text, #e6ebf5); margin-bottom: 4px; }
+        .ppllm-pain-item-desc  { font-size: 11px; color: var(--text-muted, #5e6e90); line-height: 1.75; }
+        .ppllm-llm-item {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 12px;
+          background: rgba(61,127,255,0.04);
+          border: 1px solid rgba(61,127,255,0.1);
+          border-radius: 10px;
+          padding: 13px;
+        }
+        .ppllm-llm-item:last-child { margin-bottom: 0; }
+        .ppllm-llm-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+        .ppllm-llm-item-title { font-size: 12px; font-weight: 700; color: var(--accent, #3d7fff); margin-bottom: 4px; }
+        .ppllm-llm-item-desc  { font-size: 11px; color: var(--text-muted, #5e6e90); line-height: 1.75; }
+        @media (max-width: 768px) {
+          .ppllm-table, .ppllm-table thead, .ppllm-table tbody,
+          .ppllm-table th, .ppllm-table td, .ppllm-table tr { display: block; }
+          .ppllm-table thead tr { display: none; }
+          .ppllm-table td { border-right: none !important; border-bottom: 1px solid var(--border, #1e2535); }
+          .ppllm-table tbody tr { border-bottom: 2px solid var(--border, #1e2535); }
+        }
+      </style>
+
+      <div class="ppllm-table-wrap">
+        <table class="ppllm-table">
+          <thead>
+            <tr>
+              <th class="ppllm-col-axis">구성 축</th>
+              <th class="ppllm-col-pain">페인포인트</th>
+              <th class="ppllm-col-llm">LLM 해결 방향</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 유저 -->
+            <tr>
+              <td class="ppllm-axis-cell">
+                <div class="ppllm-axis-badge ppllm-user">👥 유저</div>
+                <div class="ppllm-axis-sub">환우 · 보호자</div>
+              </td>
+              <td class="ppllm-pain-cell">
+                <div class="ppllm-pain-item">
+                  <div class="ppllm-pain-dot ppllm-user"></div>
+                  <div>
+                    <div class="ppllm-pain-item-title">진료실 소통의 한계</div>
+                    <div class="ppllm-pain-item-desc">짧은 진료 시간 안에 궁금한 것을 다 물어보기 어렵고, 의료진과의 대화에 갈증이 남는다</div>
+                  </div>
+                </div>
+                <div class="ppllm-pain-item">
+                  <div class="ppllm-pain-dot ppllm-user"></div>
+                  <div>
+                    <div class="ppllm-pain-item-title">동료 지지와 경험 정보의 부재</div>
+                    <div class="ppllm-pain-item-desc">같은 처지의 환우끼리 응원·공감·경험 기반 정보를 나눌 공간이 없다. 오픈채팅 데이터 기준 정보 요구도가 가장 높음</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="ppllm-llm-item">
+                  <div class="ppllm-llm-icon">💬</div>
+                  <div>
+                    <div class="ppllm-llm-item-title">24시간 질문 응답</div>
+                    <div class="ppllm-llm-item-desc">진료 외 시간에도 증상·치료·검사 관련 질문에 즉각 응답. 진료실에서 못한 질문을 보완</div>
+                  </div>
+                </div>
+                <div class="ppllm-llm-item">
+                  <div class="ppllm-llm-icon">🔗</div>
+                  <div>
+                    <div class="ppllm-llm-item-title">유사 경험 연결</div>
+                    <div class="ppllm-llm-item-desc">비슷한 병기·치료 경험을 가진 환우 사례를 연결하고, 커뮤니티 내 대화 루프 형성을 촉진</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <!-- 정보 -->
+            <tr>
+              <td class="ppllm-axis-cell">
+                <div class="ppllm-axis-badge ppllm-info">📄 정보</div>
+                <div class="ppllm-axis-sub">논문 · 콘텐츠</div>
+              </td>
+              <td class="ppllm-pain-cell">
+                <div class="ppllm-pain-item">
+                  <div class="ppllm-pain-dot ppllm-info"></div>
+                  <div>
+                    <div class="ppllm-pain-item-title">홍보성·비검증 정보의 범람</div>
+                    <div class="ppllm-pain-item-desc">인터넷에는 광고성 글과 표준치료가 아닌 민간요법 정보가 뒤섞여 있어, 환자가 신뢰할 수 있는 정보를 선별하기 어렵다</div>
+                  </div>
+                </div>
+                <div class="ppllm-pain-item">
+                  <div class="ppllm-pain-dot ppllm-info"></div>
+                  <div>
+                    <div class="ppllm-pain-item-title">개인 경험의 일반화 위험</div>
+                    <div class="ppllm-pain-item-desc">타인의 성공 경험이 근거 없이 일반화되어 잘못된 치료 선택을 유도할 수 있다</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="ppllm-llm-item">
+                  <div class="ppllm-llm-icon">🔍</div>
+                  <div>
+                    <div class="ppllm-llm-item-title">근거 기반 정보 큐레이션</div>
+                    <div class="ppllm-llm-item-desc">최신 논문·가이드라인 기반으로 정보를 요약·제공. 홍보성·비표준 정보와 명확히 구분</div>
+                  </div>
+                </div>
+                <div class="ppllm-llm-item">
+                  <div class="ppllm-llm-icon">⚠️</div>
+                  <div>
+                    <div class="ppllm-llm-item-title">오정보 필터링</div>
+                    <div class="ppllm-llm-item-desc">표준치료 범주를 벗어난 정보에 대해 경고하고, 경험과 의료 정보를 명확히 분리해 제공</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <!-- 의료진 -->
+            <tr>
+              <td class="ppllm-axis-cell">
+                <div class="ppllm-axis-badge ppllm-doctor">🩺 의료진</div>
+                <div class="ppllm-axis-sub">전문가 · 교수</div>
+              </td>
+              <td class="ppllm-pain-cell">
+                <div class="ppllm-pain-item">
+                  <div class="ppllm-pain-dot ppllm-doctor"></div>
+                  <div>
+                    <div class="ppllm-pain-item-title">실시간 답변의 물리적 한계</div>
+                    <div class="ppllm-pain-item-desc">진료·수술·연구로 바쁜 의료진이 커뮤니티 질문에 실시간으로 응답하는 것은 현실적으로 불가능하다</div>
+                  </div>
+                </div>
+                <div class="ppllm-pain-item">
+                  <div class="ppllm-pain-dot ppllm-doctor"></div>
+                  <div>
+                    <div class="ppllm-pain-item-title">도메인 지식 부담</div>
+                    <div class="ppllm-pain-item-desc">유방암 전문의가 아닌 경우 세부 도메인 지식이 부족해 답변이 부담스럽고, 오답 리스크가 존재한다</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="ppllm-llm-item">
+                  <div class="ppllm-llm-icon">🤖</div>
+                  <div>
+                    <div class="ppllm-llm-item-title">1차 응답 자동화</div>
+                    <div class="ppllm-llm-item-desc">LLM이 일반적인 질문에 1차 응답하고, 의료진은 전문 판단이 필요한 케이스만 선별 답변. 의료진 부담을 구조적으로 줄임</div>
+                  </div>
+                </div>
+                <div class="ppllm-llm-item">
+                  <div class="ppllm-llm-icon">📚</div>
+                  <div>
+                    <div class="ppllm-llm-item-title">도메인 지식 보조</div>
+                    <div class="ppllm-llm-item-desc">유방암 특화 LLM이 최신 가이드라인·논문 기반으로 답변 초안을 제공, 비전문의도 안전하게 답변 가능하도록 지원</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
