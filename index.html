@@ -3340,6 +3340,7 @@
       <a class="cd-nav-pill" href="#cd-s2">세대 진화</a>
       <a class="cd-nav-pill" href="#cd-s2b">핑크케어 구조</a>
       <a class="cd-nav-pill" href="#cd-s2c">페인포인트 &amp; LLM</a>
+      <a class="cd-nav-pill" href="#cd-s2d">기술 아키텍처</a>
       <a class="cd-nav-pill" href="#cd-s3">자산적 우위</a>
       <a class="cd-nav-pill" href="#cd-s4">데이터 가치</a>
       <a class="cd-nav-pill" href="#upd-s1">유저 니즈</a>
@@ -3875,6 +3876,288 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <div class="cd-divider"></div>
+
+    <!-- S2d: 지능형 커뮤니티 기술 아키텍처 -->
+    <div class="cd-section" id="cd-s2d" style="overflow-x:auto;">
+      <div class="cd-sec-label">02d · Technical Architecture</div>
+      <h2 class="cd-sec-title">지능형 커뮤니티 <em>기술 아키텍처</em></h2>
+      <p class="cd-sec-lead">카카오톡 오픈채팅방에서 핑크케어, 그리고 지능형 커뮤니티 플랫폼으로 이어지는 기술 진화 구조</p>
+
+      <style>
+        /* ── arch- prefix (충돌 방지) ── */
+        .arch-flow-row { display:flex; align-items:stretch; gap:0; min-width:1200px; }
+        .arch-connector { display:flex; flex-direction:column; align-items:center; justify-content:center; width:50px; flex-shrink:0; gap:4px; }
+        .arch-conn-line { width:30px; height:2px; background:linear-gradient(90deg,var(--border,#1e2840),var(--accent,#3d7fff)); position:relative; }
+        .arch-conn-line::after { content:''; position:absolute; right:-7px; top:-4px; border:5px solid transparent; border-left:8px solid var(--accent,#3d7fff); }
+        .arch-conn-label { font-size:9px; color:var(--text-dim,#2a3555); letter-spacing:0.5px; }
+        /* 작은 박스 */
+        .arch-kakao-box { width:205px; flex-shrink:0; background:linear-gradient(160deg,rgba(254,229,0,0.05),#0d1120); border:1px solid rgba(254,229,0,0.28); border-radius:14px; overflow:hidden; }
+        .arch-pink-box  { width:205px; flex-shrink:0; background:linear-gradient(160deg,rgba(255,110,180,0.06),#0d1120); border:1px solid rgba(255,110,180,0.28); border-radius:14px; overflow:hidden; }
+        .arch-bx-header { display:flex; align-items:center; gap:7px; padding:11px 13px 10px; border-bottom:1px solid var(--border,#1e2840); }
+        .arch-bx-icon  { font-size:14px; }
+        .arch-bx-title { font-size:12px; font-weight:800; }
+        .arch-bx-tag   { font-size:9px; font-weight:700; letter-spacing:0.8px; padding:2px 7px; border-radius:5px; margin-left:auto; }
+        .arch-bx-body  { padding:10px 11px; display:flex; flex-direction:column; gap:5px; }
+        .arch-kakao-box .arch-bx-title { color:#fee500; }
+        .arch-kakao-box .arch-bx-tag   { background:rgba(254,229,0,0.1); color:#fee500; border:1px solid rgba(254,229,0,0.2); }
+        .arch-kakao-box .arch-chip-dot { background:#fee500; }
+        .arch-pink-box  .arch-bx-title { color:#ff6eb4; }
+        .arch-pink-box  .arch-bx-tag   { background:rgba(255,110,180,0.1); color:#ff6eb4; border:1px solid rgba(255,110,180,0.2); }
+        .arch-pink-box  .arch-chip-dot { background:#ff6eb4; }
+        .arch-chip { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-muted,#5e6e90); padding:5px 8px; border-radius:7px; background:var(--surface2,#131825); border:1px solid var(--border,#1e2840); }
+        .arch-chip-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; }
+        /* 지능형 커뮤니티 큰 박스 */
+        .arch-intel-wrap {
+          flex:1; border:2px solid rgba(61,127,255,0.6); border-radius:20px;
+          background:linear-gradient(145deg,rgba(61,127,255,0.09),rgba(0,212,160,0.04),#0d1120);
+          box-shadow:0 0 100px rgba(61,127,255,0.12),0 0 40px rgba(0,212,160,0.05),inset 0 0 60px rgba(61,127,255,0.04);
+          display:flex; flex-direction:column; overflow:hidden;
+        }
+        .arch-intel-header {
+          display:flex; align-items:center; gap:12px;
+          padding:18px 24px 16px;
+          border-bottom:1px solid rgba(61,127,255,0.22);
+          background:linear-gradient(90deg,rgba(61,127,255,0.12),rgba(0,212,160,0.05),transparent);
+          position:relative; overflow:hidden;
+        }
+        .arch-intel-header::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,#3d7fff,#00d4a0,transparent); }
+        .arch-intel-badge { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; background:rgba(61,127,255,0.2); color:#3d7fff; border:1px solid rgba(61,127,255,0.45); padding:4px 12px; border-radius:6px; box-shadow:0 0 12px rgba(61,127,255,0.2); }
+        .arch-intel-title { font-size:22px; font-weight:900; letter-spacing:-0.5px; text-shadow:0 0 30px rgba(61,127,255,0.6),0 0 60px rgba(61,127,255,0.3); background:linear-gradient(90deg,#7eb8ff,#fff,#00d4a0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .arch-intel-sub { font-size:11px; color:var(--text-muted,#5e6e90); margin-left:auto; letter-spacing:0.3px; }
+        .arch-intel-body { flex:1; display:flex; gap:0; padding:14px 14px 12px; }
+        /* V.Care 패널 */
+        .arch-vcare-panel { flex:1; display:flex; flex-direction:column; gap:10px; }
+        .arch-vcare-wrap { border:1px solid rgba(0,212,160,0.32); border-radius:14px; background:linear-gradient(145deg,rgba(0,212,160,0.06),#131825); overflow:hidden; }
+        .arch-vcare-header { display:flex; align-items:center; gap:8px; padding:10px 14px; border-bottom:1px solid rgba(0,212,160,0.18); background:rgba(0,212,160,0.04); }
+        .arch-vcare-title { font-size:14px; font-weight:900; color:#00d4a0; }
+        .arch-vcare-tag   { font-size:9px; font-weight:700; padding:2px 7px; border-radius:5px; background:rgba(0,212,160,0.1); color:#00d4a0; border:1px solid rgba(0,212,160,0.25); margin-left:auto; }
+        .arch-vcare-body  { padding:12px 14px; display:flex; flex-direction:column; gap:10px; }
+        .arch-vc-row { display:flex; align-items:flex-start; gap:9px; }
+        .arch-vc-node { width:68px; flex-shrink:0; border-radius:9px; padding:7px 6px; text-align:center; border:1px solid var(--border,#1e2840); }
+        .arch-vc-node-icon  { font-size:15px; margin-bottom:3px; }
+        .arch-vc-node-label { font-size:10px; font-weight:700; }
+        .arch-vc-node.arch-user   { background:rgba(255,110,180,0.08); border-color:rgba(255,110,180,0.28); }
+        .arch-vc-node.arch-user   .arch-vc-node-label { color:#ff6eb4; }
+        .arch-vc-node.arch-info   { background:rgba(0,212,160,0.08);  border-color:rgba(0,212,160,0.28); }
+        .arch-vc-node.arch-info   .arch-vc-node-label { color:#00d4a0; }
+        .arch-vc-node.arch-doctor { background:rgba(240,165,0,0.08);  border-color:rgba(240,165,0,0.28); }
+        .arch-vc-node.arch-doctor .arch-vc-node-label { color:#f0a500; }
+        .arch-vc-arrow  { font-size:12px; color:var(--text-dim,#2a3555); align-self:center; flex-shrink:0; }
+        .arch-vc-chips  { display:flex; flex-wrap:wrap; gap:5px; flex:1; align-items:center; }
+        .arch-vchip { font-size:10px; padding:4px 9px; border-radius:6px; font-weight:600; white-space:nowrap; }
+        .arch-vchip.arch-user   { background:rgba(255,110,180,0.08); color:#ff6eb4; border:1px solid rgba(255,110,180,0.2); }
+        .arch-vchip.arch-info   { background:rgba(0,212,160,0.08);  color:#00d4a0; border:1px solid rgba(0,212,160,0.2); }
+        .arch-vchip.arch-doctor { background:rgba(240,165,0,0.08);  color:#f0a500; border:1px solid rgba(240,165,0,0.2); }
+        /* 질환 */
+        .arch-disease-wrap { border:1px solid rgba(167,139,250,0.22); border-radius:12px; background:rgba(167,139,250,0.04); overflow:hidden; }
+        .arch-disease-header { display:flex; align-items:center; gap:7px; padding:9px 14px; border-bottom:1px solid rgba(167,139,250,0.15); }
+        .arch-disease-title { font-size:11px; font-weight:800; color:#a78bfa; }
+        .arch-disease-tag   { font-size:9px; font-weight:700; padding:2px 7px; border-radius:5px; background:rgba(167,139,250,0.1); color:#a78bfa; border:1px solid rgba(167,139,250,0.22); margin-left:auto; }
+        .arch-disease-body  { padding:10px 14px; display:flex; flex-wrap:wrap; gap:6px; }
+        .arch-dchip { font-size:10px; padding:4px 10px; border-radius:20px; font-weight:600; background:#1a2035; border:1px solid rgba(167,139,250,0.18); color:var(--text-muted,#5e6e90); }
+        .arch-dchip.arch-on { background:rgba(255,110,180,0.08); border-color:rgba(255,110,180,0.3); color:#ff6eb4; }
+        /* 에이전트 패널 */
+        .arch-agent-panel { width:300px; flex-shrink:0; display:flex; flex-direction:column; gap:6px; padding-left:14px; border-left:1px solid var(--border,#1e2840); margin-left:14px; }
+        .arch-agent-label { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#a78bfa; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
+        .arch-agent-label::before { content:''; display:block; width:12px; height:1px; background:#a78bfa; }
+        .arch-agent-row { display:flex; align-items:center; gap:0; }
+        .arch-atv-head  { width:0; height:0; border-top:4px solid transparent; border-bottom:4px solid transparent; border-right:7px solid rgba(0,212,160,0.8); flex-shrink:0; }
+        .arch-atv-line  { width:32px; height:2px; background:linear-gradient(90deg,rgba(0,212,160,0.9),rgba(167,139,250,0.5)); animation:arch-pulse 2.4s ease-in-out infinite; flex-shrink:0; }
+        @keyframes arch-pulse { 0%,100%{opacity:0.45} 50%{opacity:1} }
+        .arch-agent-box { flex:1; background:#1a2035; border:1px solid rgba(167,139,250,0.2); border-radius:9px; padding:8px 12px; display:flex; align-items:center; gap:8px; }
+        .arch-agent-box-icon { font-size:14px; flex-shrink:0; }
+        .arch-agent-box-name { font-size:11px; font-weight:700; color:#a78bfa; }
+        /* 하단 */
+        .arch-bottom-row { display:flex; gap:12px; padding:0 14px 14px; }
+        .arch-bottom-box { flex:1; border-radius:12px; border:1px solid var(--border,#1e2840); background:#131825; overflow:hidden; }
+        .arch-bb-header  { display:flex; align-items:center; gap:7px; padding:9px 14px; border-bottom:1px solid var(--border,#1e2840); }
+        .arch-bb-title   { font-size:12px; font-weight:900; }
+        .arch-bb-tag     { font-size:9px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:auto; }
+        .arch-bb-body    { padding:10px 14px; display:flex; flex-direction:column; gap:5px; }
+        .arch-vdoc-box .arch-bb-header { background:rgba(61,127,255,0.04); border-color:rgba(61,127,255,0.2); }
+        .arch-vdoc-box .arch-bb-title  { color:#3d7fff; }
+        .arch-vdoc-box .arch-bb-tag    { background:rgba(61,127,255,0.1); color:#3d7fff; border:1px solid rgba(61,127,255,0.2); }
+        .arch-da-box .arch-bb-header   { background:rgba(240,165,0,0.04); border-color:rgba(240,165,0,0.2); }
+        .arch-da-box .arch-bb-title    { color:#f0a500; }
+        .arch-da-box .arch-bb-tag      { background:rgba(240,165,0,0.08); color:#f0a500; border:1px solid rgba(240,165,0,0.2); }
+        .arch-bb-chip { font-size:10px; padding:3px 9px; border-radius:6px; font-weight:600; display:inline-block; width:fit-content; }
+        .arch-bb-chip.arch-blue   { background:rgba(61,127,255,0.07); color:#3d7fff; border:1px solid rgba(61,127,255,0.18); }
+        .arch-bb-chip.arch-yellow { background:rgba(240,165,0,0.07);  color:#f0a500; border:1px solid rgba(240,165,0,0.18); }
+        .arch-model-chips { display:flex; gap:5px; flex-wrap:wrap; }
+        .arch-up-arrow-wrap { display:flex; justify-content:center; padding:5px 0; }
+        .arch-up-arrow { display:flex; flex-direction:column; align-items:center; gap:2px; }
+        .arch-up-arrow-head  { width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; }
+        .arch-up-arrow-head.arch-blue   { border-bottom:7px solid #3d7fff; }
+        .arch-up-arrow-head.arch-yellow { border-bottom:7px solid #f0a500; }
+        .arch-up-arrow-stem  { width:1.5px; height:18px; }
+        .arch-up-arrow-stem.arch-blue   { background:linear-gradient(180deg,transparent,#3d7fff); }
+        .arch-up-arrow-stem.arch-yellow { background:linear-gradient(180deg,transparent,#f0a500); }
+        .arch-up-arrow-label { font-size:9px; color:var(--text-dim,#2a3555); }
+        .arch-sep { height:1px; background:var(--border,#1e2840); }
+      </style>
+
+      <div class="arch-flow-row">
+        <!-- 카카오톡 -->
+        <div class="arch-kakao-box">
+          <div class="arch-bx-header"><span class="arch-bx-icon">💬</span><span class="arch-bx-title">카카오톡 오픈채팅방</span><span class="arch-bx-tag">Kakao</span></div>
+          <div class="arch-bx-body">
+            <div class="arch-chip"><div class="arch-chip-dot"></div>오픈채팅봇</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>환우 간 위로</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>경험 기반 정보 공유</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>의료진 답변</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>최신 의료정보 제공</div>
+          </div>
+        </div>
+        <div class="arch-connector"><div class="arch-conn-line"></div><div class="arch-conn-label">연동</div></div>
+        <!-- 핑크케어 -->
+        <div class="arch-pink-box">
+          <div class="arch-bx-header"><span class="arch-bx-icon">🩷</span><span class="arch-bx-title">핑크케어</span><span class="arch-bx-tag">Web</span></div>
+          <div class="arch-bx-body">
+            <div class="arch-chip"><div class="arch-chip-dot"></div>검사기록지 설명</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>검사기록지 설명 답변</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>검사기록지 글쓰기</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>게시판 목록</div>
+            <div class="arch-chip"><div class="arch-chip-dot"></div>게시글 내용</div>
+          </div>
+        </div>
+        <div class="arch-connector"><div class="arch-conn-line"></div><div class="arch-conn-label">확장</div></div>
+        <!-- 지능형 커뮤니티 -->
+        <div class="arch-intel-wrap">
+          <div class="arch-intel-header">
+            <span class="arch-intel-badge">Next Stage</span>
+            <span class="arch-intel-title">지능형 커뮤니티</span>
+            <span class="arch-intel-sub">AI-Powered Health Community Platform</span>
+          </div>
+          <div class="arch-intel-body">
+            <!-- 좌: V.Care + 질환 -->
+            <div class="arch-vcare-panel">
+              <div class="arch-vcare-wrap">
+                <div class="arch-vcare-header">
+                  <span style="font-size:14px;">🏥</span>
+                  <span class="arch-vcare-title">V.Care</span>
+                  <span class="arch-vcare-tag">Core Platform</span>
+                </div>
+                <div class="arch-vcare-body">
+                  <div class="arch-vc-row">
+                    <div class="arch-vc-node arch-user"><div class="arch-vc-node-icon">👥</div><div class="arch-vc-node-label">사용자</div></div>
+                    <div class="arch-vc-arrow">→</div>
+                    <div class="arch-vc-chips">
+                      <span class="arch-vchip arch-user">✏️ 글쓰기</span>
+                      <span class="arch-vchip arch-user">💛 응원하기</span>
+                      <span class="arch-vchip arch-user">📖 게시글 읽기</span>
+                      <span class="arch-vchip arch-user">🔍 게시글 찾기</span>
+                      <span class="arch-vchip arch-user">💬 댓글 달기</span>
+                      <span class="arch-vchip arch-user">📌 북마크</span>
+                      <span class="arch-vchip arch-user">🔔 알림 수신</span>
+                      <span class="arch-vchip arch-user">📋 검사기록 업로드</span>
+                      <span class="arch-vchip arch-user">🧬 PRO 설문 참여</span>
+                      <span class="arch-vchip arch-user">🤝 1:1 경험 연결</span>
+                    </div>
+                  </div>
+                  <div class="arch-sep"></div>
+                  <div class="arch-vc-row">
+                    <div class="arch-vc-node arch-info"><div class="arch-vc-node-icon">📄</div><div class="arch-vc-node-label">정보</div></div>
+                    <div class="arch-vc-arrow">→</div>
+                    <div class="arch-vc-chips">
+                      <span class="arch-vchip arch-info">🗞 카드뉴스</span>
+                      <span class="arch-vchip arch-info">🔬 최신 의학 논문</span>
+                      <span class="arch-vchip arch-info">📋 의료 가이드라인</span>
+                      <span class="arch-vchip arch-info">💊 치료 옵션 비교</span>
+                      <span class="arch-vchip arch-info">🧬 임상시험 정보</span>
+                      <span class="arch-vchip arch-info">📊 부작용 데이터</span>
+                      <span class="arch-vchip arch-info">🏥 병원·의료진 정보</span>
+                      <span class="arch-vchip arch-info">💉 검사 항목 설명</span>
+                    </div>
+                  </div>
+                  <div class="arch-sep"></div>
+                  <div class="arch-vc-row">
+                    <div class="arch-vc-node arch-doctor"><div class="arch-vc-node-icon">🩺</div><div class="arch-vc-node-label">의료진</div></div>
+                    <div class="arch-vc-arrow">→</div>
+                    <div class="arch-vc-chips">
+                      <span class="arch-vchip arch-doctor">🤝 질문에 공감</span>
+                      <span class="arch-vchip arch-doctor">💡 질문에 답변</span>
+                      <span class="arch-vchip arch-doctor">✅ 정보 검증</span>
+                      <span class="arch-vchip arch-doctor">📝 의견 제시</span>
+                      <span class="arch-vchip arch-doctor">🔔 답변 알림</span>
+                      <span class="arch-vchip arch-doctor">📎 자료 첨부</span>
+                      <span class="arch-vchip arch-doctor">⭐ 우수 답변 채택</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 질환 카테고리 -->
+              <div class="arch-disease-wrap">
+                <div class="arch-disease-header">
+                  <span style="font-size:13px;">🏷️</span>
+                  <span class="arch-disease-title">지원 질환 카테고리</span>
+                  <span class="arch-disease-tag">Multi-Disease</span>
+                </div>
+                <div class="arch-disease-body">
+                  <span class="arch-dchip arch-on">🩷 유방암</span>
+                  <span class="arch-dchip">🟡 위암</span>
+                  <span class="arch-dchip">🟠 대장암</span>
+                  <span class="arch-dchip">🟤 간암</span>
+                  <span class="arch-dchip">🔵 폐암</span>
+                  <span class="arch-dchip">🟣 갑상선암</span>
+                  <span class="arch-dchip">🔴 자궁경부암</span>
+                  <span class="arch-dchip">⚪ 췌장암</span>
+                  <span class="arch-dchip">🟢 전립선암</span>
+                  <span class="arch-dchip">💛 공황장애</span>
+                  <span class="arch-dchip">🌿 우울증</span>
+                  <span class="arch-dchip">👶 소아성장</span>
+                  <span class="arch-dchip">🦴 골다공증</span>
+                  <span class="arch-dchip">❤️ 심부전</span>
+                  <span class="arch-dchip">🩸 당뇨</span>
+                </div>
+              </div>
+            </div>
+            <!-- 우: AI Agent 패널 -->
+            <div class="arch-agent-panel">
+              <div class="arch-agent-label">AI Agent Layer</div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🧠</span><span class="arch-agent-box-name">MOCA 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🔀</span><span class="arch-agent-box-name">Multi-Agent 오케스트레이터</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">💬</span><span class="arch-agent-box-name">챗봇 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🔍</span><span class="arch-agent-box-name">유사 게시글 찾기 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">✏️</span><span class="arch-agent-box-name">글쓰기 도움 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">📚</span><span class="arch-agent-box-name">논문 요약 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🛡️</span><span class="arch-agent-box-name">정보 검증 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">📊</span><span class="arch-agent-box-name">검사결과 분석 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🔔</span><span class="arch-agent-box-name">알림 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🧬</span><span class="arch-agent-box-name">PRO 데이터 수집 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">🌐</span><span class="arch-agent-box-name">RAG 검색 에이전트</span></div></div>
+              <div class="arch-agent-row"><div class="arch-atv-head"></div><div class="arch-atv-line"></div><div class="arch-agent-box"><span class="arch-agent-box-icon">⚠️</span><span class="arch-agent-box-name">위험 감지 에이전트</span></div></div>
+            </div>
+          </div>
+          <!-- 하단: V.Doc + 닥터앤서 -->
+          <div class="arch-bottom-row">
+            <div class="arch-bottom-box arch-vdoc-box">
+              <div class="arch-up-arrow-wrap"><div class="arch-up-arrow"><div class="arch-up-arrow-head arch-blue"></div><div class="arch-up-arrow-stem arch-blue"></div><span class="arch-up-arrow-label">V.Care 연동</span></div></div>
+              <div class="arch-bb-header"><span style="font-size:13px;">🤖</span><span class="arch-bb-title">V.Doc</span><span class="arch-bb-tag">AI 사전문진</span></div>
+              <div class="arch-bb-body">
+                <span class="arch-bb-chip arch-blue">MOCA 엔진 기반</span>
+                <span class="arch-bb-chip arch-blue">사전문진 AI</span>
+                <span class="arch-bb-chip arch-blue">증상 기록 → 구조화</span>
+                <span class="arch-bb-chip arch-blue">진료 정보 연계</span>
+              </div>
+            </div>
+            <div class="arch-bottom-box arch-da-box">
+              <div class="arch-up-arrow-wrap"><div class="arch-up-arrow"><div class="arch-up-arrow-head arch-yellow"></div><div class="arch-up-arrow-stem arch-yellow"></div><span class="arch-up-arrow-label">V.Care 연동</span></div></div>
+              <div class="arch-bb-header"><span style="font-size:13px;">🏥</span><span class="arch-bb-title">닥터앤서 3.0</span><span class="arch-bb-tag">AI 의료 플랫폼</span></div>
+              <div class="arch-bb-body">
+                <div class="arch-model-chips">
+                  <span class="arch-bb-chip arch-yellow">C-Rehab 모델</span>
+                  <span class="arch-bb-chip arch-yellow">PEDI-Rehab 모델</span>
+                  <span class="arch-bb-chip arch-yellow">G-Rehab 모델</span>
+                </div>
+                <div style="font-size:10px;color:var(--text-dim,#2a3555);margin-top:2px;line-height:1.6;">재활 특화 AI 모델군 · 임상 데이터 기반 추론 · 의료진 의사결정 지원</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
