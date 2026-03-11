@@ -3338,6 +3338,7 @@
     <div class="cd-nav-sections">
       <a class="cd-nav-pill" href="#cd-s1">커뮤니티 정의</a>
       <a class="cd-nav-pill" href="#cd-s2">세대 진화</a>
+      <a class="cd-nav-pill" href="#cd-s2b">핑크케어 구조</a>
       <a class="cd-nav-pill" href="#cd-s3">자산적 우위</a>
       <a class="cd-nav-pill" href="#cd-s4">데이터 가치</a>
       <a class="cd-nav-pill" href="#upd-s1">유저 니즈</a>
@@ -3525,6 +3526,129 @@
         <div class="cd-insight-box-label">Our Thesis</div>
         <div class="cd-insight-box-text">
           AI 혁신 시대의 커뮤니티는 <strong>지능형 전문 커뮤니티</strong>입니다. 사람들은 단순한 소통을 넘어, 본인의 문제를 깊이 이해하고 신뢰할 수 있는 전문 공동체를 찾게 될 것입니다. 우리는 의료·헬스케어 영역에서 그 공간을 선점하고자 합니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="cd-divider"></div>
+
+    <!-- S2b: 핑크케어 구조 -->
+    <div class="cd-section" id="cd-s2b">
+      <div class="cd-sec-label">02b · Structure</div>
+      <h2 class="cd-sec-title">핑크케어의 <em>세 가지 축</em></h2>
+      <p class="cd-sec-lead">핑크케어를 이루는 3가지 축인 유저, 정보, 의료진은 유방암 전문 커뮤니티를 이루는 필수 구성요소입니다.</p>
+
+      <!-- 인라인 스타일 (cd- 클래스와 충돌 방지를 위해 prefix 사용) -->
+      <style>
+        .pc-wrap { position: relative; width: 100%; max-width: 720px; margin: 0 auto 32px; }
+        .pc-wrap svg { width: 100%; height: auto; overflow: visible; }
+        .pc-legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; }
+        .pc-card { background: #0f1219; border: 1px solid #1e2535; border-radius: 16px; padding: 20px 18px; position: relative; overflow: hidden; transition: transform 0.2s; }
+        .pc-card:hover { transform: translateY(-3px); }
+        .pc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+        .pc-card.pc-user::before   { background: #ff6eb4; }
+        .pc-card.pc-info::before   { background: #00d4a0; }
+        .pc-card.pc-doctor::before { background: #f0a500; }
+        .pc-card.pc-user   { border-color: rgba(255,110,180,0.18); }
+        .pc-card.pc-info   { border-color: rgba(0,212,160,0.18); }
+        .pc-card.pc-doctor { border-color: rgba(240,165,0,0.18); }
+        .pc-tag { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+        .pc-card.pc-user   .pc-tag { color: #ff6eb4; }
+        .pc-card.pc-info   .pc-tag { color: #00d4a0; }
+        .pc-card.pc-doctor .pc-tag { color: #f0a500; }
+        .pc-name { font-size: 16px; font-weight: 900; color: #e6ebf5; margin-bottom: 8px; letter-spacing: -0.3px; }
+        .pc-desc { font-size: 12px; color: #5e6e90; line-height: 1.7; }
+        .pc-items { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+        .pc-item { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #5e6e90; }
+        .pc-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+        .pc-card.pc-user   .pc-dot { background: #ff6eb4; }
+        .pc-card.pc-info   .pc-dot { background: #00d4a0; }
+        .pc-card.pc-doctor .pc-dot { background: #f0a500; }
+        @media (max-width: 640px) { .pc-legend { grid-template-columns: 1fr; } }
+      </style>
+
+      <div class="pc-wrap">
+        <svg viewBox="0 0 720 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="pc-arr-pink" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#ff6eb4"/>
+            </marker>
+            <marker id="pc-arr-yellow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#f0a500"/>
+            </marker>
+            <marker id="pc-arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#00d4a0"/>
+            </marker>
+            <filter id="pc-glow-pink"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="pc-glow-yellow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="pc-glow-green"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <path id="pc-path-ui" d="M386,128 L584,412"/>
+            <path id="pc-path-iu" d="M136,412 L334,128"/>
+          </defs>
+          <polygon points="360,90 610,450 110,450" fill="rgba(255,110,180,0.04)" stroke="none"/>
+          <line x1="386" y1="128" x2="584" y2="412" stroke="#f0a500" stroke-width="1.5" stroke-dasharray="7 4" opacity="0.8" marker-end="url(#pc-arr-yellow)"/>
+          <line x1="564" y1="450" x2="160" y2="450" stroke="#00d4a0" stroke-width="1.5" stroke-dasharray="7 4" opacity="0.8" marker-end="url(#pc-arr-green)"/>
+          <line x1="136" y1="412" x2="334" y2="128" stroke="#ff6eb4" stroke-width="1.5" stroke-dasharray="7 4" opacity="0.8" marker-end="url(#pc-arr-pink)"/>
+          <text font-family="Noto Sans KR, sans-serif" font-size="11" fill="#5e6e90">
+            <textPath href="#pc-path-ui" startOffset="50%" text-anchor="middle">질문 · 경험 공유</textPath>
+          </text>
+          <text font-family="Noto Sans KR, sans-serif" font-size="11" fill="#5e6e90" text-anchor="middle" x="362" y="472">검증 · 의료적 해석</text>
+          <text font-family="Noto Sans KR, sans-serif" font-size="11" fill="#5e6e90">
+            <textPath href="#pc-path-iu" startOffset="50%" text-anchor="middle">신뢰 정보 제공</textPath>
+          </text>
+          <circle cx="360" cy="295" r="46" fill="rgba(255,110,180,0.06)" stroke="rgba(255,110,180,0.25)" stroke-width="1"/>
+          <text x="360" y="290" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="900" fill="#ff6eb4" text-anchor="middle">핑크케어</text>
+          <text x="360" y="308" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#5e6e90" text-anchor="middle">커뮤니티</text>
+          <!-- 유저 -->
+          <circle cx="360" cy="90" r="54" fill="rgba(255,110,180,0.06)" stroke="rgba(255,110,180,0.12)" stroke-width="1"/>
+          <circle cx="360" cy="90" r="46" fill="#0f1219" stroke="rgba(255,110,180,0.55)" stroke-width="1.5" filter="url(#pc-glow-pink)"/>
+          <text x="360" y="78" font-family="Noto Sans KR" font-size="15" text-anchor="middle">🧑‍🤝‍🧑</text>
+          <text x="360" y="93" font-family="Noto Sans KR" font-size="12" font-weight="900" fill="#ff6eb4" text-anchor="middle">유저</text>
+          <text x="360" y="106" font-family="Noto Sans KR" font-size="9" fill="#5e6e90" text-anchor="middle">환우 · 보호자</text>
+          <!-- 의료진 -->
+          <circle cx="610" cy="450" r="54" fill="rgba(240,165,0,0.06)" stroke="rgba(240,165,0,0.12)" stroke-width="1"/>
+          <circle cx="610" cy="450" r="46" fill="#0f1219" stroke="rgba(240,165,0,0.55)" stroke-width="1.5" filter="url(#pc-glow-yellow)"/>
+          <text x="610" y="438" font-family="Noto Sans KR" font-size="15" text-anchor="middle">🩺</text>
+          <text x="610" y="453" font-family="Noto Sans KR" font-size="12" font-weight="900" fill="#f0a500" text-anchor="middle">의료진</text>
+          <text x="610" y="466" font-family="Noto Sans KR" font-size="9" fill="#5e6e90" text-anchor="middle">전문가 · 교수</text>
+          <!-- 정보 -->
+          <circle cx="110" cy="450" r="54" fill="rgba(0,212,160,0.06)" stroke="rgba(0,212,160,0.12)" stroke-width="1"/>
+          <circle cx="110" cy="450" r="46" fill="#0f1219" stroke="rgba(0,212,160,0.55)" stroke-width="1.5" filter="url(#pc-glow-green)"/>
+          <text x="110" y="438" font-family="Noto Sans KR" font-size="15" text-anchor="middle">📄</text>
+          <text x="110" y="453" font-family="Noto Sans KR" font-size="12" font-weight="900" fill="#00d4a0" text-anchor="middle">정보</text>
+          <text x="110" y="466" font-family="Noto Sans KR" font-size="9" fill="#5e6e90" text-anchor="middle">논문 · 콘텐츠</text>
+        </svg>
+      </div>
+
+      <div class="pc-legend">
+        <div class="pc-card pc-user">
+          <div class="pc-tag">User · 유저</div>
+          <div class="pc-name">환우 · 보호자</div>
+          <div class="pc-desc">커뮤니티의 핵심 구성원. 진단 이후부터 치료·회복기까지 정보와 연결이 필요한 당사자들.</div>
+          <div class="pc-items">
+            <div class="pc-item"><div class="pc-dot"></div>경험 공유 · 질문</div>
+            <div class="pc-item"><div class="pc-dot"></div>정보 소비 · 검증 요청</div>
+            <div class="pc-item"><div class="pc-dot"></div>커뮤니티 형성의 원동력</div>
+          </div>
+        </div>
+        <div class="pc-card pc-info">
+          <div class="pc-tag">Content · 정보</div>
+          <div class="pc-name">논문 · 콘텐츠</div>
+          <div class="pc-desc">의료진이 검증하고, 유저가 소비하는 신뢰 정보. 핑크케어가 다른 커뮤니티와 차별화되는 핵심 자산.</div>
+          <div class="pc-items">
+            <div class="pc-item"><div class="pc-dot"></div>최신 논문 정리</div>
+            <div class="pc-item"><div class="pc-dot"></div>검사결과지 설명</div>
+            <div class="pc-item"><div class="pc-dot"></div>치료 옵션 근거 자료</div>
+          </div>
+        </div>
+        <div class="pc-card pc-doctor">
+          <div class="pc-tag">Expert · 의료진</div>
+          <div class="pc-name">전문가 · 교수</div>
+          <div class="pc-desc">정보의 신뢰도를 보증하는 축. 유저의 질문에 의료적 해석을 더하고, 커뮤니티 전체의 신뢰 기반을 형성.</div>
+          <div class="pc-items">
+            <div class="pc-item"><div class="pc-dot"></div>답변 검증 · 의료적 해석</div>
+            <div class="pc-item"><div class="pc-dot"></div>콘텐츠 신뢰도 보증</div>
+          </div>
         </div>
       </div>
     </div>
