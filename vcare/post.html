@@ -183,6 +183,22 @@
   }
 
   // ── 샘플 댓글 ─────────────────────────────
+  const STETHOSCOPE_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.62a1 1 0 00-1.6.78V11a5 5 0 005 5h1a5 5 0 005-5V3.4a1 1 0 00-1.6-.78"/><path d="M15 11a2 2 0 104 0"/><circle cx="19" cy="15" r="2"/><path d="M19 17v1a4 4 0 01-4 4h-2a4 4 0 01-4-4v-1"/></svg>`;
+
+  const DOCTOR_RESPONSES = {
+    symptom: [
+      '안녕하세요, 의료진입니다. 말씀하신 증상은 치료 과정에서 흔히 나타날 수 있는 반응입니다. 다만, 증상의 정도와 지속 기간에 따라 약물 조절이 필요할 수 있으므로, 다음 진료 시 주치의께 구체적으로 말씀해 주세요. 그 전까지는 충분한 수분 섭취와 휴식을 권합니다.',
+      '의료진 답변 드립니다. 해당 증상은 치료 부작용의 일환으로 볼 수 있으나, 악화되거나 새로운 증상이 동반될 경우 즉시 의료기관을 방문하시는 것을 권장합니다. 현재 복용 중인 약물 목록을 정리해서 가져오시면 더 정확한 상담이 가능합니다.',
+    ],
+    case: [
+      '축하드립니다! 치료를 끝까지 잘 마치신 것 정말 대단합니다. 앞으로도 정기 검진을 빠지지 않으시고, 이상 징후가 있으면 바로 내원해 주세요. 건강한 일상을 응원합니다.',
+      '좋은 소식 감사합니다. 치료 후 회복기에도 면역력 관리와 균형 잡힌 생활이 중요합니다. 무리하지 마시고, 정기 추적 검사를 꾸준히 받아주세요.',
+    ],
+    cheer: [
+      '환우분들의 마음에 큰 응원을 보냅니다. 의료진으로서 매일 최선을 다하고 있으며, 여러분의 치료 여정에 함께하고 있다는 것을 기억해 주세요. 힘드실 때는 언제든 심리 상담 서비스도 이용하실 수 있습니다.',
+    ],
+  };
+
   const COMMENT_TEMPLATES = [
     {u:'@환우_m7n', role:'환자', text:'저도 비슷한 경험이 있어요. 처음엔 정말 힘들었는데 시간이 지나니 조금씩 나아졌습니다. 힘내세요!', likes:12},
     {u:'@보호자_c2d', role:'보호자', text:'정말 유익한 글이네요. 저희 가족한테도 큰 도움이 됩니다. 감사합니다.', likes:8},
@@ -202,6 +218,12 @@
   const dateStr = '2026.03.' + String(7 + (post.id % 5)).padStart(2,'0');
   const numComments = 2 + (post.id % 4);
   const comments = [];
+
+  // 의료진 답변 (첫 번째로 추가)
+  const docResponses = DOCTOR_RESPONSES[post.cat] || DOCTOR_RESPONSES.symptom;
+  const docText = docResponses[post.id % docResponses.length];
+  comments.push({u:'의료진', role:'의료진', text:docText, likes: 28 + post.id % 15, doctor:true});
+
   for(let i = 0; i < numComments; i++) {
     const c = COMMENT_TEMPLATES[i % COMMENT_TEMPLATES.length];
     comments.push({...c, likes: c.likes + (post.id * (i+1)) % 10});
@@ -271,7 +293,7 @@
 
     <!-- 답변 남기기 -->
     <div class="post-comments-section">
-      <h3 class="comments-title">답변 <strong>${numComments}</strong></h3>
+      <h3 class="comments-title">답변 <strong>${numComments + 1}</strong></h3>
 
       <div class="comment-write">
         <div class="comment-write-avatar">${post.author[1]}</div>
@@ -283,12 +305,12 @@
 
       <div class="comment-list" id="commentList">
         ${comments.map(c => `
-          <div class="comment-item">
-            <div class="comment-avatar">${c.u[1]}</div>
+          <div class="comment-item ${c.doctor ? 'comment-item--doctor' : ''}">
+            <div class="comment-avatar ${c.doctor ? 'comment-avatar--doctor' : ''}">${c.doctor ? STETHOSCOPE_SVG : c.u[1]}</div>
             <div class="comment-body">
               <div class="comment-meta">
-                <span class="comment-author">${c.u}</span>
-                <span class="comment-role">${c.role}</span>
+                <span class="comment-author ${c.doctor ? 'comment-author--doctor' : ''}">${c.doctor ? '의료진 답변' : c.u}</span>
+                <span class="comment-role ${c.doctor ? 'comment-role--doctor' : ''}">${c.role}</span>
                 <span class="comment-date">${dateStr}</span>
               </div>
               <p class="comment-text">${c.text}</p>
@@ -310,7 +332,7 @@
       const scoreA = (a.disease === post.disease ? 2 : 0) + (a.cat === post.cat ? 1 : 0);
       const scoreB = (b.disease === post.disease ? 2 : 0) + (b.cat === post.cat ? 1 : 0);
       return scoreB - scoreA;
-    }).slice(0, 5);
+    }).slice(0, 3);
   }
 
   const similar = findSimilar(post);
@@ -325,6 +347,7 @@
           <span class="ai-similar-disease">${s.diseaseLabel}</span>
         </div>
         <div class="ai-similar-title">${s.title}</div>
+        <div class="ai-similar-excerpt">${s.excerpt}</div>
         <div class="ai-similar-meta">${s.author} · 조회 ${s.views}</div>
       </a>
     `).join('')}
