@@ -363,8 +363,11 @@
       p.hearts > 0    ? `<span class="post-meta-chip post-meta-chip--hearts">${HEART_SVG} ${p.hearts}</span>` : '',
     ].filter(Boolean).join('');
 
+    const idx = ALL_POSTS.indexOf(p);
+    const params = new URLSearchParams({ id: idx });
     return `
-      <article class="post-card ${p.cardClass}" data-cat="${p.cat}" data-disease="${p.disease}">
+      <article class="post-card ${p.cardClass}" data-cat="${p.cat}" data-disease="${p.disease}"
+        onclick="location.href='post.html?${params}'" style="cursor:pointer">
         <div class="post-top">
           <div class="post-top-left">
             <span class="post-badge ${p.badgeClass}">${p.catLabel}</span>

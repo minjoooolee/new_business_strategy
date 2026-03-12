@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 — v.care</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="post.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+</head>
+<body>
+
+<!-- GNB -->
+<header class="gnb" id="gnb">
+  <div class="gnb-inner">
+    <a href="index.html" class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">v.care</span>
+    </a>
+    <nav class="gnb-nav">
+      <ul>
+        <li><a href="index.html">홈</a></li>
+        <li><a href="feed.html">피드</a></li>
+        <li><a href="community.html">질환별 게시판</a></li>
+        <li><a href="#">검사결과지</a></li>
+        <li><a href="#">문의</a></li>
+      </ul>
+    </nav>
+    <div class="gnb-right">
+      <a href="#" class="btn-login">로그인</a>
+      <button class="hamburger" id="hamBtn" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 메인 -->
+<main class="post-main">
+  <div class="post-layout">
+
+    <!-- 왼쪽: 게시글 본문 -->
+    <div class="post-content-area" id="postArea">
+      <!-- JS로 렌더링 -->
+    </div>
+
+    <!-- 오른쪽: AI 유사글 매칭 -->
+    <aside class="post-ai-panel" id="aiPanel">
+      <div class="ai-panel-header">
+        <div class="ai-panel-avatar">AI</div>
+        <div class="ai-panel-title">v.care AI 유사글 추천</div>
+      </div>
+      <div class="ai-panel-body" id="aiSimilar">
+        <!-- JS로 렌더링 -->
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <span class="footer-brand">v.care by aitrics</span>
+      <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── 게시글 데이터 (community.html과 동일 시드) ────
+  const DISEASES = [
+    {id:'breast',label:'유방암',tag:'#유방암'},{id:'stomach',label:'위암',tag:'#위암'},
+    {id:'colon',label:'대장암',tag:'#대장암'},{id:'liver',label:'간암',tag:'#간암'},
+    {id:'thyroid',label:'갑상선암',tag:'#갑상선암'},{id:'lung',label:'폐암',tag:'#폐암'},
+    {id:'allergy',label:'알러지',tag:'#알러지'},{id:'diabetes',label:'당뇨',tag:'#당뇨'},
+    {id:'cardio',label:'심혈관',tag:'#심혈관'},{id:'pediatric',label:'소아성장',tag:'#소아성장'},
+    {id:'pancreas',label:'췌장암',tag:'#췌장암'},{id:'prostate',label:'전립선암',tag:'#전립선암'},
+  ];
+
+  const SYMPTOM_POSTS = [
+    {title:'항암 후 손발 저림이 심한데 개선 방법 있을까요?',excerpt:'항암 3차 이후부터 손발이 저리고 감각이 이상해졌어요. 주치의께는 말씀드렸는데 혹시 생활 속에서 도움이 되는 방법이 있는지 경험 나눠주세요.',tag2:'#부작용'},
+    {title:'수술 후 식욕이 전혀 없는데 어떻게 하셨나요?',excerpt:'수술 후 2주가 지났는데 아직도 입맛이 돌아오지 않아서 걱정이에요. 억지로라도 먹어야 할 것 같은데 추천하는 식품이 있을까요?',tag2:'#식이요법'},
+    {title:'방사선 치료 중 피부 발적이 심해졌어요.',excerpt:'방사선 3주차부터 해당 부위 피부가 심하게 붉어지고 따가워요. 병원에서 처방받은 연고 외에 추가로 할 수 있는 게 있을까요?',tag2:'#방사선'},
+    {title:'호르몬 치료 중 불면증이 계속됩니다.',excerpt:'호르몬 치료를 시작한 이후로 잠을 통 못 자고 있어요. 수면제 처방받기가 망설여지는데 자연스럽게 개선한 경험 있으신 분 계세요?',tag2:'#호르몬치료'},
+    {title:'복수가 차는 증상, 이럴 때 어떻게 하셨어요?',excerpt:'최근 배가 많이 불러오고 불편감이 심합니다. 담당 의사 선생님과 상담 예정이지만 유사한 경험을 나눠주실 분 있으신가요?',tag2:'#복수'},
+    {title:'항구토제 복용해도 구역감이 가라앉지 않아요.',excerpt:'처방받은 항구토제를 먹고 있는데도 계속 메스꺼움이 있어요. 식이 조절이나 자세 변화 등으로 도움받은 분 계신가요?',tag2:'#구역감'},
+    {title:'추적 관찰 결과 수치가 올라가서 불안해요.',excerpt:'정기 검사 결과 수치가 조금 상승했다는 얘기를 들었어요. 추가 검사를 기다리는 동안 불안감을 어떻게 관리하셨나요?',tag2:'#추적관찰'},
+    {title:'항암 후 탈모, 언제쯤 다시 자라기 시작했나요?',excerpt:'항암 후 탈모가 시작됐는데 언제부터 다시 자라는지 경험 공유해주시면 감사하겠어요. 모발 관리 팁도 알려주세요.',tag2:'#탈모'},
+    {title:'면역항암제 부작용으로 피로감이 극심합니다.',excerpt:'면역항암제 투여 이후 극심한 피로감에 시달리고 있어요. 일상생활이 힘들 정도인데 비슷한 경험 하신 분 계세요?',tag2:'#면역항암'},
+    {title:'수술 부위 통증이 3개월째 지속되고 있어요.',excerpt:'수술 후 3개월이 지났는데도 수술 부위에 통증이 있어요. 신경 손상인지 흉터 때문인지 확인이 필요할까요?',tag2:'#수술후통증'},
+    {title:'표적치료제 복용 중 피부 발진이 생겼어요.',excerpt:'표적치료제를 시작한 지 2주 만에 얼굴과 등에 여드름 같은 발진이 생겼어요. 관리법을 알고 싶어요.',tag2:'#표적치료'},
+  ];
+  const CASE_POSTS = [
+    {title:'[완치기록] 항암 12차 드디어 완주했습니다!',excerpt:'처음 진단받았을 땐 세상이 무너지는 것 같았는데, 어느덧 마지막 주사를 맞고 왔네요. 제가 버틸 수 있었던 건 여기서 얻은 정보와 응원 덕분이었습니다.',tag2:'#완치'},
+    {title:'수술 후 6개월, 드디어 일상으로 돌아왔어요.',excerpt:'수술이 무사히 끝나고 오늘 첫 직장 복귀를 했습니다. 막막했던 날들이 있었지만 여기 계신 분들 덕분에 힘을 얻었어요.',tag2:'#회복'},
+    {title:'항암하면서 직장 다닌 경험 공유합니다.',excerpt:'항암 중에 재택근무와 병행하면서 터득한 노하우를 나눕니다. 일정 조율, 상사와의 소통 방법 등 실질적인 팁 공유할게요.',tag2:'#직장생활'},
+    {title:'재발 후 2차 치료, 6개월 만에 관해 달성했어요.',excerpt:'재발 판정을 받았을 때 얼마나 절망스러웠는지 몰라요. 하지만 2차 치료를 꾸준히 받은 결과 관해를 확인했습니다. 포기하지 마세요.',tag2:'#재발'},
+    {title:'임상시험 참여 후 현재 무병 상태 1년 됐어요.',excerpt:'임상시험 참여를 결정하기까지 많이 고민했어요. 결과적으로 좋은 선택이었고, 1년째 무병 상태를 유지하고 있습니다.',tag2:'#임상시험'},
+    {title:'30대에 진단, 지금은 5년 생존자입니다.',excerpt:'30대 초반에 진단받아 모든 게 무너지는 느낌이었어요. 5년이 지난 지금 이렇게 후기를 쓸 수 있어서 감사합니다.',tag2:'#5년생존'},
+    {title:'항암 식단 6개월 실천 후 체중 회복 성공기.',excerpt:'항암 중 급격히 빠진 체중을 식단 관리로 회복한 경험을 공유합니다. 먹기 편하고 영양 많은 레시피들 알려드릴게요.',tag2:'#식단관리'},
+    {title:'호르몬 치료 3년차, 부작용 관리 노하우.',excerpt:'장기 호르몬 치료 중 겪은 다양한 부작용들과 그것을 이겨낸 방법을 소개합니다. 비슷한 상황의 분들께 도움이 됐으면 해요.',tag2:'#장기치료'},
+    {title:'수술 흉터 관리, 1년 후 이렇게 달라졌어요.',excerpt:'수술 직후 걱정됐던 흉터가 1년간 꾸준히 관리한 결과 많이 옅어졌어요. 사용한 제품과 마사지 방법을 공유합니다.',tag2:'#흉터관리'},
+    {title:'항암 중 운동, 가능할까요? 제 경험입니다.',excerpt:'항암하면서 가벼운 운동을 꾸준히 했어요. 처음엔 걷기부터 시작해서 지금은 수영까지 하고 있습니다. 운동의 효과가 정말 컸어요.',tag2:'#운동'},
+  ];
+  const CHEER_POSTS = [
+    {title:'오늘도 힘든 하루를 견뎌낸 우리 모두를 응원합니다.',excerpt:'병동 창밖을 보며 문득 환우분들 생각이 났어요. 지금 이 고통도 결국 지나갈 과정이라 믿습니다. 우리 서로 손잡고 끝까지 포기하지 말아요.',tag2:'#응원'},
+    {title:'항암 마지막 날, 가족 모두 눈물이 났어요.',excerpt:'힘든 시간이었지만 끝까지 함께 버텨준 이 커뮤니티에 감사해요. 앞으로도 회복 과정 같이 나눌게요. 모든 환우분들 파이팅!',tag2:'#가족'},
+    {title:'치료 중에 찾은 작은 행복들을 나눕니다.',excerpt:'병원 창가에 핀 꽃, 맛있는 죽 한 그릇, 간호사 선생님의 따뜻한 말 한마디. 이런 작은 것들이 하루를 버티게 해줬어요.',tag2:'#일상'},
+    {title:'검사 결과 기다리는 모든 분들에게.',excerpt:'그 두렵고 긴 기다림의 시간을 알아요. 결과가 무엇이든 우리는 이미 충분히 용감하게 싸우고 있습니다. 함께라는 걸 기억해주세요.',tag2:'#위로'},
+    {title:'5년 전 오늘, 진단받은 날을 생각하며.',excerpt:'그때의 나에게 이 한마디를 전하고 싶어요. 괜찮아, 결국 이겨낸다고. 지금 힘든 분들도 꼭 그 날이 올 거예요.',tag2:'#5주년'},
+    {title:'보호자로서 2년을 보내며 느낀 것들.',excerpt:'엄마 곁에서 치료를 함께하며 배운 것들이 많아요. 보호자 여러분, 본인도 지치지 않는 게 중요합니다. 우리도 서로 의지해요.',tag2:'#보호자'},
+    {title:'오늘 마지막 방사선 치료를 마쳤습니다!',excerpt:'30번의 방사선 치료가 드디어 끝났어요. 매일 병원에 오는 게 힘들었지만 의료진 덕분에 버텼어요. 이제 회복만 남았네요 :)',tag2:'#방사선완료'},
+    {title:'병실에서 친구가 된 환우분과의 이야기.',excerpt:'입원 중 옆 침대 환우분과 나눈 대화들이 너무 큰 위로가 됐어요. 같은 고통을 겪는 사람의 말은 다르게 와닿더라고요.',tag2:'#병실친구'},
+    {title:'봄이 오면 꼭 다시 걸어보고 싶은 길.',excerpt:'항암 중에도 마음속에 그리던 장소가 있어요. 치료가 끝나면 꼭 가보고 싶은 곳. 여러분의 버킷리스트는 무엇인가요?',tag2:'#희망'},
+    {title:'새벽에 혼자 울다가 이 글을 씁니다.',excerpt:'모두 자는 새벽에 통증과 불안으로 잠들지 못하고 있어요. 여기 계신 분들이 같은 밤을 보내고 있다는 게 위로가 됩니다.',tag2:'#새벽'},
+  ];
+
+  const CATS = [
+    {id:'symptom',label:'증상 질문',badgeClass:'badge--symptom',cardClass:'post-card--symptom',posts:SYMPTOM_POSTS},
+    {id:'case',label:'희망 사례',badgeClass:'badge--case',cardClass:'post-card--case',posts:CASE_POSTS},
+    {id:'cheer',label:'따뜻한 응원',badgeClass:'badge--cheer',cardClass:'post-card--cheer',posts:CHEER_POSTS},
+  ];
+  const ROLES = ['환자','보호자','환자'];
+  const USER_PREFIXES = ['환우','환자','보호자'];
+  const HASH_IDS = ['a1b','c2d','e3f','g4h','i5j','k6l','m7n','o8p','q9r','s0t','u1v','w2x'];
+  function rnd(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+  function seededVal(seed,mod){return((seed*1103515245+12345)&0x7fffffff)%mod;}
+
+  const ALL_POSTS = [];
+  for(let i=0;i<136;i++){
+    const catIdx=seededVal(i*7+3,3);const cat=CATS[catIdx];
+    const disIdx=seededVal(i*13+5,DISEASES.length);const dis=DISEASES[disIdx];
+    const postTemplate=cat.posts[seededVal(i*11,cat.posts.length)];
+    const roleIdx=seededVal(i*17,3);
+    const userPrefix=USER_PREFIXES[seededVal(i*19,3)];
+    const hashId=HASH_IDS[seededVal(i*23,HASH_IDS.length)];
+    const expertAns=catIdx===0?seededVal(i*29,5):0;
+    const hearts=catIdx===2?10+Math.floor(Math.abs(Math.sin(i*2.7))*390):(catIdx===1?Math.floor(Math.abs(Math.sin(i*3.1))*80):0);
+    const views=50+Math.floor(Math.abs(Math.sin(i*1.3))*550);
+    ALL_POSTS.push({
+      id:i,cat:cat.id,catLabel:cat.label,badgeClass:cat.badgeClass,cardClass:cat.cardClass,
+      disease:dis.id,diseaseLabel:dis.label,diseaseTag:dis.tag,
+      title:postTemplate.title,excerpt:postTemplate.excerpt,tag2:postTemplate.tag2,
+      author:`@${userPrefix}_${hashId}`,role:ROLES[roleIdx],views,expertAns,hearts,
+    });
+  }
+
+  // ── 본문 자동 생성 ──────────────────────────
+  const BODY_TEMPLATES = {
+    symptom: [
+      '안녕하세요, {disease} 치료 중인 {role}입니다.\n\n{excerpt}\n\n현재 {stage} 단계에 있는데, 비슷한 경험을 하신 분들의 조언이 정말 필요합니다.\n\n주치의 상담은 다음 주에 예정되어 있는데, 그 전에 일상에서 할 수 있는 것들이 있을까요?\n\n혹시 비슷한 증상을 겪으신 분이 계시다면 어떻게 대처하셨는지 경험을 나눠주시면 정말 감사하겠습니다.\n\n모두 건강하시길 바랍니다.',
+      '처음 글을 올려봅니다.\n\n{disease} 진단을 받고 치료를 시작한 지 얼마 안 됐는데요.\n\n{excerpt}\n\n병원에서는 크게 걱정하지 말라고 하셨는데, 실제로 겪어보니 일상생활에 영향이 큽니다.\n\n다른 {role}분들은 이런 상황에서 어떻게 하셨나요? 식이요법이나 생활습관 변화로 도움이 된 것이 있으면 알려주세요.\n\n감사합니다.',
+    ],
+    case: [
+      '오랜만에 좋은 소식을 가지고 왔습니다!\n\n{disease} 진단을 받은 지 어느덧 시간이 흘렀네요.\n\n{excerpt}\n\n치료 과정이 정말 힘들었지만, 이 커뮤니티에서 얻은 정보와 응원이 정말 큰 힘이 되었습니다.\n\n제가 도움을 받았던 것들을 정리해볼게요:\n\n1. 충분한 수분 섭취와 균형 잡힌 식단\n2. 무리하지 않는 선에서의 가벼운 운동\n3. 정기적인 검진과 주치의와의 소통\n4. 마음을 나눌 수 있는 커뮤니티의 존재\n\n지금 힘든 시간을 보내고 계신 분들에게 조금이나마 희망이 되길 바랍니다.\n\n우리 모두 이겨낼 수 있습니다!',
+      '제 경험이 누군가에게 도움이 될까 하여 글을 남깁니다.\n\n{excerpt}\n\n{disease} 치료 여정에서 가장 중요했던 것은 포기하지 않는 마음이었습니다.\n\n물론 쉽지 않았어요. 항암 부작용으로 며칠씩 아무것도 못 한 날도 있었고, 새벽에 혼자 울었던 날도 많았습니다.\n\n하지만 의료진을 믿고 한 걸음씩 나아갔더니, 결국 여기까지 올 수 있었습니다.\n\n같은 길을 걷고 계신 모든 분들을 진심으로 응원합니다.',
+    ],
+    cheer: [
+      '{excerpt}\n\n{disease} 치료를 받고 계신 모든 분들에게 이 글을 전합니다.\n\n우리는 혼자가 아닙니다. 같은 아픔을 겪고 있는 사람들이 여기에 함께 있어요.\n\n힘들 때 이 곳에 와서 이야기를 나눠주세요. 때로는 아무 말 없이 있어도 괜찮아요.\n\n오늘 하루도 수고하셨습니다. 내일은 오늘보다 조금 더 나은 하루가 되길 진심으로 바랍니다.',
+      '이 글을 읽고 계신 분들에게.\n\n{excerpt}\n\n치료라는 긴 터널 속에서 출구가 보이지 않을 때가 있습니다.\n\n그런 순간에도 한 발짝씩 걸어가고 있는 여러분은 정말 대단합니다.\n\n{disease} 환우분들, 보호자분들 모두 지금 이 순간에도 충분히 잘 하고 계세요.\n\n함께라면 이겨낼 수 있습니다. 파이팅!',
+    ],
+  };
+
+  const STAGES = ['진단/검사 중','수술 전후','항암 치료 중','방사선 치료 중','호르몬/표적 치료 중','치료 완료/회복 중','추적 관찰 중'];
+
+  function generateBody(post) {
+    const templates = BODY_TEMPLATES[post.cat] || BODY_TEMPLATES.symptom;
+    const tmpl = templates[post.id % templates.length];
+    const stage = STAGES[post.id % STAGES.length];
+    return tmpl
+      .replace(/\{disease\}/g, post.diseaseLabel)
+      .replace(/\{role\}/g, post.role)
+      .replace(/\{excerpt\}/g, post.excerpt)
+      .replace(/\{stage\}/g, stage);
+  }
+
+  // ── 샘플 댓글 ─────────────────────────────
+  const COMMENT_TEMPLATES = [
+    {u:'@환우_m7n', role:'환자', text:'저도 비슷한 경험이 있어요. 처음엔 정말 힘들었는데 시간이 지나니 조금씩 나아졌습니다. 힘내세요!', likes:12},
+    {u:'@보호자_c2d', role:'보호자', text:'정말 유익한 글이네요. 저희 가족한테도 큰 도움이 됩니다. 감사합니다.', likes:8},
+    {u:'@환자_g4h', role:'환자', text:'주치의 선생님께도 한번 여쭤보시는 걸 추천드려요. 저는 상담 후 많이 안심이 됐거든요.', likes:15},
+    {u:'@환우_s0t', role:'환자', text:'공감이 많이 됩니다. 우리 모두 함께 이겨내요!', likes:22},
+    {u:'@보호자_a1b', role:'보호자', text:'좋은 정보 감사합니다. 북마크 해두고 자주 와서 읽을게요.', likes:6},
+  ];
+
+  // ── URL 파라미터에서 게시글 가져오기 ────────
+  const params = new URLSearchParams(location.search);
+  const postId = parseInt(params.get('id')) || 0;
+  const post = ALL_POSTS[postId] || ALL_POSTS[0];
+  document.title = post.title + ' — v.care';
+
+  // ── 게시글 본문 렌더링 ─────────────────────
+  const body = generateBody(post);
+  const dateStr = '2026.03.' + String(7 + (post.id % 5)).padStart(2,'0');
+  const numComments = 2 + (post.id % 4);
+  const comments = [];
+  for(let i = 0; i < numComments; i++) {
+    const c = COMMENT_TEMPLATES[i % COMMENT_TEMPLATES.length];
+    comments.push({...c, likes: c.likes + (post.id * (i+1)) % 10});
+  }
+
+  const HEART_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+  document.getElementById('postArea').innerHTML = `
+    <!-- 상단 카드 -->
+    <div class="post-detail-card">
+      <div class="post-detail-top">
+        <div class="post-detail-top-left">
+          <span class="post-badge ${post.badgeClass}">${post.catLabel}</span>
+          <span class="post-disease-badge">${post.diseaseLabel}</span>
+        </div>
+        <div class="post-detail-actions">
+          <button class="pd-btn pd-btn--edit">수정</button>
+          <button class="pd-btn pd-btn--delete">삭제</button>
+        </div>
+      </div>
+
+      <h1 class="post-detail-title">${post.title}</h1>
+
+      <div class="post-detail-meta">
+        <span class="pd-author">${post.author} · ${post.role}</span>
+        <span class="pd-date">${dateStr}</span>
+        <span class="pd-views">조회 ${post.views}</span>
+      </div>
+
+      <!-- 좋아요 (상단) -->
+      <div class="post-detail-like">
+        <button class="pd-like-btn" id="likeBtn">
+          ${HEART_SVG}
+          <span>좋아요</span>
+          <strong id="likeCount">${post.hearts || Math.floor(Math.abs(Math.sin(post.id * 2.1)) * 50)}</strong>
+        </button>
+      </div>
+    </div>
+
+    <!-- 본문 -->
+    <div class="post-detail-body">
+      ${body.split('\n').map(line => line ? `<p>${line}</p>` : '<br>').join('')}
+    </div>
+
+    <!-- 태그 -->
+    <div class="post-detail-tags">
+      <span class="tag">${post.diseaseTag}</span>
+      <span class="tag">${post.tag2}</span>
+    </div>
+
+    <!-- 응원해요 / 유익해요 (하단) -->
+    <div class="post-detail-reactions">
+      <button class="pd-reaction" id="cheerBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 11v8a2 2 0 002 2h6.6a2 2 0 001.94-1.52l1.72-7A2 2 0 0017.32 10H14V6a2 2 0 00-2-2h0a1 1 0 00-1 1v2L9 11H7z"/><rect x="2" y="11" width="5" height="10" rx="1"/></svg>
+        <span>응원해요</span>
+        <strong id="cheerCount">${12 + post.id % 30}</strong>
+      </button>
+      <button class="pd-reaction" id="usefulBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+        <span>유익해요</span>
+        <strong id="usefulCount">${8 + post.id % 20}</strong>
+      </button>
+    </div>
+
+    <!-- 구분선 -->
+    <hr class="post-divider">
+
+    <!-- 답변 남기기 -->
+    <div class="post-comments-section">
+      <h3 class="comments-title">답변 <strong>${numComments}</strong></h3>
+
+      <div class="comment-write">
+        <div class="comment-write-avatar">${post.author[1]}</div>
+        <div class="comment-write-input-wrap">
+          <textarea class="comment-write-input" id="commentInput" rows="3" placeholder="경험이나 응원의 말씀을 남겨주세요."></textarea>
+          <button class="comment-write-btn" id="commentBtn">답변 남기기</button>
+        </div>
+      </div>
+
+      <div class="comment-list" id="commentList">
+        ${comments.map(c => `
+          <div class="comment-item">
+            <div class="comment-avatar">${c.u[1]}</div>
+            <div class="comment-body">
+              <div class="comment-meta">
+                <span class="comment-author">${c.u}</span>
+                <span class="comment-role">${c.role}</span>
+                <span class="comment-date">${dateStr}</span>
+              </div>
+              <p class="comment-text">${c.text}</p>
+              <button class="comment-like">
+                ${HEART_SVG} <span>${c.likes}</span>
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // ── AI 유사글 추천 ─────────────────────────
+  function findSimilar(post) {
+    return ALL_POSTS.filter(p =>
+      p.id !== post.id && (p.disease === post.disease || p.cat === post.cat)
+    ).sort((a,b) => {
+      const scoreA = (a.disease === post.disease ? 2 : 0) + (a.cat === post.cat ? 1 : 0);
+      const scoreB = (b.disease === post.disease ? 2 : 0) + (b.cat === post.cat ? 1 : 0);
+      return scoreB - scoreA;
+    }).slice(0, 5);
+  }
+
+  const similar = findSimilar(post);
+  document.getElementById('aiSimilar').innerHTML = `
+    <div class="ai-similar-intro">
+      이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.
+    </div>
+    ${similar.map(s => `
+      <a href="post.html?id=${s.id}" class="ai-similar-card">
+        <div class="ai-similar-badge-row">
+          <span class="post-badge ${s.badgeClass}" style="font-size:.65rem;padding:2px 7px;">${s.catLabel}</span>
+          <span class="ai-similar-disease">${s.diseaseLabel}</span>
+        </div>
+        <div class="ai-similar-title">${s.title}</div>
+        <div class="ai-similar-meta">${s.author} · 조회 ${s.views}</div>
+      </a>
+    `).join('')}
+  `;
+
+  // ── 인터랙션 ──────────────────────────────
+  // 좋아요
+  document.getElementById('likeBtn').addEventListener('click', function() {
+    this.classList.toggle('pd-like-btn--active');
+    const cnt = document.getElementById('likeCount');
+    const active = this.classList.contains('pd-like-btn--active');
+    cnt.textContent = parseInt(cnt.textContent) + (active ? 1 : -1);
+  });
+
+  // 응원해요
+  document.getElementById('cheerBtn').addEventListener('click', function() {
+    this.classList.toggle('pd-reaction--active');
+    const cnt = document.getElementById('cheerCount');
+    const active = this.classList.contains('pd-reaction--active');
+    cnt.textContent = parseInt(cnt.textContent) + (active ? 1 : -1);
+  });
+
+  // 유익해요
+  document.getElementById('usefulBtn').addEventListener('click', function() {
+    this.classList.toggle('pd-reaction--active');
+    const cnt = document.getElementById('usefulCount');
+    const active = this.classList.contains('pd-reaction--active');
+    cnt.textContent = parseInt(cnt.textContent) + (active ? 1 : -1);
+  });
+
+  // 댓글 작성
+  document.getElementById('commentBtn').addEventListener('click', () => {
+    const input = document.getElementById('commentInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const now = new Date();
+    const ts = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+    const html = `
+      <div class="comment-item comment-item--new">
+        <div class="comment-avatar">나</div>
+        <div class="comment-body">
+          <div class="comment-meta">
+            <span class="comment-author">나</span>
+            <span class="comment-role">환자</span>
+            <span class="comment-date">${ts}</span>
+          </div>
+          <p class="comment-text">${text}</p>
+          <button class="comment-like">${HEART_SVG} <span>0</span></button>
+        </div>
+      </div>`;
+    document.getElementById('commentList').insertAdjacentHTML('afterbegin', html);
+    input.value = '';
+    // 댓글 수 업데이트
+    const titleEl = document.querySelector('.comments-title strong');
+    titleEl.textContent = parseInt(titleEl.textContent) + 1;
+  });
+
+  // 수정/삭제 (데모)
+  document.querySelector('.pd-btn--edit')?.addEventListener('click', () => {
+    window.location.href = 'write.html';
+  });
+  document.querySelector('.pd-btn--delete')?.addEventListener('click', () => {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      alert('게시글이 삭제되었습니다.');
+      window.location.href = 'community.html';
+    }
+  });
+
+  // 댓글 좋아요
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.comment-like');
+    if (!btn) return;
+    btn.classList.toggle('comment-like--active');
+    const span = btn.querySelector('span');
+    const active = btn.classList.contains('comment-like--active');
+    span.textContent = parseInt(span.textContent) + (active ? 1 : -1);
+  });
+
+  // 햄버거
+  const hamBtn = document.getElementById('hamBtn');
+  if(hamBtn) hamBtn.addEventListener('click',()=>document.body.classList.toggle('drawer-open'));
+</script>
+</body>
+</html>
