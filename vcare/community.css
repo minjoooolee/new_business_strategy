@@ -210,16 +210,16 @@
   border-color: #e5e7eb;
 }
 
-/* 사례 공유 — 민트 그린 */
+/* 사례 공유 — 민트 그린 보더 */
 .post-card--case {
-  background: #f0fdf4;
-  border-color: #bbf7d0;
+  background: #fff;
+  border-color: #86efac;
 }
 
-/* 응원/일상 — 로즈 핑크 */
+/* 응원/일상 — 로즈 핑크 보더 */
 .post-card--cheer {
-  background: #fff1f2;
-  border-color: #fecdd3;
+  background: #fff;
+  border-color: #fda4af;
 }
 
 /* ── 카드 상단 (배지 + 작성자 + 조회수) ────── */
