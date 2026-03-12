@@ -7036,13 +7036,19 @@ applyHash(window.location.hash || '#goal');
     });
   }
 
-  // nav-pill 클릭 시 대상 섹션을 즉시 visible로 처리 (opacity:0 상태에서 보이지 않는 버그 방지)
+  // nav-pill 클릭 시 hash 라우터 간섭 방지 + 대상 섹션 즉시 visible 처리
   document.querySelectorAll('.cd-nav-pill').forEach(function(pill) {
-    pill.addEventListener('click', function() {
+    pill.addEventListener('click', function(e) {
+      e.preventDefault();
       var href = pill.getAttribute('href');
       if (!href || !href.startsWith('#')) return;
       var target = document.getElementById(href.slice(1));
-      if (target) target.classList.add('visible');
+      if (!target) return;
+      // 대상까지의 모든 cd-section을 visible 처리 (위쪽 섹션이 아직 opacity:0인 경우 방지)
+      document.querySelectorAll('.cd-section').forEach(function(s) {
+        s.classList.add('visible');
+      });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
