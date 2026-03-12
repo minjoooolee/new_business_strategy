@@ -96,23 +96,25 @@
   gap: 6px;
 }
 
+.df-nav {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 .df-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-  background: #fff;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  background: #111827;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: border-color .15s, box-shadow .15s;
+  transition: opacity .15s;
 }
-.df-arrow:hover {
-  border-color: #9ca3af;
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-}
+.df-arrow:hover { opacity: .75; }
 
 .disease-filter {
   display: flex;
