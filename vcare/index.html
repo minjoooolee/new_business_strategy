@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>브이케어 - 지능형 의료 전문 커뮤니티</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ========== GNB ========== -->
+  <header class="gnb">
+    <div class="gnb-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">V</span>
+        <span class="logo-text">care</span>
+      </a>
+      <nav class="gnb-nav">
+        <ul class="gnb-menu">
+          <li><a href="#" class="active">홈</a></li>
+          <li><a href="#">피드</a></li>
+          <li><a href="#">질환별 커뮤니티</a></li>
+          <li><a href="#">검사결과지 설명</a></li>
+          <li><a href="#">문의사항</a></li>
+        </ul>
+      </nav>
+      <div class="gnb-right">
+        <a href="#" class="btn-login">로그인</a>
+        <button class="mobile-menu-btn" aria-label="메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 히어로 배너 ========== -->
+  <section class="hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-sub">의료진과 함께하는 지능형 커뮤니티</p>
+      <h1 class="hero-title">
+        <span class="hero-logo-icon">V</span>care
+      </h1>
+      <p class="hero-desc">전문 의료진과 함께 건강 정보를 나누고,<br>맞춤형 건강 관리를 시작하세요.</p>
+      <a href="#" class="hero-cta">커뮤니티 시작하기</a>
+    </div>
+    <div class="hero-doctors">
+      <div class="doctor-card">
+        <div class="doctor-avatar">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="14" fill="#c2d7f0"/><ellipse cx="40" cy="62" rx="22" ry="16" fill="#c2d7f0"/><circle cx="40" cy="28" r="10" fill="#8bb0d9"/><rect x="34" y="18" width="12" height="3" rx="1.5" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <span class="doctor-name">김민수 교수</span>
+        <span class="doctor-dept">외과 전문의</span>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="14" fill="#d4c2f0"/><ellipse cx="40" cy="62" rx="22" ry="16" fill="#d4c2f0"/><circle cx="40" cy="28" r="10" fill="#a98bd9"/><rect x="34" y="18" width="12" height="3" rx="1.5" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <span class="doctor-name">이서연 교수</span>
+        <span class="doctor-dept">내과 전문의</span>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="14" fill="#c2f0d4"/><ellipse cx="40" cy="62" rx="22" ry="16" fill="#c2f0d4"/><circle cx="40" cy="28" r="10" fill="#8bd9a9"/><rect x="34" y="18" width="12" height="3" rx="1.5" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <span class="doctor-name">박정훈 교수</span>
+        <span class="doctor-dept">소아과 전문의</span>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="14" fill="#f0d4c2"/><ellipse cx="40" cy="62" rx="22" ry="16" fill="#f0d4c2"/><circle cx="40" cy="28" r="10" fill="#d9a98b"/><rect x="34" y="18" width="12" height="3" rx="1.5" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <span class="doctor-name">최유진 교수</span>
+        <span class="doctor-dept">심장내과 전문의</span>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="14" fill="#f0c2e0"/><ellipse cx="40" cy="62" rx="22" ry="16" fill="#f0c2e0"/><circle cx="40" cy="28" r="10" fill="#d98bb8"/><rect x="34" y="18" width="12" height="3" rx="1.5" fill="#fff" opacity=".5"/></svg>
+        </div>
+        <span class="doctor-name">정하늘 교수</span>
+        <span class="doctor-dept">종양내과 전문의</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 질환별 카테고리 ========== -->
+  <section class="disease-section">
+    <div class="container">
+      <h2 class="section-title">질환별 커뮤니티</h2>
+      <p class="section-desc">관심 있는 질환을 선택하고 전문 의료진과 함께 소통하세요</p>
+
+      <!-- 암 질환 -->
+      <div class="disease-group">
+        <h3 class="group-title">
+          <span class="group-icon cancer-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 3-2 5.5-4 7l-3 3.5L9 16c-2-1.5-4-4-4-7a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2"/></svg>
+          </span>
+          암 질환
+        </h3>
+        <div class="disease-grid">
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #FF6B9D;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><path d="M24 42s-16-10.6-16-22a10 10 0 0 1 16-8 10 10 0 0 1 16 8c0 11.4-16 22-16 22z" fill="currentColor" opacity=".2"/><path d="M24 42s-16-10.6-16-22a10 10 0 0 1 16-8 10 10 0 0 1 16 8c0 11.4-16 22-16 22z" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">유방암</span>
+            <span class="disease-count">1,240명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #FF8C42;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><rect x="14" y="8" width="20" height="32" rx="8" fill="currentColor" opacity=".2"/><rect x="14" y="8" width="20" height="32" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 20h12M18 28h12" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">위암</span>
+            <span class="disease-count">980명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #4ECDC4;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><path d="M10 16c0 0 4 20 14 24c10-4 14-24 14-24" fill="currentColor" opacity=".2"/><path d="M10 16c0 0 4 20 14 24c10-4 14-24 14-24" stroke="currentColor" stroke-width="2"/><path d="M18 24h12" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">대장암</span>
+            <span class="disease-count">870명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #A855F7;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><path d="M16 10h16l4 14-4 14H16l-4-14z" fill="currentColor" opacity=".2"/><path d="M16 10h16l4 14-4 14H16l-4-14z" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">간암</span>
+            <span class="disease-count">650명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #06B6D4;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><ellipse cx="24" cy="20" rx="8" ry="6" fill="currentColor" opacity=".2"/><ellipse cx="24" cy="20" rx="8" ry="6" stroke="currentColor" stroke-width="2"/><path d="M20 26c-2 4-2 8 0 12M28 26c2 4 2 8 0 12" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">갑상선암</span>
+            <span class="disease-count">1,100명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #6366F1;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><ellipse cx="18" cy="24" rx="10" ry="14" fill="currentColor" opacity=".2"/><ellipse cx="30" cy="24" rx="10" ry="14" fill="currentColor" opacity=".2"/><ellipse cx="18" cy="24" rx="10" ry="14" stroke="currentColor" stroke-width="2"/><ellipse cx="30" cy="24" rx="10" ry="14" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">폐암</span>
+            <span class="disease-count">920명 참여</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 만성 질환 -->
+      <div class="disease-group">
+        <h3 class="group-title">
+          <span class="group-icon chronic-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </span>
+          만성 질환
+        </h3>
+        <div class="disease-grid">
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #F59E0B;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><circle cx="24" cy="24" r="14" fill="currentColor" opacity=".2"/><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2"/><path d="M18 18c0 0 2-2 6-2s6 2 6 2" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="22" r="2" fill="currentColor"/><circle cx="30" cy="22" r="2" fill="currentColor"/><path d="M20 30c2 2 6 2 8 0" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">알러지</span>
+            <span class="disease-count">2,300명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #EF4444;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><path d="M24 8v32M16 16l16 16M32 16L16 32" stroke="currentColor" stroke-width="2" opacity=".3"/><circle cx="24" cy="24" r="8" fill="currentColor" opacity=".2"/><circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2"/><path d="M20 24h8M24 20v8" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">당뇨</span>
+            <span class="disease-count">3,450명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #EC4899;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><path d="M24 42s-14-9-14-20a8.5 8.5 0 0 1 14-6.5A8.5 8.5 0 0 1 38 22c0 11-14 20-14 20z" fill="currentColor" opacity=".2"/><path d="M24 42s-14-9-14-20a8.5 8.5 0 0 1 14-6.5A8.5 8.5 0 0 1 38 22c0 11-14 20-14 20z" stroke="currentColor" stroke-width="2"/><path d="M16 24h16M20 20l8 8M28 20l-8 8" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>
+            </div>
+            <span class="disease-name">심혈관</span>
+            <span class="disease-count">1,870명 참여</span>
+          </a>
+          <a href="#" class="disease-card">
+            <div class="disease-icon" style="--card-color: #10B981;">
+              <svg viewBox="0 0 48 48" width="32" height="32" fill="none"><path d="M24 40V20" stroke="currentColor" stroke-width="2"/><path d="M16 28l8-8 8 8" stroke="currentColor" stroke-width="2"/><path d="M18 40h12" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="14" r="6" fill="currentColor" opacity=".2"/><circle cx="24" cy="14" r="6" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <span class="disease-name">소아성장</span>
+            <span class="disease-count">1,560명 참여</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 푸터 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <span class="logo-icon">V</span><span class="logo-text">care</span>
+        </div>
+        <p class="footer-copy">&copy; 2026 VCare. 지능형 의료 전문 커뮤니티. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 모바일 메뉴 -->
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <span class="logo-icon">V</span><span class="logo-text">care</span>
+      <button class="mobile-close-btn" aria-label="메뉴 닫기">&times;</button>
+    </div>
+    <ul class="mobile-menu">
+      <li><a href="#" class="active">홈</a></li>
+      <li><a href="#">피드</a></li>
+      <li><a href="#">질환별 커뮤니티</a></li>
+      <li><a href="#">검사결과지 설명</a></li>
+      <li><a href="#">문의사항</a></li>
+      <li><a href="#" class="mobile-login">로그인</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    // 모바일 메뉴 토글
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const closeBtn = document.querySelector('.mobile-close-btn');
+    const mobileNav = document.getElementById('mobileNav');
+    const overlay = document.getElementById('mobileOverlay');
+
+    function openMenu() {
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // GNB 스크롤 효과
+    const gnb = document.querySelector('.gnb');
+    window.addEventListener('scroll', () => {
+      gnb.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
