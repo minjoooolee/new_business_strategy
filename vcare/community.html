@@ -323,6 +323,22 @@
     });
   }
 
+  // ── 질환별 게시글 AI 요약 ──────────────────
+  const POST_SUMMARIES = {
+    breast:   '유방암 게시판에서는 항암 부작용(손발 저림·구역감·탈모) 관리, 호르몬 치료 경험, 항암 중 식단과 운동에 대한 대화가 활발합니다. 완치 후기와 장기 치료 노하우도 꾸준히 공유되고 있어요.',
+    stomach:  '위암 게시판에서는 수술 후 소화 문제와 식이요법, 덤핑증후군 대처, 체중 회복에 대한 실전 팁이 주로 공유됩니다. 식사 방법과 영양 관리에 관한 질문이 가장 많아요.',
+    colon:    '대장암 게시판에서는 항암 부작용(말초신경병증·손발 저림), 수술 후 장 기능 회복, 그리고 항암 완주 축하 글이 활발하게 올라옵니다. 서로 응원하는 따뜻한 분위기예요.',
+    liver:    '간암 게시판에서는 표적치료제(소라페닙 등) 부작용 관리, 복수 증상 대처, 간 기능 수치 변화에 대한 경험이 공유됩니다. 약물 부작용 실전 대처법이 인기 주제예요.',
+    thyroid:  '갑상선암 게시판에서는 수술 후 목소리 변화·회복, 호르몬제 복용 관리, 방사성요오드 치료 경험이 주요 화제입니다. 비교적 예후가 좋아 회복 후기도 많이 올라와요.',
+    lung:     '폐암 게시판에서는 면역항암제·표적치료제 부작용, 호흡 관리, 장기 항암 완주 경험이 공유됩니다. 12차 이상 장기 항암을 이겨낸 분들의 후기가 큰 응원이 되고 있어요.',
+    allergy:  '알러지 게시판에서는 계절별 알러지 대처법, 항히스타민제 복용 팁, 코 세척·환경 관리 노하우가 공유됩니다. 봄·가을 시즌에 특히 활발해져요.',
+    diabetes: '당뇨 게시판에서는 혈당 조절 실전 팁(식후 걷기·식사 순서), 약물 관리, 합병증 예방에 대한 대화가 활발합니다. 일상에서 바로 적용 가능한 노하우가 인기 있어요.',
+    cardio:   '심혈관 게시판에서는 심장재활 운동, 약물 복용 관리, 생활습관 개선 경험이 주로 공유됩니다. 안전한 운동 시작 방법에 대한 질문이 가장 많아요.',
+    pediatric:'소아성장 게시판에서는 성장호르몬 치료 경험, 투여 방법, 수면·운동·영양 관리 팁이 공유됩니다. 부모님들의 실질적인 경험담이 활발히 올라오고 있어요.',
+    pancreas: '췌장암 게시판에서는 항암 치료 과정, 통증 관리, 소화 효소제 복용 경험이 공유됩니다. 치료 선택지와 임상시험 정보에 대한 질문도 활발해요.',
+    prostate: '전립선암 게시판에서는 호르몬 치료·방사선 치료 경험, 수술 후 생활 변화, PSA 수치 추적에 대한 대화가 이루어지고 있습니다. 비교적 느린 진행의 특성상 장기 관리 노하우가 많아요.',
+  };
+
   // ── 페이지네이션 + 필터 ────────────────────
   const PAGE_SIZE = 10;
   let currentPage = 1;
@@ -408,11 +424,27 @@
     });
   }
 
+  function renderAiSummary() {
+    const summary = activeDis === 'all'
+      ? '전체 질환 게시판에는 증상 질문, 치료 경험 공유, 따뜻한 응원이 활발히 이루어지고 있습니다. 항암 부작용 관리·수술 후 회복·식이요법 등 실전 정보부터 완치 축하·새벽 위로까지 다양한 이야기가 오가고 있어요. 관심 있는 질환 탭을 선택하면 더 구체적인 요약을 확인할 수 있습니다.'
+      : POST_SUMMARIES[activeDis] || null;
+    if (!summary) return '';
+    return `
+      <div class="ai-post-summary">
+        <div class="ai-post-summary-header">
+          <div class="ai-post-summary-avatar">AI</div>
+          <span class="ai-post-summary-label">v.care AI 게시글 요약</span>
+        </div>
+        <p class="ai-post-summary-text">${summary}</p>
+      </div>`;
+  }
+
   function renderPage() {
     const filtered = getFiltered();
     const start = (currentPage - 1) * PAGE_SIZE;
     const slice = filtered.slice(start, start + PAGE_SIZE);
-    document.getElementById('postList').innerHTML = slice.map(renderCard).join('');
+    const summaryHtml = currentPage === 1 ? renderAiSummary() : '';
+    document.getElementById('postList').innerHTML = summaryHtml + slice.map(renderCard).join('');
     document.getElementById('postCount').textContent = filtered.length;
     renderPagination(filtered.length, currentPage);
   }
@@ -457,6 +489,20 @@
     { id:'cardio',    name:'심혈관',   online:12, color:'#ec4899', last:'운동 루틴 추천해요' },
     { id:'pediatric', name:'소아성장', online:7,  color:'#10b981', last:'성장호르몬 처방 경험' },
   ];
+
+  // ── 채팅방 입장 시 AI 대화 요약 ──────────────────
+  const ROOM_SUMMARIES = {
+    breast:   '이 채팅방에서는 항암 중 식단 관리에 대한 대화가 이루어졌어요. 보호자_91z님이 항암 중 먹기 좋은 음식을 질문하셨고, 환자_mj2님이 고단백 저자극 식단을 추천해 주셨습니다. 편하게 참여해 주세요!',
+    stomach:  '최근 위암 수술 후 소화 문제에 대한 이야기가 오갔어요. 환자_k77님이 수술 후 소화 어려움을 공유하셨고, 보호자_8a4님이 경험을 나눠주셨습니다. 비슷한 경험이 있으시면 자유롭게 대화에 참여해 주세요!',
+    colon:    '대장암 3차 항암 완료를 축하하는 분위기예요! 환자_th9님의 항암 완주 소식에 응원 메시지가 이어지고 있습니다. 함께 응원해 주세요!',
+    liver:    '간암 표적치료제(소라페닙)의 손발 부작용 대처법에 대한 대화가 진행됐어요. 실제 경험담과 관리 팁이 공유되고 있습니다.',
+    thyroid:  '갑상선 수술 후 목소리 변화에 대한 경험을 나누고 있어요. 회복 기간과 대처 방법에 대한 이야기가 오가고 있습니다.',
+    lung:     '폐암 항암 12차 완주를 축하하는 대화가 이루어졌어요! 치료 완료 후 관리에 대한 정보도 공유되고 있습니다.',
+    allergy:  '봄철 알러지 시즌을 맞아 증상 대처와 예방법에 대한 대화가 진행 중이에요.',
+    diabetes: '식후 걷기와 식사 순서 조절 등 혈당 관리 실전 팁이 공유되고 있어요. 효과적인 방법들을 함께 나눠보세요!',
+    cardio:   '심혈관 질환 후 안전한 운동 시작 방법에 대한 대화가 오갔어요. 심장재활 프로그램에 대한 정보가 공유되었습니다.',
+    pediatric:'소아 성장호르몬 치료 경험에 대한 대화가 진행 중이에요. 투여 방법과 생활 관리 팁이 공유되고 있습니다.',
+  };
 
   const SAMPLE_MSGS = {
     breast:   [
@@ -646,6 +692,22 @@
     chatTitle.textContent = room.name + ' 채팅방';
     const msgs = SAMPLE_MSGS[room.id] || [];
     chatMsgs.innerHTML = msgs.map(renderMsg).join('');
+
+    // 채팅방 입장 시 AI 에이전트가 대화 흐름 요약 제공
+    const summary = ROOM_SUMMARIES[room.id];
+    if (summary) {
+      const now = new Date();
+      const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+      const summaryMsg = renderMsg({
+        u: 'v.care AI',
+        t: '📋 <b>대화 요약</b><br>' + summary,
+        ts: ts,
+        mine: false,
+        agent: true,
+      });
+      chatMsgs.insertAdjacentHTML('beforeend', summaryMsg);
+    }
+
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
   }
 
