@@ -325,7 +325,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   margin-top: 28px;
   padding-bottom: 8px;
 }
@@ -334,36 +334,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 6px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 4px;
   font-family: 'Poppins', sans-serif;
-  font-size: .82rem;
+  font-size: .8rem;
   font-weight: 600;
-  color: #6b7280;
-  background: #fff;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all .15s;
+  transition: color .15s, background .15s;
 }
-.pg-btn:hover:not([disabled]) { border-color: #9ca3af; color: #111827; }
-.pg-btn[disabled] { opacity: .35; cursor: default; }
+.pg-btn:hover:not([disabled]) { color: #111827; background: #f3f4f6; }
+.pg-btn[disabled] { opacity: .3; cursor: default; }
+
+.pg-prev,
+.pg-next {
+  background: #111827;
+  color: #fff;
+}
+.pg-prev:hover:not([disabled]),
+.pg-next:hover:not([disabled]) { background: #374151; color: #fff; }
 
 .pg-active {
   background: #111827;
   color: #fff;
-  border-color: #111827;
 }
-.pg-active:hover { background: #111827; color: #fff; }
+.pg-active:hover { background: #111827 !important; color: #fff !important; }
 
 .pg-ellipsis {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  font-size: .82rem;
-  color: #9ca3af;
+  width: 24px;
+  font-size: .8rem;
+  color: #d1d5db;
   user-select: none;
 }
 
