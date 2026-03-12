@@ -383,10 +383,10 @@
   padding: 16px 18px;
   margin-bottom: 16px;
   background:
-    radial-gradient(circle at 0% 100%, #64CCC9 0%, transparent 40%),
-    radial-gradient(circle at 15% 80%, #6E3FA3 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, #E24585 0%, transparent 60%),
-    radial-gradient(circle at 100% 0%, #ffffff 0%, #F9A8C9 40%, #E24585 80%);
+    radial-gradient(circle at 0% 100%, #3fbfbc 0%, rgba(63,191,188,0.6) 30%, transparent 50%),
+    radial-gradient(circle at 18% 75%, #5a2d91 0%, rgba(90,45,145,0.7) 30%, transparent 55%),
+    radial-gradient(circle at 50% 50%, #D6175E 0%, rgba(214,23,94,0.6) 35%, transparent 65%),
+    radial-gradient(circle at 100% 0%, #ffffff 0%, #F48DB4 30%, #D6175E 70%, #B0104A 100%);
 }
 
 .ai-post-summary-header {
