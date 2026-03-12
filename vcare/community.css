@@ -3,7 +3,7 @@
    ============================================================ */
 
 .cm-main {
-  padding-top: calc(var(--gnb-h) + 28px);
+  padding-top: 28px;
   padding-bottom: 56px;
   background: #f3f4f6;
   min-height: 100vh;
