@@ -378,8 +378,8 @@
    AI 게시글 요약 카드
    ============================================================ */
 .ai-post-summary {
-  background: linear-gradient(135deg, #e8d5f5 0%, #dcc8f0 50%, #d4bde8 100%);
-  border: 1px solid #c9a8e0;
+  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 40%, #2B2171 75%, #ffffff 100%);
+  border: 1px solid rgba(107, 63, 163, .3);
   border-radius: 14px;
   padding: 16px 18px;
   margin-bottom: 16px;
@@ -396,7 +396,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 100%);
   color: #fff;
   display: flex;
   align-items: center;
@@ -411,13 +411,15 @@
 .ai-post-summary-label {
   font-size: .78rem;
   font-weight: 700;
-  color: #6b21a8;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
 
 .ai-post-summary-text {
   font-size: .82rem;
   line-height: 1.6;
-  color: #4a1d7a;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.15);
   margin: 0;
 }
 
