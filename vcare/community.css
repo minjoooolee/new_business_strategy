@@ -33,7 +33,7 @@
 }
 
 .cm-subtitle {
-  font-size: .82rem;
+  font-size: .9rem;
   color: #6b7280;
   font-weight: 400;
 }
@@ -49,7 +49,7 @@
   gap: 7px;
   padding: 11px 20px;
   font-family: 'Pretendard', sans-serif;
-  font-size: .82rem;
+  font-size: .9rem;
   font-weight: 700;
   color: #fff;
   background: #111827;
@@ -80,7 +80,7 @@
   border: none;
   outline: none;
   font-family: 'Pretendard', sans-serif;
-  font-size: .84rem;
+  font-size: .95rem;
   color: #374151;
   background: transparent;
 }
@@ -110,7 +110,7 @@
   gap: 4px;
   padding: 7px 16px;
   font-family: 'Pretendard', sans-serif;
-  font-size: .78rem;
+  font-size: .875rem;
   font-weight: 600;
   color: #6b7280;
   background: #fff;
@@ -142,7 +142,7 @@
   gap: 5px;
   padding: 7px 16px;
   font-family: 'Pretendard', sans-serif;
-  font-size: .8rem;
+  font-size: .875rem;
   font-weight: 500;
   color: #6b7280;
   background: #fff;
@@ -217,7 +217,7 @@
   display: inline-flex;
   align-items: center;
   padding: 3px 10px;
-  font-size: .68rem;
+  font-size: .78rem;
   font-weight: 700;
   border-radius: 20px;
 }
@@ -237,7 +237,7 @@
 }
 
 .post-author {
-  font-size: .74rem;
+  font-size: .82rem;
   color: #9ca3af;
 }
 
@@ -245,7 +245,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: .72rem;
+  font-size: .8rem;
   color: #9ca3af;
 }
 
@@ -263,7 +263,7 @@
 }
 
 .post-title {
-  font-size: .95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #111827;
   line-height: 1.45;
@@ -276,7 +276,7 @@
 }
 
 .post-excerpt {
-  font-size: .8rem;
+  font-size: .9rem;
   color: #6b7280;
   line-height: 1.65;
   margin-bottom: 10px;
@@ -293,7 +293,7 @@
 }
 
 .tag {
-  font-size: .7rem;
+  font-size: .8rem;
   color: #9ca3af;
 }
 
@@ -309,7 +309,7 @@
 
 .stat-label {
   font-family: 'Poppins', sans-serif;
-  font-size: .58rem;
+  font-size: .68rem;
   font-weight: 600;
   color: #d1d5db;
   letter-spacing: .3px;
@@ -319,7 +319,7 @@
 /* EXPERT ANS. */
 .post-stat--expert .stat-num {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #d1d5db;
   line-height: 1;
@@ -338,7 +338,7 @@
 
 .hearts-num {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: #f43f5e;
   line-height: 1;
