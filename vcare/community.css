@@ -397,10 +397,7 @@
   height: 28px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 20% 80%, #64CCC9 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, #6E3FA3 0%, transparent 55%),
-    radial-gradient(circle at 80% 30%, #E24585 0%, transparent 50%),
-    radial-gradient(circle at 95% 5%, #ffffff 0%, #F48DB4 30%, #D6175E 100%);
+  linear-gradient(135deg, #64CCC9 0%, #6E3FA3 33%, #E24585 66%, #ffffff 100%);
   color: #fff;
   display: flex;
   align-items: center;
