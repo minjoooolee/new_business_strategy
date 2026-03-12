@@ -310,7 +310,7 @@
       const scoreA = (a.disease === post.disease ? 2 : 0) + (a.cat === post.cat ? 1 : 0);
       const scoreB = (b.disease === post.disease ? 2 : 0) + (b.cat === post.cat ? 1 : 0);
       return scoreB - scoreA;
-    }).slice(0, 5);
+    }).slice(0, 3);
   }
 
   const similar = findSimilar(post);
@@ -325,6 +325,7 @@
           <span class="ai-similar-disease">${s.diseaseLabel}</span>
         </div>
         <div class="ai-similar-title">${s.title}</div>
+        <div class="ai-similar-excerpt">${s.excerpt}</div>
         <div class="ai-similar-meta">${s.author} · 조회 ${s.views}</div>
       </a>
     `).join('')}
