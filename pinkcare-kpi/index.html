@@ -135,6 +135,14 @@
     background: linear-gradient(90deg, var(--accent2), #00ffcc, #7fffef);
     box-shadow: 0 0 10px rgba(0,212,160,0.45);
   }
+  .kdelta {
+    display: inline-flex; align-items: center; gap: 2px;
+    font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace;
+    margin-left: 8px; letter-spacing: -0.3px;
+  }
+  .kdelta.up { color: #00e5b0; }
+  .kdelta.down { color: #ff6b6b; }
+  .kdelta.flat { color: var(--text-dim); }
   .kloop-wrap {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 18px; padding: 26px; margin-bottom: 8px;
@@ -440,7 +448,7 @@
       </div>
       <div class="kkpi-name">핑크케어 유입</div>
       <div class="kkpi-note">SEO 마케팅 의도적 미실시 — 자연 유입·환우 네트워크 중심<br>채널별 전환율 추적 필수 (UTM / 전용 링크 기반)</div>
-      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -458,7 +466,7 @@
       </div>
       <div class="kkpi-name">오픈채팅 참여자 수</div>
       <div class="kkpi-note">액티브 사용자 기준 5배 규모 목표</div>
-      <div class="kkpi-value achieved">64<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">64<span class="kkpi-unit">명</span><span class="kdelta up">+7</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -476,7 +484,7 @@
       </div>
       <div class="kkpi-name">오픈채팅 메시지 수</div>
       <div class="kkpi-note">질문–경험 공유–답변 루프 형성 최소 규모<br>발신자 3명+ &amp; 질문-답변 쌍 10건+</div>
-      <div class="kkpi-value achieved">516<span class="kkpi-unit">건</span></div>
+      <div class="kkpi-value achieved">516<span class="kkpi-unit">건</span><span class="kdelta up">+83</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -489,7 +497,7 @@
         <div>
           <div class="ksub-label">발신자 수</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">51명</div>
+            <div class="ksub-val achieved">51명 <span class="kdelta up">+3</span></div>
             <div class="ksub-goal">목표 3명 이상</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
@@ -497,7 +505,7 @@
         <div>
           <div class="ksub-label">질문-답변 쌍</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">28건</div>
+            <div class="ksub-val achieved">28건 <span class="kdelta up">+6</span></div>
             <div class="ksub-goal">목표 10건 이상</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
@@ -512,7 +520,7 @@
       </div>
       <div class="kkpi-name">오픈채팅 액티브 사용자</div>
       <div class="kkpi-note">초기 커뮤니티 대화 루프 형성: 3–5명 Active user 필요</div>
-      <div class="kkpi-value achieved">51<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">51<span class="kkpi-unit">명</span><span class="kdelta up">+5</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -525,7 +533,7 @@
         <div>
           <div class="ksub-label">라이트 유저 — 메시지 1~4건</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">37명</div>
+            <div class="ksub-val achieved">37명 <span class="kdelta up">+2</span></div>
             <div class="ksub-goal">전체의 73%</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
@@ -533,7 +541,7 @@
         <div>
           <div class="ksub-label">코어 유저 — 메시지 5건+</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">14명</div>
+            <div class="ksub-val achieved">14명 <span class="kdelta up">+3</span></div>
             <div class="ksub-goal">전체의 27%</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
@@ -711,7 +719,7 @@
       </div>
       <div class="kkpi-name">핑크케어 유입</div>
       <div class="kkpi-note">Secondary KPI 기준 유입 수</div>
-      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -729,7 +737,7 @@
       </div>
       <div class="kkpi-name">검사기록 업로드</div>
       <div class="kkpi-note">전체 유입 기준 10% 목표<br>오픈채팅 참여자 기준 전환율 별도 추적</div>
-      <div class="kkpi-value failed">6<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value failed">6<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track"><div class="kprogress-fill failed" style="width:60%"></div></div>
         <div class="kprogress-labels">
@@ -825,12 +833,12 @@
     <div class="kloop-cards">
       <div class="kloop-card">
         <div class="kloop-card-label">전체 루프 형성 대화쌍</div>
-        <div class="kloop-card-val">56</div>
+        <div class="kloop-card-val">56 <span class="kdelta up" style="font-size:14px;">+9</span></div>
         <div class="kloop-card-unit">쌍</div>
       </div>
       <div class="kloop-card highlight">
         <div class="kloop-card-label">환우·보호자끼리만 루프</div>
-        <div class="kloop-card-val">18</div>
+        <div class="kloop-card-val">18 <span class="kdelta up" style="font-size:14px;color:#c084fc;">+2</span></div>
         <div class="kloop-card-unit">쌍</div>
       </div>
     </div>
