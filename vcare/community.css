@@ -344,6 +344,53 @@
   flex-shrink: 0;
 }
 
+/* ── 페이지네이션 ────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 28px;
+  padding-bottom: 8px;
+}
+
+.pg-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  color: #6b7280;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.pg-btn:hover:not([disabled]) { border-color: #9ca3af; color: #111827; }
+.pg-btn[disabled] { opacity: .35; cursor: default; }
+
+.pg-active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+.pg-active:hover { background: #111827; color: #fff; }
+
+.pg-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  font-size: .82rem;
+  color: #9ca3af;
+  user-select: none;
+}
+
 /* ============================================================
    채팅 FAB + 패널
    ============================================================ */
