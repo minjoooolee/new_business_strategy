@@ -347,6 +347,42 @@
   border-radius: 6px;
 }
 
+/* 의료진 답변 스타일 */
+.comment-avatar--doctor {
+  background: #3fbfbc;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-avatar--doctor svg {
+  width: 16px;
+  height: 16px;
+}
+
+.comment-author--doctor {
+  color: #0d9488;
+  font-weight: 700;
+}
+
+.comment-role--doctor {
+  background: #ccfbf1;
+  color: #0d9488;
+}
+
+.comment-item--doctor {
+  background: #f0fdfa;
+  border-radius: 12px;
+  padding: 18px 14px;
+  margin: -1px 0;
+  border-top: 1px solid #ccfbf1;
+}
+
+.comment-item--doctor .comment-text {
+  color: #134e4a;
+}
+
 .comment-date {
   font-size: .68rem;
   color: #d1d5db;
