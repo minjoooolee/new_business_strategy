@@ -458,6 +458,20 @@
     { id:'pediatric', name:'소아성장', online:7,  color:'#10b981', last:'성장호르몬 처방 경험' },
   ];
 
+  // ── 채팅방 입장 시 AI 대화 요약 ──────────────────
+  const ROOM_SUMMARIES = {
+    breast:   '이 채팅방에서는 항암 중 식단 관리에 대한 대화가 이루어졌어요. 보호자_91z님이 항암 중 먹기 좋은 음식을 질문하셨고, 환자_mj2님이 고단백 저자극 식단을 추천해 주셨습니다. 편하게 참여해 주세요!',
+    stomach:  '최근 위암 수술 후 소화 문제에 대한 이야기가 오갔어요. 환자_k77님이 수술 후 소화 어려움을 공유하셨고, 보호자_8a4님이 경험을 나눠주셨습니다. 비슷한 경험이 있으시면 자유롭게 대화에 참여해 주세요!',
+    colon:    '대장암 3차 항암 완료를 축하하는 분위기예요! 환자_th9님의 항암 완주 소식에 응원 메시지가 이어지고 있습니다. 함께 응원해 주세요!',
+    liver:    '간암 표적치료제(소라페닙)의 손발 부작용 대처법에 대한 대화가 진행됐어요. 실제 경험담과 관리 팁이 공유되고 있습니다.',
+    thyroid:  '갑상선 수술 후 목소리 변화에 대한 경험을 나누고 있어요. 회복 기간과 대처 방법에 대한 이야기가 오가고 있습니다.',
+    lung:     '폐암 항암 12차 완주를 축하하는 대화가 이루어졌어요! 치료 완료 후 관리에 대한 정보도 공유되고 있습니다.',
+    allergy:  '봄철 알러지 시즌을 맞아 증상 대처와 예방법에 대한 대화가 진행 중이에요.',
+    diabetes: '식후 걷기와 식사 순서 조절 등 혈당 관리 실전 팁이 공유되고 있어요. 효과적인 방법들을 함께 나눠보세요!',
+    cardio:   '심혈관 질환 후 안전한 운동 시작 방법에 대한 대화가 오갔어요. 심장재활 프로그램에 대한 정보가 공유되었습니다.',
+    pediatric:'소아 성장호르몬 치료 경험에 대한 대화가 진행 중이에요. 투여 방법과 생활 관리 팁이 공유되고 있습니다.',
+  };
+
   const SAMPLE_MSGS = {
     breast:   [
       {u:'보호자_91z', t:'항암 중에 먹기 좋은 음식 추천해주세요', ts:'14:21', mine:false},
@@ -646,6 +660,22 @@
     chatTitle.textContent = room.name + ' 채팅방';
     const msgs = SAMPLE_MSGS[room.id] || [];
     chatMsgs.innerHTML = msgs.map(renderMsg).join('');
+
+    // 채팅방 입장 시 AI 에이전트가 대화 흐름 요약 제공
+    const summary = ROOM_SUMMARIES[room.id];
+    if (summary) {
+      const now = new Date();
+      const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+      const summaryMsg = renderMsg({
+        u: 'v.care AI',
+        t: '📋 <b>대화 요약</b><br>' + summary,
+        ts: ts,
+        mine: false,
+        agent: true,
+      });
+      chatMsgs.insertAdjacentHTML('beforeend', summaryMsg);
+    }
+
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
   }
 
