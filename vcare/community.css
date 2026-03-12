@@ -607,7 +607,7 @@
 
 /* ── AI 에이전트 메시지 ──────────────────────── */
 .chat-msg-avatar--agent {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
   font-family: 'Poppins', sans-serif;
   font-size: .58rem;
   font-weight: 800;
