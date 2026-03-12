@@ -563,15 +563,13 @@
   font-weight: 700;
 }
 
-/* ── URL 미리보기 카드 ───────────────────── */
+/* ── URL 미리보기 카드 (OG 스타일) ────────── */
 .url-preview-card {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 16px;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  background: #f9fafb;
+  overflow: hidden;
+  background: #fff;
   text-decoration: none;
   margin-bottom: 24px;
   transition: all .15s;
@@ -579,40 +577,88 @@
 
 .url-preview-card:hover {
   border-color: #c4b5fd;
-  box-shadow: 0 2px 8px rgba(107, 33, 168, .08);
-  background: #fff;
+  box-shadow: 0 4px 16px rgba(107, 33, 168, .1);
 }
 
-.url-preview-icon {
-  width: 48px;
-  height: 48px;
+.url-preview-thumb {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.url-preview-thumb-logo {
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
+  background: rgba(255,255,255,.9);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-  color: #fff;
+  font-size: .7rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -.3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  position: relative;
+  z-index: 1;
+}
+
+.url-preview-thumb-domain {
+  font-size: .65rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
 .url-preview-body {
   flex: 1;
   min-width: 0;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .url-preview-site {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: .7rem;
   font-weight: 600;
   color: #6b7280;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
+}
+
+.url-preview-site svg {
+  flex-shrink: 0;
 }
 
 .url-preview-title {
-  font-size: .82rem;
-  font-weight: 600;
+  font-size: .88rem;
+  font-weight: 700;
   color: #111827;
-  line-height: 1.4;
-  margin-bottom: 2px;
+  line-height: 1.45;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.url-preview-desc {
+  font-size: .75rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin-bottom: 8px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -620,6 +666,9 @@
 }
 
 .url-preview-url {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: .68rem;
   color: #9ca3af;
   overflow: hidden;
@@ -627,7 +676,7 @@
   white-space: nowrap;
 }
 
-.url-preview-arrow {
+.url-preview-url svg {
   flex-shrink: 0;
 }
 
