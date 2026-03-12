@@ -2,6 +2,16 @@
    글쓰기 페이지 — write.css
    ============================================================ */
 
+/* ── 히어로 타이틀 ─────────────────────────── */
+.hero-title--write {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+}
+
+.hero-title--write em {
+  font-weight: 800;
+}
+
 /* ── 레이아웃 ─────────────────────────────── */
 .write-main {
   max-width: var(--w, 960px);
