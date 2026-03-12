@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>따뜻한 환우 광장 — v.care</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="community.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../community.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <!-- GNB -->
 <header class="gnb" id="gnb">
   <div class="gnb-inner">
-    <a href="index.html" class="logo">
+    <a href="../" class="logo">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
         <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
@@ -25,9 +25,9 @@
     </a>
     <nav class="gnb-nav">
       <ul>
-        <li><a href="index.html">홈</a></li>
-        <li><a href="feed.html">피드</a></li>
-        <li><a href="community.html" class="active">질환별 게시판</a></li>
+        <li><a href="../">홈</a></li>
+        <li><a href="../feed">피드</a></li>
+        <li><a href="../community" class="active">질환별 게시판</a></li>
         <li><a href="#">검사결과지</a></li>
         <li><a href="#">문의</a></li>
       </ul>
@@ -56,7 +56,7 @@
       서로의 희망이 되어주세요.
     </p>
     <div class="page-hero-actions">
-      <a href="write.html" class="btn-write">
+      <a href="../write" class="btn-write">
         기록/응원 남기기
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
       </a>
@@ -175,7 +175,7 @@
 <div class="dim" id="dim"></div>
 <nav class="drawer" id="drawer">
   <div class="drawer-top">
-    <a href="index.html" class="logo">
+    <a href="../" class="logo">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
         <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
@@ -185,9 +185,9 @@
     <button class="drawer-close" id="drawerClose">&times;</button>
   </div>
   <div class="drawer-links">
-    <a href="index.html">홈</a>
-    <a href="feed.html">피드</a>
-    <a href="community.html" class="active">질환별 게시판</a>
+    <a href="../">홈</a>
+    <a href="../feed">피드</a>
+    <a href="../community" class="active">질환별 게시판</a>
     <a href="#">검사결과지</a>
     <a href="#">문의</a>
     <a href="#" class="drawer-login">로그인</a>
@@ -388,7 +388,7 @@
       : `<span class="post-author">${p.author} · ${p.role}</span>`;
     return `
       <article class="post-card ${p.cardClass}${medicalClass}" data-cat="${p.cat}" data-disease="${p.disease}"
-        onclick="location.href='post.html?${params}'" style="cursor:pointer">
+        onclick="location.href='../post?${params}'" style="cursor:pointer">
         <div class="post-top">
           <div class="post-top-left">
             <span class="post-badge ${p.badgeClass}">${p.catLabel}</span>

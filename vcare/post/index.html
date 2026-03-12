@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시글 — v.care</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="post.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../post.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <!-- GNB -->
 <header class="gnb" id="gnb">
   <div class="gnb-inner">
-    <a href="index.html" class="logo">
+    <a href="../" class="logo">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
         <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
@@ -25,9 +25,9 @@
     </a>
     <nav class="gnb-nav">
       <ul>
-        <li><a href="index.html">홈</a></li>
-        <li><a href="feed.html">피드</a></li>
-        <li><a href="community.html">질환별 게시판</a></li>
+        <li><a href="../">홈</a></li>
+        <li><a href="../feed">피드</a></li>
+        <li><a href="../community">질환별 게시판</a></li>
         <li><a href="#">검사결과지</a></li>
         <li><a href="#">문의</a></li>
       </ul>
@@ -407,7 +407,7 @@
       이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.
     </div>
     ${similar.map(s => `
-      <a href="post.html?id=${s.id}" class="ai-similar-card">
+      <a href="../post?id=${s.id}" class="ai-similar-card">
         <div class="ai-similar-badge-row">
           <span class="post-badge ${s.badgeClass}" style="font-size:.65rem;padding:2px 7px;">${s.catLabel}</span>
           <span class="ai-similar-disease">${s.diseaseLabel}</span>
@@ -473,12 +473,12 @@
 
   // 수정/삭제 (데모)
   document.querySelector('.pd-btn--edit')?.addEventListener('click', () => {
-    window.location.href = 'write.html';
+    window.location.href = '../write';
   });
   document.querySelector('.pd-btn--delete')?.addEventListener('click', () => {
     if (confirm('정말 삭제하시겠습니까?')) {
       alert('게시글이 삭제되었습니다.');
-      window.location.href = 'community.html';
+      window.location.href = '../community';
     }
   });
 
