@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pinkcare PoC · KPI Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c14;
@@ -92,7 +92,7 @@
   }
   .kpi-page-meta-val {
     font-size: 13px; font-weight: 600; color: var(--text-muted);
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
   }
   .ksec-header {
     display: flex; align-items: center; gap: 12px;
@@ -122,7 +122,7 @@
   }
   .koverflow-chip {
     display: inline-flex; align-items: center; gap: 3px;
-    font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 10px; font-weight: 700; font-family: 'Poppins', sans-serif;
     padding: 2px 8px; border-radius: 20px;
     background: rgba(255,60,80,0.15);
     border: 1px solid rgba(255,60,80,0.5); color: #ff4d5e;
@@ -137,7 +137,7 @@
   }
   .kdelta {
     display: inline-flex; align-items: center; gap: 2px;
-    font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 11px; font-weight: 700; font-family: 'Poppins', sans-serif;
     margin-left: 8px; letter-spacing: -0.3px;
   }
   .kdelta.up { color: #00e5b0; }
@@ -165,7 +165,7 @@
   }
   .kloop-card-label { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
   .kloop-card-val {
-    font-size: 36px; font-weight: 900; font-family: 'Space Mono', monospace; color: var(--text);
+    font-size: 36px; font-weight: 900; font-family: 'Poppins', sans-serif; color: var(--text);
     line-height: 1.1; letter-spacing: -1px;
   }
   .kloop-card.highlight .kloop-card-val { color: #c084fc; }
@@ -184,7 +184,7 @@
   .kloop-pct-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px; }
   .kloop-pct-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #c084fc); border-radius: 3px; }
   .kloop-pct-label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
-  .kloop-pct-val { font-size: 14px; font-weight: 800; font-family: 'Space Mono', monospace; color: #c084fc; }
+  .kloop-pct-val { font-size: 14px; font-weight: 800; font-family: 'Poppins', sans-serif; color: #c084fc; }
   .kkpi-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 14px; margin-bottom: 16px;
@@ -229,7 +229,7 @@
     margin-bottom: 16px; min-height: 34px;
   }
   .kkpi-value {
-    font-size: 36px; font-weight: 900; font-family: 'Space Mono', monospace;
+    font-size: 36px; font-weight: 900; font-family: 'Poppins', sans-serif;
     letter-spacing: -1px; margin-bottom: 14px; color: var(--text);
   }
   .kkpi-value.achieved { color: var(--accent2); }
@@ -250,7 +250,7 @@
     display: flex; justify-content: space-between; align-items: center;
   }
   .kprogress-pct {
-    font-size: 12px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 12px; font-weight: 700; font-family: 'Poppins', sans-serif;
   }
   .kprogress-pct.achieved { color: var(--accent2); }
   .kprogress-pct.failed   { color: var(--accent3); }
@@ -262,7 +262,7 @@
   .ksub-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
   .ksub-row { display: flex; align-items: center; gap: 7px; }
   .ksub-val {
-    font-size: 15px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 15px; font-weight: 700; font-family: 'Poppins', sans-serif;
   }
   .ksub-val.achieved { color: var(--accent2); }
   .ksub-val.failed   { color: var(--accent3); }
@@ -283,7 +283,7 @@
     font-size: 10px; font-weight: 700; color: var(--text-muted); flex-shrink: 0;
   }
   .kfunnel-label { flex: 1; color: var(--text-muted); font-size: 11px; }
-  .kfunnel-val { color: var(--text); font-weight: 600; font-family: 'Space Mono', monospace; font-size: 11px; }
+  .kfunnel-val { color: var(--text); font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 11px; }
   .kfunnel-rate { color: var(--text-dim); font-size: 10px; }
   .kquality-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
   .kquality-item {
@@ -298,7 +298,7 @@
     font-size: 10px; padding: 2px 8px; border-radius: 6px;
     background: rgba(240,165,0,0.1); color: var(--accent4); font-weight: 600;
   }
-  .kquality-val { font-size: 11px; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+  .kquality-val { font-size: 11px; color: var(--text-dim); font-family: 'Poppins', sans-serif; }
   .kchannel-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 16px; padding: 20px 22px; margin-bottom: 16px;
@@ -341,8 +341,8 @@
   .kseg-label { font-size: 12px; font-weight: 600; }
   .kseg-label.core { color: var(--accent2); }
   .kseg-label.light { color: var(--accent); }
-  .kseg-pct { font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; }
-  .kseg-count { font-size: 13px; font-weight: 700; font-family: 'Space Mono', monospace; }
+  .kseg-pct { font-size: 11px; font-weight: 700; font-family: 'Poppins', sans-serif; }
+  .kseg-count { font-size: 13px; font-weight: 700; font-family: 'Poppins', sans-serif; }
   .kseg-count.core { color: var(--accent2); }
   .kseg-count.light { color: var(--accent); }
   .ksegment-bar-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -361,12 +361,12 @@
   .ksegment-card.light { background: rgba(61,127,255,0.07); border: 1px solid rgba(61,127,255,0.18); }
   .ksegment-card.core  { background: rgba(0,212,160,0.07); border: 1px solid rgba(0,212,160,0.18); }
   .ksegment-card-label { font-size: 11px; color: var(--text-muted); font-weight: 600; width: 72px; flex-shrink: 0; }
-  .ksegment-card-val { font-size: 20px; font-weight: 900; font-family: 'Space Mono', monospace; flex: 1; }
+  .ksegment-card-val { font-size: 20px; font-weight: 900; font-family: 'Poppins', sans-serif; flex: 1; }
   .ksegment-card.total .ksegment-card-val { color: var(--text); }
   .ksegment-card.light .ksegment-card-val { color: var(--accent); }
   .ksegment-card.core  .ksegment-card-val { color: var(--accent2); }
   .ksegment-card-unit { font-size: 12px; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
-  .ksegment-card-crit { font-size: 10px; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+  .ksegment-card-crit { font-size: 10px; color: var(--text-dim); font-family: 'Poppins', sans-serif; }
   .kcore-table-wrap { border-top: 1px solid var(--border); padding-top: 20px; }
   .kcore-table-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
   .kcore-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -392,7 +392,7 @@
   .krole-tag { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
   .krole-tag.patient  { background: rgba(61,127,255,0.1); color: var(--accent); }
   .krole-tag.caregiver{ background: rgba(240,165,0,0.1); color: var(--accent4); }
-  .kmsg-val { font-family: 'Space Mono', monospace; font-weight: 700; color: var(--text); font-size: 13px; }
+  .kmsg-val { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--text); font-size: 13px; }
   .kalign-right { text-align: right; }
   .ksec-divider { height: 1px; background: linear-gradient(90deg, var(--border), transparent); margin: 44px 0; }
   .kdoc-footer {
