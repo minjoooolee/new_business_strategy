@@ -160,7 +160,7 @@
 /* 게시글 종류 컬러 힌트 */
 .ws-btn--symptom.ws-btn--active { background: #2563eb; border-color: #2563eb; }
 .ws-btn--case.ws-btn--active    { background: #059669; border-color: #059669; }
-.ws-btn--cheer.ws-btn--active   { background: #e11d48; border-color: #e11d48; }
+.ws-btn--cheer.ws-btn--active   { background: #E24585; border-color: #E24585; }
 
 /* ── 제목 입력 ────────────────────────────── */
 .write-title-wrap {

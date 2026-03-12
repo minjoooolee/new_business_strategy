@@ -110,13 +110,13 @@
   border-radius: 20px;
   border: 1px solid #fecdd3;
   background: #fff;
-  color: #f43f5e;
+  color: #E24585;
   font-size: .78rem;
   cursor: pointer;
   transition: all .2s;
 }
 
-.pd-like-btn svg { fill: #f43f5e; }
+.pd-like-btn svg { fill: #E24585; }
 
 .pd-like-btn strong {
   font-weight: 700;
@@ -127,9 +127,9 @@
 }
 
 .pd-like-btn--active {
-  background: #f43f5e;
+  background: #E24585;
   color: #fff;
-  border-color: #f43f5e;
+  border-color: #E24585;
 }
 
 .pd-like-btn--active svg { fill: #fff; }
@@ -378,11 +378,11 @@
   fill: #d1d5db;
 }
 
-.comment-like:hover { color: #f43f5e; }
-.comment-like:hover svg { fill: #f43f5e; }
+.comment-like:hover { color: #E24585; }
+.comment-like:hover svg { fill: #E24585; }
 
-.comment-like--active { color: #f43f5e; }
-.comment-like--active svg { fill: #f43f5e; }
+.comment-like--active { color: #E24585; }
+.comment-like--active svg { fill: #E24585; }
 
 /* ── AI 유사글 패널 (오른쪽) ──────────────── */
 .post-ai-panel {
@@ -498,7 +498,7 @@
 
 .badge--symptom { background: #eff6ff; color: #2563eb; }
 .badge--case    { background: #ecfdf5; color: #059669; }
-.badge--cheer   { background: #fff1f2; color: #e11d48; }
+.badge--cheer   { background: #fdf2f8; color: #E24585; }
 
 /* ── 반응형 ───────────────────────────────── */
 @media (max-width: 768px) {
