@@ -108,6 +108,7 @@
       <button class="cat-btn" data-cat="symptom">증상 질문</button>
       <button class="cat-btn" data-cat="case">사례 공유</button>
       <button class="cat-btn" data-cat="cheer">응원/일상</button>
+      <button class="cat-btn" data-cat="news">최신정보</button>
     </div>
 
     <!-- 게시글 목록 (JS 렌더링) -->
@@ -276,10 +277,24 @@
     { title:'새벽에 혼자 울다가 이 글을 씁니다.', excerpt:'모두 자는 새벽에 통증과 불안으로 잠들지 못하고 있어요. 여기 계신 분들이 같은 밤을 보내고 있다는 게 위로가 됩니다.', tag2:'#새벽' },
   ];
 
+  const NEWS_POSTS = [
+    { title:'[v.care 메디컬팀] HER2-low 유방암 신약 T-DXd, 2차 치료 적응증 확대 승인', excerpt:'최근 FDA에서 HER2-low 전이성 유방암에 대한 T-DXd(엔허투) 적응증이 확대 승인되었습니다. 기존 치료 옵션이 제한적이었던 환우분들에게 새로운 선택지가 열렸습니다.', tag2:'#신약승인', medical:true },
+    { title:'[v.care 메디컬팀] 면역항암제+표적치료 병용요법 3상 임상 결과 발표', excerpt:'KEYNOTE-789 임상에서 면역항암제 펨브롤리주맙과 표적치료 병용이 무진행 생존기간을 유의미하게 개선한 결과가 발표되었습니다.', tag2:'#임상결과', medical:true },
+    { title:'[v.care 메디컬팀] 대장암 ctDNA 기반 맞춤치료 임상시험 모집 안내', excerpt:'ctDNA(혈중종양DNA) 분석을 통해 재발 위험을 조기 감지하고 맞춤 항암을 결정하는 CIRCULATE-Korea 임상시험이 참가자를 모집 중입니다.', tag2:'#임상시험', medical:true },
+    { title:'[v.care 메디컬팀] 비소세포폐암 3세대 EGFR 표적치료제 내성 극복 신약 개발 현황', excerpt:'오시머티닙 내성 후 치료 옵션인 4세대 EGFR 억제제와 이중항체 약물접합체(ADC)의 초기 임상 결과를 정리했습니다.', tag2:'#신약개발', medical:true },
+    { title:'[v.care 메디컬팀] 간암 1차 치료 아테졸리주맙+베바시주맙 장기 생존 데이터 업데이트', excerpt:'IMbrave150 임상의 5년 추적 데이터에서 면역+항혈관 병용요법의 장기 생존 혜택이 확인되었습니다.', tag2:'#장기생존', medical:true },
+    { title:'[v.care 메디컬팀] 췌장암 KRAS G12C 억제제 2상 임상 중간결과 공개', excerpt:'그동안 치료가 어려웠던 KRAS G12C 변이 췌장암에 대한 소토라십 2상 임상 중간결과가 공개되었습니다. 객관적 반응률과 안전성 데이터를 정리합니다.', tag2:'#임상결과', medical:true },
+    { title:'ASCO 2026 주요 발표 중 환우에게 의미 있는 것들 정리', excerpt:'올해 ASCO 학회에서 발표된 내용 중 실제 환우분들의 치료에 영향을 줄 수 있는 핵심 연구를 선별해 정리했습니다.', tag2:'#학회정보' },
+    { title:'신약 급여 적용 소식: 위암 니볼루맙 1차 치료 건강보험 급여 결정', excerpt:'위암 1차 치료에 니볼루맙+화학요법 병용이 건강보험 급여로 결정되었습니다. 적용 대상, 급여 기준, 신청 방법을 공유합니다.', tag2:'#급여정보' },
+    { title:'임상시험 참여 후기: 폐암 ADC 신약 1상 시험 경험담', excerpt:'폐암 ADC(항체약물접합체) 1상 임상시험에 참여한 경험을 공유합니다. 참여 과정, 부작용, 효과에 대해 솔직하게 적어봅니다.', tag2:'#임상후기' },
+    { title:'전립선암 PSMA 표적 방사선치료 국내 도입 현황 정리', excerpt:'해외에서 주목받고 있는 PSMA 표적 방사성리간드 치료(루테튬-177)의 국내 도입 현황과 대상 환자 기준을 정리했습니다.', tag2:'#신치료법' },
+  ];
+
   const CATS = [
     { id:'symptom', label:'증상 질문', badgeClass:'badge--symptom', cardClass:'post-card--symptom', posts: SYMPTOM_POSTS },
     { id:'case',    label:'희망 사례', badgeClass:'badge--case',    cardClass:'post-card--case',    posts: CASE_POSTS },
     { id:'cheer',   label:'따뜻한 응원', badgeClass:'badge--cheer', cardClass:'post-card--cheer',  posts: CHEER_POSTS },
+    { id:'news',    label:'최신정보',   badgeClass:'badge--news',   cardClass:'post-card--news',    posts: NEWS_POSTS },
   ];
 
   const ROLES = ['환자', '보호자', '환자'];
@@ -291,8 +306,8 @@
 
   // Generate exactly 136 posts
   const ALL_POSTS = [];
-  for (let i = 0; i < 136; i++) {
-    const catIdx = seededVal(i * 7 + 3, 3);
+  for (let i = 0; i < 160; i++) {
+    const catIdx = seededVal(i * 7 + 3, CATS.length);
     const cat = CATS[catIdx];
     const disIdx = seededVal(i * 13 + 5, DISEASES.length);
     const dis = DISEASES[disIdx];
@@ -303,6 +318,7 @@
     const expertAns = catIdx === 0 ? seededVal(i * 29, 5) : 0;
     const hearts = catIdx === 2 ? rnd(10, 400) : (catIdx === 1 ? rnd(0, 80) : 0);
     const views = rnd(50, 600);
+    const isMedical = !!(postTemplate.medical);
 
     ALL_POSTS.push({
       cat: cat.id,
@@ -314,12 +330,13 @@
       title: postTemplate.title,
       excerpt: postTemplate.excerpt,
       tag2: postTemplate.tag2,
-      author: `@${userPrefix}_${hashId}`,
-      role: ROLES[roleIdx],
+      author: isMedical ? 'v.care 메디컬팀' : `@${userPrefix}_${hashId}`,
+      role: isMedical ? '메디컬팀' : ROLES[roleIdx],
       views,
       expertAns,
       hearts,
       titleClass: catIdx === 2 ? 'post-title--cheer' : '',
+      medical: isMedical,
     });
   }
 
@@ -365,13 +382,17 @@
 
     const idx = ALL_POSTS.indexOf(p);
     const params = new URLSearchParams({ id: idx });
+    const medicalClass = p.medical ? ' post-card--medical' : '';
+    const authorHtml = p.medical
+      ? `<span class="post-author post-author--medical">v.care 메디컬팀</span>`
+      : `<span class="post-author">${p.author} · ${p.role}</span>`;
     return `
-      <article class="post-card ${p.cardClass}" data-cat="${p.cat}" data-disease="${p.disease}"
+      <article class="post-card ${p.cardClass}${medicalClass}" data-cat="${p.cat}" data-disease="${p.disease}"
         onclick="location.href='post.html?${params}'" style="cursor:pointer">
         <div class="post-top">
           <div class="post-top-left">
             <span class="post-badge ${p.badgeClass}">${p.catLabel}</span>
-            <span class="post-author">${p.author} · ${p.role}</span>
+            ${authorHtml}
           </div>
           <div class="post-meta">${metaChips}</div>
         </div>

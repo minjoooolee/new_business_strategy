@@ -546,6 +546,7 @@
 .badge--symptom { background: #eff6ff; color: #2563eb; }
 .badge--case    { background: #ecfdf5; color: #059669; }
 .badge--cheer   { background: #fdf2f8; color: #E24585; }
+.badge--news    { background: linear-gradient(135deg, #ecfdf5, #f0e8f7); color: #0d9488; border: 1px solid #ccfbf1; }
 
 /* ── 반응형 ───────────────────────────────── */
 @media (max-width: 768px) {

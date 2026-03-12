@@ -258,6 +258,28 @@
   background: #fdf2f8;
   color: #E24585;
 }
+.badge--news {
+  background: linear-gradient(135deg, #ecfdf5, #f0e8f7);
+  color: #0d9488;
+  border: 1px solid #ccfbf1;
+}
+
+/* 메디컬팀 카드 — 그라디언트 보더 */
+.post-card--medical {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #3fbfbc, #64CCC9, #6E3FA3, #E24585, #ffffff);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.post-author--medical {
+  font-size: .78rem;
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(135deg, #3fbfbc 0%, #6E3FA3 60%, #E24585 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 
 .post-author {
   font-size: .82rem;

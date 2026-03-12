@@ -161,6 +161,7 @@
 .ws-btn--symptom.ws-btn--active { background: #2563eb; border-color: #2563eb; }
 .ws-btn--case.ws-btn--active    { background: #059669; border-color: #059669; }
 .ws-btn--cheer.ws-btn--active   { background: #E24585; border-color: #E24585; }
+.ws-btn--news.ws-btn--active    { background: #0d9488; border-color: #0d9488; }
 
 /* ── 제목 입력 ────────────────────────────── */
 .write-title-wrap {
