@@ -42,7 +42,7 @@
 </header>
 
 <!-- 환우 광장 히어로 -->
-<section class="page-hero">
+<section class="page-hero page-hero--community">
   <div class="hero-blob"></div>
   <div class="arc arc-a"></div>
   <div class="arc arc-b"></div>
@@ -77,6 +77,9 @@
 
     <!-- 질환 필터 (가로 스크롤) -->
     <div class="disease-filter-wrap">
+      <button class="df-arrow df-arrow--left" id="dfLeft" aria-label="이전">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
       <div class="disease-filter" id="diseaseFilter">
         <button class="df-btn df-btn--active" data-disease="all">전체 질환</button>
         <button class="df-btn" data-disease="breast">유방암</button>
@@ -92,6 +95,9 @@
         <button class="df-btn" data-disease="pancreas">췌장암</button>
         <button class="df-btn" data-disease="prostate">전립선암</button>
       </div>
+      <button class="df-arrow df-arrow--right" id="dfRight" aria-label="다음">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
 
     <!-- 카테고리 필터 -->
@@ -333,6 +339,15 @@
   ham.addEventListener('click', openD);
   closeBtn.addEventListener('click', shutD);
   dim.addEventListener('click', shutD);
+
+  // 질환 필터 화살표 스크롤
+  const dfScroll = document.getElementById('diseaseFilter');
+  document.getElementById('dfLeft').addEventListener('click', () => {
+    dfScroll.scrollBy({ left: -160, behavior: 'smooth' });
+  });
+  document.getElementById('dfRight').addEventListener('click', () => {
+    dfScroll.scrollBy({ left: 160, behavior: 'smooth' });
+  });
 
   // 질환 필터
   const dfBtns = document.querySelectorAll('.df-btn');
