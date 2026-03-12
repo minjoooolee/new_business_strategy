@@ -4231,9 +4231,9 @@
         <div class="s2c-hero-eyebrow">Intelligent Community · Concept</div>
         <h2 class="cd-sec-title">지능형 커뮤니티란 <em>무엇인가</em></h2>
         <p class="s2c-hero-desc">
-          커뮤니티는 말로 시작됐다. 그리고 오랫동안 말로만 머물렀다.<br>
-          지능형 커뮤니티는 다르다. 데이터가 대화의 중심에 들어오고, LLM이 그 데이터를 해석하며,
-          환자와 의료진의 신뢰도 높은 소통이 비로소 가능해진다.
+          커뮤니티는 말로 시작됐습니다. 그리고 오랫동안 말로만 머물렀습니다.<br>
+          지능형 커뮤니티는 다릅니다. 데이터가 대화의 중심에 들어오고, LLM이 그 데이터를 해석하며,
+          환자와 의료진의 신뢰도 높은 소통이 비로소 가능해집니다.
         </p>
       </div>
 
@@ -4241,7 +4241,7 @@
       <div class="s2c-sec">
         <div class="s2c-sec-eyebrow">01 · Structure</div>
         <h3 class="s2c-sec-title">지능형 커뮤니티를 이루는 세 개의 축</h3>
-        <p class="s2c-sec-sub">환자와 의료진 둘만 있으면 말로만 오간다. 신뢰가 없다. 그 중간에 데이터라는 축이 반드시 필요하다. 그리고 LLM이 그 세 축 모두를 연결하고 강화한다.</p>
+        <p class="s2c-sec-sub">환자와 의료진 둘만 있으면 말로만 오갑니다. 신뢰가 없습니다. 그 중간에 데이터라는 축이 반드시 필요합니다. 그리고 LLM이 그 세 축 모두를 연결하고 강화합니다.</p>
         <div class="s2c-triad">
           <!-- 상단: 유저 -->
           <div style="display:flex;justify-content:center;margin-bottom:14px;">
@@ -4292,7 +4292,7 @@
           <div style="display:flex;justify-content:center;">
             <div style="background:rgba(61,127,255,0.06);border:1px solid rgba(61,127,255,0.2);border-radius:10px;padding:11px 22px;text-align:center;max-width:540px;">
               <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:3px;">LLM이 들어왔을 때 달라지는 것</div>
-              <div style="font-size:11px;color:var(--text-muted);line-height:1.7;">모든 대화가 신뢰도를 갖는다 · 데이터 없이는 LLM도 답할 수 없다 · 그래서 환자도 데이터를 올리는 플로우가 생긴다</div>
+              <div style="font-size:11px;color:var(--text-muted);line-height:1.7;">모든 대화가 신뢰도를 갖습니다 · 데이터 없이는 LLM도 답할 수 없습니다 · 그래서 환자도 데이터를 올리는 플로우가 생깁니다</div>
             </div>
           </div>
         </div>
@@ -4302,7 +4302,7 @@
       <div class="s2c-sec">
         <div class="s2c-sec-eyebrow">02 · Data Flow</div>
         <h3 class="s2c-sec-title">데이터가 흐르는 방식</h3>
-        <p class="s2c-sec-sub">환자가 검사기록을 올리면, LLM이 해석하고, 의료진이 컨펌한다. 이 단순한 플로우가 커뮤니티의 신뢰도를 전혀 다른 수준으로 끌어올린다.</p>
+        <p class="s2c-sec-sub">환자가 검사기록을 올리면, LLM이 해석하고, 의료진이 컨펌합니다. 이 단순한 플로우가 커뮤니티의 신뢰도를 전혀 다른 수준으로 끌어올립니다.</p>
         <div class="s2c-flow">
           <div class="s2c-flow-title">Data → Insight → Trust 플로우</div>
           <div class="s2c-flow-steps">
@@ -4376,7 +4376,7 @@
             </div>
           </div>
           <div style="display:flex;justify-content:center;">
-            <div class="s2c-hitl-badge">⚡ 의료진은 컨펌만 — AI가 부담을 구조적으로 줄인다</div>
+            <div class="s2c-hitl-badge">⚡ 의료진은 컨펌만 — AI가 부담을 구조적으로 줄입니다</div>
           </div>
         </div>
       </div>
@@ -7036,13 +7036,19 @@ applyHash(window.location.hash || '#goal');
     });
   }
 
-  // nav-pill 클릭 시 대상 섹션을 즉시 visible로 처리 (opacity:0 상태에서 보이지 않는 버그 방지)
+  // nav-pill 클릭 시 hash 라우터 간섭 방지 + 대상 섹션 즉시 visible 처리
   document.querySelectorAll('.cd-nav-pill').forEach(function(pill) {
-    pill.addEventListener('click', function() {
+    pill.addEventListener('click', function(e) {
+      e.preventDefault();
       var href = pill.getAttribute('href');
       if (!href || !href.startsWith('#')) return;
       var target = document.getElementById(href.slice(1));
-      if (target) target.classList.add('visible');
+      if (!target) return;
+      // 대상까지의 모든 cd-section을 visible 처리 (위쪽 섹션이 아직 opacity:0인 경우 방지)
+      document.querySelectorAll('.cd-section').forEach(function(s) {
+        s.classList.add('visible');
+      });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
