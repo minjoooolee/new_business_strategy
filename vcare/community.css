@@ -378,20 +378,14 @@
    AI 게시글 요약 카드
    ============================================================ */
 .ai-post-summary {
-  border: 1px solid rgba(107, 63, 163, .2);
+  border: 1px solid #e0d4f0;
   border-radius: 14px;
   padding: 16px 18px;
   margin-bottom: 16px;
-  background:
-    radial-gradient(circle at 0% 100%, #3fbfbc 0%, rgba(63,191,188,0.6) 30%, transparent 50%),
-    radial-gradient(circle at 18% 75%, #5a2d91 0%, rgba(90,45,145,0.7) 30%, transparent 55%),
-    radial-gradient(circle at 50% 50%, #D6175E 0%, rgba(214,23,94,0.6) 35%, transparent 65%),
-    radial-gradient(circle at 100% 0%, #ffffff 0%, #F48DB4 30%, #D6175E 70%, #B0104A 100%);
+  background: #f0e8f7;
 }
 
 .ai-post-summary-header {
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -402,7 +396,11 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 100%);
+  background:
+    radial-gradient(circle at 20% 80%, #64CCC9 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, #6E3FA3 0%, transparent 55%),
+    radial-gradient(circle at 80% 30%, #E24585 0%, transparent 50%),
+    radial-gradient(circle at 95% 5%, #ffffff 0%, #F48DB4 30%, #D6175E 100%);
   color: #fff;
   display: flex;
   align-items: center;
@@ -417,17 +415,13 @@
 .ai-post-summary-label {
   font-size: .78rem;
   font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+  color: #6b21a8;
 }
 
 .ai-post-summary-text {
-  position: relative;
-  z-index: 1;
   font-size: .82rem;
   line-height: 1.6;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0,0,0,.15);
+  color: #4a1d7a;
   margin: 0;
 }
 
