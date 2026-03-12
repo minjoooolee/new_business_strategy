@@ -1,0 +1,655 @@
+/* ========== Reset & Base ========== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-light: #DBEAFE;
+  --accent: #06B6D4;
+  --text: #1E293B;
+  --text-secondary: #64748B;
+  --bg: #F8FAFC;
+  --white: #FFFFFF;
+  --border: #E2E8F0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --gnb-height: 72px;
+  --transition: .25s cubic-bezier(.4,0,.2,1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul { list-style: none; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ========== GNB ========== */
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--gnb-height);
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.gnb.scrolled {
+  background: rgba(255,255,255,.96);
+  border-bottom-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.gnb-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--white);
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-right: 6px;
+}
+
+.logo-text {
+  color: var(--primary);
+  letter-spacing: -0.5px;
+}
+
+.gnb-nav {
+  display: flex;
+}
+
+.gnb-menu {
+  display: flex;
+  gap: 8px;
+}
+
+.gnb-menu li a {
+  display: block;
+  padding: 8px 16px;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.gnb-menu li a:hover,
+.gnb-menu li a.active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.gnb-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.btn-login:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37,99,235,.35);
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  height: 2.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* ========== 히어로 배너 ========== */
+.hero {
+  position: relative;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--gnb-height) + 60px) 24px 60px;
+  background: linear-gradient(160deg, #0F172A 0%, #1E3A5F 40%, #1E40AF 100%);
+  overflow: hidden;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 50%, rgba(6,182,212,.15), transparent),
+    radial-gradient(ellipse 500px 500px at 80% 30%, rgba(37,99,235,.2), transparent);
+  pointer-events: none;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6,182,212,.08), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  margin-bottom: 48px;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 16px;
+  letter-spacing: .5px;
+}
+
+.hero-title {
+  font-size: 3.6rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero-logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 16px;
+  font-size: 2.4rem;
+  vertical-align: middle;
+  margin-right: 4px;
+  box-shadow: 0 4px 20px rgba(6,182,212,.4);
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 36px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 12px;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(6,182,212,.3);
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(6,182,212,.4);
+}
+
+/* 의료진 카드 */
+.hero-doctors {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.doctor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 24px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+  transition: var(--transition);
+  min-width: 140px;
+}
+
+.doctor-card:hover {
+  background: rgba(255,255,255,.14);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+
+.doctor-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255,255,255,.1);
+}
+
+.doctor-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.doctor-name {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.doctor-dept {
+  font-size: .78rem;
+  color: rgba(255,255,255,.5);
+}
+
+/* ========== 질환별 카테고리 ========== */
+.disease-section {
+  padding: 80px 0 100px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.section-desc {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 48px;
+}
+
+.disease-group {
+  margin-bottom: 48px;
+}
+
+.disease-group:last-child {
+  margin-bottom: 0;
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.group-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: var(--white);
+}
+
+.cancer-icon {
+  background: linear-gradient(135deg, #EF4444, #F97316);
+}
+
+.chronic-icon {
+  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+}
+
+.disease-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+
+.disease-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  text-align: center;
+}
+
+.disease-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+
+.disease-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--card-color) 12%, transparent);
+  color: var(--card-color);
+  transition: var(--transition);
+}
+
+.disease-card:hover .disease-icon {
+  background: color-mix(in srgb, var(--card-color) 18%, transparent);
+  transform: scale(1.08);
+}
+
+.disease-name {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.disease-count {
+  font-size: .78rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* ========== 푸터 ========== */
+.footer {
+  background: #0F172A;
+  padding: 40px 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo .logo-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+}
+
+.footer-logo .logo-text {
+  color: rgba(255,255,255,.7);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.footer-copy {
+  font-size: .85rem;
+  color: rgba(255,255,255,.4);
+}
+
+/* ========== 모바일 네비게이션 ========== */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.mobile-nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--white);
+  z-index: 1200;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-close-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.mobile-close-btn:hover {
+  background: var(--bg);
+}
+
+.mobile-menu {
+  padding: 16px;
+  flex: 1;
+}
+
+.mobile-menu li a {
+  display: block;
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.mobile-menu li a:hover,
+.mobile-menu li a.active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.mobile-login {
+  margin-top: 8px;
+  text-align: center;
+  color: var(--white) !important;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+}
+
+/* ========== 반응형 ========== */
+@media (max-width: 900px) {
+  .gnb-nav { display: none; }
+  .btn-login { display: none; }
+  .mobile-menu-btn { display: flex; }
+
+  .hero {
+    min-height: 520px;
+    padding: calc(var(--gnb-height) + 40px) 20px 40px;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .hero-logo-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.8rem;
+    border-radius: 12px;
+  }
+
+  .hero-sub {
+    font-size: .95rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  .hero-doctors {
+    gap: 12px;
+  }
+
+  .doctor-card {
+    padding: 14px 16px;
+    min-width: 110px;
+  }
+
+  .doctor-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .doctor-name { font-size: .82rem; }
+  .doctor-dept { font-size: .72rem; }
+
+  .disease-section { padding: 60px 0 80px; }
+  .section-title { font-size: 1.6rem; }
+
+  .disease-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .disease-card {
+    padding: 20px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem; }
+
+  .hero-doctors {
+    gap: 8px;
+  }
+
+  .doctor-card {
+    padding: 12px;
+    min-width: 90px;
+  }
+
+  .disease-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .disease-card {
+    padding: 16px 8px;
+    gap: 8px;
+  }
+
+  .disease-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .disease-name { font-size: .85rem; }
+  .disease-count { font-size: .72rem; }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
