@@ -414,18 +414,18 @@
     imgAddBtn.style.display = uploadedImages.length >= MAX_IMAGES ? 'none' : 'flex';
   }
 
-  // URL 미리보기 (최신정보)
+  // URL 미리보기 (최신정보) — OG 카드 스타일
   const writeUrl = document.getElementById('writeUrl');
   const urlPreview = document.getElementById('urlPreview');
   const URL_SITES = {
-    'fda.gov':{name:'FDA',icon:'🏛️',color:'#1a5276'},
-    'nejm.org':{name:'NEJM',icon:'📄',color:'#b71c1c'},
-    'thelancet.com':{name:'The Lancet',icon:'📄',color:'#01579b'},
-    'clinicaltrials.gov':{name:'ClinicalTrials.gov',icon:'🔬',color:'#2e7d32'},
-    'asco.org':{name:'ASCO',icon:'🏥',color:'#00695c'},
-    'hira.or.kr':{name:'건강보험심사평가원',icon:'🏥',color:'#1565c0'},
-    'cancer.gov':{name:'NCI',icon:'🏛️',color:'#1b5e20'},
-    'pubmed.ncbi':{name:'PubMed',icon:'📄',color:'#326599'},
+    'fda.gov':            {name:'U.S. Food & Drug Administration', logo:'FDA',  gradient:'linear-gradient(135deg,#1a5276,#2980b9)'},
+    'nejm.org':           {name:'New England Journal of Medicine', logo:'NEJM', gradient:'linear-gradient(135deg,#b71c1c,#e53935)'},
+    'thelancet.com':      {name:'The Lancet Oncology',             logo:'TL',   gradient:'linear-gradient(135deg,#01579b,#0288d1)'},
+    'clinicaltrials.gov': {name:'ClinicalTrials.gov',              logo:'CT',   gradient:'linear-gradient(135deg,#2e7d32,#43a047)'},
+    'asco.org':           {name:'ASCO Annual Meeting',             logo:'ASCO', gradient:'linear-gradient(135deg,#00695c,#00897b)'},
+    'hira.or.kr':         {name:'건강보험심사평가원',                 logo:'HIRA', gradient:'linear-gradient(135deg,#1565c0,#1e88e5)'},
+    'cancer.gov':         {name:'National Cancer Institute',       logo:'NCI',  gradient:'linear-gradient(135deg,#1b5e20,#388e3c)'},
+    'pubmed.ncbi':        {name:'PubMed',                          logo:'PM',   gradient:'linear-gradient(135deg,#326599,#4a90c4)'},
   };
   writeUrl.addEventListener('input', () => {
     const val = writeUrl.value.trim();
@@ -433,13 +433,17 @@
     try {
       const domain = new URL(val).hostname.replace('www.','');
       const info = Object.entries(URL_SITES).find(([k]) => domain.includes(k));
-      const site = info ? info[1] : {name:domain,icon:'🔗',color:'#6b7280'};
+      const site = info ? info[1] : {name:domain, logo:domain.slice(0,3).toUpperCase(), gradient:'linear-gradient(135deg,#6b7280,#9ca3af)'};
+      const linkSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`;
       urlPreview.innerHTML = `
         <div class="url-preview-card" style="margin-top:10px;margin-bottom:0">
-          <div class="url-preview-icon" style="background:${site.color}">${site.icon}</div>
+          <div class="url-preview-thumb" style="background:${site.gradient}">
+            <div class="url-preview-thumb-logo">${site.logo}</div>
+            <div class="url-preview-thumb-domain">${domain}</div>
+          </div>
           <div class="url-preview-body">
             <div class="url-preview-site">${site.name}</div>
-            <div class="url-preview-url">${val}</div>
+            <div class="url-preview-url">${linkSvg} ${val}</div>
           </div>
         </div>`;
       urlPreview.style.display = '';

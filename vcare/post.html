@@ -257,32 +257,35 @@
 
   const HEART_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
 
-  // URL 썸네일 미리보기 생성
+  // URL 썸네일 미리보기 생성 (OG 카드 스타일)
   const URL_THUMBNAILS = {
-    'fda.gov': {siteName:'FDA', icon:'🏛️', color:'#1a5276'},
-    'nejm.org': {siteName:'NEJM', icon:'📄', color:'#b71c1c'},
-    'thelancet.com': {siteName:'The Lancet', icon:'📄', color:'#01579b'},
-    'clinicaltrials.gov': {siteName:'ClinicalTrials.gov', icon:'🔬', color:'#2e7d32'},
-    'asco.org': {siteName:'ASCO', icon:'🏥', color:'#00695c'},
-    'hira.or.kr': {siteName:'건강보험심사평가원', icon:'🏥', color:'#1565c0'},
-    'cancer.gov': {siteName:'NCI', icon:'🏛️', color:'#1b5e20'},
+    'fda.gov':            {siteName:'U.S. Food & Drug Administration', logo:'FDA',  color:'#1a5276', gradient:'linear-gradient(135deg,#1a5276,#2980b9)'},
+    'nejm.org':           {siteName:'New England Journal of Medicine', logo:'NEJM', color:'#b71c1c', gradient:'linear-gradient(135deg,#b71c1c,#e53935)'},
+    'thelancet.com':      {siteName:'The Lancet Oncology',            logo:'TL',   color:'#01579b', gradient:'linear-gradient(135deg,#01579b,#0288d1)'},
+    'clinicaltrials.gov': {siteName:'ClinicalTrials.gov',             logo:'CT',   color:'#2e7d32', gradient:'linear-gradient(135deg,#2e7d32,#43a047)'},
+    'asco.org':           {siteName:'ASCO Annual Meeting',            logo:'ASCO', color:'#00695c', gradient:'linear-gradient(135deg,#00695c,#00897b)'},
+    'hira.or.kr':         {siteName:'건강보험심사평가원',                logo:'HIRA', color:'#1565c0', gradient:'linear-gradient(135deg,#1565c0,#1e88e5)'},
+    'cancer.gov':         {siteName:'National Cancer Institute',      logo:'NCI',  color:'#1b5e20', gradient:'linear-gradient(135deg,#1b5e20,#388e3c)'},
   };
-  function renderUrlPreview(url, title) {
+  function renderUrlPreview(url, title, desc) {
     if (!url) return '';
     let domain = '';
     try { domain = new URL(url).hostname.replace('www.',''); } catch(e) { return ''; }
     const info = Object.entries(URL_THUMBNAILS).find(([k]) => domain.includes(k));
-    const site = info ? info[1] : {siteName:domain, icon:'🔗', color:'#6b7280'};
+    const site = info ? info[1] : {siteName:domain, logo:domain.slice(0,3).toUpperCase(), color:'#6b7280', gradient:'linear-gradient(135deg,#6b7280,#9ca3af)'};
+    const linkSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`;
+    const extSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
     return `
       <a href="${url}" target="_blank" rel="noopener" class="url-preview-card">
-        <div class="url-preview-icon" style="background:${site.color}">${site.icon}</div>
-        <div class="url-preview-body">
-          <div class="url-preview-site">${site.siteName}</div>
-          <div class="url-preview-title">${title}</div>
-          <div class="url-preview-url">${url}</div>
+        <div class="url-preview-thumb" style="background:${site.gradient}">
+          <div class="url-preview-thumb-logo">${site.logo}</div>
+          <div class="url-preview-thumb-domain">${domain}</div>
         </div>
-        <div class="url-preview-arrow">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <div class="url-preview-body">
+          <div class="url-preview-site">${extSvg} ${site.siteName}</div>
+          <div class="url-preview-title">${title}</div>
+          ${desc ? `<div class="url-preview-desc">${desc}</div>` : ''}
+          <div class="url-preview-url">${linkSvg} ${url}</div>
         </div>
       </a>`;
   }
@@ -329,7 +332,7 @@
     </div>
 
     <!-- URL 미리보기 (최신정보) -->
-    ${post.url ? renderUrlPreview(post.url, post.title.replace(/\[v\.care 메디컬팀\]\s*/,'')) : ''}
+    ${post.url ? renderUrlPreview(post.url, post.title.replace(/\[v\.care 메디컬팀\]\s*/,''), post.excerpt) : ''}
 
     <!-- 태그 -->
     <div class="post-detail-tags">
