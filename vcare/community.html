@@ -110,184 +110,12 @@
       <button class="cat-btn" data-cat="cheer">응원/일상</button>
     </div>
 
-    <!-- 게시글 목록 -->
-    <div class="post-list" id="postList">
+    <!-- 게시글 목록 (JS 렌더링) -->
+    <div class="post-list" id="postList"></div>
 
-      <!-- 사례 공유 카드 -->
-      <article class="post-card post-card--case" data-cat="case" data-disease="lung">
-        <div class="post-top">
-          <div class="post-top-left">
-            <span class="post-badge badge--case">희망 사례</span>
-            <span class="post-author">@보호자_91z 보호자</span>
-          </div>
-          <span class="post-views">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            조회수 281
-          </span>
-        </div>
-        <div class="post-body">
-          <div class="post-content">
-            <h2 class="post-title">[완치기록] 폐암 항암 12차 드디어 완주했습니다!</h2>
-            <p class="post-excerpt">처음 진단받았을 땐 세상이 무너지는 것 같았는데, 어느덧 마지막 주사를 맞고 왔네요. 제가 버틸 수 있었던 건 여기서 얻은 정보와 응원 덕분이었습니다. 제가 실천한 식단과 마인드셋 공유할게요.</p>
-            <div class="post-tags">
-              <span class="tag">#폐암</span>
-              <span class="tag">#story</span>
-            </div>
-          </div>
-          <div class="post-stat post-stat--expert">
-            <span class="stat-label">EXPERT ANS.</span>
-            <span class="stat-num">0</span>
-          </div>
-        </div>
-      </article>
+    <!-- 페이지네이션 -->
+    <nav class="pagination" id="pagination" aria-label="페이지 이동"></nav>
 
-      <!-- 응원/일상 카드 -->
-      <article class="post-card post-card--cheer" data-cat="cheer" data-disease="liver">
-        <div class="post-top">
-          <div class="post-top-left">
-            <span class="post-badge badge--cheer">따뜻한 응원</span>
-            <span class="post-author">@환우_ztl 환자</span>
-          </div>
-          <span class="post-views">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            조회수 282
-          </span>
-        </div>
-        <div class="post-body">
-          <div class="post-content">
-            <h2 class="post-title post-title--cheer">오늘도 힘든 하루를 견뎌낸 우리 모두를 응원합니다.</h2>
-            <p class="post-excerpt">병동 창밖을 보며 문득 환우분들 생각이 났어요. 지금 이 고통도 결국 지나갈 과정이라 믿습니다. 우리 서로 손잡고 끝까지 포기하지 말아요. 사랑합니다.</p>
-            <div class="post-tags">
-              <span class="tag">#간암</span>
-              <span class="tag">#cheer</span>
-            </div>
-          </div>
-          <div class="post-stat post-stat--hearts">
-            <span class="stat-label">HEARTS</span>
-            <div class="hearts-display">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#f43f5e"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              <span class="hearts-num">292</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 증상 질문 카드 -->
-      <article class="post-card post-card--symptom" data-cat="symptom" data-disease="stomach">
-        <div class="post-top">
-          <div class="post-top-left">
-            <span class="post-badge badge--symptom">증상 질문</span>
-            <span class="post-author">@보호자_8a4 보호자</span>
-          </div>
-          <span class="post-views">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            조회수 283
-          </span>
-        </div>
-        <div class="post-body">
-          <div class="post-content">
-            <h2 class="post-title">위암 추적 관찰 중 나타난 부작용 질문입니다.</h2>
-            <p class="post-excerpt">어제부터 갑자기 증상이 나타났습니다. 비슷한 경험 있으신 분 계실까요? 위암 추적 관찰 단계에서 흔한 일인지 궁금합니다.</p>
-            <div class="post-tags">
-              <span class="tag">#위암</span>
-              <span class="tag">#부작용</span>
-            </div>
-          </div>
-          <div class="post-stat post-stat--expert">
-            <span class="stat-label">EXPERT ANS.</span>
-            <span class="stat-num">1</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 사례 공유 카드 2 -->
-      <article class="post-card post-card--case" data-cat="case" data-disease="breast">
-        <div class="post-top">
-          <div class="post-top-left">
-            <span class="post-badge badge--case">희망 사례</span>
-            <span class="post-author">@환자_mj2 환자</span>
-          </div>
-          <span class="post-views">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            조회수 198
-          </span>
-        </div>
-        <div class="post-body">
-          <div class="post-content">
-            <h2 class="post-title">유방암 수술 후 6개월, 일상으로 돌아왔어요.</h2>
-            <p class="post-excerpt">수술이 무사히 끝나고 오늘 첫 직장 복귀를 했습니다. 막막했던 날들이 있었지만 여기 계신 분들 덕분에 힘을 얻었어요. 제 회복 과정을 나눠드리고 싶어요.</p>
-            <div class="post-tags">
-              <span class="tag">#유방암</span>
-              <span class="tag">#회복</span>
-            </div>
-          </div>
-          <div class="post-stat post-stat--expert">
-            <span class="stat-label">EXPERT ANS.</span>
-            <span class="stat-num">3</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 응원/일상 카드 2 -->
-      <article class="post-card post-card--cheer" data-cat="cheer" data-disease="colon">
-        <div class="post-top">
-          <div class="post-top-left">
-            <span class="post-badge badge--cheer">따뜻한 응원</span>
-            <span class="post-author">@보호자_k77 보호자</span>
-          </div>
-          <span class="post-views">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            조회수 145
-          </span>
-        </div>
-        <div class="post-body">
-          <div class="post-content">
-            <h2 class="post-title post-title--cheer">오늘 아버지 항암 마지막 날, 가족 모두 눈물이 났어요.</h2>
-            <p class="post-excerpt">힘든 시간이었지만 끝까지 함께 버텨준 이 커뮤니티에 감사해요. 앞으로도 회복 과정 같이 나눌게요. 모든 환우분들 파이팅!</p>
-            <div class="post-tags">
-              <span class="tag">#대장암</span>
-              <span class="tag">#가족</span>
-            </div>
-          </div>
-          <div class="post-stat post-stat--hearts">
-            <span class="stat-label">HEARTS</span>
-            <div class="hearts-display">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#f43f5e"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              <span class="hearts-num">174</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 증상 질문 카드 2 -->
-      <article class="post-card post-card--symptom" data-cat="symptom" data-disease="thyroid">
-        <div class="post-top">
-          <div class="post-top-left">
-            <span class="post-badge badge--symptom">증상 질문</span>
-            <span class="post-author">@환자_th9 환자</span>
-          </div>
-          <span class="post-views">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
-            조회수 112
-          </span>
-        </div>
-        <div class="post-body">
-          <div class="post-content">
-            <h2 class="post-title">갑상선암 수술 후 목소리가 변한 분 계신가요?</h2>
-            <p class="post-excerpt">수술 후 2주가 지났는데 아직 목소리가 쉰 상태입니다. 일시적인 건지 지속되는 건지 걱정이 됩니다. 비슷한 경험 있으신 분의 이야기가 듣고 싶어요.</p>
-            <div class="post-tags">
-              <span class="tag">#갑상선암</span>
-              <span class="tag">#수술후</span>
-            </div>
-          </div>
-          <div class="post-stat post-stat--expert">
-            <span class="stat-label">EXPERT ANS.</span>
-            <span class="stat-num">2</span>
-          </div>
-        </div>
-      </article>
-
-    </div><!-- /post-list -->
   </div><!-- /cm-wrap -->
 </main>
 
@@ -366,13 +194,13 @@
 </nav>
 
 <script>
-  // GNB scroll
+  // ── GNB scroll ─────────────────────────────
   const gnb = document.getElementById('gnb');
   window.addEventListener('scroll', () => {
     gnb.classList.toggle('scrolled', window.scrollY > 8);
   }, { passive: true });
 
-  // Mobile drawer
+  // ── Mobile drawer ──────────────────────────
   const ham = document.getElementById('hamBtn');
   const dim = document.getElementById('dim');
   const drawer = document.getElementById('drawer');
@@ -383,7 +211,7 @@
   closeBtn.addEventListener('click', shutD);
   dim.addEventListener('click', shutD);
 
-  // 질환 필터 화살표 스크롤
+  // ── 질환 필터 화살표 스크롤 ────────────────
   const dfScroll = document.getElementById('diseaseFilter');
   document.getElementById('dfLeft').addEventListener('click', () => {
     dfScroll.scrollBy({ left: -160, behavior: 'smooth' });
@@ -392,44 +220,231 @@
     dfScroll.scrollBy({ left: 160, behavior: 'smooth' });
   });
 
-  // 질환 필터
+  // ── 게시글 Mock 데이터 생성 (136개) ────────
+  const DISEASES = [
+    { id:'breast',   label:'유방암',   tag:'#유방암' },
+    { id:'stomach',  label:'위암',     tag:'#위암' },
+    { id:'colon',    label:'대장암',   tag:'#대장암' },
+    { id:'liver',    label:'간암',     tag:'#간암' },
+    { id:'thyroid',  label:'갑상선암', tag:'#갑상선암' },
+    { id:'lung',     label:'폐암',     tag:'#폐암' },
+    { id:'allergy',  label:'알러지',   tag:'#알러지' },
+    { id:'diabetes', label:'당뇨',     tag:'#당뇨' },
+    { id:'cardio',   label:'심혈관',   tag:'#심혈관' },
+    { id:'pediatric',label:'소아성장', tag:'#소아성장' },
+    { id:'pancreas', label:'췌장암',   tag:'#췌장암' },
+    { id:'prostate', label:'전립선암', tag:'#전립선암' },
+  ];
+
+  const SYMPTOM_POSTS = [
+    { title:'항암 후 손발 저림이 심한데 개선 방법 있을까요?', excerpt:'항암 3차 이후부터 손발이 저리고 감각이 이상해졌어요. 주치의께는 말씀드렸는데 혹시 생활 속에서 도움이 되는 방법이 있는지 경험 나눠주세요.', tag2:'#부작용' },
+    { title:'수술 후 식욕이 전혀 없는데 어떻게 하셨나요?', excerpt:'수술 후 2주가 지났는데 아직도 입맛이 돌아오지 않아서 걱정이에요. 억지로라도 먹어야 할 것 같은데 추천하는 식품이 있을까요?', tag2:'#식이요법' },
+    { title:'방사선 치료 중 피부 발적이 심해졌어요.', excerpt:'방사선 3주차부터 해당 부위 피부가 심하게 붉어지고 따가워요. 병원에서 처방받은 연고 외에 추가로 할 수 있는 게 있을까요?', tag2:'#방사선' },
+    { title:'호르몬 치료 중 불면증이 계속됩니다.', excerpt:'호르몬 치료를 시작한 이후로 잠을 통 못 자고 있어요. 수면제 처방받기가 망설여지는데 자연스럽게 개선한 경험 있으신 분 계세요?', tag2:'#호르몬치료' },
+    { title:'복수가 차는 증상, 이럴 때 어떻게 하셨어요?', excerpt:'최근 배가 많이 불러오고 불편감이 심합니다. 담당 의사 선생님과 상담 예정이지만 유사한 경험을 나눠주실 분 있으신가요?', tag2:'#복수' },
+    { title:'항구토제 복용해도 구역감이 가라앉지 않아요.', excerpt:'처방받은 항구토제를 먹고 있는데도 계속 메스꺼움이 있어요. 식이 조절이나 자세 변화 등으로 도움받은 분 계신가요?', tag2:'#구역감' },
+    { title:'추적 관찰 결과 수치가 올라가서 불안해요.', excerpt:'정기 검사 결과 수치가 조금 상승했다는 얘기를 들었어요. 추가 검사를 기다리는 동안 불안감을 어떻게 관리하셨나요?', tag2:'#추적관찰' },
+    { title:'항암 후 탈모, 언제쯤 다시 자라기 시작했나요?', excerpt:'항암 후 탈모가 시작됐는데 언제부터 다시 자라는지 경험 공유해주시면 감사하겠어요. 모발 관리 팁도 알려주세요.', tag2:'#탈모' },
+    { title:'면역항암제 부작용으로 피로감이 극심합니다.', excerpt:'면역항암제 투여 이후 극심한 피로감에 시달리고 있어요. 일상생활이 힘들 정도인데 비슷한 경험 하신 분 계세요?', tag2:'#면역항암' },
+    { title:'수술 부위 통증이 3개월째 지속되고 있어요.', excerpt:'수술 후 3개월이 지났는데도 수술 부위에 통증이 있어요. 신경 손상인지 흉터 때문인지 확인이 필요할까요?', tag2:'#수술후통증' },
+    { title:'표적치료제 복용 중 피부 발진이 생겼어요.', excerpt:'표적치료제를 시작한 지 2주 만에 얼굴과 등에 여드름 같은 발진이 생겼어요. 관리법을 알고 싶어요.', tag2:'#표적치료' },
+  ];
+
+  const CASE_POSTS = [
+    { title:'[완치기록] 항암 12차 드디어 완주했습니다!', excerpt:'처음 진단받았을 땐 세상이 무너지는 것 같았는데, 어느덧 마지막 주사를 맞고 왔네요. 제가 버틸 수 있었던 건 여기서 얻은 정보와 응원 덕분이었습니다.', tag2:'#완치' },
+    { title:'수술 후 6개월, 드디어 일상으로 돌아왔어요.', excerpt:'수술이 무사히 끝나고 오늘 첫 직장 복귀를 했습니다. 막막했던 날들이 있었지만 여기 계신 분들 덕분에 힘을 얻었어요.', tag2:'#회복' },
+    { title:'항암하면서 직장 다닌 경험 공유합니다.', excerpt:'항암 중에 재택근무와 병행하면서 터득한 노하우를 나눕니다. 일정 조율, 상사와의 소통 방법 등 실질적인 팁 공유할게요.', tag2:'#직장생활' },
+    { title:'재발 후 2차 치료, 6개월 만에 관해 달성했어요.', excerpt:'재발 판정을 받았을 때 얼마나 절망스러웠는지 몰라요. 하지만 2차 치료를 꾸준히 받은 결과 관해를 확인했습니다. 포기하지 마세요.', tag2:'#재발' },
+    { title:'임상시험 참여 후 현재 무병 상태 1년 됐어요.', excerpt:'임상시험 참여를 결정하기까지 많이 고민했어요. 결과적으로 좋은 선택이었고, 1년째 무병 상태를 유지하고 있습니다.', tag2:'#임상시험' },
+    { title:'30대에 진단, 지금은 5년 생존자입니다.', excerpt:'30대 초반에 진단받아 모든 게 무너지는 느낌이었어요. 5년이 지난 지금 이렇게 후기를 쓸 수 있어서 감사합니다.', tag2:'#5년생존' },
+    { title:'항암 식단 6개월 실천 후 체중 회복 성공기.', excerpt:'항암 중 급격히 빠진 체중을 식단 관리로 회복한 경험을 공유합니다. 먹기 편하고 영양 많은 레시피들 알려드릴게요.', tag2:'#식단관리' },
+    { title:'호르몬 치료 3년차, 부작용 관리 노하우.', excerpt:'장기 호르몬 치료 중 겪은 다양한 부작용들과 그것을 이겨낸 방법을 소개합니다. 비슷한 상황의 분들께 도움이 됐으면 해요.', tag2:'#장기치료' },
+    { title:'수술 흉터 관리, 1년 후 이렇게 달라졌어요.', excerpt:'수술 직후 걱정됐던 흉터가 1년간 꾸준히 관리한 결과 많이 옅어졌어요. 사용한 제품과 마사지 방법을 공유합니다.', tag2:'#흉터관리' },
+    { title:'항암 중 운동, 가능할까요? 제 경험입니다.', excerpt:'항암하면서 가벼운 운동을 꾸준히 했어요. 처음엔 걷기부터 시작해서 지금은 수영까지 하고 있습니다. 운동의 효과가 정말 컸어요.', tag2:'#운동' },
+  ];
+
+  const CHEER_POSTS = [
+    { title:'오늘도 힘든 하루를 견뎌낸 우리 모두를 응원합니다.', excerpt:'병동 창밖을 보며 문득 환우분들 생각이 났어요. 지금 이 고통도 결국 지나갈 과정이라 믿습니다. 우리 서로 손잡고 끝까지 포기하지 말아요.', tag2:'#응원' },
+    { title:'항암 마지막 날, 가족 모두 눈물이 났어요.', excerpt:'힘든 시간이었지만 끝까지 함께 버텨준 이 커뮤니티에 감사해요. 앞으로도 회복 과정 같이 나눌게요. 모든 환우분들 파이팅!', tag2:'#가족' },
+    { title:'치료 중에 찾은 작은 행복들을 나눕니다.', excerpt:'병원 창가에 핀 꽃, 맛있는 죽 한 그릇, 간호사 선생님의 따뜻한 말 한마디. 이런 작은 것들이 하루를 버티게 해줬어요.', tag2:'#일상' },
+    { title:'검사 결과 기다리는 모든 분들에게.', excerpt:'그 두렵고 긴 기다림의 시간을 알아요. 결과가 무엇이든 우리는 이미 충분히 용감하게 싸우고 있습니다. 함께라는 걸 기억해주세요.', tag2:'#위로' },
+    { title:'5년 전 오늘, 진단받은 날을 생각하며.', excerpt:'그때의 나에게 이 한마디를 전하고 싶어요. 괜찮아, 결국 이겨낸다고. 지금 힘든 분들도 꼭 그 날이 올 거예요.', tag2:'#5주년' },
+    { title:'보호자로서 2년을 보내며 느낀 것들.', excerpt:'엄마 곁에서 치료를 함께하며 배운 것들이 많아요. 보호자 여러분, 본인도 지치지 않는 게 중요합니다. 우리도 서로 의지해요.', tag2:'#보호자' },
+    { title:'오늘 마지막 방사선 치료를 마쳤습니다!', excerpt:'30번의 방사선 치료가 드디어 끝났어요. 매일 병원에 오는 게 힘들었지만 의료진 덕분에 버텼어요. 이제 회복만 남았네요 :)', tag2:'#방사선완료' },
+    { title:'병실에서 친구가 된 환우분과의 이야기.', excerpt:'입원 중 옆 침대 환우분과 나눈 대화들이 너무 큰 위로가 됐어요. 같은 고통을 겪는 사람의 말은 다르게 와닿더라고요.', tag2:'#병실친구' },
+    { title:'봄이 오면 꼭 다시 걸어보고 싶은 길.', excerpt:'항암 중에도 마음속에 그리던 장소가 있어요. 치료가 끝나면 꼭 가보고 싶은 곳. 여러분의 버킷리스트는 무엇인가요?', tag2:'#희망' },
+    { title:'새벽에 혼자 울다가 이 글을 씁니다.', excerpt:'모두 자는 새벽에 통증과 불안으로 잠들지 못하고 있어요. 여기 계신 분들이 같은 밤을 보내고 있다는 게 위로가 됩니다.', tag2:'#새벽' },
+  ];
+
+  const CATS = [
+    { id:'symptom', label:'증상 질문', badgeClass:'badge--symptom', cardClass:'post-card--symptom', posts: SYMPTOM_POSTS },
+    { id:'case',    label:'희망 사례', badgeClass:'badge--case',    cardClass:'post-card--case',    posts: CASE_POSTS },
+    { id:'cheer',   label:'따뜻한 응원', badgeClass:'badge--cheer', cardClass:'post-card--cheer',  posts: CHEER_POSTS },
+  ];
+
+  const ROLES = ['환자', '보호자', '환자'];
+  const USER_PREFIXES = ['환우', '환자', '보호자'];
+  const HASH_IDS = ['a1b','c2d','e3f','g4h','i5j','k6l','m7n','o8p','q9r','s0t','u1v','w2x'];
+
+  function rnd(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function seededVal(seed, mod) { return ((seed * 1103515245 + 12345) & 0x7fffffff) % mod; }
+
+  // Generate exactly 136 posts
+  const ALL_POSTS = [];
+  for (let i = 0; i < 136; i++) {
+    const catIdx = seededVal(i * 7 + 3, 3);
+    const cat = CATS[catIdx];
+    const disIdx = seededVal(i * 13 + 5, DISEASES.length);
+    const dis = DISEASES[disIdx];
+    const postTemplate = cat.posts[seededVal(i * 11, cat.posts.length)];
+    const roleIdx = seededVal(i * 17, 3);
+    const userPrefix = USER_PREFIXES[seededVal(i * 19, 3)];
+    const hashId = HASH_IDS[seededVal(i * 23, HASH_IDS.length)];
+    const expertAns = catIdx === 0 ? seededVal(i * 29, 5) : 0;
+    const hearts = catIdx === 2 ? rnd(10, 400) : (catIdx === 1 ? rnd(0, 80) : 0);
+    const views = rnd(50, 600);
+
+    ALL_POSTS.push({
+      cat: cat.id,
+      catLabel: cat.label,
+      badgeClass: cat.badgeClass,
+      cardClass: cat.cardClass,
+      disease: dis.id,
+      diseaseTag: dis.tag,
+      title: postTemplate.title,
+      excerpt: postTemplate.excerpt,
+      tag2: postTemplate.tag2,
+      author: `@${userPrefix}_${hashId}`,
+      role: ROLES[roleIdx],
+      views,
+      expertAns,
+      hearts,
+      titleClass: catIdx === 2 ? 'post-title--cheer' : '',
+    });
+  }
+
+  // ── 페이지네이션 + 필터 ────────────────────
+  const PAGE_SIZE = 10;
+  let currentPage = 1;
+  let activeDis = 'all';
+  let activeCat = 'all';
+
+  const EYE_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="#d1d5db"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>`;
+  const CLOCK_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>`;
+  const HEART_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="#f43f5e"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+  function getFiltered() {
+    return ALL_POSTS.filter(p =>
+      (activeDis === 'all' || p.disease === activeDis) &&
+      (activeCat === 'all' || p.cat === activeCat)
+    );
+  }
+
+  function renderCard(p) {
+    const statsHtml = [
+      p.expertAns > 0 ? `<span class="stat-chip">${CLOCK_SVG} 전문가 답변 ${p.expertAns}</span>` : '',
+      p.hearts > 0    ? `<span class="stat-chip stat-chip--hearts">${HEART_SVG} ${p.hearts}</span>` : '',
+    ].filter(Boolean).join('');
+
+    return `
+      <article class="post-card ${p.cardClass}" data-cat="${p.cat}" data-disease="${p.disease}">
+        <div class="post-top">
+          <div class="post-top-left">
+            <span class="post-badge ${p.badgeClass}">${p.catLabel}</span>
+            <span class="post-author">${p.author} · ${p.role}</span>
+          </div>
+          <span class="post-views">${EYE_SVG} ${p.views}</span>
+        </div>
+        <h2 class="post-title ${p.titleClass}">${p.title}</h2>
+        <p class="post-excerpt">${p.excerpt}</p>
+        <div class="post-footer">
+          <div class="post-tags">
+            <span class="tag">${p.diseaseTag}</span>
+            <span class="tag">${p.tag2}</span>
+          </div>
+          <div class="post-stats">${statsHtml}</div>
+        </div>
+      </article>`;
+  }
+
+  function renderPagination(total, page) {
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+    if (totalPages <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+
+    const pages = [];
+    pages.push(`<button class="pg-btn pg-prev" ${page === 1 ? 'disabled' : ''} data-page="${page - 1}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>`);
+
+    const range = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) range.push(i);
+    } else if (page <= 4) {
+      range.push(1,2,3,4,5,'…',totalPages);
+    } else if (page >= totalPages - 3) {
+      range.push(1,'…',totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages);
+    } else {
+      range.push(1,'…',page-1,page,page+1,'…',totalPages);
+    }
+
+    range.forEach(r => {
+      if (r === '…') {
+        pages.push(`<span class="pg-ellipsis">…</span>`);
+      } else {
+        pages.push(`<button class="pg-btn ${r === page ? 'pg-active' : ''}" data-page="${r}">${r}</button>`);
+      }
+    });
+
+    pages.push(`<button class="pg-btn pg-next" ${page === totalPages ? 'disabled' : ''} data-page="${page + 1}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>`);
+
+    document.getElementById('pagination').innerHTML = pages.join('');
+
+    document.querySelectorAll('.pg-btn:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+        window.scrollTo({ top: document.getElementById('postList').offsetTop - 80, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function renderPage() {
+    const filtered = getFiltered();
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const slice = filtered.slice(start, start + PAGE_SIZE);
+    document.getElementById('postList').innerHTML = slice.map(renderCard).join('');
+    document.getElementById('postCount').textContent = filtered.length;
+    renderPagination(filtered.length, currentPage);
+  }
+
+  // ── 질환 필터 ──────────────────────────────
   const dfBtns = document.querySelectorAll('.df-btn');
   dfBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       dfBtns.forEach(b => b.classList.remove('df-btn--active'));
       btn.classList.add('df-btn--active');
-      filterPosts();
+      activeDis = btn.dataset.disease;
+      currentPage = 1;
+      renderPage();
     });
   });
 
-  // 카테고리 필터
+  // ── 카테고리 필터 ──────────────────────────
   const catBtns = document.querySelectorAll('.cat-btn');
   catBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       catBtns.forEach(b => b.classList.remove('cat-btn--active'));
       btn.classList.add('cat-btn--active');
-      filterPosts();
+      activeCat = btn.dataset.cat;
+      currentPage = 1;
+      renderPage();
     });
   });
 
-  function filterPosts() {
-    const activeDis = document.querySelector('.df-btn--active').dataset.disease;
-    const activeCat = document.querySelector('.cat-btn--active').dataset.cat;
-    const posts = document.querySelectorAll('.post-card');
-    let visible = 0;
-
-    posts.forEach(post => {
-      const matchDis = activeDis === 'all' || post.dataset.disease === activeDis;
-      const matchCat = activeCat === 'all' || post.dataset.cat === activeCat;
-      if (matchDis && matchCat) {
-        post.style.display = '';
-        visible++;
-      } else {
-        post.style.display = 'none';
-      }
-    });
-    document.getElementById('postCount').textContent = visible;
-  }
+  // 초기 렌더링
+  renderPage();
 
   // ── 채팅 기능 ──────────────────────────────
   const CHAT_ROOMS = [
@@ -486,7 +501,6 @@
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
   }
 
-  // 채팅방 목록 렌더링
   document.getElementById('chatRoomList').innerHTML = CHAT_ROOMS.map(r => `
     <button class="chat-room-item" data-id="${r.id}">
       <div class="chat-room-icon" style="background:${r.color}">${r.name[0]}</div>
