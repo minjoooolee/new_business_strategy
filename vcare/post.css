@@ -548,6 +548,89 @@
 .badge--cheer   { background: #fdf2f8; color: #E24585; }
 .badge--news    { background: linear-gradient(135deg, #ecfdf5, #f0e8f7); color: #0d9488; border: 1px solid #ccfbf1; }
 
+/* ── 메디컬팀 게시글 ─────────────────────── */
+.post-detail-card--medical {
+  background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 2px solid transparent;
+}
+
+.pd-author--medical {
+  background: linear-gradient(135deg, #3fbfbc, #6E3FA3, #E24585);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* ── URL 미리보기 카드 ───────────────────── */
+.url-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: all .15s;
+}
+
+.url-preview-card:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 2px 8px rgba(107, 33, 168, .08);
+  background: #fff;
+}
+
+.url-preview-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.url-preview-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.url-preview-site {
+  font-size: .7rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.url-preview-title {
+  font-size: .82rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.4;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.url-preview-url {
+  font-size: .68rem;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.url-preview-arrow {
+  flex-shrink: 0;
+}
+
 /* ── 반응형 ───────────────────────────────── */
 @media (max-width: 768px) {
   .post-layout {

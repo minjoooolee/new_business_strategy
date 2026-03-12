@@ -353,6 +353,51 @@
   background: #1f2937;
 }
 
+/* ── URL 미리보기 (최신정보) ──────────────── */
+.url-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+  text-decoration: none;
+  transition: all .15s;
+}
+
+.url-preview-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.url-preview-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.url-preview-site {
+  font-size: .7rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.url-preview-url {
+  font-size: .68rem;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ── 반응형 ───────────────────────────────── */
 @media (max-width: 768px) {
   .write-layout {

@@ -125,6 +125,13 @@
         <textarea class="write-textarea" id="writeContent" rows="10" placeholder="경험, 질문, 응원의 말씀을 자유롭게 작성해주세요.&#10;&#10;작성 팁:&#10;· 어떤 증상이 있었는지&#10;· 어떤 치료를 받았는지&#10;· 도움이 된 것은 무엇이었는지"></textarea>
       </div>
 
+      <!-- Step 5.5: URL 입력 (최신정보 카테고리 전용) -->
+      <div class="write-section" id="urlSection" style="display:none">
+        <label class="write-label">참고 링크 <span class="write-label-sub">(논문, 뉴스, 임상시험 URL)</span></label>
+        <input type="url" class="write-input" id="writeUrl" placeholder="https://example.com/article">
+        <div class="url-write-preview" id="urlPreview" style="display:none"></div>
+      </div>
+
       <!-- Step 6: 이미지 업로드 -->
       <div class="write-section">
         <label class="write-label">이미지 첨부 <span class="write-label-sub">(최대 5장)</span></label>
@@ -282,6 +289,7 @@
   setupSelectGroup('catGroup', val => {
     selectedCat = val;
     addAiMsg(AI_GUIDES.cat[val]);
+    document.getElementById('urlSection').style.display = val === 'news' ? '' : 'none';
   });
 
   // Step 3: 치료 단계
@@ -405,6 +413,38 @@
   function updateImgUI() {
     imgAddBtn.style.display = uploadedImages.length >= MAX_IMAGES ? 'none' : 'flex';
   }
+
+  // URL 미리보기 (최신정보)
+  const writeUrl = document.getElementById('writeUrl');
+  const urlPreview = document.getElementById('urlPreview');
+  const URL_SITES = {
+    'fda.gov':{name:'FDA',icon:'🏛️',color:'#1a5276'},
+    'nejm.org':{name:'NEJM',icon:'📄',color:'#b71c1c'},
+    'thelancet.com':{name:'The Lancet',icon:'📄',color:'#01579b'},
+    'clinicaltrials.gov':{name:'ClinicalTrials.gov',icon:'🔬',color:'#2e7d32'},
+    'asco.org':{name:'ASCO',icon:'🏥',color:'#00695c'},
+    'hira.or.kr':{name:'건강보험심사평가원',icon:'🏥',color:'#1565c0'},
+    'cancer.gov':{name:'NCI',icon:'🏛️',color:'#1b5e20'},
+    'pubmed.ncbi':{name:'PubMed',icon:'📄',color:'#326599'},
+  };
+  writeUrl.addEventListener('input', () => {
+    const val = writeUrl.value.trim();
+    if (!val) { urlPreview.style.display = 'none'; return; }
+    try {
+      const domain = new URL(val).hostname.replace('www.','');
+      const info = Object.entries(URL_SITES).find(([k]) => domain.includes(k));
+      const site = info ? info[1] : {name:domain,icon:'🔗',color:'#6b7280'};
+      urlPreview.innerHTML = `
+        <div class="url-preview-card" style="margin-top:10px;margin-bottom:0">
+          <div class="url-preview-icon" style="background:${site.color}">${site.icon}</div>
+          <div class="url-preview-body">
+            <div class="url-preview-site">${site.name}</div>
+            <div class="url-preview-url">${val}</div>
+          </div>
+        </div>`;
+      urlPreview.style.display = '';
+    } catch(e) { urlPreview.style.display = 'none'; }
+  });
 
   // 게시하기
   document.getElementById('submitBtn').addEventListener('click', () => {
