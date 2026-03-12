@@ -378,14 +378,41 @@
    AI 게시글 요약 카드
    ============================================================ */
 .ai-post-summary {
-  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 40%, #2B2171 75%, #ffffff 100%);
+  position: relative;
   border: 1px solid rgba(107, 63, 163, .3);
   border-radius: 14px;
   padding: 16px 18px;
   margin-bottom: 16px;
+  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 40%, #2B2171 75%, #ffffff 100%);
+  isolation: isolate;
+}
+
+.ai-post-summary::before,
+.ai-post-summary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Multiply 60% 베이스 */
+.ai-post-summary::before {
+  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 40%, #2B2171 75%, #ffffff 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* Overlay 20% 중첩 */
+.ai-post-summary::after {
+  background: linear-gradient(135deg, #64CCC9 0%, #6E3FA3 40%, #2B2171 75%, #ffffff 100%);
+  mix-blend-mode: overlay;
+  opacity: 0.2;
 }
 
 .ai-post-summary-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -416,6 +443,8 @@
 }
 
 .ai-post-summary-text {
+  position: relative;
+  z-index: 1;
   font-size: .82rem;
   line-height: 1.6;
   color: #ffffff;
