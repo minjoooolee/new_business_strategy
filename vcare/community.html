@@ -77,9 +77,6 @@
 
     <!-- 질환 필터 (가로 스크롤) -->
     <div class="disease-filter-wrap">
-      <button class="df-arrow df-arrow--left" id="dfLeft" aria-label="이전">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
       <div class="disease-filter" id="diseaseFilter">
         <button class="df-btn df-btn--active" data-disease="all">전체 질환</button>
         <button class="df-btn" data-disease="breast">유방암</button>
@@ -95,9 +92,14 @@
         <button class="df-btn" data-disease="pancreas">췌장암</button>
         <button class="df-btn" data-disease="prostate">전립선암</button>
       </div>
-      <button class="df-arrow df-arrow--right" id="dfRight" aria-label="다음">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+      <div class="df-nav">
+        <button class="df-arrow" id="dfLeft" aria-label="이전">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="df-arrow" id="dfRight" aria-label="다음">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
 
     <!-- 카테고리 필터 -->
@@ -299,6 +301,47 @@
   </div>
 </footer>
 
+<!-- ── 채팅 FAB ──────────────────────────────── -->
+<button class="chat-fab" id="chatFab" aria-label="채팅방 열기">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+  </svg>
+  <span class="chat-badge">3</span>
+</button>
+
+<!-- ── 채팅 패널 ──────────────────────────────── -->
+<div class="chat-panel" id="chatPanel">
+
+  <!-- 채팅방 목록 뷰 -->
+  <div id="viewRooms">
+    <div class="chat-panel-header">
+      <div>
+        <div class="chat-panel-title">질환별 실시간 채팅</div>
+        <div class="chat-panel-sub">지금 활동 중인 환우들과 대화하세요</div>
+      </div>
+      <button class="chat-close-btn" id="chatClose">&times;</button>
+    </div>
+    <div class="chat-room-list" id="chatRoomList"></div>
+  </div>
+
+  <!-- 개별 채팅방 뷰 -->
+  <div id="viewRoom" class="chat-room-view" style="display:none">
+    <div class="chat-room-header">
+      <button class="chat-back-btn" id="chatBack">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="chat-room-title" id="chatRoomTitle"></span>
+      <button class="chat-close-btn" id="chatClose2">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-wrap">
+      <input type="text" class="chat-input" id="chatInput" placeholder="메시지를 입력하세요…">
+      <button class="chat-send-btn" id="chatSend">전송</button>
+    </div>
+  </div>
+
+</div>
+
 <!-- 모바일 드로어 -->
 <div class="dim" id="dim"></div>
 <nav class="drawer" id="drawer">
@@ -387,6 +430,101 @@
     });
     document.getElementById('postCount').textContent = visible;
   }
+
+  // ── 채팅 기능 ──────────────────────────────
+  const CHAT_ROOMS = [
+    { id:'breast',    name:'유방암',   online:24, color:'#f43f5e', last:'항암 식단 공유해요' },
+    { id:'stomach',   name:'위암',     online:18, color:'#f97316', last:'수술 후 관리 팁 있나요?' },
+    { id:'colon',     name:'대장암',   online:31, color:'#10b981', last:'오늘 진료 다녀왔어요' },
+    { id:'liver',     name:'간암',     online:15, color:'#8b5cf6', last:'약 부작용 겪으신 분?' },
+    { id:'thyroid',   name:'갑상선암', online:42, color:'#0ea5e9', last:'수술 후 목소리 변화' },
+    { id:'lung',      name:'폐암',     online:27, color:'#6366f1', last:'항암 12차 완주했어요!' },
+    { id:'allergy',   name:'알러지',   online:9,  color:'#f59e0b', last:'봄철 알러지 심한 분' },
+    { id:'diabetes',  name:'당뇨',     online:38, color:'#ef4444', last:'혈당 조절 팁 공유' },
+    { id:'cardio',    name:'심혈관',   online:12, color:'#ec4899', last:'운동 루틴 추천해요' },
+    { id:'pediatric', name:'소아성장', online:7,  color:'#10b981', last:'성장호르몬 처방 경험' },
+  ];
+
+  const SAMPLE_MSGS = {
+    breast:   [{u:'보호자_91z',t:'항암 중에 먹기 좋은 음식 추천해주세요',ts:'14:23',mine:false},{u:'환자_mj2',t:'고단백 저자극 식단이 도움됐어요! 두부·생선 위주로 드세요',ts:'14:25',mine:false},{u:'나',t:'감사합니다, 시도해볼게요 :)',ts:'14:28',mine:true}],
+    stomach:  [{u:'환자_k77',t:'수술 후 2주인데 소화가 너무 힘드네요',ts:'13:10',mine:false},{u:'보호자_8a4',t:'저도 처음엔 그랬어요. 죽부터 시작하면 나아져요',ts:'13:12',mine:false}],
+    colon:    [{u:'환자_th9',t:'오늘 3차 항암 완료! 드디어 반환점이에요',ts:'15:00',mine:false},{u:'나',t:'축하해요! 파이팅!',ts:'15:02',mine:true}],
+    liver:    [{u:'보호자_ztl',t:'소라페닙 부작용으로 손발 이상 오셨나요?',ts:'11:30',mine:false},{u:'환자_91z',t:'초반엔 힘들었는데 보습 열심히 하면 나아져요',ts:'11:35',mine:false}],
+    thyroid:  [{u:'환자_mj2',t:'수술 후 목소리가 많이 변하셨나요?',ts:'10:45',mine:false},{u:'나',t:'저는 2주 지나니까 서서히 돌아왔어요',ts:'10:48',mine:true}],
+    lung:     [{u:'보호자_91z',t:'12차 항암 드디어 완주했습니다!',ts:'09:20',mine:false},{u:'환자_k77',t:'정말 대단하세요! 축하드려요',ts:'09:22',mine:false}],
+    allergy:  [{u:'환자_th9',t:'봄철 되니 알러지가 심해졌어요',ts:'08:10',mine:false}],
+    diabetes: [{u:'환자_ztl',t:'식후 30분 걷기가 혈당 조절에 정말 효과적이에요',ts:'12:00',mine:false},{u:'나',t:'맞아요, 저도 그렇게 하고 있어요',ts:'12:03',mine:true}],
+    cardio:   [{u:'보호자_8a4',t:'심혈관 환자 운동은 어떻게 시작하면 좋을까요?',ts:'16:00',mine:false}],
+    pediatric:[{u:'환자_mj2',t:'성장호르몬 처방 경험 있으신 분 계세요?',ts:'17:30',mine:false}],
+  };
+
+  const chatFab    = document.getElementById('chatFab');
+  const chatPanel  = document.getElementById('chatPanel');
+  const vRooms     = document.getElementById('viewRooms');
+  const vRoom      = document.getElementById('viewRoom');
+  const chatMsgs   = document.getElementById('chatMessages');
+  const chatTitle  = document.getElementById('chatRoomTitle');
+  const chatInput  = document.getElementById('chatInput');
+
+  function openChat()  { chatPanel.classList.add('on'); }
+  function closeChat() { chatPanel.classList.remove('on'); }
+  function showRooms() { vRooms.style.display = ''; vRoom.style.display = 'none'; }
+  function showRoom(room) {
+    vRooms.style.display = 'none';
+    vRoom.style.display = 'flex';
+    chatTitle.textContent = room.name + ' 채팅방';
+    const msgs = SAMPLE_MSGS[room.id] || [];
+    chatMsgs.innerHTML = msgs.map(m => `
+      <div class="chat-msg ${m.mine ? 'chat-msg--mine' : ''}">
+        ${!m.mine ? `<div class="chat-msg-avatar">${m.u[0]}</div>` : ''}
+        <div class="chat-msg-body">
+          <div class="chat-msg-name">${m.mine ? '나' : m.u}</div>
+          <div class="chat-msg-bubble">${m.t}</div>
+          <div class="chat-msg-time">${m.ts}</div>
+        </div>
+      </div>`).join('');
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  }
+
+  // 채팅방 목록 렌더링
+  document.getElementById('chatRoomList').innerHTML = CHAT_ROOMS.map(r => `
+    <button class="chat-room-item" data-id="${r.id}">
+      <div class="chat-room-icon" style="background:${r.color}">${r.name[0]}</div>
+      <div class="chat-room-info">
+        <div class="chat-room-name">${r.name} 채팅방</div>
+        <div class="chat-room-last">${r.last}</div>
+      </div>
+      <div class="chat-room-meta">
+        <span class="chat-online">${r.online}</span>
+      </div>
+    </button>`).join('');
+
+  document.querySelectorAll('.chat-room-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const room = CHAT_ROOMS.find(r => r.id === item.dataset.id);
+      if (room) showRoom(room);
+    });
+  });
+
+  chatFab.addEventListener('click', () => chatPanel.classList.contains('on') ? closeChat() : openChat());
+  document.getElementById('chatClose').addEventListener('click', closeChat);
+  document.getElementById('chatClose2').addEventListener('click', closeChat);
+  document.getElementById('chatBack').addEventListener('click', showRooms);
+
+  function sendMsg() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    const now = new Date();
+    const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+    const el = document.createElement('div');
+    el.className = 'chat-msg chat-msg--mine';
+    el.innerHTML = `<div class="chat-msg-body"><div class="chat-msg-name">나</div><div class="chat-msg-bubble">${text}</div><div class="chat-msg-time">${ts}</div></div>`;
+    chatMsgs.appendChild(el);
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    chatInput.value = '';
+  }
+  document.getElementById('chatSend').addEventListener('click', sendMsg);
+  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
 </script>
 </body>
 </html>
