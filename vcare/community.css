@@ -5,7 +5,7 @@
 .cm-main {
   padding-top: 28px;
   padding-bottom: 56px;
-  background: #f3f4f6;
+  background: #fff;
   min-height: 100vh;
 }
 
@@ -172,7 +172,7 @@
   background: #fff;
   border-radius: 16px;
   padding: 18px 20px;
-  border: 1.5px solid transparent;
+  border: 1.5px solid #e5e7eb;
   transition: transform .15s, box-shadow .15s;
   cursor: pointer;
 }
@@ -181,7 +181,7 @@
   box-shadow: 0 6px 20px rgba(0,0,0,.07);
 }
 
-/* 증상 질문 — 기본 흰색 */
+/* 증상 질문 — 기본 */
 .post-card--symptom {
   background: #fff;
   border-color: #e5e7eb;
