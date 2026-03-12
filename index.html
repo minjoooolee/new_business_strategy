@@ -3340,6 +3340,7 @@
       <a class="cd-nav-pill" href="#cd-s2">세대 진화</a>
       <a class="cd-nav-pill" href="#cd-s2b">핑크케어 구조</a>
       <a class="cd-nav-pill" href="#cd-s2c">페인포인트 &amp; LLM</a>
+      <a class="cd-nav-pill" href="#cd-s2c">지능형 커뮤니티 개념</a>
       <a class="cd-nav-pill" href="#cd-s2d">기술 아키텍처</a>
       <a class="cd-nav-pill" href="#cd-s3">자산적 우위</a>
       <a class="cd-nav-pill" href="#cd-s4">데이터 가치</a>
@@ -3878,6 +3879,232 @@
         </table>
       </div>
     </div>
+
+    <div class="cd-divider"></div>
+
+    <!-- S2c: 지능형 커뮤니티란 무엇인가 -->
+    <div class="cd-section" id="cd-s2c">
+      <style>
+        /* ── S2c 전용 스타일 ── */
+        #cd-s2c .s2c-hero { margin-bottom:48px; }
+        #cd-s2c .s2c-hero-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+        #cd-s2c .s2c-hero-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--accent); }
+        #cd-s2c .s2c-hero-desc { font-size:14px; color:var(--text-muted); line-height:1.9; margin-top:14px; }
+        #cd-s2c .s2c-sec { margin-bottom:52px; }
+        #cd-s2c .s2c-sec-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
+        #cd-s2c .s2c-sec-title { font-size:19px; font-weight:900; letter-spacing:-0.4px; color:var(--text); margin-bottom:8px; }
+        #cd-s2c .s2c-sec-sub { font-size:13px; color:var(--text-muted); line-height:1.8; margin-bottom:22px; }
+        /* 3축 다이어그램 */
+        #cd-s2c .s2c-triad { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 28px; margin:24px 0; overflow:hidden; }
+        #cd-s2c .s2c-triad::before { content:''; position:absolute; inset:0; border-radius:20px; background:radial-gradient(ellipse at 50% 30%,rgba(61,127,255,0.06) 0%,transparent 70%); pointer-events:none; }
+        #cd-s2c .s2c-triad-node { display:flex; flex-direction:column; align-items:center; gap:7px; padding:18px 20px; border-radius:14px; border:1px solid; text-align:center; position:relative; z-index:1; }
+        #cd-s2c .s2c-triad-node-icon { font-size:24px; }
+        #cd-s2c .s2c-triad-node-label { font-size:13px; font-weight:900; }
+        #cd-s2c .s2c-triad-node-sub { font-size:10px; color:var(--text-dim); line-height:1.5; }
+        #cd-s2c .s2c-triad-node.user { background:rgba(255,110,180,0.06); border-color:rgba(255,110,180,0.3); }
+        #cd-s2c .s2c-triad-node.user .s2c-triad-node-label { color:var(--pink); }
+        #cd-s2c .s2c-triad-node.info { background:rgba(0,212,160,0.06); border-color:rgba(0,212,160,0.3); }
+        #cd-s2c .s2c-triad-node.info .s2c-triad-node-label { color:var(--accent2); }
+        #cd-s2c .s2c-triad-node.doctor { background:rgba(240,165,0,0.06); border-color:rgba(240,165,0,0.3); }
+        #cd-s2c .s2c-triad-node.doctor .s2c-triad-node-label { color:var(--accent4); }
+        #cd-s2c .s2c-triad-node.llm { background:rgba(61,127,255,0.08); border-color:rgba(61,127,255,0.35); box-shadow:0 0 30px rgba(61,127,255,0.1); }
+        #cd-s2c .s2c-triad-node.llm .s2c-triad-node-label { color:var(--accent); }
+        #cd-s2c .s2c-conn { display:flex; flex-direction:column; align-items:center; gap:4px; padding:0 14px; flex-shrink:0; }
+        #cd-s2c .s2c-conn-arrow { font-size:15px; color:var(--text-dim); }
+        #cd-s2c .s2c-conn-label { font-size:9px; color:var(--text-dim); white-space:nowrap; }
+        /* 데이터 플로우 */
+        #cd-s2c .s2c-flow { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; margin:20px 0; }
+        #cd-s2c .s2c-flow-title { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:18px; }
+        #cd-s2c .s2c-flow-steps { display:flex; align-items:center; gap:0; overflow-x:auto; padding-bottom:4px; }
+        #cd-s2c .s2c-step { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:7px; min-width:105px; }
+        #cd-s2c .s2c-step-box { width:96px; padding:10px 8px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); text-align:center; }
+        #cd-s2c .s2c-step-box.hl-blue { background:rgba(61,127,255,0.08); border-color:rgba(61,127,255,0.3); }
+        #cd-s2c .s2c-step-box.hl-green { background:rgba(0,212,160,0.08); border-color:rgba(0,212,160,0.3); }
+        #cd-s2c .s2c-step-box.hl-yellow { background:rgba(240,165,0,0.07); border-color:rgba(240,165,0,0.3); }
+        #cd-s2c .s2c-step-icon { font-size:17px; margin-bottom:4px; }
+        #cd-s2c .s2c-step-label { font-size:10px; font-weight:700; color:var(--text); line-height:1.4; }
+        #cd-s2c .s2c-step-sub { font-size:9px; color:var(--text-muted); line-height:1.4; }
+        #cd-s2c .s2c-arrow { flex-shrink:0; padding:0 4px; }
+        #cd-s2c .s2c-arrow-line { width:26px; height:1.5px; background:linear-gradient(90deg,var(--border2),var(--accent)); position:relative; }
+        #cd-s2c .s2c-arrow-line::after { content:''; position:absolute; right:-5px; top:-3.5px; border:4px solid transparent; border-left:6px solid var(--accent); }
+        #cd-s2c .s2c-arrow-tag { font-size:8px; color:var(--text-dim); white-space:nowrap; margin-top:3px; }
+        /* HITL */
+        #cd-s2c .s2c-hitl { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; margin:20px 0; }
+        #cd-s2c .s2c-hitl-row { display:flex; align-items:center; gap:8px; justify-content:center; flex-wrap:wrap; }
+        #cd-s2c .s2c-hitl-box { padding:11px 14px; border-radius:10px; border:1px solid; text-align:center; min-width:110px; }
+        #cd-s2c .s2c-hitl-box-icon { font-size:17px; margin-bottom:3px; }
+        #cd-s2c .s2c-hitl-box-label { font-size:11px; font-weight:700; }
+        #cd-s2c .s2c-hitl-box-sub { font-size:9px; color:var(--text-muted); margin-top:2px; }
+        #cd-s2c .s2c-hitl-box.patient { background:rgba(255,110,180,0.07); border-color:rgba(255,110,180,0.3); }
+        #cd-s2c .s2c-hitl-box.patient .s2c-hitl-box-label { color:var(--pink); }
+        #cd-s2c .s2c-hitl-box.ai { background:rgba(61,127,255,0.07); border-color:rgba(61,127,255,0.3); }
+        #cd-s2c .s2c-hitl-box.ai .s2c-hitl-box-label { color:var(--accent); }
+        #cd-s2c .s2c-hitl-box.doctor { background:rgba(240,165,0,0.07); border-color:rgba(240,165,0,0.3); }
+        #cd-s2c .s2c-hitl-box.doctor .s2c-hitl-box-label { color:var(--accent4); }
+        #cd-s2c .s2c-hitl-box.confirm { background:rgba(0,212,160,0.07); border-color:rgba(0,212,160,0.3); }
+        #cd-s2c .s2c-hitl-box.confirm .s2c-hitl-box-label { color:var(--accent2); }
+        #cd-s2c .s2c-hitl-arrow { display:flex; flex-direction:column; align-items:center; gap:2px; }
+        #cd-s2c .s2c-hitl-arr-line { width:28px; height:2px; background:linear-gradient(90deg,var(--border2),var(--accent)); position:relative; }
+        #cd-s2c .s2c-hitl-arr-line::after { content:''; position:absolute; right:-6px; top:-3.5px; border:4.5px solid transparent; border-left:7px solid var(--accent); }
+        #cd-s2c .s2c-hitl-arr-tag { font-size:8px; color:var(--text-dim); white-space:nowrap; }
+        #cd-s2c .s2c-hitl-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(61,127,255,0.1); border:1px solid rgba(61,127,255,0.25); color:var(--accent); font-size:10px; font-weight:700; padding:5px 12px; border-radius:20px; margin-top:14px; letter-spacing:0.5px; }
+      </style>
+
+      <!-- HERO -->
+      <div class="s2c-hero">
+        <div class="s2c-hero-eyebrow">Intelligent Community · Concept</div>
+        <h2 class="cd-sec-title">지능형 커뮤니티란 <em>무엇인가</em></h2>
+        <p class="s2c-hero-desc">
+          커뮤니티는 말로 시작됐다. 그리고 오랫동안 말로만 머물렀다.<br>
+          지능형 커뮤니티는 다르다. 데이터가 대화의 중심에 들어오고, LLM이 그 데이터를 해석하며,
+          환자와 의료진의 신뢰도 높은 소통이 비로소 가능해진다.
+        </p>
+      </div>
+
+      <!-- 01: 세 개의 축 -->
+      <div class="s2c-sec">
+        <div class="s2c-sec-eyebrow">01 · Structure</div>
+        <h3 class="s2c-sec-title">지능형 커뮤니티를 이루는 세 개의 축</h3>
+        <p class="s2c-sec-sub">환자와 의료진 둘만 있으면 말로만 오간다. 신뢰가 없다. 그 중간에 데이터라는 축이 반드시 필요하다. 그리고 LLM이 그 세 축 모두를 연결하고 강화한다.</p>
+        <div class="s2c-triad">
+          <!-- 상단: 유저 -->
+          <div style="display:flex;justify-content:center;margin-bottom:14px;">
+            <div class="s2c-triad-node user" style="min-width:160px;">
+              <div class="s2c-triad-node-icon">👥</div>
+              <div class="s2c-triad-node-label">유저</div>
+              <div class="s2c-triad-node-sub">환우 · 보호자<br>데이터를 올리고 상의하는 주체</div>
+            </div>
+          </div>
+          <!-- 화살표 -->
+          <div style="display:flex;justify-content:center;align-items:center;gap:40px;margin-bottom:10px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+              <span style="font-size:10px;color:var(--text-dim);">검사기록 · PHR 업로드</span>
+              <span style="font-size:17px;color:var(--text-dim);">↓</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+              <span style="font-size:17px;color:var(--text-dim);">↓</span>
+              <span style="font-size:10px;color:var(--text-dim);">질문 · 상담 요청</span>
+            </div>
+          </div>
+          <!-- 중간: 정보 + LLM + 의료진 -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:18px;">
+            <div class="s2c-triad-node info" style="flex:1;max-width:190px;">
+              <div class="s2c-triad-node-icon">📄</div>
+              <div class="s2c-triad-node-label">정보</div>
+              <div class="s2c-triad-node-sub">검사결과 · 논문 · 가이드라인<br>신뢰 기반 데이터 허브</div>
+            </div>
+            <div class="s2c-conn">
+              <div class="s2c-conn-arrow">⇄</div>
+              <div class="s2c-conn-label">해석 · 재가공</div>
+            </div>
+            <div class="s2c-triad-node llm" style="flex:1;max-width:170px;">
+              <div class="s2c-triad-node-icon">🧠</div>
+              <div class="s2c-triad-node-label">LLM</div>
+              <div class="s2c-triad-node-sub">데이터 해석 · 초안 생성<br>신뢰도의 핵심 연결자</div>
+            </div>
+            <div class="s2c-conn">
+              <div class="s2c-conn-arrow">⇄</div>
+              <div class="s2c-conn-label">컨펌 · 검증</div>
+            </div>
+            <div class="s2c-triad-node doctor" style="flex:1;max-width:190px;">
+              <div class="s2c-triad-node-icon">🩺</div>
+              <div class="s2c-triad-node-label">의료진</div>
+              <div class="s2c-triad-node-sub">전문가 · 교수<br>Human-in-the-Loop 역할</div>
+            </div>
+          </div>
+          <!-- 설명 박스 -->
+          <div style="display:flex;justify-content:center;">
+            <div style="background:rgba(61,127,255,0.06);border:1px solid rgba(61,127,255,0.2);border-radius:10px;padding:11px 22px;text-align:center;max-width:540px;">
+              <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:3px;">LLM이 들어왔을 때 달라지는 것</div>
+              <div style="font-size:11px;color:var(--text-muted);line-height:1.7;">모든 대화가 신뢰도를 갖는다 · 데이터 없이는 LLM도 답할 수 없다 · 그래서 환자도 데이터를 올리는 플로우가 생긴다</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02: 데이터 플로우 -->
+      <div class="s2c-sec">
+        <div class="s2c-sec-eyebrow">02 · Data Flow</div>
+        <h3 class="s2c-sec-title">데이터가 흐르는 방식</h3>
+        <p class="s2c-sec-sub">환자가 검사기록을 올리면, LLM이 해석하고, 의료진이 컨펌한다. 이 단순한 플로우가 커뮤니티의 신뢰도를 전혀 다른 수준으로 끌어올린다.</p>
+        <div class="s2c-flow">
+          <div class="s2c-flow-title">Data → Insight → Trust 플로우</div>
+          <div class="s2c-flow-steps">
+            <div class="s2c-step">
+              <div class="s2c-step-box">
+                <div class="s2c-step-icon">📋</div>
+                <div class="s2c-step-label">검사기록 업로드</div>
+                <div class="s2c-step-sub">환자가 검사결과지 · PHR 올림</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">OCR · 파싱</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box hl-blue">
+                <div class="s2c-step-icon">🧠</div>
+                <div class="s2c-step-label">LLM 분석</div>
+                <div class="s2c-step-sub">수치 해석 · 서술형 초안 생성</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">초안 전달</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box hl-yellow">
+                <div class="s2c-step-icon">🩺</div>
+                <div class="s2c-step-label">의료진 컨펌</div>
+                <div class="s2c-step-sub">Human-in-the-Loop 검토</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">검증 완료</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box hl-green">
+                <div class="s2c-step-icon">💬</div>
+                <div class="s2c-step-label">환자에게 전달</div>
+                <div class="s2c-step-sub">알아듣는 말로 서술형 제공</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">축적</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box">
+                <div class="s2c-step-icon">📊</div>
+                <div class="s2c-step-label">데이터 누적</div>
+                <div class="s2c-step-sub">커뮤니티 신뢰 자산화</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- HITL -->
+        <div class="s2c-hitl">
+          <div class="s2c-flow-title">Human-in-the-Loop 구조</div>
+          <div class="s2c-hitl-row">
+            <div class="s2c-hitl-box patient">
+              <div class="s2c-hitl-box-icon">🧑</div>
+              <div class="s2c-hitl-box-label">환자</div>
+              <div class="s2c-hitl-box-sub">검사결과 업로드</div>
+            </div>
+            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">데이터 제공</div></div>
+            <div class="s2c-hitl-box ai">
+              <div class="s2c-hitl-box-icon">🤖</div>
+              <div class="s2c-hitl-box-label">LLM 에이전트</div>
+              <div class="s2c-hitl-box-sub">초안 분석 자동 생성</div>
+            </div>
+            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">초안 전달</div></div>
+            <div class="s2c-hitl-box doctor">
+              <div class="s2c-hitl-box-icon">🩺</div>
+              <div class="s2c-hitl-box-label">의료진</div>
+              <div class="s2c-hitl-box-sub">검토 후 컨펌</div>
+            </div>
+            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">확정 답변</div></div>
+            <div class="s2c-hitl-box confirm">
+              <div class="s2c-hitl-box-icon">✅</div>
+              <div class="s2c-hitl-box-label">신뢰 답변</div>
+              <div class="s2c-hitl-box-sub">환자에게 전달</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;">
+            <div class="s2c-hitl-badge">⚡ 의료진은 컨펌만 — AI가 부담을 구조적으로 줄인다</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cd-s2c -->
 
     <div class="cd-divider"></div>
 
