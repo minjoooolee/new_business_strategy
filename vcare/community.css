@@ -87,15 +87,36 @@
 
 .cm-search-input::placeholder { color: #9ca3af; }
 
-/* ── 질환 필터 (가로 스크롤) ─────────────────── */
+/* ── 질환 필터 (가로 스크롤 + 화살표) ──────── */
 .disease-filter-wrap {
   position: relative;
   margin-bottom: 12px;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.df-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+.df-arrow:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
 
 .disease-filter {
   display: flex;
+  flex: 1;
   gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;

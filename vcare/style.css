@@ -222,9 +222,20 @@ ul { list-style: none; }
    ============================================================ */
 .page-hero {
   position: relative;
-  padding: calc(var(--gnb-h) + 36px) 0 28px;
+  padding: calc(var(--gnb-h) + 36px) 0 32px;
   overflow: hidden;
   background: #fff;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* 콘텐츠 너비를 각 페이지에 맞게 정렬 */
+.page-hero--community .hero-body {
+  max-width: 752px;   /* 720px + 양쪽 16px 패딩 */
+  padding: 0 16px;
+}
+.page-hero--feed .hero-body {
+  max-width: 632px;   /* 600px + 양쪽 16px 패딩 */
+  padding: 0 16px;
 }
 
 .page-hero-actions {
@@ -232,7 +243,7 @@ ul { list-style: none; }
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  margin-top: 6px;
+  margin-top: 20px;
 }
 
 .page-hero-note {
@@ -245,7 +256,9 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-  .page-hero { padding: calc(var(--gnb-h) + 24px) 0 20px; }
+  .page-hero { padding: calc(var(--gnb-h) + 24px) 0 24px; }
+  .page-hero--community .hero-body,
+  .page-hero--feed .hero-body { max-width: 100%; }
 }
 
 /* ============================================================
