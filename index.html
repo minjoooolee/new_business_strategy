@@ -875,6 +875,54 @@
     flex-shrink: 0;
   }
 
+  .vcare-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    min-width: 180px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,176,0.1);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s, visibility 0.2s, transform 0.22s cubic-bezier(0.34,1.2,0.64,1);
+    overflow: hidden;
+    padding: 6px;
+  }
+  .vcare-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .vcare-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.12s, color 0.12s;
+    white-space: nowrap;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .vcare-menu-item:hover {
+    background: rgba(0,229,176,0.1);
+    color: var(--accent2);
+  }
+  .vcare-menu-item svg {
+    flex-shrink: 0;
+    opacity: 0.65;
+    width: 15px;
+    height: 15px;
+  }
+
   /* ===== 프로젝트 회고 PAGE ===== */
   .retro-page { padding: 60px 0 80px; }
 
@@ -2293,10 +2341,19 @@
           </a>
         </div>
       </div>
-      <a class="gnb-link" onclick="setPage('vcare', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        <span>브이케어</span>
-      </a>
+      <div class="gnb-dropdown-wrap" id="vcareWrap">
+        <a class="gnb-link" id="vcareBtn" onclick="toggleVcare(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>브이케어</span>
+          <svg class="pinkcare-caret" id="vcareCaret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="vcare-dropdown" id="vcareDropdown">
+          <a href="https://minjoooolee.github.io/new_business_strategy/vcare/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            웹사이트
+          </a>
+        </div>
+      </div>
       <a class="gnb-link" onclick="setPage('vdoc', this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h1m4 0h1M12 8v4"/></svg>
         <span>브이닥 엔터프라이즈</span>
@@ -7204,6 +7261,11 @@ document.addEventListener('click', function(e) {
   if (pinkcareWrap && !pinkcareWrap.contains(e.target)) {
     closePinkcareDropdown();
   }
+
+  const vcareWrap = document.getElementById('vcareWrap');
+  if (vcareWrap && !vcareWrap.contains(e.target)) {
+    closeVcareDropdown();
+  }
 });
 
 // ===== 핑크케어 드롭다운 =====
@@ -7244,9 +7306,34 @@ function navigatePinkcare(sub, e) {
   }
 }
 
+// ===== 브이케어 드롭다운 =====
+function closeVcareDropdown() {
+  const dropdown = document.getElementById('vcareDropdown');
+  const btn = document.getElementById('vcareBtn');
+  const caret = document.getElementById('vcareCaret');
+  if (dropdown) dropdown.classList.remove('open');
+  if (btn) btn.classList.remove('active');
+  if (caret) caret.style.transform = '';
+}
+
+function toggleVcare(el) {
+  const dropdown = document.getElementById('vcareDropdown');
+  const caret = document.getElementById('vcareCaret');
+  const isOpen = dropdown.classList.contains('open');
+  if (isOpen) {
+    closeVcareDropdown();
+  } else {
+    closeVcareDropdown();
+    dropdown.classList.add('open');
+    el.classList.add('active');
+    if (caret) caret.style.transform = 'rotate(180deg)';
+  }
+}
+
 // ===== GNB PAGE NAV =====
 function setPage(page, el) {
   closePinkcareDropdown();
+  closeVcareDropdown();
   window.location.hash = page;
 }
 
