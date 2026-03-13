@@ -7180,11 +7180,8 @@
   }
   /* ── reveal 애니메이션 ── */
   #page-vcare-features .vcf-reveal {
-    opacity:0; transform:translateY(28px);
-    transition:opacity .7s ease,transform .7s ease;
+    opacity:1; transform:none;
   }
-  #page-vcare-features .vcf-reveal.visible { opacity:1; transform:none; }
-  #page-vcare-features .vcf-mockup-wrap.vcf-reveal { opacity:0; transform:translateY(32px); }
   /* ── 히어로 첫 목업은 별도 fadeUp ── */
   #page-vcare-features .vcf-hero .vcf-mockup-wrap {
     opacity:0; animation:fadeUp .9s ease forwards .5s;
@@ -8437,14 +8434,6 @@ function applyHash(hash) {
   const pageEl = document.getElementById('page-' + page);
   if (pageEl) pageEl.classList.add('active');
 
-  // 브이케어 핵심기능 페이지 reveal
-  if (page === 'vcare-features') {
-    var vcfEls = document.querySelectorAll('#page-vcare-features .vcf-reveal');
-    vcfEls.forEach(function(el) { el.classList.remove('visible'); });
-    vcfEls.forEach(function(el, i) {
-      setTimeout(function() { el.classList.add('visible'); }, 150 + i * 120);
-    });
-  }
 
   // GNB active 처리
   const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi'];
