@@ -2354,9 +2354,19 @@
           </a>
         </div>
       </div>
-      <a class="gnb-link" onclick="setPage('vdoc', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h1m4 0h1M12 8v4"/></svg>
-        <span>브이닥 엔터프라이즈</span>
+      <div class="gnb-dropdown-wrap" id="vdocWrap">
+        <a class="gnb-link" id="vdocBtn" onclick="toggleVdoc(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h1m4 0h1M12 8v4"/></svg>
+          <span>브이닥 엔터프라이즈</span>
+          <svg class="pinkcare-caret" id="vdocCaret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="pinkcare-dropdown" id="vdocDropdown">
+          <a href="#" onclick="navigateVdoc('proposal', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            제안서
+          </a>
+        </div>
+      </div>
       </a>
     </div>
   </div>
@@ -7262,7 +7272,45 @@ document.addEventListener('click', function(e) {
   if (vcareWrap && !vcareWrap.contains(e.target)) {
     closeVcareDropdown();
   }
+
+  const vdocWrap = document.getElementById('vdocWrap');
+  if (vdocWrap && !vdocWrap.contains(e.target)) {
+    closeVdocDropdown();
+  }
 });
+
+// ===== 브이닥 엔터프라이즈 드롭다운 =====
+function closeVdocDropdown() {
+  const dropdown = document.getElementById('vdocDropdown');
+  const btn = document.getElementById('vdocBtn');
+  const caret = document.getElementById('vdocCaret');
+  if (dropdown) dropdown.classList.remove('open');
+  if (btn) btn.classList.remove('active');
+  if (caret) caret.style.transform = '';
+}
+
+function toggleVdoc(el) {
+  const dropdown = document.getElementById('vdocDropdown');
+  const caret = document.getElementById('vdocCaret');
+  const isOpen = dropdown.classList.contains('open');
+
+  if (isOpen) {
+    closeVdocDropdown();
+  } else {
+    dropdown.classList.add('open');
+    el.classList.add('active');
+    if (caret) caret.style.transform = 'rotate(180deg)';
+  }
+}
+
+function navigateVdoc(sub, e) {
+  e.preventDefault();
+  closeVdocDropdown();
+
+  if (sub === 'proposal') {
+    setPage('vdoc', document.getElementById('vdocBtn'));
+  }
+}
 
 // ===== 핑크케어 드롭다운 =====
 function closePinkcareDropdown() {
@@ -7330,6 +7378,7 @@ function toggleVcare(el) {
 function setPage(page, el) {
   closePinkcareDropdown();
   closeVcareDropdown();
+  closeVdocDropdown();
   window.location.hash = page;
 }
 
@@ -7348,6 +7397,9 @@ function applyHash(hash) {
   const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
+  } else if (page === 'vdoc') {
+    const vdocBtn = document.getElementById('vdocBtn');
+    if (vdocBtn) vdocBtn.classList.add('active');
   } else {
     document.querySelectorAll('.gnb-link').forEach(el => {
       const onclick = el.getAttribute('onclick') || '';
