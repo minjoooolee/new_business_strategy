@@ -7333,16 +7333,6 @@
     <div class="vcf-footer-text">© 2026 aitrics. All rights reserved.</div>
   </footer>
 
-  <script>
-  (function() {
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e, i) {
-        if (e.isIntersecting) setTimeout(function(){ e.target.classList.add('visible'); }, i * 100);
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('#page-vcare-features .vcf-reveal').forEach(function(el) { obs.observe(el); });
-  })();
-  </script>
   </div><!-- /page-vcare-features -->
 
   <!-- ===== DASHBOARD PAGE ===== -->
@@ -8446,6 +8436,18 @@ function applyHash(hash) {
 
   const pageEl = document.getElementById('page-' + page);
   if (pageEl) pageEl.classList.add('active');
+
+  // 브이케어 핵심기능 페이지 reveal 재초기화
+  if (page === 'vcare-features') {
+    setTimeout(function() {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('#page-vcare-features .vcf-reveal:not(.visible)').forEach(function(el) { obs.observe(el); });
+    }, 50);
+  }
 
   // GNB active 처리
   const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi'];
