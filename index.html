@@ -2661,6 +2661,10 @@
           <svg class="pinkcare-caret" id="vcareCaret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="vcare-dropdown" id="vcareDropdown">
+          <a href="#" onclick="navigateVcare('features', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            핵심 기능
+          </a>
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             웹사이트
@@ -7038,6 +7042,14 @@
   </div>
   </div><!-- /page-pinkcare-kpi -->
 
+  <!-- ===== VCARE FEATURES PAGE ===== -->
+  <div class="page-section" id="page-vcare-features">
+    <div style="min-height:60vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;color:var(--text-muted);text-align:center;padding:80px 40px;">
+      <div style="font-size:48px;">🏥</div>
+      <h2 style="font-size:24px;font-weight:700;color:var(--text);">브이케어 핵심 기능</h2>
+      <p style="font-size:15px;max-width:440px;line-height:1.7;">핵심 기능 페이지가 준비되면 이곳에 콘텐츠가 표시됩니다.</p>
+    </div>
+  </div><!-- /page-vcare-features -->
 
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
@@ -8091,6 +8103,14 @@ function navigatePinkcare(sub, e) {
 }
 
 // ===== 브이케어 드롭다운 =====
+function navigateVcare(sub, e) {
+  e.preventDefault();
+  closeVcareDropdown();
+  if (sub === 'features') {
+    window.location.hash = 'vcare-features';
+  }
+}
+
 function closeVcareDropdown() {
   const dropdown = document.getElementById('vcareDropdown');
   const btn = document.getElementById('vcareBtn');
@@ -8140,6 +8160,9 @@ function applyHash(hash) {
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
+  } else if (page === 'vcare-features') {
+    const vcareBtn = document.getElementById('vcareBtn');
+    if (vcareBtn) vcareBtn.classList.add('active');
   } else {
     document.querySelectorAll('.gnb-link').forEach(el => {
       const onclick = el.getAttribute('onclick') || '';
