@@ -102,6 +102,22 @@
   </div>
 </main>
 
+<!-- 개별 항목 수정 모달 -->
+<div class="cohort-edit-overlay" id="editOverlay">
+  <div class="cohort-edit-modal">
+    <div class="cohort-edit-title" id="editTitle"></div>
+    <div class="cohort-edit-desc" id="editDesc"></div>
+    <div class="cohort-edit-options" id="editOptions"></div>
+    <div class="cohort-edit-actions">
+      <button class="cohort-edit-cancel" id="editCancel">취소</button>
+      <button class="cohort-edit-save" id="editSave" disabled>변경 적용</button>
+    </div>
+  </div>
+</div>
+
+<!-- 변경 알림 토스트 -->
+<div class="cohort-toast" id="cohortToast"></div>
+
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
@@ -159,12 +175,24 @@ dim.addEventListener('click', shutD);
 // ============================================================
 const STEPS = [
   {
+    key: 'disease',
+    icon: '🩺',
+    iconClass: 'onb-icon--cancer',
+    title: '어떤 질환을 가지고 계세요?',
+    desc: '질환 유형을 선택하면 맞춤 코호트를 찾아드립니다.',
+    options: ['암 질환','만성 질환','정신건강']
+  },
+  {
     key: 'cancer',
     icon: '🎗️',
     iconClass: 'onb-icon--cancer',
-    title: '암종을 선택해 주세요',
-    desc: '해당하는 암종을 선택하면 같은 환우들을 찾아드립니다.',
-    options: ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암']
+    title: '질환을 선택해 주세요',
+    desc: '해당하는 질환을 선택하면 같은 환우들을 찾아드립니다.',
+    optionsByDisease: {
+      '암 질환':  ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암'],
+      '만성 질환': ['당뇨','심혈관','알러지','소아성장'],
+      '정신건강':  ['공황장애','우울증'],
+    }
   },
   {
     key: 'subtype',
@@ -172,6 +200,7 @@ const STEPS = [
     iconClass: 'onb-icon--subtype',
     title: '아형(Subtype)을 선택해 주세요',
     desc: '세부 아형을 알고 계시면 더 정확한 코호트 매칭이 가능합니다.',
+    cancerOnly: true,
     optionsByParent: {
       '유방암':   ['HR+/HER2−','HER2+','삼중음성(TNBC)','잘 모르겠어요'],
       '위암':     ['장형','미만형','혼합형','잘 모르겠어요'],
@@ -189,6 +218,7 @@ const STEPS = [
     iconClass: 'onb-icon--stage',
     title: '병기(Stage)를 선택해 주세요',
     desc: '현재 진단받은 병기를 선택해 주세요.',
+    cancerOnly: true,
     options: ['1기','2기','3기','4기','잘 모르겠어요']
   },
   {
@@ -197,14 +227,15 @@ const STEPS = [
     iconClass: 'onb-icon--surgery',
     title: '수술 전/후를 알려주세요',
     desc: '현재 치료 시점을 선택하면 비슷한 단계의 환우를 매칭합니다.',
+    cancerOnly: true,
     options: ['수술 전','수술 후','수술 불가/비적응','아직 결정 전']
   },
   {
     key: 'regimen',
     icon: '💊',
     iconClass: 'onb-icon--regimen',
-    title: '항암 레지멘을 선택해 주세요',
-    desc: '현재 진행 중이거나 예정인 항암 레지멘을 선택해 주세요.',
+    title: '치료 레지멘/방법을 선택해 주세요',
+    desc: '현재 진행 중이거나 예정인 치료를 선택해 주세요.',
     optionsByParent: {
       '유방암':   ['AC-T(독소루비신+사이클로포스파마이드→탁솔)','TC(탁소텔+사이클로포스파마이드)','허셉틴+퍼제타','카페시타빈(젤로다)','면역항암제(키트루다)','해당 없음/잘 모르겠어요'],
       '위암':     ['XELOX(카페시타빈+옥살리플라틴)','FOLFOX','S-1 단독','허셉틴(HER2+)','면역항암제(옵디보)','해당 없음/잘 모르겠어요'],
@@ -214,26 +245,43 @@ const STEPS = [
       '폐암':     ['시스플라틴+페메트렉시드','카보플라틴+탁솔','키트루다 단독/병용','태그리소(오시머티닙)','EP(에토포시드+시스플라틴)','해당 없음/잘 모르겠어요'],
       '췌장암':   ['FOLFIRINOX','젬시타빈+아브락산','젬시타빈 단독','해당 없음/잘 모르겠어요'],
       '전립선암': ['도세탁셀','엔잘루타마이드','아비라테론','ADT(호르몬차단)','해당 없음/잘 모르겠어요'],
+      '당뇨':     ['인슐린 치료','경구 혈당강하제','생활습관 관리','복합 요법','해당 없음/잘 모르겠어요'],
+      '심혈관':   ['약물 치료(스타틴·항응고제)','스텐트 시술 후','심장 수술 후','심장재활 프로그램','해당 없음/잘 모르겠어요'],
+      '알러지':   ['항히스타민제','면역요법(감작치료)','회피 요법','스테로이드 치료','해당 없음/잘 모르겠어요'],
+      '소아성장': ['성장호르몬 치료','호르몬 관찰 중','영양·운동 관리','해당 없음/잘 모르겠어요'],
+      '공황장애': ['SSRI(항우울제)','인지행동치료(CBT)','벤조디아제핀(단기)','복합 치료','해당 없음/잘 모르겠어요'],
+      '우울증':   ['SSRI(항우울제)','SNRI','인지행동치료(CBT)','복합 치료(약물+심리)','해당 없음/잘 모르겠어요'],
     }
   }
 ];
+
+// 질환 유형에 따라 건너뛸 스텝 결정
+function getActiveSteps() {
+  const isCancer = selections.disease === '암 질환';
+  return STEPS.filter(s => !s.cancerOnly || isCancer);
+}
 
 let currentStep = 0;
 const selections = {};
 
 function renderOnboarding() {
-  const step = STEPS[currentStep];
+  const activeSteps = getActiveSteps();
+  const stepIndex = Math.min(currentStep, activeSteps.length - 1);
+  currentStep = stepIndex;
+  const step = activeSteps[stepIndex];
 
   // 스텝 인디케이터
-  document.getElementById('stepDots').innerHTML = STEPS.map((_, i) => {
-    const cls = i < currentStep ? 'onb-dot done' : (i === currentStep ? 'onb-dot active' : 'onb-dot');
+  document.getElementById('stepDots').innerHTML = activeSteps.map((_, i) => {
+    const cls = i < stepIndex ? 'onb-dot done' : (i === stepIndex ? 'onb-dot active' : 'onb-dot');
     return `<div class="${cls}"></div>`;
   }).join('');
 
   // 옵션 결정
   let options = step.options;
-  if (step.optionsByParent) {
-    const parentVal = selections[STEPS[0].key]; // 암종 기반
+  if (step.optionsByDisease) {
+    options = step.optionsByDisease[selections.disease] || ['잘 모르겠어요'];
+  } else if (step.optionsByParent) {
+    const parentVal = selections.cancer;
     options = step.optionsByParent[parentVal] || ['잘 모르겠어요'];
   }
 
@@ -254,6 +302,21 @@ function renderOnboarding() {
       document.querySelectorAll('.onb-opt').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       selections[step.key] = btn.dataset.val;
+
+      // 질환 유형 변경 시 하위 선택 초기화
+      if (step.key === 'disease') {
+        delete selections.cancer;
+        delete selections.subtype;
+        delete selections.stage;
+        delete selections.surgery;
+        delete selections.regimen;
+      }
+      // 질환(암종) 변경 시 아형·레지멘 초기화
+      if (step.key === 'cancer') {
+        delete selections.subtype;
+        delete selections.regimen;
+      }
+
       updateNav();
     });
   });
@@ -262,10 +325,11 @@ function renderOnboarding() {
 }
 
 function updateNav() {
-  const step = STEPS[currentStep];
+  const activeSteps = getActiveSteps();
+  const step = activeSteps[currentStep];
   const hasSelection = !!selections[step.key];
   const isFirst = currentStep === 0;
-  const isLast = currentStep === STEPS.length - 1;
+  const isLast = currentStep === activeSteps.length - 1;
 
   let html = '';
   if (!isFirst) html += `<button class="onb-btn onb-btn--back" id="onbBack">이전</button>`;
@@ -306,6 +370,7 @@ function finishOnboarding() {
 //   코호트 메인 렌더링
 // ============================================================
 function renderCohortMain() {
+  const disease = selections.disease || '';
   const cancer  = selections.cancer  || '';
   const subtype = selections.subtype || '';
   const stage   = selections.stage   || '';
@@ -314,7 +379,16 @@ function renderCohortMain() {
 
   const onlineCount = 8 + Math.floor(Math.random() * 25);
 
-  // 프로필 바
+  // 프로필 바 — 각 태그를 개별적으로 수정 가능
+  const tagItems = [
+    { key:'disease', label: disease },
+    { key:'cancer', label: cancer },
+    { key:'subtype', label: subtype },
+    { key:'stage', label: stage },
+    { key:'surgery', label: surgery },
+    { key:'regimen', label: regimen.length > 20 ? regimen.slice(0, 18) + '…' : regimen, full: regimen },
+  ].filter(t => t.label);
+
   document.getElementById('cohortProfile').innerHTML = `
     <div class="cohort-profile-icon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
@@ -325,24 +399,25 @@ function renderCohortMain() {
       </svg>
     </div>
     <div class="cohort-profile-info">
-      <div class="cohort-profile-label">나의 코호트</div>
+      <div class="cohort-profile-label">나의 코호트 <span style="font-size:.72rem;color:#9ca3af;font-weight:400">(클릭하여 수정)</span></div>
       <div class="cohort-profile-detail">
-        <span class="cohort-tag">${cancer}</span>
-        <span class="cohort-tag">${subtype}</span>
-        <span class="cohort-tag">${stage}</span>
-        <span class="cohort-tag">${surgery}</span>
-        <span class="cohort-tag">${regimen.length > 20 ? regimen.slice(0, 18) + '…' : regimen}</span>
+        ${tagItems.map(t => `<span class="cohort-tag cohort-tag--editable" data-edit-key="${t.key}" title="${t.full || t.label}">${t.label}</span>`).join('')}
       </div>
     </div>
     <div class="cohort-members">${onlineCount}명 활동 중</div>
-    <button class="cohort-change-btn" onclick="resetOnboarding()">코호트 변경</button>
+    <button class="cohort-change-btn" onclick="resetOnboarding()">처음부터 다시</button>
   `;
 
+  // 개별 태그 클릭 → 인라인 수정 모달
+  document.querySelectorAll('.cohort-tag--editable').forEach(tag => {
+    tag.addEventListener('click', () => openEditModal(tag.dataset.editKey));
+  });
+
   // 공지 / 게시판
-  renderBoard(cancer, subtype, stage, surgery, regimen);
+  renderBoard(disease, cancer, subtype, stage, surgery, regimen);
 
   // 채팅
-  renderChat(cancer, subtype, stage, surgery, regimen, onlineCount);
+  renderChat(disease, cancer, subtype, stage, surgery, regimen, onlineCount);
 }
 
 function resetOnboarding() {
@@ -356,7 +431,9 @@ function resetOnboarding() {
 }
 
 // ── 공지/게시판 렌더링 ────────────────────────
-function renderBoard(cancer, subtype, stage, surgery, regimen) {
+function renderBoard(disease, cancer, subtype, stage, surgery, regimen) {
+  const isCancer = disease === '암 질환';
+  const conditionLabel = isCancer ? `${cancer} ${subtype} ${stage}` : cancer;
   const NOTICES = {
     '유방암': [
       { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 환우분들을 위한 치료 가이드라인 요약`, excerpt:`${cancer} ${subtype} 아형의 ${stage} 기준 최신 NCCN 가이드라인을 알기 쉽게 정리했습니다. ${surgery} 환우분들이 알아두시면 좋은 핵심 포인트를 확인하세요.`, author:'v.care 메디컬팀', ai:true, views:312, comments:28 },
@@ -369,20 +446,29 @@ function renderBoard(cancer, subtype, stage, surgery, regimen) {
   };
 
   const defaultNotices = [
-    { pin:true, badge:'pin', title:`[필독] ${cancer} ${subtype} ${stage} 최신 치료 가이드라인 요약`, excerpt:`${cancer} ${subtype} 아형, ${stage} 기준 NCCN/ESMO 가이드라인의 핵심 내용을 정리했습니다. ${surgery} 환우분들에게 유용한 정보입니다.`, author:'v.care 메디컬팀', ai:true, views:215, comments:19 },
-    { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'v.care 운영팀', ai:false, views:982, comments:4 },
+    { pin:true, badge:'pin', title:`[필독] ${conditionLabel} 최신 치료 가이드라인 요약`, excerpt: isCancer
+        ? `${cancer} ${subtype} 아형, ${stage} 기준 NCCN/ESMO 가이드라인의 핵심 내용을 정리했습니다. ${surgery} 환우분들에게 유용한 정보입니다.`
+        : `${cancer} 환우분들을 위한 최신 가이드라인과 관리 방법을 정리했습니다. ${regimen} 관련 유용한 정보를 확인하세요.`,
+      author:'v.care 메디컬팀', ai:true, views:215, comments:19 },
+    { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 질환·치료 단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'v.care 운영팀', ai:false, views:982, comments:4 },
   ];
 
   const notices = NOTICES[cancer] || defaultNotices;
 
-  // 일반 게시글
-  const posts = [
+  // 일반 게시글 — 질환 유형에 따라 다르게 구성
+  const posts = isCancer ? [
     { badge:'tip', title:`${regimen} 부작용 관리, 이렇게 했어요`, excerpt:`저도 같은 레지멘으로 항암 중인데, 3차 이후부터 구역감이 심해져서 생강차와 냉수 헹굼을 병행했더니 좀 나아졌어요. 혹시 다른 방법 아시는 분?`, author:'환자_mj7', views:89, comments:14 },
     { badge:'info', title:`${surgery} 후 운동 시작 시기에 대해`, excerpt:`선생님이 2주 후부터 가벼운 걷기를 시작하라고 하셨는데, 실제로 다른 분들은 언제부터 운동을 시작하셨나요?`, author:'보호자_k3a', views:67, comments:11 },
     { badge:'tip', title:`${stage} 진단 후 마음 관리 어떻게 하세요?`, excerpt:`진단 초기에 멘탈이 많이 흔들렸는데, 여기 같은 단계 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.`, author:'환자_th2', views:134, comments:23 },
-    { badge:'ai', title:`[AI 분석] ${cancer} ${subtype} ${stage} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)입니다. 최근 ${regimen} 관련 질문이 증가하는 추세입니다.`, author:'v.care AI', ai:true, views:203, comments:8 },
+    { badge:'ai', title:`[AI 분석] ${conditionLabel} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)입니다. 최근 ${regimen} 관련 질문이 증가하는 추세입니다.`, author:'v.care AI', ai:true, views:203, comments:8 },
     { badge:'info', title:`항암 중 면역력 관리 꿀팁 공유합니다`, excerpt:`같은 코호트 환우분들과 공유하고 싶은 면역력 관리 팁! 단백질 섭취를 충분히 하고, 감염 예방을 위해 사람 많은 곳을 피하는 게 도움이 됐어요.`, author:'환자_91z', views:156, comments:19 },
     { badge:'tip', title:`검사 결과 해석 — 수치가 이렇게 나왔는데 괜찮은 건가요?`, excerpt:`최근 혈액검사에서 백혈구 수치가 좀 낮게 나왔는데, 비슷한 레지멘 하시는 분들도 그러셨나요? 어느 정도까지가 정상 범위인지 궁금합니다.`, author:'보호자_8a4', views:98, comments:16 },
+  ] : [
+    { badge:'tip', title:`${regimen} 경험담 공유합니다`, excerpt:`같은 ${cancer} 코호트 분들과 나누고 싶은 치료 경험이에요. ${regimen}을 시작한 이후로 변화를 느끼고 있어요.`, author:'환자_mj7', views:89, comments:14 },
+    { badge:'info', title:`${cancer} 일상 관리, 이렇게 하고 있어요`, excerpt:`같은 질환을 가진 분들은 일상에서 어떻게 관리하고 계세요? 저는 규칙적인 생활 패턴을 유지하려고 노력 중입니다.`, author:'보호자_k3a', views:67, comments:11 },
+    { badge:'tip', title:`진단 후 마음 관리 어떻게 하세요?`, excerpt:`처음 진단받았을 때 많이 힘들었는데, 여기 같은 코호트 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.`, author:'환자_th2', views:134, comments:23 },
+    { badge:'ai', title:`[AI 분석] ${cancer} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 일상 관리(35%), 치료 경험(28%), 심리적 지지(22%)입니다. ${regimen} 관련 대화가 활발합니다.`, author:'v.care AI', ai:true, views:203, comments:8 },
+    { badge:'info', title:`${cancer} 관련 좋은 정보 공유합니다`, excerpt:`같은 코호트 환우분들에게 도움이 될 만한 정보를 모아봤어요. 전문가 칼럼과 실제 관리 사례를 확인해 보세요.`, author:'환자_91z', views:156, comments:19 },
   ];
 
   const boardEl = document.getElementById('cohortBoard');
@@ -429,8 +515,10 @@ function renderNotice(n) {
 }
 
 // ── 실시간 채팅 렌더링 ────────────────────────
-function renderChat(cancer, subtype, stage, surgery, regimen, onlineCount) {
-  document.getElementById('chatTitle').textContent = `${cancer} ${stage} 코호트 채팅`;
+function renderChat(disease, cancer, subtype, stage, surgery, regimen, onlineCount) {
+  const isCancer = disease === '암 질환';
+  const chatLabel = isCancer ? `${cancer} ${stage} 코호트 채팅` : `${cancer} 코호트 채팅`;
+  document.getElementById('chatTitle').textContent = chatLabel;
   document.getElementById('chatOnline').textContent = `${onlineCount}명 활동 중`;
 
   const msgs = getCohortMessages(cancer, subtype, stage, surgery, regimen);
@@ -440,6 +528,24 @@ function renderChat(cancer, subtype, stage, surgery, regimen, onlineCount) {
 }
 
 function getCohortMessages(cancer, subtype, stage, surgery, regimen) {
+  const isCancer = selections.disease === '암 질환';
+
+  if (!isCancer) {
+    // 비암 질환 채팅 메시지
+    return [
+      { u:'v.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer}</b> 환우분들의 공간입니다. 최근 ${regimen} 경험과 일상 관리에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
+      { u:'환자_mj7', t:`안녕하세요! 저도 ${cancer}으로 ${regimen} 중이에요. 반가워요 😊`, ts:'14:02' },
+      { u:'보호자_k3a', t:`반갑습니다. 저는 보호자인데, 일상 관리가 걱정돼서 왔어요.`, ts:'14:05' },
+      { u:'환자_th2', t:`저는 치료 시작한 지 3개월 됐어요. 생활 패턴이 많이 바뀌었는데 다들 어떠세요?`, ts:'14:08' },
+      { u:'v.care AI', t:`${cancer} 관리에서 가장 중요한 것은 꾸준한 생활 습관 유지입니다. ${regimen}과 함께 규칙적인 생활 패턴을 유지하면 치료 효과를 높일 수 있어요. 궁금한 점이 있으면 언제든 물어보세요!`, ts:'14:09', agent:true },
+      { u:'환자_91z', t:'저도 처음엔 힘들었는데, 루틴을 만들면 점점 나아져요!', ts:'14:12' },
+      { u:'나', t:'다들 반가워요! 저도 같은 상황이라 많이 공감돼요.', ts:'14:15', mine:true },
+      { u:'보호자_8a4', t:`${regimen} 시작하고 나서 달라진 점이 있나요?`, ts:'14:18' },
+      { u:'환자_mj7', t:'저는 처음 2주가 적응 기간이었고, 그 이후로는 많이 편해졌어요.', ts:'14:20' },
+      { u:'v.care AI', t:`좋은 경험 공유 감사합니다! ${cancer} 치료는 개인마다 반응이 다르지만, 같은 코호트 환우분들의 경험이 큰 도움이 됩니다. 증상 변화가 있으면 담당 의료팀과 상의하세요.`, ts:'14:21', agent:true },
+    ];
+  }
+
   return [
     // AI 요약 (입장 시)
     { u:'v.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer} ${subtype} ${stage}</b> 환우분들의 공간입니다. 최근 ${regimen} 부작용 관리와 ${surgery} 경험에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
@@ -536,6 +642,116 @@ function sendCohortMsg() {
 
 document.getElementById('chatSend').addEventListener('click', sendCohortMsg);
 document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendCohortMsg(); });
+
+// ── 개별 항목 수정 모달 ────────────────────────
+let editingKey = null;
+let editTempVal = null;
+
+const EDIT_META = {
+  disease: { title: '질환 유형 변경', desc: '질환 유형을 변경하면 하위 항목이 모두 초기화됩니다.', resetsAll: true },
+  cancer:  { title: '질환 변경', desc: '질환을 변경하면 아형·레지멘이 초기화됩니다.', resets: ['subtype','regimen'] },
+  subtype: { title: '아형(Subtype) 변경', desc: '세부 아형을 변경합니다.' },
+  stage:   { title: '병기(Stage) 변경', desc: '현재 병기를 변경합니다.' },
+  surgery: { title: '수술 전/후 변경', desc: '수술 시점을 변경합니다.' },
+  regimen: { title: '치료 레지멘 변경', desc: '현재 치료 레지멘을 변경합니다.' },
+};
+
+function getOptionsForKey(key) {
+  const step = STEPS.find(s => s.key === key);
+  if (!step) return [];
+  if (step.optionsByDisease) return step.optionsByDisease[selections.disease] || [];
+  if (step.optionsByParent) return step.optionsByParent[selections.cancer] || [];
+  return step.options || [];
+}
+
+function openEditModal(key) {
+  editingKey = key;
+  editTempVal = selections[key] || null;
+  const meta = EDIT_META[key];
+  const options = getOptionsForKey(key);
+
+  document.getElementById('editTitle').textContent = meta.title;
+  document.getElementById('editDesc').textContent = meta.desc;
+
+  document.getElementById('editOptions').innerHTML = options.map(o =>
+    `<button class="cohort-edit-opt ${o === editTempVal ? 'selected' : ''}" data-val="${o}">${o}</button>`
+  ).join('');
+
+  document.getElementById('editSave').disabled = !editTempVal;
+
+  // 옵션 클릭
+  document.querySelectorAll('.cohort-edit-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cohort-edit-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      editTempVal = btn.dataset.val;
+      document.getElementById('editSave').disabled = false;
+    });
+  });
+
+  document.getElementById('editOverlay').classList.add('on');
+}
+
+function closeEditModal() {
+  document.getElementById('editOverlay').classList.remove('on');
+  editingKey = null;
+  editTempVal = null;
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('cohortToast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+document.getElementById('editCancel').addEventListener('click', closeEditModal);
+document.getElementById('editOverlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('editOverlay')) closeEditModal();
+});
+
+document.getElementById('editSave').addEventListener('click', () => {
+  if (!editingKey || !editTempVal) return;
+  const meta = EDIT_META[editingKey];
+  const oldVal = selections[editingKey];
+  selections[editingKey] = editTempVal;
+
+  // 상위 항목 변경 시 하위 초기화
+  if (meta.resetsAll) {
+    delete selections.cancer;
+    delete selections.subtype;
+    delete selections.stage;
+    delete selections.surgery;
+    delete selections.regimen;
+    // 질환 유형이 바뀌면 전체 온보딩 재시작
+    closeEditModal();
+    resetOnboarding();
+    return;
+  }
+  if (meta.resets) {
+    meta.resets.forEach(k => delete selections[k]);
+  }
+
+  closeEditModal();
+
+  // 하위 항목이 초기화된 경우 → 누락된 항목을 순차적으로 채우도록 안내
+  const missing = getMissingSelections();
+  if (missing) {
+    openEditModal(missing);
+    showToast(`${EDIT_META[editingKey].title.replace(' 변경','')} → ${editTempVal} (으)로 변경됨. 연관 항목을 다시 선택해 주세요.`);
+  } else {
+    showToast(`${EDIT_META[editingKey].title.replace(' 변경','')}이(가) "${editTempVal}"(으)로 변경되었습니다.`);
+    renderCohortMain();
+  }
+});
+
+function getMissingSelections() {
+  const activeSteps = getActiveSteps();
+  for (const step of activeSteps) {
+    if (!selections[step.key]) return step.key;
+  }
+  return null;
+}
 
 // ── 초기화 ────────────────────────────────────
 renderOnboarding();

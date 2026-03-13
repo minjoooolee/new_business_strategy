@@ -237,6 +237,169 @@
 }
 .cohort-change-btn:hover { color: #111827; border-color: #9ca3af; }
 
+/* 개별 태그 수정 가능 */
+.cohort-tag--editable {
+  cursor: pointer;
+  transition: all .15s;
+  position: relative;
+}
+.cohort-tag--editable:hover {
+  border-color: #6E3FA3;
+  background: #faf5ff;
+  color: #6E3FA3;
+}
+.cohort-tag--editable::after {
+  content: '✎';
+  font-size: .6rem;
+  margin-left: 4px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.cohort-tag--editable:hover::after {
+  opacity: 1;
+}
+
+/* 인라인 수정 팝오버 */
+.cohort-edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 960;
+  background: rgba(0,0,0,.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.cohort-edit-overlay.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cohort-edit-modal {
+  width: 100%;
+  max-width: 440px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.16);
+  transform: translateY(12px);
+  transition: transform .2s;
+  overflow-y: auto;
+}
+.cohort-edit-overlay.on .cohort-edit-modal {
+  transform: translateY(0);
+}
+
+.cohort-edit-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.cohort-edit-desc {
+  font-size: .82rem;
+  color: #6b7280;
+  margin-bottom: 18px;
+}
+
+.cohort-edit-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.cohort-edit-opt {
+  padding: 9px 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #374151;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.cohort-edit-opt:hover {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+.cohort-edit-opt.selected {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+.cohort-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cohort-edit-cancel {
+  padding: 8px 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.cohort-edit-cancel:hover { background: #e5e7eb; color: #374151; }
+
+.cohort-edit-save {
+  padding: 8px 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #fff;
+  background: #111827;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.cohort-edit-save:hover { opacity: .85; }
+.cohort-edit-save:disabled { opacity: .35; cursor: not-allowed; }
+
+/* 변경 알림 토스트 */
+.cohort-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  padding: 12px 24px;
+  background: #111827;
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  z-index: 970;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+}
+.cohort-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 480px) {
+  .cohort-edit-modal {
+    margin: 0 16px;
+    padding: 24px 18px;
+  }
+}
+
 /* ── 공지/게시판 섹션 (좌측) ──────────────────── */
 .cohort-board {
   display: flex;
