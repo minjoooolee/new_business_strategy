@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>in 코호트 — v.care</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../cohort.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+</head>
+<body>
+
+<!-- GNB -->
+<header class="gnb" id="gnb">
+  <div class="gnb-inner">
+    <a href="../" class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">v.care</span>
+    </a>
+    <nav class="gnb-nav">
+      <ul>
+        <li><a href="../">홈</a></li>
+        <li><a href="../feed">피드</a></li>
+        <li><a href="../community">질환별 게시판</a></li>
+        <li><a href="../cohort" class="active">in 코호트</a></li>
+        <li><a href="#">검사결과지</a></li>
+        <li><a href="#">문의</a></li>
+      </ul>
+    </nav>
+    <div class="gnb-right">
+      <a href="#" class="btn-login">로그인</a>
+      <button class="hamburger" id="hamBtn" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 히어로 -->
+<section class="page-hero page-hero--community">
+  <div class="hero-blob"></div>
+  <div class="arc arc-a"></div>
+  <div class="arc arc-b"></div>
+  <div class="hero-body">
+    <p class="eyebrow">Same Stage. Shared Strength.</p>
+    <h1 class="hero-title">
+      <em>in</em> 코호트
+    </h1>
+    <p class="hero-desc">
+      나와 같은 암종, 같은 병기, 같은 치료 단계의<br>
+      환우들과 실시간으로 정보를 나누세요.
+    </p>
+  </div>
+</section>
+
+<!-- ── 온보딩 (처음 진입 시) ────────────────────── -->
+<div class="cohort-onboarding" id="onboarding">
+  <div class="onb-card">
+
+    <!-- 스텝 인디케이터 -->
+    <div class="onb-step-indicator" id="stepDots"></div>
+
+    <!-- 스텝 콘텐츠 -->
+    <div id="stepContent"></div>
+
+    <!-- 네비게이션 -->
+    <div class="onb-nav" id="onbNav"></div>
+  </div>
+</div>
+
+<!-- ── 코호트 메인 (온보딩 완료 후 표시) ──────────── -->
+<main class="cohort-main" id="cohortMain" style="display:none">
+  <div class="cohort-wrap">
+
+    <!-- 프로필 바 -->
+    <div class="cohort-profile" id="cohortProfile"></div>
+
+    <!-- 좌측: 공지/게시판 -->
+    <section class="cohort-board" id="cohortBoard"></section>
+
+    <!-- 우측: 실시간 채팅 -->
+    <section class="cohort-chat" id="cohortChat">
+      <div class="cohort-chat-header">
+        <div>
+          <div class="cohort-chat-title" id="chatTitle">코호트 실시간 채팅</div>
+          <div class="cohort-chat-online" id="chatOnline">0명 활동 중</div>
+        </div>
+      </div>
+      <div class="cohort-chat-messages" id="chatMessages"></div>
+      <div class="cohort-chat-input">
+        <input type="text" id="chatInput" placeholder="같은 단계 환우들에게 메시지를 보내세요…">
+        <button id="chatSend">전송</button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <span class="footer-brand">v.care by aitrics</span>
+      <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 모바일 드로어 -->
+<div class="dim" id="dim"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-top">
+    <a href="../" class="logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">v.care</span>
+    </a>
+    <button class="drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <div class="drawer-links">
+    <a href="../">홈</a>
+    <a href="../feed">피드</a>
+    <a href="../community">질환별 게시판</a>
+    <a href="../cohort" class="active">in 코호트</a>
+    <a href="#">검사결과지</a>
+    <a href="#">문의</a>
+    <a href="#" class="drawer-login">로그인</a>
+  </div>
+</nav>
+
+<script>
+// ── GNB scroll ─────────────────────────────
+const gnb = document.getElementById('gnb');
+window.addEventListener('scroll', () => {
+  gnb.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+
+// ── Mobile drawer ──────────────────────────
+const ham = document.getElementById('hamBtn');
+const dim = document.getElementById('dim');
+const drawer = document.getElementById('drawer');
+const closeBtn = document.getElementById('drawerClose');
+function openD() { drawer.classList.add('on'); dim.classList.add('on'); document.body.style.overflow = 'hidden'; }
+function shutD() { drawer.classList.remove('on'); dim.classList.remove('on'); document.body.style.overflow = ''; }
+ham.addEventListener('click', openD);
+closeBtn.addEventListener('click', shutD);
+dim.addEventListener('click', shutD);
+
+// ============================================================
+//   온보딩 5단계
+// ============================================================
+const STEPS = [
+  {
+    key: 'cancer',
+    icon: '🎗️',
+    iconClass: 'onb-icon--cancer',
+    title: '암종을 선택해 주세요',
+    desc: '해당하는 암종을 선택하면 같은 환우들을 찾아드립니다.',
+    options: ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암']
+  },
+  {
+    key: 'subtype',
+    icon: '🔬',
+    iconClass: 'onb-icon--subtype',
+    title: '아형(Subtype)을 선택해 주세요',
+    desc: '세부 아형을 알고 계시면 더 정확한 코호트 매칭이 가능합니다.',
+    optionsByParent: {
+      '유방암':   ['HR+/HER2−','HER2+','삼중음성(TNBC)','잘 모르겠어요'],
+      '위암':     ['장형','미만형','혼합형','잘 모르겠어요'],
+      '대장암':   ['선암','점액선암','인환세포암','잘 모르겠어요'],
+      '간암':     ['간세포암(HCC)','담관세포암','혼합형','잘 모르겠어요'],
+      '갑상선암': ['유두암','여포암','수질암','미분화암','잘 모르겠어요'],
+      '폐암':     ['비소세포(선암)','비소세포(편평)','소세포폐암','잘 모르겠어요'],
+      '췌장암':   ['선암','신경내분비','낭성종양','잘 모르겠어요'],
+      '전립선암': ['선암','소세포형','이행세포형','잘 모르겠어요'],
+    }
+  },
+  {
+    key: 'stage',
+    icon: '📊',
+    iconClass: 'onb-icon--stage',
+    title: '병기(Stage)를 선택해 주세요',
+    desc: '현재 진단받은 병기를 선택해 주세요.',
+    options: ['1기','2기','3기','4기','잘 모르겠어요']
+  },
+  {
+    key: 'surgery',
+    icon: '🏥',
+    iconClass: 'onb-icon--surgery',
+    title: '수술 전/후를 알려주세요',
+    desc: '현재 치료 시점을 선택하면 비슷한 단계의 환우를 매칭합니다.',
+    options: ['수술 전','수술 후','수술 불가/비적응','아직 결정 전']
+  },
+  {
+    key: 'regimen',
+    icon: '💊',
+    iconClass: 'onb-icon--regimen',
+    title: '항암 레지멘을 선택해 주세요',
+    desc: '현재 진행 중이거나 예정인 항암 레지멘을 선택해 주세요.',
+    optionsByParent: {
+      '유방암':   ['AC-T(독소루비신+사이클로포스파마이드→탁솔)','TC(탁소텔+사이클로포스파마이드)','허셉틴+퍼제타','카페시타빈(젤로다)','면역항암제(키트루다)','해당 없음/잘 모르겠어요'],
+      '위암':     ['XELOX(카페시타빈+옥살리플라틴)','FOLFOX','S-1 단독','허셉틴(HER2+)','면역항암제(옵디보)','해당 없음/잘 모르겠어요'],
+      '대장암':   ['FOLFOX','FOLFIRI','XELOX','아바스틴 병용','세툭시맙/파니투무맙','해당 없음/잘 모르겠어요'],
+      '간암':     ['소라페닙(넥사바)','렌바티닙(렌비마)','아테졸리주맙+베바시주맙','TACE(경동맥화학색전술)','해당 없음/잘 모르겠어요'],
+      '갑상선암': ['방사성요오드(RAI)','렌바티닙','소라페닙','해당 없음(수술만)','잘 모르겠어요'],
+      '폐암':     ['시스플라틴+페메트렉시드','카보플라틴+탁솔','키트루다 단독/병용','태그리소(오시머티닙)','EP(에토포시드+시스플라틴)','해당 없음/잘 모르겠어요'],
+      '췌장암':   ['FOLFIRINOX','젬시타빈+아브락산','젬시타빈 단독','해당 없음/잘 모르겠어요'],
+      '전립선암': ['도세탁셀','엔잘루타마이드','아비라테론','ADT(호르몬차단)','해당 없음/잘 모르겠어요'],
+    }
+  }
+];
+
+let currentStep = 0;
+const selections = {};
+
+function renderOnboarding() {
+  const step = STEPS[currentStep];
+
+  // 스텝 인디케이터
+  document.getElementById('stepDots').innerHTML = STEPS.map((_, i) => {
+    const cls = i < currentStep ? 'onb-dot done' : (i === currentStep ? 'onb-dot active' : 'onb-dot');
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  // 옵션 결정
+  let options = step.options;
+  if (step.optionsByParent) {
+    const parentVal = selections[STEPS[0].key]; // 암종 기반
+    options = step.optionsByParent[parentVal] || ['잘 모르겠어요'];
+  }
+
+  // 콘텐츠
+  const selected = selections[step.key] || '';
+  document.getElementById('stepContent').innerHTML = `
+    <div class="onb-icon ${step.iconClass}">${step.icon}</div>
+    <h2 class="onb-title">${step.title}</h2>
+    <p class="onb-desc">${step.desc}</p>
+    <div class="onb-options">
+      ${options.map(o => `<button class="onb-opt ${o === selected ? 'selected' : ''}" data-val="${o}">${o}</button>`).join('')}
+    </div>
+  `;
+
+  // 옵션 클릭 이벤트
+  document.querySelectorAll('.onb-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.onb-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selections[step.key] = btn.dataset.val;
+      updateNav();
+    });
+  });
+
+  updateNav();
+}
+
+function updateNav() {
+  const step = STEPS[currentStep];
+  const hasSelection = !!selections[step.key];
+  const isFirst = currentStep === 0;
+  const isLast = currentStep === STEPS.length - 1;
+
+  let html = '';
+  if (!isFirst) html += `<button class="onb-btn onb-btn--back" id="onbBack">이전</button>`;
+  html += `<button class="onb-btn onb-btn--next" id="onbNext" ${!hasSelection ? 'disabled' : ''}>${isLast ? '코호트 입장하기' : '다음'}</button>`;
+
+  document.getElementById('onbNav').innerHTML = html;
+
+  const nextBtn = document.getElementById('onbNext');
+  const backBtn = document.getElementById('onbBack');
+
+  nextBtn.addEventListener('click', () => {
+    if (!selections[step.key]) return;
+    if (isLast) {
+      finishOnboarding();
+    } else {
+      currentStep++;
+      renderOnboarding();
+    }
+  });
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      currentStep--;
+      renderOnboarding();
+    });
+  }
+}
+
+function finishOnboarding() {
+  const el = document.getElementById('onboarding');
+  el.classList.add('done');
+  setTimeout(() => { el.style.display = 'none'; }, 300);
+  document.getElementById('cohortMain').style.display = '';
+  renderCohortMain();
+}
+
+// ============================================================
+//   코호트 메인 렌더링
+// ============================================================
+function renderCohortMain() {
+  const cancer  = selections.cancer  || '';
+  const subtype = selections.subtype || '';
+  const stage   = selections.stage   || '';
+  const surgery = selections.surgery || '';
+  const regimen = selections.regimen || '';
+
+  const onlineCount = 8 + Math.floor(Math.random() * 25);
+
+  // 프로필 바
+  document.getElementById('cohortProfile').innerHTML = `
+    <div class="cohort-profile-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+    </div>
+    <div class="cohort-profile-info">
+      <div class="cohort-profile-label">나의 코호트</div>
+      <div class="cohort-profile-detail">
+        <span class="cohort-tag">${cancer}</span>
+        <span class="cohort-tag">${subtype}</span>
+        <span class="cohort-tag">${stage}</span>
+        <span class="cohort-tag">${surgery}</span>
+        <span class="cohort-tag">${regimen.length > 20 ? regimen.slice(0, 18) + '…' : regimen}</span>
+      </div>
+    </div>
+    <div class="cohort-members">${onlineCount}명 활동 중</div>
+    <button class="cohort-change-btn" onclick="resetOnboarding()">코호트 변경</button>
+  `;
+
+  // 공지 / 게시판
+  renderBoard(cancer, subtype, stage, surgery, regimen);
+
+  // 채팅
+  renderChat(cancer, subtype, stage, surgery, regimen, onlineCount);
+}
+
+function resetOnboarding() {
+  Object.keys(selections).forEach(k => delete selections[k]);
+  currentStep = 0;
+  const el = document.getElementById('onboarding');
+  el.style.display = '';
+  el.classList.remove('done');
+  document.getElementById('cohortMain').style.display = 'none';
+  renderOnboarding();
+}
+
+// ── 공지/게시판 렌더링 ────────────────────────
+function renderBoard(cancer, subtype, stage, surgery, regimen) {
+  const NOTICES = {
+    '유방암': [
+      { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 환우분들을 위한 치료 가이드라인 요약`, excerpt:`${cancer} ${subtype} 아형의 ${stage} 기준 최신 NCCN 가이드라인을 알기 쉽게 정리했습니다. ${surgery} 환우분들이 알아두시면 좋은 핵심 포인트를 확인하세요.`, author:'v.care 메디컬팀', ai:true, views:312, comments:28 },
+      { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'v.care 운영팀', ai:false, views:1247, comments:5 },
+    ],
+    '위암': [
+      { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 위암 환우를 위한 식이·영양 가이드`, excerpt:`위암 수술 후 회복과 항암 병행 시 영양 관리가 매우 중요합니다. ${surgery} 시점에 맞는 식사 가이드를 확인해 보세요.`, author:'v.care 메디컬팀', ai:true, views:287, comments:34 },
+      { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다.', author:'v.care 운영팀', ai:false, views:1023, comments:3 },
+    ],
+  };
+
+  const defaultNotices = [
+    { pin:true, badge:'pin', title:`[필독] ${cancer} ${subtype} ${stage} 최신 치료 가이드라인 요약`, excerpt:`${cancer} ${subtype} 아형, ${stage} 기준 NCCN/ESMO 가이드라인의 핵심 내용을 정리했습니다. ${surgery} 환우분들에게 유용한 정보입니다.`, author:'v.care 메디컬팀', ai:true, views:215, comments:19 },
+    { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'v.care 운영팀', ai:false, views:982, comments:4 },
+  ];
+
+  const notices = NOTICES[cancer] || defaultNotices;
+
+  // 일반 게시글
+  const posts = [
+    { badge:'tip', title:`${regimen} 부작용 관리, 이렇게 했어요`, excerpt:`저도 같은 레지멘으로 항암 중인데, 3차 이후부터 구역감이 심해져서 생강차와 냉수 헹굼을 병행했더니 좀 나아졌어요. 혹시 다른 방법 아시는 분?`, author:'환자_mj7', views:89, comments:14 },
+    { badge:'info', title:`${surgery} 후 운동 시작 시기에 대해`, excerpt:`선생님이 2주 후부터 가벼운 걷기를 시작하라고 하셨는데, 실제로 다른 분들은 언제부터 운동을 시작하셨나요?`, author:'보호자_k3a', views:67, comments:11 },
+    { badge:'tip', title:`${stage} 진단 후 마음 관리 어떻게 하세요?`, excerpt:`진단 초기에 멘탈이 많이 흔들렸는데, 여기 같은 단계 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.`, author:'환자_th2', views:134, comments:23 },
+    { badge:'ai', title:`[AI 분석] ${cancer} ${subtype} ${stage} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)입니다. 최근 ${regimen} 관련 질문이 증가하는 추세입니다.`, author:'v.care AI', ai:true, views:203, comments:8 },
+    { badge:'info', title:`항암 중 면역력 관리 꿀팁 공유합니다`, excerpt:`같은 코호트 환우분들과 공유하고 싶은 면역력 관리 팁! 단백질 섭취를 충분히 하고, 감염 예방을 위해 사람 많은 곳을 피하는 게 도움이 됐어요.`, author:'환자_91z', views:156, comments:19 },
+    { badge:'tip', title:`검사 결과 해석 — 수치가 이렇게 나왔는데 괜찮은 건가요?`, excerpt:`최근 혈액검사에서 백혈구 수치가 좀 낮게 나왔는데, 비슷한 레지멘 하시는 분들도 그러셨나요? 어느 정도까지가 정상 범위인지 궁금합니다.`, author:'보호자_8a4', views:98, comments:16 },
+  ];
+
+  const boardEl = document.getElementById('cohortBoard');
+  boardEl.innerHTML = `
+    <div class="cohort-section-title">
+      <div class="cohort-section-icon" style="background:#fef3c7">📌</div>
+      공지사항
+    </div>
+    ${notices.map(n => renderNotice(n)).join('')}
+
+    <div class="cohort-section-title" style="margin-top:8px">
+      <div class="cohort-section-icon" style="background:#dbeafe">💬</div>
+      코호트 게시판
+    </div>
+    ${posts.map(p => renderNotice(p)).join('')}
+  `;
+}
+
+function renderNotice(n) {
+  const badgeMap = {
+    pin:  'notice-badge--pin',
+    info: 'notice-badge--info',
+    tip:  'notice-badge--tip',
+    ai:   'notice-badge--ai',
+  };
+  const badgeLabel = { pin:'📌 필독', info:'ℹ️ 정보', tip:'💡 팁', ai:'🤖 AI' };
+  const pinnedClass = n.pin ? 'notice-card--pinned' : '';
+  const authorClass = n.ai ? 'notice-author--ai' : '';
+
+  return `
+    <div class="notice-card ${pinnedClass}">
+      <div class="notice-top">
+        <span class="notice-badge ${badgeMap[n.badge] || 'notice-badge--info'}">${badgeLabel[n.badge] || '정보'}</span>
+        <span class="notice-author ${authorClass}">${n.author}</span>
+      </div>
+      <div class="notice-title">${n.title}</div>
+      <div class="notice-excerpt">${n.excerpt}</div>
+      <div class="notice-meta">
+        <span>👁 ${n.views || 0}</span>
+        <span>💬 ${n.comments || 0}</span>
+      </div>
+    </div>
+  `;
+}
+
+// ── 실시간 채팅 렌더링 ────────────────────────
+function renderChat(cancer, subtype, stage, surgery, regimen, onlineCount) {
+  document.getElementById('chatTitle').textContent = `${cancer} ${stage} 코호트 채팅`;
+  document.getElementById('chatOnline').textContent = `${onlineCount}명 활동 중`;
+
+  const msgs = getCohortMessages(cancer, subtype, stage, surgery, regimen);
+  const chatEl = document.getElementById('chatMessages');
+  chatEl.innerHTML = msgs.map(renderChatMsg).join('');
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function getCohortMessages(cancer, subtype, stage, surgery, regimen) {
+  return [
+    // AI 요약 (입장 시)
+    { u:'v.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer} ${subtype} ${stage}</b> 환우분들의 공간입니다. 최근 ${regimen} 부작용 관리와 ${surgery} 경험에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
+    { u:'환자_mj7', t:`안녕하세요! 저도 ${cancer} ${stage}로 ${regimen} 2차 진행 중이에요. 반가워요 😊`, ts:'14:02' },
+    { u:'보호자_k3a', t:`반갑습니다. 저는 보호자인데, ${surgery} 후 관리가 걱정돼서 왔어요.`, ts:'14:05' },
+    { u:'환자_th2', t:`저는 3차 항암 마치고 쉬는 중이에요. 손발 저림이 좀 있는데 다들 어떠세요?`, ts:'14:08' },
+    // AI 개입
+    { u:'v.care AI', t:`${cancer} ${regimen} 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 돼요. 비타민 B6 보충을 주치의와 상의해 보시는 것도 방법입니다. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 말씀드리세요.`, ts:'14:09', agent:true },
+    { u:'환자_91z', t:'저도 저림 있었는데, 따뜻한 물에 발 담그기가 좀 도움됐어요!', ts:'14:12' },
+    { u:'나', t:'다들 반가워요! 저도 같은 단계라 많이 공감돼요.', ts:'14:15', mine:true },
+    { u:'보호자_8a4', t:`${surgery} 때 통증이 어느 정도였나요? 준비해야 할 게 있을까요?`, ts:'14:18' },
+    { u:'환자_mj7', t:'저는 수술 후 3일 정도가 제일 힘들었고, 그 이후로는 점점 나아졌어요. 쿠션이랑 긴 빨대가 유용했어요!', ts:'14:20' },
+    // AI 재개입
+    { u:'v.care AI', t:`좋은 팁이에요! ${cancer} 수술 후 회복에는 개인차가 있지만, 일반적으로 수술 후 1~2주가 가장 불편한 시기입니다. 미리 준비하면 좋은 것: 편한 앞트임 옷, 높은 베개, 미끄럼 방지 슬리퍼, 변비약(진통제 부작용 대비). 궁금한 점이 있으면 언제든 물어보세요!`, ts:'14:21', agent:true },
+    { u:'환자_th2', t:'맞아요 앞트임 옷이 정말 필수예요! 입원 가방에 꼭 넣으세요 👍', ts:'14:24' },
+  ];
+}
+
+function renderChatMsg(m) {
+  const isAgent = !!m.agent;
+  const isMine  = !!m.mine;
+  const avatarClass = isAgent ? 'chat-msg-avatar--agent' : '';
+  const msgClass    = isMine ? 'chat-msg--mine' : (isAgent ? 'chat-msg--agent' : '');
+  return `
+    <div class="chat-msg ${msgClass}">
+      ${!isMine ? `<div class="chat-msg-avatar ${avatarClass}">${isAgent ? 'AI' : m.u[0]}</div>` : ''}
+      <div class="chat-msg-body">
+        <div class="chat-msg-name">${isMine ? '나' : m.u}</div>
+        <div class="chat-msg-bubble">${m.t}</div>
+        <div class="chat-msg-time">${m.ts}</div>
+      </div>
+    </div>`;
+}
+
+// ── 채팅 전송 ────────────────────────────────
+function showTyping() {
+  const el = document.createElement('div');
+  el.className = 'chat-msg chat-msg--agent';
+  el.id = 'cohortTyping';
+  el.innerHTML = `
+    <div class="chat-msg-avatar chat-msg-avatar--agent">AI</div>
+    <div class="chat-msg-body">
+      <div class="chat-msg-name">v.care AI</div>
+      <div class="chat-typing"><span></span><span></span><span></span></div>
+    </div>`;
+  document.getElementById('chatMessages').appendChild(el);
+  document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+}
+
+function hideTypingAndRespond(text) {
+  const el = document.getElementById('cohortTyping');
+  if (el) el.remove();
+  const now = new Date();
+  const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+  const response = getCohortAIResponse(text);
+  const chatEl = document.getElementById('chatMessages');
+  chatEl.insertAdjacentHTML('beforeend', renderChatMsg({ u:'v.care AI', t: response, ts, agent:true }));
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function getCohortAIResponse(text) {
+  const cancer = selections.cancer || '';
+  const responses = [
+    { kw:['부작용','저림','구역','구토','탈모','피부'], res:`${cancer} 항암 치료 중 이런 부작용은 흔하게 나타납니다. 증상의 정도에 따라 주치의와 상의하여 용량 조절이나 보조 약물 처방을 받으실 수 있어요. 일상에서는 충분한 수분 섭취와 소량씩 자주 식사하기가 도움이 됩니다.` },
+    { kw:['식단','음식','먹','식사','영양'], res:'항암 중에는 고단백·저자극 식단이 도움이 됩니다. 두부·생선·달걀 흰자를 중심으로, 소량씩 하루 5~6회에 나눠 드세요. 구역감이 있을 때는 차갑거나 냄새가 적은 음식이 더 잘 넘어갑니다.' },
+    { kw:['불안','걱정','두려','무서','힘들','지쳐'], res:'치료 과정에서 불안과 두려움을 느끼는 것은 매우 자연스러운 반응이에요. 혼자 감당하지 마시고, 같은 코호트 환우분들이나 전문 심리 상담을 통해 마음의 짐을 나눠보세요. 여기 있는 분들 모두 함께하고 있습니다.' },
+    { kw:['운동','걷기','활동','체력'], res:'치료 중에도 가벼운 운동은 회복에 도움이 됩니다. 주치의와 상의 후, 하루 15~30분 가벼운 걷기부터 시작해 보세요. 무리하지 않는 것이 중요하며, 피로감이 심한 날은 쉬어도 괜찮아요.' },
+    { kw:['검사','수치','결과','혈액'], res:'혈액검사 수치는 치료 반응을 모니터링하는 중요한 지표입니다. 일시적인 변동에 너무 걱정하기보다는, 전체적인 추세를 주치의와 함께 확인하시는 것이 좋습니다. 백혈구가 낮을 때는 감염 예방에 특히 주의하세요.' },
+    { kw:['축하','완주','완치','마지막'], res:'정말 대단하세요! 긴 치료 여정을 이겨내신 것을 진심으로 축하드립니다. 이후에는 정기적인 추적 검사를 통해 건강을 잘 관리하시길 응원합니다. 같은 코호트 환우분들에게도 큰 희망이 됩니다!' },
+  ];
+
+  for (const item of responses) {
+    if (item.kw.some(k => text.includes(k))) return item.res;
+  }
+  return `같은 코호트 환우분들의 경험을 나눠주셔서 감사합니다. ${cancer} 치료 과정에서 궁금한 점이 있으시면 언제든 질문해 주세요. 담당 의료팀과의 적극적인 소통도 잊지 마세요!`;
+}
+
+function sendCohortMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const now = new Date();
+  const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+  const chatEl = document.getElementById('chatMessages');
+  chatEl.insertAdjacentHTML('beforeend', renderChatMsg({ u:'나', t: text, ts, mine:true }));
+  chatEl.scrollTop = chatEl.scrollHeight;
+  input.value = '';
+
+  // AI 에이전트 개입 (타이핑 인디케이터 후 1.6~2.2초 딜레이)
+  const delay = 1600 + Math.random() * 600;
+  setTimeout(showTyping, 400);
+  setTimeout(() => hideTypingAndRespond(text), delay);
+}
+
+document.getElementById('chatSend').addEventListener('click', sendCohortMsg);
+document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendCohortMsg(); });
+
+// ── 초기화 ────────────────────────────────────
+renderOnboarding();
+</script>
+</body>
+</html>
