@@ -8437,23 +8437,13 @@ function applyHash(hash) {
   const pageEl = document.getElementById('page-' + page);
   if (pageEl) pageEl.classList.add('active');
 
-  // 브이케어 핵심기능 페이지 reveal — 스크롤 기반으로 처리
+  // 브이케어 핵심기능 페이지 reveal
   if (page === 'vcare-features') {
-    // 이미 visible인 것은 유지, 나머지는 스크롤/타이머로 처리
-    document.querySelectorAll('#page-vcare-features .vcf-reveal').forEach(function(el) {
-      el.classList.remove('visible');
+    var vcfEls = document.querySelectorAll('#page-vcare-features .vcf-reveal');
+    vcfEls.forEach(function(el) { el.classList.remove('visible'); });
+    vcfEls.forEach(function(el, i) {
+      setTimeout(function() { el.classList.add('visible'); }, 150 + i * 120);
     });
-    function vcfCheckReveal() {
-      var els = document.querySelectorAll('#page-vcare-features .vcf-reveal:not(.visible)');
-      els.forEach(function(el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.92) el.classList.add('visible');
-      });
-    }
-    setTimeout(vcfCheckReveal, 80);
-    window.removeEventListener('scroll', window._vcfRevealHandler);
-    window._vcfRevealHandler = vcfCheckReveal;
-    window.addEventListener('scroll', window._vcfRevealHandler, { passive: true });
   }
 
   // GNB active 처리
