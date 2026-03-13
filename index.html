@@ -7044,11 +7044,101 @@
 
   <!-- ===== VCARE FEATURES PAGE ===== -->
   <div class="page-section" id="page-vcare-features">
-    <div style="min-height:60vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;color:var(--text-muted);text-align:center;padding:80px 40px;">
-      <div style="font-size:48px;">🏥</div>
-      <h2 style="font-size:24px;font-weight:700;color:var(--text);">브이케어 핵심 기능</h2>
-      <p style="font-size:15px;max-width:440px;line-height:1.7;">핵심 기능 페이지가 준비되면 이곳에 콘텐츠가 표시됩니다.</p>
+  <style>
+  #page-vcare-features .vcf-hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:100px 40px 80px; position:relative; overflow:hidden;
+  }
+  #page-vcare-features .vcf-hero-glow {
+    position:absolute; top:15%; left:50%; transform:translateX(-50%);
+    width:900px; height:500px;
+    background:radial-gradient(ellipse,rgba(61,127,255,.07) 0%,transparent 65%);
+    pointer-events:none;
+  }
+  #page-vcare-features .vcf-eyebrow {
+    font-family:'Space Mono',monospace; font-size:11px; color:#3d7fff;
+    letter-spacing:.2em; text-transform:uppercase; margin-bottom:20px;
+    opacity:0; animation:fadeUp .6s ease forwards .1s;
+  }
+  #page-vcare-features .vcf-title {
+    font-size:clamp(32px,4.5vw,56px); font-weight:700; text-align:center;
+    line-height:1.15; margin-bottom:16px;
+    opacity:0; animation:fadeUp .6s ease forwards .2s;
+  }
+  #page-vcare-features .vcf-title em {
+    font-style:normal;
+    background:linear-gradient(135deg,#3d7fff,#00d4a0);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  #page-vcare-features .vcf-sub {
+    font-size:15px; color:var(--text-muted); text-align:center;
+    max-width:480px; line-height:1.9; margin-bottom:56px;
+    opacity:0; animation:fadeUp .6s ease forwards .3s;
+  }
+  #page-vcare-features .vcf-mockup-wrap {
+    width:100%; max-width:1060px;
+    opacity:0; animation:fadeUp .9s ease forwards .5s;
+  }
+  #page-vcare-features .vcf-macbook { position:relative; width:100%; }
+  #page-vcare-features .vcf-macbook-lid {
+    background:linear-gradient(160deg,rgba(44,50,68,.72),rgba(20,25,40,.82));
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px 18px 4px 4px;
+    padding:22px 22px 14px;
+    backdrop-filter:blur(20px);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.04),
+      0 48px 96px rgba(0,0,0,.65),
+      inset 0 1px 0 rgba(255,255,255,.09);
+    position:relative;
+  }
+  #page-vcare-features .vcf-macbook-lid::before {
+    content:''; position:absolute; top:9px; left:50%; transform:translateX(-50%);
+    width:9px; height:9px; background:rgba(255,255,255,.07); border-radius:50%;
+    box-shadow:0 0 0 1px rgba(255,255,255,.09);
+  }
+  #page-vcare-features .vcf-macbook-screen {
+    background:#000; border-radius:8px; overflow:hidden;
+    aspect-ratio:16/10; position:relative;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.9);
+  }
+  #page-vcare-features .vcf-macbook-screen::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:35%;
+    background:linear-gradient(180deg,rgba(255,255,255,.025) 0%,transparent 100%);
+    pointer-events:none; z-index:2; border-radius:8px 8px 0 0;
+  }
+  #page-vcare-features .vcf-macbook-screen video {
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  #page-vcare-features .vcf-macbook-base {
+    background:linear-gradient(180deg,rgba(38,44,60,.82),rgba(26,30,48,.9));
+    border:1px solid rgba(255,255,255,.06); border-top:none;
+    border-radius:0 0 10px 10px; height:20px; position:relative;
+  }
+  #page-vcare-features .vcf-macbook-base::after {
+    content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:28%; height:6px; background:rgba(255,255,255,.045); border-radius:0 0 4px 4px;
+  }
+  </style>
+  <section class="vcf-hero">
+    <div class="vcf-hero-glow"></div>
+    <p class="vcf-eyebrow">aitrics · 지능형 의료 커뮤니티</p>
+    <h1 class="vcf-title">차세대 <em>지능형 의료 커뮤니티</em>의 탄생<br>— 다질환 확장</h1>
+    <p class="vcf-sub">유방암·위암·폐암 등 각종 암종부터 당뇨·심혈관 등 만성질환,<br>공황장애·우울증 등 정신질환까지 — 하나의 플랫폼으로 확장합니다.</p>
+    <div class="vcf-mockup-wrap">
+      <div class="vcf-macbook">
+        <div class="vcf-macbook-lid">
+          <div class="vcf-macbook-screen">
+            <video autoplay loop muted playsinline>
+              <source src="assets/vcare-demo.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="vcf-macbook-base"></div>
+      </div>
     </div>
+  </section>
   </div><!-- /page-vcare-features -->
 
   <!-- ===== DASHBOARD PAGE ===== -->
