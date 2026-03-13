@@ -2661,6 +2661,10 @@
           <svg class="pinkcare-caret" id="vcareCaret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="vcare-dropdown" id="vcareDropdown">
+          <a href="#" onclick="navigateVcare('features', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            핵심 기능
+          </a>
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             웹사이트
@@ -7038,6 +7042,308 @@
   </div>
   </div><!-- /page-pinkcare-kpi -->
 
+  <!-- ===== VCARE FEATURES PAGE ===== -->
+  <div class="page-section" id="page-vcare-features">
+  <style>
+  /* ── VCF 변수 ── */
+  #page-vcare-features {
+    --vcf-blue:#3d7fff; --vcf-green:#00d4a0; --vcf-pink:#ff6eb4;
+    --vcf-yellow:#f0a500; --vcf-purple:#a78bfa;
+    background:var(--bg); overflow-x:hidden;
+  }
+  /* ── 서브 nav ── */
+  #page-vcare-features .vcf-nav {
+    position:sticky; top:56px; z-index:90;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 48px; height:48px;
+    background:rgba(8,10,16,.92); backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  #page-vcare-features .vcf-nav-logo {
+    font-family:'Space Mono',monospace; font-size:12px; color:var(--vcf-blue);
+  }
+  #page-vcare-features .vcf-nav-links {
+    display:flex; gap:28px; list-style:none;
+  }
+  #page-vcare-features .vcf-nav-links a {
+    font-size:11px; color:var(--text-muted); text-decoration:none;
+    letter-spacing:.08em; transition:color .2s;
+  }
+  #page-vcare-features .vcf-nav-links a:hover { color:var(--text); }
+  /* ── HERO ── */
+  #page-vcare-features .vcf-hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:100px 40px 80px; position:relative; overflow:hidden;
+  }
+  #page-vcare-features .vcf-hero-glow {
+    position:absolute; top:15%; left:50%; transform:translateX(-50%);
+    width:900px; height:500px;
+    background:radial-gradient(ellipse,rgba(61,127,255,.07) 0%,transparent 65%);
+    pointer-events:none;
+  }
+  #page-vcare-features .vcf-eyebrow {
+    font-family:'Space Mono',monospace; font-size:11px; color:var(--vcf-blue);
+    letter-spacing:.2em; text-transform:uppercase; margin-bottom:20px;
+    opacity:0; animation:fadeUp .6s ease forwards .1s;
+  }
+  #page-vcare-features .vcf-title {
+    font-size:clamp(28px,4vw,52px); font-weight:700; text-align:center;
+    line-height:1.18; margin-bottom:16px;
+    opacity:0; animation:fadeUp .6s ease forwards .2s;
+  }
+  #page-vcare-features .vcf-title em {
+    font-style:normal;
+    background:linear-gradient(135deg,var(--vcf-blue),var(--vcf-green));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  #page-vcare-features .vcf-sub {
+    font-size:15px; color:var(--text-muted); text-align:center;
+    max-width:500px; line-height:1.9; margin-bottom:56px;
+    opacity:0; animation:fadeUp .6s ease forwards .3s;
+  }
+  /* ── 피처 섹션 ── */
+  #page-vcare-features .vcf-feature-section {
+    padding:100px 40px; display:flex; flex-direction:column;
+    align-items:center; position:relative; overflow:hidden;
+    border-top:1px solid var(--border);
+  }
+  #page-vcare-features .vcf-feature-section:nth-child(even) { background:#0a0d16; }
+  #page-vcare-features .vcf-section-glow {
+    position:absolute; top:10%; left:50%; transform:translateX(-50%);
+    width:700px; height:350px; pointer-events:none; border-radius:50%;
+  }
+  #page-vcare-features .glow-green  { background:radial-gradient(ellipse,rgba(0,212,160,.06) 0%,transparent 65%); }
+  #page-vcare-features .glow-pink   { background:radial-gradient(ellipse,rgba(255,110,180,.06) 0%,transparent 65%); }
+  #page-vcare-features .glow-yellow { background:radial-gradient(ellipse,rgba(240,165,0,.06) 0%,transparent 65%); }
+  #page-vcare-features .glow-purple { background:radial-gradient(ellipse,rgba(167,139,250,.06) 0%,transparent 65%); }
+  #page-vcare-features .vcf-section-num {
+    font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim);
+    letter-spacing:.2em; margin-bottom:10px;
+  }
+  #page-vcare-features .vcf-section-title {
+    font-size:clamp(22px,3vw,36px); font-weight:700; text-align:center;
+    line-height:1.25; margin-bottom:12px;
+  }
+  #page-vcare-features .vcf-section-title .accent-green  { color:var(--vcf-green); }
+  #page-vcare-features .vcf-section-title .accent-pink   { color:var(--vcf-pink); }
+  #page-vcare-features .vcf-section-title .accent-yellow { color:var(--vcf-yellow); }
+  #page-vcare-features .vcf-section-title .accent-purple { color:var(--vcf-purple); }
+  #page-vcare-features .vcf-section-title .accent-blue   { color:var(--vcf-blue); }
+  #page-vcare-features .vcf-section-desc {
+    font-size:14px; color:var(--text-muted); text-align:center;
+    max-width:480px; line-height:1.9; margin-bottom:52px;
+  }
+  /* ── 맥북 목업 ── */
+  #page-vcare-features .vcf-mockup-wrap {
+    width:100%; max-width:1060px; position:relative; z-index:1;
+  }
+  #page-vcare-features .vcf-macbook { position:relative; width:100%; }
+  #page-vcare-features .vcf-macbook-lid {
+    background:linear-gradient(160deg,rgba(44,50,68,.72),rgba(20,25,40,.82));
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px 18px 4px 4px;
+    padding:22px 22px 14px;
+    backdrop-filter:blur(20px);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.04),
+      0 48px 96px rgba(0,0,0,.65),
+      inset 0 1px 0 rgba(255,255,255,.09);
+    position:relative;
+  }
+  #page-vcare-features .vcf-macbook-lid::before {
+    content:''; position:absolute; top:9px; left:50%; transform:translateX(-50%);
+    width:9px; height:9px; background:rgba(255,255,255,.07); border-radius:50%;
+    box-shadow:0 0 0 1px rgba(255,255,255,.09);
+  }
+  #page-vcare-features .vcf-macbook-screen {
+    background:#000; border-radius:8px; overflow:hidden;
+    aspect-ratio:16/10; position:relative;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.9);
+  }
+  #page-vcare-features .vcf-macbook-screen::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:35%;
+    background:linear-gradient(180deg,rgba(255,255,255,.025) 0%,transparent 100%);
+    pointer-events:none; z-index:2; border-radius:8px 8px 0 0;
+  }
+  #page-vcare-features .vcf-macbook-screen video {
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  #page-vcare-features .vcf-macbook-base {
+    background:linear-gradient(180deg,rgba(38,44,60,.82),rgba(26,30,48,.9));
+    border:1px solid rgba(255,255,255,.06); border-top:none;
+    border-radius:0 0 10px 10px; height:20px; position:relative;
+  }
+  #page-vcare-features .vcf-macbook-base::after {
+    content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:28%; height:6px; background:rgba(255,255,255,.045); border-radius:0 0 4px 4px;
+  }
+  /* ── reveal 애니메이션 ── */
+  #page-vcare-features .vcf-reveal {
+    opacity:0; transform:translateY(28px);
+    transition:opacity .7s ease,transform .7s ease;
+  }
+  #page-vcare-features .vcf-reveal.visible { opacity:1; transform:none; }
+  #page-vcare-features .vcf-mockup-wrap.vcf-reveal { opacity:0; transform:translateY(32px); }
+  /* ── 히어로 첫 목업은 별도 fadeUp ── */
+  #page-vcare-features .vcf-hero .vcf-mockup-wrap {
+    opacity:0; animation:fadeUp .9s ease forwards .5s;
+  }
+  /* ── 푸터 ── */
+  #page-vcare-features .vcf-footer {
+    border-top:1px solid var(--border);
+    padding:36px 48px; display:flex; align-items:center; justify-content:space-between;
+  }
+  #page-vcare-features .vcf-footer-logo {
+    font-family:'Space Mono',monospace; font-size:13px; color:var(--vcf-blue);
+  }
+  #page-vcare-features .vcf-footer-text {
+    font-size:11px; color:var(--text-dim); font-family:'Space Mono',monospace;
+  }
+  @media(max-width:768px) {
+    #page-vcare-features .vcf-nav { padding:0 20px; }
+    #page-vcare-features .vcf-nav-links { display:none; }
+    #page-vcare-features .vcf-hero,
+    #page-vcare-features .vcf-feature-section { padding:80px 20px; }
+  }
+  </style>
+
+  <!-- 서브 nav -->
+  <nav class="vcf-nav">
+    <div class="vcf-nav-logo">v.care / aitrics</div>
+    <ul class="vcf-nav-links">
+      <li><a href="#vcf-s1">다질환 확장</a></li>
+      <li><a href="#vcf-s2">게시글 요약</a></li>
+      <li><a href="#vcf-s3">실시간 채팅</a></li>
+      <li><a href="#vcf-s4">글작성 도우미</a></li>
+      <li><a href="#vcf-s5">in 코호트</a></li>
+    </ul>
+  </nav>
+
+  <!-- 01 · 홈화면 진입 / 다질환 확장 -->
+  <section class="vcf-hero" id="vcf-s1">
+    <div class="vcf-hero-glow"></div>
+    <p class="vcf-eyebrow">aitrics · 지능형 의료 커뮤니티</p>
+    <h1 class="vcf-title">차세대 <em>지능형 의료 커뮤니티</em>의 탄생<br>— 다질환 확장</h1>
+    <p class="vcf-sub">유방암·위암·폐암 등 각종 암종부터 당뇨·심혈관 등 만성질환,<br>공황장애·우울증 등 정신질환까지 — 하나의 플랫폼으로 확장합니다.</p>
+    <div class="vcf-mockup-wrap">
+      <div class="vcf-macbook">
+        <div class="vcf-macbook-lid">
+          <div class="vcf-macbook-screen">
+            <video autoplay loop muted playsinline>
+              <source src="assets/1%2C%20%ED%99%88%ED%99%94%EB%A9%B4%20%EC%A7%84%EC%9E%85%28%EB%8B%A4%EC%A7%88%ED%99%98%20%ED%99%95%EC%9E%A5%29.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="vcf-macbook-base"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · 게시글 요약 -->
+  <section class="vcf-feature-section" id="vcf-s2">
+    <div class="vcf-section-glow glow-green"></div>
+    <div class="vcf-reveal">
+      <p class="vcf-section-num">Feature · 02</p>
+      <h2 class="vcf-section-title"><span class="accent-green">게시글 요약</span> 에이전트</h2>
+      <p class="vcf-section-desc">긴 게시글도 핵심만 빠르게 파악할 수 있도록 LLM이 자동으로 요약합니다. 정보 탐색 시간을 줄이고 필요한 내용에 바로 집중할 수 있어요.</p>
+    </div>
+    <div class="vcf-mockup-wrap vcf-reveal">
+      <div class="vcf-macbook">
+        <div class="vcf-macbook-lid">
+          <div class="vcf-macbook-screen">
+            <video autoplay loop muted playsinline>
+              <source src="assets/2.%20%EA%B2%8C%EC%8B%9C%EA%B8%80%20%EC%9A%94%EC%95%BD%281%29.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="vcf-macbook-base"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · 실시간 채팅 -->
+  <section class="vcf-feature-section" id="vcf-s3">
+    <div class="vcf-section-glow glow-pink"></div>
+    <div class="vcf-reveal">
+      <p class="vcf-section-num">Feature · 03</p>
+      <h2 class="vcf-section-title"><span class="accent-pink">실시간 채팅</span> 대화 요약<br>+ 실시간 답변 에이전트</h2>
+      <p class="vcf-section-desc">채팅방의 대화 흐름을 실시간으로 요약하고, 환자 질문에 즉각적인 AI 답변을 제공합니다. 놓친 대화도 빠르게 따라잡을 수 있어요.</p>
+    </div>
+    <div class="vcf-mockup-wrap vcf-reveal">
+      <div class="vcf-macbook">
+        <div class="vcf-macbook-lid">
+          <div class="vcf-macbook-screen">
+            <video autoplay loop muted playsinline>
+              <source src="assets/3.%20%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%B1%84%ED%8C%85%20%EB%8C%80%ED%99%94%20%EC%9A%94%EC%95%BD%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%2B%20%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EB%8B%B5%EB%B3%80%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%281%29.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="vcf-macbook-base"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · 글작성 도우미 -->
+  <section class="vcf-feature-section" id="vcf-s4">
+    <div class="vcf-section-glow glow-yellow"></div>
+    <div class="vcf-reveal">
+      <p class="vcf-section-num">Feature · 04</p>
+      <h2 class="vcf-section-title"><span class="accent-yellow">글작성 도우미</span> 에이전트<br>+ 자동 유관 검색어 태그</h2>
+      <p class="vcf-section-desc">글을 쓰는 과정을 AI가 함께 도와주고, 작성된 내용을 분석해 유관 검색어 태그를 자동으로 붙여줍니다. 더 많은 사람에게 닿을 수 있어요.</p>
+    </div>
+    <div class="vcf-mockup-wrap vcf-reveal">
+      <div class="vcf-macbook">
+        <div class="vcf-macbook-lid">
+          <div class="vcf-macbook-screen">
+            <video autoplay loop muted playsinline>
+              <source src="assets/4.%20%EA%B8%80%EC%9E%91%EC%84%B1%20%EB%8F%84%EC%9A%B0%EB%AF%B8%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%2B%20%EC%9E%90%EB%8F%99%20%EC%9C%A0%EA%B4%80%20%EA%B2%80%EC%83%89%EC%96%B4%20%ED%83%9C%EA%B7%B8%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%281%29.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="vcf-macbook-base"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · in 코호트 -->
+  <section class="vcf-feature-section" id="vcf-s5">
+    <div class="vcf-section-glow glow-purple"></div>
+    <div class="vcf-reveal">
+      <p class="vcf-section-num">Feature · 05</p>
+      <h2 class="vcf-section-title"><span class="accent-purple">in 코호트</span></h2>
+      <p class="vcf-section-desc">병기·항암 레지멘·수술 여부를 입력하면 같은 치료를 받고 있는 사람들과 자동으로 연결됩니다. 같은 시간을 보내는 사람들과 경험을 나눠보세요.</p>
+    </div>
+    <div class="vcf-mockup-wrap vcf-reveal">
+      <div class="vcf-macbook">
+        <div class="vcf-macbook-lid">
+          <div class="vcf-macbook-screen">
+            <video autoplay loop muted playsinline>
+              <source src="assets/5.%20in%20%EC%BD%94%ED%98%B8%ED%8A%B8%281%29.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="vcf-macbook-base"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="vcf-footer">
+    <div class="vcf-footer-logo">v.care · aitrics</div>
+    <div class="vcf-footer-text">© 2026 aitrics. All rights reserved.</div>
+  </footer>
+
+  <script>
+  (function() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e, i) {
+        if (e.isIntersecting) setTimeout(function(){ e.target.classList.add('visible'); }, i * 100);
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('#page-vcare-features .vcf-reveal').forEach(function(el) { obs.observe(el); });
+  })();
+  </script>
+  </div><!-- /page-vcare-features -->
 
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
@@ -7211,7 +7517,6 @@
         <p class="vdp-subtitle">V.Doc의 AI 문진 플랫폼을 기반으로, 100인 이상 중소·중견기업 직원의 정신·신체 건강을 관리하는 엔터프라이즈 B2B SaaS 솔루션</p>
         <div class="vdp-meta-bar">
           <div class="vdp-meta-item">버전 <span>v1.1</span></div>
-          <div class="vdp-meta-item">작성일 <span>2026. 03. 13</span></div>
           <div class="vdp-meta-item">기밀등급 <span>내부 기밀</span></div>
           <div class="vdp-meta-item">AITRICS <span>Corporation</span></div>
         </div>
@@ -8092,6 +8397,14 @@ function navigatePinkcare(sub, e) {
 }
 
 // ===== 브이케어 드롭다운 =====
+function navigateVcare(sub, e) {
+  e.preventDefault();
+  closeVcareDropdown();
+  if (sub === 'features') {
+    window.location.hash = 'vcare-features';
+  }
+}
+
 function closeVcareDropdown() {
   const dropdown = document.getElementById('vcareDropdown');
   const btn = document.getElementById('vcareBtn');
@@ -8141,6 +8454,9 @@ function applyHash(hash) {
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
+  } else if (page === 'vcare-features') {
+    const vcareBtn = document.getElementById('vcareBtn');
+    if (vcareBtn) vcareBtn.classList.add('active');
   } else {
     document.querySelectorAll('.gnb-link').forEach(el => {
       const onclick = el.getAttribute('onclick') || '';
