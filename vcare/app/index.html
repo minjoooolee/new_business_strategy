@@ -822,6 +822,147 @@ body {
   font-size: 12px;
   color: var(--sub);
 }
+
+/* ===== SUB SCREENS ===== */
+.sub-screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  overflow-y: auto;
+  z-index: 50;
+  display: none;
+  -webkit-overflow-scrolling: touch;
+}
+.sub-screen::-webkit-scrollbar { display: none; }
+
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.back-header svg { width: 20px; height: 20px; color: var(--text); flex-shrink:0; }
+.back-header span { font-size: 16px; font-weight: 600; color: var(--text); }
+.back-header-right { margin-left:auto; font-size:11px; color:#22c55e; font-weight:600; display:flex; align-items:center; gap:4px; }
+.back-header-right::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+
+/* Post Detail */
+.pd-card { margin:16px; padding:16px; border:1px solid var(--border); border-radius:var(--radius-sm); }
+.pd-badges { display:flex; gap:6px; margin-bottom:10px; }
+.pd-title { font-size:17px; font-weight:700; color:var(--text); line-height:1.45; margin-bottom:10px; }
+.pd-meta { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.pd-avatar { width:32px; height:32px; border-radius:50%; background:#e0e7ff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:#6366f1; flex-shrink:0; }
+.pd-meta-text { font-size:12px; color:var(--muted); }
+.pd-meta-text strong { color:var(--text); font-weight:600; }
+.pd-like-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:20px; border:1px solid #fecdd3; background:#fff; color:#E24585; font-size:13px; font-weight:600; cursor:pointer; }
+.pd-like-btn svg { width:16px; height:16px; fill:#E24585; }
+.pd-body { padding:0 16px; margin-bottom:16px; }
+.pd-body p { font-size:13px; line-height:1.75; color:#374151; margin-bottom:8px; }
+.pd-tags { display:flex; gap:6px; padding:0 16px; margin-bottom:16px; }
+.pd-tag { font-size:11px; color:var(--sub); background:var(--bg-soft); padding:4px 10px; border-radius:8px; }
+.pd-reactions { display:flex; gap:8px; padding:0 16px; margin-bottom:20px; }
+.pd-react-btn { display:flex; align-items:center; gap:5px; padding:9px 16px; border-radius:10px; border:1px solid var(--border); background:#fff; font-size:12px; color:var(--sub); cursor:pointer; }
+.pd-react-btn strong { font-weight:700; color:var(--text); }
+.pd-divider { border:none; border-top:1px solid var(--border); margin:0 16px 16px; }
+.pd-comments { padding:0 16px 24px; }
+.pd-comments-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; }
+.pd-comments-title strong { color:#6366f1; }
+.pd-comment-input { display:flex; gap:10px; margin-bottom:20px; }
+.pd-comment-input textarea { flex:1; padding:10px 12px; border:1px solid var(--border); border-radius:10px; font-size:12px; font-family:var(--font); resize:none; outline:none; color:var(--text); }
+.pd-comment-input textarea::placeholder { color:var(--muted); }
+.pd-comment-input button { padding:8px 14px; border-radius:8px; border:none; background:var(--text); color:#fff; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; align-self:flex-end; }
+.pd-comment { display:flex; gap:10px; padding:14px 0; border-top:1px solid var(--border); }
+.pd-comment-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; flex-shrink:0; }
+.pd-comment-body { flex:1; }
+.pd-comment-meta { display:flex; gap:6px; align-items:center; margin-bottom:4px; }
+.pd-comment-name { font-size:12px; font-weight:600; color:var(--text); }
+.pd-comment-role { font-size:10px; color:var(--muted); background:var(--bg-soft); padding:1px 6px; border-radius:4px; }
+.pd-comment-date { font-size:10px; color:var(--muted); }
+.pd-comment-text { font-size:12px; line-height:1.6; color:#374151; margin-bottom:6px; }
+.pd-comment-like { display:flex; align-items:center; gap:4px; font-size:11px; color:var(--muted); cursor:pointer; background:none; border:none; padding:0; }
+.pd-comment-like svg { width:13px; height:13px; fill:#d1d5db; }
+.pd-comment--doctor { background:#f0fdfa; border-radius:10px; padding:14px 12px; margin:-1px 0; border-top:1px solid #ccfbf1; }
+.pd-comment--doctor .pd-comment-avatar { background:#3fbfbc; color:#fff; }
+.pd-comment--doctor .pd-comment-name { color:#0d9488; }
+.pd-comment--doctor .pd-comment-role { background:#ccfbf1; color:#0d9488; }
+.pd-comment--doctor .pd-comment-text { color:#134e4a; }
+.pd-ai-panel { margin:0 16px 24px; padding:14px; background:#f0e8f7; border:1px solid #e0d4f0; border-radius:var(--radius-sm); }
+.pd-ai-header { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.pd-ai-avatar { width:26px; height:26px; border-radius:50%; background:var(--ai-gradient); display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:800; color:#fff; }
+.pd-ai-label { font-size:12px; font-weight:700; color:#6b21a8; }
+.pd-ai-intro { font-size:11px; color:#4a1d7a; line-height:1.5; margin-bottom:10px; padding:8px 10px; background:#fff; border-radius:8px; border:1px solid #e0d4f0; }
+.pd-ai-card { display:block; padding:10px; background:#fff; border:1px solid #e0d4f0; border-radius:8px; margin-bottom:6px; }
+.pd-ai-card-title { font-size:12px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:3px; }
+.pd-ai-card-meta { font-size:10px; color:var(--muted); }
+
+/* Chat Room Detail */
+.chat-detail-msgs { padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+.cd-msg { display:flex; gap:8px; align-items:flex-end; }
+.cd-msg--mine { flex-direction:row-reverse; }
+.cd-msg-avatar { width:28px; height:28px; border-radius:8px; background:#e5e7eb; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--sub); flex-shrink:0; }
+.cd-msg-avatar--ai { background:var(--ai-gradient); color:#fff; font-size:9px; font-weight:800; }
+.cd-msg-body { max-width:75%; }
+.cd-msg-name { font-size:10px; color:var(--muted); margin-bottom:3px; }
+.cd-msg--mine .cd-msg-name { text-align:right; }
+.cd-msg-bubble { display:inline-block; padding:9px 13px; border-radius:14px; font-size:12px; line-height:1.55; color:var(--text); background:var(--bg-soft); }
+.cd-msg--mine .cd-msg-bubble { background:var(--text); color:#fff; }
+.cd-msg--ai .cd-msg-bubble { background:linear-gradient(135deg,#e8d5f5,#d4bde8); color:#4a1d7a; border:1px solid #c9a8e0; }
+.cd-msg--ai .cd-msg-name { color:#6366f1; font-weight:600; }
+.cd-msg-time { font-size:9px; color:#d1d5db; margin-top:3px; }
+.cd-msg--mine .cd-msg-time { text-align:right; }
+.chat-input-bar { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border); background:#fff; position:sticky; bottom:0; }
+.chat-input-bar input { flex:1; height:38px; padding:0 12px; font-size:13px; color:var(--text); background:var(--bg-soft); border:1px solid var(--border); border-radius:10px; outline:none; font-family:var(--font); }
+.chat-input-bar button { padding:0 16px; height:38px; border:none; background:var(--text); color:#fff; border-radius:10px; font-size:12px; font-weight:600; cursor:pointer; }
+
+/* Disease Board */
+.disease-info-card { margin:16px; padding:16px; background:linear-gradient(135deg,rgba(63,191,188,0.06),rgba(110,63,163,0.04)); border-radius:var(--radius-sm); display:flex; align-items:center; gap:12px; }
+.disease-info-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; }
+.disease-info-text h3 { font-size:16px; font-weight:700; color:var(--text); }
+.disease-info-text p { font-size:12px; color:var(--sub); margin-top:2px; }
+
+/* Cohort Main */
+.cohort-profile-bar { margin:16px; padding:14px 16px; background:linear-gradient(135deg,#f0fdf4,#f0e8f7,#fef2f2); border:1px solid #e8dff0; border-radius:var(--radius-sm); }
+.cohort-profile-bar-top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.cohort-profile-icon { width:36px; height:36px; border-radius:10px; background:var(--ai-gradient); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cohort-profile-icon svg { width:18px; height:18px; color:#fff; }
+.cohort-profile-label { font-size:11px; color:var(--sub); }
+.cohort-profile-online { font-size:11px; color:#22c55e; font-weight:600; margin-left:auto; display:flex; align-items:center; gap:4px; }
+.cohort-profile-online::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+.cohort-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.cohort-tag { font-size:11px; font-weight:500; padding:3px 10px; background:#fff; border:1px solid var(--border); border-radius:16px; color:var(--text); }
+.cohort-section { padding:0 16px; margin-bottom:16px; }
+.cohort-section-title { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--text); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.cohort-notice { padding:12px; border:1.5px solid #fbbf24; background:#fffbeb; border-radius:10px; margin-bottom:8px; cursor:pointer; }
+.cohort-notice-badge { font-size:10px; font-weight:700; color:#92400e; background:#fef3c7; padding:2px 8px; border-radius:10px; display:inline-block; margin-bottom:4px; }
+.cohort-notice-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:3px; }
+.cohort-notice-desc { font-size:11px; color:var(--sub); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.cohort-post { padding:12px; border:1px solid var(--border); border-radius:10px; margin-bottom:8px; cursor:pointer; }
+.cohort-post-badge { font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px; display:inline-block; margin-bottom:4px; }
+.cohort-post-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:3px; }
+.cohort-post-desc { font-size:11px; color:var(--sub); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.cohort-post-meta { font-size:10px; color:var(--muted); margin-top:6px; }
+.cohort-mini-chat { margin:0 16px 24px; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+.cohort-mini-chat-header { padding:10px 14px; border-bottom:1px solid var(--border); background:#fafafa; }
+.cohort-mini-chat-header strong { font-size:13px; color:var(--text); }
+.cohort-mini-chat-header span { font-size:10px; color:#22c55e; margin-left:8px; }
+.cohort-mini-chat-msgs { padding:12px; display:flex; flex-direction:column; gap:10px; max-height:200px; overflow-y:auto; }
+.cohort-mini-chat-input { display:flex; gap:8px; padding:10px 12px; border-top:1px solid var(--border); }
+.cohort-mini-chat-input input { flex:1; height:34px; padding:0 10px; font-size:12px; border:1px solid var(--border); border-radius:8px; outline:none; font-family:var(--font); }
+.cohort-mini-chat-input button { padding:0 12px; height:34px; border:none; background:var(--text); color:#fff; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer; }
+
+/* Cohort success */
+.cohort-success { text-align:center; padding:40px 28px; }
+.cohort-success-icon { width:80px; height:80px; border-radius:50%; background:#dcfce7; display:flex; align-items:center; justify-content:center; font-size:36px; margin:0 auto 20px; }
+.cohort-success h2 { font-size:22px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.cohort-success p { font-size:14px; color:var(--sub); line-height:1.6; margin-bottom:8px; }
+.cohort-success-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:28px; }
+.cohort-success-tag { font-size:12px; font-weight:500; padding:4px 12px; background:var(--bg-soft); border:1px solid var(--border); border-radius:16px; color:var(--text); }
 </style>
 </head>
 <body>
@@ -1301,6 +1442,336 @@ body {
       </div>
     </div>
 
+    <!-- ===== SUB: POST DETAIL ===== -->
+    <div class="sub-screen" id="sub-post-detail">
+      <div class="back-header" onclick="hideSubScreen('sub-post-detail')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>게시글</span>
+      </div>
+      <div class="pd-card">
+        <div class="pd-badges">
+          <span class="post-badge blue">증상 질문</span>
+          <span class="post-badge" style="background:var(--bg-soft);color:var(--sub);font-size:10px;">유방암</span>
+        </div>
+        <div class="pd-title">항암 후 손발 저림 증상, 어떻게 관리하시나요?</div>
+        <div class="pd-meta">
+          <div class="pd-avatar">환</div>
+          <div class="pd-meta-text"><strong>@환우_m7n</strong> · 환자 · 2026.03.09 · 조회 324</div>
+        </div>
+        <button class="pd-like-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          좋아요 <strong>89</strong>
+        </button>
+      </div>
+
+      <div class="pd-body">
+        <p>안녕하세요, 유방암 치료 중인 환자입니다.</p>
+        <p>항암 3차 이후부터 손발이 저리고 감각이 이상해졌어요. 특히 아침에 일어나면 감각이 거의 없는 느낌이고, 차가운 물건을 만지면 통증이 심합니다.</p>
+        <p>주치의께는 말씀드렸는데, 비타민 B6 보충을 권해주셨어요. 혹시 생활 속에서 도움이 되는 방법이 있는지 경험 나눠주세요.</p>
+        <p>같은 증상을 겪고 계신 분들의 조언이 정말 필요합니다. 모두 건강하시길 바랍니다.</p>
+      </div>
+
+      <div class="pd-tags">
+        <span class="pd-tag">#유방암</span>
+        <span class="pd-tag">#항암부작용</span>
+        <span class="pd-tag">#말초신경병증</span>
+      </div>
+
+      <div class="pd-reactions">
+        <button class="pd-react-btn">👍 응원해요 <strong>24</strong></button>
+        <button class="pd-react-btn">ℹ️ 유익해요 <strong>18</strong></button>
+      </div>
+
+      <hr class="pd-divider">
+
+      <div class="pd-comments">
+        <div class="pd-comments-title">답변 <strong>3</strong></div>
+
+        <div class="pd-comment-input">
+          <textarea rows="2" placeholder="경험이나 응원의 말씀을 남겨주세요."></textarea>
+          <button>답변 남기기</button>
+        </div>
+
+        <div class="pd-comment pd-comment--doctor">
+          <div class="pd-comment-avatar">🩺</div>
+          <div class="pd-comment-body">
+            <div class="pd-comment-meta">
+              <span class="pd-comment-name">의료진 답변</span>
+              <span class="pd-comment-role">의료진</span>
+              <span class="pd-comment-date">2026.03.09</span>
+            </div>
+            <div class="pd-comment-text">항암 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 됩니다. 비타민 B6 보충을 주치의와 상의해 보세요. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 말씀해주세요.</div>
+            <button class="pd-comment-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 38</button>
+          </div>
+        </div>
+
+        <div class="pd-comment">
+          <div class="pd-comment-avatar" style="background:#e0e7ff;color:#6366f1;">환</div>
+          <div class="pd-comment-body">
+            <div class="pd-comment-meta">
+              <span class="pd-comment-name">@환우_s0t</span>
+              <span class="pd-comment-role">환자</span>
+              <span class="pd-comment-date">2026.03.09</span>
+            </div>
+            <div class="pd-comment-text">저도 비슷한 경험이 있어요. 따뜻한 물에 발 담그기가 좀 도움됐어요! 저림이 심한 날은 보온 양말 꼭 신으세요.</div>
+            <button class="pd-comment-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 15</button>
+          </div>
+        </div>
+
+        <div class="pd-comment">
+          <div class="pd-comment-avatar" style="background:#fce7f3;color:#ec4899;">보</div>
+          <div class="pd-comment-body">
+            <div class="pd-comment-meta">
+              <span class="pd-comment-name">@보호자_k3a</span>
+              <span class="pd-comment-role">보호자</span>
+              <span class="pd-comment-date">2026.03.10</span>
+            </div>
+            <div class="pd-comment-text">저희 어머니도 같은 증상이 있으셨는데, 주치의 선생님께서 용량 조절 후 많이 나아지셨어요. 꼭 상담해보세요!</div>
+            <button class="pd-comment-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 8</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pd-ai-panel">
+        <div class="pd-ai-header">
+          <div class="pd-ai-avatar">AI</div>
+          <div class="pd-ai-label">v.care AI 유사글 추천</div>
+        </div>
+        <div class="pd-ai-intro">이 글과 비슷한 경험을 공유한 게시글을 찾았어요.</div>
+        <div class="pd-ai-card">
+          <div class="pd-ai-card-title">항암 중 손발 저림, 이렇게 관리했어요</div>
+          <div class="pd-ai-card-meta">@환자_91z · 조회 156</div>
+        </div>
+        <div class="pd-ai-card">
+          <div class="pd-ai-card-title">말초신경병증 부작용 극복 후기</div>
+          <div class="pd-ai-card-meta">@환우_g4h · 조회 203</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUB: CHAT ROOM ===== -->
+    <div class="sub-screen" id="sub-chat-room">
+      <div class="back-header" onclick="hideSubScreen('sub-chat-room')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>유방암 환우 채팅방</span>
+        <div class="back-header-right">12명 활동 중</div>
+      </div>
+
+      <div class="chat-detail-msgs">
+        <div class="cd-msg cd-msg--ai">
+          <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">v.care AI</div>
+            <div class="cd-msg-bubble">📋 <b>코호트 대화 요약</b><br>이 채팅방은 유방암 환우분들의 공간입니다. 최근 항암 부작용 관리와 수술 경험에 대한 대화가 활발하게 이루어지고 있어요.</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_mj7</div>
+            <div class="cd-msg-bubble">안녕하세요! 저도 유방암으로 항암 2차 진행 중이에요. 반가워요 😊</div>
+            <div class="cd-msg-time">14:02</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">보</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">보호자_k3a</div>
+            <div class="cd-msg-bubble">반갑습니다. 저는 보호자인데, 수술 후 관리가 걱정돼서 왔어요.</div>
+            <div class="cd-msg-time">14:05</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_th2</div>
+            <div class="cd-msg-bubble">저는 3차 항암 마치고 쉬는 중이에요. 손발 저림이 좀 있는데 다들 어떠세요?</div>
+            <div class="cd-msg-time">14:08</div>
+          </div>
+        </div>
+
+        <div class="cd-msg cd-msg--ai">
+          <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">v.care AI</div>
+            <div class="cd-msg-bubble">항암 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 돼요. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 주치의께 말씀해주세요.</div>
+            <div class="cd-msg-time">14:09</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_91z</div>
+            <div class="cd-msg-bubble">저도 저림 있었는데, 따뜻한 물에 발 담그기가 좀 도움됐어요!</div>
+            <div class="cd-msg-time">14:12</div>
+          </div>
+        </div>
+
+        <div class="cd-msg cd-msg--mine">
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">나</div>
+            <div class="cd-msg-bubble">다들 반가워요! 저도 같은 단계라 많이 공감돼요.</div>
+            <div class="cd-msg-time">14:15</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">보</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">보호자_8a4</div>
+            <div class="cd-msg-bubble">수술 때 통증이 어느 정도였나요? 준비해야 할 게 있을까요?</div>
+            <div class="cd-msg-time">14:18</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_mj7</div>
+            <div class="cd-msg-bubble">저는 수술 후 3일 정도가 제일 힘들었고, 그 이후로는 점점 나아졌어요. 쿠션이랑 긴 빨대가 유용했어요!</div>
+            <div class="cd-msg-time">14:20</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-bar">
+        <input type="text" placeholder="메시지를 입력하세요…">
+        <button>전송</button>
+      </div>
+    </div>
+
+    <!-- ===== SUB: DISEASE BOARD ===== -->
+    <div class="sub-screen" id="sub-disease-board">
+      <div class="back-header" onclick="hideSubScreen('sub-disease-board')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span id="disease-board-title">유방암 게시판</span>
+      </div>
+
+      <div class="disease-info-card">
+        <div class="disease-info-icon" id="disease-board-icon" style="background:rgba(236,72,153,0.1)">🎀</div>
+        <div class="disease-info-text">
+          <h3 id="disease-board-name">유방암</h3>
+          <p>환우 234명 참여 중</p>
+        </div>
+      </div>
+
+      <div class="post-card border-blue" onclick="showSubScreen('sub-post-detail')">
+        <span class="post-badge blue">증상 질문</span>
+        <div class="post-title">항암 후 손발 저림 증상, 어떻게 관리하시나요?</div>
+        <div class="post-excerpt">3차 항암 치료 이후로 손과 발이 많이 저립니다. 특히 아침에 일어나면 감각이 거의 없는 느낌인데...</div>
+        <div class="post-meta">
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 324</span>
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 47</span>
+        </div>
+      </div>
+
+      <div class="post-card border-green" onclick="showSubScreen('sub-post-detail')">
+        <span class="post-badge green">희망 사례</span>
+        <div class="post-title">HER2+ 항암 12차 완주했습니다!</div>
+        <div class="post-excerpt">처음 진단받았을 땐 세상이 무너지는 것 같았는데, 어느덧 마지막 주사를 맞고 왔네요. 여기서 얻은 정보와 응원 덕분이었습니다.</div>
+        <div class="post-meta">
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 892</span>
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 156</span>
+        </div>
+      </div>
+
+      <div class="post-card border-pink" onclick="showSubScreen('sub-post-detail')">
+        <span class="post-badge pink">따뜻한 응원</span>
+        <div class="post-title">오늘도 항암 치료를 버텨낸 우리 모두 파이팅!</div>
+        <div class="post-excerpt">병동 창밖을 보며 문득 환우분들 생각이 났어요. 지금 이 고통도 결국 지나갈 과정이라 믿습니다.</div>
+        <div class="post-meta">
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 567</span>
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 89</span>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <!-- ===== SUB: COHORT MAIN ===== -->
+    <div class="sub-screen" id="sub-cohort-main">
+      <div class="back-header" onclick="hideSubScreen('sub-cohort-main');showCohortOnboarding()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>in 코호트</span>
+      </div>
+
+      <div class="cohort-profile-bar">
+        <div class="cohort-profile-bar-top">
+          <div class="cohort-profile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="cohort-profile-label">나의 코호트</div>
+          <div class="cohort-profile-online">15명 활동 중</div>
+        </div>
+        <div class="cohort-tags" id="cohort-main-tags">
+          <span class="cohort-tag">암 질환</span>
+          <span class="cohort-tag">유방암</span>
+        </div>
+      </div>
+
+      <div class="cohort-section">
+        <div class="cohort-section-title">📌 공지사항</div>
+        <div class="cohort-notice">
+          <span class="cohort-notice-badge">📌 필독</span>
+          <div class="cohort-notice-title">[필독] 유방암 환우분들을 위한 치료 가이드라인 요약</div>
+          <div class="cohort-notice-desc">최신 NCCN 가이드라인의 핵심 포인트를 알기 쉽게 정리했습니다.</div>
+        </div>
+        <div class="cohort-notice">
+          <span class="cohort-notice-badge">📌 필독</span>
+          <div class="cohort-notice-title">코호트 이용 안내 — 같은 단계 환우끼리 소통해요</div>
+          <div class="cohort-notice-desc">이 공간은 동일한 암종·치료단계의 환우분들이 정보를 나누는 곳입니다.</div>
+        </div>
+      </div>
+
+      <div class="cohort-section">
+        <div class="cohort-section-title">💬 코호트 게시판</div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')">
+          <span class="cohort-post-badge" style="background:rgba(34,197,94,0.1);color:#16a34a;">💡 팁</span>
+          <div class="cohort-post-title">항암 부작용 관리, 이렇게 했어요</div>
+          <div class="cohort-post-desc">같은 레지멘으로 항암 중인데, 3차 이후부터 구역감이 심해져서 생강차를 병행했더니 나아졌어요.</div>
+          <div class="cohort-post-meta">환자_mj7 · 👁 89 · 💬 14</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')">
+          <span class="cohort-post-badge" style="background:rgba(59,130,246,0.1);color:#2563eb;">ℹ️ 정보</span>
+          <div class="cohort-post-title">수술 후 운동 시작 시기에 대해</div>
+          <div class="cohort-post-desc">선생님이 2주 후부터 가벼운 걷기를 시작하라고 하셨는데, 다른 분들은 언제부터 시작하셨나요?</div>
+          <div class="cohort-post-meta">보호자_k3a · 👁 67 · 💬 11</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')">
+          <span class="cohort-post-badge" style="background:linear-gradient(135deg,#ecfdf5,#f0e8f7);color:#6b21a8;">🤖 AI</span>
+          <div class="cohort-post-title">[AI 분석] 코호트 주간 트렌드</div>
+          <div class="cohort-post-desc">이번 주 가장 많이 논의된 주제: 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)</div>
+          <div class="cohort-post-meta">v.care AI · 👁 203 · 💬 8</div>
+        </div>
+      </div>
+
+      <div class="cohort-mini-chat">
+        <div class="cohort-mini-chat-header">
+          <strong>실시간 채팅</strong>
+          <span>15명 활동 중</span>
+        </div>
+        <div class="cohort-mini-chat-msgs">
+          <div class="cd-msg cd-msg--ai">
+            <div class="cd-msg-avatar cd-msg-avatar--ai" style="width:24px;height:24px;font-size:8px;">AI</div>
+            <div class="cd-msg-body"><div class="cd-msg-bubble" style="font-size:11px;">환영합니다! 같은 코호트 환우분들과 편하게 대화하세요.</div></div>
+          </div>
+          <div class="cd-msg">
+            <div class="cd-msg-avatar" style="width:24px;height:24px;font-size:9px;">환</div>
+            <div class="cd-msg-body"><div class="cd-msg-bubble" style="font-size:11px;">안녕하세요! 반가워요 😊</div></div>
+          </div>
+          <div class="cd-msg">
+            <div class="cd-msg-avatar" style="width:24px;height:24px;font-size:9px;">보</div>
+            <div class="cd-msg-body"><div class="cd-msg-bubble" style="font-size:11px;">항암 부작용 관리법 궁금해요</div></div>
+          </div>
+        </div>
+        <div class="cohort-mini-chat-input">
+          <input type="text" placeholder="메시지를 입력하세요…">
+          <button>전송</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Bottom Tab Bar -->
@@ -1329,18 +1800,143 @@ body {
 </div>
 
 <script>
+// Tab switching
 function switchTab(name, el) {
+  // Hide all sub-screens when switching tabs
+  document.querySelectorAll('.sub-screen').forEach(s => s.style.display = 'none');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   el.classList.add('active');
 }
 
+// Sub-screen navigation
+function showSubScreen(id) {
+  document.getElementById(id).style.display = 'block';
+}
+function hideSubScreen(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Cohort onboarding
+let cohortStep = 1;
+let cohortSelections = {};
+const COHORT_DISEASES = {
+  '암 질환': ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암'],
+  '만성 질환': ['당뇨','심혈관','알러지','소아성장'],
+  '정신건강': ['공황장애','우울증']
+};
+
 function selectCohort(el) {
   document.querySelectorAll('.cohort-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
+  cohortSelections.type = el.textContent.trim();
   document.getElementById('btnNext').classList.add('enabled');
 }
+
+function showCohortOnboarding() {
+  cohortStep = 1;
+  cohortSelections = {};
+  const content = document.querySelector('.cohort-content');
+  content.style.display = 'flex';
+  renderCohortStep();
+}
+
+function renderCohortStep() {
+  const content = document.querySelector('.cohort-content');
+  if (cohortStep === 1) {
+    content.innerHTML = `
+      <div class="cohort-dots"><div class="cohort-dot active"></div><div class="cohort-dot"></div><div class="cohort-dot"></div></div>
+      <div class="cohort-icon-box">🩺</div>
+      <h2>어떤 질환을<br>가지고 계세요?</h2>
+      <p>맞춤형 코호트 그룹을 구성하기 위해<br>기본 정보를 알려주세요.</p>
+      <div class="cohort-options">
+        <button class="cohort-option" onclick="selectCohort(this)">
+          <div class="cohort-option-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>암 질환</button>
+        <button class="cohort-option" onclick="selectCohort(this)">
+          <div class="cohort-option-icon" style="background:rgba(59,130,246,0.08)">💊</div>만성 질환</button>
+        <button class="cohort-option" onclick="selectCohort(this)">
+          <div class="cohort-option-icon" style="background:rgba(139,92,246,0.08)">🧠</div>정신건강</button>
+      </div>
+      <button class="btn-next" id="btnNext" onclick="nextCohortStep()">다음</button>`;
+  } else if (cohortStep === 2) {
+    const diseases = COHORT_DISEASES[cohortSelections.type] || [];
+    content.innerHTML = `
+      <div class="cohort-dots"><div class="cohort-dot" style="background:#10b981"></div><div class="cohort-dot active"></div><div class="cohort-dot"></div></div>
+      <div class="cohort-icon-box">🎗️</div>
+      <h2>질환을 선택해 주세요</h2>
+      <p>해당하는 질환을 선택하면<br>같은 환우들을 찾아드립니다.</p>
+      <div class="cohort-options">
+        ${diseases.map(d => `<button class="cohort-option" onclick="selectDisease(this,'${d}')">
+          <div class="cohort-option-icon" style="background:rgba(110,63,163,0.08)">🏥</div>${d}</button>`).join('')}
+      </div>
+      <div style="display:flex;gap:10px;width:100%">
+        <button class="btn-next" style="background:var(--bg-soft);color:var(--sub);flex:1" onclick="cohortStep=1;renderCohortStep()">이전</button>
+        <button class="btn-next" id="btnNext" style="flex:2" onclick="nextCohortStep()">다음</button>
+      </div>`;
+  } else if (cohortStep === 3) {
+    content.innerHTML = `
+      <div class="cohort-success">
+        <div class="cohort-success-icon">✅</div>
+        <h2>코호트 매칭 완료!</h2>
+        <p>같은 질환의 환우분들과<br>연결되었습니다.</p>
+        <div class="cohort-success-tags">
+          <span class="cohort-success-tag">${cohortSelections.type}</span>
+          <span class="cohort-success-tag">${cohortSelections.disease}</span>
+        </div>
+        <button class="btn-next enabled" onclick="enterCohort()">코호트 입장하기</button>
+      </div>`;
+  }
+}
+
+function selectDisease(el, name) {
+  document.querySelectorAll('.cohort-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  cohortSelections.disease = name;
+  document.getElementById('btnNext').classList.add('enabled');
+}
+
+function nextCohortStep() {
+  if (cohortStep === 1 && !cohortSelections.type) return;
+  if (cohortStep === 2 && !cohortSelections.disease) return;
+  cohortStep++;
+  renderCohortStep();
+}
+
+function enterCohort() {
+  const tags = document.getElementById('cohort-main-tags');
+  if (tags) tags.innerHTML = `<span class="cohort-tag">${cohortSelections.type}</span><span class="cohort-tag">${cohortSelections.disease}</span>`;
+  document.querySelector('.cohort-content').style.display = 'none';
+  showSubScreen('sub-cohort-main');
+}
+
+// Make disease cards clickable
+document.querySelectorAll('.disease-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const name = card.querySelector('span').textContent;
+    const icon = card.querySelector('.disease-icon').textContent;
+    document.getElementById('disease-board-title').textContent = name + ' 게시판';
+    document.getElementById('disease-board-name').textContent = name;
+    document.getElementById('disease-board-icon').textContent = icon;
+    showSubScreen('sub-disease-board');
+  });
+});
+
+// Make post cards clickable
+document.querySelectorAll('#screen-community .post-card').forEach(card => {
+  card.addEventListener('click', () => showSubScreen('sub-post-detail'));
+});
+
+// Make feed cards clickable
+document.querySelectorAll('.feed-card').forEach(card => {
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', () => showSubScreen('sub-post-detail'));
+});
+
+// Make chat rooms clickable
+document.querySelectorAll('.chat-room').forEach(room => {
+  room.addEventListener('click', () => showSubScreen('sub-chat-room'));
+});
 </script>
 
 </body>
