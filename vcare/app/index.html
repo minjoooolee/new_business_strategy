@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v.care Mobile App Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --text: #111827;
+  --sub: #6b7280;
+  --muted: #9ca3af;
+  --border: #f3f4f6;
+  --bg-soft: #f9fafb;
+  --ai-gradient: linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
+  --font: 'Pretendard', 'Poppins', -apple-system, sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 8px;
+}
+
+body {
+  font-family: var(--font);
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Phone Frame */
+.phone-frame {
+  width: 375px;
+  height: 812px;
+  background: #fff;
+  border-radius: 44px;
+  border: 6px solid #1a1a1a;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 2px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notch */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 100;
+}
+
+/* Status Bar */
+.status-bar {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 24px 6px;
+  background: #fff;
+  flex-shrink: 0;
+  z-index: 90;
+  position: relative;
+}
+.status-bar .time {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+}
+.status-bar .icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-bar .icons svg { width: 16px; height: 16px; }
+
+/* Screen Container */
+.screen-area {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  display: none;
+  -webkit-overflow-scrolling: touch;
+}
+.screen.active { display: block; }
+.screen::-webkit-scrollbar { display: none; }
+
+/* Bottom Tab Bar */
+.tab-bar {
+  height: 80px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-top: 8px;
+  padding-bottom: 24px;
+  flex-shrink: 0;
+  z-index: 90;
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font);
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-item svg { width: 24px; height: 24px; }
+.tab-item span {
+  font-size: 10px;
+  font-weight: 500;
+}
+.tab-item.active svg { color: var(--text); }
+.tab-item.active span { color: var(--text); font-weight: 600; }
+.tab-item:not(.active) svg { color: var(--muted); }
+.tab-item:not(.active) span { color: var(--muted); }
+
+/* Common styles */
+.screen-header {
+  padding: 12px 20px 10px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.screen-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+.content-pad { padding: 0 20px 24px; }
+
+/* ===== HOME SCREEN ===== */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 8px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.home-logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+.home-logo span { color: #3fbfbc; }
+.home-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.home-header-icons svg {
+  width: 22px;
+  height: 22px;
+  color: var(--sub);
+  cursor: pointer;
+}
+.home-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Hero */
+.home-hero {
+  margin: 8px 20px 16px;
+  padding: 24px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(63,191,188,0.08) 0%, rgba(110,63,163,0.06) 50%, rgba(226,69,133,0.05) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(63,191,188,0.15), rgba(110,63,163,0.1));
+  filter: blur(20px);
+}
+.home-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(226,69,133,0.1), rgba(110,63,163,0.08));
+  filter: blur(15px);
+}
+.home-hero-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6E3FA3;
+  background: rgba(110,63,163,0.08);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.home-hero h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+.home-hero p {
+  font-size: 12px;
+  color: var(--sub);
+  margin-top: 8px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* Disease Board */
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.section-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.disease-group {
+  margin-bottom: 20px;
+}
+.disease-group-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sub);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.disease-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.disease-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 4px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.disease-card:hover { background: var(--bg-soft); }
+.disease-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.disease-card span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+}
+
+/* ===== FEED SCREEN ===== */
+.compose-card {
+  margin: 12px 20px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.compose-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.compose-input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font);
+}
+
+.feed-card {
+  margin: 0 20px 12px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.feed-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.feed-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.feed-author-info {
+  flex: 1;
+}
+.feed-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.feed-badge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.badge-official {
+  background: linear-gradient(135deg, rgba(63,191,188,0.12), rgba(110,63,163,0.1));
+  color: #6E3FA3;
+}
+.badge-doctor {
+  background: rgba(63,191,188,0.1);
+  color: #3fbfbc;
+}
+.feed-date {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.feed-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.feed-text {
+  font-size: 13px;
+  color: var(--sub);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.feed-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.feed-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.feed-action svg { width: 16px; height: 16px; }
+
+/* ===== COMMUNITY SCREEN ===== */
+.community-header {
+  padding: 12px 20px 10px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.community-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.community-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+.btn-write {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--text);
+  border: none;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+.search-bar svg { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
+.search-bar span { font-size: 13px; color: var(--muted); }
+
+.filter-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.filter-pills::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--sub);
+  cursor: pointer;
+  font-family: var(--font);
+  white-space: nowrap;
+}
+.pill.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+.category-filters {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 4px;
+  flex-wrap: wrap;
+}
+.cat-filter {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  background: var(--bg-soft);
+  color: var(--sub);
+}
+.cat-filter.active { background: #eef2ff; color: #4f46e5; }
+
+.post-card {
+  margin: 0 20px 10px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.post-card:hover { background: var(--bg-soft); }
+.post-card.border-blue { border-left: 3px solid #3b82f6; }
+.post-card.border-green { border-left: 3px solid #22c55e; }
+.post-card.border-pink { border-left: 3px solid #ec4899; }
+.post-card.border-gradient {
+  border: 1px solid transparent;
+  background-image: linear-gradient(#fff, #fff), var(--ai-gradient);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+.post-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.post-badge.blue { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.post-badge.green { background: rgba(34,197,94,0.1); color: #16a34a; }
+.post-badge.pink { background: rgba(236,72,153,0.1); color: #ec4899; }
+.post-badge.teal-gradient {
+  background: linear-gradient(135deg, rgba(63,191,188,0.12), rgba(110,63,163,0.1));
+  color: #6E3FA3;
+}
+.post-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.post-excerpt {
+  font-size: 12px;
+  color: var(--sub);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.post-tags {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.post-tag {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--bg-soft);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.post-meta svg { width: 13px; height: 13px; }
+.post-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* ===== COHORT SCREEN ===== */
+.cohort-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 28px;
+  text-align: center;
+}
+.cohort-dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.cohort-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.cohort-dot.active {
+  background: var(--text);
+  width: 20px;
+  border-radius: 4px;
+}
+.cohort-icon-box {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: rgba(236,72,153,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+.cohort-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.cohort-content p {
+  font-size: 14px;
+  color: var(--sub);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.cohort-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.cohort-option {
+  width: 100%;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cohort-option:hover { border-color: #d1d5db; background: var(--bg-soft); }
+.cohort-option.selected {
+  border-color: var(--text);
+  background: var(--bg-soft);
+}
+.cohort-option-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.btn-next {
+  width: 100%;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--border);
+  color: var(--muted);
+}
+.btn-next.enabled {
+  background: var(--text);
+  color: #fff;
+}
+
+/* ===== CHAT SCREEN ===== */
+.chat-room {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-bottom: 1px solid var(--border);
+}
+.chat-room:hover { background: var(--bg-soft); }
+.chat-room-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  color: #fff;
+  font-weight: 600;
+}
+.chat-room-info { flex: 1; min-width: 0; }
+.chat-room-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chat-online {
+  font-size: 10px;
+  font-weight: 500;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.chat-online::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+.chat-last-msg {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chat-room-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+.chat-time {
+  font-size: 11px;
+  color: var(--muted);
+}
+.chat-unread {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: #E24585;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+  padding: 0 5px;
+}
+
+.chat-ai-card {
+  margin: 16px 20px;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  background-image: linear-gradient(#fff, #fff), var(--ai-gradient);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.chat-ai-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--ai-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.chat-ai-avatar svg { width: 20px; height: 20px; color: #fff; }
+.chat-ai-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.chat-ai-info p {
+  font-size: 12px;
+  color: var(--sub);
+}
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2C5.2 2 2.7 3.1 1 5l1.4 1.4C3.8 5 5.8 4 8 4s4.2 1 5.6 2.4L15 5C13.3 3.1 10.8 2 8 2zm0 4C6.3 6 4.8 6.7 3.8 7.8L5.2 9.2C5.9 8.5 6.9 8 8 8s2.1.5 2.8 1.2L12.2 7.8C11.2 6.7 9.7 6 8 6zm0 4c-.8 0-1.6.4-2.1 1l2.1 2.5L10.1 11C9.6 10.4 8.8 10 8 10z"/></svg>
+      <svg viewBox="0 0 24 16" fill="currentColor"><rect x="0" y="2" width="19" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="5.5" width="2.5" height="5" rx="1" ry="1"/><rect x="2" y="4" width="12" height="8" rx="1" ry="1"/></svg>
+    </div>
+  </div>
+
+  <!-- Screen Area -->
+  <div class="screen-area">
+
+    <!-- HOME SCREEN -->
+    <div class="screen active" id="screen-home">
+      <div class="home-header">
+        <div class="home-logo"><span>v.</span>care</div>
+        <div class="home-header-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="home-avatar">😊</div>
+        </div>
+      </div>
+
+      <div class="home-hero">
+        <div class="home-hero-tag">aitrics AI Healthcare</div>
+        <h2>의료 AI 기업 aitrics의<br>지능형 의료전문 커뮤니티</h2>
+        <p>같은 질환을 가진 환우들과 연결되고,<br>AI 기반의 맞춤 건강 정보를 받아보세요.</p>
+      </div>
+
+      <div class="content-pad">
+        <div class="section-title">질환별 게시판</div>
+        <div class="section-subtitle">관심 질환의 커뮤니티에 참여하세요</div>
+
+        <div class="disease-group">
+          <div class="disease-group-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            암 질환
+          </div>
+          <div class="disease-grid">
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(236,72,153,0.1)">🎀</div>
+              <span>유방암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(245,158,11,0.1)">🟠</div>
+              <span>위암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(59,130,246,0.1)">🔵</div>
+              <span>대장암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(34,197,94,0.1)">🟢</div>
+              <span>간암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(139,92,246,0.1)">🟣</div>
+              <span>갑상선암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(107,114,128,0.1)">⚪</div>
+              <span>폐암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(168,85,247,0.1)">🟤</div>
+              <span>췌장암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(20,184,166,0.1)">🩵</div>
+              <span>전립선암</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="disease-group">
+          <div class="disease-group-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            만성 / 정신건강
+          </div>
+          <div class="disease-grid">
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(245,158,11,0.1)">💛</div>
+              <span>당뇨</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(239,68,68,0.1)">❤️</div>
+              <span>심혈관</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(34,197,94,0.1)">💚</div>
+              <span>알러지</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(59,130,246,0.1)">💙</div>
+              <span>소아성장</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(168,85,247,0.1)">💜</div>
+              <span>공황장애</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(110,63,163,0.1)">🤎</div>
+              <span>우울증</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEED SCREEN -->
+    <div class="screen" id="screen-feed">
+      <div class="screen-header">
+        <h1>피드</h1>
+      </div>
+
+      <div class="compose-card">
+        <div class="compose-avatar">😊</div>
+        <div class="compose-input">오늘 하루는 어떠신가요?</div>
+      </div>
+
+      <!-- Feed Card 1 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: linear-gradient(135deg, #3fbfbc, #6E3FA3);">v</div>
+          <div class="feed-author-info">
+            <div class="feed-author">v.care 메디컬팀 <span class="feed-badge badge-official">Official</span></div>
+            <div class="feed-date">3시간 전</div>
+          </div>
+        </div>
+        <div class="feed-title">이번 주 건강 트렌드</div>
+        <div class="feed-text">2026년 3월 둘째 주 주요 건강 이슈를 정리했습니다. 최근 면역 항암제 병용 요법의 효과에 대한 새로운 연구 결과가 발표되었으며, 개인 맞춤형 영양 관리의 중요성이 다시 한번 강조되고 있습니다.</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            42
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            18
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Card 2 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: #e0e7ff; color: #6366f1;">환</div>
+          <div class="feed-author-info">
+            <div class="feed-author">@환우_m7n</div>
+            <div class="feed-date">5시간 전</div>
+          </div>
+        </div>
+        <div class="feed-title">항암 3차 완료 후기</div>
+        <div class="feed-text">드디어 3차 항암이 끝났습니다. 2차 때보다 부작용이 조금 덜했어요. 구역감은 여전했지만 피로감은 좀 나아진 것 같습니다. 같은 치료를 앞두고 계신 분들께 도움이 되었으면 합니다.</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            89
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            34
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Card 3 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: rgba(63,191,188,0.15); color: #3fbfbc;">김</div>
+          <div class="feed-author-info">
+            <div class="feed-author">Dr. 김 <span class="feed-badge badge-doctor">의료전문가</span></div>
+            <div class="feed-date">어제</div>
+          </div>
+        </div>
+        <div class="feed-title">유방암 HER2+ 최신 치료 가이드</div>
+        <div class="feed-text">HER2 양성 유방암의 최신 치료 가이드라인을 정리했습니다. T-DXd(엔허투) 기반의 2차 이후 치료 전략과 함께, 최근 주목받는 ADC 계열 약물의 임상 데이터를 공유합니다.</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            127
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            56
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Card 4 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: #fce7f3; color: #ec4899;">정</div>
+          <div class="feed-author-info">
+            <div class="feed-author">@정원_sunshine</div>
+            <div class="feed-date">어제</div>
+          </div>
+        </div>
+        <div class="feed-title">투병 일기 #24 - 봄이 오고 있어요</div>
+        <div class="feed-text">병원 창문 밖으로 벚꽃이 피기 시작했어요. 올해도 봄을 맞이할 수 있어서 정말 감사합니다. 모든 환우분들께 따뜻한 봄 기운 전해드려요 🌸</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            215
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            78
+          </div>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <!-- COMMUNITY SCREEN -->
+    <div class="screen" id="screen-community">
+      <div class="community-header">
+        <div class="community-header-row">
+          <h1>따뜻한 환우 광장</h1>
+          <button class="btn-write">기록/응원 남기기</button>
+        </div>
+
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span>글 제목, 내용, 태그 검색</span>
+        </div>
+
+        <div class="filter-pills">
+          <button class="pill active">전체</button>
+          <button class="pill">유방암</button>
+          <button class="pill">위암</button>
+          <button class="pill">대장암</button>
+          <button class="pill">간암</button>
+          <button class="pill">갑상선암</button>
+          <button class="pill">폐암</button>
+        </div>
+
+        <div class="category-filters">
+          <button class="cat-filter active">전체</button>
+          <button class="cat-filter">증상 질문</button>
+          <button class="cat-filter">희망 사례</button>
+          <button class="cat-filter">따뜻한 응원</button>
+          <button class="cat-filter">최신정보</button>
+        </div>
+      </div>
+
+      <div style="padding-top:12px">
+        <!-- Post 1 -->
+        <div class="post-card border-blue">
+          <span class="post-badge blue">증상 질문</span>
+          <div class="post-title">항암 후 손발 저림 증상, 어떻게 관리하시나요?</div>
+          <div class="post-excerpt">3차 항암 치료 이후로 손과 발이 많이 저립니다. 특히 아침에 일어나면 감각이 거의 없는 느낌인데, 혹시 같은 경험 있으신 분 계신가요?</div>
+          <div class="post-tags">
+            <span class="post-tag">#유방암</span>
+            <span class="post-tag">#항암부작용</span>
+            <span class="post-tag">#말초신경병증</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              324
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              47
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post-card border-green">
+          <span class="post-badge green">희망 사례</span>
+          <div class="post-title">위암 3기 진단 후 2년, 완치 판정 받았습니다</div>
+          <div class="post-excerpt">2024년 3월에 위암 3기 진단을 받고, 수술과 항암을 거쳐 드디어 완치 판정을 받았습니다. 포기하지 않길 정말 잘했다는 생각이 듭니다.</div>
+          <div class="post-tags">
+            <span class="post-tag">#위암</span>
+            <span class="post-tag">#완치</span>
+            <span class="post-tag">#희망</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              1,287
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              203
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="post-card border-pink">
+          <span class="post-badge pink">따뜻한 응원</span>
+          <div class="post-title">오늘 치료 시작하시는 모든 분들께</div>
+          <div class="post-excerpt">오늘도 병원에 가시는 모든 환우분들, 당신은 정말 용감하고 대단합니다. 치료 과정이 힘들겠지만, 우리 모두 응원하고 있어요.</div>
+          <div class="post-tags">
+            <span class="post-tag">#응원</span>
+            <span class="post-tag">#힘내세요</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              856
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              145
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 4 - Medical team gradient -->
+        <div class="post-card border-gradient">
+          <span class="post-badge teal-gradient">최신정보 · 메디컬팀</span>
+          <div class="post-title">2026년 대장암 검진 가이드라인 업데이트</div>
+          <div class="post-excerpt">v.care 메디컬팀이 정리한 최신 대장암 검진 가이드라인입니다. 45세 이상 성인에게 권장되는 검진 주기와 방법을 확인해보세요.</div>
+          <div class="post-tags">
+            <span class="post-tag">#대장암</span>
+            <span class="post-tag">#검진가이드</span>
+            <span class="post-tag">#메디컬팀</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              2,103
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              89
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 5 -->
+        <div class="post-card border-blue">
+          <span class="post-badge blue">증상 질문</span>
+          <div class="post-title">갑상선암 수술 후 목소리 변화 경험</div>
+          <div class="post-excerpt">갑상선 전절제 수술을 받은 지 3개월 되었는데, 아직 목소리가 완전히 돌아오지 않았습니다. 비슷한 경험을 하신 분들의 회복 과정이 궁금합니다.</div>
+          <div class="post-tags">
+            <span class="post-tag">#갑상선암</span>
+            <span class="post-tag">#수술후기</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              198
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              32
+            </span>
+          </div>
+        </div>
+        <div style="height:16px"></div>
+      </div>
+    </div>
+
+    <!-- COHORT SCREEN -->
+    <div class="screen" id="screen-cohort">
+      <div class="screen-header">
+        <h1>in 코호트</h1>
+      </div>
+
+      <div class="cohort-content">
+        <div class="cohort-dots">
+          <div class="cohort-dot active"></div>
+          <div class="cohort-dot"></div>
+          <div class="cohort-dot"></div>
+          <div class="cohort-dot"></div>
+          <div class="cohort-dot"></div>
+          <div class="cohort-dot"></div>
+        </div>
+
+        <div class="cohort-icon-box">🩺</div>
+
+        <h2>어떤 질환을<br>가지고 계세요?</h2>
+        <p>맞춤형 코호트 그룹을 구성하기 위해<br>기본 정보를 알려주세요.</p>
+
+        <div class="cohort-options">
+          <button class="cohort-option" onclick="selectCohort(this)">
+            <div class="cohort-option-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>
+            암 질환
+          </button>
+          <button class="cohort-option" onclick="selectCohort(this)">
+            <div class="cohort-option-icon" style="background:rgba(59,130,246,0.08)">💊</div>
+            만성 질환
+          </button>
+          <button class="cohort-option" onclick="selectCohort(this)">
+            <div class="cohort-option-icon" style="background:rgba(139,92,246,0.08)">🧠</div>
+            정신건강
+          </button>
+        </div>
+
+        <button class="btn-next" id="btnNext">다음</button>
+      </div>
+    </div>
+
+    <!-- CHAT SCREEN -->
+    <div class="screen" id="screen-chat">
+      <div class="screen-header">
+        <h1>v.care 채팅</h1>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">유</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">유방암 환우 채팅방 <span class="chat-online">12명 활동 중</span></div>
+          <div class="chat-last-msg">항암 후 컨디션 관리법 공유해요 💪</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오후 2:30</div>
+          <div class="chat-unread">3</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">위</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">위암 코호트 채팅 <span class="chat-online">8명 활동 중</span></div>
+          <div class="chat-last-msg">다음 주 정기모임 일정 안내드립니다</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오후 1:15</div>
+          <div class="chat-unread">7</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: var(--ai-gradient);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M18 14a6 6 0 0 1-12 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
+        </div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">v.care AI 상담</div>
+          <div class="chat-last-msg">무엇이든 물어보세요</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">항상</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">대</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">대장암 정보 공유 <span class="chat-online">5명 활동 중</span></div>
+          <div class="chat-last-msg">새로운 검진 가이드라인이 나왔어요</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오전 11:42</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #ef4444, #f87171);">심</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">심혈관 건강 모임 <span class="chat-online">3명 활동 중</span></div>
+          <div class="chat-last-msg">운동 루틴 공유합니다</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오전 9:30</div>
+        </div>
+      </div>
+
+      <div class="chat-ai-card">
+        <div class="chat-ai-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <div class="chat-ai-info">
+          <h3>v.care AI에게 건강 질문하기</h3>
+          <p>증상, 치료, 생활습관에 대해 물어보세요</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-item active" onclick="switchTab('home', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>홈</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('feed', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>피드</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('community', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>환우광장</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('cohort', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>코호트</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('chat', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>채팅</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function switchTab(name, el) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  el.classList.add('active');
+}
+
+function selectCohort(el) {
+  document.querySelectorAll('.cohort-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btnNext').classList.add('enabled');
+}
+</script>
+
+</body>
+</html>
