@@ -1337,9 +1337,6 @@ body {
           <div class="cohort-dot active"></div>
           <div class="cohort-dot"></div>
           <div class="cohort-dot"></div>
-          <div class="cohort-dot"></div>
-          <div class="cohort-dot"></div>
-          <div class="cohort-dot"></div>
         </div>
 
         <div class="cohort-icon-box">🩺</div>
@@ -1362,7 +1359,7 @@ body {
           </button>
         </div>
 
-        <button class="btn-next" id="btnNext">다음</button>
+        <button class="btn-next" id="btnNext" onclick="nextCohortStep()">다음</button>
       </div>
     </div>
 
@@ -1830,7 +1827,11 @@ const COHORT_DISEASES = {
 function selectCohort(el) {
   document.querySelectorAll('.cohort-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  cohortSelections.type = el.textContent.trim();
+  // Get text without the icon div content
+  const clone = el.cloneNode(true);
+  const icon = clone.querySelector('.cohort-option-icon');
+  if (icon) icon.remove();
+  cohortSelections.type = clone.textContent.trim();
   document.getElementById('btnNext').classList.add('enabled');
 }
 
