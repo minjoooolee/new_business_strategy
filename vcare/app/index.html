@@ -1013,6 +1013,9 @@ body {
 .signup-options {
   width:100%; display:flex; flex-direction:column; gap:8px; margin-bottom:24px;
 }
+.signup-options--grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px;
+}
 .signup-opt {
   width:100%; padding:14px 16px;
   background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-sm);
@@ -1021,6 +1024,9 @@ body {
   transition:all 0.15s; text-align:left;
   display:flex; align-items:center; gap:10px;
 }
+.signup-opt--compact {
+  padding:11px 14px; font-size:13px; justify-content:center; text-align:center;
+}
 .signup-opt:hover { border-color:#d1d5db; background:var(--bg-soft); }
 .signup-opt.selected { border-color:var(--text); background:var(--bg-soft); }
 .signup-opt-icon {
@@ -1028,6 +1034,21 @@ body {
   display:flex; align-items:center; justify-content:center;
   font-size:16px; flex-shrink:0;
 }
+/* Medical professional signup */
+.signup-license-input {
+  width:100%; padding:14px 16px; border:1.5px solid var(--border);
+  border-radius:var(--radius-sm); font-size:14px; color:var(--text);
+  font-family:var(--font); outline:none; text-align:center;
+  margin-bottom:6px; transition:border-color 0.15s;
+}
+.signup-license-input:focus { border-color:var(--text); }
+.signup-role-tag {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:11px; font-weight:600; padding:4px 10px;
+  border-radius:20px; margin-bottom:16px;
+}
+.signup-role-tag--patient { background:rgba(63,191,188,0.1); color:#0d9488; }
+.signup-role-tag--medical { background:rgba(110,63,163,0.1); color:#6E3FA3; }
 .signup-nav {
   display:flex; gap:10px; width:100%; margin-top:auto;
 }
@@ -1040,21 +1061,25 @@ body {
 .signup-btn--next { background:var(--border); color:var(--muted); flex:1; }
 .signup-btn--next.enabled { background:var(--text); color:#fff; }
 
-/* Cohort auto-enter toast */
-.cohort-auto-banner {
-  margin:16px; padding:16px; border-radius:var(--radius-sm);
-  background:linear-gradient(135deg,#ecfdf5,#f0e8f7);
-  border:1px solid #a7f3d0;
-  text-align:center;
+/* Cohort auto-enter */
+.cohort-auto-entering {
+  text-align:center; padding:48px 28px;
 }
-.cohort-auto-banner-icon { font-size:32px; margin-bottom:8px; }
-.cohort-auto-banner h3 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:4px; }
-.cohort-auto-banner p { font-size:12px; color:var(--sub); line-height:1.5; margin-bottom:12px; }
-.cohort-auto-banner-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:14px; }
-.cohort-auto-enter-btn {
-  width:100%; padding:14px; border:none; border-radius:var(--radius-sm);
-  background:var(--text); color:#fff; font-size:15px; font-weight:600;
-  font-family:var(--font); cursor:pointer;
+.cohort-auto-entering-spinner {
+  width:56px; height:56px; border-radius:50%;
+  border:3px solid var(--border); border-top-color:var(--text);
+  animation:cohortSpin 0.8s linear infinite;
+  margin:0 auto 20px;
+}
+@keyframes cohortSpin { to { transform:rotate(360deg); } }
+.cohort-auto-entering h3 {
+  font-size:18px; font-weight:700; color:var(--text); margin-bottom:6px;
+}
+.cohort-auto-entering p {
+  font-size:13px; color:var(--sub); line-height:1.5; margin-bottom:16px;
+}
+.cohort-auto-entering-tags {
+  display:flex; flex-wrap:wrap; gap:6px; justify-content:center;
 }
 
 /* ===== HOME TRUST / INFO SECTIONS ===== */
@@ -1141,6 +1166,29 @@ body {
 }
 .signup-nickname-input:focus { border-color:var(--text); }
 .signup-nickname-hint { font-size:11px; color:var(--muted); margin-bottom:24px; }
+
+/* ===== COHORT INNER TABS ===== */
+.cohort-inner-tab {
+  flex:1; padding:11px 0; border:none; background:none;
+  font-size:13px; font-weight:500; color:var(--muted);
+  font-family:var(--font); cursor:pointer;
+  border-bottom:2px solid transparent; transition:all 0.15s;
+}
+.cohort-inner-tab.active { color:var(--text); font-weight:700; border-bottom-color:var(--text); }
+.cohort-tab-content { display:none; }
+.cohort-tab-content.active { display:block; }
+
+/* Cohort FAB */
+.cohort-fab {
+  position:sticky; bottom:16px; float:right; margin-right:16px;
+  width:50px; height:50px; border-radius:50%;
+  background:var(--text); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.15);
+  transition:transform 0.15s;
+}
+.cohort-fab:hover { transform:scale(1.05); }
+.cohort-fab svg { width:22px; height:22px; color:#fff; }
 </style>
 </head>
 <body>
@@ -1565,14 +1613,13 @@ body {
         <h1>in 코호트</h1>
       </div>
 
-      <!-- 자동 입장 배너 (회원가입 시 암종/병기 선택 완료된 경우) -->
+      <!-- 자동 입장 (회원가입 시 암종/병기 선택 완료된 경우) -->
       <div id="cohortAutoBanner" style="display:none">
-        <div class="cohort-auto-banner">
-          <div class="cohort-auto-banner-icon">✅</div>
-          <h3>자동으로 입장합니다</h3>
-          <p>회원가입 시 선택하신 정보로<br>맞춤 코호트가 매칭되었습니다.</p>
-          <div class="cohort-auto-banner-tags" id="cohortAutoTags"></div>
-          <button class="cohort-auto-enter-btn" onclick="autoEnterCohort()">코호트 입장하기</button>
+        <div class="cohort-auto-entering">
+          <div class="cohort-auto-entering-spinner"></div>
+          <h3>코호트에 자동으로 입장합니다</h3>
+          <p>회원가입 시 선택하신 정보로<br>맞춤 코호트를 매칭 중입니다...</p>
+          <div class="cohort-auto-entering-tags" id="cohortAutoTags"></div>
         </div>
       </div>
 
@@ -1933,83 +1980,142 @@ body {
       <div style="height:16px"></div>
     </div>
 
-    <!-- ===== SUB: COHORT MAIN ===== -->
-    <div class="sub-screen" id="sub-cohort-main">
+    <!-- ===== SUB: COHORT MAIN (탭 기반 리디자인) ===== -->
+    <div class="sub-screen" id="sub-cohort-main" style="display:flex;flex-direction:column;">
+      <!-- 헤더 -->
       <div class="back-header" onclick="hideSubScreen('sub-cohort-main');showCohortOnboarding()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
         <span>in 코호트</span>
+        <div class="back-header-right">15명 활동 중</div>
       </div>
 
-      <div class="cohort-profile-bar">
-        <div class="cohort-profile-bar-top">
-          <div class="cohort-profile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div class="cohort-profile-label">나의 코호트</div>
-          <div class="cohort-profile-online">15명 활동 중</div>
-        </div>
-        <div class="cohort-tags" id="cohort-main-tags">
+      <!-- 프로필 바 (컴팩트) -->
+      <div style="padding:10px 16px;background:#fff;border-bottom:1px solid var(--border)">
+        <div class="cohort-tags" id="cohort-main-tags" style="margin:0">
           <span class="cohort-tag">암 질환</span>
           <span class="cohort-tag">유방암</span>
         </div>
       </div>
 
-      <div class="cohort-section">
-        <div class="cohort-section-title">📌 공지사항</div>
-        <div class="cohort-notice">
-          <span class="cohort-notice-badge">📌 필독</span>
-          <div class="cohort-notice-title">[필독] 유방암 환우분들을 위한 치료 가이드라인 요약</div>
-          <div class="cohort-notice-desc">최신 NCCN 가이드라인의 핵심 포인트를 알기 쉽게 정리했습니다.</div>
-        </div>
-        <div class="cohort-notice">
-          <span class="cohort-notice-badge">📌 필독</span>
-          <div class="cohort-notice-title">코호트 이용 안내 — 같은 단계 환우끼리 소통해요</div>
-          <div class="cohort-notice-desc">이 공간은 동일한 암종·치료단계의 환우분들이 정보를 나누는 곳입니다.</div>
-        </div>
+      <!-- 내부 탭 바 -->
+      <div style="display:flex;border-bottom:1px solid var(--border);background:#fff;flex-shrink:0">
+        <button class="cohort-inner-tab active" onclick="switchCohortTab('board',this)">📋 게시판</button>
+        <button class="cohort-inner-tab" onclick="switchCohortTab('chat',this)">💬 채팅</button>
+        <button class="cohort-inner-tab" onclick="switchCohortTab('notice',this)">📌 공지</button>
       </div>
 
-      <div class="cohort-section">
-        <div class="cohort-section-title">💬 코호트 게시판</div>
-        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')">
+      <!-- 탭 콘텐츠: 게시판 -->
+      <div class="cohort-tab-content active" id="cohort-tab-board" style="flex:1;overflow-y:auto;position:relative">
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:12px 16px 8px">
           <span class="cohort-post-badge" style="background:rgba(34,197,94,0.1);color:#16a34a;">💡 팁</span>
           <div class="cohort-post-title">항암 부작용 관리, 이렇게 했어요</div>
           <div class="cohort-post-desc">같은 레지멘으로 항암 중인데, 3차 이후부터 구역감이 심해져서 생강차를 병행했더니 나아졌어요.</div>
           <div class="cohort-post-meta">환자_mj7 · 👁 89 · 💬 14</div>
         </div>
-        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')">
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
           <span class="cohort-post-badge" style="background:rgba(59,130,246,0.1);color:#2563eb;">ℹ️ 정보</span>
           <div class="cohort-post-title">수술 후 운동 시작 시기에 대해</div>
           <div class="cohort-post-desc">선생님이 2주 후부터 가벼운 걷기를 시작하라고 하셨는데, 다른 분들은 언제부터 시작하셨나요?</div>
           <div class="cohort-post-meta">보호자_k3a · 👁 67 · 💬 11</div>
         </div>
-        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')">
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
+          <span class="cohort-post-badge" style="background:rgba(236,72,153,0.1);color:#ec4899;">💡 팁</span>
+          <div class="cohort-post-title">진단 후 마음 관리 어떻게 하세요?</div>
+          <div class="cohort-post-desc">진단 초기에 멘탈이 많이 흔들렸는데, 여기 같은 단계 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.</div>
+          <div class="cohort-post-meta">환자_th2 · 👁 134 · 💬 23</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
           <span class="cohort-post-badge" style="background:linear-gradient(135deg,#ecfdf5,#f0e8f7);color:#6b21a8;">🤖 AI</span>
           <div class="cohort-post-title">[AI 분석] 코호트 주간 트렌드</div>
           <div class="cohort-post-desc">이번 주 가장 많이 논의된 주제: 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)</div>
           <div class="cohort-post-meta">v.care AI · 👁 203 · 💬 8</div>
         </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
+          <span class="cohort-post-badge" style="background:rgba(59,130,246,0.1);color:#2563eb;">ℹ️ 정보</span>
+          <div class="cohort-post-title">항암 중 면역력 관리 꿀팁 공유</div>
+          <div class="cohort-post-desc">단백질 섭취를 충분히 하고, 감염 예방을 위해 사람 많은 곳을 피하는 게 도움이 됐어요.</div>
+          <div class="cohort-post-meta">환자_91z · 👁 156 · 💬 19</div>
+        </div>
+        <div style="height:80px"></div>
+
+        <!-- 글쓰기 FAB -->
+        <button class="cohort-fab" onclick="alert('글쓰기 화면으로 이동합니다.')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </button>
       </div>
 
-      <div class="cohort-mini-chat">
-        <div class="cohort-mini-chat-header">
-          <strong>실시간 채팅</strong>
-          <span>15명 활동 중</span>
-        </div>
-        <div class="cohort-mini-chat-msgs">
+      <!-- 탭 콘텐츠: 채팅 (전체 화면) -->
+      <div class="cohort-tab-content" id="cohort-tab-chat" style="flex:1;display:none;flex-direction:column">
+        <div style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px" id="cohortChatArea">
           <div class="cd-msg cd-msg--ai">
-            <div class="cd-msg-avatar cd-msg-avatar--ai" style="width:24px;height:24px;font-size:8px;">AI</div>
-            <div class="cd-msg-body"><div class="cd-msg-bubble" style="font-size:11px;">환영합니다! 같은 코호트 환우분들과 편하게 대화하세요.</div></div>
+            <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">v.care AI</div>
+              <div class="cd-msg-bubble">📋 <b>코호트 대화 요약</b><br>이 채팅방은 같은 코호트 환우분들의 공간입니다. 최근 항암 부작용 관리와 수술 경험에 대한 대화가 활발합니다.</div>
+            </div>
           </div>
           <div class="cd-msg">
-            <div class="cd-msg-avatar" style="width:24px;height:24px;font-size:9px;">환</div>
-            <div class="cd-msg-body"><div class="cd-msg-bubble" style="font-size:11px;">안녕하세요! 반가워요 😊</div></div>
+            <div class="cd-msg-avatar">환</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">환자_mj7</div>
+              <div class="cd-msg-bubble">안녕하세요! 저도 같은 코호트에요. 반가워요 😊</div>
+              <div class="cd-msg-time">14:02</div>
+            </div>
           </div>
           <div class="cd-msg">
-            <div class="cd-msg-avatar" style="width:24px;height:24px;font-size:9px;">보</div>
-            <div class="cd-msg-body"><div class="cd-msg-bubble" style="font-size:11px;">항암 부작용 관리법 궁금해요</div></div>
+            <div class="cd-msg-avatar">보</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">보호자_k3a</div>
+              <div class="cd-msg-bubble">반갑습니다. 저는 보호자인데, 수술 후 관리가 걱정돼서 왔어요.</div>
+              <div class="cd-msg-time">14:05</div>
+            </div>
+          </div>
+          <div class="cd-msg">
+            <div class="cd-msg-avatar">환</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">환자_th2</div>
+              <div class="cd-msg-bubble">저는 3차 항암 마치고 쉬는 중이에요. 손발 저림이 좀 있는데 다들 어떠세요?</div>
+              <div class="cd-msg-time">14:08</div>
+            </div>
+          </div>
+          <div class="cd-msg cd-msg--ai">
+            <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">v.care AI</div>
+              <div class="cd-msg-bubble">항암 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말이 도움이 됩니다.</div>
+              <div class="cd-msg-time">14:09</div>
+            </div>
+          </div>
+          <div class="cd-msg cd-msg--mine">
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">나</div>
+              <div class="cd-msg-bubble">다들 반가워요! 저도 같은 단계라 많이 공감돼요.</div>
+              <div class="cd-msg-time">14:15</div>
+            </div>
           </div>
         </div>
-        <div class="cohort-mini-chat-input">
-          <input type="text" placeholder="메시지를 입력하세요…">
+        <div class="chat-input-bar">
+          <input type="text" placeholder="같은 코호트 환우들에게 메시지…">
           <button>전송</button>
+        </div>
+      </div>
+
+      <!-- 탭 콘텐츠: 공지 -->
+      <div class="cohort-tab-content" id="cohort-tab-notice" style="flex:1;overflow-y:auto;display:none;padding:12px 16px">
+        <div class="cohort-notice" style="margin-bottom:8px">
+          <span class="cohort-notice-badge">📌 필독</span>
+          <div class="cohort-notice-title">[필독] 환우분들을 위한 치료 가이드라인 요약</div>
+          <div class="cohort-notice-desc">최신 NCCN 가이드라인의 핵심 포인트를 알기 쉽게 정리했습니다.</div>
+        </div>
+        <div class="cohort-notice" style="margin-bottom:8px">
+          <span class="cohort-notice-badge">📌 필독</span>
+          <div class="cohort-notice-title">코호트 이용 안내 — 같은 단계 환우끼리 소통해요</div>
+          <div class="cohort-notice-desc">이 공간은 동일한 암종·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명은 자제해 주세요.</div>
+        </div>
+        <div class="cohort-notice" style="margin-bottom:8px">
+          <span class="cohort-notice-badge">📢 안내</span>
+          <div class="cohort-notice-title">v.care AI 기능 업데이트 안내</div>
+          <div class="cohort-notice-desc">채팅 중 AI가 맥락에 맞는 의료 정보를 자동으로 제공합니다. 단, AI 응답은 참고용이며 주치의 상담을 대체하지 않습니다.</div>
         </div>
       </div>
     </div>
@@ -2032,7 +2138,7 @@ body {
     </button>
     <button class="tab-item" onclick="switchTab('cohort', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      <span>코호트</span>
+      <span>in 코호트</span>
     </button>
     <button class="tab-item" onclick="switchTab('chat', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -2049,23 +2155,33 @@ const SIGNUP_CANCERS = {
   '정신건강': ['공황장애','우울증']
 };
 const SIGNUP_STAGES = ['1기','2기','3기','4기','잘 모르겠어요'];
+const CANCER_EMOJI = {'유방암':'🎀','위암':'🟠','대장암':'🔵','간암':'🟢','갑상선암':'🟣','폐암':'⚪','췌장암':'🟤','전립선암':'🩵',
+  '당뇨':'💛','심혈관':'❤️','알러지':'💚','소아성장':'💙','공황장애':'💜','우울증':'🤎'};
 
-let signupStep = 0; // 0=kakao, 1=nickname, 2=disease type, 3=cancer, 4=stage
-let signupData = { nickname:'', diseaseType:'', cancer:'', stage:'' };
+// Steps: 0=kakao, 1=role, 2=nickname(patient) or medicalType(medical), 3=license(medical) or diseaseType(patient),
+//         4=cancer(patient), 5=stage(patient, cancer only)
+let signupStep = 0;
+let signupData = { role:'', nickname:'', medicalType:'', license:'', diseaseType:'', cancer:'', stage:'' };
+
+function getSignupTotalSteps() {
+  if (signupData.role === '의료진') return 4; // kakao → role → medicalType → license
+  if (signupData.diseaseType === '암 질환') return 6; // kakao → role → nickname → diseaseType → cancer → stage
+  return 5; // kakao → role → nickname → diseaseType → cancer
+}
 
 function renderSignup() {
   const dotsEl = document.getElementById('signupDots');
   const bodyEl = document.getElementById('signupBody');
-  const totalSteps = 5;
+  const total = getSignupTotalSteps();
 
-  // Dots
-  dotsEl.innerHTML = Array.from({length: totalSteps}, (_, i) => {
+  dotsEl.innerHTML = Array.from({length: total}, (_, i) => {
     const cls = i < signupStep ? 'signup-step-dot done' : (i === signupStep ? 'signup-step-dot active' : 'signup-step-dot');
     return `<div class="${cls}"></div>`;
   }).join('');
 
   if (signupStep === 0) {
     // 카카오 로그인
+    dotsEl.innerHTML = '';
     bodyEl.innerHTML = `
       <div class="signup-welcome">
         <div class="signup-welcome-icon">👋</div>
@@ -2078,33 +2194,93 @@ function renderSignup() {
         <p style="font-size:11px;color:var(--muted);margin:0">가입 시 서비스 이용약관에 동의합니다.</p>
       </div>`;
   } else if (signupStep === 1) {
-    // 닉네임 설정
+    // 역할 선택: 환자/보호자 vs 의료진
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(63,191,188,0.1)">👤</div>
+      <h2>어떤 역할로<br>가입하시나요?</h2>
+      <p>역할에 맞는 맞춤 경험을 제공합니다.</p>
+      <div class="signup-options">
+        <button class="signup-opt ${signupData.role==='환자/보호자'?'selected':''}" onclick="pickSignup('role','환자/보호자',this)">
+          <div class="signup-opt-icon" style="background:rgba(63,191,188,0.08)">🙋</div>환자 / 보호자</button>
+        <button class="signup-opt ${signupData.role==='의료진'?'selected':''}" onclick="pickSignup('role','의료진',this)">
+          <div class="signup-opt-icon" style="background:rgba(110,63,163,0.08)">🩺</div>의료진 (의사·간호사)</button>
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=0;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.role?'enabled':''}" id="signupNextBtn" onclick="afterRoleSelect()">다음</button>
+      </div>`;
+  } else if (signupStep === 2 && signupData.role === '의료진') {
+    // 의료진: 직종 선택
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">🏥</div>
+      <div class="signup-role-tag signup-role-tag--medical">의료진 가입</div>
+      <h2>직종을 선택해 주세요</h2>
+      <p>의료 전문가 인증을 위해<br>직종 정보가 필요합니다.</p>
+      <div class="signup-options">
+        <button class="signup-opt ${signupData.medicalType==='의사'?'selected':''}" onclick="pickSignup('medicalType','의사',this)">
+          <div class="signup-opt-icon" style="background:rgba(63,191,188,0.08)">👨‍⚕️</div>의사</button>
+        <button class="signup-opt ${signupData.medicalType==='간호사'?'selected':''}" onclick="pickSignup('medicalType','간호사',this)">
+          <div class="signup-opt-icon" style="background:rgba(236,72,153,0.08)">👩‍⚕️</div>간호사</button>
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=1;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.medicalType?'enabled':''}" id="signupNextBtn" onclick="signupStep=3;renderSignup()">다음</button>
+      </div>`;
+  } else if (signupStep === 3 && signupData.role === '의료진') {
+    // 의료진: 면허번호 입력
+    const typeLabel = signupData.medicalType === '의사' ? '의사 면허번호' : '간호사 면허번호';
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">📋</div>
+      <div class="signup-role-tag signup-role-tag--medical">의료진 가입 · ${signupData.medicalType}</div>
+      <h2>${typeLabel}를<br>입력해 주세요</h2>
+      <p>면허번호는 인증 목적으로만 사용되며<br>외부에 공개되지 않습니다.</p>
+      <input class="signup-license-input" id="signupLicense" type="text" placeholder="예: 제 12345 호" maxlength="20" value="${signupData.license}">
+      <div class="signup-nickname-hint">면허번호는 관리자 인증 후 활성화됩니다</div>
+      <input class="signup-nickname-input" id="signupMedNick" type="text" placeholder="표시 이름 (예: Dr. 김)" maxlength="12" value="${signupData.nickname}" style="margin-top:12px">
+      <div class="signup-nickname-hint">커뮤니티에서 표시될 이름입니다</div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=2;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next" id="signupNextBtn" onclick="finishMedicalSignup()">가입 완료</button>
+      </div>`;
+    const licInput = document.getElementById('signupLicense');
+    const nickInput = document.getElementById('signupMedNick');
+    const btn = document.getElementById('signupNextBtn');
+    function checkMed() {
+      if (licInput.value.trim().length >= 3 && nickInput.value.trim().length >= 2) btn.classList.add('enabled');
+      else btn.classList.remove('enabled');
+    }
+    licInput.addEventListener('input', checkMed);
+    nickInput.addEventListener('input', checkMed);
+    checkMed();
+    licInput.focus();
+  } else if (signupStep === 2 && signupData.role === '환자/보호자') {
+    // 환자: 닉네임 설정
     bodyEl.innerHTML = `
       <div class="signup-icon-box" style="background:rgba(63,191,188,0.1)">✏️</div>
+      <div class="signup-role-tag signup-role-tag--patient">환자/보호자 가입</div>
       <h2>닉네임을 설정해 주세요</h2>
       <p>커뮤니티에서 사용할 닉네임입니다.<br>개인정보 보호를 위해 실명은 피해주세요.</p>
       <input class="signup-nickname-input" id="signupNickname" type="text" placeholder="예: 힘내는환우, 봄날의햇살" maxlength="12" value="${signupData.nickname}">
       <div class="signup-nickname-hint">2~12자, 한글·영문·숫자 사용 가능</div>
       <div class="signup-nav">
-        <button class="signup-btn signup-btn--back" onclick="signupStep=0;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--back" onclick="signupStep=1;renderSignup()">이전</button>
         <button class="signup-btn signup-btn--next" id="signupNextBtn" onclick="saveNicknameAndNext()">다음</button>
       </div>`;
     const input = document.getElementById('signupNickname');
     const btn = document.getElementById('signupNextBtn');
     function checkNick() {
-      const v = input.value.trim();
-      if (v.length >= 2) btn.classList.add('enabled');
+      if (input.value.trim().length >= 2) btn.classList.add('enabled');
       else btn.classList.remove('enabled');
     }
     input.addEventListener('input', checkNick);
     checkNick();
     input.focus();
-  } else if (signupStep === 2) {
-    // 질환 유형 선택
+  } else if (signupStep === 3 && signupData.role === '환자/보호자') {
+    // 환자: 질환 유형 선택
     bodyEl.innerHTML = `
       <div class="signup-icon-box" style="background:rgba(236,72,153,0.08)">🩺</div>
       <h2>어떤 질환을<br>가지고 계세요?</h2>
-      <p>맞춤 코호트 매칭을 위해<br>질환 유형을 선택해 주세요.</p>
+      <p>맞춤 코호트 매칭을 위해 선택해 주세요.</p>
       <div class="signup-options">
         <button class="signup-opt ${signupData.diseaseType==='암 질환'?'selected':''}" onclick="pickSignup('diseaseType','암 질환',this)">
           <div class="signup-opt-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>암 질환</button>
@@ -2114,116 +2290,141 @@ function renderSignup() {
           <div class="signup-opt-icon" style="background:rgba(139,92,246,0.08)">🧠</div>정신건강</button>
       </div>
       <div class="signup-nav">
-        <button class="signup-btn signup-btn--back" onclick="signupStep=1;renderSignup()">이전</button>
-        <button class="signup-btn signup-btn--next ${signupData.diseaseType?'enabled':''}" id="signupNextBtn" onclick="signupNextStep()">다음</button>
+        <button class="signup-btn signup-btn--back" onclick="signupStep=2;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.diseaseType?'enabled':''}" id="signupNextBtn" onclick="signupStep=4;renderSignup()">다음</button>
       </div>`;
-  } else if (signupStep === 3) {
-    // 암종(질환) 선택
+  } else if (signupStep === 4) {
+    // 환자: 암종(질환) 선택 — 2열 그리드 compact
     const list = SIGNUP_CANCERS[signupData.diseaseType] || [];
     bodyEl.innerHTML = `
       <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">🎗️</div>
       <h2>질환을 선택해 주세요</h2>
-      <p>해당하는 질환을 선택하면<br>같은 환우들을 찾아드립니다.</p>
-      <div class="signup-options">
-        ${list.map(d => `<button class="signup-opt ${signupData.cancer===d?'selected':''}" onclick="pickSignup('cancer','${d}',this)">
-          <div class="signup-opt-icon" style="background:rgba(110,63,163,0.08)">🏥</div>${d}</button>`).join('')}
+      <p>해당하는 질환을 선택하면 같은 환우들을 찾아드립니다.</p>
+      <div class="signup-options signup-options--grid">
+        ${list.map(d => `<button class="signup-opt signup-opt--compact ${signupData.cancer===d?'selected':''}" onclick="pickSignup('cancer','${d}',this)">
+          <span style="font-size:16px">${CANCER_EMOJI[d]||'🏥'}</span>${d}</button>`).join('')}
       </div>
       <div class="signup-nav">
-        <button class="signup-btn signup-btn--back" onclick="signupStep=2;renderSignup()">이전</button>
-        <button class="signup-btn signup-btn--next ${signupData.cancer?'enabled':''}" id="signupNextBtn" onclick="signupNextStep()">다음</button>
+        <button class="signup-btn signup-btn--back" onclick="signupStep=3;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.cancer?'enabled':''}" id="signupNextBtn" onclick="afterCancerSelect()">다음</button>
       </div>`;
-  } else if (signupStep === 4) {
-    // 병기 선택 (암 질환인 경우만, 아닌 경우 완료)
-    if (signupData.diseaseType !== '암 질환') {
-      finishSignup();
-      return;
-    }
+  } else if (signupStep === 5) {
+    // 환자: 병기 선택 (암 질환만)
     bodyEl.innerHTML = `
       <div class="signup-icon-box" style="background:rgba(245,158,11,0.08)">📊</div>
       <h2>병기(Stage)를<br>선택해 주세요</h2>
       <p>현재 진단받은 병기를 선택하면<br>같은 단계의 환우를 매칭합니다.</p>
-      <div class="signup-options">
-        ${SIGNUP_STAGES.map(s => `<button class="signup-opt ${signupData.stage===s?'selected':''}" onclick="pickSignup('stage','${s}',this)">${s}</button>`).join('')}
+      <div class="signup-options signup-options--grid">
+        ${SIGNUP_STAGES.map(s => `<button class="signup-opt signup-opt--compact ${signupData.stage===s?'selected':''}" onclick="pickSignup('stage','${s}',this)">${s}</button>`).join('')}
       </div>
       <div class="signup-nav">
-        <button class="signup-btn signup-btn--back" onclick="signupStep=3;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--back" onclick="signupStep=4;renderSignup()">이전</button>
         <button class="signup-btn signup-btn--next ${signupData.stage?'enabled':''}" id="signupNextBtn" onclick="finishSignup()">가입 완료</button>
       </div>`;
   }
+}
+
+function afterRoleSelect() {
+  if (!signupData.role) return;
+  // 역할 전환 시 하위 초기화
+  signupStep = 2;
+  renderSignup();
+}
+
+function afterCancerSelect() {
+  if (!signupData.cancer) return;
+  if (signupData.diseaseType === '암 질환') {
+    signupStep = 5; // 병기 선택으로
+  } else {
+    finishSignup(); // 비암 질환은 바로 완료
+  }
+  renderSignup();
 }
 
 function saveNicknameAndNext() {
   const nick = document.getElementById('signupNickname').value.trim();
   if (nick.length < 2) return;
   signupData.nickname = nick;
-  signupStep = 2;
+  signupStep = 3;
   renderSignup();
 }
 
 function pickSignup(key, val, el) {
-  document.querySelectorAll('.signup-opt').forEach(o => o.classList.remove('selected'));
+  el.closest('.signup-options').querySelectorAll('.signup-opt').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   signupData[key] = val;
-  // 상위 변경 시 하위 초기화
+  if (key === 'role') { signupData.medicalType=''; signupData.license=''; signupData.diseaseType=''; signupData.cancer=''; signupData.stage=''; }
   if (key === 'diseaseType') { signupData.cancer = ''; signupData.stage = ''; }
   if (key === 'cancer') { signupData.stage = ''; }
   const btn = document.getElementById('signupNextBtn');
   if (btn) btn.classList.add('enabled');
 }
 
-function signupNextStep() {
-  if (signupStep === 2 && !signupData.diseaseType) return;
-  if (signupStep === 3 && !signupData.cancer) return;
-  signupStep++;
-  renderSignup();
+function finishMedicalSignup() {
+  const lic = document.getElementById('signupLicense').value.trim();
+  const nick = document.getElementById('signupMedNick').value.trim();
+  if (lic.length < 3 || nick.length < 2) return;
+  signupData.license = lic;
+  signupData.nickname = nick;
+  closeSignupOverlay();
 }
 
 function finishSignup() {
-  if (signupStep === 4 && signupData.diseaseType === '암 질환' && !signupData.stage) return;
-  // 회원가입 완료 → 오버레이 숨기기
+  if (signupStep === 5 && !signupData.stage) return;
+  closeSignupOverlay();
+  setupCohortAutoEnter();
+}
+
+function closeSignupOverlay() {
   const overlay = document.getElementById('signupOverlay');
   overlay.style.transition = 'opacity 0.3s';
   overlay.style.opacity = '0';
   setTimeout(() => { overlay.style.display = 'none'; }, 300);
-
   // 프로필 아바타 업데이트
   const avatarEl = document.querySelector('.home-avatar');
-  if (avatarEl && signupData.nickname) {
-    avatarEl.textContent = signupData.nickname[0];
-  }
-
-  // 코호트 화면에 자동입장 배너 표시
-  setupCohortAutoBanner();
+  if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
 }
 
-function setupCohortAutoBanner() {
+function setupCohortAutoEnter() {
+  if (!signupData.cancer) return;
   const banner = document.getElementById('cohortAutoBanner');
   const onboarding = document.getElementById('cohortOnboarding');
   const tagsEl = document.getElementById('cohortAutoTags');
-
-  if (signupData.cancer) {
-    // 온보딩 숨기고 자동입장 배너 표시
-    if (onboarding) onboarding.style.display = 'none';
-    if (banner) banner.style.display = 'block';
-
-    let tagsHTML = `<span class="cohort-success-tag">${signupData.diseaseType}</span>`;
-    tagsHTML += `<span class="cohort-success-tag">${signupData.cancer}</span>`;
-    if (signupData.stage) tagsHTML += `<span class="cohort-success-tag">${signupData.stage}</span>`;
-    if (signupData.nickname) tagsHTML += `<span class="cohort-success-tag">닉네임: ${signupData.nickname}</span>`;
-    tagsEl.innerHTML = tagsHTML;
-  }
+  if (onboarding) onboarding.style.display = 'none';
+  if (banner) banner.style.display = 'block';
+  let tags = `<span class="cohort-success-tag">${signupData.diseaseType}</span>`;
+  tags += `<span class="cohort-success-tag">${signupData.cancer}</span>`;
+  if (signupData.stage) tags += `<span class="cohort-success-tag">${signupData.stage}</span>`;
+  tagsEl.innerHTML = tags;
 }
 
-function autoEnterCohort() {
-  // 회원가입 데이터로 코호트 자동 입장
-  cohortSelections.type = signupData.diseaseType;
-  cohortSelections.disease = signupData.cancer;
-  const tags = document.getElementById('cohort-main-tags');
-  let tagsHTML = `<span class="cohort-tag">${signupData.diseaseType}</span><span class="cohort-tag">${signupData.cancer}</span>`;
-  if (signupData.stage) tagsHTML += `<span class="cohort-tag">${signupData.stage}</span>`;
-  if (tags) tags.innerHTML = tagsHTML;
-  document.getElementById('cohortAutoBanner').style.display = 'none';
-  showSubScreen('sub-cohort-main');
+// 코호트 탭 진입 시 자동 입장 (1.2초 후 자동 전환)
+let cohortAutoTimer = null;
+function triggerCohortAutoEnter() {
+  if (!signupData.cancer) return;
+  if (cohortAutoTimer) clearTimeout(cohortAutoTimer);
+  cohortAutoTimer = setTimeout(() => {
+    cohortSelections.type = signupData.diseaseType;
+    cohortSelections.disease = signupData.cancer;
+    const tags = document.getElementById('cohort-main-tags');
+    let html = `<span class="cohort-tag">${signupData.diseaseType}</span><span class="cohort-tag">${signupData.cancer}</span>`;
+    if (signupData.stage) html += `<span class="cohort-tag">${signupData.stage}</span>`;
+    if (tags) tags.innerHTML = html;
+    document.getElementById('cohortAutoBanner').style.display = 'none';
+    showSubScreen('sub-cohort-main');
+  }, 1200);
+}
+
+// 코호트 내부 탭 전환
+function switchCohortTab(name, el) {
+  document.querySelectorAll('.cohort-inner-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.cohort-tab-content').forEach(c => { c.style.display = 'none'; c.classList.remove('active'); });
+  const target = document.getElementById('cohort-tab-' + name);
+  if (target) {
+    target.style.display = name === 'chat' ? 'flex' : 'block';
+    target.classList.add('active');
+  }
 }
 
 // 초기 렌더링
@@ -2231,12 +2432,13 @@ renderSignup();
 
 // Tab switching
 function switchTab(name, el) {
-  // Hide all sub-screens when switching tabs
   document.querySelectorAll('.sub-screen').forEach(s => s.style.display = 'none');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   el.classList.add('active');
+  // 코호트 탭 진입 시 자동 입장 트리거
+  if (name === 'cohort' && signupData.cancer) triggerCohortAutoEnter();
 }
 
 // Sub-screen navigation
