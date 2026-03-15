@@ -963,6 +963,184 @@ body {
 .cohort-success p { font-size:14px; color:var(--sub); line-height:1.6; margin-bottom:8px; }
 .cohort-success-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:28px; }
 .cohort-success-tag { font-size:12px; font-weight:500; padding:4px 12px; background:var(--bg-soft); border:1px solid var(--border); border-radius:16px; color:var(--text); }
+
+/* ===== SIGNUP OVERLAY ===== */
+.signup-overlay {
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background:#fff; z-index:200;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+}
+.signup-header {
+  padding:60px 28px 0;
+  text-align:center;
+}
+.signup-logo {
+  font-family:'Poppins',sans-serif;
+  font-size:28px; font-weight:700; color:var(--text);
+  margin-bottom:4px;
+}
+.signup-logo span { color:#3fbfbc; }
+.signup-tagline {
+  font-size:12px; color:var(--muted); margin-bottom:32px;
+}
+.signup-step-dots {
+  display:flex; gap:8px; justify-content:center; margin-bottom:28px;
+}
+.signup-step-dot {
+  width:8px; height:8px; border-radius:50%; background:var(--border);
+  transition: all 0.2s;
+}
+.signup-step-dot.active { background:var(--text); width:20px; border-radius:4px; }
+.signup-step-dot.done { background:#10b981; }
+.signup-body {
+  flex:1; padding:0 28px 28px;
+  display:flex; flex-direction:column; align-items:center;
+}
+.signup-icon-box {
+  width:64px; height:64px; border-radius:18px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; margin-bottom:20px;
+}
+.signup-body h2 {
+  font-size:20px; font-weight:700; color:var(--text);
+  text-align:center; margin-bottom:8px; line-height:1.4;
+}
+.signup-body p {
+  font-size:13px; color:var(--sub); text-align:center;
+  line-height:1.6; margin-bottom:24px;
+}
+.signup-options {
+  width:100%; display:flex; flex-direction:column; gap:8px; margin-bottom:24px;
+}
+.signup-opt {
+  width:100%; padding:14px 16px;
+  background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  font-size:14px; font-weight:500; color:var(--text);
+  font-family:var(--font); cursor:pointer;
+  transition:all 0.15s; text-align:left;
+  display:flex; align-items:center; gap:10px;
+}
+.signup-opt:hover { border-color:#d1d5db; background:var(--bg-soft); }
+.signup-opt.selected { border-color:var(--text); background:var(--bg-soft); }
+.signup-opt-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.signup-nav {
+  display:flex; gap:10px; width:100%; margin-top:auto;
+}
+.signup-btn {
+  flex:1; padding:14px; border-radius:var(--radius-sm);
+  border:none; font-size:15px; font-weight:600;
+  font-family:var(--font); cursor:pointer; transition:all 0.15s;
+}
+.signup-btn--back { background:var(--bg-soft); color:var(--sub); flex:0.6; }
+.signup-btn--next { background:var(--border); color:var(--muted); flex:1; }
+.signup-btn--next.enabled { background:var(--text); color:#fff; }
+
+/* Cohort auto-enter toast */
+.cohort-auto-banner {
+  margin:16px; padding:16px; border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,#ecfdf5,#f0e8f7);
+  border:1px solid #a7f3d0;
+  text-align:center;
+}
+.cohort-auto-banner-icon { font-size:32px; margin-bottom:8px; }
+.cohort-auto-banner h3 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.cohort-auto-banner p { font-size:12px; color:var(--sub); line-height:1.5; margin-bottom:12px; }
+.cohort-auto-banner-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:14px; }
+.cohort-auto-enter-btn {
+  width:100%; padding:14px; border:none; border-radius:var(--radius-sm);
+  background:var(--text); color:#fff; font-size:15px; font-weight:600;
+  font-family:var(--font); cursor:pointer;
+}
+
+/* ===== HOME TRUST / INFO SECTIONS ===== */
+.home-about {
+  margin:0 20px 16px; padding:20px; border-radius:var(--radius);
+  background:#fff; border:1px solid var(--border);
+}
+.home-about-label {
+  font-size:10px; font-weight:600; color:#6E3FA3;
+  background:rgba(110,63,163,0.08); padding:3px 10px;
+  border-radius:20px; display:inline-block; margin-bottom:10px;
+}
+.home-about h3 {
+  font-size:16px; font-weight:700; color:var(--text); line-height:1.45; margin-bottom:6px;
+}
+.home-about p {
+  font-size:12px; color:var(--sub); line-height:1.6;
+}
+
+.home-trust {
+  margin:0 20px 16px; padding:16px; border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(63,191,188,0.06),rgba(110,63,163,0.04));
+  border:1px solid rgba(63,191,188,0.15);
+}
+.home-trust-title {
+  font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px;
+  display:flex; align-items:center; gap:6px;
+}
+.home-trust-items { display:flex; flex-direction:column; gap:10px; }
+.home-trust-item {
+  display:flex; align-items:flex-start; gap:10px;
+}
+.home-trust-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0; background:rgba(63,191,188,0.1);
+}
+.home-trust-item-text strong { font-size:12px; font-weight:600; color:var(--text); display:block; margin-bottom:1px; }
+.home-trust-item-text span { font-size:11px; color:var(--muted); line-height:1.4; }
+
+.home-vdoc {
+  margin:0 20px 16px; padding:16px 20px;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,#3fbfbc,#6E3FA3);
+  display:flex; align-items:center; gap:14px;
+  cursor:pointer; transition:opacity 0.15s;
+}
+.home-vdoc:hover { opacity:0.9; }
+.home-vdoc-icon {
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(255,255,255,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; flex-shrink:0;
+}
+.home-vdoc-text h4 { font-size:14px; font-weight:700; color:#fff; margin-bottom:2px; }
+.home-vdoc-text p { font-size:11px; color:rgba(255,255,255,0.8); }
+.home-vdoc-arrow { margin-left:auto; color:rgba(255,255,255,0.7); font-size:18px; }
+
+/* Kakao signup button */
+.signup-kakao {
+  width:100%; padding:16px; border:none; border-radius:var(--radius-sm);
+  background:#FEE500; color:#3C1E1E; font-size:15px; font-weight:600;
+  font-family:var(--font); cursor:pointer; transition:opacity 0.15s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-bottom:16px;
+}
+.signup-kakao:hover { opacity:0.9; }
+.signup-kakao svg { width:22px; height:22px; }
+.signup-welcome {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  flex:1; text-align:center;
+}
+.signup-welcome-icon {
+  width:80px; height:80px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(63,191,188,0.1),rgba(110,63,163,0.08));
+  display:flex; align-items:center; justify-content:center;
+  font-size:36px; margin-bottom:20px;
+}
+.signup-nickname-input {
+  width:100%; padding:14px 16px; border:1.5px solid var(--border);
+  border-radius:var(--radius-sm); font-size:15px; color:var(--text);
+  font-family:var(--font); outline:none; text-align:center;
+  margin-bottom:8px; transition:border-color 0.15s;
+}
+.signup-nickname-input:focus { border-color:var(--text); }
+.signup-nickname-hint { font-size:11px; color:var(--muted); margin-bottom:24px; }
 </style>
 </head>
 <body>
@@ -976,6 +1154,16 @@ body {
       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2C5.2 2 2.7 3.1 1 5l1.4 1.4C3.8 5 5.8 4 8 4s4.2 1 5.6 2.4L15 5C13.3 3.1 10.8 2 8 2zm0 4C6.3 6 4.8 6.7 3.8 7.8L5.2 9.2C5.9 8.5 6.9 8 8 8s2.1.5 2.8 1.2L12.2 7.8C11.2 6.7 9.7 6 8 6zm0 4c-.8 0-1.6.4-2.1 1l2.1 2.5L10.1 11C9.6 10.4 8.8 10 8 10z"/></svg>
       <svg viewBox="0 0 24 16" fill="currentColor"><rect x="0" y="2" width="19" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="5.5" width="2.5" height="5" rx="1" ry="1"/><rect x="2" y="4" width="12" height="8" rx="1" ry="1"/></svg>
     </div>
+  </div>
+
+  <!-- ===== SIGNUP OVERLAY ===== -->
+  <div class="signup-overlay" id="signupOverlay">
+    <div class="signup-header">
+      <div class="signup-logo"><span>v.</span>care</div>
+      <div class="signup-tagline">차세대 지능형 의료 전문 커뮤니티</div>
+      <div class="signup-step-dots" id="signupDots"></div>
+    </div>
+    <div class="signup-body" id="signupBody"></div>
   </div>
 
   <!-- Screen Area -->
@@ -992,9 +1180,54 @@ body {
       </div>
 
       <div class="home-hero">
-        <div class="home-hero-tag">aitrics AI Healthcare</div>
-        <h2>의료 AI 기업 aitrics의<br>지능형 의료전문 커뮤니티</h2>
-        <p>같은 질환을 가진 환우들과 연결되고,<br>AI 기반의 맞춤 건강 정보를 받아보세요.</p>
+        <div class="home-hero-tag">Next-Gen AI Medical Community</div>
+        <h2>차세대 지능형<br>의료 전문 커뮤니티</h2>
+        <p>의료 AI 기업 aitrics가 만든<br>환자 중심의 스마트 헬스케어 플랫폼</p>
+      </div>
+
+      <!-- 커뮤니티 소개 -->
+      <div class="home-about">
+        <div class="home-about-label">v.care란?</div>
+        <h3>같은 질환, 같은 단계의<br>환우들과 연결됩니다</h3>
+        <p>v.care는 AI 기반으로 같은 암종·병기·치료 단계의 환우들을 자동 매칭하여, 실시간 정보 공유와 정서적 지지를 제공하는 차세대 지능형 의료 전문 커뮤니티입니다.</p>
+      </div>
+
+      <!-- aitrics 신뢰도 -->
+      <div class="home-trust">
+        <div class="home-trust-title">🏥 aitrics — 신뢰할 수 있는 의료 AI</div>
+        <div class="home-trust-items">
+          <div class="home-trust-item">
+            <div class="home-trust-icon">🤖</div>
+            <div class="home-trust-item-text">
+              <strong>AI 기반 조기경보 시스템</strong>
+              <span>심정지·패혈증·급성신손상 등 조기 예측 AI를 국내외 대형 병원에 공급</span>
+            </div>
+          </div>
+          <div class="home-trust-item">
+            <div class="home-trust-icon">🏆</div>
+            <div class="home-trust-item-text">
+              <strong>SCI급 논문 다수 발표</strong>
+              <span>국제 학술지에 의료 AI 연구 성과를 지속적으로 발표하는 기술 기업</span>
+            </div>
+          </div>
+          <div class="home-trust-item">
+            <div class="home-trust-icon">🔒</div>
+            <div class="home-trust-item-text">
+              <strong>의료 데이터 보안</strong>
+              <span>HIPAA 수준의 개인정보 보호 체계 적용, 익명 기반 커뮤니티 운영</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 브이닥 앱 링크 -->
+      <div class="home-vdoc">
+        <div class="home-vdoc-icon">🩺</div>
+        <div class="home-vdoc-text">
+          <h4>브이닥(VDoc) 앱 바로가기</h4>
+          <p>aitrics의 AI 건강관리 앱으로 이동합니다</p>
+        </div>
+        <span class="home-vdoc-arrow">&rsaquo;</span>
       </div>
 
       <div class="content-pad">
@@ -1332,7 +1565,19 @@ body {
         <h1>in 코호트</h1>
       </div>
 
-      <div class="cohort-content">
+      <!-- 자동 입장 배너 (회원가입 시 암종/병기 선택 완료된 경우) -->
+      <div id="cohortAutoBanner" style="display:none">
+        <div class="cohort-auto-banner">
+          <div class="cohort-auto-banner-icon">✅</div>
+          <h3>자동으로 입장합니다</h3>
+          <p>회원가입 시 선택하신 정보로<br>맞춤 코호트가 매칭되었습니다.</p>
+          <div class="cohort-auto-banner-tags" id="cohortAutoTags"></div>
+          <button class="cohort-auto-enter-btn" onclick="autoEnterCohort()">코호트 입장하기</button>
+        </div>
+      </div>
+
+      <!-- 기존 온보딩 (회원가입 안 한 경우) -->
+      <div class="cohort-content" id="cohortOnboarding">
         <div class="cohort-dots">
           <div class="cohort-dot active"></div>
           <div class="cohort-dot"></div>
@@ -1797,6 +2042,193 @@ body {
 </div>
 
 <script>
+// ===== SIGNUP FLOW =====
+const SIGNUP_CANCERS = {
+  '암 질환': ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암'],
+  '만성 질환': ['당뇨','심혈관','알러지','소아성장'],
+  '정신건강': ['공황장애','우울증']
+};
+const SIGNUP_STAGES = ['1기','2기','3기','4기','잘 모르겠어요'];
+
+let signupStep = 0; // 0=kakao, 1=nickname, 2=disease type, 3=cancer, 4=stage
+let signupData = { nickname:'', diseaseType:'', cancer:'', stage:'' };
+
+function renderSignup() {
+  const dotsEl = document.getElementById('signupDots');
+  const bodyEl = document.getElementById('signupBody');
+  const totalSteps = 5;
+
+  // Dots
+  dotsEl.innerHTML = Array.from({length: totalSteps}, (_, i) => {
+    const cls = i < signupStep ? 'signup-step-dot done' : (i === signupStep ? 'signup-step-dot active' : 'signup-step-dot');
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  if (signupStep === 0) {
+    // 카카오 로그인
+    bodyEl.innerHTML = `
+      <div class="signup-welcome">
+        <div class="signup-welcome-icon">👋</div>
+        <h2>v.care에 오신 것을<br>환영합니다</h2>
+        <p>차세대 지능형 의료 전문 커뮤니티<br>간편하게 가입하고 시작하세요.</p>
+        <button class="signup-kakao" onclick="signupStep=1;renderSignup()">
+          <svg viewBox="0 0 24 24" fill="#3C1E1E"><path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67l-.9 3.33c-.07.27.22.49.46.35l3.87-2.57c.6.08 1.23.12 1.91.12 5.52 0 10-3.58 10-7.9S17.52 3 12 3z"/></svg>
+          카카오톡으로 시작하기
+        </button>
+        <p style="font-size:11px;color:var(--muted);margin:0">가입 시 서비스 이용약관에 동의합니다.</p>
+      </div>`;
+  } else if (signupStep === 1) {
+    // 닉네임 설정
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(63,191,188,0.1)">✏️</div>
+      <h2>닉네임을 설정해 주세요</h2>
+      <p>커뮤니티에서 사용할 닉네임입니다.<br>개인정보 보호를 위해 실명은 피해주세요.</p>
+      <input class="signup-nickname-input" id="signupNickname" type="text" placeholder="예: 힘내는환우, 봄날의햇살" maxlength="12" value="${signupData.nickname}">
+      <div class="signup-nickname-hint">2~12자, 한글·영문·숫자 사용 가능</div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=0;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next" id="signupNextBtn" onclick="saveNicknameAndNext()">다음</button>
+      </div>`;
+    const input = document.getElementById('signupNickname');
+    const btn = document.getElementById('signupNextBtn');
+    function checkNick() {
+      const v = input.value.trim();
+      if (v.length >= 2) btn.classList.add('enabled');
+      else btn.classList.remove('enabled');
+    }
+    input.addEventListener('input', checkNick);
+    checkNick();
+    input.focus();
+  } else if (signupStep === 2) {
+    // 질환 유형 선택
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(236,72,153,0.08)">🩺</div>
+      <h2>어떤 질환을<br>가지고 계세요?</h2>
+      <p>맞춤 코호트 매칭을 위해<br>질환 유형을 선택해 주세요.</p>
+      <div class="signup-options">
+        <button class="signup-opt ${signupData.diseaseType==='암 질환'?'selected':''}" onclick="pickSignup('diseaseType','암 질환',this)">
+          <div class="signup-opt-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>암 질환</button>
+        <button class="signup-opt ${signupData.diseaseType==='만성 질환'?'selected':''}" onclick="pickSignup('diseaseType','만성 질환',this)">
+          <div class="signup-opt-icon" style="background:rgba(59,130,246,0.08)">💊</div>만성 질환</button>
+        <button class="signup-opt ${signupData.diseaseType==='정신건강'?'selected':''}" onclick="pickSignup('diseaseType','정신건강',this)">
+          <div class="signup-opt-icon" style="background:rgba(139,92,246,0.08)">🧠</div>정신건강</button>
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=1;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.diseaseType?'enabled':''}" id="signupNextBtn" onclick="signupNextStep()">다음</button>
+      </div>`;
+  } else if (signupStep === 3) {
+    // 암종(질환) 선택
+    const list = SIGNUP_CANCERS[signupData.diseaseType] || [];
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">🎗️</div>
+      <h2>질환을 선택해 주세요</h2>
+      <p>해당하는 질환을 선택하면<br>같은 환우들을 찾아드립니다.</p>
+      <div class="signup-options">
+        ${list.map(d => `<button class="signup-opt ${signupData.cancer===d?'selected':''}" onclick="pickSignup('cancer','${d}',this)">
+          <div class="signup-opt-icon" style="background:rgba(110,63,163,0.08)">🏥</div>${d}</button>`).join('')}
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=2;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.cancer?'enabled':''}" id="signupNextBtn" onclick="signupNextStep()">다음</button>
+      </div>`;
+  } else if (signupStep === 4) {
+    // 병기 선택 (암 질환인 경우만, 아닌 경우 완료)
+    if (signupData.diseaseType !== '암 질환') {
+      finishSignup();
+      return;
+    }
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(245,158,11,0.08)">📊</div>
+      <h2>병기(Stage)를<br>선택해 주세요</h2>
+      <p>현재 진단받은 병기를 선택하면<br>같은 단계의 환우를 매칭합니다.</p>
+      <div class="signup-options">
+        ${SIGNUP_STAGES.map(s => `<button class="signup-opt ${signupData.stage===s?'selected':''}" onclick="pickSignup('stage','${s}',this)">${s}</button>`).join('')}
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=3;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.stage?'enabled':''}" id="signupNextBtn" onclick="finishSignup()">가입 완료</button>
+      </div>`;
+  }
+}
+
+function saveNicknameAndNext() {
+  const nick = document.getElementById('signupNickname').value.trim();
+  if (nick.length < 2) return;
+  signupData.nickname = nick;
+  signupStep = 2;
+  renderSignup();
+}
+
+function pickSignup(key, val, el) {
+  document.querySelectorAll('.signup-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  signupData[key] = val;
+  // 상위 변경 시 하위 초기화
+  if (key === 'diseaseType') { signupData.cancer = ''; signupData.stage = ''; }
+  if (key === 'cancer') { signupData.stage = ''; }
+  const btn = document.getElementById('signupNextBtn');
+  if (btn) btn.classList.add('enabled');
+}
+
+function signupNextStep() {
+  if (signupStep === 2 && !signupData.diseaseType) return;
+  if (signupStep === 3 && !signupData.cancer) return;
+  signupStep++;
+  renderSignup();
+}
+
+function finishSignup() {
+  if (signupStep === 4 && signupData.diseaseType === '암 질환' && !signupData.stage) return;
+  // 회원가입 완료 → 오버레이 숨기기
+  const overlay = document.getElementById('signupOverlay');
+  overlay.style.transition = 'opacity 0.3s';
+  overlay.style.opacity = '0';
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+
+  // 프로필 아바타 업데이트
+  const avatarEl = document.querySelector('.home-avatar');
+  if (avatarEl && signupData.nickname) {
+    avatarEl.textContent = signupData.nickname[0];
+  }
+
+  // 코호트 화면에 자동입장 배너 표시
+  setupCohortAutoBanner();
+}
+
+function setupCohortAutoBanner() {
+  const banner = document.getElementById('cohortAutoBanner');
+  const onboarding = document.getElementById('cohortOnboarding');
+  const tagsEl = document.getElementById('cohortAutoTags');
+
+  if (signupData.cancer) {
+    // 온보딩 숨기고 자동입장 배너 표시
+    if (onboarding) onboarding.style.display = 'none';
+    if (banner) banner.style.display = 'block';
+
+    let tagsHTML = `<span class="cohort-success-tag">${signupData.diseaseType}</span>`;
+    tagsHTML += `<span class="cohort-success-tag">${signupData.cancer}</span>`;
+    if (signupData.stage) tagsHTML += `<span class="cohort-success-tag">${signupData.stage}</span>`;
+    if (signupData.nickname) tagsHTML += `<span class="cohort-success-tag">닉네임: ${signupData.nickname}</span>`;
+    tagsEl.innerHTML = tagsHTML;
+  }
+}
+
+function autoEnterCohort() {
+  // 회원가입 데이터로 코호트 자동 입장
+  cohortSelections.type = signupData.diseaseType;
+  cohortSelections.disease = signupData.cancer;
+  const tags = document.getElementById('cohort-main-tags');
+  let tagsHTML = `<span class="cohort-tag">${signupData.diseaseType}</span><span class="cohort-tag">${signupData.cancer}</span>`;
+  if (signupData.stage) tagsHTML += `<span class="cohort-tag">${signupData.stage}</span>`;
+  if (tags) tags.innerHTML = tagsHTML;
+  document.getElementById('cohortAutoBanner').style.display = 'none';
+  showSubScreen('sub-cohort-main');
+}
+
+// 초기 렌더링
+renderSignup();
+
 // Tab switching
 function switchTab(name, el) {
   // Hide all sub-screens when switching tabs
