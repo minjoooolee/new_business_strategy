@@ -8417,9 +8417,23 @@
   <!-- ===== VCARE FEATURES PAGE ===== -->
   <div class="page-section" id="page-vcare-features">
   <style>
+  :root {
+    --bg: #10141f;
+    --surface: #181e2e;
+    --surface2: #1f2740;
+    --border: #2a3450;
+    --blue: #5590ff;
+    --green: #00e8b0;
+    --pink: #ff7ec0;
+    --yellow: #ffb820;
+    --purple: #b8a0ff;
+    --text: #f4f6ff;
+    --text-muted: #a0b0d0;
+    --text-dim: #6070a0;
+  }
   /* ── PAGE VCARE FEATURES ── */
   #page-vcare-features {
-    background:#060810; overflow-x:hidden;
+    background:var(--bg); overflow-x:hidden;
   }
   #page-vcare-features nav {
     position:sticky; top:56px; left:0; right:0; z-index:200;
@@ -8428,11 +8442,10 @@
     background:rgba(6,8,16,.92); backdrop-filter:blur(20px);
     border-bottom:1px solid var(--border);
   }
-  #page-vcare-features .nav-logo { font-family:'Space Mono',monospace; font-size:13px; color:#3d7fff; letter-spacing:.04em; }
+  #page-vcare-features .nav-logo { font-family:'Space Mono',monospace; font-size:13px; color:var(--blue); letter-spacing:.04em; }
   #page-vcare-features .nav-links { display:flex; gap:32px; list-style:none; }
-  #page-vcare-features .nav-links a { font-size:11px; color:#68789a; text-decoration:none; letter-spacing:.08em; transition:color .2s; }
-  #page-vcare-features .nav-links a:hover { color:#e8eaf2; }
-  /* HERO */
+  #page-vcare-features .nav-links a { font-size:11px; color:var(--text-muted); text-decoration:none; letter-spacing:.08em; transition:color .2s; }
+  #page-vcare-features .nav-links a:hover { color:var(--text); }
   #page-vcare-features .hero {
     min-height:100vh;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -8458,7 +8471,7 @@
     mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
   }
   #page-vcare-features .hero-kicker {
-    font-family:'Space Mono',monospace; font-size:10px; color:#3d7fff;
+    font-family:'Space Mono',monospace; font-size:10px; color:var(--blue);
     letter-spacing:.25em; text-transform:uppercase; margin-bottom:28px;
     opacity:0; animation:fadeUp .5s ease forwards .1s;
   }
@@ -8469,7 +8482,7 @@
   }
   #page-vcare-features .hero-title .line2 {
     display:block;
-    background:linear-gradient(135deg, #3d7fff 0%, #00d4a0 100%);
+    background:linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
     -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   }
   #page-vcare-features .insight-box {
@@ -8484,21 +8497,20 @@
     content:'"'  ;
     position:absolute; top:-20px; left:32px;
     font-size:80px; line-height:1;
-    color:#3d7fff; opacity:.3;
+    color:var(--blue); opacity:.3;
   }
   #page-vcare-features .insight-quote {
     font-size:clamp(18px,2.2vw,24px); line-height:1.7;
-    color:#e8eaf2; font-weight:700; margin-bottom:12px;
+    color:var(--text); font-weight:700; margin-bottom:12px;
   }
   #page-vcare-features .insight-quote em {
     font-style:normal;
-    background:linear-gradient(90deg, #3d7fff, #00d4a0);
+    background:linear-gradient(90deg, var(--blue), var(--green));
     -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   }
   #page-vcare-features .insight-sub {
-    font-size:13px; color:#68789a; line-height:1.8;
+    font-size:13px; color:var(--text-muted); line-height:1.8;
   }
-  /* IPHONE MOCKUP */
   #page-vcare-features .iphone-wrap {
     position:relative; width:320px; margin:0 auto;
     filter:drop-shadow(0 40px 80px rgba(0,0,0,.7));
@@ -8564,7 +8576,6 @@
   #page-vcare-features .iphone-home-bar {
     width:120px; height:5px; background:rgba(255,255,255,.2); border-radius:3px;
   }
-  /* FEATURE SECTIONS */
   #page-vcare-features .feature-section {
     padding:120px 48px;
     display:flex; flex-direction:column; align-items:center;
@@ -8574,7 +8585,7 @@
     border-top:1px solid var(--border);
   }
   #page-vcare-features .feature-section:nth-child(even) {
-    background:linear-gradient(180deg, #08091a 0%, #060810 100%);
+    background:linear-gradient(180deg, #08091a 0%, var(--bg) 100%);
   }
   #page-vcare-features .fs-glow {
     position:absolute; pointer-events:none; border-radius:50%;
@@ -8593,7 +8604,7 @@
   #page-vcare-features .fs-inner.reverse .fs-text { order:2; }
   #page-vcare-features .fs-inner.reverse .fs-phone { order:1; }
   #page-vcare-features .fs-num {
-    font-family:'Space Mono',monospace; font-size:10px; color:#333d55;
+    font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim);
     letter-spacing:.2em; margin-bottom:12px;
   }
   #page-vcare-features .fs-tag {
@@ -8601,34 +8612,34 @@
     font-family:'Space Mono',monospace; font-size:10px;
     padding:5px 14px; border-radius:20px; margin-bottom:20px;
   }
-  #page-vcare-features .tag-green  { background:rgba(0,212,160,.1); color:#00d4a0; border:1px solid rgba(0,212,160,.25); }
-  #page-vcare-features .tag-pink   { background:rgba(255,110,180,.1); color:#ff6eb4; border:1px solid rgba(255,110,180,.25); }
-  #page-vcare-features .tag-yellow { background:rgba(240,165,0,.1); color:#f0a500; border:1px solid rgba(240,165,0,.25); }
+  #page-vcare-features .tag-green  { background:rgba(0,212,160,.1); color:var(--green); border:1px solid rgba(0,212,160,.25); }
+  #page-vcare-features .tag-pink   { background:rgba(255,110,180,.1); color:var(--pink); border:1px solid rgba(255,110,180,.25); }
+  #page-vcare-features .tag-yellow { background:rgba(240,165,0,.1); color:var(--yellow); border:1px solid rgba(240,165,0,.25); }
   #page-vcare-features .fs-title {
     font-size:clamp(28px,3.5vw,44px); font-weight:900;
     line-height:1.15; margin-bottom:16px; letter-spacing:-.02em;
   }
-  #page-vcare-features .fs-title .acc-green  { color:#00d4a0; }
-  #page-vcare-features .fs-title .acc-pink   { color:#ff6eb4; }
-  #page-vcare-features .fs-title .acc-yellow { color:#f0a500; }
+  #page-vcare-features .fs-title .acc-green  { color:var(--green); }
+  #page-vcare-features .fs-title .acc-pink   { color:var(--pink); }
+  #page-vcare-features .fs-title .acc-yellow { color:var(--yellow); }
   #page-vcare-features .fs-subtitle {
     font-size:clamp(15px,1.8vw,19px); font-weight:700;
-    color:#e8eaf2; margin-bottom:20px; line-height:1.5;
+    color:var(--text); margin-bottom:20px; line-height:1.5;
     padding:16px 20px;
     background:rgba(255,255,255,.03);
-    border-left:3px solid #00d4a0;
+    border-left:3px solid var(--green);
     border-radius:0 10px 10px 0;
   }
-  #page-vcare-features .fs-subtitle.bpink  { border-left-color:#ff6eb4; }
-  #page-vcare-features .fs-subtitle.byellow{ border-left-color:#f0a500; }
+  #page-vcare-features .fs-subtitle.bpink  { border-left-color:var(--pink); }
+  #page-vcare-features .fs-subtitle.byellow{ border-left-color:var(--yellow); }
   #page-vcare-features .fs-desc {
-    font-size:14.5px; color:#68789a; line-height:2;
+    font-size:14.5px; color:var(--text-muted); line-height:2;
     margin-bottom:28px;
   }
-  #page-vcare-features .fs-desc strong { color:#e8eaf2; font-weight:700; }
+  #page-vcare-features .fs-desc strong { color:var(--text); font-weight:700; }
   #page-vcare-features .fs-quote {
-    background:#131828;
-    border:1px solid #1c2438;
+    background:var(--surface2);
+    border:1px solid var(--border);
     border-radius:14px; padding:20px 24px;
     margin-bottom:20px; position:relative;
   }
@@ -8638,17 +8649,17 @@
     position:absolute; top:12px; left:16px; opacity:.2;
   }
   #page-vcare-features .fs-quote p {
-    font-size:14px; color:#e8eaf2; line-height:1.8;
+    font-size:14px; color:var(--text); line-height:1.8;
     padding-left:24px; font-style:italic;
   }
   #page-vcare-features .fs-quote .qs {
-    font-size:11px; color:#68789a; margin-top:8px; padding-left:24px;
+    font-size:11px; color:var(--text-muted); margin-top:8px; padding-left:24px;
     font-style:normal;
   }
   #page-vcare-features .fs-steps { display:flex; flex-direction:column; gap:10px; }
   #page-vcare-features .fs-step {
     display:flex; align-items:flex-start; gap:14px;
-    background:#0d1020; border:1px solid #1c2438;
+    background:var(--surface); border:1px solid var(--border);
     border-radius:12px; padding:14px 18px;
   }
   #page-vcare-features .step-dot {
@@ -8656,19 +8667,19 @@
     display:flex; align-items:center; justify-content:center;
     font-size:12px; font-weight:700; font-family:'Space Mono',monospace;
   }
-  #page-vcare-features .dot-yellow { background:rgba(240,165,0,.15); color:#f0a500; }
-  #page-vcare-features .step-text { font-size:13px; color:#68789a; line-height:1.7; }
-  #page-vcare-features .step-text strong { color:#e8eaf2; display:block; font-size:13px; margin-bottom:2px; }
+  #page-vcare-features .dot-yellow { background:rgba(240,165,0,.15); color:var(--yellow); }
+  #page-vcare-features .step-text { font-size:13px; color:var(--text-muted); line-height:1.7; }
+  #page-vcare-features .step-text strong { color:var(--text); display:block; font-size:13px; margin-bottom:2px; }
   #page-vcare-features .reveal { opacity:0; transform:translateY(36px); transition:opacity .8s ease, transform .8s ease; }
   #page-vcare-features .reveal.visible { opacity:1; transform:none; }
   #page-vcare-features .reveal-delay1 { transition-delay:.1s; }
   #page-vcare-features .reveal-delay2 { transition-delay:.2s; }
   #page-vcare-features footer {
-    border-top:1px solid #1c2438;
+    border-top:1px solid var(--border);
     padding:40px 52px; display:flex; align-items:center; justify-content:space-between;
   }
-  #page-vcare-features .footer-logo { font-family:'Space Mono',monospace; font-size:13px; color:#3d7fff; }
-  #page-vcare-features .footer-text  { font-family:'Space Mono',monospace; font-size:11px; color:#333d55; }
+  #page-vcare-features .footer-logo { font-family:'Space Mono',monospace; font-size:13px; color:var(--blue); }
+  #page-vcare-features .footer-text  { font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); }
   @media(max-width:960px){
     #page-vcare-features nav { padding:0 24px; }
     #page-vcare-features .nav-links { display:none; }
@@ -8687,9 +8698,9 @@
   <nav>
     <div class="nav-logo">v.care / aitrics</div>
     <ul class="nav-links">
-      <li><a href="#vcfn-cohort">in 코호트</a></li>
-      <li><a href="#vcfn-clinical">임상·신약 매칭</a></li>
-      <li><a href="#vcfn-report">검사기록지</a></li>
+      <li><a href="#cohort">in 코호트</a></li>
+      <li><a href="#clinical">임상·신약 매칭</a></li>
+      <li><a href="#report">검사기록지</a></li>
     </ul>
   </nav>
 
@@ -8713,7 +8724,7 @@
   </section>
 
   <!-- FEATURE 01 · in 코호트 -->
-  <section class="feature-section" id="vcfn-cohort">
+  <section class="feature-section" id="cohort">
     <div class="fs-glow fs-glow-green"></div>
     <div class="fs-inner reveal">
       <div class="fs-text">
@@ -8743,7 +8754,7 @@
             </div>
             <div class="iphone-screen">
               <video autoplay loop muted playsinline>
-                <source src="assets/0.%20in%EC%BD%94%ED%98%B8%ED%8A%B8%281%29.mp4" type="video/mp4">
+                <source src="assets/5.%20in%20%EC%BD%94%ED%98%B8%ED%8A%B8%281%29.mp4" type="video/mp4">
               </video>
             </div>
             <div class="iphone-home"><div class="iphone-home-bar"></div></div>
@@ -8754,7 +8765,7 @@
   </section>
 
   <!-- FEATURE 02 · 임상/신약 매칭 -->
-  <section class="feature-section" id="vcfn-clinical">
+  <section class="feature-section" id="clinical">
     <div class="fs-glow fs-glow-pink"></div>
     <div class="fs-inner reverse reveal">
       <div class="fs-phone reveal-delay1">
@@ -8766,7 +8777,7 @@
             </div>
             <div class="iphone-screen">
               <video autoplay loop muted playsinline>
-                <source src="assets/1.%20%EC%BD%94%ED%98%B8%ED%8A%B8%20%EC%9E%84%EC%83%81%20%EB%A7%A4%EC%B9%AD%281%29.mp4" type="video/mp4">
+                <source src="assets/3.%20%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%B1%84%ED%8C%85%20%EB%8C%80%ED%99%94%20%EC%9A%94%EC%95%BD%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%2B%20%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EB%8B%B5%EB%B3%80%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%281%29.mp4" type="video/mp4">
               </video>
             </div>
             <div class="iphone-home"><div class="iphone-home-bar"></div></div>
@@ -8796,7 +8807,7 @@
   </section>
 
   <!-- FEATURE 03 · 검사기록지 설명 에이전트 -->
-  <section class="feature-section" id="vcfn-report">
+  <section class="feature-section" id="report">
     <div class="fs-glow fs-glow-yellow"></div>
     <div class="fs-inner reveal">
       <div class="fs-text">
@@ -8849,7 +8860,7 @@
             </div>
             <div class="iphone-screen">
               <video autoplay loop muted playsinline>
-                <source src="assets/2.%20%EA%B2%80%EC%82%AC%EA%B8%B0%EB%A1%9D%EC%A7%80%20%ED%95%B4%EC%84%9D%20%281%29.mp4" type="video/mp4">
+                <source src="assets/1%2C%20%ED%99%88%ED%99%94%EB%A9%B4%20%EC%A7%84%EC%9E%85%28%EB%8B%A4%EC%A7%88%ED%99%98%20%ED%99%95%EC%9E%A5%29.mp4" type="video/mp4">
               </video>
             </div>
             <div class="iphone-home"><div class="iphone-home-bar"></div></div>
