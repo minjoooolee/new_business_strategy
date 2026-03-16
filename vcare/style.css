@@ -262,7 +262,199 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   Disease board
+   Upload Banner (검사기록지 업로드)
+   ============================================================ */
+.upload-banner {
+  padding: 36px 0 48px;
+  background: var(--bg-soft);
+}
+
+.upload-banner-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 40px 44px;
+  background: linear-gradient(135deg, #fff 0%, #f0fdf4 30%, #f5f3ff 70%, #fdf2f8 100%);
+  border: 1.5px solid rgba(139,92,246,.15);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(139,92,246,.08), 0 1px 4px rgba(0,0,0,.04);
+}
+
+.upload-banner-glow {
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,.12) 0%, rgba(236,72,153,.08) 50%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.upload-banner-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.upload-banner-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #fff;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.upload-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.upload-banner-title svg {
+  color: #8b5cf6;
+  flex-shrink: 0;
+}
+
+.upload-banner-desc {
+  font-size: .95rem;
+  color: var(--sub);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+.upload-banner-desc strong {
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.upload-banner-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.upload-feature {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.upload-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+}
+.upload-feature-icon svg { display: block; }
+
+.upload-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+  border-radius: 12px;
+  transition: transform .18s, box-shadow .18s;
+  box-shadow: 0 4px 16px rgba(139,92,246,.25);
+}
+.upload-banner-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(139,92,246,.35);
+}
+
+/* Mock phone visual */
+.upload-banner-visual {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.upload-mock-phone {
+  width: 180px;
+  height: 240px;
+  background: #1e1b4b;
+  border-radius: 24px;
+  padding: 12px 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+  transform: rotate(2deg);
+}
+
+.upload-mock-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 14px;
+  overflow: hidden;
+}
+
+.upload-mock-doc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upload-mock-line {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+}
+.upload-mock-line.w80 { width: 80%; }
+.upload-mock-line.w60 { width: 60%; }
+.upload-mock-line.w90 { width: 90%; }
+.upload-mock-line.w40 { width: 40%; }
+.upload-mock-line.w70 { width: 70%; }
+
+.upload-mock-scan {
+  position: absolute;
+  left: 0; right: 0;
+  top: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+  animation: scanLine 2.5s ease-in-out infinite;
+}
+
+@keyframes scanLine {
+  0%, 100% { top: 15%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  50% { top: 80%; }
+}
+
+.upload-mock-badge-ai {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  padding: 3px 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border-radius: 8px;
+}
+
+/* ============================================================
+   Disease board (legacy — kept for community page)
    ============================================================ */
 .board {
   padding: 44px 0 60px;
@@ -433,6 +625,12 @@ ul { list-style: none; }
 
   .hero { padding: calc(var(--gnb-h) + 36px) 0 36px; }
   .hero-blob { width: 340px; height: 340px; top: -40px; right: -40px; }
+
+  .upload-banner-card { flex-direction: column; gap: 28px; padding: 28px 20px; }
+  .upload-banner-visual { display: none; }
+  .upload-banner-title { font-size: 1.25rem; }
+  .upload-banner-features { gap: 8px; }
+  .upload-feature { font-size: .75rem; padding: 5px 10px; }
 
   .grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .card { padding: 16px 8px 14px; }
