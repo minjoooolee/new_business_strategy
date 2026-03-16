@@ -81,8 +81,17 @@
     <!-- 프로필 바 -->
     <div class="cohort-profile" id="cohortProfile"></div>
 
+    <!-- 데스크톱 내부 탭 바 -->
+    <div class="cohort-desktop-tabs" id="cohortDesktopTabs" style="grid-column:1/-1;display:flex;gap:0;border-bottom:1.5px solid #f3f4f6;margin-bottom:4px">
+      <button class="cohort-dtab active" onclick="switchDesktopTab('main',this)">📋 게시판 · 채팅</button>
+      <button class="cohort-dtab" onclick="switchDesktopTab('matching',this)">💊 임상/신약 매칭</button>
+    </div>
+
     <!-- 좌측: 공지/게시판 -->
     <section class="cohort-board" id="cohortBoard"></section>
+
+    <!-- 임상/신약 매칭 섹션 -->
+    <section class="cohort-matching" id="cohortMatching" style="display:none;grid-column:1/-1"></section>
 
     <!-- 우측: 실시간 채팅 -->
     <section class="cohort-chat" id="cohortChat">
@@ -751,6 +760,250 @@ function getMissingSelections() {
     if (!selections[step.key]) return step.key;
   }
   return null;
+}
+
+// ── 데스크톱 탭 전환 ────────────────────────────
+function switchDesktopTab(name, el) {
+  document.querySelectorAll('.cohort-dtab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  const board = document.getElementById('cohortBoard');
+  const chat = document.getElementById('cohortChat');
+  const matching = document.getElementById('cohortMatching');
+
+  if (name === 'main') {
+    board.style.display = '';
+    chat.style.display = '';
+    matching.style.display = 'none';
+  } else {
+    board.style.display = 'none';
+    chat.style.display = 'none';
+    matching.style.display = '';
+    renderMatchingSection();
+  }
+}
+
+function renderMatchingSection() {
+  const el = document.getElementById('cohortMatching');
+  if (el.innerHTML.trim()) return; // 이미 렌더링됨
+
+  el.innerHTML = `
+    <!-- 상단 헤더 -->
+    <div style="padding:24px 28px;background:linear-gradient(135deg,#f0f9ff 0%,#faf5ff 100%);border-radius:16px;border:1px solid #e8dff0;margin-bottom:20px">
+      <div style="font-size:1.15rem;font-weight:700;color:#111827;margin-bottom:6px">어떤 약을 찾고 계세요?</div>
+      <div style="font-size:.88rem;color:#6b7280;line-height:1.6">AI가 나의 상태에 맞는 임상시험과 신약을 큐레이션해 드립니다.</div>
+    </div>
+
+    <!-- 임상 / 신약 카드 -->
+    <div style="display:flex;gap:16px;margin-bottom:24px">
+      <div class="matching-type-card-dt" id="dtMatchClinical" onclick="selectDtMatchType('clinical')">
+        <div style="font-size:36px;margin-bottom:10px">🔬</div>
+        <div style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:4px">임상시험</div>
+        <div style="font-size:.82rem;color:#6b7280;line-height:1.5">현재 모집 중인 임상시험 매칭</div>
+      </div>
+      <div class="matching-type-card-dt" id="dtMatchDrug" onclick="selectDtMatchType('drug')">
+        <div style="font-size:36px;margin-bottom:10px">💊</div>
+        <div style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:4px">신약</div>
+        <div style="font-size:.82rem;color:#6b7280;line-height:1.5">허가된 최신 신약 적합성 확인</div>
+      </div>
+    </div>
+
+    <!-- AI 안내 -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,#3fbfbc,#6E3FA3);font-size:10px;color:#fff;font-weight:800;font-family:Poppins,sans-serif">AI</span>
+      <span style="font-size:.95rem;font-weight:700;color:#111827">맞춤 매칭을 위해 아래 정보를 입력해 주세요</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <!-- 좌측 칼럼 -->
+      <div>
+        <!-- 진단 정보 -->
+        <div class="dt-matching-section">
+          <div class="dt-matching-section-title">📋 진단 정보</div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">진단 받은 시점</label>
+            <div class="dt-matching-options">
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">1개월 이내</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">1~6개월</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">6개월~1년</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">1~3년</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">3년 이상</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">현재 치료 상태</label>
+            <div class="dt-matching-options">
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">치료 중</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">치료 완료</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">치료 전(대기 중)</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">재발/전이</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 치료 이력 -->
+        <div class="dt-matching-section">
+          <div class="dt-matching-section-title">💉 치료 이력</div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">받은 항암제/방사선 치료</label>
+            <div style="font-size:.78rem;color:#9ca3af;margin-bottom:6px">코호트 암종에 따라 자동 큐레이션됩니다</div>
+            <div class="dt-matching-options dt-matching-options--wrap">
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">항암화학요법</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">방사선 치료</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">표적치료제</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">면역항암제</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">호르몬 치료</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">해당 없음</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">치료 차수</label>
+            <div class="dt-matching-options">
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">1차</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">2차</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">3차</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">4차 이상</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">해당 없음</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">특정 약제 사용 여부</label>
+            <div style="font-size:.78rem;color:#9ca3af;margin-bottom:6px">시험 약과 중복 여부 확인용</div>
+            <input type="text" class="dt-matching-input" placeholder="예: 키트루다, 허셉틴 등 (쉼표로 구분)">
+          </div>
+        </div>
+
+        <!-- 기저질환 -->
+        <div class="dt-matching-section">
+          <div class="dt-matching-section-title">⚠️ 기저질환 및 금기사항</div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">기저질환 여부</label>
+            <div class="dt-matching-options dt-matching-options--wrap">
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">심장질환</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">자가면역 질환</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">감염성 질환</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">당뇨</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">고혈압</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">해당 없음</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">현재 복용 중인 약물</label>
+            <input type="text" class="dt-matching-input" placeholder="예: 혈압약, 당뇨약 등 (쉼표로 구분)">
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">임신 또는 수유 중</label>
+            <div class="dt-matching-options">
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">해당 없음</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">임신 중</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">수유 중</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">임신 계획 중</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 우측 칼럼 -->
+      <div>
+        <!-- 신체 상태 -->
+        <div class="dt-matching-section">
+          <div class="dt-matching-section-title">🏃 신체 상태</div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">일상 생활 수행 능력 (ECOG)</label>
+            <div class="dt-matching-options dt-matching-options--vertical">
+              <button class="dt-matching-opt dt-matching-opt--wide" onclick="selectDtOpt(this)"><b>0점</b> — 정상 활동 가능</button>
+              <button class="dt-matching-opt dt-matching-opt--wide" onclick="selectDtOpt(this)"><b>1점</b> — 경미한 증상, 일상 활동 가능</button>
+              <button class="dt-matching-opt dt-matching-opt--wide" onclick="selectDtOpt(this)"><b>2점</b> — 낮 시간 50% 이상 활동 가능</button>
+              <button class="dt-matching-opt dt-matching-opt--wide" onclick="selectDtOpt(this)"><b>3점</b> — 낮 시간 50% 이상 침대/의자 생활</button>
+              <button class="dt-matching-opt dt-matching-opt--wide" onclick="selectDtOpt(this)"><b>4점</b> — 완전히 거동 불가</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">주요 장기 기능</label>
+            <div style="font-size:.78rem;color:#9ca3af;margin-bottom:6px">해당하는 항목을 모두 선택해 주세요</div>
+            <div class="dt-matching-options dt-matching-options--wrap">
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">간수치 정상</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">간수치 이상</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">신장 기능 정상</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">신장 기능 이상</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">혈액 수치 정상</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">혈액 수치 이상</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">잘 모르겠어요</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">보행 가능 여부</label>
+            <div class="dt-matching-options">
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">독립 보행 가능</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">보조기구 사용</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">보행 불가</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 유전자/바이오마커 -->
+        <div class="dt-matching-section">
+          <div class="dt-matching-section-title">🧬 유전자 · 바이오마커</div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">유전자 변이 여부</label>
+            <div style="font-size:.78rem;color:#9ca3af;margin-bottom:6px">해당하는 항목을 모두 선택해 주세요</div>
+            <div class="dt-matching-options dt-matching-options--wrap">
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">BRCA 변이</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">HER2 양성</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">PD-L1 양성</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">EGFR 변이</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">ALK 변이</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">KRAS 변이</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">MSI-H/dMMR</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">기타 변이</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">변이 없음</button>
+              <button class="dt-matching-opt" onclick="selectDtOptMulti(this)">검사 안 함</button>
+            </div>
+          </div>
+          <div class="dt-matching-field">
+            <label class="dt-matching-label">유전자/바이오마커 검사 경험</label>
+            <div class="dt-matching-options">
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">검사 받은 적 있음</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">검사 받은 적 없음</button>
+              <button class="dt-matching-opt" onclick="selectDtOpt(this)">잘 모르겠어요</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 제출 버튼 -->
+    <button class="dt-matching-submit" onclick="alert('AI가 입력하신 정보를 분석하여 맞춤 임상시험/신약을 매칭합니다.')">
+      <span style="display:inline-flex;align-items:center;gap:8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        AI 맞춤 매칭 시작하기
+      </span>
+    </button>
+  `;
+}
+
+function selectDtMatchType(type) {
+  document.querySelectorAll('.matching-type-card-dt').forEach(c => c.classList.remove('selected'));
+  document.getElementById(type === 'clinical' ? 'dtMatchClinical' : 'dtMatchDrug').classList.add('selected');
+}
+
+function selectDtOpt(btn) {
+  btn.parentElement.querySelectorAll('.dt-matching-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function selectDtOptMulti(btn) {
+  btn.classList.toggle('selected');
+  const exclusive = ['해당 없음', '검사 안 함', '변이 없음'];
+  if (exclusive.some(e => btn.textContent.trim() === e) && btn.classList.contains('selected')) {
+    btn.parentElement.querySelectorAll('.dt-matching-opt').forEach(b => {
+      if (b !== btn) b.classList.remove('selected');
+    });
+  } else {
+    btn.parentElement.querySelectorAll('.dt-matching-opt').forEach(b => {
+      if (exclusive.some(e => b.textContent.trim() === e)) b.classList.remove('selected');
+    });
+  }
 }
 
 // ── 초기화 ────────────────────────────────────
