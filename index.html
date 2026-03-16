@@ -2611,6 +2611,72 @@
   #page-vdoc-proposal .vdp-risk-card { grid-template-columns: 1fr; gap: 12px; }
   #page-vdoc-proposal .vdp-hero h1 { font-size: 32px; letter-spacing: -1px; }
 }
+
+/* ===== VDOC ANALYSIS + REPORT SHARED STYLES ===== */
+#page-vdoc-analysis, #page-vdoc-report {
+  --navy:#1E3A5F; --navy-bg:#EDF1F7; --navy-border:#C5D0E0;
+  --slate:#334155; --slate-bg:#F1F3F6; --slate-border:#CBD5E1;
+  --steel:#64748B; --steel-bg:#F8F9FB; --gray-bg:#F4F5F7;
+  --dark:#0F1A2E; --surface:#FFF; --border:#D8DCE3;
+  --text:#1A1D26; --text-mid:#4A4F5C; --text-dim:#8A8F9C;
+  background:#F8F9FB; font-family:'Noto Sans KR',sans-serif; color:#1A1D26; line-height:1.7; overflow-y:auto;
+}
+#page-vdoc-analysis .vd-page, #page-vdoc-report .vd-page { width:80%; max-width:1100px; margin:0 auto; background:#FFF; min-height:100vh; padding:44px 56px; box-shadow:0 0 40px rgba(0,0,0,.04); }
+#page-vdoc-analysis .vd-header, #page-vdoc-report .vd-header { text-align:center; padding-bottom:28px; margin-bottom:36px; border-bottom:2px solid var(--navy); }
+#page-vdoc-analysis .vd-header .badge, #page-vdoc-report .vd-header .badge { display:inline-block; font-size:10px; font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--navy); background:var(--navy-bg); border:1px solid var(--navy-border); padding:3px 11px; border-radius:20px; margin-bottom:12px; }
+#page-vdoc-analysis .vd-header h1, #page-vdoc-report .vd-header h1 { font-size:28px; font-weight:800; color:var(--text); line-height:1.35; margin-bottom:5px; }
+#page-vdoc-analysis .vd-header h1 span, #page-vdoc-report .vd-header h1 span { color:var(--navy); }
+#page-vdoc-analysis .vd-header .sub, #page-vdoc-report .vd-header .sub { font-size:13px; color:var(--text-mid); font-weight:500; }
+#page-vdoc-analysis .vd-sec, #page-vdoc-report .vd-sec { margin-bottom:38px; }
+#page-vdoc-analysis .vd-sec h2, #page-vdoc-report .vd-sec h2 { font-size:18px; font-weight:800; color:var(--text); margin-bottom:14px; padding-bottom:6px; border-bottom:2px solid var(--navy); display:flex; align-items:center; gap:9px; }
+#page-vdoc-analysis .vd-sec h2 .n, #page-vdoc-report .vd-sec h2 .n { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; background:var(--navy); color:#fff; border-radius:6px; font-size:12px; font-weight:700; flex-shrink:0; }
+#page-vdoc-analysis .vd-sec h3, #page-vdoc-report .vd-sec h3 { font-size:15px; font-weight:700; color:var(--navy); margin:20px 0 8px; }
+#page-vdoc-analysis .ln, #page-vdoc-report .ln { font-size:13.5px; color:var(--text-mid); line-height:1.75; margin-bottom:6px; }
+#page-vdoc-analysis .ln strong, #page-vdoc-report .ln strong { color:var(--text); font-weight:600; }
+#page-vdoc-analysis .lg, #page-vdoc-report .lg { margin-bottom:14px; }
+#page-vdoc-analysis .co, #page-vdoc-report .co { border-radius:8px; padding:16px 20px; margin:14px 0; border-left:4px solid var(--navy); background:var(--navy-bg); }
+#page-vdoc-analysis .co-s, #page-vdoc-report .co-s { border-left-color:var(--slate); background:var(--slate-bg); }
+#page-vdoc-analysis .co-d, #page-vdoc-report .co-d { border-left-color:var(--steel); background:var(--steel-bg); }
+#page-vdoc-analysis .co-dk, #page-vdoc-report .co-dk { border-left-color:var(--dark); background:#E8EBF0; }
+#page-vdoc-analysis .co .ct, #page-vdoc-report .co .ct { font-size:12.5px; font-weight:700; margin-bottom:5px; color:var(--navy); }
+#page-vdoc-analysis .co-s .ct, #page-vdoc-report .co-s .ct { color:var(--slate); }
+#page-vdoc-analysis .co-d .ct, #page-vdoc-report .co-d .ct { color:var(--steel); }
+#page-vdoc-analysis .co-dk .ct, #page-vdoc-report .co-dk .ct { color:var(--dark); }
+#page-vdoc-analysis .co .ln, #page-vdoc-report .co .ln { font-size:12.5px; margin-bottom:4px; }
+#page-vdoc-analysis .ag, #page-vdoc-report .ag { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:14px 0; }
+#page-vdoc-analysis .ag2, #page-vdoc-report .ag2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+#page-vdoc-analysis .ac, #page-vdoc-report .ac { background:var(--surface); border:1.5px solid var(--navy-border); border-radius:8px; padding:12px 14px; border-top:3px solid var(--navy); }
+#page-vdoc-analysis .ac-s, #page-vdoc-report .ac-s { border-top-color:var(--slate); }
+#page-vdoc-analysis .ac .ab, #page-vdoc-report .ac .ab { display:inline-block; font-size:9px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--navy); background:var(--navy-bg); padding:2px 7px; border-radius:4px; margin-bottom:5px; }
+#page-vdoc-analysis .ac-s .ab, #page-vdoc-report .ac-s .ab { color:var(--slate); background:var(--slate-bg); }
+#page-vdoc-analysis .ac h4, #page-vdoc-report .ac h4 { font-size:12.5px; font-weight:700; color:var(--text); margin-bottom:5px; }
+#page-vdoc-analysis .ac .ln, #page-vdoc-report .ac .ln { font-size:11.5px; margin-bottom:2px; }
+#page-vdoc-analysis .tbl, #page-vdoc-report .tbl { width:100%; border-collapse:collapse; margin:12px 0; font-size:12px; }
+#page-vdoc-analysis .tbl th, #page-vdoc-report .tbl th { padding:8px 12px; text-align:left; font-weight:700; color:#fff; font-size:11px; background:var(--navy); }
+#page-vdoc-analysis .tbl th:first-child, #page-vdoc-report .tbl th:first-child { border-radius:6px 0 0 0; }
+#page-vdoc-analysis .tbl th:last-child, #page-vdoc-report .tbl th:last-child { border-radius:0 6px 0 0; }
+#page-vdoc-analysis .tbl td, #page-vdoc-report .tbl td { padding:8px 12px; border-bottom:1px solid var(--border); color:var(--text-mid); line-height:1.55; vertical-align:top; }
+#page-vdoc-analysis .tbl td:first-child, #page-vdoc-report .tbl td:first-child { font-weight:600; color:var(--text); background:var(--gray-bg); white-space:nowrap; }
+#page-vdoc-analysis .tbl .hi, #page-vdoc-report .tbl .hi { background:var(--navy-bg); }
+#page-vdoc-analysis .tbl .pos, #page-vdoc-report .tbl .pos { color:var(--navy); font-weight:600; }
+#page-vdoc-analysis .sl, #page-vdoc-report .sl { list-style:none; counter-reset:sl; margin:12px 0; padding:0; }
+#page-vdoc-analysis .sl li, #page-vdoc-report .sl li { counter-increment:sl; padding:12px 14px 12px 46px; margin-bottom:7px; background:var(--gray-bg); border-radius:7px; font-size:13px; color:var(--text-mid); line-height:1.65; position:relative; }
+#page-vdoc-analysis .sl li::before, #page-vdoc-report .sl li::before { content:counter(sl); position:absolute; left:12px; top:12px; width:24px; height:24px; background:var(--navy); color:#fff; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+#page-vdoc-analysis .sl li strong, #page-vdoc-report .sl li strong { color:var(--text); }
+#page-vdoc-analysis .kpi-grid, #page-vdoc-report .kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:14px 0; }
+#page-vdoc-analysis .kpi, #page-vdoc-report .kpi { background:var(--navy-bg); border-radius:8px; padding:14px 16px; text-align:center; border:1px solid var(--navy-border); }
+#page-vdoc-analysis .kpi .kv, #page-vdoc-report .kpi .kv { font-size:22px; font-weight:800; color:var(--navy); margin-bottom:2px; }
+#page-vdoc-analysis .kpi .kl, #page-vdoc-report .kpi .kl { font-size:11px; color:var(--text-mid); font-weight:500; }
+#page-vdoc-analysis .journey, #page-vdoc-report .journey { display:grid; grid-template-columns:1fr 40px 1fr; gap:0; margin:14px 0; }
+#page-vdoc-analysis .jc, #page-vdoc-report .jc { border-radius:8px; padding:14px 16px; border:1.5px solid; }
+#page-vdoc-analysis .jc h4, #page-vdoc-report .jc h4 { font-size:13px; font-weight:700; margin-bottom:7px; }
+#page-vdoc-analysis .jc .ln, #page-vdoc-report .jc .ln { font-size:12px; margin-bottom:3px; }
+#page-vdoc-analysis .j-pre, #page-vdoc-report .j-pre { background:var(--slate-bg); border-color:var(--slate-border); }
+#page-vdoc-analysis .j-pre h4, #page-vdoc-report .j-pre h4 { color:var(--slate); }
+#page-vdoc-analysis .j-post, #page-vdoc-report .j-post { background:var(--navy-bg); border-color:var(--navy-border); }
+#page-vdoc-analysis .j-post h4, #page-vdoc-report .j-post h4 { color:var(--navy); }
+#page-vdoc-analysis .j-mid, #page-vdoc-report .j-mid { display:flex; align-items:center; justify-content:center; font-size:24px; color:var(--text-dim); }
+#page-vdoc-analysis .vd-footer, #page-vdoc-report .vd-footer { text-align:center; padding-top:24px; margin-top:32px; border-top:2px solid var(--border); font-size:10px; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
 </style>
 </head>
 <body>
@@ -2689,6 +2755,18 @@
           <a href="#" onclick="navigateVdoc('proposal', event)" class="pinkcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
             제안서
+          </a>
+          <a href="#" onclick="navigateVdoc('analysis', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            현장 분석
+          </a>
+          <a href="#" onclick="navigateVdoc('report', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            제안서(보고용)
+          </a>
+          <a href="#" onclick="navigateVdoc('report2', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            제안서(버전2)
           </a>
 
         </div>
@@ -9455,6 +9533,88 @@
         </div>
       </div>
     </section>
+    <!-- 현장 분석 추가 섹션 -->
+    <section style="background:#F8F9FB; padding:80px 40px;">
+      <div class="vdp-container">
+        <div style="text-align:center;margin-bottom:48px;">
+          <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--accent-red);background:var(--accent-red-light);padding:4px 12px;border-radius:20px;margin-bottom:12px;">FIELD ANALYSIS</div>
+          <h2 style="font-size:32px;font-weight:900;letter-spacing:-1px;color:var(--text-primary);margin-bottom:12px;">사업 가능성 — 냉정한 현장 분석</h2>
+          <p style="font-size:15px;color:var(--text-secondary);">150인 기업 대표 미팅 피드백 기반 구조적 분석 및 전략 피벗 제언</p>
+        </div>
+        <!-- 섹션 1 -->
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:36px;margin-bottom:24px;">
+          <div style="font-size:11px;font-weight:700;color:var(--accent-red);letter-spacing:0.08em;margin-bottom:8px;">SECTION 01</div>
+          <h3 style="font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:20px;">만난 대표의 반응은 "시장의 진실"이다</h3>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin-bottom:16px;">150인 기업 대표의 반응은 예외적인 게 아니라 <strong style="color:var(--text-primary)">한국 중소기업 대표의 전형적 반응</strong>입니다. 이걸 한 명의 의견으로 치부하면 안 됩니다.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div style="background:#FFF5F5;border-left:4px solid var(--accent-red);border-radius:0 8px 8px 0;padding:20px;">
+              <div style="font-size:12px;font-weight:700;color:var(--accent-red);margin-bottom:8px;">"직원 건강 보고를 받는 것이 머리아프다"의 속뜻</div>
+              <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong style="color:var(--text-primary)">첫째,</strong> 건강 데이터 수신 = "알았다는 증거" → 중대재해처벌법 하에서 법적 리스크를 키울 수 있다는 심리</p>
+              <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong style="color:var(--text-primary)">둘째,</strong> 정신건강 수치 낮음 = "나쁜 회사" 낙인 → 자기 부정이 두려움</p>
+              <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary)">셋째,</strong> HR팀 1~2명인 150인 기업에서 후속 조치 실행 역량 자체가 없음</p>
+            </div>
+            <div style="background:#F0F4FF;border-left:4px solid var(--brand);border-radius:0 8px 8px 0;padding:20px;">
+              <div style="font-size:12px;font-weight:700;color:var(--brand);margin-bottom:8px;">"추가 경비 지출을 원하지 않는다"의 진짜 문제</div>
+              <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;">150명 × 월 3,000원 = <strong style="color:var(--text-primary)">연간 540만 원</strong></p>
+              <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">금액이 크다는 게 아닙니다. 문제는 이 투자의 <strong style="color:var(--text-primary)">ROI를 체감할 수 없다</strong>는 것입니다. 직원이 안 아프면 "원래 안 아팠을 수도 있지"가 됩니다.</p>
+            </div>
+          </div>
+        </div>
+        <!-- 섹션 2 -->
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:36px;margin-bottom:24px;">
+          <div style="font-size:11px;font-weight:700;color:var(--accent-red);letter-spacing:0.08em;margin-bottom:8px;">SECTION 02</div>
+          <h3 style="font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:20px;">우리 사업 모델의 구조적 문제점</h3>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:18px 20px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;vertical-align:middle;">①</span><strong style="color:var(--text-primary);">구매자와 사용자의 이해관계 충돌.</strong><span style="font-size:13.5px;color:var(--text-secondary);"> 대표/CFO에게는 비용, 직원에게는 "감시 도구", HR에게는 추가 업무. 세 이해관계자 중 누구도 적극적으로 원하지 않는 제품일 수 있습니다.</span></div>
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:18px 20px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;vertical-align:middle;">②</span><strong style="color:var(--text-primary);">"있으면 좋은 것"이지 "없으면 안 되는 것"이 아닙니다.</strong><span style="font-size:13.5px;color:var(--text-secondary);"> 사무직 중심 150인 기업에서 중대재해처벌법의 처벌 기준(사망 1명 이상, 요양 부상자 동시 2명 이상)을 체감할 확률은 매우 낮습니다.</span></div>
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:18px 20px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;vertical-align:middle;">③</span><strong style="color:var(--text-primary);">Spring Health/Lyra Health 모델을 한국에 직접 대입하기 어렵습니다.</strong><span style="font-size:13.5px;color:var(--text-secondary);"> 미국은 기업이 직원 건강보험을 직접 부담 → 정신건강 관리 = 보험료 절감. 한국은 국민건강보험 체계 → 재무적 인센티브 구조 근본적으로 다름.</span></div>
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:18px 20px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;vertical-align:middle;">④</span><strong style="color:var(--text-primary);">국내 헬스케어 B2C/B2B 시장의 잔혹한 현실.</strong><span style="font-size:13.5px;color:var(--text-secondary);"> 롯데헬스케어 연 매출 8억/영업손실 229억, 올라케어 매각. 대기업도 이 정도인데, 스타트업이 기업 대상 건강관리 SaaS를 파는 것은 훨씬 더 험난한 길입니다.</span></div>
+          </div>
+        </div>
+        <!-- 섹션 3 -->
+        <div style="background:var(--brand);border-radius:16px;padding:36px;margin-bottom:24px;color:#fff;">
+          <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.08em;margin-bottom:8px;">SECTION 03</div>
+          <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">그렇다면 이 사업은 접어야 하나?</h3>
+          <p style="font-size:15px;line-height:1.8;color:rgba(255,255,255,0.9);">아닙니다. 다만 현재 설계 그대로는 시장 진입이 매우 어렵습니다. <strong>방향 전환(피벗)이 필요합니다.</strong> MOCA 엔진이라는 핵심 기술은 그대로 두고, 포장과 진입 경로를 바꾸면 기회는 충분히 있습니다.</p>
+        </div>
+        <!-- 섹션 4 -->
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:36px;margin-bottom:24px;">
+          <div style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:0.08em;margin-bottom:8px;">SECTION 04</div>
+          <h3 style="font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:20px;">해결책 — 5가지 대안 전략</h3>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:#F8F9FB;border-radius:10px;"><div style="min-width:36px;height:36px;background:var(--brand);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;">A</div><div><strong style="font-size:14px;color:var(--text-primary);">"기업 직접 판매" 대신 "의무 이행 대행" 포지셔닝</strong><p style="font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.7;">"건강관리 솔루션"이 아니라 "법적 의무 이행 자동화 도구 + 증빙 생성기"로 리포지셔닝. 문진 결과를 법적 증빙 보고서로 자동 생성. 고위험 직원 알림도 대표가 아닌 산업보건의/외부 EAP 기관으로 라우팅.</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:#F8F9FB;border-radius:10px;"><div style="min-width:36px;height:36px;background:var(--brand);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;">B</div><div><strong style="font-size:14px;color:var(--text-primary);">B2B2C 채널 전략</strong><p style="font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.7;">보험사 단체보험 부가서비스, 건강검진기관 사후관리 연계, EAP 업체 번들링. 눔(Noom)도 초기에 정부 승인 후 B2B2C로 시장 진출. 헬스케어에서 더 현실적인 경로입니다.</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:#F8F9FB;border-radius:10px;"><div style="min-width:36px;height:36px;background:var(--brand);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;">C</div><div><strong style="font-size:14px;color:var(--text-primary);">타깃 세분화 — 제조업 100~300인으로 집중</strong><p style="font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.7;">사무직 세그먼트가 틀렸을 가능성. 제조업·건설업·물류업 대표들은 실제로 직원이 다치거나 사망하면 징역형을 받을 수 있어 공포감이 비교할 수 없습니다. 신체건강 모듈(근골격계, 직업병)을 먼저 출시.</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:#F8F9FB;border-radius:10px;"><div style="min-width:36px;height:36px;background:var(--brand);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;">D</div><div><strong style="font-size:14px;color:var(--text-primary);">정부·공공조달 시장 우선 진입</strong><p style="font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.7;">건강친화기업 인증제도 획득 도구로 포지셔닝 → "비용"이 아니라 "인증 투자"가 됩니다. 산업안전보건공단 사업에 기술 파트너로 참여하면 정부 예산으로 시장을 열 수 있습니다.</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:#F8F9FB;border-radius:10px;"><div style="min-width:36px;height:36px;background:var(--brand);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;">E</div><div><strong style="font-size:14px;color:var(--text-primary);">MVP 극도로 가볍게 — 건강검진 사후관리 챗봇부터</strong><p style="font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.7;">"연간 건강검진 결과를 V.Doc에 올리면, AI가 개인별 사후관리 가이드를 제공하고, 회사에는 전체 건강 리스크 요약만 보고합니다." 기업은 소액 추가, 직원은 거부감 적음, 대표는 보고 부담 없이 증거만 확보.</p></div></div>
+          </div>
+        </div>
+        <!-- 섹션 5 -->
+        <div style="background:#fff;border:1px solid var(--border-light);border-radius:16px;padding:36px;margin-bottom:24px;">
+          <div style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:0.08em;margin-bottom:8px;">SECTION 05</div>
+          <h3 style="font-size:20px;font-weight:800;color:var(--text-primary);margin-bottom:20px;">기업 대표를 납득시킬 수 있는 3가지 논리</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+            <div style="background:#F8F9FB;border-radius:10px;padding:20px;"><div style="font-size:11px;font-weight:700;color:var(--brand);margin-bottom:8px;">논리 1</div><strong style="font-size:14px;color:var(--text-primary);display:block;margin-bottom:8px;">"보험"의 프레임</strong><p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">연 540만 원은 비용이 아니라 보험료입니다. 직원 1명 번아웃 퇴사 시 채용·교육 비용 2,000~5,000만 원. 과로사·자살 시 대표는 징역형 + 수십억 배상 리스크. 540만 원은 이 리스크 대비 0.1%도 안 됩니다.</p></div>
+            <div style="background:#F8F9FB;border-radius:10px;padding:20px;"><div style="font-size:11px;font-weight:700;color:var(--brand);margin-bottom:8px;">논리 2</div><strong style="font-size:14px;color:var(--text-primary);display:block;margin-bottom:8px;">"몰랐습니다"가 통하지 않는 시대</strong><p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">수사기관은 위험요인의 사전 파악·관리 여부까지 확인하며 형사 책임을 묻고 있습니다. "몰랐습니다"는 면책이 안 됩니다. 시스템적으로 파악하고 대응한 기록이 있어야 면책됩니다. V.Doc은 그 기록을 자동으로 만들어주는 도구입니다.</p></div>
+            <div style="background:#F8F9FB;border-radius:10px;padding:20px;"><div style="font-size:11px;font-weight:700;color:var(--brand);margin-bottom:8px;">논리 3</div><strong style="font-size:14px;color:var(--text-primary);display:block;margin-bottom:8px;">채용 경쟁력 차별화</strong><p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;">150인 기업이 네이버·카카오·삼성과 인재를 놓고 경쟁합니다. "AI 기반 직원 건강관리 프로그램 운영"이라는 한 줄이 채용공고에 들어가면 인재를 한 명이라도 더 잡을 수 있습니다. 직원들은 원하지만 기업이 안 하는 영역입니다.</p></div>
+          </div>
+        </div>
+        <!-- 섹션 6 -->
+        <div style="background:var(--text-primary);border-radius:16px;padding:36px;color:#fff;">
+          <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.08em;margin-bottom:8px;">SECTION 06</div>
+          <h3 style="font-size:20px;font-weight:800;margin-bottom:16px;">최종 제언</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.8;margin-bottom:20px;">이 사업의 핵심 자산인 MOCA 엔진과 임상 검증 데이터, 그리고 의료 AI 역량은 분명히 가치가 있습니다. 문제는 패키징과 판매 경로입니다.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="min-width:24px;height:24px;background:var(--brand);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</div><p style="font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.7;"><strong>대안 E(건강검진 사후관리 챗봇)</strong>로 MVP를 극도로 가볍게 재설계. 건강검진기관과 제휴하여 기업이 추가 비용 부담을 거의 느끼지 못하는 형태로 진입.</p></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="min-width:24px;height:24px;background:var(--brand);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</div><p style="font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.7;"><strong>대안 C</strong>에 따라 타깃을 제조업/건설업으로 좁히고 신체건강 모듈 우선 개발.</p></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="min-width:24px;height:24px;background:var(--brand);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</div><p style="font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.7;"><strong>대안 D</strong>로 정부 사업·건강친화기업 인증 연계를 동시 추진.</p></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><div style="min-width:24px;height:24px;background:var(--brand);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">4</div><p style="font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.7;">풀스택 Enterprise 대시보드는 <strong>Phase 2~3</strong>에서 고객이 충분히 쌓인 후 확장.</p></div>
+          </div>
+          <div style="margin-top:24px;padding:16px;background:rgba(255,255,255,0.08);border-radius:10px;"><p style="font-size:14px;font-weight:600;color:#fff;line-height:1.7;">현장의 부정적 반응은 실패 신호가 아니라 <strong>제품-시장 핏(PMF)을 조정하라는 신호</strong>입니다. MOCA 엔진이라는 핵심 기술은 그대로 두고, 포장과 진입 경로를 바꾸면 기회는 충분히 있습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
     <div class="vdp-footer">
       <p>AITRICS Corporation · V.Doc Enterprise Wellness AI Platform · 내부 기밀 — 외부 배포 금지 · 2026</p>
     </div>
@@ -9478,6 +9638,627 @@
     })();
     </script>
   </div><!-- /page-vdoc-proposal -->
+
+  <div class="page-section" id="page-vdoc-analysis">
+    <div class="vd-page">
+      <div class="vd-header">
+        <div class="badge">V.Doc Enterprise · 현장 분석 · 2026.03</div>
+        <h1><span>V.Doc Enterprise</span> 사업 가능성 — 냉정한 현장 분석</h1>
+        <div class="sub">150인 기업 대표 미팅 피드백 기반 구조적 분석 및 전략 피벗 제언 — AITRICS Corporation</div>
+      </div>
+
+      <!-- 1 -->
+      <div class="vd-sec">
+        <h2><span class="n">1</span>만난 대표의 반응은 "시장의 진실"이다</h2>
+        <p class="ln">150인 기업 대표의 반응은 예외적인 게 아니라 <strong>한국 중소기업 대표의 전형적 반응</strong>입니다. 이걸 한 명의 의견으로 치부하면 안 됩니다. 대표가 부정적이었던 핵심 이유를 구조적으로 분해하면 이렇습니다.</p>
+        <div class="co-s co">
+          <div class="ct">"직원 건강 보고를 받는 것이 머리아프다"의 속뜻 3가지</div>
+          <p class="ln"><strong>첫째,</strong> 건강 데이터가 올라오면 알고도 조치하지 않은 책임이 대표에게 생깁니다. 중대재해처벌법 하에서 경영책임자는 안전·보건 확보의무를 지며, 이를 위반하고 중대산업재해가 발생하면 형사처벌 대상이 됩니다. 즉, 모니터링 데이터는 대표 입장에서 "알았다는 증거"가 되어 오히려 <strong>법적 리스크를 키울 수 있다</strong>는 심리가 작동합니다.</p>
+          <p class="ln"><strong>둘째,</strong> 직원 정신건강 수치가 낮게 나오면 "우리 회사가 나쁜 회사"라는 자기 부정이 되는 것이 두렵습니다.</p>
+          <p class="ln"><strong>셋째,</strong> HR팀이 없거나 1~2명인 150인 기업에서 이 데이터를 받아 후속 조치를 실행할 역량 자체가 없습니다.</p>
+        </div>
+        <div class="co-d co">
+          <div class="ct">"추가 경비 지출을 원하지 않는다"의 진짜 문제</div>
+          <p class="ln">150명 × 월 3,000원 = <strong>연간 540만 원</strong>인데, 이 금액이 크다는 게 아닙니다. 문제는 이 투자의 ROI를 체감할 수 없다는 것입니다. 서울대 윤영호 교수팀 연구에 따르면 건강관리에 투자하면 의료비용 3.27배, 결근 2.73배 절감효과가 있다고 하지만, 150인 기업 대표에게 이 수치는 추상적입니다. 직원이 안 아프면 "원래 안 아팠을 수도 있지"가 됩니다.</p>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="vd-sec">
+        <h2><span class="n">2</span>우리 사업 모델의 구조적 문제점</h2>
+        <table class="tbl">
+          <thead><tr><th style="width:15%">문제</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>문제 ①</td><td><strong>구매자와 사용자의 이해관계 충돌.</strong> V.Doc Enterprise는 "기업이 돈을 내고, 직원이 사용하고, HR이 관리하는" 3자 구조입니다. 구매 결정권자(대표/CFO)에게는 비용이고, 직원에게는 "회사가 나를 감시하는 도구"로 인식될 수 있고, HR에게는 추가 업무입니다. 세 이해관계자 중 누구도 적극적으로 원하지 않는 제품일 수 있습니다.</td></tr>
+            <tr><td>문제 ②</td><td><strong>"있으면 좋은 것"이지 "없으면 안 되는 것"이 아닙니다.</strong> 중대재해처벌법이 실제로 처벌하는 것은 사망자 1명 이상, 3개월 이상 요양 부상자 동시 2명 이상, 직업성 질병자 동시 10명 이상이 발생한 경우입니다. 사무직 중심 150인 기업에서 이 수준의 재해가 발생할 확률은 매우 낮습니다.</td></tr>
+            <tr><td>문제 ③</td><td><strong>Spring Health/Lyra Health 모델을 한국에 직접 대입하기 어렵습니다.</strong> 미국은 기업이 직원 건강보험을 직접 부담하므로 정신건강 관리가 보험료 절감으로 직결됩니다. 한국은 국민건강보험 체계여서 기업이 직원 의료비를 직접 부담하지 않으므로, 건강관리 투자의 재무적 인센티브가 근본적으로 다릅니다.</td></tr>
+            <tr><td>문제 ④</td><td><strong>국내 헬스케어 B2C/B2B 시장의 잔혹한 현실.</strong> 롯데헬스케어는 연 매출 8억원에 영업손실 229억원을 기록했고, 올라케어는 가입자 확대가 어려워 결국 매각되었습니다. 대기업도 이 정도인데, 스타트업이 기업 대상으로 건강관리 SaaS를 파는 것은 훨씬 더 험난한 길입니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3 -->
+      <div class="vd-sec">
+        <h2><span class="n">3</span>그렇다면 이 사업은 접어야 하나?</h2>
+        <div class="co">
+          <div class="ct">결론</div>
+          <p class="ln"><strong>아닙니다.</strong> 다만 현재 설계 그대로는 시장 진입이 매우 어렵습니다. 방향 전환(피벗)이 필요합니다. MOCA 엔진이라는 핵심 기술은 그대로 두고, 포장과 진입 경로를 바꾸면 기회는 충분히 있습니다.</p>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="vd-sec">
+        <h2><span class="n">4</span>해결책 — 5가지 대안 전략</h2>
+        <ol class="sl">
+          <li><strong>대안 A: "기업 직접 판매" 대신 "의무 이행 대행" 포지셔닝</strong><br>V.Doc Enterprise를 "건강관리 솔루션"이 아니라 <strong>"법적 의무 이행 자동화 도구 + 증빙 생성기"</strong>로 리포지셔닝. 문진 결과를 대표에게 직접 보고하는 게 아니라, "법적 증빙 보고서"를 자동 생성하여 "당신은 의무를 이행했습니다"라는 안심감을 제공합니다. 고위험 직원 알림도 대표가 아닌 산업보건의/외부 EAP 기관으로 라우팅하면, 대표는 "알고도 조치하지 않은 책임"에서 벗어납니다.</li>
+          <li><strong>대안 B: B2B 직접 판매가 아닌 B2B2C 채널 전략</strong><br>보험사 단체보험 부가서비스로 V.Doc Enterprise를 탑재하거나, 건강검진기관 제휴로 "사후관리 프로그램"으로 V.Doc 연결, EAP 업체와 번들링합니다. 눔(Noom)도 미국 질병관리본부로부터 당뇨 예방프로그램 승인을 받은 뒤 B2B 시장에 진출한 사례처럼, B2B2C가 헬스케어에서 더 현실적인 경로입니다.</li>
+          <li><strong>대안 C: 타깃 세분화 — 제조업 100~300인으로 집중</strong><br>150인 사무직 기업 대표의 반응이 부정적이었다면, 이 세그먼트가 틀렸을 가능성을 고려해야 합니다. 중대재해처벌법이 체감되는 곳은 제조업·건설업·물류업 현장입니다. 신체건강 모듈(근골격계, 직업병)을 정신건강보다 먼저 출시하는 것이 현실적입니다.</li>
+          <li><strong>대안 D: 정부·공공조달 시장 우선 진입</strong><br>보건복지부와 한국건강증진개발원의 건강친화기업 인증제도를 획득 도구로 포지셔닝하면 "비용"이 아니라 "인증 투자"가 됩니다. 또한 고용노동부 근로자건강센터 사업, 산업안전보건공단 지원 사업에 기술 파트너로 참여하면 정부 예산으로 시장을 열 수 있습니다.</li>
+          <li><strong>대안 E: MVP를 극도로 가볍게 — "건강검진 사후관리 챗봇"부터 시작</strong><br>"연간 건강검진 결과를 V.Doc에 올리면, AI가 개인별 사후관리 가이드를 제공하고, 회사에는 전체 건강 리스크 요약만 보고합니다." 기업은 기존 건강검진 비용에 소액만 추가하면 되고, 직원은 개인화된 건강 조언을 받으니 거부감이 적고, 대표는 무거운 보고 부담 없이 "직원 건강관리를 하고 있다"는 증거만 확보합니다.</li>
+        </ol>
+      </div>
+
+      <!-- 5 -->
+      <div class="vd-sec">
+        <h2><span class="n">5</span>기업 대표를 납득시킬 수 있는 3가지 논리</h2>
+        <div class="ag">
+          <div class="ac">
+            <div class="ab">논리 1</div>
+            <h4>"보험"의 프레임</h4>
+            <p class="ln">"지금 연 540만 원은 비용이 아니라 보험료입니다. 직원 1명이 번아웃으로 퇴사하면 채용·교육 비용이 연봉의 50~150%, 즉 2,000~5,000만 원입니다. 직원 1명이 자살하거나 과로사하면 대표님은 징역형을 받을 수 있고, 회사는 수십억 원의 배상 리스크에 노출됩니다. 540만 원은 이 리스크 대비 0.1%도 안 됩니다."</p>
+          </div>
+          <div class="ac">
+            <div class="ab">논리 2</div>
+            <h4>"알지 못했습니다"가 더 이상 통하지 않는 시대</h4>
+            <p class="ln">최근 수사기관은 산업안전보건법과 중대재해처벌법을 유기적으로 연계하여 위험요인이 사전에 파악되고 관리되었는지까지 확인하며 경영책임자의 형사 책임을 묻고 있습니다. "몰랐습니다"는 면책이 안 됩니다. 오히려 <strong>시스템적으로 파악하고 대응한 기록이 있어야 면책</strong>됩니다. V.Doc은 그 기록을 자동으로 만들어주는 도구입니다.</p>
+          </div>
+          <div class="ac">
+            <div class="ab">논리 3</div>
+            <h4>채용 경쟁력 차별화</h4>
+            <p class="ln">150인 기업이 네이버·카카오·삼성과 인재를 놓고 경쟁합니다. 대기업은 사내 심리상담센터, 건강관리실이 있습니다. "AI 기반 직원 건강관리 프로그램 운영"이라는 한 줄이 채용공고에 들어가면, 그것만으로 대기업에 못 가는 인재를 한 명이라도 더 잡을 수 있습니다. 국민 인식조사에서도 기업 직원 건강관리 중요도는 <strong>10점 만점에 7.9점</strong>으로 높게 나타났지만, 현재 수준은 6.0점에 불과합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="vd-sec">
+        <h2><span class="n">6</span>최종 제언</h2>
+        <p class="ln lg">이 사업의 핵심 자산인 MOCA 엔진과 임상 검증 데이터, 그리고 의료 AI 역량은 분명히 가치가 있습니다. 문제는 패키징과 판매 경로입니다.</p>
+        <div class="co-dk co">
+          <div class="ct">추진 우선순위</div>
+          <p class="ln"><strong>Phase 1 (즉시):</strong> 대안 E — 건강검진 사후관리 챗봇으로 MVP를 극도로 가볍게 재설계. 건강검진기관과 제휴하여 기업이 추가 비용 부담을 거의 느끼지 못하는 형태로 진입.</p>
+          <p class="ln"><strong>Phase 2:</strong> 대안 C — 타깃을 제조업/건설업으로 좁히고 신체건강 모듈 우선 개발.</p>
+          <p class="ln"><strong>Phase 2 병행:</strong> 대안 D — 정부 사업·건강친화기업 인증 연계 추진.</p>
+          <p class="ln"><strong>Phase 3:</strong> 풀스택 Enterprise 대시보드는 고객이 충분히 쌓인 후 확장.</p>
+        </div>
+        <div class="co">
+          <div class="ct">핵심 메시지</div>
+          <p class="ln">현장의 부정적 반응은 실패 신호가 아니라 <strong>제품-시장 핏(PMF)을 조정하라는 신호</strong>입니다. MOCA 엔진이라는 핵심 기술은 그대로 두고, 포장과 진입 경로를 바꾸면 기회는 충분히 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="vd-footer">V.Doc Enterprise · 현장 분석 · AITRICS Corporation · 2026.03 · Confidential</div>
+    </div>
+  </div><!-- /page-vdoc-analysis -->
+
+  <div class="page-section" id="page-vdoc-report">
+    <div class="vd-page">
+      <div class="vd-header">
+        <div class="badge">V.Doc Enterprise · 사업 제안서 · 2026.03</div>
+        <h1><span>V.Doc Enterprise</span> Wellness AI Platform 사업 제안서</h1>
+        <div class="sub">기업 직원 건강관리 AI 솔루션 — 시장 분석 · 개발 전략 · MVP/POC 기획 — AITRICS Corporation</div>
+      </div>
+      <!-- 1 Executive Summary -->
+      <div class="vd-sec">
+        <h2><span class="n">1</span>Executive Summary</h2>
+        <p class="ln"><strong>V.Doc Enterprise Wellness AI Platform</strong>은 AITRICS의 자체 의료 AI 엔진 MOCA를 기반으로, 100인 이상 기업 직원의 정신 · 신체 건강을 AI 문진으로 상시 모니터링하고 조직 건강 인사이트를 제공하는 B2B SaaS 솔루션이다.</p>
+        <div class="ag">
+          <div class="ac"><div class="ab">MARKET</div><h4>SAM 16,500개 기업</h4><p class="ln">국내 100인 이상 기업 대상</p><p class="ln">연 구독 300~600만 원 기준</p><p class="ln"><strong>연간 약 500~1,000억 원 규모</strong></p></div>
+          <div class="ac"><div class="ab">TECHNOLOGY</div><h4>MOCA 엔진</h4><p class="ln">5만 건+ 임상 검수 데이터</p><p class="ln">5대 상급종합병원 검증</p><p class="ln"><strong>LLM 대비 85.77% 진단 정확도</strong></p></div>
+          <div class="ac"><div class="ab">REGULATION</div><h4>중대재해처벌법</h4><p class="ln">5인 이상 전면 적용 (2024~)</p><p class="ln">사망 시 경영자 1년↑ 징역</p><p class="ln"><strong>사전 예방 시스템 투자 유인</strong></p></div>
+        </div>
+        <div class="co"><div class="ct">핵심 제안</div><p class="ln">V.Doc의 의료 AI 역량을 기업 시장에 확장하여, <strong>직원 건강 사전 예방 + 법적 의무 이행 자동화 + HR 인사이트</strong>를 하나의 플랫폼에서 제공한다. 현장 피드백을 반영한 경량 MVP로 시작하여 단계적으로 확장한다.</p></div>
+      </div>
+      <!-- 2 시장 기회 -->
+      <div class="vd-sec">
+        <h2><span class="n">2</span>시장 기회</h2>
+        <h3>2.1 목표 시장 규모</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:18%">구분</th><th style="width:42%">정의</th><th style="width:40%">규모</th></tr></thead>
+          <tbody>
+            <tr><td>TAM</td><td>국내 50인 이상 전체 사업장</td><td>약 52,000개소 / 글로벌 기업 웰니스 시장 ~$75B (2024)</td></tr>
+            <tr><td>SAM</td><td>100인 이상 제조 · 서비스 · IT 중소기업</td><td class="hi"><strong>약 16,500개소</strong> / 연간 500~1,000억 원</td></tr>
+            <tr><td>SOM (1차)</td><td>제조업 100~300인 중소기업 (최우선 타깃)</td><td>약 4,000개소 / 연간 120~240억 원</td></tr>
+          </tbody>
+        </table>
+        <h3>2.2 규제 드라이버 — 중대재해처벌법</h3>
+        <p class="ln">2024년 1월부터 상시 근로자 5인 이상 전면 적용. 중대산업재해 발생 시 경영자에게 <strong>1년 이상 징역 또는 10억 원 이하 벌금</strong>을 부과한다.</p>
+        <p class="ln lg">수사기관은 산업안전보건법과 중대재해처벌법을 <strong>유기적으로 연계</strong>하여 위험요인의 사전 파악 · 관리 여부까지 확인하며 경영책임자 형사 책임을 추궁하고 있다.</p>
+        <div class="co-s co">
+          <div class="ct">기업 현장의 핵심 Pain Point</div>
+          <p class="ln"><strong>1.</strong> 중대재해처벌법 강화 → 안전보건 관리 의무 급증, 경영자 형사처벌 리스크</p>
+          <p class="ln"><strong>2.</strong> 직원 정신건강 문제(번아웃, 우울, 무기력) → 결근율 · 이직률 증가</p>
+          <p class="ln"><strong>3.</strong> 100~500인 기업은 산업보건의 미보유 → 건강 모니터링 체계 공백</p>
+          <p class="ln"><strong>4.</strong> 법정 건강검진(연 1회)은 사후 대응 중심 → 실시간 예방 모니터링 불가</p>
+          <p class="ln"><strong>5.</strong> MZ세대의 "건강 복지" 요구 증가 → 채용 경쟁력과 직결</p>
+        </div>
+        <h3>2.3 글로벌 벤치마크</h3>
+        <table class="tbl">
+          <thead><tr><th>기업</th><th>모델</th><th>규모</th><th>시사점</th></tr></thead>
+          <tbody>
+            <tr><td>Spring Health</td><td>B2B 정신건강 + EAP</td><td>누적 $509M 투자유치</td><td>기업 건강보험 비용 절감 소구. MS, Hershey 등 대기업 고객</td></tr>
+            <tr><td>Lyra Health</td><td>B2B 정신건강 복지</td><td>기업가치 $5.5B</td><td>ICAS World 인수로 EAP 시장 통합. 글로벌 확장</td></tr>
+            <tr><td>Wellhub</td><td>기업 웰니스 통합</td><td>기업가치 $2.4B</td><td>체육관 + 명상 + 상담 번들. 복지 플랫폼형</td></tr>
+          </tbody>
+        </table>
+        <div class="co-d co">
+          <div class="ct">한국 시장 적용 시 핵심 차이</div>
+          <p class="ln">미국은 기업이 직원 건강보험을 직접 부담 → 건강관리 = 보험료 절감 직결</p>
+          <p class="ln">한국은 국민건강보험 체계 → 기업의 재무적 인센티브 구조 상이</p>
+          <p class="ln">→ <strong>규제 대응(중대재해법) + 생산성 보호 + 채용 경쟁력</strong>이 한국 시장에서의 핵심 소구점</p>
+        </div>
+      </div>
+      <!-- 3 현장 검증 -->
+      <div class="vd-sec">
+        <h2><span class="n">3</span>현장 검증 및 시장 현실</h2>
+        <p class="ln lg">기업 대표(150인 규모) 직접 미팅에서 확인된 피드백을 구조적으로 분석하여 제품 전략에 반영하였다.</p>
+        <div class="co-s co">
+          <div class="ct">현장 피드백 요약</div>
+          <p class="ln"><strong>신호 1</strong> — "직원 건강 보고를 받는 것 자체가 머리아프다" → 보고 수신에 대한 거부감</p>
+          <p class="ln"><strong>신호 2</strong> — "추가적인 경비 지출을 원하지 않는다" → 투자 ROI에 대한 불신</p>
+        </div>
+        <table class="tbl">
+          <thead><tr><th style="width:22%">우려 유형</th><th style="width:40%">심리적 메커니즘</th><th style="width:38%">제품 반영 방향</th></tr></thead>
+          <tbody>
+            <tr><td>법적 책임 공포</td><td>건강 데이터 수신 = "알고도 조치 안 한" 증거 → 중대재해법 리스크 증가</td><td class="hi">법적 증빙 자동 생성 + 고위험자를 외부 전문기관으로 라우팅</td></tr>
+            <tr><td>자기 부정 회피</td><td>스트레스 지수 ↑ = "나쁜 회사" 낙인 → 경영역량 부정으로 인식</td><td class="hi">부정적 데이터를 "경영 개선 인사이트"로 프레이밍 전환</td></tr>
+            <tr><td>실행 역량 부재</td><td>HR팀 부재(1~2명)인 중소기업에서 후속 조치 실행 불가</td><td class="hi">후속 조치까지 포함하는 턴키 서비스 설계</td></tr>
+            <tr><td>ROI 불투명</td><td>국민건강보험 체계에서 기업의 직접적 의료비 절감 체감 어려움</td><td class="hi">경량 MVP + 채널 번들링으로 비용 부담 최소화</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 4 솔루션 -->
+      <div class="vd-sec">
+        <h2><span class="n">4</span>솔루션 구조</h2>
+        <h3>4.1 2대 핵심 AI 모델</h3>
+        <div class="ag2">
+          <div class="ac"><div class="ab">MODEL 01</div><h4>정신건강(스트레스) 분석 모델</h4><p class="ln"><strong>입력:</strong> 자가보고 문진(주 1회 또는 월 2회), 업무 환경 설문, 수면/피로 상태</p><p class="ln"><strong>지표:</strong> K-JCQ(직무 스트레스), PHQ-9(우울), GAD-7(불안), MBI(번아웃)</p><p class="ln"><strong>출력:</strong> 개인 위험도 등급(저/중/고), 변화 트렌드, 팀·전사 평균</p><p class="ln"><strong>알림:</strong> 고위험 직원 HR 알림 (익명성 보장)</p></div>
+          <div class="ac"><div class="ab">MODEL 02</div><h4>신체건강 분석 모델</h4><p class="ln"><strong>입력:</strong> 신체 증상 문진(근골격계, 심혈관, 호흡기), 업무 특성 정보</p><p class="ln"><strong>지표:</strong> 근골격계 부담 지수, 심뇌혈관 위험 지수, 직업성 질환 예측</p><p class="ln"><strong>출력:</strong> 위험도 등급, 관련 질병, 대응 가이드(진료 권고 포함)</p><p class="ln"><strong>특화:</strong> 직종별 커스터마이징 (제조업 / 사무직 / 현장직)</p></div>
+        </div>
+        <h3>4.2 기업 대시보드 (HR · 안전보건 담당자용)</h3>
+        <table class="tbl">
+          <thead><tr><th>기능</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>전사 건강 지수</td><td>정신건강 · 신체건강 평균 지수, 고위험 비율 실시간 표시</td></tr>
+            <tr><td>부서별 비교</td><td>팀/부서 단위 건강 지표 비교 및 취약 조직 탐지</td></tr>
+            <tr><td>트렌드 리포트</td><td>월간/분기 건강 변화 추이 자동 생성 (PDF 출력)</td></tr>
+            <tr><td>위험 알림</td><td>고위험 직원 익명 알림 → 외부 전문기관(산업보건의/EAP) 자동 연계</td></tr>
+            <tr><td>법적 증빙 로그</td><td>중대재해처벌법 요건 대응용 안전보건 관리 이력 자동 기록 · 보관</td></tr>
+          </tbody>
+        </table>
+        <h3>4.3 기업 제공 6대 가치</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:5%">#</th><th style="width:20%">가치 영역</th><th style="width:40%">기대 효과</th><th style="width:35%">연계 법 · 규제</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>중대재해 예방</td><td>치명적 건강 위험(사망·절단·자살) 사전 탐지 및 예방 조치</td><td>중대재해처벌법</td></tr>
+            <tr><td>2</td><td>업무 효율성</td><td>우울·무기력·동기부족으로 인한 생산성 저하 방지</td><td>산업안전보건법</td></tr>
+            <tr><td>3</td><td>직원 복지</td><td>건강 지원 환경 제공 → 채용 경쟁력 · 직원 만족도 향상</td><td>근로기준법</td></tr>
+            <tr><td>4</td><td>HR 인사 판단</td><td>전사 건강 지수를 조직문화 진단 보조 지표로 활용</td><td>—</td></tr>
+            <tr><td>5</td><td>정신건강 지수</td><td>스트레스 평균 지수로 조직 번아웃 위험 조기 감지</td><td>정신건강복지법</td></tr>
+            <tr><td>6</td><td>업무 분배 최적화</td><td>신체 피로 지수를 프로젝트 배치 · 업무 분배에 반영</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 5 전략 피벗 -->
+      <div class="vd-sec">
+        <h2><span class="n">5</span>시장 진입 전략 — 현실 반영 피벗</h2>
+        <p class="ln lg">현장 피드백과 국내 헬스케어 시장 현실을 반영하여, 원래 계획을 아래와 같이 <strong>전략적으로 조정</strong>한다.</p>
+        <div class="journey">
+          <div class="jc j-pre"><h4>기존 계획 (AS-IS)</h4><p class="ln">풀스택 SaaS: 정신건강 + 신체건강 + HR 대시보드</p><p class="ln">대표에게 직원 건강 데이터 직접 보고</p><p class="ln">사무직 기업 포함 전 업종 타깃</p><p class="ln" style="margin-top:4px;font-weight:600;">→ 기업 대표의 구매 저항 높음</p></div>
+          <div class="j-mid">→</div>
+          <div class="jc j-post"><h4>조정 전략 (TO-BE)</h4><p class="ln">경량 MVP: 건강검진 사후관리 AI 챗봇으로 시작</p><p class="ln">법적 증빙 자동 생성 + 고위험자 외부 기관 연계</p><p class="ln">제조업 100~300인 최우선 타깃 집중</p><p class="ln" style="margin-top:4px;font-weight:600;">→ 비용 부담 ↓ · 법적 가치 ↑ · 거부감 최소화</p></div>
+        </div>
+        <h3>5.1 5대 전략 방향</h3>
+        <ol class="sl">
+          <li><strong>법적 의무 이행 자동화 도구로 리포지셔닝</strong><br>V.Doc을 "건강관리 솔루션"이 아닌 "중대재해처벌법 의무 이행 증빙 자동화 도구"로 포지셔닝. 대표에게 건강 데이터가 아닌 법적 면책 근거를 제공한다.</li>
+          <li><strong>B2B2C 채널 전략</strong><br>보험사 단체보험 부가서비스, 건강검진기관 사후관리 연계, EAP 업체 번들링 등 기존 채널을 활용하여 기업 직접 영업 부담을 경감한다.</li>
+          <li><strong>타깃 세분화: 제조업 특화</strong><br>중대재해처벌법이 체감되는 제조업·건설업·물류업으로 초기 타깃을 축소. 신체건강 모듈(근골격계, 직업병)을 정신건강보다 먼저 출시한다.</li>
+          <li><strong>정부·공공조달 시장 우선 진입</strong><br>건강친화기업 인증제도 획득 도구로 포지셔닝. 산업안전보건공단 MOU, 근로자건강센터 사업 기술 파트너 참여로 정부 예산 활용.</li>
+          <li><strong>MVP 경량화: 건강검진 사후관리 챗봇</strong><br>연간 건강검진 결과 → AI 개인별 사후관리 가이드 + 전체 건강 리스크 요약만 보고. 기업 비용 부담 최소화, 직원 거부감 최소화.</li>
+        </ol>
+      </div>
+      <!-- 6 비즈니스 모델 -->
+      <div class="vd-sec">
+        <h2><span class="n">6</span>비즈니스 모델 및 수익 구조</h2>
+        <h3>6.1 구독 가격 체계</h3>
+        <table class="tbl">
+          <thead><tr><th>플랜</th><th>대상</th><th>직원 수</th><th>월 단가 (인당)</th><th>연 구독료 (추정)</th></tr></thead>
+          <tbody>
+            <tr><td>Starter</td><td>중소기업</td><td>100~200인</td><td>3,000원</td><td class="hi">360~720만 원</td></tr>
+            <tr><td>Growth</td><td>중견기업</td><td>201~500인</td><td>2,500원</td><td class="hi">600~1,500만 원</td></tr>
+            <tr><td>Enterprise</td><td>대기업</td><td>501~1,000인</td><td>2,000원</td><td class="hi">1,200~2,400만 원</td></tr>
+            <tr><td>Custom</td><td>1,000인↑</td><td>협의</td><td>협의</td><td>별도 계약</td></tr>
+          </tbody>
+        </table>
+        <h3>6.2 추가 수익 모델</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:30%">수익 모델</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>전문 상담 연계</td><td>고위험 직원 → 정신건강의학과 · 산업의학과 연계 중개 수수료</td></tr>
+            <tr><td>ESG 리포트 패키지</td><td>연간 직원 건강 ESG 공시 리포트 자동 생성 (별도 과금)</td></tr>
+            <tr><td>벤치마크 리포트</td><td>업종별 건강 지표 벤치마크 리포트 판매 (익명 집계 활용)</td></tr>
+            <tr><td>정부 사업 연계</td><td>산업안전보건공단 · 근로복지공단 위탁사업 수주</td></tr>
+            <tr><td>보험사 B2B2C</td><td>단체 건강보험 연계 웰니스 솔루션 공급 (보험사 채널 활용)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 7 MVP/POC -->
+      <div class="vd-sec">
+        <h2><span class="n">7</span>MVP / POC 기획 전략</h2>
+        <h3>7.1 MVP 콘셉트</h3>
+        <div class="co"><div class="ct">MVP 핵심 정의</div><p class="ln">"연간 건강검진 결과를 V.Doc에 업로드하면, MOCA 엔진이 개인별 사후관리 가이드를 생성하고,</p><p class="ln">&nbsp;&nbsp;기업에는 전체 건강 리스크 요약 + 중대재해법 의무이행 증빙만 제공합니다."</p></div>
+        <div class="ag">
+          <div class="ac"><div class="ab">SCOPE 01</div><h4>직원 앱 (모바일)</h4><p class="ln">건강검진 결과 업로드</p><p class="ln">AI 사후관리 가이드 열람</p><p class="ln">월 1~2회 간이 건강 문진</p><p class="ln">개인 건강 변화 트렌드</p></div>
+          <div class="ac"><div class="ab">SCOPE 02</div><h4>HR 대시보드 (웹)</h4><p class="ln">전사 건강 리스크 요약</p><p class="ln">부서별 비교 (익명 집계)</p><p class="ln">법적 증빙 보고서 자동 생성</p><p class="ln">고위험 알림 → 외부 기관 연계</p></div>
+          <div class="ac"><div class="ab">SCOPE 03</div><h4>AI 엔진 (백엔드)</h4><p class="ln">MOCA 기반 증상 분석</p><p class="ln">정신건강 스크리닝 (PHQ-9, GAD-7)</p><p class="ln">위험도 4단계 분류</p><p class="ln">리포트 자동 생성</p></div>
+        </div>
+        <h3>7.2 POC 파일럿 운영 계획</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:18%">항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>파일럿 규모</td><td class="hi"><strong>3~5개사</strong> / 제조업 100~300인 중심 (무상 또는 50% 할인)</td></tr>
+            <tr><td>운영 기간</td><td>3개월 (검진 연계 + 문진 2~3사이클 + 리포트 생성)</td></tr>
+            <tr><td>성과 측정</td><td>직원 참여율(MAU), 고위험 탐지 건수, HR 만족도(NPS), 법적 증빙 생성 건수</td></tr>
+            <tr><td>확보 데이터</td><td>위험 직원 탐지율, 결근율 변화, 기업당 ROI 케이스 스터디</td></tr>
+            <tr><td>파트너 채널</td><td>제조업 협회, 중소기업중앙회, 산업안전보건공단 MOU 활용</td></tr>
+          </tbody>
+        </table>
+        <h3>7.3 1차년도 KPI 목표</h3>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="kv">5개사+</div><div class="kl">파일럿 기업 계약</div></div>
+          <div class="kpi"><div class="kv">60%+</div><div class="kl">직원 월간 활성 사용률</div></div>
+          <div class="kpi"><div class="kv">80%+</div><div class="kl">고위험 탐지 민감도</div></div>
+          <div class="kpi"><div class="kv">80%+</div><div class="kl">1년 재계약율</div></div>
+          <div class="kpi"><div class="kv">NPS 40+</div><div class="kl">기업 담당자 순추천지수</div></div>
+          <div class="kpi"><div class="kv">10억 원</div><div class="kl">Phase 1 목표 ARR</div></div>
+        </div>
+      </div>
+      <!-- 8 개발 로드맵 -->
+      <div class="vd-sec">
+        <h2><span class="n">8</span>개발 로드맵</h2>
+        <table class="tbl">
+          <thead><tr><th style="width:16%">단계</th><th style="width:16%">기간</th><th style="width:40%">주요 과제</th><th style="width:28%">목표 지표</th></tr></thead>
+          <tbody>
+            <tr><td>Phase 0<br>준비</td><td>2026 Q2<br>(현재)</td><td>경량 MVP 개발 (건강검진 사후관리 AI)<br>정신건강 문진 모듈 개발<br>파일럿 기업 3~5개사 확보<br>산업안전보건공단 MOU 추진</td><td class="hi">MVP 출시 · 파일럿 개시</td></tr>
+            <tr><td>Phase 1<br>시장 진입</td><td>2026 H2</td><td>신체건강 모듈 추가 (제조업 특화)<br>직종별 커스터마이징<br>영업팀 · 파트너 채널 구축<br>B2B2C 채널(보험사/검진기관) 제휴 착수</td><td class="hi">계약 30개사<br>ARR 10억 원</td></tr>
+            <tr><td>Phase 2<br>성장</td><td>2027 H1</td><td>PHR 연동 종합 분석<br>ESG 리포트 자동 생성<br>정부 위탁사업 수주<br>보험사 제휴 본격화</td><td class="hi">계약 100개사<br>ARR 40억 원</td></tr>
+            <tr><td>Phase 3<br>확장</td><td>2027~2028</td><td>동남아 · 일본 B2B 진출<br>웨어러블 연동 고도화<br>글로벌 인증 (CE, FDA)</td><td class="hi">해외 계약 20개사<br>Global 레퍼런스</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 9 리스크 -->
+      <div class="vd-sec">
+        <h2><span class="n">9</span>리스크 분석 및 대응</h2>
+        <table class="tbl">
+          <thead><tr><th style="width:18%">리스크</th><th style="width:35%">내용</th><th style="width:47%">대응 전략</th></tr></thead>
+          <tbody>
+            <tr><td>개인정보 보호</td><td>직원 건강 정보는 민감 개인정보 → 유출 시 법적 리스크</td><td>ISO 27001 인증, 익명화 처리, 개인정보영향평가 실시</td></tr>
+            <tr><td>직원 수용성</td><td>감시 도구로 인식 → 참여율 저하</td><td>자발적 참여 설계, 개인 데이터 열람권 보장, 익명화 명확화</td></tr>
+            <tr><td>의료기기 규제</td><td>건강 분석 AI의 의료기기 해당 여부 → 허가 지연</td><td>2등급 이하 SW 해당 여부 사전 검토, 식약처 사전 협의</td></tr>
+            <tr><td>경쟁사 모방</td><td>대형 IT·HR 솔루션 업체의 유사 기능 추가</td><td>MOCA 기반 AI 정확도 및 임상 데이터 자산 차별화 유지</td></tr>
+            <tr><td>기업 예산 제약</td><td>중소기업 IT 투자 예산 한계</td><td>정부 보조금(산업안전보건 지원금) 연계, 분납 구독 옵션</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 10 경쟁 우위 -->
+      <div class="vd-sec">
+        <h2><span class="n">10</span>AITRICS 핵심 경쟁 우위</h2>
+        <div class="ag2">
+          <div class="ac"><div class="ab">DIFFERENTIATOR 01</div><h4>자체 의료 AI 모델 (MOCA)</h4><p class="ln">국내 최초 자체 의료 AI 모델 상용화</p><p class="ln">ChatGPT API 의존 아닌 독립 엔진</p><p class="ln">5만 건+ 임상 데이터 학습 · 5대 상급종합병원 검증</p><p class="ln">LLM 대비 85.77% 진단 정확도 (EMNLP 논문 심사 중)</p></div>
+          <div class="ac"><div class="ab">DIFFERENTIATOR 02</div><h4>한국 규제 환경 최적화</h4><p class="ln">중대재해처벌법 · 개인정보보호법 · 의료기기법 완벽 대응 설계</p><p class="ln">ISO 27001 정보보안 인증 진행 중</p><p class="ln">국내 의료·법규 환경에 특화된 유일한 Enterprise 건강 AI</p></div>
+        </div>
+        <div class="ag2">
+          <div class="ac"><div class="ab">DIFFERENTIATOR 03</div><h4>임상 검증 기반 신뢰성</h4><p class="ln">신촌 세브란스 전공의 48명 참여 임상 검증</p><p class="ln">EMNLP · EPAG 학회 논문 심사 진행</p><p class="ln">임상시험을 통한 실제 임상적 가치 입증 예정</p></div>
+          <div class="ac"><div class="ab">DIFFERENTIATOR 04</div><h4>B2C · B2B · Enterprise 통합 생태계</h4><p class="ln">V.Doc(개인) + V.Doc Pro(병원) + V.Doc Enterprise(기업)</p><p class="ln">PHR 기반 개인건강기록 → 기업 인사이트 선순환</p><p class="ln">병원 네트워크를 통한 기업 산업보건의 연계</p></div>
+        </div>
+      </div>
+      <!-- 11 결론 -->
+      <div class="vd-sec">
+        <h2><span class="n">11</span>결론</h2>
+        <p class="ln lg"><strong>V.Doc의 기존 의료 AI 역량과 임상 데이터 자산은 엔터프라이즈 직원 건강관리 시장에서 타사가 단기간에 모방하기 어려운 강력한 진입 장벽이다.</strong></p>
+        <div class="co-dk co">
+          <div class="ct">핵심 추진 권고</div>
+          <p class="ln"><strong>1. 즉시 실행:</strong> 건강검진 사후관리 MVP를 2026 Q2 내 완료, 제조업 파일럿 영업 즉시 개시</p>
+          <p class="ln"><strong>2. 레퍼런스 우선:</strong> 파일럿 3~5개사의 성과 데이터(위험 탐지율, 결근율 변화)를 세일즈 자산으로 확보</p>
+          <p class="ln"><strong>3. 규제 선점:</strong> 산업안전보건공단 MOU 체결, 건강친화기업 인증 연계로 공공 채널 및 사회적 신뢰 확보</p>
+          <p class="ln"><strong>4. 채널 다변화:</strong> 보험사 · 건강검진기관 · EAP 업체 B2B2C 제휴로 기업 직접 영업 부담 경감</p>
+          <p class="ln"><strong>5. 데이터 거버넌스:</strong> 직원 건강 데이터의 익명화 · 보안 · 동의 체계를 출시 전 완벽 구축</p>
+        </div>
+        <div class="co"><div class="ct">핵심 메시지</div><p class="ln"><strong>기술은 검증되었다. 시장은 열리고 있다. 진입 전략을 현실에 맞게 조정하여, 지금 시작한다.</strong></p></div>
+      </div>
+      <div class="vd-footer">V.Doc Enterprise Wellness AI Platform ｜ 사업 제안서 ｜ AITRICS Corporation · 2026.03 ｜ Confidential</div>
+    </div>
+  </div><!-- /page-vdoc-report -->
+
+  <div class="page-section" id="page-vdoc-report2">
+    <div class="vd-page">
+      <div class="vd-header">
+        <div class="badge">V.Doc Enterprise · 사업 제안서 v2 · 2026.03</div>
+        <h1><span>V.Doc Enterprise</span> Wellness AI Platform 사업 제안서</h1>
+        <div class="sub">기업 직원 건강관리 AI 솔루션 — 시장 분석 · 개발 전략 · MVP/POC 기획 — AITRICS Corporation</div>
+      </div>
+      <!-- 1 Executive Summary -->
+      <div class="vd-sec">
+        <h2><span class="n">1</span>Executive Summary</h2>
+        <p class="ln"><strong>V.Doc Enterprise Wellness AI Platform</strong>은 AITRICS의 자체 의료 AI 엔진 MOCA를 기반으로, 100인 이상 기업 직원의 정신 · 신체 건강을 AI 문진으로 상시 모니터링하고 조직 건강 인사이트를 제공하는 B2B SaaS 솔루션이다.</p>
+        <div class="ag">
+          <div class="ac"><div class="ab">MARKET</div><h4>SAM 16,500개 기업</h4><p class="ln">국내 100인 이상 기업 대상</p><p class="ln">연 구독 300~600만 원 기준</p><p class="ln"><strong>연간 약 500~1,000억 원 규모</strong></p></div>
+          <div class="ac"><div class="ab">TECHNOLOGY</div><h4>MOCA 엔진</h4><p class="ln">5만 건+ 임상 검수 데이터</p><p class="ln">5대 상급종합병원 검증</p><p class="ln"><strong>LLM 대비 85.77% 진단 정확도</strong></p></div>
+          <div class="ac"><div class="ab">REGULATION</div><h4>중대재해처벌법</h4><p class="ln">5인 이상 전면 적용 (2024~)</p><p class="ln">사망 시 경영자 1년↑ 징역</p><p class="ln"><strong>사전 예방 시스템 투자 유인</strong></p></div>
+        </div>
+        <div class="co"><div class="ct">핵심 제안</div><p class="ln">V.Doc의 의료 AI 역량을 기업 시장에 확장하여, <strong>직원 건강 사전 예방 + 법적 의무 이행 자동화 + HR 인사이트</strong>를 하나의 플랫폼에서 제공한다. 현장 피드백을 반영한 경량 MVP로 시작하여 단계적으로 확장한다.</p></div>
+      </div>
+      <!-- 2 시장 기회 -->
+      <div class="vd-sec">
+        <h2><span class="n">2</span>시장 기회</h2>
+        <h3>2.1 목표 시장 규모</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:18%">구분</th><th style="width:42%">정의</th><th style="width:40%">규모</th></tr></thead>
+          <tbody>
+            <tr><td>TAM</td><td>국내 50인 이상 전체 사업장</td><td>약 52,000개소 / 글로벌 기업 웰니스 시장 ~$75B (2024)</td></tr>
+            <tr><td>SAM</td><td>100인 이상 제조 · 서비스 · IT 중소기업</td><td class="hi"><strong>약 16,500개소</strong> / 연간 500~1,000억 원</td></tr>
+            <tr><td>SOM (1차)</td><td>제조업 100~300인 중소기업 (최우선 타깃)</td><td>약 4,000개소 / 연간 120~240억 원</td></tr>
+          </tbody>
+        </table>
+        <h3>2.2 규제 드라이버 — 중대재해처벌법</h3>
+        <p class="ln">2024년 1월부터 상시 근로자 5인 이상 전면 적용. 중대산업재해 발생 시 경영자에게 <strong>1년 이상 징역 또는 10억 원 이하 벌금</strong>을 부과한다.</p>
+        <p class="ln">수사기관은 산업안전보건법과 중대재해처벌법을 <strong>유기적으로 연계</strong>하여 위험요인의 사전 파악 · 관리 여부까지 확인하며 경영책임자 형사 책임을 추궁하고 있다.</p>
+        <p class="ln lg">정신건강 영역에서도 직업성 스트레스 · 과로로 인한 심뇌혈관질환, 자살 등이 <strong>산업재해로 인정</strong>받는 사례가 증가 추세이다.</p>
+        <div class="co-s co">
+          <div class="ct">기업 현장의 핵심 Pain Point</div>
+          <p class="ln"><strong>1.</strong> 중대재해처벌법 강화 → 안전보건 관리 의무 급증, 경영자 형사처벌 리스크</p>
+          <p class="ln"><strong>2.</strong> 직원 정신건강 문제(번아웃, 우울, 무기력) → 결근율 · 이직률 증가</p>
+          <p class="ln"><strong>3.</strong> 100~500인 기업은 산업보건의 미보유 → 건강 모니터링 체계 공백</p>
+          <p class="ln"><strong>4.</strong> 법정 건강검진(연 1회)은 사후 대응 중심 → 실시간 예방 모니터링 불가</p>
+          <p class="ln"><strong>5.</strong> MZ세대의 "건강 복지" 요구 증가 → 채용 경쟁력과 직결</p>
+        </div>
+        <h3>2.3 시행령 제5조 — 경영책임자의 안전보건 점검 의무</h3>
+        <p class="ln lg">중대재해처벌법의 실무적 핵심은 <strong>시행령 제5조</strong>이다. 이 조항은 경영책임자가 구체적으로 무엇을 해야 하는지를 규정하며, V.Doc Enterprise의 제품 설계 근거가 된다.</p>
+        <table class="tbl">
+          <thead><tr><th style="width:8%">호</th><th style="width:42%">의무 내용</th><th style="width:50%">V.Doc Enterprise 대응</th></tr></thead>
+          <tbody>
+            <tr><td>제1호</td><td>안전·보건 관계 법령에 따른 의무를 이행했는지를 <strong>반기 1회 이상 점검</strong>하고, 직접 점검하지 않은 경우 지체 없이 결과를 보고받을 것</td><td class="hi">AI 문진 기반 정기 건강 점검 자동 수행 + 법적 증빙 보고서 자동 생성 → 반기 점검 의무 충족 증거 확보</td></tr>
+            <tr><td>제2호</td><td>점검 결과 의무가 이행되지 않은 사실이 확인되면 인력 배치 · 예산 추가 편성 등 <strong>필요한 조치를 할 것</strong></td><td class="hi">고위험 직원 탐지 시 외부 전문기관(산업보건의/EAP) 자동 연계 → 후속 조치 실행 증빙 생성</td></tr>
+            <tr><td>제3호</td><td>유해·위험한 작업에 관한 안전·보건 <strong>교육이 실시되었는지를 반기 1회 이상 점검</strong>할 것</td><td class="hi">직종별 건강 가이드 · 예방 교육 콘텐츠 제공 + 열람 이력 자동 기록</td></tr>
+          </tbody>
+        </table>
+        <div class="co"><div class="ct">처벌 구조 — "의무 위반 자체"가 아니라 "위반 + 재해 발생" 시 처벌</div><p class="ln">시행령 제5조 의무 불이행 자체만으로는 바로 처벌되지 않음. 그러나 <strong>중대산업재해가 발생했을 때</strong> 이 의무 이행 여부가 경영책임자 형사처벌의 핵심 판단 기준이 됨.</p></div>
+        <table class="tbl">
+          <thead><tr><th style="width:25%">재해 유형</th><th style="width:35%">경영책임자 처벌</th><th style="width:40%">법인 처벌 (양벌규정)</th></tr></thead>
+          <tbody>
+            <tr><td>사망</td><td style="color:#7C2D2D;font-weight:600;">1년 이상 징역 또는 10억 원 이하 벌금 (병과 가능)</td><td style="color:#7C2D2D;font-weight:600;">50억 원 이하 벌금</td></tr>
+            <tr><td>부상 · 직업성 질병</td><td>7년 이하 징역 또는 1억 원 이하 벌금</td><td>10억 원 이하 벌금</td></tr>
+            <tr><td>5년 내 재범</td><td style="color:#7C2D2D;font-weight:600;">각 형의 1/2까지 가중</td><td style="color:#7C2D2D;font-weight:600;">가중 적용</td></tr>
+            <tr><td>징벌적 손해배상</td><td colspan="2" class="hi">고의 · 중과실 시 손해액의 <strong>5배</strong>까지 배상 책임</td></tr>
+          </tbody>
+        </table>
+        <div class="co-s co">
+          <div class="ct">실제 판례 — 형식적 이행은 면책 불가</div>
+          <p class="ln">안전점검 위탁기관이 수차례 위험성을 지적했으나 개선하지 않아 사고가 발생한 사례에서, <strong>유족과 합의가 있고 시정조치가 완료되었음에도 경영책임자에게 징역 2년 실형</strong>이 선고됨.</p>
+          <p class="ln">→ V.Doc Enterprise는 형식적 서류가 아닌 <strong>AI 기반 실질적 건강 모니터링 + 자동 증빙 생성</strong>으로 "실질적 이행"을 입증할 수 있는 도구로 포지셔닝한다.</p>
+        </div>
+        <div class="co-d co"><div class="ct">이행 관리 기록의 법적 보관 의무</div><p class="ln">시행령 제4조·제5조의 이행에 관한 사항은 <strong>서면(전자문서)으로 작성하여 5년간 보관</strong>해야 함.</p><p class="ln">→ V.Doc Enterprise의 모든 점검 · 문진 · 알림 · 조치 이력은 자동으로 전자문서화되어 5년 보관 요건을 충족한다.</p></div>
+        <h3>2.4 국내 EAP(근로자지원프로그램) 시장 현황</h3>
+        <p class="ln lg">2010년 근로복지기본법 개정으로 EAP가 기업의 자율적 복지 제도로 법령에 공식 명시된 이후, 국내 EAP 시장은 대기업·공공기관 중심으로 빠르게 확산되고 있다. 현재 국내 EAP는 <strong>V.Doc Enterprise의 직접 경쟁자이면서 동시에 최적의 파트너 채널</strong>이다.</p>
+        <table class="tbl">
+          <thead><tr><th style="width:16%">업체</th><th style="width:14%">유형</th><th style="width:35%">규모 · 고객</th><th style="width:35%">제공 서비스</th></tr></thead>
+          <tbody>
+            <tr><td>다인(넛지EAP)</td><td>민간 최대</td><td><strong>2,900여 개 기업</strong>, 누적 120만 명+ 임직원 서비스. 2026 포브스코리아 EAP 부문 1위</td><td>진단-개입-사후 리포트, 심리상담, 조직 진단, 코칭, 위기 개입</td></tr>
+            <tr><td>마인드카페(아토머스)</td><td>디지털 기반</td><td><strong>500여 개 기업</strong>·공공기관. 삼성전자, 네이버, HD현대, LG화학, 토스 등. 누적 투자 350억 원</td><td>AI 감정 분석, 위험군 탐지, 24시간 온·오프라인 상담, 앱 기반 디지털 멘탈케어</td></tr>
+            <tr><td>근로복지공단</td><td>공공</td><td><strong>300인 미만 중소기업</strong> 대상 무상 제공. 근로복지넷 운영</td><td>온·오프라인 심리상담, 코칭, 교육·특강</td></tr>
+            <tr><td>한국EAP협회</td><td>비영리</td><td><strong>120여 개 기업</strong>. KB국민은행 등 금융권 다수</td><td>심리검사, 심리상담, 조직활성화 프로그램</td></tr>
+          </tbody>
+        </table>
+        <div class="co">
+          <div class="ct">기존 EAP의 한계 — V.Doc의 기회</div>
+          <p class="ln"><strong>1.</strong> 대부분 심리상담 중심 → <strong>신체건강(근골격계, 직업병)을 다루는 EAP가 없음</strong></p>
+          <p class="ln"><strong>2.</strong> AI 기반 진단·예측 역량 부재 → MOCA 수준의 의료 AI와는 질적으로 다름</p>
+          <p class="ln"><strong>3.</strong> 중대재해처벌법 대응 증빙(시행령 제5조) 기능이 없음</p>
+          <p class="ln"><strong>4.</strong> 정기적·상시적 모니터링 체계 부재 → 직원이 요청해야 서비스 시작</p>
+          <p class="ln">→ V.Doc Enterprise는 <strong>"AI 기반 정기 건강 모니터링 + 신체건강 분석 + 법적 증빙 자동화"</strong> 영역에서 차별화된다.</p>
+        </div>
+        <h3>2.5 글로벌 벤치마크</h3>
+        <table class="tbl">
+          <thead><tr><th>기업</th><th>모델</th><th>규모</th><th>시사점</th></tr></thead>
+          <tbody>
+            <tr><td>Spring Health</td><td>B2B 정신건강 + EAP</td><td>누적 $509M 투자유치</td><td>기업 건강보험 비용 절감 소구. MS, Hershey 등 대기업 고객</td></tr>
+            <tr><td>Lyra Health</td><td>B2B 정신건강 복지</td><td>기업가치 $5.5B</td><td>ICAS World 인수로 EAP 시장 통합. 글로벌 확장</td></tr>
+            <tr><td>Wellhub</td><td>기업 웰니스 통합</td><td>기업가치 $2.4B</td><td>체육관 + 명상 + 상담 번들. 복지 플랫폼형</td></tr>
+          </tbody>
+        </table>
+        <div class="co-d co"><div class="ct">한국 시장 적용 시 핵심 차이</div><p class="ln">미국은 기업이 직원 건강보험을 직접 부담 → 건강관리 = 보험료 절감 직결</p><p class="ln">한국은 국민건강보험 체계 → 기업의 재무적 인센티브 구조 상이</p><p class="ln">→ <strong>규제 대응(중대재해법) + 생산성 보호 + 채용 경쟁력</strong>이 한국 시장에서의 핵심 소구점</p></div>
+      </div>
+      <!-- 3 현장 검증 -->
+      <div class="vd-sec">
+        <h2><span class="n">3</span>현장 검증 및 시장 현실</h2>
+        <p class="ln lg">기업 대표(150인 규모) 직접 미팅에서 확인된 피드백을 구조적으로 분석하여 제품 전략에 반영하였다.</p>
+        <div class="co-s co">
+          <div class="ct">현장 피드백 요약</div>
+          <p class="ln"><strong>신호 1</strong> — "직원 건강 보고를 받는 것 자체가 머리아프다" → 보고 수신에 대한 거부감</p>
+          <p class="ln"><strong>신호 2</strong> — "추가적인 경비 지출을 원하지 않는다" → 투자 ROI에 대한 불신</p>
+        </div>
+        <table class="tbl">
+          <thead><tr><th style="width:22%">우려 유형</th><th style="width:40%">심리적 메커니즘</th><th style="width:38%">제품 반영 방향</th></tr></thead>
+          <tbody>
+            <tr><td>법적 책임 공포</td><td>건강 데이터 수신 = "알고도 조치 안 한" 증거 → 중대재해법 리스크 증가</td><td class="hi">법적 증빙 자동 생성 + 고위험자를 외부 전문기관으로 라우팅</td></tr>
+            <tr><td>자기 부정 회피</td><td>스트레스 지수 ↑ = "나쁜 회사" 낙인 → 경영역량 부정으로 인식</td><td class="hi">부정적 데이터를 "경영 개선 인사이트"로 프레이밍 전환</td></tr>
+            <tr><td>실행 역량 부재</td><td>HR팀 부재(1~2명)인 중소기업에서 후속 조치 실행 불가</td><td class="hi">후속 조치까지 포함하는 턴키 서비스 설계</td></tr>
+            <tr><td>ROI 불투명</td><td>국민건강보험 체계에서 기업의 직접적 의료비 절감 체감 어려움</td><td class="hi">경량 MVP + 채널 번들링으로 비용 부담 최소화</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 4 솔루션 -->
+      <div class="vd-sec">
+        <h2><span class="n">4</span>솔루션 구조</h2>
+        <h3>4.1 2대 핵심 AI 모델</h3>
+        <div class="ag2">
+          <div class="ac"><div class="ab">MODEL 01</div><h4>정신건강(스트레스) 분석 모델</h4><p class="ln"><strong>입력:</strong> 자가보고 문진(주 1회 또는 월 2회), 업무 환경 설문, 수면/피로 상태</p><p class="ln"><strong>지표:</strong> K-JCQ(직무 스트레스), PHQ-9(우울), GAD-7(불안), MBI(번아웃)</p><p class="ln"><strong>출력:</strong> 개인 위험도 등급(저/중/고), 변화 트렌드, 팀·전사 평균</p><p class="ln"><strong>알림:</strong> 고위험 직원 HR 알림 (익명성 보장)</p></div>
+          <div class="ac"><div class="ab">MODEL 02</div><h4>신체건강 분석 모델</h4><p class="ln"><strong>입력:</strong> 신체 증상 문진(근골격계, 심혈관, 호흡기), 업무 특성 정보</p><p class="ln"><strong>지표:</strong> 근골격계 부담 지수, 심뇌혈관 위험 지수, 직업성 질환 예측</p><p class="ln"><strong>출력:</strong> 위험도 등급, 관련 질병, 대응 가이드(진료 권고 포함)</p><p class="ln"><strong>특화:</strong> 직종별 커스터마이징 (제조업 / 사무직 / 현장직)</p></div>
+        </div>
+        <h3>4.2 기업 대시보드</h3>
+        <table class="tbl">
+          <thead><tr><th>기능</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>전사 건강 지수</td><td>정신건강 · 신체건강 평균 지수, 고위험 비율 실시간 표시</td></tr>
+            <tr><td>부서별 비교</td><td>팀/부서 단위 건강 지표 비교 및 취약 조직 탐지</td></tr>
+            <tr><td>트렌드 리포트</td><td>월간/분기 건강 변화 추이 자동 생성 (PDF 출력)</td></tr>
+            <tr><td>위험 알림</td><td>고위험 직원 익명 알림 → 외부 전문기관(산업보건의/EAP) 자동 연계</td></tr>
+            <tr><td>법적 증빙 로그</td><td>중대재해처벌법 요건 대응용 안전보건 관리 이력 자동 기록 · 보관</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 5 전략 피벗 -->
+      <div class="vd-sec">
+        <h2><span class="n">5</span>시장 진입 전략 — 현실 반영 피벗</h2>
+        <div class="journey">
+          <div class="jc j-pre"><h4>기존 계획 (AS-IS)</h4><p class="ln">풀스택 SaaS: 정신건강 + 신체건강 + HR 대시보드</p><p class="ln">대표에게 직원 건강 데이터 직접 보고</p><p class="ln">사무직 기업 포함 전 업종 타깃</p><p class="ln" style="margin-top:4px;font-weight:600;">→ 기업 대표의 구매 저항 높음</p></div>
+          <div class="j-mid">→</div>
+          <div class="jc j-post"><h4>조정 전략 (TO-BE)</h4><p class="ln">경량 MVP: 건강검진 사후관리 AI 챗봇으로 시작</p><p class="ln">법적 증빙 자동 생성 + 고위험자 외부 기관 연계</p><p class="ln">제조업 100~300인 최우선 타깃 집중</p><p class="ln" style="margin-top:4px;font-weight:600;">→ 비용 부담 ↓ · 법적 가치 ↑ · 거부감 최소화</p></div>
+        </div>
+        <h3>5.1 5대 전략 방향</h3>
+        <ol class="sl">
+          <li><strong>법적 의무 이행 자동화 도구로 리포지셔닝</strong><br>V.Doc을 "건강관리 솔루션"이 아닌 "중대재해처벌법 의무 이행 증빙 자동화 도구"로 포지셔닝. 대표에게 건강 데이터가 아닌 법적 면책 근거를 제공한다.</li>
+          <li><strong>B2B2C 채널 전략 — EAP 업체를 핵심 파트너로</strong><br>보험사 단체보험 부가서비스, 건강검진기관 사후관리 연계, EAP 업체 번들링 등 기존 채널을 활용하여 기업 직접 영업 부담을 경감한다. 특히 <strong>기존 EAP 업체(다인 2,900개사 / 마인드카페 500개사 네트워크)</strong>에 AI 문진·건강 분석 엔진을 공급하는 모델이 가장 빠른 시장 진입 경로이다.</li>
+          <li><strong>타깃 세분화: 제조업 특화</strong><br>중대재해처벌법이 체감되는 제조업·건설업·물류업으로 초기 타깃을 축소. 신체건강 모듈(근골격계, 직업병)을 정신건강보다 먼저 출시한다.</li>
+          <li><strong>정부·공공조달 시장 우선 진입</strong><br>건강친화기업 인증제도 획득 도구로 포지셔닝. 산업안전보건공단 MOU, 근로자건강센터 사업 기술 파트너 참여로 정부 예산 활용.</li>
+          <li><strong>MVP 경량화: 건강검진 사후관리 챗봇</strong><br>연간 건강검진 결과 → AI 개인별 사후관리 가이드 + 전체 건강 리스크 요약만 보고. 기업 비용 부담 최소화, 직원 거부감 최소화.</li>
+        </ol>
+        <h3>5.2 EAP 파트너십 전략 — 경쟁이 아닌 보완</h3>
+        <p class="ln lg">기존 EAP 업체는 심리상담 인프라와 수천 개 기업 네트워크를 보유하고 있으나, AI 기반 건강 모니터링 · 신체건강 분석 · 법적 증빙 자동화 역량이 부재하다. V.Doc은 이 역량을 보유하고 있으나 기업 고객 네트워크가 부재하다. <strong>양측의 부족한 부분을 채워주는 보완적 파트너십</strong>이 최적의 전략이다.</p>
+        <div class="journey">
+          <div class="jc j-pre"><h4>기존 EAP 업체의 보유 자산</h4><p class="ln">다인(넛지EAP) — 2,900개 기업 네트워크</p><p class="ln">마인드카페 — 500개 기업·공공기관</p><p class="ln">근로복지공단 — 300인 미만 중소기업 무상 채널</p><p class="ln" style="margin-top:4px;font-weight:600;">보유: 상담 인력 · 기업 계약 관계 · 운영 노하우</p></div>
+          <div class="j-mid">+</div>
+          <div class="jc j-post"><h4>V.Doc Enterprise의 보유 자산</h4><p class="ln">MOCA 기반 AI 문진 · 증상 분석 엔진</p><p class="ln">정신건강 + 신체건강 통합 모니터링</p><p class="ln">중대재해처벌법 시행령 제5조 증빙 자동화</p><p class="ln" style="margin-top:4px;font-weight:600;">보유: 의료 AI 기술 · 임상 데이터 · 법적 증빙 기능</p></div>
+        </div>
+        <div class="co">
+          <div class="ct">파트너십 실행 모델</div>
+          <p class="ln"><strong>방식 1 — OEM/화이트라벨:</strong> V.Doc AI 엔진을 EAP 업체에 공급 → EAP 업체가 기존 고객에게 "AI 강화 EAP"로 업셀</p>
+          <p class="ln"><strong>방식 2 — 공동 상품:</strong> V.Doc 건강 모니터링 + EAP 상담을 하나의 패키지로 묶어 기업에 제안</p>
+          <p class="ln"><strong>방식 3 — 연계 서비스:</strong> V.Doc에서 고위험 직원 탐지 → EAP 업체의 전문 상담사로 자동 연결</p>
+          <p class="ln" style="margin-top:6px;"><strong>우선 협의 대상:</strong> 다인(넛지EAP) · 마인드카페(아토머스) · 근로복지공단</p>
+        </div>
+      </div>
+      <!-- 6 비즈니스 모델 -->
+      <div class="vd-sec">
+        <h2><span class="n">6</span>비즈니스 모델 및 수익 구조</h2>
+        <h3>6.1 구독 가격 체계</h3>
+        <table class="tbl">
+          <thead><tr><th>플랜</th><th>대상</th><th>직원 수</th><th>월 단가 (인당)</th><th>연 구독료 (추정)</th></tr></thead>
+          <tbody>
+            <tr><td>Starter</td><td>중소기업</td><td>100~200인</td><td>3,000원</td><td class="hi">360~720만 원</td></tr>
+            <tr><td>Growth</td><td>중견기업</td><td>201~500인</td><td>2,500원</td><td class="hi">600~1,500만 원</td></tr>
+            <tr><td>Enterprise</td><td>대기업</td><td>501~1,000인</td><td>2,000원</td><td class="hi">1,200~2,400만 원</td></tr>
+            <tr><td>Custom</td><td>1,000인↑</td><td>협의</td><td>협의</td><td>별도 계약</td></tr>
+          </tbody>
+        </table>
+        <h3>6.2 추가 수익 모델</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:30%">수익 모델</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>전문 상담 연계</td><td>고위험 직원 → 정신건강의학과 · 산업의학과 연계 중개 수수료</td></tr>
+            <tr><td>ESG 리포트 패키지</td><td>연간 직원 건강 ESG 공시 리포트 자동 생성 (별도 과금)</td></tr>
+            <tr><td>벤치마크 리포트</td><td>업종별 건강 지표 벤치마크 리포트 판매 (익명 집계 활용)</td></tr>
+            <tr><td>정부 사업 연계</td><td>산업안전보건공단 · 근로복지공단 위탁사업 수주</td></tr>
+            <tr><td>보험사 B2B2C</td><td>단체 건강보험 연계 웰니스 솔루션 공급 (보험사 채널 활용)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 7 MVP/POC -->
+      <div class="vd-sec">
+        <h2><span class="n">7</span>MVP / POC 기획 전략</h2>
+        <div class="co"><div class="ct">MVP 핵심 정의</div><p class="ln">"연간 건강검진 결과를 V.Doc에 업로드하면, MOCA 엔진이 개인별 사후관리 가이드를 생성하고, 기업에는 전체 건강 리스크 요약 + 중대재해법 의무이행 증빙만 제공합니다."</p></div>
+        <div class="ag">
+          <div class="ac"><div class="ab">SCOPE 01</div><h4>직원 앱 (모바일)</h4><p class="ln">건강검진 결과 업로드</p><p class="ln">AI 사후관리 가이드 열람</p><p class="ln">월 1~2회 간이 건강 문진</p><p class="ln">개인 건강 변화 트렌드</p></div>
+          <div class="ac"><div class="ab">SCOPE 02</div><h4>HR 대시보드 (웹)</h4><p class="ln">전사 건강 리스크 요약</p><p class="ln">부서별 비교 (익명 집계)</p><p class="ln">법적 증빙 보고서 자동 생성</p><p class="ln">고위험 알림 → 외부 기관 연계</p></div>
+          <div class="ac"><div class="ab">SCOPE 03</div><h4>AI 엔진 (백엔드)</h4><p class="ln">MOCA 기반 증상 분석</p><p class="ln">정신건강 스크리닝 (PHQ-9, GAD-7)</p><p class="ln">위험도 4단계 분류</p><p class="ln">리포트 자동 생성</p></div>
+        </div>
+        <h3>POC 파일럿 운영 계획</h3>
+        <table class="tbl">
+          <thead><tr><th style="width:18%">항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>파일럿 규모</td><td class="hi"><strong>3~5개사</strong> / 제조업 100~300인 중심 (무상 또는 50% 할인)</td></tr>
+            <tr><td>운영 기간</td><td>3개월 (검진 연계 + 문진 2~3사이클 + 리포트 생성)</td></tr>
+            <tr><td>성과 측정</td><td>직원 참여율(MAU), 고위험 탐지 건수, HR 만족도(NPS), 법적 증빙 생성 건수</td></tr>
+            <tr><td>확보 데이터</td><td>위험 직원 탐지율, 결근율 변화, 기업당 ROI 케이스 스터디</td></tr>
+            <tr><td>파트너 채널</td><td>제조업 협회, 중소기업중앙회, 산업안전보건공단 MOU 활용</td></tr>
+          </tbody>
+        </table>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="kv">5개사+</div><div class="kl">파일럿 기업 계약</div></div>
+          <div class="kpi"><div class="kv">60%+</div><div class="kl">직원 월간 활성 사용률</div></div>
+          <div class="kpi"><div class="kv">80%+</div><div class="kl">고위험 탐지 민감도</div></div>
+          <div class="kpi"><div class="kv">80%+</div><div class="kl">1년 재계약율</div></div>
+          <div class="kpi"><div class="kv">NPS 40+</div><div class="kl">기업 담당자 순추천지수</div></div>
+          <div class="kpi"><div class="kv">10억 원</div><div class="kl">Phase 1 목표 ARR</div></div>
+        </div>
+      </div>
+      <!-- 8 개발 로드맵 -->
+      <div class="vd-sec">
+        <h2><span class="n">8</span>개발 로드맵</h2>
+        <table class="tbl">
+          <thead><tr><th style="width:16%">단계</th><th style="width:16%">기간</th><th style="width:40%">주요 과제</th><th style="width:28%">목표 지표</th></tr></thead>
+          <tbody>
+            <tr><td>Phase 0<br>준비</td><td>2026 Q2</td><td>경량 MVP 개발 / 파일럿 기업 3~5개사 확보 / 산업안전보건공단 MOU 추진</td><td class="hi">MVP 출시 · 파일럿 개시</td></tr>
+            <tr><td>Phase 1<br>시장 진입</td><td>2026 H2</td><td>신체건강 모듈 추가 (제조업 특화) / 영업팀 · 파트너 채널 구축 / EAP 파트너십 체결</td><td class="hi">계약 30개사<br>ARR 10억 원</td></tr>
+            <tr><td>Phase 2<br>성장</td><td>2027 H1</td><td>PHR 연동 종합 분석 / ESG 리포트 자동 생성 / 정부 위탁사업 수주</td><td class="hi">계약 100개사<br>ARR 40억 원</td></tr>
+            <tr><td>Phase 3<br>확장</td><td>2027~2028</td><td>동남아 · 일본 B2B 진출 / 웨어러블 연동 고도화 / 글로벌 인증 (CE, FDA)</td><td class="hi">해외 계약 20개사</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 9 리스크 -->
+      <div class="vd-sec">
+        <h2><span class="n">9</span>리스크 분석 및 대응</h2>
+        <table class="tbl">
+          <thead><tr><th style="width:18%">리스크</th><th style="width:35%">내용</th><th style="width:47%">대응 전략</th></tr></thead>
+          <tbody>
+            <tr><td>개인정보 보호</td><td>직원 건강 정보는 민감 개인정보 → 유출 시 법적 리스크</td><td>ISO 27001 인증, 익명화 처리, 개인정보영향평가 실시</td></tr>
+            <tr><td>직원 수용성</td><td>감시 도구로 인식 → 참여율 저하</td><td>자발적 참여 설계, 개인 데이터 열람권 보장, 익명화 명확화</td></tr>
+            <tr><td>의료기기 규제</td><td>건강 분석 AI의 의료기기 해당 여부 → 허가 지연</td><td>2등급 이하 SW 해당 여부 사전 검토, 식약처 사전 협의</td></tr>
+            <tr><td>경쟁사 모방</td><td>대형 IT·HR 솔루션 업체의 유사 기능 추가</td><td>MOCA 기반 AI 정확도 및 임상 데이터 자산 차별화 유지</td></tr>
+            <tr><td>기업 예산 제약</td><td>중소기업 IT 투자 예산 한계</td><td>정부 보조금(산업안전보건 지원금) 연계, 분납 구독 옵션</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 10 경쟁 우위 -->
+      <div class="vd-sec">
+        <h2><span class="n">10</span>AITRICS 핵심 경쟁 우위</h2>
+        <div class="ag2">
+          <div class="ac"><div class="ab">DIFFERENTIATOR 01</div><h4>자체 의료 AI 모델 (MOCA)</h4><p class="ln">국내 최초 자체 의료 AI 모델 상용화</p><p class="ln">5만 건+ 임상 데이터 학습 · 5대 상급종합병원 검증</p><p class="ln">LLM 대비 85.77% 진단 정확도 (EMNLP 논문 심사 중)</p></div>
+          <div class="ac"><div class="ab">DIFFERENTIATOR 02</div><h4>한국 규제 환경 최적화</h4><p class="ln">중대재해처벌법 · 개인정보보호법 · 의료기기법 완벽 대응 설계</p><p class="ln">ISO 27001 정보보안 인증 진행 중</p></div>
+        </div>
+        <div class="ag2">
+          <div class="ac"><div class="ab">DIFFERENTIATOR 03</div><h4>임상 검증 기반 신뢰성</h4><p class="ln">신촌 세브란스 전공의 48명 참여 임상 검증</p><p class="ln">EMNLP · EPAG 학회 논문 심사 진행</p></div>
+          <div class="ac"><div class="ab">DIFFERENTIATOR 04</div><h4>B2C · B2B · Enterprise 통합 생태계</h4><p class="ln">V.Doc(개인) + V.Doc Pro(병원) + V.Doc Enterprise(기업)</p><p class="ln">PHR 기반 개인건강기록 → 기업 인사이트 선순환</p></div>
+        </div>
+      </div>
+      <!-- 11 결론 -->
+      <div class="vd-sec">
+        <h2><span class="n">11</span>결론</h2>
+        <p class="ln lg"><strong>V.Doc의 기존 의료 AI 역량과 임상 데이터 자산은 엔터프라이즈 직원 건강관리 시장에서 타사가 단기간에 모방하기 어려운 강력한 진입 장벽이다.</strong></p>
+        <div class="co-dk co">
+          <div class="ct">핵심 추진 권고</div>
+          <p class="ln"><strong>1. 즉시 실행:</strong> 건강검진 사후관리 MVP를 2026 Q2 내 완료, 제조업 파일럿 영업 즉시 개시</p>
+          <p class="ln"><strong>2. 레퍼런스 우선:</strong> 파일럿 3~5개사의 성과 데이터(위험 탐지율, 결근율 변화)를 세일즈 자산으로 확보</p>
+          <p class="ln"><strong>3. 규제 선점:</strong> 산업안전보건공단 MOU 체결, 건강친화기업 인증 연계로 공공 채널 및 사회적 신뢰 확보</p>
+          <p class="ln"><strong>4. 시행령 제5조 대응:</strong> 반기 1회 점검 의무 · 5년 보관 의무를 자동 충족하는 법적 증빙 기능을 MVP 핵심 기능으로 탑재</p>
+          <p class="ln"><strong>5. EAP 파트너십:</strong> 다인(2,900개사) · 마인드카페(500개사) 등 기존 EAP 업체에 AI 엔진 공급 제휴 우선 추진</p>
+          <p class="ln"><strong>6. 데이터 거버넌스:</strong> 직원 건강 데이터의 익명화 · 보안 · 동의 체계를 출시 전 완벽 구축</p>
+        </div>
+        <div class="co"><div class="ct">핵심 메시지</div><p class="ln"><strong>기술은 검증되었다. 시장은 열리고 있다. 진입 전략을 현실에 맞게 조정하여, 지금 시작한다.</strong></p></div>
+      </div>
+      <div class="vd-footer">V.Doc Enterprise Wellness AI Platform ｜ 사업 제안서 v2 ｜ AITRICS Corporation · 2026.03 ｜ Confidential</div>
+    </div>
+  </div><!-- /page-vdoc-report2 -->
 
 <!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
@@ -9899,6 +10680,12 @@ function navigateVdoc(sub, e) {
 
   if (sub === 'proposal') {
     window.location.hash = 'vdoc-proposal';
+  } else if (sub === 'analysis') {
+    window.location.hash = 'vdoc-analysis';
+  } else if (sub === 'report') {
+    window.location.hash = 'vdoc-report';
+  } else if (sub === 'report2') {
+    window.location.hash = 'vdoc-report2';
   }
 }
 
