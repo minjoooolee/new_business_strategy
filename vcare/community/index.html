@@ -713,17 +713,30 @@
   function showRooms() { vRooms.style.display = ''; vRoom.style.display = 'none'; }
   let currentRoomId = null;
 
+  function isQuestion(text) {
+    return text.trim().endsWith('?') || text.trim().endsWith('?');
+  }
+
   function renderMsg(m) {
     const isAgent = !!m.agent;
     const isMine  = !!m.mine;
     const avatarClass = isAgent ? 'chat-msg-avatar--agent' : '';
     const msgClass    = isMine ? 'chat-msg--mine' : (isAgent ? 'chat-msg--agent' : '');
+    const showAiHint  = !isAgent && isQuestion(m.t);
+    const aiHintHtml  = showAiHint
+      ? `<button class="ai-hint-btn" data-question="${m.t.replace(/"/g, '&quot;')}" title="AI 답변 보기">
+           <span class="ai-hint-avatar">AI</span>
+         </button>`
+      : '';
     return `
       <div class="chat-msg ${msgClass}">
         ${!isMine ? `<div class="chat-msg-avatar ${avatarClass}">${isAgent ? 'AI' : m.u[0]}</div>` : ''}
         <div class="chat-msg-body">
           <div class="chat-msg-name">${isMine ? '나' : m.u}</div>
-          <div class="chat-msg-bubble">${m.t}</div>
+          <div class="chat-msg-bubble-row${isMine ? ' chat-msg-bubble-row--mine' : ''}">
+            <div class="chat-msg-bubble">${m.t}</div>
+            ${aiHintHtml}
+          </div>
           <div class="chat-msg-time">${m.ts}</div>
         </div>
       </div>`;
@@ -812,13 +825,34 @@
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
     chatInput.value = '';
 
-    // AI 에이전트 응답 (타이핑 인디케이터 후 1.6~2.2초 딜레이)
-    const delay = 1600 + Math.random() * 600;
-    setTimeout(showTyping, 400);
-    setTimeout(() => hideTypingAndRespond(text), delay);
+    // ?로 끝나는 질문이 아니면 AI 자동 응답 안 함
+    // AI 아바타 버튼을 통해서만 AI 답변 확인 가능
   }
   document.getElementById('chatSend').addEventListener('click', sendMsg);
   chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+
+  // ── AI 힌트 아바타 클릭 → AI 답변 표시 ──────────────
+  chatMsgs.addEventListener('click', (e) => {
+    const btn = e.target.closest('.ai-hint-btn');
+    if (!btn) return;
+    // 이미 답변이 표시된 경우 무시
+    if (btn.classList.contains('ai-hint--answered')) return;
+    btn.classList.add('ai-hint--answered');
+
+    const question = btn.getAttribute('data-question');
+    const response = getAgentResponse(currentRoomId, question);
+    const now = new Date();
+    const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+
+    // 타이핑 인디케이터 표시
+    showTyping();
+
+    // 1.2~1.8초 딜레이 후 AI 응답 표시
+    const delay = 1200 + Math.random() * 600;
+    setTimeout(() => {
+      hideTypingAndRespond(question);
+    }, delay);
+  });
 </script>
 </body>
 </html>
