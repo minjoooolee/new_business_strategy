@@ -1066,33 +1066,33 @@ function renderDtMatchingResults(container, type) {
 
 function renderDtClinicalCard(r) {
   const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
-  return \`
-    <div class="dt-result-card" data-status="\${r.statusClass}">
+  return `
+    <div class="dt-result-card" data-status="${r.statusClass}">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <div class="dt-result-score" style="background:\${scoreColor}">\${r.matchScore}%<span>적합도</span></div>
+        <div class="dt-result-score" style="background:${scoreColor}">${r.matchScore}%<span>적합도</span></div>
         <div>
           <div style="display:flex;gap:6px;margin-bottom:4px">
-            <span class="dt-result-badge" style="background:#f3e8ff;color:#6b21a8">\${r.phase}</span>
-            <span class="dt-result-badge" style="background:\${r.statusClass==='recruiting'?'#dcfce7':'#fef3c7'};color:\${r.statusClass==='recruiting'?'#166534':'#92400e'}">\${r.status}</span>
+            <span class="dt-result-badge" style="background:#f3e8ff;color:#6b21a8">${r.phase}</span>
+            <span class="dt-result-badge" style="background:${r.statusClass==='recruiting'?'#dcfce7':'#fef3c7'};color:${r.statusClass==='recruiting'?'#166534':'#92400e'}">${r.status}</span>
           </div>
-          <div style="font-size:.78rem;color:#9ca3af">\${r.id}</div>
+          <div style="font-size:.78rem;color:#9ca3af">${r.id}</div>
         </div>
       </div>
-      <div style="font-size:.95rem;font-weight:700;color:#111827;line-height:1.45;margin-bottom:6px">\${r.title}</div>
-      <div style="font-size:.82rem;color:#6b7280;margin-bottom:8px">\${r.hospital}</div>
+      <div style="font-size:.95rem;font-weight:700;color:#111827;line-height:1.45;margin-bottom:6px">${r.title}</div>
+      <div style="font-size:.82rem;color:#6b7280;margin-bottom:8px">${r.hospital}</div>
       <div style="font-size:.82rem;color:#374151;padding:8px 10px;background:#f9fafb;border-radius:8px;margin-bottom:10px;line-height:1.5">
-        <b>시험약:</b> \${r.drug}
+        <b>시험약:</b> ${r.drug}
       </div>
-      <div style="font-size:.82rem;color:#374151;margin-bottom:4px"><b>대상:</b> \${r.target}</div>
-      <div style="font-size:.82rem;color:#374151;margin-bottom:8px"><b>스케줄:</b> \${r.schedule}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:4px"><b>대상:</b> ${r.target}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:8px"><b>스케줄:</b> ${r.schedule}</div>
 
       <div style="margin-bottom:10px">
         <div style="font-size:.75rem;font-weight:700;color:#9ca3af;margin-bottom:4px">참여 조건</div>
-        \${r.criteria.map(c => '<div style="font-size:.8rem;color:#374151;line-height:1.5">✓ ' + c + '</div>').join('')}
+        ${r.criteria.map(c => '<div style="font-size:.8rem;color:#374151;line-height:1.5">✓ ' + c + '</div>').join('')}
       </div>
 
       <div style="font-size:.82rem;color:#10b981;font-weight:600;padding:8px 10px;background:#f0fdf4;border-radius:8px;margin-bottom:12px">
-        💚 \${r.benefit}
+        💚 ${r.benefit}
       </div>
 
       <div style="display:flex;gap:8px">
@@ -1100,41 +1100,41 @@ function renderDtClinicalCard(r) {
         <button class="dt-result-btn dt-result-btn--secondary" onclick="alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
       </div>
     </div>
-  \`;
+  `;
 }
 
 function renderDtDrugCard(r) {
   const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
-  return \`
-    <div class="dt-result-card" data-status="\${r.coverageClass}">
+  return `
+    <div class="dt-result-card" data-status="${r.coverageClass}">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <div class="dt-result-score" style="background:\${scoreColor}">\${r.matchScore}%<span>적합도</span></div>
+        <div class="dt-result-score" style="background:${scoreColor}">${r.matchScore}%<span>적합도</span></div>
         <div>
           <div style="display:flex;gap:6px;margin-bottom:4px">
-            <span class="dt-result-badge" style="background:#f3e8ff;color:#6b21a8">\${r.category}</span>
-            <span class="dt-result-badge" style="background:\${r.coverageClass==='covered'?'#dcfce7':'#fef3c7'};color:\${r.coverageClass==='covered'?'#166534':'#92400e'}">\${r.coverageClass==='covered'?'급여 적용':'비급여'}</span>
+            <span class="dt-result-badge" style="background:#f3e8ff;color:#6b21a8">${r.category}</span>
+            <span class="dt-result-badge" style="background:${r.coverageClass==='covered'?'#dcfce7':'#fef3c7'};color:${r.coverageClass==='covered'?'#166534':'#92400e'}">${r.coverageClass==='covered'?'급여 적용':'비급여'}</span>
           </div>
-          <div style="font-size:.78rem;color:#9ca3af">\${r.company}</div>
+          <div style="font-size:.78rem;color:#9ca3af">${r.company}</div>
         </div>
       </div>
-      <div style="font-size:.95rem;font-weight:700;color:#111827;line-height:1.45;margin-bottom:4px">\${r.name}</div>
-      <div style="font-size:.82rem;color:#6b7280;margin-bottom:8px">\${r.approval}</div>
-      <div style="font-size:.82rem;color:#374151;margin-bottom:4px"><b>적응증:</b> \${r.indication}</div>
-      <div style="font-size:.82rem;color:#374151;margin-bottom:8px"><b>대상:</b> \${r.target}</div>
+      <div style="font-size:.95rem;font-weight:700;color:#111827;line-height:1.45;margin-bottom:4px">${r.name}</div>
+      <div style="font-size:.82rem;color:#6b7280;margin-bottom:8px">${r.approval}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:4px"><b>적응증:</b> ${r.indication}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:8px"><b>대상:</b> ${r.target}</div>
 
       <div style="font-size:.82rem;color:#6b21a8;font-weight:600;padding:8px 10px;background:#faf5ff;border-radius:8px;margin-bottom:10px;line-height:1.5">
-        ✨ \${r.advantage}
+        ✨ ${r.advantage}
       </div>
 
       <div style="margin-bottom:10px">
         <div style="font-size:.75rem;font-weight:700;color:#9ca3af;margin-bottom:4px">주요 부작용</div>
         <div style="display:flex;flex-wrap:wrap;gap:4px">
-          \${r.sideEffects.map(s => '<span style="font-size:.78rem;padding:2px 8px;background:#fff5f5;color:#991b1b;border-radius:6px;border:1px solid #fecaca">' + s + '</span>').join('')}
+          ${r.sideEffects.map(s => '<span style="font-size:.78rem;padding:2px 8px;background:#fff5f5;color:#991b1b;border-radius:6px;border:1px solid #fecaca">' + s + '</span>').join('')}
         </div>
       </div>
 
       <div style="font-size:.82rem;font-weight:600;padding:8px 10px;background:#f0fdf4;border-radius:8px;margin-bottom:12px">
-        💰 \${r.coverage}
+        💰 ${r.coverage}
       </div>
 
       <div style="display:flex;gap:8px">
@@ -1142,7 +1142,7 @@ function renderDtDrugCard(r) {
         <button class="dt-result-btn dt-result-btn--secondary" onclick="alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
       </div>
     </div>
-  \`;
+  `;
 }
 
 function resetDtMatchingForm() {
