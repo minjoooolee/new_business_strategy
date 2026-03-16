@@ -573,17 +573,30 @@ function getCohortMessages(cancer, subtype, stage, surgery, regimen) {
   ];
 }
 
+function isQuestion(text) {
+  return text.trim().endsWith('?') || text.trim().endsWith('?');
+}
+
 function renderChatMsg(m) {
   const isAgent = !!m.agent;
   const isMine  = !!m.mine;
   const avatarClass = isAgent ? 'chat-msg-avatar--agent' : '';
   const msgClass    = isMine ? 'chat-msg--mine' : (isAgent ? 'chat-msg--agent' : '');
+  const showAiHint  = !isAgent && isQuestion(m.t);
+  const aiHintHtml  = showAiHint
+    ? `<button class="ai-hint-btn" data-question="${m.t.replace(/"/g, '&quot;')}" title="AI 답변 보기">
+         <span class="ai-hint-avatar">AI</span>
+       </button>`
+    : '';
   return `
     <div class="chat-msg ${msgClass}">
       ${!isMine ? `<div class="chat-msg-avatar ${avatarClass}">${isAgent ? 'AI' : m.u[0]}</div>` : ''}
       <div class="chat-msg-body">
         <div class="chat-msg-name">${isMine ? '나' : m.u}</div>
-        <div class="chat-msg-bubble">${m.t}</div>
+        <div class="chat-msg-bubble-row${isMine ? ' chat-msg-bubble-row--mine' : ''}">
+          <div class="chat-msg-bubble">${m.t}</div>
+          ${aiHintHtml}
+        </div>
         <div class="chat-msg-time">${m.ts}</div>
       </div>
     </div>`;
@@ -643,14 +656,27 @@ function sendCohortMsg() {
   chatEl.scrollTop = chatEl.scrollHeight;
   input.value = '';
 
-  // AI 에이전트 개입 (타이핑 인디케이터 후 1.6~2.2초 딜레이)
-  const delay = 1600 + Math.random() * 600;
-  setTimeout(showTyping, 400);
-  setTimeout(() => hideTypingAndRespond(text), delay);
+  // ?로 끝나는 질문이 아니면 AI 자동 응답 안 함
+  // AI 아바타 버튼을 통해서만 AI 답변 확인 가능
 }
 
 document.getElementById('chatSend').addEventListener('click', sendCohortMsg);
 document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendCohortMsg(); });
+
+// ── AI 힌트 아바타 클릭 → AI 답변 표시 ──────────────
+document.getElementById('chatMessages').addEventListener('click', (e) => {
+  const btn = e.target.closest('.ai-hint-btn');
+  if (!btn) return;
+  if (btn.classList.contains('ai-hint--answered')) return;
+  btn.classList.add('ai-hint--answered');
+
+  const question = btn.getAttribute('data-question');
+  const response = getCohortAIResponse(question);
+
+  showTyping();
+  const delay = 1200 + Math.random() * 600;
+  setTimeout(() => hideTypingAndRespond(question), delay);
+});
 
 // ── 개별 항목 수정 모달 ────────────────────────
 let editingKey = null;

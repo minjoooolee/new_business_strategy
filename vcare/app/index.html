@@ -3050,12 +3050,16 @@ function finishMedicalSignup() {
   signupData.license = lic;
   signupData.nickname = nick;
   closeSignupOverlay();
+  // 가입 완료 후 홈 화면으로 이동
+  goHomeAfterSignup();
 }
 
 function finishSignup() {
   if (signupStep === 5 && !signupData.stage) return;
   closeSignupOverlay();
   setupCohortAutoEnter();
+  // 가입 완료 후 홈 화면으로 이동
+  goHomeAfterSignup();
 }
 
 function closeSignupOverlay() {
@@ -3066,6 +3070,17 @@ function closeSignupOverlay() {
   // 프로필 아바타 업데이트
   const avatarEl = document.querySelector('.home-avatar');
   if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
+}
+
+function goHomeAfterSignup() {
+  // 모든 서브 스크린 닫기
+  document.querySelectorAll('.sub-screen').forEach(s => s.style.display = 'none');
+  // 모든 스크린 비활성화 후 홈 활성화
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-home').classList.add('active');
+  // 탭바 홈 활성화
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  document.querySelector('.tab-item').classList.add('active');
 }
 
 function setupCohortAutoEnter() {
