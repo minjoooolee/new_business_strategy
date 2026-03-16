@@ -1236,6 +1236,120 @@ body {
 .matching-submit:hover { opacity:.9; }
 .matching-submit:active { transform:scale(.98); }
 
+/* ===== 매칭 결과 페이지 ===== */
+.matching-loading-spinner {
+  width:40px; height:40px; border-radius:50%;
+  border:3px solid #e5e7eb; border-top-color:#6E3FA3;
+  animation: matchSpin 0.8s linear infinite;
+}
+@keyframes matchSpin { to { transform:rotate(360deg); } }
+.matching-result-header {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 16px; background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.matching-result-back {
+  width:32px; height:32px; border-radius:8px;
+  background:#f3f4f6; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.matching-ai-summary {
+  margin:12px 16px; padding:12px 14px;
+  background:linear-gradient(135deg,#f0e8f7 0%,#ecfdf5 100%);
+  border:1px solid #d8b4fe; border-radius:12px;
+}
+.matching-result-filters {
+  display:flex; gap:6px; padding:8px 16px 12px;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+}
+.matching-filter-btn {
+  flex-shrink:0; padding:6px 14px; font-family:var(--font);
+  font-size:11.5px; font-weight:600; color:#6b7280;
+  background:#f3f4f6; border:none; border-radius:20px;
+  cursor:pointer; transition:all .15s;
+}
+.matching-filter-btn.active {
+  background:#111827; color:#fff;
+}
+.matching-result-card {
+  background:#fff; border:1.5px solid #e5e7eb;
+  border-radius:14px; padding:14px; cursor:pointer;
+  transition:all .15s;
+}
+.matching-result-card:hover { border-color:#d1d5db; }
+.mrc-header {
+  display:flex; align-items:center; gap:8px; margin-bottom:8px;
+}
+.mrc-score {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:3px 8px; font-family:'Poppins',sans-serif;
+  font-size:11px; font-weight:700; color:#fff;
+  border-radius:6px; min-width:40px;
+}
+.mrc-meta { display:flex; gap:6px; }
+.mrc-phase {
+  font-size:10px; font-weight:600; color:#6b21a8;
+  background:#f3e8ff; padding:2px 8px; border-radius:10px;
+}
+.mrc-status {
+  font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px;
+}
+.mrc-status--recruiting { background:#dcfce7; color:#166534; }
+.mrc-status--upcoming { background:#fef3c7; color:#92400e; }
+.mrc-title {
+  font-size:13px; font-weight:700; color:#111827;
+  line-height:1.45; margin-bottom:4px;
+}
+.mrc-hospital {
+  font-size:11px; color:#6b7280; margin-bottom:4px;
+}
+.mrc-drug {
+  font-size:11.5px; color:#374151; font-weight:500;
+  line-height:1.4; padding:6px 8px;
+  background:#f9fafb; border-radius:8px;
+}
+.mrc-detail {
+  max-height:0; overflow:hidden; transition:max-height .3s ease;
+}
+.mrc-detail.open { max-height:600px; }
+.mrc-detail-section {
+  padding:8px 0; border-top:1px solid #f3f4f6;
+}
+.mrc-detail-section:first-child { margin-top:10px; }
+.mrc-detail-label {
+  font-size:10.5px; font-weight:700; color:#9ca3af;
+  text-transform:uppercase; letter-spacing:.3px;
+  margin-bottom:4px;
+}
+.mrc-detail-value {
+  font-size:12px; color:#374151; line-height:1.55;
+}
+.mrc-criteria {
+  display:block; font-size:11.5px; color:#374151;
+  line-height:1.5; padding:1px 0;
+}
+.mrc-actions {
+  display:flex; gap:8px; margin-top:12px; padding-top:10px;
+  border-top:1px solid #f3f4f6;
+}
+.mrc-btn {
+  flex:1; padding:10px; font-family:var(--font);
+  font-size:12px; font-weight:700; border:none;
+  border-radius:10px; cursor:pointer; transition:opacity .15s;
+}
+.mrc-btn--primary {
+  background:linear-gradient(135deg,#3fbfbc,#6E3FA3);
+  color:#fff;
+}
+.mrc-btn--secondary {
+  background:#f3f4f6; color:#374151;
+}
+.mrc-btn:hover { opacity:.85; }
+.mrc-expand-hint {
+  font-size:10px; color:#9ca3af; text-align:center;
+  margin-top:8px;
+}
+
 /* Cohort FAB */
 .cohort-fab {
   position:sticky; bottom:16px; float:right; margin-right:16px;
@@ -3026,9 +3140,196 @@ function selectMatchOptMulti(btn) {
   }
 }
 
-// 매칭 제출
+// 매칭 제출 → 결과 화면 표시
 function submitMatching() {
-  alert('AI가 입력하신 정보를 분석하여 맞춤 임상시험/신약을 매칭합니다.\n잠시만 기다려 주세요.');
+  const matchingTab = document.getElementById('cohort-tab-matching');
+  const selectedType = document.querySelector('.matching-type-card.selected');
+  const type = selectedType ? (selectedType.id === 'matchCardClinical' ? 'clinical' : 'drug') : 'clinical';
+
+  // 로딩 표시
+  matchingTab.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center">
+      <div class="matching-loading-spinner"></div>
+      <div style="font-size:14px;font-weight:700;color:#111827;margin-top:20px">AI가 분석 중입니다</div>
+      <div style="font-size:12px;color:#6b7280;margin-top:6px">입력하신 정보를 바탕으로 맞춤 ${type === 'clinical' ? '임상시험' : '신약'}을 찾고 있어요...</div>
+    </div>
+  `;
+
+  setTimeout(() => renderMatchingResults(matchingTab, type), 1800);
+}
+
+function renderMatchingResults(container, type) {
+  const clinicalTrials = [
+    { id:'CT-2026-0412', phase:'Phase III', status:'모집 중', hospital:'서울대학교병원', title:'HER2 양성 유방암 환자 대상 T-DXd 병용요법 임상시험', drug:'트라스투주맙 데룩스테칸(T-DXd) + 면역항암제 병용', target:'HER2+ 유방암 2~3차 치료', matchScore:94, criteria:['HER2 양성 확인','ECOG 0-1','간/신장 기능 정상','이전 T-DM1 치료 이력'], schedule:'3주 1회 투여, 총 12개월', benefit:'최신 ADC 약물 무상 제공 + 정기검진 + 교통비 지원' },
+    { id:'CT-2026-0387', phase:'Phase II', status:'모집 중', hospital:'삼성서울병원', title:'PD-L1 양성 고형암 대상 신규 이중항체 임상시험', drug:'BL-0298 (PD-L1/VEGF 이중항체)', target:'PD-L1 양성, 기존 면역항암제 경험', matchScore:87, criteria:['PD-L1 양성 (TPS ≥1%)','ECOG 0-2','면역항암제 사용 이력','자가면역질환 없음'], schedule:'2주 1회 투여, 최대 24개월', benefit:'시험약 무상 + 동반진단 검사 무료 + 교통비' },
+    { id:'CT-2026-0521', phase:'Phase I/II', status:'모집 예정', hospital:'세브란스병원', title:'BRCA 변이 유방암 대상 PARP 억제제 병용요법', drug:'올라파립 + 신규 ATR 억제제', target:'BRCA1/2 변이 유방암', matchScore:72, criteria:['BRCA 변이 확인','2차 이상 치료 경험','골수 기능 양호'], schedule:'매일 경구 투여, 6개월 후 평가', benefit:'시험약 무상 + 유전자검사 무료' },
+    { id:'CT-2026-0298', phase:'Phase III', status:'모집 중', hospital:'아산병원', title:'호르몬 수용체 양성 유방암 CDK4/6 억제제 비교 임상', drug:'새로운 CDK4/6 억제제 vs 팔보시클립', target:'HR+/HER2- 전이성 유방암 1차 치료', matchScore:65, criteria:['HR 양성/HER2 음성','전이성 유방암','CDK4/6 억제제 미사용'], schedule:'28일 주기, 질병 진행까지', benefit:'시험약 + 호르몬제 무상 제공' },
+  ];
+
+  const newDrugs = [
+    { name:'엔허투(트라스투주맙 데룩스테칸)', company:'다이이찌산쿄/아스트라제네카', approval:'2025.09 보험급여 적용', category:'ADC (항체-약물 접합체)', target:'HER2 양성/저발현 유방암', matchScore:96, indication:'HER2+ 전이성 유방암 2차 이상', sideEffects:['간질성 폐질환(ILD)','구역/구토','호중구 감소','피로'], coverage:'건강보험 급여 적용 (본인부담 5%)', advantage:'HER2 저발현에서도 효과 입증, 기존 T-DM1 대비 생존기간 연장' },
+    { name:'키스칼리(리보시클립)', company:'노바티스', approval:'2024.03 보험급여 적용', category:'CDK4/6 억제제', target:'HR+/HER2- 유방암', matchScore:88, indication:'HR+/HER2- 진행성/전이성 유방암 1차 치료', sideEffects:['호중구 감소','QT 연장','간수치 상승','구역'], coverage:'건강보험 급여 적용 (본인부담 5%)', advantage:'OS(전체 생존기간) 개선 최초 입증 CDK4/6 억제제' },
+    { name:'패드세브(sacituzumab govitecan)', company:'길리어드', approval:'2025.12 허가', category:'ADC (항체-약물 접합체)', target:'삼중음성 유방암(TNBC)', matchScore:74, indication:'2차 이상 전이성 TNBC', sideEffects:['호중구 감소','설사','구역/구토','탈모'], coverage:'비급여 (급여 심사 진행 중)', advantage:'TNBC 표준치료 대비 PFS·OS 유의미한 개선' },
+    { name:'투키사(투카티닙)', company:'씨젠', approval:'2025.06 보험급여 적용', category:'소분자 TKI', target:'HER2+ 유방암 뇌전이', matchScore:61, indication:'HER2+ 전이성 유방암 (뇌전이 포함) 3차 이상', sideEffects:['설사','손발증후군','간수치 상승'], coverage:'건강보험 급여 적용', advantage:'뇌전이 환자에서 유의미한 효과 입증' },
+  ];
+
+  const results = type === 'clinical' ? clinicalTrials : newDrugs;
+  const typeLabel = type === 'clinical' ? '임상시험' : '신약';
+  const typeIcon = type === 'clinical' ? '🔬' : '💊';
+
+  container.innerHTML = `
+    <div style="padding:0">
+      <!-- 결과 헤더 -->
+      <div class="matching-result-header">
+        <button class="matching-result-back" onclick="resetMatchingForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#111827">${typeIcon} AI 맞춤 ${typeLabel} 매칭 결과</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px">내 조건에 맞는 ${results.length}건의 ${typeLabel}을 찾았습니다</div>
+        </div>
+      </div>
+
+      <!-- AI 요약 배너 -->
+      <div class="matching-ai-summary">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#3fbfbc,#6E3FA3);font-size:8px;color:#fff;font-weight:800">AI</span>
+          <span style="font-size:12px;font-weight:700;color:#6b21a8">v.care AI 분석</span>
+        </div>
+        <div style="font-size:12px;color:#4a1d7a;line-height:1.6">
+          입력하신 정보를 기반으로 적합도가 높은 순서대로 정렬했습니다.
+          ${type === 'clinical' ? '임상시험 참여 전 반드시 담당 주치의와 상의하세요.' : '약제 변경은 반드시 담당 주치의와 상의 후 결정하세요.'}
+        </div>
+      </div>
+
+      <!-- 필터 -->
+      <div class="matching-result-filters">
+        <button class="matching-filter-btn active" onclick="filterResults(this,'all')">전체 ${results.length}</button>
+        ${type === 'clinical'
+          ? '<button class="matching-filter-btn" onclick="filterResults(this,\'recruiting\')">모집 중</button><button class="matching-filter-btn" onclick="filterResults(this,\'upcoming\')">모집 예정</button>'
+          : '<button class="matching-filter-btn" onclick="filterResults(this,\'covered\')">급여 적용</button><button class="matching-filter-btn" onclick="filterResults(this,\'uncovered\')">비급여</button>'
+        }
+      </div>
+
+      <!-- 결과 카드 리스트 -->
+      <div style="padding:0 16px 20px;display:flex;flex-direction:column;gap:12px">
+        ${type === 'clinical'
+          ? results.map((r,i) => renderClinicalCard(r,i)).join('')
+          : results.map((r,i) => renderDrugCard(r,i)).join('')
+        }
+      </div>
+
+      <div style="padding:0 16px 32px">
+        <div style="font-size:11px;color:#9ca3af;line-height:1.5;text-align:center;padding:12px;background:#f9fafb;border-radius:10px">
+          본 매칭 결과는 AI가 입력된 정보를 기반으로 제공하는 참고 자료이며, 의학적 진단이나 처방을 대체하지 않습니다.
+          구체적인 치료 방침은 반드시 담당 의료진과 상의하세요.
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderClinicalCard(r, idx) {
+  const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
+  const statusClass = r.status === '모집 중' ? 'recruiting' : 'upcoming';
+  return `
+    <div class="matching-result-card" data-status="${statusClass}" onclick="this.querySelector('.mrc-detail').classList.toggle('open')">
+      <div class="mrc-header">
+        <div class="mrc-score" style="background:${scoreColor}">${r.matchScore}%</div>
+        <div class="mrc-meta">
+          <span class="mrc-phase">${r.phase}</span>
+          <span class="mrc-status mrc-status--${statusClass}">${r.status}</span>
+        </div>
+      </div>
+      <div class="mrc-title">${r.title}</div>
+      <div class="mrc-hospital">${r.hospital} · ${r.id}</div>
+      <div class="mrc-drug">시험약: ${r.drug}</div>
+      <div class="mrc-detail">
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">대상</div>
+          <div class="mrc-detail-value">${r.target}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">주요 참여 조건</div>
+          <div class="mrc-detail-value">${r.criteria.map(c => '<span class="mrc-criteria">✓ ' + c + '</span>').join('')}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">투여 스케줄</div>
+          <div class="mrc-detail-value">${r.schedule}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">참여 혜택</div>
+          <div class="mrc-detail-value" style="color:#10b981;font-weight:600">${r.benefit}</div>
+        </div>
+        <div class="mrc-actions">
+          <button class="mrc-btn mrc-btn--primary" onclick="event.stopPropagation();alert('담당 코디네이터에게 연결합니다.')">참여 문의하기</button>
+          <button class="mrc-btn mrc-btn--secondary" onclick="event.stopPropagation();alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
+        </div>
+      </div>
+      <div class="mrc-expand-hint">탭하여 상세 보기</div>
+    </div>
+  `;
+}
+
+function renderDrugCard(r, idx) {
+  const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
+  const coverageClass = r.coverage.includes('급여') && !r.coverage.includes('비급여') ? 'covered' : 'uncovered';
+  return `
+    <div class="matching-result-card" data-status="${coverageClass}" onclick="this.querySelector('.mrc-detail').classList.toggle('open')">
+      <div class="mrc-header">
+        <div class="mrc-score" style="background:${scoreColor}">${r.matchScore}%</div>
+        <div class="mrc-meta">
+          <span class="mrc-phase">${r.category}</span>
+          <span class="mrc-status mrc-status--${coverageClass === 'covered' ? 'recruiting' : 'upcoming'}">${r.coverage.includes('비급여') ? '비급여' : '급여 적용'}</span>
+        </div>
+      </div>
+      <div class="mrc-title">${r.name}</div>
+      <div class="mrc-hospital">${r.company} · ${r.approval}</div>
+      <div class="mrc-drug">적응증: ${r.indication}</div>
+      <div class="mrc-detail">
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">대상</div>
+          <div class="mrc-detail-value">${r.target}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">차별점</div>
+          <div class="mrc-detail-value" style="color:#6b21a8;font-weight:600">${r.advantage}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">주요 부작용</div>
+          <div class="mrc-detail-value">${r.sideEffects.map(s => '<span class="mrc-criteria">· ' + s + '</span>').join('')}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">보험 적용</div>
+          <div class="mrc-detail-value" style="font-weight:600">${r.coverage}</div>
+        </div>
+        <div class="mrc-actions">
+          <button class="mrc-btn mrc-btn--primary" onclick="event.stopPropagation();alert('담당 의료진에게 문의를 전달합니다.')">처방 문의하기</button>
+          <button class="mrc-btn mrc-btn--secondary" onclick="event.stopPropagation();alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
+        </div>
+      </div>
+      <div class="mrc-expand-hint">탭하여 상세 보기</div>
+    </div>
+  `;
+}
+
+function resetMatchingForm() {
+  const matchingTab = document.getElementById('cohort-tab-matching');
+  matchingTab.remove();
+  // 탭 콘텐츠를 다시 생성
+  const tabContainer = document.querySelector('#sub-cohort-main > div:last-of-type') || document.querySelector('.cohort-tab-content:last-of-type').parentElement;
+  // 간단히 페이지 전체를 다시 로드하는 대신, board 탭으로 전환
+  switchCohortTab('board', document.querySelector('.cohort-inner-tab'));
+  location.reload();
+}
+
+function filterResults(btn, filter) {
+  btn.parentElement.querySelectorAll('.matching-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.matching-result-card').forEach(card => {
+    if (filter === 'all') { card.style.display = ''; return; }
+    card.style.display = card.dataset.status === filter ? '' : 'none';
+  });
 }
 
 // 초기 렌더링

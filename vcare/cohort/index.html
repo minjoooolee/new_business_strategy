@@ -973,13 +973,191 @@ function renderMatchingSection() {
     </div>
 
     <!-- 제출 버튼 -->
-    <button class="dt-matching-submit" onclick="alert('AI가 입력하신 정보를 분석하여 맞춤 임상시험/신약을 매칭합니다.')">
+    <button class="dt-matching-submit" onclick="submitDtMatching()">
       <span style="display:inline-flex;align-items:center;gap:8px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         AI 맞춤 매칭 시작하기
       </span>
     </button>
   `;
+}
+
+function submitDtMatching() {
+  const el = document.getElementById('cohortMatching');
+  const selectedType = document.querySelector('.matching-type-card-dt.selected');
+  const type = selectedType ? (selectedType.id === 'dtMatchClinical' ? 'clinical' : 'drug') : 'clinical';
+
+  el.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 20px;text-align:center">
+      <div class="dt-matching-spinner"></div>
+      <div style="font-size:1.05rem;font-weight:700;color:#111827;margin-top:24px">AI가 분석 중입니다</div>
+      <div style="font-size:.88rem;color:#6b7280;margin-top:8px">입력하신 정보를 바탕으로 맞춤 ${type === 'clinical' ? '임상시험' : '신약'}을 찾고 있어요...</div>
+    </div>
+  `;
+
+  setTimeout(() => renderDtMatchingResults(el, type), 2000);
+}
+
+function renderDtMatchingResults(container, type) {
+  const cancer = selections.cancer || '유방암';
+
+  const clinicalTrials = [
+    { id:'CT-2026-0412', phase:'Phase III', status:'모집 중', statusClass:'recruiting', hospital:'서울대학교병원', title:'HER2 양성 ' + cancer + ' 환자 대상 T-DXd 병용요법 임상시험', drug:'트라스투주맙 데룩스테칸(T-DXd) + 면역항암제 병용', target:'HER2+ ' + cancer + ' 2~3차 치료', matchScore:94, criteria:['HER2 양성 확인','ECOG 0-1','간/신장 기능 정상','이전 T-DM1 치료 이력'], schedule:'3주 1회 투여, 총 12개월', benefit:'최신 ADC 약물 무상 제공 + 정기검진 + 교통비 지원' },
+    { id:'CT-2026-0387', phase:'Phase II', status:'모집 중', statusClass:'recruiting', hospital:'삼성서울병원', title:'PD-L1 양성 고형암 대상 신규 이중항체 임상시험', drug:'BL-0298 (PD-L1/VEGF 이중항체)', target:'PD-L1 양성, 기존 면역항암제 경험', matchScore:87, criteria:['PD-L1 양성 (TPS ≥1%)','ECOG 0-2','면역항암제 사용 이력','자가면역질환 없음'], schedule:'2주 1회 투여, 최대 24개월', benefit:'시험약 무상 + 동반진단 검사 무료 + 교통비' },
+    { id:'CT-2026-0521', phase:'Phase I/II', status:'모집 예정', statusClass:'upcoming', hospital:'세브란스병원', title:'BRCA 변이 ' + cancer + ' 대상 PARP 억제제 병용요법', drug:'올라파립 + 신규 ATR 억제제', target:'BRCA1/2 변이 ' + cancer, matchScore:72, criteria:['BRCA 변이 확인','2차 이상 치료 경험','골수 기능 양호'], schedule:'매일 경구 투여, 6개월 후 평가', benefit:'시험약 무상 + 유전자검사 무료' },
+    { id:'CT-2026-0298', phase:'Phase III', status:'모집 중', statusClass:'recruiting', hospital:'아산병원', title:'호르몬 수용체 양성 ' + cancer + ' CDK4/6 억제제 비교 임상', drug:'새로운 CDK4/6 억제제 vs 팔보시클립', target:'HR+/HER2- 전이성 ' + cancer + ' 1차 치료', matchScore:65, criteria:['HR 양성/HER2 음성','전이성 ' + cancer,'CDK4/6 억제제 미사용'], schedule:'28일 주기, 질병 진행까지', benefit:'시험약 + 호르몬제 무상 제공' },
+  ];
+
+  const newDrugs = [
+    { name:'엔허투(트라스투주맙 데룩스테칸)', company:'다이이찌산쿄/아스트라제네카', approval:'2025.09 보험급여 적용', category:'ADC (항체-약물 접합체)', target:'HER2 양성/저발현 ' + cancer, matchScore:96, indication:'HER2+ 전이성 ' + cancer + ' 2차 이상', sideEffects:['간질성 폐질환(ILD)','구역/구토','호중구 감소','피로'], coverage:'건강보험 급여 적용 (본인부담 5%)', coverageClass:'covered', advantage:'HER2 저발현에서도 효과 입증, 기존 T-DM1 대비 생존기간 연장' },
+    { name:'키스칼리(리보시클립)', company:'노바티스', approval:'2024.03 보험급여 적용', category:'CDK4/6 억제제', target:'HR+/HER2- ' + cancer, matchScore:88, indication:'HR+/HER2- 진행성/전이성 ' + cancer + ' 1차 치료', sideEffects:['호중구 감소','QT 연장','간수치 상승','구역'], coverage:'건강보험 급여 적용 (본인부담 5%)', coverageClass:'covered', advantage:'OS(전체 생존기간) 개선 최초 입증 CDK4/6 억제제' },
+    { name:'패드세브(sacituzumab govitecan)', company:'길리어드', approval:'2025.12 허가', category:'ADC (항체-약물 접합체)', target:'삼중음성 ' + cancer + '(TNBC)', matchScore:74, indication:'2차 이상 전이성 TNBC', sideEffects:['호중구 감소','설사','구역/구토','탈모'], coverage:'비급여 (급여 심사 진행 중)', coverageClass:'uncovered', advantage:'TNBC 표준치료 대비 PFS·OS 유의미한 개선' },
+    { name:'투키사(투카티닙)', company:'씨젠', approval:'2025.06 보험급여 적용', category:'소분자 TKI', target:'HER2+ ' + cancer + ' 뇌전이', matchScore:61, indication:'HER2+ 전이성 ' + cancer + ' (뇌전이 포함) 3차 이상', sideEffects:['설사','손발증후군','간수치 상승'], coverage:'건강보험 급여 적용', coverageClass:'covered', advantage:'뇌전이 환자에서 유의미한 효과 입증' },
+  ];
+
+  const results = type === 'clinical' ? clinicalTrials : newDrugs;
+  const typeLabel = type === 'clinical' ? '임상시험' : '신약';
+  const typeIcon = type === 'clinical' ? '🔬' : '💊';
+
+  container.innerHTML = `
+    <!-- 결과 헤더 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="dt-matching-back" onclick="resetDtMatchingForm()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div>
+          <div style="font-size:1.15rem;font-weight:700;color:#111827">${typeIcon} AI 맞춤 ${typeLabel} 매칭 결과</div>
+          <div style="font-size:.85rem;color:#6b7280;margin-top:2px">내 조건에 맞는 <b>${results.length}건</b>의 ${typeLabel}을 찾았습니다</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        ${type === 'clinical'
+          ? '<button class="dt-result-filter active" onclick="filterDtResults(this,\'all\')">전체</button><button class="dt-result-filter" onclick="filterDtResults(this,\'recruiting\')">모집 중</button><button class="dt-result-filter" onclick="filterDtResults(this,\'upcoming\')">모집 예정</button>'
+          : '<button class="dt-result-filter active" onclick="filterDtResults(this,\'all\')">전체</button><button class="dt-result-filter" onclick="filterDtResults(this,\'covered\')">급여 적용</button><button class="dt-result-filter" onclick="filterDtResults(this,\'uncovered\')">비급여</button>'
+        }
+      </div>
+    </div>
+
+    <!-- AI 요약 -->
+    <div style="padding:16px 20px;background:linear-gradient(135deg,#f0e8f7 0%,#ecfdf5 100%);border:1px solid #d8b4fe;border-radius:14px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#3fbfbc,#6E3FA3);font-size:9px;color:#fff;font-weight:800;font-family:Poppins,sans-serif">AI</span>
+        <span style="font-size:.88rem;font-weight:700;color:#6b21a8">v.care AI 분석</span>
+      </div>
+      <div style="font-size:.85rem;color:#4a1d7a;line-height:1.65">
+        <b>${cancer}</b> 환자 프로필을 기반으로 적합도가 높은 순서대로 정렬했습니다.
+        ${type === 'clinical' ? '임상시험 참여 전 반드시 담당 주치의와 상의하세요.' : '약제 변경은 반드시 담당 주치의와 상의 후 결정하세요.'}
+      </div>
+    </div>
+
+    <!-- 결과 카드 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      ${results.map((r, i) => type === 'clinical' ? renderDtClinicalCard(r) : renderDtDrugCard(r)).join('')}
+    </div>
+
+    <!-- 면책 조항 -->
+    <div style="margin-top:24px;font-size:.8rem;color:#9ca3af;line-height:1.55;text-align:center;padding:16px 20px;background:#f9fafb;border-radius:12px">
+      본 매칭 결과는 AI가 입력된 정보를 기반으로 제공하는 참고 자료이며, 의학적 진단이나 처방을 대체하지 않습니다.
+      구체적인 치료 방침은 반드시 담당 의료진과 상의하세요.
+    </div>
+  `;
+}
+
+function renderDtClinicalCard(r) {
+  const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
+  return \`
+    <div class="dt-result-card" data-status="\${r.statusClass}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="dt-result-score" style="background:\${scoreColor}">\${r.matchScore}%<span>적합도</span></div>
+        <div>
+          <div style="display:flex;gap:6px;margin-bottom:4px">
+            <span class="dt-result-badge" style="background:#f3e8ff;color:#6b21a8">\${r.phase}</span>
+            <span class="dt-result-badge" style="background:\${r.statusClass==='recruiting'?'#dcfce7':'#fef3c7'};color:\${r.statusClass==='recruiting'?'#166534':'#92400e'}">\${r.status}</span>
+          </div>
+          <div style="font-size:.78rem;color:#9ca3af">\${r.id}</div>
+        </div>
+      </div>
+      <div style="font-size:.95rem;font-weight:700;color:#111827;line-height:1.45;margin-bottom:6px">\${r.title}</div>
+      <div style="font-size:.82rem;color:#6b7280;margin-bottom:8px">\${r.hospital}</div>
+      <div style="font-size:.82rem;color:#374151;padding:8px 10px;background:#f9fafb;border-radius:8px;margin-bottom:10px;line-height:1.5">
+        <b>시험약:</b> \${r.drug}
+      </div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:4px"><b>대상:</b> \${r.target}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:8px"><b>스케줄:</b> \${r.schedule}</div>
+
+      <div style="margin-bottom:10px">
+        <div style="font-size:.75rem;font-weight:700;color:#9ca3af;margin-bottom:4px">참여 조건</div>
+        \${r.criteria.map(c => '<div style="font-size:.8rem;color:#374151;line-height:1.5">✓ ' + c + '</div>').join('')}
+      </div>
+
+      <div style="font-size:.82rem;color:#10b981;font-weight:600;padding:8px 10px;background:#f0fdf4;border-radius:8px;margin-bottom:12px">
+        💚 \${r.benefit}
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button class="dt-result-btn dt-result-btn--primary" onclick="alert('담당 코디네이터에게 연결합니다.')">참여 문의하기</button>
+        <button class="dt-result-btn dt-result-btn--secondary" onclick="alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
+      </div>
+    </div>
+  \`;
+}
+
+function renderDtDrugCard(r) {
+  const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
+  return \`
+    <div class="dt-result-card" data-status="\${r.coverageClass}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="dt-result-score" style="background:\${scoreColor}">\${r.matchScore}%<span>적합도</span></div>
+        <div>
+          <div style="display:flex;gap:6px;margin-bottom:4px">
+            <span class="dt-result-badge" style="background:#f3e8ff;color:#6b21a8">\${r.category}</span>
+            <span class="dt-result-badge" style="background:\${r.coverageClass==='covered'?'#dcfce7':'#fef3c7'};color:\${r.coverageClass==='covered'?'#166534':'#92400e'}">\${r.coverageClass==='covered'?'급여 적용':'비급여'}</span>
+          </div>
+          <div style="font-size:.78rem;color:#9ca3af">\${r.company}</div>
+        </div>
+      </div>
+      <div style="font-size:.95rem;font-weight:700;color:#111827;line-height:1.45;margin-bottom:4px">\${r.name}</div>
+      <div style="font-size:.82rem;color:#6b7280;margin-bottom:8px">\${r.approval}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:4px"><b>적응증:</b> \${r.indication}</div>
+      <div style="font-size:.82rem;color:#374151;margin-bottom:8px"><b>대상:</b> \${r.target}</div>
+
+      <div style="font-size:.82rem;color:#6b21a8;font-weight:600;padding:8px 10px;background:#faf5ff;border-radius:8px;margin-bottom:10px;line-height:1.5">
+        ✨ \${r.advantage}
+      </div>
+
+      <div style="margin-bottom:10px">
+        <div style="font-size:.75rem;font-weight:700;color:#9ca3af;margin-bottom:4px">주요 부작용</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          \${r.sideEffects.map(s => '<span style="font-size:.78rem;padding:2px 8px;background:#fff5f5;color:#991b1b;border-radius:6px;border:1px solid #fecaca">' + s + '</span>').join('')}
+        </div>
+      </div>
+
+      <div style="font-size:.82rem;font-weight:600;padding:8px 10px;background:#f0fdf4;border-radius:8px;margin-bottom:12px">
+        💰 \${r.coverage}
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button class="dt-result-btn dt-result-btn--primary" onclick="alert('담당 의료진에게 문의를 전달합니다.')">처방 문의하기</button>
+        <button class="dt-result-btn dt-result-btn--secondary" onclick="alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
+      </div>
+    </div>
+  \`;
+}
+
+function resetDtMatchingForm() {
+  const el = document.getElementById('cohortMatching');
+  el.innerHTML = '';
+  renderMatchingSection();
+}
+
+function filterDtResults(btn, filter) {
+  btn.parentElement.querySelectorAll('.dt-result-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.dt-result-card').forEach(card => {
+    if (filter === 'all') { card.style.display = ''; return; }
+    card.style.display = card.dataset.status === filter ? '' : 'none';
+  });
 }
 
 function selectDtMatchType(type) {
