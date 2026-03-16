@@ -1189,6 +1189,157 @@ body {
 }
 .cohort-fab:hover { transform:scale(1.05); }
 .cohort-fab svg { width:22px; height:22px; color:#fff; }
+
+/* ===== UPLOAD BANNER (HOME) ===== */
+.upload-banner-app {
+  margin:0 20px 16px; padding:18px 16px 14px;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899);
+  position:relative; overflow:hidden; cursor:pointer;
+  transition:transform .15s;
+}
+.upload-banner-app:hover { transform:translateY(-1px); }
+.upload-banner-app-glow {
+  position:absolute; top:-40px; right:-40px;
+  width:120px; height:120px; border-radius:50%;
+  background:rgba(255,255,255,.15); filter:blur(20px); pointer-events:none;
+}
+.upload-banner-app-badge {
+  display:inline-block; padding:2px 8px; font-size:9px; font-weight:700;
+  color:#7c3aed; background:#fff; border-radius:10px; margin-bottom:10px; letter-spacing:.3px;
+}
+.upload-banner-app-main {
+  display:flex; align-items:center; gap:12px; margin-bottom:12px; position:relative; z-index:1;
+}
+.upload-banner-app-icon {
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(255,255,255,.2); display:flex; align-items:center;
+  justify-content:center; flex-shrink:0;
+}
+.upload-banner-app-text h3 { font-size:15px; font-weight:700; color:#fff; margin-bottom:2px; }
+.upload-banner-app-text p { font-size:11px; color:rgba(255,255,255,.8); }
+.upload-banner-app-features {
+  display:flex; flex-wrap:wrap; gap:6px; position:relative; z-index:1;
+}
+.upload-banner-app-features span {
+  font-size:10px; font-weight:500; color:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.15); padding:3px 8px; border-radius:8px;
+}
+
+/* ===== UPLOAD SUB-SCREEN ===== */
+.upl-info { margin:16px; padding:14px; background:#faf5ff; border:1px solid rgba(139,92,246,.12); border-radius:var(--radius-sm); }
+.upl-info-title { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px; }
+.upl-info-steps { display:flex; flex-direction:column; gap:10px; }
+.upl-step { display:flex; align-items:flex-start; gap:10px; }
+.upl-step-num { width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,#8b5cf6,#a855f7); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.upl-step strong { font-size:12px; color:var(--text); display:block; }
+.upl-step p { font-size:10px; color:var(--muted); margin-top:1px; }
+
+.upl-upload-area { padding:0 16px 16px; }
+.upl-count { font-size:12px; font-weight:600; color:#8b5cf6; margin-bottom:10px; }
+.upl-dropzone {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  padding:28px 16px; border:2px dashed #d1d5db; border-radius:var(--radius-sm);
+  background:var(--bg-soft); cursor:pointer; transition:.2s;
+}
+.upl-dropzone:active { border-color:#8b5cf6; background:#faf5ff; }
+.upl-dropzone p { font-size:12px; color:var(--muted); }
+
+.upl-btns { display:flex; gap:8px; margin-top:12px; }
+.upl-btn {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:10px 0; font-size:12px; font-weight:600; border:none; border-radius:var(--radius-xs);
+  cursor:pointer; font-family:var(--font); transition:.15s;
+}
+.upl-btn-cam { background:linear-gradient(135deg,#10b981,#059669); color:#fff; }
+.upl-btn-gal { background:#fff; color:var(--text); border:1px solid #d1d5db; }
+
+.upl-previews { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
+.upl-prev-item { position:relative; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+.upl-prev-item img { width:100%; height:80px; object-fit:cover; display:block; }
+.upl-prev-actions { display:flex; justify-content:space-between; padding:4px 6px; }
+.upl-prev-mask {
+  font-size:9px; font-weight:600; color:#8b5cf6; background:none; border:1px solid rgba(139,92,246,.2);
+  border-radius:4px; padding:2px 6px; cursor:pointer;
+}
+.upl-prev-rm { width:20px; height:20px; border:none; background:none; color:var(--muted); font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.upl-prev-rm:active { color:#ef4444; }
+.upl-prev-masked { position:absolute; top:4px; left:4px; font-size:8px; font-weight:700; color:#fff; background:rgba(16,185,129,.85); padding:1px 6px; border-radius:4px; }
+
+.upl-submit {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:14px; margin-top:16px; font-size:14px; font-weight:700; color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899);
+  border:none; border-radius:var(--radius-sm); cursor:pointer; font-family:var(--font);
+  transition:.15s; box-shadow:0 4px 16px rgba(139,92,246,.25);
+}
+.upl-submit:disabled { opacity:.4; cursor:not-allowed; }
+.upl-submit:not(:disabled):active { transform:scale(.98); }
+
+/* Analysis */
+.upl-analysis { padding:0 16px 24px; }
+.upl-progress { background:#fff; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; margin-bottom:12px; }
+.upl-progress-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.upl-progress-header strong { font-size:13px; color:var(--text); }
+.upl-spinner { width:20px; height:20px; border:2.5px solid #e5e7eb; border-top-color:#8b5cf6; border-radius:50%; animation:uplSpin .7s linear infinite; flex-shrink:0; }
+@keyframes uplSpin { to { transform:rotate(360deg); } }
+.upl-progress-steps { display:flex; flex-direction:column; gap:10px; }
+.upl-pstep { display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-soft); border-radius:8px; }
+.upl-pstep-dot { width:28px; height:28px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:.3s; }
+.upl-dot-pending { background:#e5e7eb; }
+.upl-dot-running { background:linear-gradient(135deg,#8b5cf6,#a855f7); animation:uplPulse 1.5s ease-in-out infinite; }
+@keyframes uplPulse { 0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,.3)} 50%{box-shadow:0 0 0 6px rgba(139,92,246,0)} }
+.upl-dot-done { background:#10b981; }
+.upl-pstep-info { flex:1; }
+.upl-pstep-info strong { font-size:11px; color:var(--text); display:block; }
+.upl-pstep-info p { font-size:9px; color:var(--muted); margin-top:1px; }
+.upl-pstep-status { font-size:10px; font-weight:600; color:var(--muted); white-space:nowrap; }
+
+.upl-result {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius-sm);
+  padding:14px; margin-bottom:10px; animation:uplFadeIn .4s ease;
+}
+@keyframes uplFadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.upl-result strong { font-size:13px; color:var(--text); }
+.upl-result-badge { display:inline-block; padding:2px 8px; font-size:9px; font-weight:700; color:#fff; border-radius:4px; margin-bottom:8px; margin-right:6px; }
+.upl-badge-ocr { background:linear-gradient(135deg,#3b82f6,#6366f1); }
+.upl-badge-law { background:linear-gradient(135deg,#10b981,#059669); }
+.upl-badge-doc { background:linear-gradient(135deg,#8b5cf6,#ec4899); }
+.upl-result-body { margin-top:10px; font-size:11px; color:var(--sub); line-height:1.6; }
+.upl-result-doctor { border-color:rgba(139,92,246,.15); background:linear-gradient(135deg,#faf5ff,#fff); }
+.upl-doctor-wait { display:flex; align-items:center; gap:8px; margin-top:10px; padding:10px; background:var(--bg-soft); border-radius:8px; font-size:11px; color:var(--sub); }
+.upl-doctor-wait strong { color:var(--text); }
+
+/* OCR table */
+.upl-ocr-table { width:100%; border-collapse:collapse; margin:8px 0; font-size:10px; }
+.upl-ocr-table th { padding:6px; text-align:left; background:var(--bg-soft); font-weight:600; color:var(--text); border-bottom:1px solid var(--border); }
+.upl-ocr-table td { padding:6px; border-bottom:1px solid var(--border); color:var(--sub); }
+.upl-status-ok { color:#10b981; font-weight:600; }
+.upl-status-low { color:#ef4444; font-weight:600; }
+
+/* Compliance */
+.upl-compliance-item { display:flex; align-items:flex-start; gap:8px; padding:8px; border-radius:8px; margin-bottom:6px; }
+.upl-compliance-item svg { flex-shrink:0; margin-top:1px; }
+.upl-comp-pass { background:#f0fdf4; }
+.upl-comp-warn { background:#fffbeb; }
+.upl-compliance-item strong { font-size:11px; color:var(--text); display:block; }
+.upl-compliance-item p { font-size:10px; color:var(--sub); margin-top:1px; }
+
+/* Mask modal */
+.upl-mask-modal {
+  position:absolute; inset:0; z-index:100; background:rgba(0,0,0,.5);
+  display:none; align-items:center; justify-content:center; padding:16px;
+}
+.upl-mask-modal.on { display:flex; }
+.upl-mask-inner { width:100%; max-height:90%; overflow-y:auto; background:#fff; border-radius:var(--radius); padding:16px; }
+.upl-mask-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.upl-mask-header strong { font-size:14px; }
+.upl-mask-header button { width:28px; height:28px; border:none; background:none; font-size:18px; cursor:pointer; color:var(--sub); }
+.upl-mask-canvas-wrap { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:12px; touch-action:none; }
+.upl-mask-canvas-wrap canvas { display:block; width:100%; }
+.upl-mask-actions { display:flex; gap:8px; }
+.upl-mask-auto { flex:1; display:flex; align-items:center; justify-content:center; gap:4px; padding:10px; font-size:12px; font-weight:600; border:1px solid var(--border); background:var(--bg-soft); border-radius:8px; cursor:pointer; color:var(--sub); font-family:var(--font); }
+.upl-mask-done { flex:1.5; padding:10px; font-size:12px; font-weight:600; border:none; background:linear-gradient(135deg,#8b5cf6,#a855f7); color:#fff; border-radius:8px; cursor:pointer; font-family:var(--font); }
 </style>
 </head>
 <body>
@@ -1278,7 +1429,29 @@ body {
         <span class="home-vdoc-arrow">&rsaquo;</span>
       </div>
 
-      <div class="content-pad">
+      <!-- 검사기록지 업로드 배너 (최상단 강조) -->
+      <div class="upload-banner-app" onclick="showSubScreen('sub-upload')">
+        <div class="upload-banner-app-glow"></div>
+        <div class="upload-banner-app-badge">NEW</div>
+        <div class="upload-banner-app-main">
+          <div class="upload-banner-app-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="upload-banner-app-text">
+            <h3>검사기록지 업로드</h3>
+            <p>사진으로 찍어 올리면 AI가 즉시 분석합니다</p>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="upload-banner-app-features">
+          <span>📷 카메라 촬영</span>
+          <span>🔒 개인정보 마스킹</span>
+          <span>🖼 최대 5장</span>
+          <span>🤖 AI 실시간 분석</span>
+        </div>
+      </div>
+
+      <div class="content-pad" style="padding-top:16px">
         <div class="section-title">질환별 게시판</div>
         <div class="section-subtitle">관심 질환의 커뮤니티에 참여하세요</div>
 
@@ -2120,6 +2293,138 @@ body {
       </div>
     </div>
 
+    <!-- ===== SUB: UPLOAD 검사기록지 ===== -->
+    <div class="sub-screen" id="sub-upload">
+      <div class="back-header" onclick="hideSubScreen('sub-upload'); resetUpload();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>검사기록지 업로드</span>
+      </div>
+
+      <!-- 안내사항 -->
+      <div class="upl-info">
+        <div class="upl-info-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          업로드 안내
+        </div>
+        <div class="upl-info-steps">
+          <div class="upl-step"><span class="upl-step-num">1</span><div><strong>카메라로 문서 촬영</strong><p>밝은 환경에서 선명하게 촬영하세요</p></div></div>
+          <div class="upl-step"><span class="upl-step-num">2</span><div><strong>개인정보 자르기</strong><p>이름·주민번호 등 자동 감지 후 마스킹</p></div></div>
+          <div class="upl-step"><span class="upl-step-num">3</span><div><strong>최대 5장 업로드</strong><p>여러 페이지도 한 번에 제출 가능</p></div></div>
+          <div class="upl-step"><span class="upl-step-num">4</span><div><strong>AI 분석 → 의료진 답변</strong><p>OCR 변환 + 의료법 검증 후 전문의 답변</p></div></div>
+        </div>
+      </div>
+
+      <!-- 업로드 영역 -->
+      <div class="upl-upload-area" id="uplUploadArea">
+        <div class="upl-count">사진 <span id="uplImgCount">0</span>/5장</div>
+
+        <div class="upl-dropzone" id="uplDropzone" onclick="document.getElementById('uplFileInput').click()">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p>터치하여 사진을 추가하세요</p>
+          <input type="file" accept="image/*" multiple hidden id="uplFileInput">
+        </div>
+
+        <div class="upl-btns">
+          <button class="upl-btn upl-btn-cam" onclick="document.getElementById('uplCamInput').click()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            카메라 촬영
+          </button>
+          <button class="upl-btn upl-btn-gal" onclick="document.getElementById('uplFileInput').click()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            갤러리
+          </button>
+          <input type="file" accept="image/*" capture="environment" hidden id="uplCamInput">
+        </div>
+
+        <!-- 프리뷰 -->
+        <div class="upl-previews" id="uplPreviews"></div>
+
+        <!-- 제출 -->
+        <button class="upl-submit" id="uplSubmit" disabled onclick="startUplAnalysis()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          검사기록지 제출하기
+        </button>
+      </div>
+
+      <!-- AI 분석 결과 -->
+      <div class="upl-analysis" id="uplAnalysis" style="display:none">
+        <div class="upl-progress">
+          <div class="upl-progress-header">
+            <div class="upl-spinner" id="uplSpinner"></div>
+            <strong id="uplProgressTitle">AI 에이전트 분석 중…</strong>
+          </div>
+          <div class="upl-progress-steps">
+            <div class="upl-pstep" id="uplStep1">
+              <div class="upl-pstep-dot upl-dot-pending"></div>
+              <div class="upl-pstep-info"><strong>1단계 — OCR 텍스트 변환</strong><p>이미지에서 텍스트 추출</p></div>
+              <span class="upl-pstep-status" id="uplStep1St">대기</span>
+            </div>
+            <div class="upl-pstep" id="uplStep2">
+              <div class="upl-pstep-dot upl-dot-pending"></div>
+              <div class="upl-pstep-info"><strong>2단계 — 의료법 준수 검증</strong><p>법적 적합성 자동 체크</p></div>
+              <span class="upl-pstep-status" id="uplStep2St">대기</span>
+            </div>
+            <div class="upl-pstep" id="uplStep3">
+              <div class="upl-pstep-dot upl-dot-pending"></div>
+              <div class="upl-pstep-info"><strong>3단계 — 의료진 전달</strong><p>전문의에게 결과 전달</p></div>
+              <span class="upl-pstep-status" id="uplStep3St">대기</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- OCR 결과 -->
+        <div class="upl-result" id="uplOcr" style="display:none">
+          <div class="upl-result-badge upl-badge-ocr">OCR</div>
+          <strong>텍스트 추출 결과</strong>
+          <div class="upl-result-body" id="uplOcrBody"></div>
+        </div>
+
+        <!-- 의료법 결과 -->
+        <div class="upl-result" id="uplLaw" style="display:none">
+          <div class="upl-result-badge upl-badge-law">의료법</div>
+          <strong>의료법 준수 검증</strong>
+          <div class="upl-result-body" id="uplLawBody"></div>
+        </div>
+
+        <!-- 의료진 대기 -->
+        <div class="upl-result upl-result-doctor" id="uplDoctor" style="display:none">
+          <div class="upl-result-badge upl-badge-doc">의료진</div>
+          <strong>의료진 답변 대기 중</strong>
+          <p style="font-size:11px;color:var(--sub);margin-top:6px;line-height:1.5">AI 분석 결과가 전문 의료진에게 전달되었습니다.<br>답변이 등록되면 알림으로 알려드립니다.</p>
+          <div class="upl-doctor-wait">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>평균 응답 시간: <strong>2시간 이내</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 개인정보 마스킹 모달 -->
+      <div class="upl-mask-modal" id="uplMaskModal">
+        <div class="upl-mask-inner">
+          <div class="upl-mask-header">
+            <strong>개인정보 마스킹</strong>
+            <button onclick="closeMaskModal()">&times;</button>
+          </div>
+          <p style="font-size:11px;color:var(--sub);margin-bottom:10px">개인정보 영역을 드래그하여 마스킹하세요</p>
+          <div class="upl-mask-canvas-wrap">
+            <canvas id="uplMaskCanvas"></canvas>
+          </div>
+          <div class="upl-mask-actions">
+            <button class="upl-mask-auto" onclick="autoDetectMask()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              자동 감지
+            </button>
+            <button class="upl-mask-done" onclick="confirmMask()">마스킹 완료</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
   <!-- Bottom Tab Bar -->
@@ -2572,6 +2877,231 @@ document.querySelectorAll('.feed-card').forEach(card => {
 document.querySelectorAll('.chat-room').forEach(room => {
   room.addEventListener('click', () => showSubScreen('sub-chat-room'));
 });
+
+// ===== UPLOAD LOGIC =====
+const UPL_MAX = 5;
+let uplImages = []; // {file, dataUrl, masked}
+let uplMaskIdx = -1;
+let uplMaskRects = [];
+let uplDrawing = false;
+let uplDrawStart = {};
+
+const uplFileInput = document.getElementById('uplFileInput');
+const uplCamInput = document.getElementById('uplCamInput');
+const uplPreviews = document.getElementById('uplPreviews');
+const uplImgCount = document.getElementById('uplImgCount');
+const uplSubmit = document.getElementById('uplSubmit');
+const uplDropzone = document.getElementById('uplDropzone');
+
+uplFileInput.addEventListener('change', () => { uplHandleFiles(Array.from(uplFileInput.files)); uplFileInput.value=''; });
+uplCamInput.addEventListener('change', () => { uplHandleFiles(Array.from(uplCamInput.files)); uplCamInput.value=''; });
+
+function uplHandleFiles(files) {
+  const rem = UPL_MAX - uplImages.length;
+  files.filter(f=>f.type.startsWith('image/')).slice(0,rem).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => { uplImages.push({file, dataUrl:e.target.result, masked:false}); uplRender(); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function uplRender() {
+  uplImgCount.textContent = uplImages.length;
+  uplSubmit.disabled = uplImages.length === 0;
+  uplDropzone.style.display = uplImages.length >= UPL_MAX ? 'none' : '';
+  document.querySelector('.upl-btns').style.display = uplImages.length >= UPL_MAX ? 'none' : '';
+
+  uplPreviews.innerHTML = '';
+  uplImages.forEach((img, i) => {
+    const d = document.createElement('div');
+    d.className = 'upl-prev-item';
+    d.innerHTML = `
+      <img src="${img.dataUrl}" alt="검사기록지">
+      ${img.masked ? '<div class="upl-prev-masked">마스킹됨</div>' : ''}
+      <div class="upl-prev-actions">
+        <button class="upl-prev-mask" data-i="${i}">${img.masked?'완료':'마스킹'}</button>
+        <button class="upl-prev-rm" data-i="${i}">&times;</button>
+      </div>`;
+    uplPreviews.appendChild(d);
+  });
+}
+
+uplPreviews.addEventListener('click', e => {
+  const rm = e.target.closest('.upl-prev-rm');
+  if (rm) { uplImages.splice(+rm.dataset.i,1); uplRender(); return; }
+  const mk = e.target.closest('.upl-prev-mask');
+  if (mk) openMaskModal(+mk.dataset.i);
+});
+
+// Mask modal
+const uplMaskModal = document.getElementById('uplMaskModal');
+const uplMaskCanvas = document.getElementById('uplMaskCanvas');
+
+function openMaskModal(idx) {
+  uplMaskIdx = idx; uplMaskRects = [];
+  uplMaskModal.classList.add('on');
+  const img = new Image();
+  img.onload = () => {
+    const w = uplMaskModal.querySelector('.upl-mask-inner').clientWidth - 32;
+    const scale = w / img.width;
+    uplMaskCanvas.width = w;
+    uplMaskCanvas.height = img.height * scale;
+    uplMaskCanvas.getContext('2d').drawImage(img, 0, 0, uplMaskCanvas.width, uplMaskCanvas.height);
+  };
+  img.src = uplImages[idx].dataUrl;
+}
+
+function closeMaskModal() { uplMaskModal.classList.remove('on'); }
+
+// Drawing on canvas (touch + mouse)
+uplMaskCanvas.addEventListener('mousedown', e => { uplStartDraw(e.offsetX, e.offsetY); });
+uplMaskCanvas.addEventListener('mousemove', e => { if(uplDrawing) uplMoveDraw(e.offsetX, e.offsetY); });
+uplMaskCanvas.addEventListener('mouseup', e => { if(uplDrawing) uplEndDraw(e.offsetX, e.offsetY); });
+
+uplMaskCanvas.addEventListener('touchstart', e => {
+  e.preventDefault(); const t=e.touches[0]; const r=uplMaskCanvas.getBoundingClientRect();
+  uplStartDraw(t.clientX-r.left, t.clientY-r.top);
+}, {passive:false});
+uplMaskCanvas.addEventListener('touchmove', e => {
+  e.preventDefault(); if(!uplDrawing) return; const t=e.touches[0]; const r=uplMaskCanvas.getBoundingClientRect();
+  uplMoveDraw(t.clientX-r.left, t.clientY-r.top);
+}, {passive:false});
+uplMaskCanvas.addEventListener('touchend', e => {
+  if(!uplDrawing) return; const t=e.changedTouches[0]; const r=uplMaskCanvas.getBoundingClientRect();
+  uplEndDraw(t.clientX-r.left, t.clientY-r.top);
+});
+
+function uplStartDraw(x,y) { uplDrawing=true; uplDrawStart={x,y}; }
+function uplMoveDraw(x,y) {
+  uplRedrawCanvas();
+  const ctx=uplMaskCanvas.getContext('2d');
+  ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(uplDrawStart.x,uplDrawStart.y,x-uplDrawStart.x,y-uplDrawStart.y);
+  ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.strokeRect(uplDrawStart.x,uplDrawStart.y,x-uplDrawStart.x,y-uplDrawStart.y);
+}
+function uplEndDraw(x,y) {
+  uplDrawing=false;
+  uplMaskRects.push({x:uplDrawStart.x,y:uplDrawStart.y,w:x-uplDrawStart.x,h:y-uplDrawStart.y});
+  uplRedrawCanvas();
+}
+
+function uplRedrawCanvas() {
+  const img=new Image();
+  img.onload=()=>{
+    const ctx=uplMaskCanvas.getContext('2d');
+    ctx.clearRect(0,0,uplMaskCanvas.width,uplMaskCanvas.height);
+    ctx.drawImage(img,0,0,uplMaskCanvas.width,uplMaskCanvas.height);
+    uplMaskRects.forEach(r=>{
+      ctx.fillStyle='rgba(0,0,0,.6)'; ctx.fillRect(r.x,r.y,r.w,r.h);
+      ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.strokeRect(r.x,r.y,r.w,r.h);
+      ctx.fillStyle='#fff'; ctx.font='10px Pretendard'; ctx.fillText('마스킹',r.x+3,r.y+12);
+    });
+  };
+  img.src=uplImages[uplMaskIdx].dataUrl;
+}
+
+function autoDetectMask() {
+  const w=uplMaskCanvas.width, h=uplMaskCanvas.height;
+  uplMaskRects=[{x:w*.05,y:h*.02,w:w*.45,h:h*.06},{x:w*.05,y:h*.09,w:w*.35,h:h*.05}];
+  uplRedrawCanvas();
+}
+
+function confirmMask() {
+  if(uplMaskRects.length>0) {
+    uplImages[uplMaskIdx].dataUrl = uplMaskCanvas.toDataURL('image/jpeg',.92);
+    uplImages[uplMaskIdx].masked = true;
+    uplRender();
+  }
+  closeMaskModal();
+}
+
+function resetUpload() {
+  uplImages=[]; uplRender();
+  document.getElementById('uplAnalysis').style.display='none';
+  document.getElementById('uplUploadArea').style.display='';
+  document.getElementById('uplOcr').style.display='none';
+  document.getElementById('uplLaw').style.display='none';
+  document.getElementById('uplDoctor').style.display='none';
+  ['uplStep1','uplStep2','uplStep3'].forEach(id => {
+    document.getElementById(id).querySelector('.upl-pstep-dot').className='upl-pstep-dot upl-dot-pending';
+  });
+  document.getElementById('uplStep1St').textContent='대기';
+  document.getElementById('uplStep2St').textContent='대기';
+  document.getElementById('uplStep3St').textContent='대기';
+  document.getElementById('uplSpinner').style.display='';
+  document.getElementById('uplProgressTitle').textContent='AI 에이전트 분석 중…';
+}
+
+function uplSetStep(id, state) {
+  const dot = document.getElementById(id).querySelector('.upl-pstep-dot');
+  dot.className = 'upl-pstep-dot ' + (state==='running'?'upl-dot-running':state==='done'?'upl-dot-done':'upl-dot-pending');
+}
+
+function startUplAnalysis() {
+  if(uplImages.length===0) return;
+  document.getElementById('uplAnalysis').style.display='block';
+  document.getElementById('uplUploadArea').style.display='none';
+  document.getElementById('uplAnalysis').scrollIntoView({behavior:'smooth'});
+
+  // Step 1: OCR
+  uplSetStep('uplStep1','running'); document.getElementById('uplStep1St').textContent='분석 중…';
+  setTimeout(()=>{
+    uplSetStep('uplStep1','done'); document.getElementById('uplStep1St').textContent='완료';
+    showUplOcr();
+    // Step 2
+    uplSetStep('uplStep2','running'); document.getElementById('uplStep2St').textContent='검증 중…';
+    setTimeout(()=>{
+      uplSetStep('uplStep2','done'); document.getElementById('uplStep2St').textContent='완료';
+      showUplLaw();
+      // Step 3
+      uplSetStep('uplStep3','running'); document.getElementById('uplStep3St').textContent='전달 중…';
+      setTimeout(()=>{
+        uplSetStep('uplStep3','done'); document.getElementById('uplStep3St').textContent='대기 중';
+        document.getElementById('uplDoctor').style.display='block';
+        document.getElementById('uplSpinner').style.display='none';
+        document.getElementById('uplProgressTitle').textContent='AI 분석 완료 — 의료진 답변 대기';
+      }, 1000);
+    }, 2200);
+  }, 2500);
+}
+
+function showUplOcr() {
+  document.getElementById('uplOcr').style.display='block';
+  document.getElementById('uplOcrBody').innerHTML=`
+    <p style="margin-bottom:4px"><strong style="color:var(--text)">검사명:</strong> 일반혈액검사 (CBC)</p>
+    <p style="margin-bottom:8px"><strong style="color:var(--text)">검사일:</strong> 2026-03-14</p>
+    <table class="upl-ocr-table">
+      <thead><tr><th>항목</th><th>결과</th><th>참고치</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>WBC</td><td>7,200</td><td>4,000–10,000</td><td class="upl-status-ok">정상</td></tr>
+        <tr><td>RBC</td><td>4.8</td><td>4.2–5.4</td><td class="upl-status-ok">정상</td></tr>
+        <tr><td>Hemoglobin</td><td>11.2</td><td>12.0–16.0</td><td class="upl-status-low">↓ 낮음</td></tr>
+        <tr><td>Hematocrit</td><td>35.1</td><td>36.0–46.0</td><td class="upl-status-low">↓ 낮음</td></tr>
+        <tr><td>Platelet</td><td>245,000</td><td>150K–400K</td><td class="upl-status-ok">정상</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:10px;color:var(--muted);margin-top:4px">텍스트 인식 신뢰도: <strong style="color:#10b981">98.7%</strong></p>`;
+}
+
+function showUplLaw() {
+  document.getElementById('uplLaw').style.display='block';
+  document.getElementById('uplLawBody').innerHTML=`
+    <div class="upl-compliance-item upl-comp-pass">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>개인정보 보호법 준수</strong><p>개인식별정보(PII) 적절히 마스킹됨</p></div>
+    </div>
+    <div class="upl-compliance-item upl-comp-pass">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>의료법 제21조 (기록 열람)</strong><p>환자 본인의 검사기록 열람 — 적법 요청</p></div>
+    </div>
+    <div class="upl-compliance-item upl-comp-pass">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>의료법 제19조 (비밀누설 금지)</strong><p>답변 시 개인정보 미포함 자동 검증</p></div>
+    </div>
+    <div class="upl-compliance-item upl-comp-warn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div><strong>참고 안내</strong><p>AI 분석은 참고용이며 최종 판단은 전문 의료진 소견을 따르세요 (의료법 제27조)</p></div>
+    </div>`;
+}
 </script>
 
 </body>
