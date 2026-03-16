@@ -174,41 +174,6 @@ ul { list-style: none; }
 }
 
 /* ── Hero split layout (text + image) ── */
-.hero-body--split {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-.hero-text {
-  flex: 1;
-  min-width: 0;
-}
-.hero-image {
-  flex: 0 0 400px;
-  max-width: 400px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
-}
-.hero-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-.hero-trust {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: rgba(16,185,129,.08);
-  border: 1px solid rgba(16,185,129,.18);
-  border-radius: 8px;
-  font-size: .85rem;
-  font-weight: 600;
-  color: #059669;
-  margin-bottom: 18px;
-}
 
 .eyebrow {
   font-family: 'Poppins', sans-serif;
@@ -471,8 +436,6 @@ ul { list-style: none; }
   .hero { padding: calc(var(--gnb-h) + 36px) 0 36px; }
   .hero-blob { width: 340px; height: 340px; top: -40px; right: -40px; }
 
-  .hero-body--split { flex-direction: column; gap: 28px; }
-  .hero-image { flex: none; max-width: 100%; width: 100%; border-radius: 14px; }
 
   .grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .card { padding: 16px 8px 14px; }
