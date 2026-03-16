@@ -8417,290 +8417,463 @@
   <!-- ===== VCARE FEATURES PAGE ===== -->
   <div class="page-section" id="page-vcare-features">
   <style>
-  /* ── VCF 변수 ── */
+  /* ── PAGE VCARE FEATURES ── */
   #page-vcare-features {
-    --vcf-blue:#3d7fff; --vcf-green:#00d4a0; --vcf-pink:#ff6eb4;
-    --vcf-yellow:#f0a500; --vcf-purple:#a78bfa;
-    background:var(--bg); overflow-x:hidden;
+    background:#060810; overflow-x:hidden;
   }
-  /* ── 서브 nav ── */
-  #page-vcare-features .vcf-nav {
-    position:sticky; top:56px; z-index:90;
+  #page-vcare-features nav {
+    position:sticky; top:56px; left:0; right:0; z-index:200;
     display:flex; align-items:center; justify-content:space-between;
-    padding:0 48px; height:48px;
-    background:rgba(8,10,16,.92); backdrop-filter:blur(16px);
+    padding:0 52px; height:62px;
+    background:rgba(6,8,16,.92); backdrop-filter:blur(20px);
     border-bottom:1px solid var(--border);
   }
-  #page-vcare-features .vcf-nav-logo {
-    font-family:'Space Mono',monospace; font-size:12px; color:var(--vcf-blue);
+  #page-vcare-features .nav-logo { font-family:'Space Mono',monospace; font-size:13px; color:#3d7fff; letter-spacing:.04em; }
+  #page-vcare-features .nav-links { display:flex; gap:32px; list-style:none; }
+  #page-vcare-features .nav-links a { font-size:11px; color:#68789a; text-decoration:none; letter-spacing:.08em; transition:color .2s; }
+  #page-vcare-features .nav-links a:hover { color:#e8eaf2; }
+  /* HERO */
+  #page-vcare-features .hero {
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:120px 48px 80px;
+    position:relative; overflow:hidden; text-align:center;
   }
-  #page-vcare-features .vcf-nav-links {
-    display:flex; gap:28px; list-style:none;
-  }
-  #page-vcare-features .vcf-nav-links a {
-    font-size:11px; color:var(--text-muted); text-decoration:none;
-    letter-spacing:.08em; transition:color .2s;
-  }
-  #page-vcare-features .vcf-nav-links a:hover { color:var(--text); }
-  /* ── HERO ── */
-  #page-vcare-features .vcf-hero {
-    min-height:100vh; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    padding:100px 40px 80px; position:relative; overflow:hidden;
-  }
-  #page-vcare-features .vcf-hero-glow {
-    position:absolute; top:15%; left:50%; transform:translateX(-50%);
-    width:900px; height:500px;
-    background:radial-gradient(ellipse,rgba(61,127,255,.07) 0%,transparent 65%);
+  #page-vcare-features .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 40%, rgba(61,127,255,.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 60%, rgba(0,212,160,.05) 0%, transparent 55%);
     pointer-events:none;
   }
-  #page-vcare-features .vcf-eyebrow {
-    font-family:'Space Mono',monospace; font-size:11px; color:var(--vcf-blue);
-    letter-spacing:.2em; text-transform:uppercase; margin-bottom:20px;
-    opacity:0; animation:fadeUp .6s ease forwards .1s;
+  #page-vcare-features .hero::after {
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+    background-size:60px 60px;
+    pointer-events:none;
+    mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
   }
-  #page-vcare-features .vcf-title {
-    font-size:clamp(28px,4vw,52px); font-weight:700; text-align:center;
-    line-height:1.18; margin-bottom:16px;
+  #page-vcare-features .hero-kicker {
+    font-family:'Space Mono',monospace; font-size:10px; color:#3d7fff;
+    letter-spacing:.25em; text-transform:uppercase; margin-bottom:28px;
+    opacity:0; animation:fadeUp .5s ease forwards .1s;
+  }
+  #page-vcare-features .hero-title {
+    font-size:clamp(36px,5vw,68px); font-weight:900; line-height:1.08;
+    margin-bottom:24px; letter-spacing:-.02em;
     opacity:0; animation:fadeUp .6s ease forwards .2s;
   }
-  #page-vcare-features .vcf-title em {
-    font-style:normal;
-    background:linear-gradient(135deg,var(--vcf-blue),var(--vcf-green));
+  #page-vcare-features .hero-title .line2 {
+    display:block;
+    background:linear-gradient(135deg, #3d7fff 0%, #00d4a0 100%);
     -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   }
-  #page-vcare-features .vcf-sub {
-    font-size:15px; color:var(--text-muted); text-align:center;
-    max-width:500px; line-height:1.9; margin-bottom:56px;
-    opacity:0; animation:fadeUp .6s ease forwards .3s;
+  #page-vcare-features .insight-box {
+    position:relative; margin:0 auto 64px;
+    max-width:680px;
+    background:linear-gradient(135deg, rgba(61,127,255,.07), rgba(0,212,160,.05));
+    border:1px solid rgba(61,127,255,.2);
+    border-radius:20px; padding:36px 44px;
+    opacity:0; animation:fadeUp .6s ease forwards .4s;
   }
-  /* ── 피처 섹션 ── */
-  #page-vcare-features .vcf-feature-section {
-    padding:100px 40px; display:flex; flex-direction:column;
-    align-items:center; position:relative; overflow:hidden;
-    border-top:1px solid var(--border);
+  #page-vcare-features .insight-box::before {
+    content:'"'  ;
+    position:absolute; top:-20px; left:32px;
+    font-size:80px; line-height:1;
+    color:#3d7fff; opacity:.3;
   }
-  #page-vcare-features .vcf-feature-section:nth-child(even) { background:#0a0d16; }
-  #page-vcare-features .vcf-section-glow {
-    position:absolute; top:10%; left:50%; transform:translateX(-50%);
-    width:700px; height:350px; pointer-events:none; border-radius:50%;
+  #page-vcare-features .insight-quote {
+    font-size:clamp(18px,2.2vw,24px); line-height:1.7;
+    color:#e8eaf2; font-weight:700; margin-bottom:12px;
   }
-  #page-vcare-features .glow-green  { background:radial-gradient(ellipse,rgba(0,212,160,.06) 0%,transparent 65%); }
-  #page-vcare-features .glow-pink   { background:radial-gradient(ellipse,rgba(255,110,180,.06) 0%,transparent 65%); }
-  #page-vcare-features .glow-yellow { background:radial-gradient(ellipse,rgba(240,165,0,.06) 0%,transparent 65%); }
-  #page-vcare-features .glow-purple { background:radial-gradient(ellipse,rgba(167,139,250,.06) 0%,transparent 65%); }
-  #page-vcare-features .vcf-section-num {
-    font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim);
-    letter-spacing:.2em; margin-bottom:10px;
+  #page-vcare-features .insight-quote em {
+    font-style:normal;
+    background:linear-gradient(90deg, #3d7fff, #00d4a0);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   }
-  #page-vcare-features .vcf-section-title {
-    font-size:clamp(22px,3vw,36px); font-weight:700; text-align:center;
-    line-height:1.25; margin-bottom:12px;
+  #page-vcare-features .insight-sub {
+    font-size:13px; color:#68789a; line-height:1.8;
   }
-  #page-vcare-features .vcf-section-title .accent-green  { color:var(--vcf-green); }
-  #page-vcare-features .vcf-section-title .accent-pink   { color:var(--vcf-pink); }
-  #page-vcare-features .vcf-section-title .accent-yellow { color:var(--vcf-yellow); }
-  #page-vcare-features .vcf-section-title .accent-purple { color:var(--vcf-purple); }
-  #page-vcare-features .vcf-section-title .accent-blue   { color:var(--vcf-blue); }
-  #page-vcare-features .vcf-section-desc {
-    font-size:14px; color:var(--text-muted); text-align:center;
-    max-width:480px; line-height:1.9; margin-bottom:52px;
+  /* IPHONE MOCKUP */
+  #page-vcare-features .iphone-wrap {
+    position:relative; width:320px; margin:0 auto;
+    filter:drop-shadow(0 40px 80px rgba(0,0,0,.7));
   }
-  /* ── 맥북 목업 ── */
-  #page-vcare-features .vcf-mockup-wrap {
-    width:100%; max-width:1060px; position:relative; z-index:1;
-  }
-  #page-vcare-features .vcf-macbook { position:relative; width:100%; }
-  #page-vcare-features .vcf-macbook-lid {
-    background:linear-gradient(160deg,rgba(44,50,68,.72),rgba(20,25,40,.82));
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:18px 18px 4px 4px;
-    padding:22px 22px 14px;
-    backdrop-filter:blur(20px);
+  #page-vcare-features .iphone {
+    position:relative; width:320px;
+    background:linear-gradient(160deg, #2a2f42, #181d2e);
+    border:1.5px solid rgba(255,255,255,.12);
+    border-radius:52px;
+    padding:16px 12px;
     box-shadow:
-      0 0 0 1px rgba(255,255,255,.04),
-      0 48px 96px rgba(0,0,0,.65),
-      inset 0 1px 0 rgba(255,255,255,.09);
+      0 0 0 1px rgba(255,255,255,.05),
+      inset 0 0 0 1px rgba(255,255,255,.04),
+      0 60px 120px rgba(0,0,0,.8);
+  }
+  #page-vcare-features .iphone::before {
+    content:'';
+    position:absolute; right:-3px; top:120px;
+    width:3px; height:60px;
+    background:linear-gradient(180deg,#2a3044,#1e2438);
+    border-radius:0 4px 4px 0;
+    box-shadow:0 40px 0 #1e2438;
+  }
+  #page-vcare-features .iphone::after {
+    content:'';
+    position:absolute; left:-3px; top:100px;
+    width:3px; height:36px;
+    background:linear-gradient(180deg,#2a3044,#1e2438);
+    border-radius:4px 0 0 4px;
+    box-shadow:0 50px 0 #1e2438, 0 94px 0 #1e2438;
+  }
+  #page-vcare-features .iphone-notch {
+    position:absolute; top:16px; left:50%; transform:translateX(-50%);
+    width:126px; height:34px;
+    background:#000; border-radius:20px;
+    z-index:10;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  #page-vcare-features .notch-camera {
+    width:12px; height:12px; border-radius:50%; background:#111;
+    box-shadow:inset 0 0 0 2px #222, 0 0 6px rgba(61,127,255,.3);
+  }
+  #page-vcare-features .notch-speaker {
+    width:50px; height:6px; background:#111; border-radius:3px;
+  }
+  #page-vcare-features .iphone-screen {
+    background:#06080f;
+    border-radius:42px; overflow:hidden;
+    aspect-ratio:9/19.5;
     position:relative;
   }
-  #page-vcare-features .vcf-macbook-lid::before {
-    content:''; position:absolute; top:9px; left:50%; transform:translateX(-50%);
-    width:9px; height:9px; background:rgba(255,255,255,.07); border-radius:50%;
-    box-shadow:0 0 0 1px rgba(255,255,255,.09);
+  #page-vcare-features .iphone-screen::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:30%;
+    background:linear-gradient(180deg,rgba(255,255,255,.03) 0%,transparent 100%);
+    pointer-events:none; z-index:5; border-radius:42px 42px 0 0;
   }
-  #page-vcare-features .vcf-macbook-screen {
-    background:#000; border-radius:8px; overflow:hidden;
-    aspect-ratio:16/10; position:relative;
-    box-shadow:inset 0 0 0 1px rgba(0,0,0,.9);
-  }
-  #page-vcare-features .vcf-macbook-screen::after {
-    content:''; position:absolute; top:0;left:0;right:0; height:35%;
-    background:linear-gradient(180deg,rgba(255,255,255,.025) 0%,transparent 100%);
-    pointer-events:none; z-index:2; border-radius:8px 8px 0 0;
-  }
-  #page-vcare-features .vcf-macbook-screen video {
+  #page-vcare-features .iphone-screen video {
     width:100%; height:100%; object-fit:cover; display:block;
   }
-  #page-vcare-features .vcf-macbook-base {
-    background:linear-gradient(180deg,rgba(38,44,60,.82),rgba(26,30,48,.9));
-    border:1px solid rgba(255,255,255,.06); border-top:none;
-    border-radius:0 0 10px 10px; height:20px; position:relative;
+  #page-vcare-features .iphone-home {
+    height:20px; display:flex; align-items:center; justify-content:center; margin-top:6px;
   }
-  #page-vcare-features .vcf-macbook-base::after {
-    content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-    width:28%; height:6px; background:rgba(255,255,255,.045); border-radius:0 0 4px 4px;
+  #page-vcare-features .iphone-home-bar {
+    width:120px; height:5px; background:rgba(255,255,255,.2); border-radius:3px;
   }
-  /* ── reveal 애니메이션 ── */
-  #page-vcare-features .vcf-reveal {
-    opacity:1; transform:none;
+  /* FEATURE SECTIONS */
+  #page-vcare-features .feature-section {
+    padding:120px 48px;
+    display:flex; flex-direction:column; align-items:center;
+    position:relative; overflow:hidden;
   }
-  /* ── 히어로 첫 목업은 별도 fadeUp ── */
-  #page-vcare-features .vcf-hero .vcf-mockup-wrap {
-    opacity:0; animation:fadeUp .9s ease forwards .5s;
-  }
-  /* ── 푸터 ── */
-  #page-vcare-features .vcf-footer {
+  #page-vcare-features .feature-section + .feature-section {
     border-top:1px solid var(--border);
-    padding:36px 48px; display:flex; align-items:center; justify-content:space-between;
   }
-  #page-vcare-features .vcf-footer-logo {
-    font-family:'Space Mono',monospace; font-size:13px; color:var(--vcf-blue);
+  #page-vcare-features .feature-section:nth-child(even) {
+    background:linear-gradient(180deg, #08091a 0%, #060810 100%);
   }
-  #page-vcare-features .vcf-footer-text {
-    font-size:11px; color:var(--text-dim); font-family:'Space Mono',monospace;
+  #page-vcare-features .fs-glow {
+    position:absolute; pointer-events:none; border-radius:50%;
+    width:600px; height:400px; top:0; left:50%; transform:translateX(-50%);
   }
-  @media(max-width:768px) {
-    #page-vcare-features .vcf-nav { padding:0 20px; }
-    #page-vcare-features .vcf-nav-links { display:none; }
-    #page-vcare-features .vcf-hero,
-    #page-vcare-features .vcf-feature-section { padding:80px 20px; }
+  #page-vcare-features .fs-glow-green  { background:radial-gradient(ellipse,rgba(0,212,160,.07) 0%,transparent 65%); }
+  #page-vcare-features .fs-glow-pink   { background:radial-gradient(ellipse,rgba(255,110,180,.07) 0%,transparent 65%); }
+  #page-vcare-features .fs-glow-yellow { background:radial-gradient(ellipse,rgba(240,165,0,.07) 0%,transparent 65%); }
+  #page-vcare-features .fs-inner {
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:80px; align-items:center;
+    max-width:1080px; width:100%;
+  }
+  #page-vcare-features .fs-inner.reverse { grid-template-columns:320px 1fr; }
+  #page-vcare-features .fs-inner.reverse .fs-text { order:2; }
+  #page-vcare-features .fs-inner.reverse .fs-phone { order:1; }
+  #page-vcare-features .fs-num {
+    font-family:'Space Mono',monospace; font-size:10px; color:#333d55;
+    letter-spacing:.2em; margin-bottom:12px;
+  }
+  #page-vcare-features .fs-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Space Mono',monospace; font-size:10px;
+    padding:5px 14px; border-radius:20px; margin-bottom:20px;
+  }
+  #page-vcare-features .tag-green  { background:rgba(0,212,160,.1); color:#00d4a0; border:1px solid rgba(0,212,160,.25); }
+  #page-vcare-features .tag-pink   { background:rgba(255,110,180,.1); color:#ff6eb4; border:1px solid rgba(255,110,180,.25); }
+  #page-vcare-features .tag-yellow { background:rgba(240,165,0,.1); color:#f0a500; border:1px solid rgba(240,165,0,.25); }
+  #page-vcare-features .fs-title {
+    font-size:clamp(28px,3.5vw,44px); font-weight:900;
+    line-height:1.15; margin-bottom:16px; letter-spacing:-.02em;
+  }
+  #page-vcare-features .fs-title .acc-green  { color:#00d4a0; }
+  #page-vcare-features .fs-title .acc-pink   { color:#ff6eb4; }
+  #page-vcare-features .fs-title .acc-yellow { color:#f0a500; }
+  #page-vcare-features .fs-subtitle {
+    font-size:clamp(15px,1.8vw,19px); font-weight:700;
+    color:#e8eaf2; margin-bottom:20px; line-height:1.5;
+    padding:16px 20px;
+    background:rgba(255,255,255,.03);
+    border-left:3px solid #00d4a0;
+    border-radius:0 10px 10px 0;
+  }
+  #page-vcare-features .fs-subtitle.bpink  { border-left-color:#ff6eb4; }
+  #page-vcare-features .fs-subtitle.byellow{ border-left-color:#f0a500; }
+  #page-vcare-features .fs-desc {
+    font-size:14.5px; color:#68789a; line-height:2;
+    margin-bottom:28px;
+  }
+  #page-vcare-features .fs-desc strong { color:#e8eaf2; font-weight:700; }
+  #page-vcare-features .fs-quote {
+    background:#131828;
+    border:1px solid #1c2438;
+    border-radius:14px; padding:20px 24px;
+    margin-bottom:20px; position:relative;
+  }
+  #page-vcare-features .fs-quote::before {
+    content:'"'  ;
+    font-size:48px; line-height:.8;
+    position:absolute; top:12px; left:16px; opacity:.2;
+  }
+  #page-vcare-features .fs-quote p {
+    font-size:14px; color:#e8eaf2; line-height:1.8;
+    padding-left:24px; font-style:italic;
+  }
+  #page-vcare-features .fs-quote .qs {
+    font-size:11px; color:#68789a; margin-top:8px; padding-left:24px;
+    font-style:normal;
+  }
+  #page-vcare-features .fs-steps { display:flex; flex-direction:column; gap:10px; }
+  #page-vcare-features .fs-step {
+    display:flex; align-items:flex-start; gap:14px;
+    background:#0d1020; border:1px solid #1c2438;
+    border-radius:12px; padding:14px 18px;
+  }
+  #page-vcare-features .step-dot {
+    width:28px; height:28px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:700; font-family:'Space Mono',monospace;
+  }
+  #page-vcare-features .dot-yellow { background:rgba(240,165,0,.15); color:#f0a500; }
+  #page-vcare-features .step-text { font-size:13px; color:#68789a; line-height:1.7; }
+  #page-vcare-features .step-text strong { color:#e8eaf2; display:block; font-size:13px; margin-bottom:2px; }
+  #page-vcare-features .reveal { opacity:0; transform:translateY(36px); transition:opacity .8s ease, transform .8s ease; }
+  #page-vcare-features .reveal.visible { opacity:1; transform:none; }
+  #page-vcare-features .reveal-delay1 { transition-delay:.1s; }
+  #page-vcare-features .reveal-delay2 { transition-delay:.2s; }
+  #page-vcare-features footer {
+    border-top:1px solid #1c2438;
+    padding:40px 52px; display:flex; align-items:center; justify-content:space-between;
+  }
+  #page-vcare-features .footer-logo { font-family:'Space Mono',monospace; font-size:13px; color:#3d7fff; }
+  #page-vcare-features .footer-text  { font-family:'Space Mono',monospace; font-size:11px; color:#333d55; }
+  @media(max-width:960px){
+    #page-vcare-features nav { padding:0 24px; }
+    #page-vcare-features .nav-links { display:none; }
+    #page-vcare-features .hero { padding:100px 24px 60px; }
+    #page-vcare-features .insight-box { padding:28px 28px; }
+    #page-vcare-features .feature-section { padding:80px 24px; }
+    #page-vcare-features .fs-inner, #page-vcare-features .fs-inner.reverse { grid-template-columns:1fr; gap:48px; }
+    #page-vcare-features .fs-inner.reverse .fs-text { order:1; }
+    #page-vcare-features .fs-inner.reverse .fs-phone { order:2; }
+    #page-vcare-features .iphone-wrap { margin:0 auto; }
+    #page-vcare-features footer { padding:32px 24px; flex-direction:column; gap:12px; text-align:center; }
   }
   </style>
 
-  <!-- 서브 nav -->
-  <nav class="vcf-nav">
-    <div class="vcf-nav-logo">v.care / aitrics</div>
-    <ul class="vcf-nav-links">
-      <li><a href="#vcf-s1">다질환 확장</a></li>
-      <li><a href="#vcf-s2">게시글 요약</a></li>
-      <li><a href="#vcf-s3">실시간 채팅</a></li>
-      <li><a href="#vcf-s4">글작성 도우미</a></li>
-      <li><a href="#vcf-s5">in 코호트</a></li>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">v.care / aitrics</div>
+    <ul class="nav-links">
+      <li><a href="#vcfn-cohort">in 코호트</a></li>
+      <li><a href="#vcfn-clinical">임상·신약 매칭</a></li>
+      <li><a href="#vcfn-report">검사기록지</a></li>
     </ul>
   </nav>
 
-  <!-- 01 · 홈화면 진입 / 다질환 확장 -->
-  <section class="vcf-hero" id="vcf-s1">
-    <div class="vcf-hero-glow"></div>
-    <p class="vcf-eyebrow">aitrics · 지능형 의료 커뮤니티</p>
-    <h1 class="vcf-title">차세대 <em>지능형 의료 커뮤니티</em>의 탄생<br>— 다질환 확장</h1>
-    <p class="vcf-sub">유방암·위암·폐암 등 각종 암종부터 당뇨·심혈관 등 만성질환,<br>공황장애·우울증 등 정신질환까지 — 하나의 플랫폼으로 확장합니다.</p>
-    <div class="vcf-mockup-wrap">
-      <div class="vcf-macbook">
-        <div class="vcf-macbook-lid">
-          <div class="vcf-macbook-screen">
-            <video autoplay loop muted playsinline>
-              <source src="assets/1%2C%20%ED%99%88%ED%99%94%EB%A9%B4%20%EC%A7%84%EC%9E%85%28%EB%8B%A4%EC%A7%88%ED%99%98%20%ED%99%95%EC%9E%A5%29.mp4" type="video/mp4">
-            </video>
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-kicker">aitrics · V.Care · 핵심 기능</p>
+    <h1 class="hero-title">
+      사람들을 모은 것은<br>
+      <span class="line2">기능이 아니라 사람이었다</span>
+    </h1>
+    <div class="insight-box">
+      <p class="insight-quote">
+        의료진과 <em>신뢰받는 환우</em>가 있는 공간에<br>
+        사람들이 모였습니다.
+      </p>
+      <p class="insight-sub">
+        V.Care는 기술이 전면에 나서지 않습니다. 같은 경험을 가진 환우, 그들을 신뢰하는 의료진이 중심이고 —
+        AI는 그 연결을 더 정확하고 개인화된 방식으로 만드는 도구입니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- FEATURE 01 · in 코호트 -->
+  <section class="feature-section" id="vcfn-cohort">
+    <div class="fs-glow fs-glow-green"></div>
+    <div class="fs-inner reveal">
+      <div class="fs-text">
+        <p class="fs-num">Feature · 01</p>
+        <span class="fs-tag tag-green">🧬 in 코호트</span>
+        <h2 class="fs-title">
+          같은 질환,<br>같은 단계의<br>
+          <span class="acc-green">환우들과 연결</span>됩니다
+        </h2>
+        <p class="fs-subtitle">
+          병기가 다르면 필요한 정보도, 감당할 수 있는 이야기도 달라집니다.
+        </p>
+        <p class="fs-desc">
+          핑크케어 오픈채팅을 운영하며 얻은 핵심 인사이트가 있었습니다.<br>
+          <strong>1기 환우가 4기 환우 앞에서 불안감을 털어놓을 때, 4기 환우는 마음이 불편할 수 있다.</strong><br><br>
+          in 코호트는 암종·만성질환·정신질환 별로, 같은 병기와 치료 단계의 사람들끼리
+          정보를 교류하고 실시간 채팅을 나눌 수 있는 공간입니다.
+          병기가 같으면 필요한 정보 수준도 같고, 나눌 수 있는 이야기의 깊이도 같습니다.
+        </p>
+      </div>
+      <div class="fs-phone reveal-delay1">
+        <div class="iphone-wrap">
+          <div class="iphone">
+            <div class="iphone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-camera"></div>
+            </div>
+            <div class="iphone-screen">
+              <video autoplay loop muted playsinline>
+                <source src="assets/5.%20in%20%EC%BD%94%ED%98%B8%ED%8A%B8%281%29.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="iphone-home"><div class="iphone-home-bar"></div></div>
           </div>
         </div>
-        <div class="vcf-macbook-base"></div>
       </div>
     </div>
   </section>
 
-  <!-- 02 · 게시글 요약 -->
-  <section class="vcf-feature-section" id="vcf-s2">
-    <div class="vcf-section-glow glow-green"></div>
-    <div class="vcf-reveal">
-      <p class="vcf-section-num">Feature · 02</p>
-      <h2 class="vcf-section-title"><span class="accent-green">게시글 요약</span> 에이전트</h2>
-      <p class="vcf-section-desc">긴 게시글도 핵심만 빠르게 파악할 수 있도록 LLM이 자동으로 요약합니다. 정보 탐색 시간을 줄이고 필요한 내용에 바로 집중할 수 있어요.</p>
-    </div>
-    <div class="vcf-mockup-wrap vcf-reveal">
-      <div class="vcf-macbook">
-        <div class="vcf-macbook-lid">
-          <div class="vcf-macbook-screen">
-            <video autoplay loop muted playsinline>
-              <source src="assets/2.%20%EA%B2%8C%EC%8B%9C%EA%B8%80%20%EC%9A%94%EC%95%BD%281%29.mp4" type="video/mp4">
-            </video>
+  <!-- FEATURE 02 · 임상/신약 매칭 -->
+  <section class="feature-section" id="vcfn-clinical">
+    <div class="fs-glow fs-glow-pink"></div>
+    <div class="fs-inner reverse reveal">
+      <div class="fs-phone reveal-delay1">
+        <div class="iphone-wrap">
+          <div class="iphone">
+            <div class="iphone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-camera"></div>
+            </div>
+            <div class="iphone-screen">
+              <video autoplay loop muted playsinline>
+                <source src="assets/3.%20%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%B1%84%ED%8C%85%20%EB%8C%80%ED%99%94%20%EC%9A%94%EC%95%BD%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%2B%20%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EB%8B%B5%EB%B3%80%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%281%29.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="iphone-home"><div class="iphone-home-bar"></div></div>
           </div>
         </div>
-        <div class="vcf-macbook-base"></div>
+      </div>
+      <div class="fs-text">
+        <p class="fs-num">Feature · 02</p>
+        <span class="fs-tag tag-pink">🔭 임상·신약 매칭 에이전트</span>
+        <h2 class="fs-title">
+          위로보다 강한<br>
+          <span class="acc-pink">희소식</span>을 전합니다
+        </h2>
+        <div class="fs-quote">
+          <p>"그 어떤 위로보다 신약과 임상에 대한 희소식이 가장 위로가 된다"</p>
+          <p class="qs">— 핑크케어 오픈채팅방 환우</p>
+        </div>
+        <p class="fs-desc">
+          in 코호트 탭 안에서, 환우의 현재 상태를 진단하고 —
+          <strong>지금 이 사람에게 가능한 임상시험과 신약이 무엇인지</strong>
+          매칭해주는 에이전트를 제공합니다.<br><br>
+          ClinicalTrials.gov, 국가임상시험지원재단(KCTI) 등 공공 데이터 기반으로
+          정확한 정보를 연결하고, 담당 의사와 상담할 수 있도록 안내합니다.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- 03 · 실시간 채팅 -->
-  <section class="vcf-feature-section" id="vcf-s3">
-    <div class="vcf-section-glow glow-pink"></div>
-    <div class="vcf-reveal">
-      <p class="vcf-section-num">Feature · 03</p>
-      <h2 class="vcf-section-title"><span class="accent-pink">실시간 채팅</span> 대화 요약<br>+ 실시간 답변 에이전트</h2>
-      <p class="vcf-section-desc">채팅방의 대화 흐름을 실시간으로 요약하고, 환자 질문에 즉각적인 AI 답변을 제공합니다. 놓친 대화도 빠르게 따라잡을 수 있어요.</p>
-    </div>
-    <div class="vcf-mockup-wrap vcf-reveal">
-      <div class="vcf-macbook">
-        <div class="vcf-macbook-lid">
-          <div class="vcf-macbook-screen">
-            <video autoplay loop muted playsinline>
-              <source src="assets/3.%20%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%B1%84%ED%8C%85%20%EB%8C%80%ED%99%94%20%EC%9A%94%EC%95%BD%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%2B%20%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EB%8B%B5%EB%B3%80%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%281%29.mp4" type="video/mp4">
-            </video>
+  <!-- FEATURE 03 · 검사기록지 설명 에이전트 -->
+  <section class="feature-section" id="vcfn-report">
+    <div class="fs-glow fs-glow-yellow"></div>
+    <div class="fs-inner reveal">
+      <div class="fs-text">
+        <p class="fs-num">Feature · 03</p>
+        <span class="fs-tag tag-yellow">📋 검사기록지 설명 에이전트</span>
+        <h2 class="fs-title">
+          내 검사결과가<br>
+          <span class="acc-yellow">무슨 의미인지</span><br>이제 알 수 있습니다
+        </h2>
+        <p class="fs-subtitle byellow">
+          촬영 → OCR → LLM 분석 → 의료진 확정.<br>Human-in-the-Loop 구조로 신뢰를 설계합니다.
+        </p>
+        <div class="fs-steps">
+          <div class="fs-step">
+            <div class="step-dot dot-yellow">01</div>
+            <div class="step-text">
+              <strong>촬영 &amp; 업로드</strong>
+              검사기록지를 폰으로 촬영 후 개인정보를 크롭하고, 최대 5장 업로드
+            </div>
+          </div>
+          <div class="fs-step">
+            <div class="step-dot dot-yellow">02</div>
+            <div class="step-text">
+              <strong>OCR + LLM 분석</strong>
+              AI가 수치를 인식하고, 의료법을 검토한 범위 안에서 설명 초안 생성
+            </div>
+          </div>
+          <div class="fs-step">
+            <div class="step-dot dot-yellow">03</div>
+            <div class="step-text">
+              <strong>전문의 확정</strong>
+              의사가 약간의 수정 후 확정 버튼 클릭 — Human-in-the-Loop 완성
+            </div>
+          </div>
+          <div class="fs-step">
+            <div class="step-dot dot-yellow">04</div>
+            <div class="step-text">
+              <strong>환자에게 전달</strong>
+              내 검사결과가 무엇을 의미하는지, 신뢰할 수 있는 언어로 전달됩니다
+            </div>
           </div>
         </div>
-        <div class="vcf-macbook-base"></div>
+      </div>
+      <div class="fs-phone reveal-delay1">
+        <div class="iphone-wrap">
+          <div class="iphone">
+            <div class="iphone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-camera"></div>
+            </div>
+            <div class="iphone-screen">
+              <video autoplay loop muted playsinline>
+                <source src="assets/1%2C%20%ED%99%88%ED%99%94%EB%A9%B4%20%EC%A7%84%EC%9E%85%28%EB%8B%A4%EC%A7%88%ED%99%98%20%ED%99%95%EC%9E%A5%29.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="iphone-home"><div class="iphone-home-bar"></div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 04 · 글작성 도우미 -->
-  <section class="vcf-feature-section" id="vcf-s4">
-    <div class="vcf-section-glow glow-yellow"></div>
-    <div class="vcf-reveal">
-      <p class="vcf-section-num">Feature · 04</p>
-      <h2 class="vcf-section-title"><span class="accent-yellow">글작성 도우미</span> 에이전트<br>+ 자동 유관 검색어 태그</h2>
-      <p class="vcf-section-desc">글을 쓰는 과정을 AI가 함께 도와주고, 작성된 내용을 분석해 유관 검색어 태그를 자동으로 붙여줍니다. 더 많은 사람에게 닿을 수 있어요.</p>
-    </div>
-    <div class="vcf-mockup-wrap vcf-reveal">
-      <div class="vcf-macbook">
-        <div class="vcf-macbook-lid">
-          <div class="vcf-macbook-screen">
-            <video autoplay loop muted playsinline>
-              <source src="assets/4.%20%EA%B8%80%EC%9E%91%EC%84%B1%20%EB%8F%84%EC%9A%B0%EB%AF%B8%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%2B%20%EC%9E%90%EB%8F%99%20%EC%9C%A0%EA%B4%80%20%EA%B2%80%EC%83%89%EC%96%B4%20%ED%83%9C%EA%B7%B8%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%281%29.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="vcf-macbook-base"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 · in 코호트 -->
-  <section class="vcf-feature-section" id="vcf-s5">
-    <div class="vcf-section-glow glow-purple"></div>
-    <div class="vcf-reveal">
-      <p class="vcf-section-num">Feature · 05</p>
-      <h2 class="vcf-section-title"><span class="accent-purple">in 코호트</span></h2>
-      <p class="vcf-section-desc">병기·항암 레지멘·수술 여부를 입력하면 같은 치료를 받고 있는 사람들과 자동으로 연결됩니다. 같은 시간을 보내는 사람들과 경험을 나눠보세요.</p>
-    </div>
-    <div class="vcf-mockup-wrap vcf-reveal">
-      <div class="vcf-macbook">
-        <div class="vcf-macbook-lid">
-          <div class="vcf-macbook-screen">
-            <video autoplay loop muted playsinline>
-              <source src="assets/5.%20in%20%EC%BD%94%ED%98%B8%ED%8A%B8%281%29.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="vcf-macbook-base"></div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="vcf-footer">
-    <div class="vcf-footer-logo">v.care · aitrics</div>
-    <div class="vcf-footer-text">© 2026 aitrics. All rights reserved.</div>
+  <footer>
+    <div class="footer-logo">v.care · aitrics</div>
+    <div class="footer-text">© 2026 aitrics. All rights reserved.</div>
   </footer>
+
+  <script>
+  (function(){
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('#page-vcare-features .reveal, #page-vcare-features .reveal-delay1, #page-vcare-features .reveal-delay2').forEach(el => obs.observe(el));
+  })();
+  </script>
 
   </div><!-- /page-vcare-features -->
 
