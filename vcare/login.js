@@ -206,7 +206,11 @@
       `;
       document.getElementById('loginDone').addEventListener('click', function() {
         closeLogin();
+        // Save to localStorage
+        try { localStorage.setItem('oncocare_login', JSON.stringify(loginData)); } catch(e) {}
         updateLoginUI();
+        // Dispatch custom event for page-specific handling
+        window.dispatchEvent(new CustomEvent('oncocare-login', { detail: loginData }));
       });
     }
   }
@@ -252,6 +256,19 @@
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) closeLogin();
   });
+
+  // ── Restore login state from localStorage ──
+  try {
+    var saved = localStorage.getItem('oncocare_login');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (parsed && parsed.role) {
+        loginData = parsed;
+        updateLoginUI();
+        window.dispatchEvent(new CustomEvent('oncocare-login', { detail: loginData }));
+      }
+    }
+  } catch(e) {}
 
   // ── Bind login buttons ──
   document.querySelectorAll('.btn-login').forEach(function(el) {
