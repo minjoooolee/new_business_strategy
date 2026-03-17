@@ -8500,7 +8500,7 @@
   <!-- ===== PINKCARE NEXT STEP PAGE ===== -->
   <div class="page-section" id="page-pinkcare-nextstep">
   <style>
-#page-pinkcare-nextstep {
+:root {
   --bg: #080a10;
   --surface: #0f1219;
   --surface2: #141824;
@@ -8515,29 +8515,35 @@
   --text-muted: #7a8aaa;
   --text-dim: #2e3a55;
 }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
 
+#progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--green)); z-index:1000; transition:width .1s; }
 
-
-
-
-
-
-
-
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px; height:60px;
+  background:rgba(8,10,16,.94); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo { font-family:'Space Mono',monospace; font-size:12px; color:var(--blue); }
+.nav-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
 
 /* ── HERO ── */
-#page-pinkcare-nextstep .hero {
+.hero {
   min-height:100vh; display:flex; flex-direction:column;
   align-items:center; justify-content:center;
   padding:120px 48px 80px; position:relative; overflow:hidden; text-align:center;
 }
-#page-pinkcare-nextstep .hero::before {
+.hero::before {
   content:''; position:absolute; inset:0;
   background: radial-gradient(ellipse 70% 50% at 30% 50%, rgba(61,127,255,.07) 0%,transparent 60%),
               radial-gradient(ellipse 50% 50% at 75% 50%, rgba(0,212,160,.05) 0%,transparent 60%);
   pointer-events:none;
 }
-#page-pinkcare-nextstep .hero::after {
+.hero::after {
   content:''; position:absolute; inset:0;
   background-image: linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
   background-size:60px 60px;
@@ -8550,12 +8556,12 @@
 .hero-sub { font-size:15px; color:var(--text-muted); max-width:480px; line-height:1.8; margin-bottom:60px; opacity:0; animation:fadeUp .6s ease forwards .3s; }
 
 /* ── 7관점 네비게이션 맵 ── */
-#page-pinkcare-nextstep .perspective-map {
+.perspective-map {
   display:grid; grid-template-columns:repeat(7,1fr); gap:0;
   width:100%; max-width:980px; border:1px solid var(--border); border-radius:16px; overflow:hidden;
   opacity:0; animation:fadeUp .7s ease forwards .4s;
 }
-#page-pinkcare-nextstep .pm-item {
+.pm-item {
   padding:20px 12px; text-align:center; text-decoration:none; color:var(--text);
   border-right:1px solid var(--border); position:relative; overflow:hidden;
   transition:background .25s;
@@ -8575,20 +8581,20 @@
 .pm-label { font-size:11px; font-weight:700; line-height:1.3; }
 
 /* ── PERSPECTIVE SECTION ── */
-#page-pinkcare-nextstep .ps {
+.ps {
   max-width:900px; margin:0 auto;
   padding:100px 48px;
   border-top:1px solid var(--border);
 }
 
 /* 관점 헤더 — 크고 강하게 */
-#page-pinkcare-nextstep .ps-header {
+.ps-header {
   display:grid; grid-template-columns:80px 1fr; gap:0; margin-bottom:56px; align-items:start;
 }
-#page-pinkcare-nextstep .ps-num-block {
+.ps-num-block {
   display:flex; flex-direction:column; align-items:center; padding-top:6px;
 }
-#page-pinkcare-nextstep .ps-num-big {
+.ps-num-big {
   font-family:'Space Mono',monospace; font-size:52px; font-weight:700; line-height:1;
   opacity:.12; letter-spacing:-.04em;
 }
@@ -8596,7 +8602,7 @@
 .ps-title-block {}
 .ps-category { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:10px; }
 .ps-title { font-size:clamp(28px,3.5vw,42px); font-weight:900; line-height:1.12; letter-spacing:-.025em; margin-bottom:16px; }
-#page-pinkcare-nextstep .ps-core {
+.ps-core {
   font-size:14px; line-height:1.85; padding:16px 20px;
   background:var(--surface); border-radius:10px; border-left:3px solid;
   color:var(--text-muted);
@@ -8606,7 +8612,7 @@
 /* 항목들 */
 .ps-items { display:flex; flex-direction:column; gap:32px; margin-top:40px; }
 .ps-item {}
-#page-pinkcare-nextstep .ps-item-title {
+.ps-item-title {
   font-size:19px; font-weight:900; margin-bottom:12px; line-height:1.3;
   display:flex; align-items:center; gap:12px; color:var(--text);
   letter-spacing:-.01em;
@@ -8616,7 +8622,7 @@
 .ps-item:nth-child(2) .ps-item-title::before { background:var(--blue); }
 .ps-item:nth-child(3) .ps-item-title::before { background:var(--blue); }
 .ps-item:nth-child(4) .ps-item-title::before { background:var(--blue); }
-.ps-item-
+.ps-item-body { font-size:13.5px; color:var(--text-muted); line-height:1.95; }
 .ps-item-body strong { color:var(--text); font-weight:700; }
 .ps-item-body p + p { margin-top:12px; }
 
@@ -8639,7 +8645,7 @@
 .two-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
 
 /* 강조 박스 */
-#page-pinkcare-nextstep .em-box {
+.em-box {
   border-radius:12px; padding:18px 22px; margin-top:14px;
   font-size:13.5px; line-height:1.85;
 }
@@ -8656,7 +8662,7 @@
 .si-label { font-size:10px; color:var(--text-muted); }
 
 /* ── CLOSING ── */
-#page-pinkcare-nextstep .closing {
+.closing {
   max-width:900px; margin:0 auto; padding:80px 48px 120px;
   border-top:1px solid var(--border); text-align:center;
 }
@@ -8665,9 +8671,9 @@
 .closing-motto { font-family:'Space Mono',monospace; font-size:24px; font-weight:700; color:var(--text); letter-spacing:.04em; }
 .closing-motto span { color:var(--blue); }
 
-
-
-
+footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; align-items:center; justify-content:space-between; }
+.footer-logo { font-family:'Space Mono',monospace; font-size:12px; color:var(--blue); }
+.footer-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 .reveal { opacity:0; transform:translateY(32px); transition:opacity .75s ease,transform .75s ease; }
@@ -8676,7 +8682,7 @@
 .reveal-d2 { transition-delay:.22s; }
 
 @media(max-width:860px){
-  
+  nav{padding:0 20px;}
   .hero,.ps,.closing{padding-left:20px;padding-right:20px;}
   .perspective-map{grid-template-columns:repeat(4,1fr);}
   .ps-header{grid-template-columns:1fr;}
@@ -8688,11 +8694,17 @@
   .mini-cards,.two-cards{grid-template-columns:1fr;}
 }
   </style>
+<div id="progress"></div>
+<nav>
+  <div class="nav-logo">aitrics · 신사업전략부서</div>
+  <div class="nav-meta">Phase 2 검토사항 · 2026.03 · Confidential</div>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
   <p class="hero-kicker">핑크케어 PoC 회고 기반</p>
   <h1 class="hero-title"><em>Phase 2 검토사항 종합</em></h1>
-  <p class="hero-sub">7개 관점별 PoC 학습 사항 및 다음 단계 핵심 고민 정리</p>
+  <p class="hero-sub">의사결정 주제 기반 5-Chapter 재구조화 — PoC 인사이트 → 선행조건 → 제품설계 → 성장전략 → 측정</p>
 
   <!-- Phase 로드맵 -->
   <div style="max-width:720px;width:100%;margin-bottom:48px;opacity:0;animation:fadeUp .65s ease forwards .35s;">
@@ -8750,29 +8762,107 @@
     </div>
   </div>
 
-  <div class="perspective-map">
-    <a href="#s1" class="pm-item"><span class="pm-num">01</span><span class="pm-label">서비스<br>기획</span></a>
-    <a href="#s2" class="pm-item"><span class="pm-num">02</span><span class="pm-label">콘텐츠<br>기획</span></a>
-    <a href="#s3" class="pm-item"><span class="pm-num">03</span><span class="pm-label">법률<br>보안</span></a>
-    <a href="#s4" class="pm-item"><span class="pm-num">04</span><span class="pm-label">마케팅</span></a>
-    <a href="#s5" class="pm-item"><span class="pm-num">05</span><span class="pm-label">개발</span></a>
-    <a href="#s6" class="pm-item"><span class="pm-num">06</span><span class="pm-label">운영</span></a>
-    <a href="#s7" class="pm-item"><span class="pm-num">07</span><span class="pm-label">의료진</span></a>
+  <div class="perspective-map" style="grid-template-columns:repeat(4,1fr);">
+    <a href="#ch1" class="pm-item"><span class="pm-num">Ch 1</span><span class="pm-label">PoC에서<br>배운 것</span></a>
+    <a href="#ch2-1" class="pm-item"><span class="pm-num">Ch 2</span><span class="pm-label">먼저<br>결정할 것</span></a>
+    <a href="#ch3-0" class="pm-item"><span class="pm-num">Ch 3</span><span class="pm-label">무엇을<br>만드는가</span></a>
+    <a href="#ch4-1" class="pm-item"><span class="pm-num">Ch 4</span><span class="pm-label">어떻게<br>사람 모으는가</span></a>
   </div>
 </section>
 
 <!-- 01 서비스 기획 -->
-<section class="ps c-blue reveal" id="s1">
+<section class="ps c-blue reveal" id="ch1">
   <div class="ps-header">
     <div class="ps-num-block">
-      <div class="ps-num-big" style="color:var(--blue)">01</div>
+      <div class="ps-num-big" style="color:var(--yellow)">06</div>
+      <div class="ps-num-line" style="background:var(--yellow)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--blue)">Ch 1 · PoC에서 배운 것</p>
+      <h2 class="ps-title">사람들을 모은 것은<br>기능이 아니라 <em style="font-style:normal;color:var(--blue)">사람</em>이었다</h2>
+      <div class="ps-core" style="border-color:var(--yellow)">
+        운영자가 발신 1위(234건)였고, 의료진 답변 4.2%가 활성도를 2~14배 만들었다. <strong>PoC의 모든 데이터가 가리키는 방향은 하나다 — 기능이 아닌 신뢰받는 사람이 커뮤니티를 만든다.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">코어 환우를 의도적으로 설계·육성해야 한다</div>
+      <div class="ps-item-body">
+        <p>콩가님(130건), 귀하의채널(51건)은 자발적으로 등장했다. 다질환 확장에서는 <strong>매 질환마다 이 행운을 기대할 수 없다.</strong></p>
+        <div class="em-box em-yellow" style="margin-top:12px;">
+          코어 환우에게 줄 가치: <strong>금전적 인센티브 ✗</strong> — "의료진과의 직접 소통 채널", "최신 임상·논문 정보 우선 제공", "서비스 방향 자문 참여" 등 정보적·심리적 가치가 더 강한 동기가 된다.
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">KPI를 절대값에서 퍼널 전환율로 바꿔야 한다</div>
+      <div class="ps-item-body">
+        <p>핑크케어 KPI는 절대값 중심이었고 인과관계를 설명하지 못했다. Phase 2에서는 <strong>유입 → 가입 → 첫 발화 → 코어 유저화 → 데이터 제공</strong>의 퍼널 전환율을 처음부터 추적해야 한다. AI 답변 만족도, 의료진 컨펌 리드타임, AI 오정보 비율 등 AI 품질 지표도 새로 설계해야 한다.</p>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">"전이 4기 환우의 여명 이야기" — LLM이 아닌 사람만이 할 수 있다</div>
+      <div class="ps-item-body">
+        <p>커뮤니티 안에서 전이 4기 환우의 여명 이야기가 나왔을 때 대화의 톤을 조절하는 것은 <strong>LLM이 아니라 사람만이 할 수 있는 영역이다.</strong> 이런 순간을 감지하고 개입할 수 있는 운영자 또는 코어 환우의 역할을 사전에 설계해야 한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 의료진 -->
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">PoC에서 배운 핵심이 확인됐다면, Phase 2를 시작하기 전에 반드시 끝내야 할 선행조건 2가지를 결정해야 한다.</div></div>
+<section class="ps c-red reveal" id="ch2-1">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--red)">03</div>
+      <div class="ps-num-line" style="background:var(--red)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--red)">Ch 2 · 먼저 결정해야 할 것</p>
+      <h2 class="ps-title">법률 자문이<br>서비스 설계보다 먼저다</h2>
+      <div class="ps-core" style="border-color:var(--red)">
+        AI의 검사결과지 분석이 "의료행위"에 해당하는지 여부를 <strong>법률 전문가가 먼저 정의해야 한다.</strong> 이것이 끝나야 제품 스콥을 확정할 수 있다.
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">AI의 검사결과지 분석이 "의료행위"인지 법률 자문이 필요하다</div>
+      <div class="ps-item-body">
+        <p>"일반적인 의학 정보 제공"과 "개인에 대한 의료적 판단"의 경계를 어디에 그을 것인지가 핵심이다. 기획 단계에서 결정할 문제가 아니라, <strong>법률 전문가 의견 → 서비스 스콥 조정</strong> 순으로 가야 한다.</p>
+
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">민감 의료정보 수집·저장·AI 학습 활용 동의를 설계해야 한다</div>
+      <div class="ps-item-body">
+        <p>최종 목표가 "커뮤니티 데이터로 의료 특화 LLM을 학습시키는 것"이라면, 사용자 동의 범위에 <strong>"AI 학습 활용"이 명시적으로 포함</strong>되어야 한다. 이것이 환우들에게 어떤 인상을 줄지도 함께 고려해야 한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 마케팅 -->
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 32px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">법률 검토가 완료되면 "Phase 2에서 무엇을 만드는가"를 확정할 수 있다.</div></div>
+<section class="ps c-blue reveal" id="ch3-0">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--blue)">03</div>
       <div class="ps-num-line" style="background:var(--blue)"></div>
     </div>
     <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--blue)">서비스 기획 관점</p>
-      <h2 class="ps-title">화면 정의서가 아니라<br>운영 정책 설계가 기획의 핵심이다</h2>
+      <p class="ps-category" style="color:var(--blue)">Ch 3 · 무엇을 만드는가</p>
+      <h2 class="ps-title">질환마다 유저 여정이 다르다 —<br>페르소나와 플랫폼 구조 설계</h2>
       <div class="ps-core" style="border-color:var(--blue)">
-        유저 여정의 순서가 기획팀의 예상과 반대였다. <strong>커뮤니티 안착이 먼저, 검사기록지는 그 다음 심화 기능으로 작동한다.</strong> 화면 정의서가 아니라 운영 정책 설계가 기획의 핵심이 되어야 한다.
+        질환별로 유저 여정이 완전히 다르다. <strong>유방암·공황장애·소아성장은 각각 다른 UX와 플랫폼 구조를 요구한다.</strong> 게시판과 실시간 채팅을 동시에 제공하는 구조가 필요하다.
       </div>
     </div>
   </div>
@@ -8816,18 +8906,79 @@
   </div>
 </section>
 
-<!-- 02 콘텐츠 기획 -->
-<section class="ps c-green reveal" id="s2">
+<section class="ps c-purple reveal" id="ch3-1">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--purple)">04</div>
+      <div class="ps-num-line" style="background:var(--purple)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--purple)">Ch 3 · 무엇을 만드는가</p>
+      <h2 class="ps-title">오픈채팅의 페인포인트를<br>AI로 해결 — 4가지 에이전트</h2>
+      <div class="ps-core" style="border-color:var(--purple)">
+        오픈채팅방에서 직접 경험한 문제들 — 대화 혼잡, 의료진 부담, 신뢰 부족, 정보 빈곤 — 각각을 전담 AI 에이전트로 해결합니다. <strong>인원이 늘어도 품질은 유지됩니다.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">4가지 에이전트 — 페인포인트별 1:1 대응</div>
+      <div class="ps-item-body">
+        <div class="mini-cards" style="grid-template-columns:repeat(4,1fr)">
+          <div class="mini-card">
+            <div class="mc-icon">🔬</div>
+            <div class="mc-title">AGENT 01 · 검사결과 해석</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">의료진이 계속 답변하면 로딩 과다</div>
+            <div class="mc-desc">검사지를 업로드하면 AI가 서술형으로 먼저 해석. 의료진은 초안을 컨펌하는 Human-in-Loop 구조. 전문 용어를 알기 쉬운 말로 풀어줍니다.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">✍️</div>
+            <div class="mc-title">AGENT 02 · 초안 답변 작성</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">의료진의 답변 부담으로 참여 저조</div>
+            <div class="mc-desc">커뮤니티 질문글이 올라오면 Evidence 기반 답변 초안을 자동 생성. 의료진은 확인·수정·컨펌만 합니다. 신뢰도와 참여율을 동시에 높입니다.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">📋</div>
+            <div class="mc-title">AGENT 03 · 대화 목록 관리</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">100명+ 되면 대화가 뒤죽박죽</div>
+            <div class="mc-desc">유저의 체류 이력·관심 패턴을 분석해 관련 글을 상단 노출. 복잡해지는 멀티스레드 대화를 구조화합니다. 규모가 커져도 개인화된 피드를 유지합니다.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">📡</div>
+            <div class="mc-title">AGENT 04 · 최신 정보 큐레이션</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">환자들은 얻기 힘든 전문 정보를 원함</div>
+            <div class="mc-desc">최신 논문·학회 자료·저널을 실시간 수집·요약해 커뮤니티에 공급. 전문가의 컨펌을 받은 신뢰도 높은 정보를 자동으로 제공합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">AI를 넣는 이유 3가지</div>
+      <div class="ps-item-body">
+        <div class="mini-cards">
+          <div class="mini-card"><div class="mc-icon">🚀</div><div class="mc-title">① 확장성</div><div class="mc-desc">인력 없이 복수 질환으로 확장 가능</div></div>
+          <div class="mini-card"><div class="mc-icon">⚡</div><div class="mc-title">② 효율성</div><div class="mc-desc">의료진·운영 부담 최소화</div></div>
+          <div class="mini-card"><div class="mc-icon">🛡</div><div class="mc-title">③ 신뢰성</div><div class="mc-desc">데이터·근거 기반 대화 품질 유지</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 운영 -->
+<section class="ps c-green reveal" id="ch3-2">
   <div class="ps-header">
     <div class="ps-num-block">
       <div class="ps-num-big" style="color:var(--green)">02</div>
       <div class="ps-num-line" style="background:var(--green)"></div>
     </div>
     <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--green)">콘텐츠 기획 관점</p>
-      <h2 class="ps-title">빈 게시판에<br>AI 글을 채우면 실패한다</h2>
+      <p class="ps-category" style="color:var(--green)">Ch 3 · 무엇을 만드는가</p>
+      <h2 class="ps-title">질환별 레드라인과<br>콘텐츠 운영 정책</h2>
       <div class="ps-core" style="border-color:var(--green)">
-        환우들은 AI가 쓴 글과 사람이 쓴 글을 귀신같이 구분한다. <strong>사람이 후킹이다 — 핑크케어가 증명한 핵심 교훈.</strong> 콜드스타트는 콘텐츠 작성자 확보로 풀어야 한다.
+        빈 게시판에 AI 글을 채우면 실패한다. 환우들은 AI가 쓴 글과 사람이 쓴 글을 구분한다. <strong>콘텐츠 정책과 레드라인은 질환마다 달라야 하고, 콜드스타트는 사람이 써야 한다.</strong>
       </div>
     </div>
   </div>
@@ -8861,53 +9012,21 @@
 </section>
 
 <!-- 03 법률·보안 -->
-<section class="ps c-red reveal" id="s3">
-  <div class="ps-header">
-    <div class="ps-num-block">
-      <div class="ps-num-big" style="color:var(--red)">03</div>
-      <div class="ps-num-line" style="background:var(--red)"></div>
-    </div>
-    <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--red)">법률·보안 관점</p>
-      <h2 class="ps-title">서비스 스콥을<br>법률가가 먼저 정의해야 한다</h2>
-      <div class="ps-core" style="border-color:var(--red)">
-        핑크케어는 오픈채팅 수준이어서 법적 이슈가 작았다. 하지만 <strong>LLM이 의료 정보를 직접 제공하는 순간 법적 지형이 완전히 달라진다.</strong> 기획이 아니라 법률 자문이 먼저다.
-      </div>
-    </div>
-  </div>
 
-  <div class="ps-items reveal reveal-d1">
-    <div class="ps-item">
-      <div class="ps-item-title">AI의 검사결과지 분석이 "의료행위"인지 법률 자문이 필요하다</div>
-      <div class="ps-item-body">
-        <p>"일반적인 의학 정보 제공"과 "개인에 대한 의료적 판단"의 경계를 어디에 그을 것인지가 핵심이다. 기획 단계에서 결정할 문제가 아니라, <strong>법률 전문가 의견 → 서비스 스콥 조정</strong> 순으로 가야 한다.</p>
-        <div class="em-box em-red" style="margin-top:12px;">
-          <strong>⚠ 율촌·세종 등 헬스케어 전문 법무팀 자문을 Phase 2 첫 2주 안에 받을 것</strong>
-        </div>
-      </div>
-    </div>
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">무엇을 만들지 결정했다면, 사람을 어떻게 모을 것인지 전략을 세워야 한다.</div></div>
 
-    <div class="ps-item">
-      <div class="ps-item-title">민감 의료정보 수집·저장·AI 학습 활용 동의를 설계해야 한다</div>
-      <div class="ps-item-body">
-        <p>최종 목표가 "커뮤니티 데이터로 의료 특화 LLM을 학습시키는 것"이라면, 사용자 동의 범위에 <strong>"AI 학습 활용"이 명시적으로 포함</strong>되어야 한다. 이것이 환우들에게 어떤 인상을 줄지도 함께 고려해야 한다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 04 마케팅 -->
-<section class="ps c-pink reveal" id="s4">
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 32px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">무엇을 만들지 결정됐다면, 사람을 어떻게 모을 것인지가 다음 과제다.</div></div>
+<section class="ps c-pink reveal" id="ch4-1">
   <div class="ps-header">
     <div class="ps-num-block">
       <div class="ps-num-big" style="color:var(--pink)">04</div>
       <div class="ps-num-line" style="background:var(--pink)"></div>
     </div>
     <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--pink)">마케팅 관점</p>
-      <h2 class="ps-title">유입 경로를 몰랐다.<br>UTM이 없었다</h2>
+      <p class="ps-category" style="color:var(--pink)">Ch 4 · 어떻게 사람을 모으는가</p>
+      <h2 class="ps-title">질환별 유입 채널 전략과<br>UTM 설계</h2>
       <div class="ps-core" style="border-color:var(--pink)">
-        Paid CAC 0원을 달성했지만 <strong>UTM이 없어 유입 경로를 소급 추적할 수 없었다.</strong> 유입자의 82%가 당사자(환우 62% + 보호자 20%) — 의료 커뮤니티는 철저히 당사자 마켓이다.
+        Paid CAC 0원을 달성했지만 UTM이 없어 유입 경로를 소급 추적할 수 없었다. <strong>채널별 전환율 추적과 SEO 기반 유입이 Phase 2 마케팅의 핵심이다.</strong>
       </div>
     </div>
   </div>
@@ -8941,102 +9060,17 @@
 </section>
 
 <!-- 05 개발 -->
-<section class="ps c-purple reveal" id="s5">
-  <div class="ps-header">
-    <div class="ps-num-block">
-      <div class="ps-num-big" style="color:var(--purple)">05</div>
-      <div class="ps-num-line" style="background:var(--purple)"></div>
-    </div>
-    <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--purple)">개발 관점</p>
-      <h2 class="ps-title">12개 AI 에이전트 중<br>3개만 먼저 만든다</h2>
-      <div class="ps-core" style="border-color:var(--purple)">
-        제안서에 12개 에이전트가 나열되어 있지만, 한꺼번에 만드는 것은 핑크케어 회고의 핵심 교훈 <strong>"가장 저렴하게 틀리는 방법을 찾는다"</strong>에 정면으로 어긋난다.
-      </div>
-    </div>
-  </div>
-
-  <div class="ps-items reveal reveal-d1">
-    <div class="ps-item">
-      <div class="ps-item-title">웹과 네이티브 앱을 동시에 개발해야 한다</div>
-      <div class="ps-item-body">
-        <div class="two-cards">
-          <div class="mini-card"><div class="mc-title">🌐 웹 — SEO 기반</div><div class="mc-desc">게시판 콘텐츠가 구글·네이버에 노출. 의료진·운영자는 PC 환경. 검사기록지 관리·데이터 대시보드</div></div>
-          <div class="mini-card"><div class="mc-title">📱 앱 — 환우 중심</div><div class="mc-desc">심야 병상 접속(23시~3시, 31건) 패턴. 푸시 알림·카메라 촬영·실시간 채팅 UX는 앱이 필수</div></div>
-        </div>
-        <div class="em-box em-blue" style="margin-top:12px;">API 서버 공유, 클라이언트 분리 아키텍처. 웹은 의료진·운영자부터, 앱은 환우·보호자부터 우선 개발.</div>
-      </div>
-    </div>
-
-    <div class="ps-item">
-      <div class="ps-item-title">먼저 만들 AI 에이전트 3개</div>
-      <div class="ps-item-body">
-        <div class="mini-cards">
-          <div class="mini-card"><div class="mc-icon">🔬</div><div class="mc-title">① 검사결과 분석</div><div class="mc-desc">이미 검증된 니즈 — 최우선</div></div>
-          <div class="mini-card"><div class="mc-icon">🔗</div><div class="mc-title">② 유사 게시글 찾기</div><div class="mc-desc">대화 루프 형성 촉진</div></div>
-          <div class="mini-card"><div class="mc-icon">🛡</div><div class="mc-title">③ 위험 감지</div><div class="mc-desc">오정보 필터링·자해 신호 감지</div></div>
-        </div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">이 3개가 작동하는 것을 확인한 후 나머지를 순차적으로 붙인다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 06 운영 -->
-<section class="ps c-yellow reveal" id="s6">
-  <div class="ps-header">
-    <div class="ps-num-block">
-      <div class="ps-num-big" style="color:var(--yellow)">06</div>
-      <div class="ps-num-line" style="background:var(--yellow)"></div>
-    </div>
-    <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--yellow)">운영 관점</p>
-      <h2 class="ps-title">운영자가 발신 1위(234건)였다.<br>이건 지속 불가능하다</h2>
-      <div class="ps-core" style="border-color:var(--yellow)">
-        자생 세션 48%는 17일간 운영자가 매일 강도 높게 참여한 결과다. <strong>PM 1인 번아웃 구조를 끊지 않으면 다질환 확장은 불가능하다.</strong>
-      </div>
-    </div>
-  </div>
-
-  <div class="ps-items reveal reveal-d1">
-    <div class="ps-item">
-      <div class="ps-item-title">코어 환우를 의도적으로 설계·육성해야 한다</div>
-      <div class="ps-item-body">
-        <p>콩가님(130건), 귀하의채널(51건)은 자발적으로 등장했다. 다질환 확장에서는 <strong>매 질환마다 이 행운을 기대할 수 없다.</strong></p>
-        <div class="em-box em-yellow" style="margin-top:12px;">
-          코어 환우에게 줄 가치: <strong>금전적 인센티브 ✗</strong> — "의료진과의 직접 소통 채널", "최신 임상·논문 정보 우선 제공", "서비스 방향 자문 참여" 등 정보적·심리적 가치가 더 강한 동기가 된다.
-        </div>
-      </div>
-    </div>
-
-    <div class="ps-item">
-      <div class="ps-item-title">KPI를 절대값에서 퍼널 전환율로 바꿔야 한다</div>
-      <div class="ps-item-body">
-        <p>핑크케어 KPI는 절대값 중심이었고 인과관계를 설명하지 못했다. Phase 2에서는 <strong>유입 → 가입 → 첫 발화 → 코어 유저화 → 데이터 제공</strong>의 퍼널 전환율을 처음부터 추적해야 한다. AI 답변 만족도, 의료진 컨펌 리드타임, AI 오정보 비율 등 AI 품질 지표도 새로 설계해야 한다.</p>
-      </div>
-    </div>
-
-    <div class="ps-item">
-      <div class="ps-item-title">우울증 커뮤니티 모더레이션은 유방암과 완전히 다른 수준이다</div>
-      <div class="ps-item-body">
-        <p>자해·자살 관련 발언, 약물 남용 정보, 표준치료 이탈 권유에 대한 대응 프로토콜을 <strong>질환별로 사전에 만들어야 한다.</strong> "전이 4기 환우의 여명 이야기가 나왔을 때 대화 톤을 조절하는 것"은 LLM이 아니라 사람만이 할 수 있다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 07 의료진 -->
-<section class="ps c-green reveal" id="s7">
+<section class="ps c-green reveal" id="ch4-2">
   <div class="ps-header">
     <div class="ps-num-block">
       <div class="ps-num-big" style="color:var(--green)">07</div>
       <div class="ps-num-line" style="background:var(--green)"></div>
     </div>
     <div class="ps-title-block">
-      <p class="ps-category" style="color:var(--green)">의료진 관점</p>
-      <h2 class="ps-title">4.2%가 커뮤니티 활성도를<br>2~14배 만들었다</h2>
+      <p class="ps-category" style="color:var(--green)">Ch 4 · 어떻게 사람을 모으는가</p>
+      <h2 class="ps-title">4.2%의 의료진 답변을<br>기하급수적 가치로 만든다</h2>
       <div class="ps-core" style="border-color:var(--green)">
-        의료진 참여는 34건(4.2%)에 불과했지만 답변 직후 활성도가 2~14배 급증했다. <strong>의료진의 존재 자체가 신뢰와 활성화를 결정한다.</strong> 다질환 확장의 성패는 질환별 의료진 확보에 달려 있다.
+        의료진 참여(4.2%)가 활성도를 2~14배 만들었다. <strong>의료진 확보 3가지 경로 + 일회성 답변을 "검증된 콘텐츠"로 아카이빙하는 구조가 Phase 2 성장의 열쇠다.</strong>
       </div>
     </div>
   </div>
@@ -9068,21 +9102,31 @@
 </section>
 
 <!-- CLOSING -->
-<section class="closing reveal">
-  <h2 class="closing-title">7개 관점을 한꺼번에<br>해결하려 하지 말 것</h2>
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">마지막으로, 어떻게 측정하고 실행할 것인지 — Phase 2 첫 2주 체크리스트로 마무리한다.</div></div>
+<section class="closing reveal" id="closing">
+  <h2 class="closing-title">Prove or Pivot —<br>지금 결정하고, 빠르게 검증하라</h2>
   <p class="closing-desc">
-    핑크케어 PoC의 가장 중요한 교훈은 <strong>"원래 가설은 틀렸지만 더 중요한 것을 발견했다"</strong>는 것이었고, 이것이 가능했던 이유는 17일이라는 짧은 기간에 최소 자원으로 부딪혀봤기 때문이다.<br><br>
-    각 관점에서 <strong>"Phase 2 첫 2주 안에 반드시 결정해야 하는 것"</strong>과 <strong>"운영하면서 점진적으로 개선할 것"</strong>을 나누는 것이 실행의 출발점이다.
+    핑크케어 PoC의 가장 중요한 교훈은 <strong>"원래 가설은 틀렸지만 더 중요한 것을 발견했다"</strong>는 것이었다.<br><br>
+    각 Chapter에서 <strong>"Phase 2 첫 2주 안에 반드시 결정해야 하는 것"</strong>과 <strong>"운영하면서 점진적으로 개선할 것"</strong>을 나누는 것이 실행의 출발점이다.
   </p>
   <div class="closing-motto"><span>Prove</span> or Pivot.</div>
 </section>
 
-<script>
+<footer>
+  <div class="footer-logo">aitrics · 신사업전략부서</div>
+  <div class="footer-meta">2026.03 · Confidential · Internal Use Only</div>
+</footer>
 
+<script>
+window.addEventListener('scroll', () => {
+  const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress').style.width = p + '%';
+});
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.06 });
-document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
   </div><!-- /page-pinkcare-nextstep -->
 
