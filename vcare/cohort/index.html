@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>in 코호트 — v.care</title>
+  <title>in 코호트 — onco.care</title>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../cohort.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
         <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
         <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <span class="logo-text">v.care</span>
+      <span class="logo-text">onco.care</span>
     </a>
     <nav class="gnb-nav">
       <ul>
@@ -131,7 +131,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-row">
-      <span class="footer-brand">v.care by aitrics</span>
+      <span class="footer-brand">onco.care by aitrics</span>
       <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
     </div>
   </div>
@@ -146,7 +146,7 @@
         <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
         <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <span class="logo-text">v.care</span>
+      <span class="logo-text">onco.care</span>
     </a>
     <button class="drawer-close" id="drawerClose">&times;</button>
   </div>
@@ -445,12 +445,12 @@ function renderBoard(disease, cancer, subtype, stage, surgery, regimen) {
   const conditionLabel = isCancer ? `${cancer} ${subtype} ${stage}` : cancer;
   const NOTICES = {
     '유방암': [
-      { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 환우분들을 위한 치료 가이드라인 요약`, excerpt:`${cancer} ${subtype} 아형의 ${stage} 기준 최신 NCCN 가이드라인을 알기 쉽게 정리했습니다. ${surgery} 환우분들이 알아두시면 좋은 핵심 포인트를 확인하세요.`, author:'v.care 메디컬팀', ai:true, views:312, comments:28 },
-      { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'v.care 운영팀', ai:false, views:1247, comments:5 },
+      { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 환우분들을 위한 치료 가이드라인 요약`, excerpt:`${cancer} ${subtype} 아형의 ${stage} 기준 최신 NCCN 가이드라인을 알기 쉽게 정리했습니다. ${surgery} 환우분들이 알아두시면 좋은 핵심 포인트를 확인하세요.`, author:'onco.care 메디컬팀', ai:true, views:312, comments:28 },
+      { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'onco.care 운영팀', ai:false, views:1247, comments:5 },
     ],
     '위암': [
-      { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 위암 환우를 위한 식이·영양 가이드`, excerpt:`위암 수술 후 회복과 항암 병행 시 영양 관리가 매우 중요합니다. ${surgery} 시점에 맞는 식사 가이드를 확인해 보세요.`, author:'v.care 메디컬팀', ai:true, views:287, comments:34 },
-      { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다.', author:'v.care 운영팀', ai:false, views:1023, comments:3 },
+      { pin:true, badge:'pin', title:`[필독] ${subtype} ${stage} 위암 환우를 위한 식이·영양 가이드`, excerpt:`위암 수술 후 회복과 항암 병행 시 영양 관리가 매우 중요합니다. ${surgery} 시점에 맞는 식사 가이드를 확인해 보세요.`, author:'onco.care 메디컬팀', ai:true, views:287, comments:34 },
+      { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 암종·아형·병기·치료단계의 환우분들이 정보를 나누는 곳입니다.', author:'onco.care 운영팀', ai:false, views:1023, comments:3 },
     ],
   };
 
@@ -458,8 +458,8 @@ function renderBoard(disease, cancer, subtype, stage, surgery, regimen) {
     { pin:true, badge:'pin', title:`[필독] ${conditionLabel} 최신 치료 가이드라인 요약`, excerpt: isCancer
         ? `${cancer} ${subtype} 아형, ${stage} 기준 NCCN/ESMO 가이드라인의 핵심 내용을 정리했습니다. ${surgery} 환우분들에게 유용한 정보입니다.`
         : `${cancer} 환우분들을 위한 최신 가이드라인과 관리 방법을 정리했습니다. ${regimen} 관련 유용한 정보를 확인하세요.`,
-      author:'v.care 메디컬팀', ai:true, views:215, comments:19 },
-    { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 질환·치료 단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'v.care 운영팀', ai:false, views:982, comments:4 },
+      author:'onco.care 메디컬팀', ai:true, views:215, comments:19 },
+    { pin:true, badge:'pin', title:`코호트 이용 안내 — 같은 단계 환우끼리 소통해요`, excerpt:'이 공간은 동일한 질환·치료 단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명 사용은 자제해 주세요.', author:'onco.care 운영팀', ai:false, views:982, comments:4 },
   ];
 
   const notices = NOTICES[cancer] || defaultNotices;
@@ -469,14 +469,14 @@ function renderBoard(disease, cancer, subtype, stage, surgery, regimen) {
     { badge:'tip', title:`${regimen} 부작용 관리, 이렇게 했어요`, excerpt:`저도 같은 레지멘으로 항암 중인데, 3차 이후부터 구역감이 심해져서 생강차와 냉수 헹굼을 병행했더니 좀 나아졌어요. 혹시 다른 방법 아시는 분?`, author:'환자_mj7', views:89, comments:14 },
     { badge:'info', title:`${surgery} 후 운동 시작 시기에 대해`, excerpt:`선생님이 2주 후부터 가벼운 걷기를 시작하라고 하셨는데, 실제로 다른 분들은 언제부터 운동을 시작하셨나요?`, author:'보호자_k3a', views:67, comments:11 },
     { badge:'tip', title:`${stage} 진단 후 마음 관리 어떻게 하세요?`, excerpt:`진단 초기에 멘탈이 많이 흔들렸는데, 여기 같은 단계 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.`, author:'환자_th2', views:134, comments:23 },
-    { badge:'ai', title:`[AI 분석] ${conditionLabel} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)입니다. 최근 ${regimen} 관련 질문이 증가하는 추세입니다.`, author:'v.care AI', ai:true, views:203, comments:8 },
+    { badge:'ai', title:`[AI 분석] ${conditionLabel} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)입니다. 최근 ${regimen} 관련 질문이 증가하는 추세입니다.`, author:'onco.care AI', ai:true, views:203, comments:8 },
     { badge:'info', title:`항암 중 면역력 관리 꿀팁 공유합니다`, excerpt:`같은 코호트 환우분들과 공유하고 싶은 면역력 관리 팁! 단백질 섭취를 충분히 하고, 감염 예방을 위해 사람 많은 곳을 피하는 게 도움이 됐어요.`, author:'환자_91z', views:156, comments:19 },
     { badge:'tip', title:`검사 결과 해석 — 수치가 이렇게 나왔는데 괜찮은 건가요?`, excerpt:`최근 혈액검사에서 백혈구 수치가 좀 낮게 나왔는데, 비슷한 레지멘 하시는 분들도 그러셨나요? 어느 정도까지가 정상 범위인지 궁금합니다.`, author:'보호자_8a4', views:98, comments:16 },
   ] : [
     { badge:'tip', title:`${regimen} 경험담 공유합니다`, excerpt:`같은 ${cancer} 코호트 분들과 나누고 싶은 치료 경험이에요. ${regimen}을 시작한 이후로 변화를 느끼고 있어요.`, author:'환자_mj7', views:89, comments:14 },
     { badge:'info', title:`${cancer} 일상 관리, 이렇게 하고 있어요`, excerpt:`같은 질환을 가진 분들은 일상에서 어떻게 관리하고 계세요? 저는 규칙적인 생활 패턴을 유지하려고 노력 중입니다.`, author:'보호자_k3a', views:67, comments:11 },
     { badge:'tip', title:`진단 후 마음 관리 어떻게 하세요?`, excerpt:`처음 진단받았을 때 많이 힘들었는데, 여기 같은 코호트 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.`, author:'환자_th2', views:134, comments:23 },
-    { badge:'ai', title:`[AI 분석] ${cancer} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 일상 관리(35%), 치료 경험(28%), 심리적 지지(22%)입니다. ${regimen} 관련 대화가 활발합니다.`, author:'v.care AI', ai:true, views:203, comments:8 },
+    { badge:'ai', title:`[AI 분석] ${cancer} 코호트 주간 트렌드`, excerpt:`이번 주 코호트에서 가장 많이 논의된 주제는 일상 관리(35%), 치료 경험(28%), 심리적 지지(22%)입니다. ${regimen} 관련 대화가 활발합니다.`, author:'onco.care AI', ai:true, views:203, comments:8 },
     { badge:'info', title:`${cancer} 관련 좋은 정보 공유합니다`, excerpt:`같은 코호트 환우분들에게 도움이 될 만한 정보를 모아봤어요. 전문가 칼럼과 실제 관리 사례를 확인해 보세요.`, author:'환자_91z', views:156, comments:19 },
   ];
 
@@ -542,33 +542,33 @@ function getCohortMessages(cancer, subtype, stage, surgery, regimen) {
   if (!isCancer) {
     // 비암 질환 채팅 메시지
     return [
-      { u:'v.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer}</b> 환우분들의 공간입니다. 최근 ${regimen} 경험과 일상 관리에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
+      { u:'onco.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer}</b> 환우분들의 공간입니다. 최근 ${regimen} 경험과 일상 관리에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
       { u:'환자_mj7', t:`안녕하세요! 저도 ${cancer}으로 ${regimen} 중이에요. 반가워요 😊`, ts:'14:02' },
       { u:'보호자_k3a', t:`반갑습니다. 저는 보호자인데, 일상 관리가 걱정돼서 왔어요.`, ts:'14:05' },
       { u:'환자_th2', t:`저는 치료 시작한 지 3개월 됐어요. 생활 패턴이 많이 바뀌었는데 다들 어떠세요?`, ts:'14:08' },
-      { u:'v.care AI', t:`${cancer} 관리에서 가장 중요한 것은 꾸준한 생활 습관 유지입니다. ${regimen}과 함께 규칙적인 생활 패턴을 유지하면 치료 효과를 높일 수 있어요. 궁금한 점이 있으면 언제든 물어보세요!`, ts:'14:09', agent:true },
+      { u:'onco.care AI', t:`${cancer} 관리에서 가장 중요한 것은 꾸준한 생활 습관 유지입니다. ${regimen}과 함께 규칙적인 생활 패턴을 유지하면 치료 효과를 높일 수 있어요. 궁금한 점이 있으면 언제든 물어보세요!`, ts:'14:09', agent:true },
       { u:'환자_91z', t:'저도 처음엔 힘들었는데, 루틴을 만들면 점점 나아져요!', ts:'14:12' },
       { u:'나', t:'다들 반가워요! 저도 같은 상황이라 많이 공감돼요.', ts:'14:15', mine:true },
       { u:'보호자_8a4', t:`${regimen} 시작하고 나서 달라진 점이 있나요?`, ts:'14:18' },
       { u:'환자_mj7', t:'저는 처음 2주가 적응 기간이었고, 그 이후로는 많이 편해졌어요.', ts:'14:20' },
-      { u:'v.care AI', t:`좋은 경험 공유 감사합니다! ${cancer} 치료는 개인마다 반응이 다르지만, 같은 코호트 환우분들의 경험이 큰 도움이 됩니다. 증상 변화가 있으면 담당 의료팀과 상의하세요.`, ts:'14:21', agent:true },
+      { u:'onco.care AI', t:`좋은 경험 공유 감사합니다! ${cancer} 치료는 개인마다 반응이 다르지만, 같은 코호트 환우분들의 경험이 큰 도움이 됩니다. 증상 변화가 있으면 담당 의료팀과 상의하세요.`, ts:'14:21', agent:true },
     ];
   }
 
   return [
     // AI 요약 (입장 시)
-    { u:'v.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer} ${subtype} ${stage}</b> 환우분들의 공간입니다. 최근 ${regimen} 부작용 관리와 ${surgery} 경험에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
+    { u:'onco.care AI', t:`📋 <b>코호트 대화 요약</b><br>이 채팅방은 <b>${cancer} ${subtype} ${stage}</b> 환우분들의 공간입니다. 최근 ${regimen} 부작용 관리와 ${surgery} 경험에 대한 대화가 활발하게 이루어지고 있어요. 편하게 참여해 주세요!`, ts:'--', agent:true },
     { u:'환자_mj7', t:`안녕하세요! 저도 ${cancer} ${stage}로 ${regimen} 2차 진행 중이에요. 반가워요 😊`, ts:'14:02' },
     { u:'보호자_k3a', t:`반갑습니다. 저는 보호자인데, ${surgery} 후 관리가 걱정돼서 왔어요.`, ts:'14:05' },
     { u:'환자_th2', t:`저는 3차 항암 마치고 쉬는 중이에요. 손발 저림이 좀 있는데 다들 어떠세요?`, ts:'14:08' },
     // AI 개입
-    { u:'v.care AI', t:`${cancer} ${regimen} 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 돼요. 비타민 B6 보충을 주치의와 상의해 보시는 것도 방법입니다. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 말씀드리세요.`, ts:'14:09', agent:true },
+    { u:'onco.care AI', t:`${cancer} ${regimen} 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 돼요. 비타민 B6 보충을 주치의와 상의해 보시는 것도 방법입니다. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 말씀드리세요.`, ts:'14:09', agent:true },
     { u:'환자_91z', t:'저도 저림 있었는데, 따뜻한 물에 발 담그기가 좀 도움됐어요!', ts:'14:12' },
     { u:'나', t:'다들 반가워요! 저도 같은 단계라 많이 공감돼요.', ts:'14:15', mine:true },
     { u:'보호자_8a4', t:`${surgery} 때 통증이 어느 정도였나요? 준비해야 할 게 있을까요?`, ts:'14:18' },
     { u:'환자_mj7', t:'저는 수술 후 3일 정도가 제일 힘들었고, 그 이후로는 점점 나아졌어요. 쿠션이랑 긴 빨대가 유용했어요!', ts:'14:20' },
     // AI 재개입
-    { u:'v.care AI', t:`좋은 팁이에요! ${cancer} 수술 후 회복에는 개인차가 있지만, 일반적으로 수술 후 1~2주가 가장 불편한 시기입니다. 미리 준비하면 좋은 것: 편한 앞트임 옷, 높은 베개, 미끄럼 방지 슬리퍼, 변비약(진통제 부작용 대비). 궁금한 점이 있으면 언제든 물어보세요!`, ts:'14:21', agent:true },
+    { u:'onco.care AI', t:`좋은 팁이에요! ${cancer} 수술 후 회복에는 개인차가 있지만, 일반적으로 수술 후 1~2주가 가장 불편한 시기입니다. 미리 준비하면 좋은 것: 편한 앞트임 옷, 높은 베개, 미끄럼 방지 슬리퍼, 변비약(진통제 부작용 대비). 궁금한 점이 있으면 언제든 물어보세요!`, ts:'14:21', agent:true },
     { u:'환자_th2', t:'맞아요 앞트임 옷이 정말 필수예요! 입원 가방에 꼭 넣으세요 👍', ts:'14:24' },
   ];
 }
@@ -610,7 +610,7 @@ function showTyping() {
   el.innerHTML = `
     <div class="chat-msg-avatar chat-msg-avatar--agent">AI</div>
     <div class="chat-msg-body">
-      <div class="chat-msg-name">v.care AI</div>
+      <div class="chat-msg-name">onco.care AI</div>
       <div class="chat-typing"><span></span><span></span><span></span></div>
     </div>`;
   document.getElementById('chatMessages').appendChild(el);
@@ -624,7 +624,7 @@ function hideTypingAndRespond(text) {
   const ts = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
   const response = getCohortAIResponse(text);
   const chatEl = document.getElementById('chatMessages');
-  chatEl.insertAdjacentHTML('beforeend', renderChatMsg({ u:'v.care AI', t: response, ts, agent:true }));
+  chatEl.insertAdjacentHTML('beforeend', renderChatMsg({ u:'onco.care AI', t: response, ts, agent:true }));
   chatEl.scrollTop = chatEl.scrollHeight;
 }
 
@@ -1069,7 +1069,7 @@ function renderDtMatchingResults(container, type) {
     <div style="padding:16px 20px;background:linear-gradient(135deg,#f0e8f7 0%,#ecfdf5 100%);border:1px solid #d8b4fe;border-radius:14px;margin-bottom:20px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#3fbfbc,#6E3FA3);font-size:9px;color:#fff;font-weight:800;font-family:Poppins,sans-serif">AI</span>
-        <span style="font-size:.88rem;font-weight:700;color:#6b21a8">v.care AI 분석</span>
+        <span style="font-size:.88rem;font-weight:700;color:#6b21a8">onco.care AI 분석</span>
       </div>
       <div style="font-size:.85rem;color:#4a1d7a;line-height:1.65">
         <b>${cancer}</b> 환자 프로필을 기반으로 적합도가 높은 순서대로 정렬했습니다.
@@ -1213,5 +1213,6 @@ function selectDtOptMulti(btn) {
 // ── 초기화 ────────────────────────────────────
 renderOnboarding();
 </script>
+<script src="../login.js"></script>
 </body>
 </html>

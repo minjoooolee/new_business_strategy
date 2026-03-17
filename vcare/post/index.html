@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시글 — v.care</title>
+  <title>게시글 — onco.care</title>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../post.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
         <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
         <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <span class="logo-text">v.care</span>
+      <span class="logo-text">onco.care</span>
     </a>
     <nav class="gnb-nav">
       <ul>
@@ -55,7 +55,7 @@
     <aside class="post-ai-panel" id="aiPanel">
       <div class="ai-panel-header">
         <div class="ai-panel-avatar">AI</div>
-        <div class="ai-panel-title">v.care AI 유사글 추천</div>
+        <div class="ai-panel-title">onco.care AI 유사글 추천</div>
       </div>
       <div class="ai-panel-body" id="aiSimilar">
         <!-- JS로 렌더링 -->
@@ -69,7 +69,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-row">
-      <span class="footer-brand">v.care by aitrics</span>
+      <span class="footer-brand">onco.care by aitrics</span>
       <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
     </div>
   </div>
@@ -132,12 +132,12 @@
   ];
 
   const NEWS_POSTS = [
-    {title:'[v.care 메디컬팀] HER2-low 유방암 신약 T-DXd, 2차 치료 적응증 확대 승인',excerpt:'최근 FDA에서 HER2-low 전이성 유방암에 대한 T-DXd(엔허투) 적응증이 확대 승인되었습니다. 기존 치료 옵션이 제한적이었던 환우분들에게 새로운 선택지가 열렸습니다.',tag2:'#신약승인',medical:true,url:'https://www.fda.gov/drugs/resources-information-approved-drugs/enhertu-trastuzumab-deruxtecan'},
-    {title:'[v.care 메디컬팀] 면역항암제+표적치료 병용요법 3상 임상 결과 발표',excerpt:'KEYNOTE-789 임상에서 면역항암제 펨브롤리주맙과 표적치료 병용이 무진행 생존기간을 유의미하게 개선한 결과가 발표되었습니다.',tag2:'#임상결과',medical:true,url:'https://www.nejm.org/doi/full/10.1056/NEJMoa2302169'},
-    {title:'[v.care 메디컬팀] 대장암 ctDNA 기반 맞춤치료 임상시험 모집 안내',excerpt:'ctDNA(혈중종양DNA) 분석을 통해 재발 위험을 조기 감지하고 맞춤 항암을 결정하는 CIRCULATE-Korea 임상시험이 참가자를 모집 중입니다.',tag2:'#임상시험',medical:true,url:'https://clinicaltrials.gov/ct2/show/NCT04120701'},
-    {title:'[v.care 메디컬팀] 비소세포폐암 3세대 EGFR 표적치료제 내성 극복 신약 개발 현황',excerpt:'오시머티닙 내성 후 치료 옵션인 4세대 EGFR 억제제와 이중항체 약물접합체(ADC)의 초기 임상 결과를 정리했습니다.',tag2:'#신약개발',medical:true,url:'https://www.thelancet.com/journals/lanonc/article'},
-    {title:'[v.care 메디컬팀] 간암 1차 치료 아테졸리주맙+베바시주맙 장기 생존 데이터 업데이트',excerpt:'IMbrave150 임상의 5년 추적 데이터에서 면역+항혈관 병용요법의 장기 생존 혜택이 확인되었습니다.',tag2:'#장기생존',medical:true,url:'https://www.thelancet.com/journals/lanonc/article/imbrave150'},
-    {title:'[v.care 메디컬팀] 췌장암 KRAS G12C 억제제 2상 임상 중간결과 공개',excerpt:'그동안 치료가 어려웠던 KRAS G12C 변이 췌장암에 대한 소토라십 2상 임상 중간결과가 공개되었습니다. 객관적 반응률과 안전성 데이터를 정리합니다.',tag2:'#임상결과',medical:true,url:'https://www.nejm.org/doi/full/10.1056/NEJMoa2404901'},
+    {title:'[onco.care 메디컬팀] HER2-low 유방암 신약 T-DXd, 2차 치료 적응증 확대 승인',excerpt:'최근 FDA에서 HER2-low 전이성 유방암에 대한 T-DXd(엔허투) 적응증이 확대 승인되었습니다. 기존 치료 옵션이 제한적이었던 환우분들에게 새로운 선택지가 열렸습니다.',tag2:'#신약승인',medical:true,url:'https://www.fda.gov/drugs/resources-information-approved-drugs/enhertu-trastuzumab-deruxtecan'},
+    {title:'[onco.care 메디컬팀] 면역항암제+표적치료 병용요법 3상 임상 결과 발표',excerpt:'KEYNOTE-789 임상에서 면역항암제 펨브롤리주맙과 표적치료 병용이 무진행 생존기간을 유의미하게 개선한 결과가 발표되었습니다.',tag2:'#임상결과',medical:true,url:'https://www.nejm.org/doi/full/10.1056/NEJMoa2302169'},
+    {title:'[onco.care 메디컬팀] 대장암 ctDNA 기반 맞춤치료 임상시험 모집 안내',excerpt:'ctDNA(혈중종양DNA) 분석을 통해 재발 위험을 조기 감지하고 맞춤 항암을 결정하는 CIRCULATE-Korea 임상시험이 참가자를 모집 중입니다.',tag2:'#임상시험',medical:true,url:'https://clinicaltrials.gov/ct2/show/NCT04120701'},
+    {title:'[onco.care 메디컬팀] 비소세포폐암 3세대 EGFR 표적치료제 내성 극복 신약 개발 현황',excerpt:'오시머티닙 내성 후 치료 옵션인 4세대 EGFR 억제제와 이중항체 약물접합체(ADC)의 초기 임상 결과를 정리했습니다.',tag2:'#신약개발',medical:true,url:'https://www.thelancet.com/journals/lanonc/article'},
+    {title:'[onco.care 메디컬팀] 간암 1차 치료 아테졸리주맙+베바시주맙 장기 생존 데이터 업데이트',excerpt:'IMbrave150 임상의 5년 추적 데이터에서 면역+항혈관 병용요법의 장기 생존 혜택이 확인되었습니다.',tag2:'#장기생존',medical:true,url:'https://www.thelancet.com/journals/lanonc/article/imbrave150'},
+    {title:'[onco.care 메디컬팀] 췌장암 KRAS G12C 억제제 2상 임상 중간결과 공개',excerpt:'그동안 치료가 어려웠던 KRAS G12C 변이 췌장암에 대한 소토라십 2상 임상 중간결과가 공개되었습니다. 객관적 반응률과 안전성 데이터를 정리합니다.',tag2:'#임상결과',medical:true,url:'https://www.nejm.org/doi/full/10.1056/NEJMoa2404901'},
     {title:'ASCO 2026 주요 발표 중 환우에게 의미 있는 것들 정리',excerpt:'올해 ASCO 학회에서 발표된 내용 중 실제 환우분들의 치료에 영향을 줄 수 있는 핵심 연구를 선별해 정리했습니다.',tag2:'#학회정보',url:'https://meetings.asco.org/2026-asco-annual-meeting'},
     {title:'신약 급여 적용 소식: 위암 니볼루맙 1차 치료 건강보험 급여 결정',excerpt:'위암 1차 치료에 니볼루맙+화학요법 병용이 건강보험 급여로 결정되었습니다. 적용 대상, 급여 기준, 신청 방법을 공유합니다.',tag2:'#급여정보',url:'https://www.hira.or.kr/bbsDummy.do?pgmid=HIRAA020002000100'},
     {title:'임상시험 참여 후기: 폐암 ADC 신약 1상 시험 경험담',excerpt:'폐암 ADC(항체약물접합체) 1상 임상시험에 참여한 경험을 공유합니다. 참여 과정, 부작용, 효과에 대해 솔직하게 적어봅니다.',tag2:'#임상후기'},
@@ -172,7 +172,7 @@
       id:i,cat:cat.id,catLabel:cat.label,badgeClass:cat.badgeClass,cardClass:cat.cardClass,
       disease:dis.id,diseaseLabel:dis.label,diseaseTag:dis.tag,
       title:postTemplate.title,excerpt:postTemplate.excerpt,tag2:postTemplate.tag2,
-      author:isMedical?'v.care 메디컬팀':`@${userPrefix}_${hashId}`,
+      author:isMedical?'onco.care 메디컬팀':`@${userPrefix}_${hashId}`,
       role:isMedical?'메디컬팀':ROLES[roleIdx],views,expertAns,hearts,
       medical:isMedical,
       url:postTemplate.url||null,
@@ -228,7 +228,7 @@
       '환우분들의 마음에 큰 응원을 보냅니다. 의료진으로서 매일 최선을 다하고 있으며, 여러분의 치료 여정에 함께하고 있다는 것을 기억해 주세요. 힘드실 때는 언제든 심리 상담 서비스도 이용하실 수 있습니다.',
     ],
     news: [
-      '공유해 주신 최신 정보 감사합니다. 해당 연구/승인 내용은 환우분들의 치료 선택지를 넓히는 데 의미가 있습니다. 다만, 개별 환자에게 적용 가능한지는 담당 주치의와 반드시 상담하시기 바랍니다. 임상시험 참여를 고려하시는 분은 v.care를 통해 상담을 요청하실 수 있습니다.',
+      '공유해 주신 최신 정보 감사합니다. 해당 연구/승인 내용은 환우분들의 치료 선택지를 넓히는 데 의미가 있습니다. 다만, 개별 환자에게 적용 가능한지는 담당 주치의와 반드시 상담하시기 바랍니다. 임상시험 참여를 고려하시는 분은 onco.care를 통해 상담을 요청하실 수 있습니다.',
       '중요한 의학 정보를 정리해 공유해 주셔서 감사합니다. 신약이나 임상시험에 관심이 있으신 환우분들은 주치의 상담을 통해 본인에게 해당되는 치료 옵션인지 확인해 보시길 권장합니다.',
     ],
   };
@@ -245,7 +245,7 @@
   const params = new URLSearchParams(location.search);
   const postId = parseInt(params.get('id')) || 0;
   const post = ALL_POSTS[postId] || ALL_POSTS[0];
-  document.title = post.title + ' — v.care';
+  document.title = post.title + ' — onco.care';
 
   // ── 게시글 본문 렌더링 ─────────────────────
   const body = generateBody(post);
@@ -299,7 +299,7 @@
   }
 
   const authorHtml = post.medical
-    ? `<span class="pd-author pd-author--medical">v.care 메디컬팀 · 메디컬팀</span>`
+    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span>`
     : `<span class="pd-author">${post.author} · ${post.role}</span>`;
 
   document.getElementById('postArea').innerHTML = `
@@ -504,5 +504,6 @@
   const hamBtn = document.getElementById('hamBtn');
   if(hamBtn) hamBtn.addEventListener('click',()=>document.body.classList.toggle('drawer-open'));
 </script>
+<script src="../login.js"></script>
 </body>
 </html>
