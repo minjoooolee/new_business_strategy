@@ -8675,6 +8675,78 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
 .footer-logo { font-family:'Space Mono',monospace; font-size:12px; color:var(--blue); }
 .footer-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
 
+
+/* ── CHAPTER DIVIDER ── */
+.ch-divider {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  padding: 0;
+}
+.ch-divider-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.ch-divider-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ch-divider-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ch-divider-tag::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+}
+.ch-divider-title {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  color: var(--text);
+}
+.ch-divider-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 320px;
+}
+.ch-divider-num {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(120px, 18vw, 200px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.05em;
+  opacity: .055;
+  flex-shrink: 0;
+  user-select: none;
+}
+.ch-divider-line {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  opacity: .3;
+}
+@media(max-width:860px){
+  .ch-divider-inner { padding: 48px 20px; }
+  .ch-divider-num { display: none; }
+}
+
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 .reveal { opacity:0; transform:translateY(32px); transition:opacity .75s ease,transform .75s ease; }
 .reveal.visible { opacity:1; transform:none; }
@@ -8771,17 +8843,19 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
 </section>
 
 <!-- CH1 HERO -->
-<div class="ch-hero reveal" id="ch1-anchor">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(61,127,255,.06) 0%,transparent 65%);pointer-events:none;"></div>
-  <div class="ch-hero-inner">
-    <div class="ch-hero-num" style="color:var(--blue)">01</div>
-    <div class="ch-hero-text">
-      <p class="ch-hero-label" style="color:var(--blue)">Chapter 1</p>
-      <h2 class="ch-hero-title">PoC에서<br><span style="color:var(--blue);font-style:normal;">배운 것</span></h2>
-      <p class="ch-hero-desc">17일간의 핑크케어 오픈채팅이 남긴 데이터. Phase 2의 모든 결정이 여기서 출발한다.</p>
+<div class="ch-divider reveal" id="ch1-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(61,127,255,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--blue), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--blue);">Chapter 1</p>
+      <h2 class="ch-divider-title">PoC에서<br>배운 것</h2>
+      <p class="ch-divider-desc">17일간의 핑크케어 오픈채팅이 남긴 데이터. Phase 2의 모든 결정이 여기서 출발한다.</p>
     </div>
+    <div class="ch-divider-num" style="color:var(--blue);">01</div>
   </div>
 </div>
+
 
 <section class="ps c-blue reveal" id="ch1">
   <div class="ps-header">
@@ -8810,9 +8884,14 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
     </div>
 
     <div class="ps-item">
-      <div class="ps-item-title">KPI를 절대값에서 퍼널 전환율로 바꿔야 한다</div>
+      <div class="ps-item-title">환우가 원하는 것은 위로가 아니라 희소식이었다</div>
       <div class="ps-item-body">
-        <p>핑크케어 KPI는 절대값 중심이었고 인과관계를 설명하지 못했다. Phase 2에서는 <strong>유입 → 가입 → 첫 발화 → 코어 유저화 → 데이터 제공</strong>의 퍼널 전환율을 처음부터 추적해야 한다. AI 답변 만족도, 의료진 컨펌 리드타임, AI 오정보 비율 등 AI 품질 지표도 새로 설계해야 한다.</p>
+        <div class="fs-quote" style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 28px;position:relative;">
+          <div style="font-size:48px;line-height:.8;position:absolute;top:12px;left:16px;opacity:.15;color:var(--blue);">"</div>
+          <p style="font-size:15px;color:var(--text);line-height:1.85;padding-left:24px;font-weight:500;">그 어떤 위로의 말보다 신약 개발과 새로운 임상이 열리는 소식이 가장 큰 힘이 됩니다</p>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:8px;padding-left:24px;">— 귀하의채널 (핑크케어 오픈채팅 · 51건 발화)</p>
+        </div>
+        <p style="margin-top:14px;">공감과 위로는 커뮤니티의 기본값이다. 하지만 환우가 진짜 원하는 것은 <strong>자신의 상황을 바꿀 수 있는 정보</strong>였다. 신약·임상 정보는 단순한 콘텐츠가 아니라 — 환자에게는 생존 가능성의 확장이다. V.Care가 기존 커뮤니티와 달라야 하는 이유가 여기 있다.</p>
       </div>
     </div>
 
@@ -8829,17 +8908,19 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
 
 <div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">PoC에서 배운 핵심이 확인됐다면, Phase 2를 시작하기 전에 반드시 끝내야 할 선행조건 2가지를 결정해야 한다.</div></div>
 <!-- CH2 HERO -->
-<div class="ch-hero reveal" id="ch2-anchor">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(255,92,106,.06) 0%,transparent 65%);pointer-events:none;"></div>
-  <div class="ch-hero-inner">
-    <div class="ch-hero-num" style="color:var(--red)">02</div>
-    <div class="ch-hero-text">
-      <p class="ch-hero-label" style="color:var(--red)">Chapter 2</p>
-      <h2 class="ch-hero-title">먼저<br><span style="color:var(--red);font-style:normal;">결정해야 할 것</span></h2>
-      <p class="ch-hero-desc">제품을 만들기 전에 반드시 끝내야 하는 선행조건. 이것이 안 끝나면 나머지 실행이 전부 멈춘다.</p>
+<div class="ch-divider reveal" id="ch2-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(255,92,106,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--red), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--red);">Chapter 2</p>
+      <h2 class="ch-divider-title">먼저<br>결정해야 할 것</h2>
+      <p class="ch-divider-desc">제품을 만들기 전에 반드시 끝내야 하는 선행조건. 이것이 안 끝나면 나머지 실행이 전부 멈춘다.</p>
     </div>
+    <div class="ch-divider-num" style="color:var(--red);">02</div>
   </div>
 </div>
+
 
 <section class="ps c-red reveal" id="ch2-1">
   <div class="ps-header">
@@ -8875,17 +8956,19 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
 </section>
 
 <!-- CH3 HERO -->
-<div class="ch-hero reveal" id="ch3-anchor">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(167,139,250,.06) 0%,transparent 65%);pointer-events:none;"></div>
-  <div class="ch-hero-inner">
-    <div class="ch-hero-num" style="color:var(--purple)">03</div>
-    <div class="ch-hero-text">
-      <p class="ch-hero-label" style="color:var(--purple)">Chapter 3</p>
-      <h2 class="ch-hero-title">무엇을<br><span style="color:var(--purple);font-style:normal;">만드는가</span></h2>
-      <p class="ch-hero-desc">플랫폼 형태, AI 에이전트, 질환별 설계, 콘텐츠 정책. "그래서 Phase 2에서 뭘 만드는 건데?"에 대한 답.</p>
+<div class="ch-divider reveal" id="ch3-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(167,139,250,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--purple), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--purple);">Chapter 3</p>
+      <h2 class="ch-divider-title">무엇을<br>만드는가</h2>
+      <p class="ch-divider-desc">플랫폼 형태, AI 에이전트, 질환별 설계, 콘텐츠 정책. Phase 2에서 만들 것의 전체 그림.</p>
     </div>
+    <div class="ch-divider-num" style="color:var(--purple);">03</div>
   </div>
 </div>
+
 
 <!-- 04 마케팅 -->
 
@@ -9055,17 +9138,19 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
 
 <div style="max-width:900px;margin:0 auto 0;padding:0 48px 32px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">무엇을 만들지 결정됐다면, 사람을 어떻게 모을 것인지가 다음 과제다.</div></div>
 <!-- CH4 HERO -->
-<div class="ch-hero reveal" id="ch4-anchor">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(255,110,180,.06) 0%,transparent 65%);pointer-events:none;"></div>
-  <div class="ch-hero-inner">
-    <div class="ch-hero-num" style="color:var(--pink)">04</div>
-    <div class="ch-hero-text">
-      <p class="ch-hero-label" style="color:var(--pink)">Chapter 4</p>
-      <h2 class="ch-hero-title">어떻게 사람을<br><span style="color:var(--pink);font-style:normal;">모으는가</span></h2>
-      <p class="ch-hero-desc">환우 유입, 코어 환우 육성, 의료진 확보, 답변 자산화. 커뮤니티는 구조가 아니라 사람이 만든다.</p>
+<div class="ch-divider reveal" id="ch4-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(255,110,180,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--pink), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--pink);">Chapter 4</p>
+      <h2 class="ch-divider-title">어떻게 사람을<br>모으는가</h2>
+      <p class="ch-divider-desc">환우 유입, 코어 환우 육성, 의료진 확보, 답변 자산화.</p>
     </div>
+    <div class="ch-divider-num" style="color:var(--pink);">04</div>
   </div>
 </div>
+
 
 <section class="ps c-pink reveal" id="ch4-1">
   <div class="ps-header">
