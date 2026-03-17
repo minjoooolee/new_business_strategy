@@ -2723,6 +2723,11 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
             운영 회고
           </a>
+          <div class="pinkcare-menu-divider"></div>
+          <a href="#" onclick="navigatePinkcare('nextstep', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            Next Step
+          </a>
         </div>
       </div>
       <div class="gnb-dropdown-wrap" id="vcareWrap">
@@ -8488,6 +8493,216 @@
   </div><!-- /mx-wrap -->
   </div><!-- /page-pinkcare-matrix -->
 
+  <!-- ===== PINKCARE NEXT STEP PAGE ===== -->
+  <div class="page-section" id="page-pinkcare-nextstep">
+  <style>
+    #page-pinkcare-nextstep {
+      --ns-pink: #f78fb3;
+      --ns-pink2: #f0527a;
+      --ns-purple: #c084fc;
+      --ns-blue: #60a5fa;
+      overflow-x: clip;
+    }
+    .ns-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+    .ns-hero {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .ns-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(247,143,179,0.12);
+      border: 1px solid rgba(247,143,179,0.25);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ns-pink);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .ns-hero-title {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .ns-hero-title span {
+      background: linear-gradient(135deg, var(--ns-pink), var(--ns-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ns-hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .ns-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .ns-timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--ns-pink), var(--ns-purple), var(--ns-blue));
+      opacity: 0.3;
+    }
+    .ns-step {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 0 0 40px 0;
+      position: relative;
+    }
+    .ns-step:last-child { padding-bottom: 0; }
+    .ns-step-dot {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
+    }
+    .ns-step-dot.pink   { background: rgba(247,143,179,0.15); border: 2px solid rgba(247,143,179,0.4); color: var(--ns-pink); }
+    .ns-step-dot.purple { background: rgba(192,132,252,0.15); border: 2px solid rgba(192,132,252,0.4); color: var(--ns-purple); }
+    .ns-step-dot.blue   { background: rgba(96,165,250,0.15);  border: 2px solid rgba(96,165,250,0.4);  color: var(--ns-blue); }
+    .ns-step-dot.green  { background: rgba(52,211,153,0.15);  border: 2px solid rgba(52,211,153,0.4);  color: #34d399; }
+    .ns-step-body {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-top: 4px;
+      transition: border-color 0.2s;
+    }
+    .ns-step-body:hover { border-color: rgba(247,143,179,0.3); }
+    .ns-step-quarter {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ns-pink);
+      margin-bottom: 8px;
+    }
+    .ns-step-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .ns-step-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .ns-step-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ns-tag {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(247,143,179,0.1);
+      color: var(--ns-pink);
+      border: 1px solid rgba(247,143,179,0.2);
+    }
+    .ns-tag.purple { background: rgba(192,132,252,0.1); color: var(--ns-purple); border-color: rgba(192,132,252,0.2); }
+    .ns-tag.blue   { background: rgba(96,165,250,0.1);  color: var(--ns-blue);   border-color: rgba(96,165,250,0.2); }
+    .ns-tag.green  { background: rgba(52,211,153,0.1);  color: #34d399;          border-color: rgba(52,211,153,0.2); }
+  </style>
+  <div class="ns-wrap">
+    <div class="ns-hero">
+      <div class="ns-hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        Next Step
+      </div>
+      <h1 class="ns-hero-title">핑크케어 <span>다음 단계</span></h1>
+      <p class="ns-hero-sub">지금까지의 성과를 바탕으로 핑크케어가 나아갈 방향과 실행 계획을 정리했습니다.</p>
+    </div>
+
+    <div class="ns-timeline">
+      <div class="ns-step">
+        <div class="ns-step-dot pink">1</div>
+        <div class="ns-step-body">
+          <div class="ns-step-quarter">Q2 2025</div>
+          <div class="ns-step-title">사용자 피드백 반영 및 UX 개선</div>
+          <div class="ns-step-desc">운영 회고에서 도출된 주요 사용자 불편 사항을 빠르게 개선하고, 핵심 기능의 사용성을 높입니다.</div>
+          <div class="ns-step-tags">
+            <span class="ns-tag">UI/UX 개선</span>
+            <span class="ns-tag">사용자 인터뷰</span>
+            <span class="ns-tag">A/B 테스트</span>
+          </div>
+        </div>
+      </div>
+      <div class="ns-step">
+        <div class="ns-step-dot purple">2</div>
+        <div class="ns-step-body">
+          <div class="ns-step-quarter">Q2–Q3 2025</div>
+          <div class="ns-step-title">신규 기능 개발 및 파트너십 확대</div>
+          <div class="ns-step-desc">KPI 분석을 통해 확인된 성장 기회를 포착하고, 새로운 기능을 개발합니다. 외부 의료기관 및 플랫폼과의 파트너십을 확대합니다.</div>
+          <div class="ns-step-tags">
+            <span class="ns-tag purple">신규 기능</span>
+            <span class="ns-tag purple">파트너십</span>
+            <span class="ns-tag purple">API 연동</span>
+          </div>
+        </div>
+      </div>
+      <div class="ns-step">
+        <div class="ns-step-dot blue">3</div>
+        <div class="ns-step-body">
+          <div class="ns-step-quarter">Q3 2025</div>
+          <div class="ns-step-title">마케팅 채널 다변화 및 MAU 성장</div>
+          <div class="ns-step-desc">콘텐츠 마케팅, SNS, 커뮤니티 채널을 통해 타겟 사용자층을 확대하고 MAU를 목표치까지 끌어올립니다.</div>
+          <div class="ns-step-tags">
+            <span class="ns-tag blue">성장 마케팅</span>
+            <span class="ns-tag blue">MAU 목표</span>
+            <span class="ns-tag blue">커뮤니티</span>
+          </div>
+        </div>
+      </div>
+      <div class="ns-step">
+        <div class="ns-step-dot green">4</div>
+        <div class="ns-step-body">
+          <div class="ns-step-quarter">Q4 2025</div>
+          <div class="ns-step-title">수익화 모델 검증 및 확장 준비</div>
+          <div class="ns-step-desc">프리미엄 구독 모델, B2B 제휴 등 수익화 전략을 검증하고 다음 단계 성장을 위한 기반을 마련합니다.</div>
+          <div class="ns-step-tags">
+            <span class="ns-tag green">수익화</span>
+            <span class="ns-tag green">B2B 전략</span>
+            <span class="ns-tag green">스케일업</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /page-pinkcare-nextstep -->
+
   <!-- ===== VCARE FEATURES PAGE ===== -->
   <div class="page-section" id="page-vcare-features">
   <style>
@@ -10309,6 +10524,8 @@ function navigatePinkcare(sub, e) {
     window.location.hash = 'pinkcare-kpi';
   } else if (sub === 'matrix') {
     window.location.hash = 'pinkcare-matrix';
+  } else if (sub === 'nextstep') {
+    window.location.hash = 'pinkcare-nextstep';
   }
 }
 
@@ -10365,7 +10582,7 @@ function applyHash(hash) {
 
 
   // GNB active 처리
-  const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix'];
+  const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
