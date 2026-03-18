@@ -721,7 +721,7 @@
             <th>가입일</th><th>최근 활동</th><th>활동 등급</th><th>상태</th><th>액션</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="patient-tbody">
           <tr>
             <td><input type="checkbox"></td>
             <td><b>하늘별빛님</b></td>
@@ -767,18 +767,154 @@
             <td><span class="badge badge-green">정상</span></td>
             <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
           </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>새봄이온다</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>위암</td><td>표적치료 중</td><td>2024.02.28</td><td>4시간 전</td>
+            <td><span class="badge badge-purple">코어</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>파란하늘7</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>폐암</td><td>전이 4기</td><td>2023.09.14</td><td>1일 전</td>
+            <td><span class="badge badge-blue">라이트</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>희망의빛2024</b></td>
+            <td><span class="badge badge-cyan">보호자</span></td>
+            <td>간암</td><td>수술 준비중</td><td>2024.07.01</td><td>2일 전</td>
+            <td><span class="badge badge-gray">Lurker</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>이겨낼거야</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>유방암</td><td>선항암 중</td><td>2024.04.10</td><td>3시간 전</td>
+            <td><span class="badge badge-purple">코어</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>기다리는봄</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>대장암</td><td>선항암 중</td><td>2024.03.22</td><td>5시간 전</td>
+            <td><span class="badge badge-blue">라이트</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>꽃피는봄날</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>유방암</td><td>회복·관리</td><td>2023.12.05</td><td>6시간 전</td>
+            <td><span class="badge badge-purple">코어</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>하루하루123</b></td>
+            <td><span class="badge badge-cyan">보호자</span></td>
+            <td>위암</td><td>회복·관리</td><td>2024.05.08</td><td>1일 전</td>
+            <td><span class="badge badge-blue">라이트</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>내일을향해</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>폐암</td><td>수술 준비중</td><td>2024.06.15</td><td>3일 전</td>
+            <td><span class="badge badge-gray">Lurker</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>새벽별빛</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>유방암</td><td>전이 4기</td><td>2023.10.20</td><td>45분 전</td>
+            <td><span class="badge badge-purple">코어</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>파이팅2024</b></td>
+            <td><span class="badge badge-cyan">보호자</span></td>
+            <td>대장암</td><td>표적치료 중</td><td>2024.04.30</td><td>1일 전</td>
+            <td><span class="badge badge-blue">라이트</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>오늘도화이팅</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>위암</td><td>선항암 중</td><td>2024.02.14</td><td>8시간 전</td>
+            <td><span class="badge badge-purple">코어</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>별빛처럼</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>유방암</td><td>수술 준비중</td><td>2024.07.08</td><td>1시간 전</td>
+            <td><span class="badge badge-blue">라이트</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>행복한내일</b></td>
+            <td><span class="badge badge-cyan">보호자</span></td>
+            <td>간암</td><td>전이 4기</td><td>2023.08.30</td><td>35일 전</td>
+            <td><span class="badge badge-gray">Lurker</span></td>
+            <td><span class="badge badge-yellow">휴면</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button><button class="action-btn">리텐션</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>걷고또걷고</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>대장암</td><td>선항암 중</td><td>2024.05.25</td><td>2시간 전</td>
+            <td><span class="badge badge-purple">코어</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><b>하늘바라기</b></td>
+            <td><span class="badge badge-blue">환우</span></td>
+            <td>폐암</td><td>회복·관리</td><td>2024.01.28</td><td>7시간 전</td>
+            <td><span class="badge badge-blue">라이트</span></td>
+            <td><span class="badge badge-green">정상</span></td>
+            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">수정</button></div></td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--text2);">
-      <span>전체 2,841명 중 1-20 표시</span>
-      <div style="display:flex;gap:4px;">
-        <button class="action-btn">◀</button>
-        <button class="action-btn primary">1</button>
-        <button class="action-btn">2</button>
-        <button class="action-btn">3</button>
-        <button class="action-btn">▶</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span id="patient-page-info" style="font-size:12px;color:var(--text2);">전체 2,841명 중 1–20 표시</span>
+        <select id="patient-page-size" class="filter-select" style="padding:5px 10px;font-size:12px;" onchange="changePatientPageSize(this.value)">
+          <option value="20" selected>20개씩 보기</option>
+          <option value="50">50개씩 보기</option>
+          <option value="100">100개씩 보기</option>
+        </select>
       </div>
+      <div id="patient-pagination" style="display:flex;gap:3px;align-items:center;flex-wrap:wrap;"></div>
     </div>
   </div>
 </div>
@@ -1639,6 +1775,90 @@
       this.classList.add('active');
     });
   });
+
+  // ── 환우·보호자 페이지네이션 ──
+  const PATIENT_TOTAL = 2841;
+  let patientPage = 1;
+  let patientPageSize = 20;
+
+  function getPatientPageCount() {
+    return Math.ceil(PATIENT_TOTAL / patientPageSize);
+  }
+
+  function goPatientPage(page) {
+    const total = getPatientPageCount();
+    if (page < 1 || page > total) return;
+    patientPage = page;
+    updatePatientInfo();
+    renderPatientPagination();
+    // 테이블 상단으로 스크롤
+    document.getElementById('patient-tbody').closest('.card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function changePatientPageSize(val) {
+    patientPageSize = parseInt(val);
+    patientPage = 1;
+    updatePatientInfo();
+    renderPatientPagination();
+  }
+
+  function updatePatientInfo() {
+    const start = (patientPage - 1) * patientPageSize + 1;
+    const end = Math.min(patientPage * patientPageSize, PATIENT_TOTAL);
+    document.getElementById('patient-page-info').textContent =
+      '전체 ' + PATIENT_TOTAL.toLocaleString() + '명 중 ' + start + '–' + end + ' 표시';
+  }
+
+  function renderPatientPagination() {
+    const total = getPatientPageCount();
+    const container = document.getElementById('patient-pagination');
+    container.innerHTML = '';
+
+    function addBtn(label, page, isActive, isDisabled) {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.className = 'action-btn' + (isActive ? ' primary' : '');
+      btn.style.minWidth = '32px';
+      btn.style.padding = '5px 8px';
+      if (isDisabled) {
+        btn.disabled = true;
+        btn.style.opacity = '0.35';
+        btn.style.cursor = 'not-allowed';
+      } else if (!isActive) {
+        btn.onclick = () => goPatientPage(page);
+      }
+      container.appendChild(btn);
+    }
+
+    function addEllipsis() {
+      const span = document.createElement('span');
+      span.textContent = '···';
+      span.style.cssText = 'padding:0 2px;color:var(--text2);font-size:12px;align-self:center;';
+      container.appendChild(span);
+    }
+
+    // 이전
+    addBtn('◀', patientPage - 1, false, patientPage === 1);
+
+    // 페이지 번호 (현재±2, 처음2, 마지막2, 사이 ellipsis)
+    const show = new Set();
+    [1, 2].forEach(p => { if (p <= total) show.add(p); });
+    [total - 1, total].forEach(p => { if (p >= 1) show.add(p); });
+    for (let p = Math.max(1, patientPage - 2); p <= Math.min(total, patientPage + 2); p++) show.add(p);
+    const sorted = Array.from(show).sort((a, b) => a - b);
+    let prev = 0;
+    for (const p of sorted) {
+      if (p - prev > 1) addEllipsis();
+      addBtn(p, p, p === patientPage, false);
+      prev = p;
+    }
+
+    // 다음
+    addBtn('▶', patientPage + 1, false, patientPage === total);
+  }
+
+  // 초기 렌더
+  renderPatientPagination();
 </script>
 </body>
 </html>
