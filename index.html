@@ -10212,6 +10212,606 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         이 <strong style="color:#f4f6ff;">커뮤니티 → 데이터 → AI → 수익</strong>의 선순환이 온코케어 BM의 핵심입니다.
       </div>
     </div>
+
+    <hr class="bm-divider">
+
+    <!-- ===== GPU 비용 분석 섹션 ===== -->
+    <style>
+      /* GPU 섹션 전용 스타일 */
+      #page-vcare-bm .gpu-hero {
+        text-align: center;
+        padding: 60px 0 48px;
+      }
+      #page-vcare-bm .gpu-hero-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #5590ff;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .gpu-hero-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #f4f6ff;
+        line-height: 1.35;
+        letter-spacing: -0.5px;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gpu-hero-title em {
+        font-style: normal;
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gpu-hero-desc {
+        font-size: 15px;
+        color: #8892a4;
+        line-height: 1.8;
+        max-width: 620px;
+        margin: 0 auto;
+      }
+      #page-vcare-bm .gpu-step {
+        margin-bottom: 48px;
+      }
+      #page-vcare-bm .gpu-step-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gpu-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: rgba(85,144,255,0.15);
+        border: 1px solid rgba(85,144,255,0.3);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 800;
+        color: #5590ff;
+        flex-shrink: 0;
+      }
+      #page-vcare-bm .gpu-step-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f4f6ff;
+      }
+      #page-vcare-bm .gpu-step-sub {
+        font-size: 12px;
+        color: #8892a4;
+        margin-top: 2px;
+      }
+      #page-vcare-bm .gpu-table-wrap {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .gpu-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      #page-vcare-bm .gpu-table thead th {
+        background: rgba(85,144,255,0.08);
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        color: #8892a4;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gpu-table tbody td {
+        padding: 12px 16px;
+        color: #c8d4f0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      #page-vcare-bm .gpu-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      #page-vcare-bm .gpu-table tbody tr:hover td {
+        background: rgba(85,144,255,0.04);
+      }
+      #page-vcare-bm .gpu-table .gpu-hi {
+        color: #00e8b0;
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-table .gpu-total {
+        background: rgba(0,232,176,0.06);
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-table .gpu-total td {
+        color: #00e8b0;
+        border-top: 1px solid rgba(0,232,176,0.2);
+      }
+      #page-vcare-bm .gpu-table .gpu-model-tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: rgba(85,144,255,0.12);
+        color: #5590ff;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gpu-note {
+        font-size: 12px;
+        color: #5a6478;
+        line-height: 1.7;
+        padding: 12px 16px;
+        border-left: 2px solid rgba(85,144,255,0.3);
+        margin-top: 12px;
+      }
+      #page-vcare-bm .gpu-callout {
+        background: linear-gradient(135deg, rgba(0,232,176,0.08), rgba(85,144,255,0.05));
+        border: 1px solid rgba(0,232,176,0.2);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin: 14px 0;
+        font-size: 14px;
+        color: #c8d4f0;
+        line-height: 1.8;
+      }
+      #page-vcare-bm .gpu-callout strong {
+        color: #00e8b0;
+      }
+      /* API vs GPU 비교 카드 */
+      #page-vcare-bm .gpu-compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .gpu-compare-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      #page-vcare-bm .gpu-compare-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+      }
+      #page-vcare-bm .gpu-compare-card.recommended::before {
+        background: linear-gradient(90deg, #00e8b0, #5590ff);
+      }
+      #page-vcare-bm .gpu-compare-card.gpu-server::before {
+        background: rgba(255,255,255,0.15);
+      }
+      #page-vcare-bm .gpu-compare-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: #f4f6ff;
+        margin-bottom: 4px;
+      }
+      #page-vcare-bm .gpu-compare-price {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .gpu-compare-card.recommended .gpu-compare-price {
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gpu-compare-card.gpu-server .gpu-compare-price {
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-compare-badge {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .gpu-compare-card.recommended .gpu-compare-badge {
+        background: rgba(0,232,176,0.15);
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gpu-compare-card.gpu-server .gpu-compare-badge {
+        background: rgba(255,255,255,0.07);
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-pros, #page-vcare-bm .gpu-cons {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      #page-vcare-bm .gpu-pros li::before {
+        content: '✓ ';
+        color: #00e8b0;
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-cons li::before {
+        content: '— ';
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-pros li, #page-vcare-bm .gpu-cons li {
+        color: #c8d4f0;
+        margin-bottom: 4px;
+      }
+      #page-vcare-bm .gpu-cons li {
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-conclusion {
+        background: rgba(85,144,255,0.06);
+        border: 1px solid rgba(85,144,255,0.18);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-top: 14px;
+        font-size: 13.5px;
+        color: #c8d4f0;
+        line-height: 1.8;
+      }
+      #page-vcare-bm .gpu-conclusion strong {
+        color: #5590ff;
+      }
+      /* 수익 대비 테이블 강조 */
+      #page-vcare-bm .gpu-table .gpu-ratio {
+        color: #5590ff;
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-final-note {
+        background: linear-gradient(135deg, rgba(85,144,255,0.06), rgba(0,232,176,0.04));
+        border: 1px solid rgba(85,144,255,0.15);
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin-top: 32px;
+        font-size: 14px;
+        color: #c8d4f0;
+        line-height: 1.8;
+        text-align: center;
+      }
+      #page-vcare-bm .gpu-final-note strong {
+        color: #f4f6ff;
+        font-size: 16px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      @media (max-width: 640px) {
+        #page-vcare-bm .gpu-compare-grid { grid-template-columns: 1fr; }
+        #page-vcare-bm .gpu-hero-title { font-size: 22px; }
+        #page-vcare-bm .gpu-table { font-size: 11px; }
+        #page-vcare-bm .gpu-table thead th,
+        #page-vcare-bm .gpu-table tbody td { padding: 9px 10px; }
+      }
+    </style>
+
+    <div class="bm-section">
+      <div class="bm-section-label">04 · GPU Cost Analysis</div>
+
+      <!-- Hero 제목 -->
+      <div class="gpu-hero">
+        <div class="gpu-hero-label">AI Infrastructure · Cost Feasibility</div>
+        <h2 class="gpu-hero-title">이 모든 기능을 구현할 때<br><em>GPU 사용 금액은 감당가능한가?</em></h2>
+        <p class="gpu-hero-desc">자체 GPU를 사서 모델을 돌리는 방식과, 외부 API를 쓰는 방식 두 가지를 비교합니다. 초기 스타트업 단계에서는 API가 압도적으로 유리합니다.</p>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">01</div>
+          <div>
+            <div class="gpu-step-title">AI 기능 목록과 토큰 사용량 추정</div>
+            <div class="gpu-step-sub">온코케어 AI 기능 9개의 월간 토큰 소비량</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>AI 기능</th>
+                <th>호출 빈도 (월)</th>
+                <th>건당 토큰</th>
+                <th>월간 토큰</th>
+                <th>적합 모델</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>AGENT 01</strong> 임상·신약 큐레이션</td>
+                <td>일 2회 스캔 = 월 60회</td>
+                <td>~5,000 (논문 요약)</td>
+                <td class="gpu-hi">300K</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 02</strong> 검사결과지 설명 생성</td>
+                <td>월 500건 (DAU 1,000 기준)</td>
+                <td>~8,000 (이미지OCR+설명)</td>
+                <td class="gpu-hi">4M</td>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 03</strong> 게시판 초안 답변</td>
+                <td>월 300건</td>
+                <td>~4,000</td>
+                <td class="gpu-hi">1.2M</td>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 04</strong> 개인화 피드 추천</td>
+                <td>DAU×일 3회 = 월 90,000회</td>
+                <td>~500 (임베딩+랭킹)</td>
+                <td class="gpu-hi">45M</td>
+                <td><span class="gpu-model-tag">Embedding</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 05</strong> 최신 정보 큐레이션</td>
+                <td>일 1회 스캔 = 월 30회</td>
+                <td>~10,000 (논문→카드뉴스)</td>
+                <td class="gpu-hi">300K</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td>개인정보 블러 OCR + PII 감지</td>
+                <td>월 500건</td>
+                <td>~2,000</td>
+                <td class="gpu-hi">1M</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini + Vision</span></td>
+              </tr>
+              <tr>
+                <td>위험 감지 채팅·게시글 모더레이션</td>
+                <td>월 30,000건 (메시지 전수)</td>
+                <td>~200</td>
+                <td class="gpu-hi">6M</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td>금지 표현 감지 AI 초안·수정 텍스트</td>
+                <td>월 800건</td>
+                <td>~1,000</td>
+                <td class="gpu-hi">800K</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td>AI 심야 응답 케어+ 전용</td>
+                <td>월 200건</td>
+                <td>~3,000</td>
+                <td class="gpu-hi">600K</td>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+              </tr>
+              <tr class="gpu-total">
+                <td colspan="3"><strong>월간 총 토큰 사용량</strong></td>
+                <td colspan="2"><strong>~59M 토큰</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="gpu-note">전제: DAU 1,000명, 월간 게시글 300건, 채팅 메시지 30,000건, 검사결과지 500건 기준. DAU가 5,000명이 되면 토큰 사용량은 약 3~4배(180~240M) 수준으로 증가.</div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">02</div>
+          <div>
+            <div class="gpu-step-title">API 사용 시 월간 비용</div>
+            <div class="gpu-step-sub">모델별 비용 산출 (DAU 1,000 기준)</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>모델</th>
+                <th>사용 기능</th>
+                <th>월간 토큰</th>
+                <th>단가</th>
+                <th>월 비용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+                <td>검사결과지, 초안답변, 심야응답</td>
+                <td>~5.8M</td>
+                <td style="font-size:11px;color:#5a6478;">in $2.5 / out $10 /1M</td>
+                <td class="gpu-hi">~$40</td>
+              </tr>
+              <tr>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+                <td>큐레이션, 블러, 위험감지, 금지표현</td>
+                <td>~8.1M</td>
+                <td style="font-size:11px;color:#5a6478;">in $0.15 / out $0.60 /1M</td>
+                <td class="gpu-hi">~$3</td>
+              </tr>
+              <tr>
+                <td><span class="gpu-model-tag">Embedding</span></td>
+                <td>개인화 피드 추천</td>
+                <td>~45M</td>
+                <td style="font-size:11px;color:#5a6478;">$0.02/1M tokens</td>
+                <td class="gpu-hi">~$1</td>
+              </tr>
+              <tr class="gpu-total">
+                <td colspan="4"><strong>API 월간 총 비용 (DAU 1,000)</strong></td>
+                <td><strong>~$44 (약 ₩6만)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="gpu-callout">
+          네, 맞습니다. <strong>월 6만 원입니다.</strong> 생각보다 훨씬 쌉니다.<br>
+          이유: 의료 커뮤니티는 SNS와 달리 트래픽이 적고, 대부분의 기능이 경량 모델(4o-mini)로 처리 가능.
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">03</div>
+          <div>
+            <div class="gpu-step-title">DAU 규모별 월간 비용 추정</div>
+            <div class="gpu-step-sub">성장에 따른 비용 변화</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>시점</th>
+                <th>DAU</th>
+                <th>월간 토큰</th>
+                <th>API 월 비용</th>
+                <th>연간 비용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phase 1 (0~6개월)</td>
+                <td>300~500</td>
+                <td>~20M</td>
+                <td class="gpu-hi">~$15 (₩2만)</td>
+                <td>₩24만</td>
+              </tr>
+              <tr>
+                <td>Phase 2 (6~12개월)</td>
+                <td>1,000</td>
+                <td>~59M</td>
+                <td class="gpu-hi">~$44 (₩6만)</td>
+                <td>₩72만</td>
+              </tr>
+              <tr>
+                <td>Phase 3 (12~18개월)</td>
+                <td>3,000</td>
+                <td>~180M</td>
+                <td class="gpu-hi">~$130 (₩17만)</td>
+                <td>₩200만</td>
+              </tr>
+              <tr>
+                <td>Phase 4 (18~24개월)</td>
+                <td>5,000</td>
+                <td>~300M</td>
+                <td class="gpu-hi">~$220 (₩30만)</td>
+                <td>₩360만</td>
+              </tr>
+              <tr>
+                <td>대규모 (24개월+)</td>
+                <td>10,000+</td>
+                <td>~600M+</td>
+                <td class="gpu-hi">~$450 (₩60만)</td>
+                <td>₩720만</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">04</div>
+          <div>
+            <div class="gpu-step-title">API vs 자체 GPU 비교</div>
+            <div class="gpu-step-sub">자체 GPU를 사야 하는 시점은 언제인가</div>
+          </div>
+        </div>
+        <div class="gpu-compare-grid">
+          <!-- API -->
+          <div class="gpu-compare-card recommended">
+            <div class="gpu-compare-badge">추천 · API 사용</div>
+            <div class="gpu-compare-title">API 사용</div>
+            <div class="gpu-compare-price">월 ₩6~60만</div>
+            <div style="font-size:11px;color:#5a6478;margin-bottom:14px;">DAU 1,000~10,000 기준</div>
+            <ul class="gpu-pros">
+              <li>초기 투자 0원</li>
+              <li>사용한 만큼만 과금</li>
+              <li>모델 업그레이드 자동 반영</li>
+              <li>인프라 관리 인력 불필요</li>
+              <li>스케일 업/다운 즉시 가능</li>
+            </ul>
+            <ul class="gpu-cons">
+              <li>데이터가 외부 서버를 거침 (의료 데이터 민감)</li>
+              <li>API 제공사 정책 변경 리스크</li>
+            </ul>
+          </div>
+          <!-- GPU 서버 -->
+          <div class="gpu-compare-card gpu-server">
+            <div class="gpu-compare-badge">GPU 서버</div>
+            <div class="gpu-compare-title">자체 GPU 서버</div>
+            <div class="gpu-compare-price">월 ₩500~2,000만</div>
+            <div style="font-size:11px;color:#5a6478;margin-bottom:14px;">A100 80GB 기준 클라우드 렌탈</div>
+            <ul class="gpu-pros">
+              <li>데이터가 내부에만 존재 (HIPAA급)</li>
+              <li>모델 파인튜닝 자유도</li>
+              <li>API 의존도 제거</li>
+            </ul>
+            <ul class="gpu-cons">
+              <li>A100 80GB 1장 월 ~₩200만 (AWS/GCP)</li>
+              <li>최소 2~4장 필요 (추론+여유)</li>
+              <li>ML 엔지니어 인건비 별도</li>
+              <li>초기 세팅에 1~2개월 소요</li>
+            </ul>
+          </div>
+        </div>
+        <div class="gpu-conclusion">
+          <strong>결론:</strong> DAU 10,000 이하에서는 API가 압도적으로 유리합니다. 자체 GPU 전환은 <strong>DAU 50,000+</strong> 이상이거나, 의료 데이터 규제가 강화되어 데이터를 외부 서버에 보낼 수 없는 상황이 올 때 검토하면 됩니다.<br><br>
+          <strong>하이브리드 전략:</strong> 민감 데이터(검사결과지 OCR, 개인정보 블러)만 자체 서버에서 처리하고, 나머지(큐레이션, 위험감지, 임베딩)는 API로 처리하는 방식도 가능. 이 경우 자체 GPU 1장(₩200만/월) + API(₩30만/월) = <strong>₩230만/월</strong>.
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">05</div>
+          <div>
+            <div class="gpu-step-title">수익 대비 AI 비용 비율</div>
+            <div class="gpu-step-sub">AI 비용은 수익의 몇 %인가</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>시점</th>
+                <th>연간 수익 (보수적)</th>
+                <th>연간 AI 비용</th>
+                <th>비율</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12개월차</td>
+                <td>₩4,500만</td>
+                <td>₩72만</td>
+                <td class="gpu-ratio">1.6%</td>
+              </tr>
+              <tr>
+                <td>18개월차</td>
+                <td>₩7억</td>
+                <td>₩200만</td>
+                <td class="gpu-ratio">0.3%</td>
+              </tr>
+              <tr>
+                <td>24개월차</td>
+                <td>₩12.5억</td>
+                <td>₩360만</td>
+                <td class="gpu-ratio">0.3%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="gpu-final-note">
+          <strong>AI 추론 비용은 전체 운영 비용 중 가장 작은 항목입니다.</strong>
+          진짜 비용은 GPU가 아니라 <strong style="color:#f4f6ff;">사람</strong>입니다 — 의료진 컨펌 인건비, 앰배서더 계약금, 운영 PM 인건비, 콘텐츠 에디터가 GPU 비용의 수십~수백 배.
+        </div>
+      </div>
+
+    </div><!-- /GPU Cost Analysis -->
+
   </div>
 
   </div><!-- /page-vcare-bm -->
