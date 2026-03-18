@@ -241,29 +241,79 @@
     {u:'@보호자_a1b', role:'보호자', text:'좋은 정보 감사합니다. 북마크 해두고 자주 와서 읽을게요.', likes:6},
   ];
 
+  // ── 공지 게시글 데이터 ─────────────────────
+  const NOTICE_POST = {
+    title: "🌟 암 환우의 가장 든든한 동반자가 됩니다: 에이아이트릭스(AITRICS), 암 환우 커뮤니티 앱 '온코케어(ONCOCARE)' 정식 런칭!",
+    author: 'AITRICS 공식',
+    role: '운영팀',
+    date: '2026.03.18',
+    views: 1284,
+    hearts: 328,
+    cheers: 412,
+    useful: 307,
+    body: [
+      '안녕하세요, 의료 인공지능(AI) 기술로 더 나은 미래를 만들어가는 에이아이트릭스(AITRICS)입니다.',
+      '저희 AITRICS는 단순히 질병을 진단하고 예측하는 기술을 넘어, 기술이 어떻게 사람의 마음을 치유하고 삶을 지탱할 수 있을지에 대해 끊임없이 고민해왔습니다. 특히, 암이라는 길고 험난한 여정을 걷고 계신 환우분들이 겪는 외로움과 정보의 부재가 얼마나 큰 고통인지 잘 알고 있습니다.',
+      '오늘, 우리는 그 고민의 결과물이자 새로운 시작을 알리게 되어 매우 기쁩니다. 암 환우와 그 가족들을 위한 진정한 연대의 공간, \'온코케어(ONCOCARE)\' 앱의 런칭 소식을 전해드립니다!',
+    ],
+    sections: [
+      {
+        icon: '🏥',
+        title: "기술로 마음을 잇다: 왜 '온코케어'인가요?",
+        content: "암 진단 후, 환우분들은 수많은 정보의 바다에 빠집니다. 하지만 그중 믿을 수 있는 정보를 가려내는 것은 매우 어렵고, 이는 곧 불안감으로 이어집니다. 또한, 병원 밖에서 겪는 일상적인 어려움과 정서적 고립은 치료만큼이나 힘든 과제입니다. 온코케어는 이 모든 문제에 대한 해답을 담았습니다."
+      },
+      {
+        icon: '1️⃣',
+        title: "의료진이 함께하는 안심 커뮤니티 (Trusted Information & Expert Guidance)",
+        content: "온코케어에는 현직 의료진이 직접 참여하여 전문적이고 검증된 최신 의학 정보를 제공합니다. 오정보로 인한 불안감을 차단하고, 의료진과의 소통을 통해 암 치료 과정에 대한 정확한 이해를 돕습니다."
+      },
+      {
+        icon: '2️⃣',
+        title: "환우 간 따뜻한 연대와 정서적 지원 (Empathetic Community & Mutual Support)",
+        content: "같은 아픔을 겪고 있는 사람들만이 나눌 수 있는 깊은 공감이 있습니다. 온코케어는 환우들이 서로의 경험을 '나침반' 삼아 외로움을 '용기'로 바꾸는 공간입니다. 가족에게도 말하지 못한 속사정을 털어놓고, 위로와 격려를 나누며 함께 이겨낼 수 있다는 희망을 키워나갑니다."
+      },
+      {
+        icon: '3️⃣',
+        title: "인공지능 LLM 기술로 더욱 똑똑하고 효율적인 운영 (Innovative AI-Powered Operations)",
+        content: "AITRICS의 핵심 기술력은 온코케어의 운영에도 혁신을 가져왔습니다. 방대한 데이터를 분석하는 대형 언어 모델(LLM)을 활용하여, 개별 환우에게 가장 필요하고 정확한 정보를 신속하게 매칭하여 제공합니다. 또한, AI 기술을 통해 커뮤니티 내의 오정보나 부적절한 콘텐츠를 실시간으로 관리하여 더욱 안전하고 신뢰할 수 있는 환경을 만듭니다."
+      },
+      {
+        icon: '❤️',
+        title: "가치를 함께 만들다: 우리의 비전",
+        content: "우리의 목표는 암 환우들의 삶의 질(QoL)을 실질적으로 향상시키는 것입니다. 기술이 기술로서만 머물지 않고, 사람을 향한 따뜻한 손길이 되어 암 환우들이 외롭지 않게, 보다 건강하고 희망찬 내일을 꿈꿀 수 있도록 지원하는 든든한 동반자가 될 것입니다."
+      },
+    ],
+    outro: "암이라는 여정은 혼자가 아닙니다. 에이아이트릭스와 온코케어가 여러분의 곁에서 가장 든든한 버팀목이 되어드리겠습니다. 지금 바로 온코케어 앱을 다운로드하고, 믿을 수 있는 정보와 따뜻한 연대가 있는 치유의 공동체에 참여하세요.",
+    hashtags: ['#에이아이트릭스','#AITRICS','#의료AI','#온코케어','#ONCOCARE','#암환우','#암커뮤니티','#암환우지원','#치유','#희망','#연대','#LLM','#인공지능','#함께이겨내요','#건강한미래'],
+  };
+
   // ── URL 파라미터에서 게시글 가져오기 ────────
   const params = new URLSearchParams(location.search);
+  const isNotice = params.get('notice') === '1';
   const postId = parseInt(params.get('id')) || 0;
-  const post = ALL_POSTS[postId] || ALL_POSTS[0];
-  document.title = post.title + ' — onco.care';
-
-  // ── 게시글 본문 렌더링 ─────────────────────
-  const body = generateBody(post);
-  const dateStr = '2026.03.' + String(7 + (post.id % 5)).padStart(2,'0');
-  const numComments = 2 + (post.id % 4);
-  const comments = [];
-
-  // 의료진 답변 (첫 번째로 추가)
-  const docResponses = DOCTOR_RESPONSES[post.cat] || DOCTOR_RESPONSES.symptom;
-  const docText = docResponses[post.id % docResponses.length];
-  comments.push({u:'의료진', role:'의료진', text:docText, likes: 28 + post.id % 15, doctor:true});
-
-  for(let i = 0; i < numComments; i++) {
-    const c = COMMENT_TEMPLATES[i % COMMENT_TEMPLATES.length];
-    comments.push({...c, likes: c.likes + (post.id * (i+1)) % 10});
-  }
+  const post = isNotice ? null : (ALL_POSTS[postId] || ALL_POSTS[0]);
+  document.title = isNotice ? NOTICE_POST.title + ' — onco.care' : post.title + ' — onco.care';
 
   const HEART_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+  // ── 게시글 본문 렌더링 (일반 게시글만) ───────
+  let body, dateStr, numComments, comments;
+  if (!isNotice) {
+    body = generateBody(post);
+    dateStr = '2026.03.' + String(7 + (post.id % 5)).padStart(2,'0');
+    numComments = 2 + (post.id % 4);
+    comments = [];
+
+    // 의료진 답변 (첫 번째로 추가)
+    const docResponses = DOCTOR_RESPONSES[post.cat] || DOCTOR_RESPONSES.symptom;
+    const docText = docResponses[post.id % docResponses.length];
+    comments.push({u:'의료진', role:'의료진', text:docText, likes: 28 + post.id % 15, doctor:true});
+
+    for(let i = 0; i < numComments; i++) {
+      const c = COMMENT_TEMPLATES[i % COMMENT_TEMPLATES.length];
+      comments.push({...c, likes: c.likes + (post.id * (i+1)) % 10});
+    }
+  }
 
   // URL 썸네일 미리보기 생성 (OG 카드 스타일)
   const URL_THUMBNAILS = {
@@ -297,6 +347,106 @@
         </div>
       </a>`;
   }
+
+  // ── 공지 게시글 렌더링 ──────────────────────
+  if (isNotice) {
+    document.getElementById('postArea').innerHTML = `
+      <!-- 상단 카드: 공지 -->
+      <div class="post-detail-card post-detail-card--notice">
+        <div class="post-detail-top">
+          <div class="post-detail-top-left">
+            <span class="post-badge badge--notice">📌 공지</span>
+            <span class="post-disease-badge">AITRICS 공식</span>
+          </div>
+        </div>
+
+        <h1 class="post-detail-title">${NOTICE_POST.title}</h1>
+
+        <div class="post-detail-meta">
+          <span class="pd-author pd-author--medical">${NOTICE_POST.author} · ${NOTICE_POST.role}</span>
+          <span class="pd-date">${NOTICE_POST.date}</span>
+          <span class="pd-views">조회 ${NOTICE_POST.views.toLocaleString()}</span>
+        </div>
+
+        <div class="post-detail-like">
+          <button class="pd-like-btn" id="likeBtn">
+            ${HEART_SVG}
+            <span>좋아요</span>
+            <strong id="likeCount">${NOTICE_POST.hearts}</strong>
+          </button>
+        </div>
+      </div>
+
+      <!-- 본문 -->
+      <div class="post-detail-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+          <img src="../../assets/앰버서더 행사.jpg" alt="온코케어 앰버서더 행사"
+            style="width:100%;border-radius:10px;object-fit:cover;height:220px;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <img src="../../assets/앰버서더 예시.jpg" alt="온코케어 앰버서더 예시"
+              style="width:100%;border-radius:10px;object-fit:cover;flex:1;">
+            <img src="../../assets/Gemini_generated.jpg" alt="온코케어 AI 이미지"
+              style="width:100%;border-radius:10px;object-fit:cover;flex:1;">
+          </div>
+        </div>
+
+        ${NOTICE_POST.body.map(p => `<p>${p}</p>`).join('')}
+
+        ${NOTICE_POST.sections.map(s => `
+          <div class="notice-body-section">
+            <h3>${s.icon} ${s.title}</h3>
+            <p>${s.content}</p>
+          </div>`).join('')}
+
+        <p style="margin-top:24px;font-weight:600;color:#374151">📲 지금 바로 온코케어의 따뜻한 품에 안기세요!</p>
+        <p>${NOTICE_POST.outro}</p>
+
+        <div class="notice-hashtags">
+          ${NOTICE_POST.hashtags.map(h => `<span class="tag">${h}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- 반응 버튼 -->
+      <div class="post-detail-reactions">
+        <button class="pd-reaction" id="cheerBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 11v8a2 2 0 002 2h6.6a2 2 0 001.94-1.52l1.72-7A2 2 0 0017.32 10H14V6a2 2 0 00-2-2h0a1 1 0 00-1 1v2L9 11H7z"/><rect x="2" y="11" width="5" height="10" rx="1"/></svg>
+          <span>응원해요</span>
+          <strong id="cheerCount">${NOTICE_POST.cheers}</strong>
+        </button>
+        <button class="pd-reaction" id="usefulBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+          <span>유익해요</span>
+          <strong id="usefulCount">${NOTICE_POST.useful}</strong>
+        </button>
+      </div>
+
+      <hr class="post-divider">
+
+      <!-- 답변 섹션 (공지는 댓글 비활성화) -->
+      <div class="post-comments-section">
+        <h3 class="comments-title">답변 <strong>0</strong></h3>
+        <p style="color:#9ca3af;font-size:.9rem;padding:24px 0;text-align:center">공지 게시글에는 댓글을 남길 수 없습니다.</p>
+      </div>`;
+
+    // 공지 반응 버튼 인터랙션
+    document.getElementById('likeBtn').addEventListener('click', function() {
+      this.classList.toggle('pd-like-btn--active');
+      const cnt = document.getElementById('likeCount');
+      cnt.textContent = parseInt(cnt.textContent) + (this.classList.contains('pd-like-btn--active') ? 1 : -1);
+    });
+    document.getElementById('cheerBtn').addEventListener('click', function() {
+      this.classList.toggle('pd-reaction--active');
+      const cnt = document.getElementById('cheerCount');
+      cnt.textContent = parseInt(cnt.textContent) + (this.classList.contains('pd-reaction--active') ? 1 : -1);
+    });
+    document.getElementById('usefulBtn').addEventListener('click', function() {
+      this.classList.toggle('pd-reaction--active');
+      const cnt = document.getElementById('usefulCount');
+      cnt.textContent = parseInt(cnt.textContent) + (this.classList.contains('pd-reaction--active') ? 1 : -1);
+    });
+    document.getElementById('aiSimilar').innerHTML = `<div class="ai-similar-intro">온코케어 공식 공지 게시글입니다.</div>`;
+
+  } else {
 
   const authorHtml = post.medical
     ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span>`
@@ -503,6 +653,8 @@
   // 햄버거
   const hamBtn = document.getElementById('hamBtn');
   if(hamBtn) hamBtn.addEventListener('click',()=>document.body.classList.toggle('drawer-open'));
+
+  } // end else (isNotice)
 </script>
 <script src="../login.js"></script>
 </body>

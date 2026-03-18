@@ -263,6 +263,23 @@
   color: #0d9488;
   border: 1px solid #ccfbf1;
 }
+.badge--notice {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  letter-spacing: .03em;
+}
+
+/* 공지 카드 — 앰버 그라디언트 보더 */
+.post-card--notice {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#fffbeb, #fffbeb), linear-gradient(135deg, #f59e0b, #ef4444, #6E3FA3);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+.post-card--notice .post-title {
+  color: #78350f;
+}
 
 /* 메디컬팀 카드 — 그라디언트 보더 */
 .post-card--medical {
