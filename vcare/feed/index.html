@@ -317,6 +317,35 @@
       }
     });
   });
+// ── 의료진 모드 전환 ──
+function applyFeedDoctorMode(isDoctor) {
+  var composeInput = document.querySelector('.compose-input');
+  var heroDesc = document.querySelector('.hero-desc');
+
+  if (isDoctor) {
+    if (composeInput) composeInput.placeholder = '의료진님, 환우들에게 도움이 될 건강 정보나 최신 의학 소식을 공유해 주세요.';
+    if (heroDesc) heroDesc.innerHTML = '환우들의 질문에 전문 답변을 남기고,<br>AI가 생성한 콘텐츠를 검증해 주세요.';
+  } else {
+    if (composeInput) composeInput.placeholder = '김환자님, 오늘 하루는 어떠신가요? 가벼운 안부나 사진을 남겨주세요.';
+    if (heroDesc) heroDesc.innerHTML = '의료진과 환우들이 나누는 건강 정보와<br>따뜻한 이야기를 만나보세요.';
+  }
+}
+
+window.addEventListener('oncocare-login', function(e) {
+  if (e.detail) applyFeedDoctorMode(e.detail.role === '의료진');
+});
+window.addEventListener('oncocare-logout', function() {
+  applyFeedDoctorMode(false);
+});
+(function() {
+  try {
+    var saved = localStorage.getItem('oncocare_login');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (parsed && parsed.role === '의료진') applyFeedDoctorMode(true);
+    }
+  } catch(e) {}
+})();
 </script>
 <script src="../login.js"></script>
 </body>

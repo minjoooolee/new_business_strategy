@@ -1151,6 +1151,22 @@ window.addEventListener('oncocare-login', function(e) {
   if (e.detail && e.detail.role) switchView(e.detail.role);
 });
 
+// Listen for logout event
+window.addEventListener('oncocare-logout', function() {
+  switchView('환자');
+});
+
+// Restore state on page load
+(function() {
+  try {
+    var saved = localStorage.getItem('oncocare_login');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (parsed && parsed.role) switchView(parsed.role);
+    }
+  } catch(e) {}
+})();
+
 // ── Doctor dashboard tab switching ──
 function switchDrTab(btn, tabId) {
   btn.parentElement.querySelectorAll('.dr-tab').forEach(function(t) { t.classList.remove('active'); });
