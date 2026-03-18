@@ -107,6 +107,26 @@ ul { list-style: none; }
 }
 .btn-login:hover { background: var(--text); color: #fff; border-color: var(--text); }
 
+/* 의료진 검증 뱃지 */
+.badge--verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  font-size: .72rem;
+  font-weight: 700;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ecfdf5, #f0e8f7);
+  color: #0d9488;
+  border: 1px solid #99f6e4;
+  white-space: nowrap;
+}
+.badge--verified svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
 /* logout button */
 .btn-logout {
   padding: 5px 14px;

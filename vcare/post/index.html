@@ -298,9 +298,12 @@
       </a>`;
   }
 
+  const VERIFIED_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>';
+  const verifiedBadgeHtml = `<span class="badge--verified">${VERIFIED_SVG} 의료진 검증</span>`;
+
   const authorHtml = post.medical
-    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span>`
-    : `<span class="pd-author">${post.author} · ${post.role}</span>`;
+    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span> ${verifiedBadgeHtml}`
+    : `<span class="pd-author">${post.author} · ${post.role}</span>${post.expertAns > 0 ? ' ' + verifiedBadgeHtml : ''}`;
 
   document.getElementById('postArea').innerHTML = `
     <!-- 상단 카드 -->
@@ -385,6 +388,7 @@
               <div class="comment-meta">
                 <span class="comment-author ${c.doctor ? 'comment-author--doctor' : ''}">${c.doctor ? '의료진 답변' : c.u}</span>
                 <span class="comment-role ${c.doctor ? 'comment-role--doctor' : ''}">${c.role}</span>
+                ${c.doctor ? '<span class="badge--verified">' + VERIFIED_SVG + ' 의료진 검증</span>' : ''}
                 <span class="comment-date">${dateStr}</span>
               </div>
               <p class="comment-text">${c.text}</p>
