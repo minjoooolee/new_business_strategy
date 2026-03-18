@@ -348,6 +348,9 @@
       </a>`;
   }
 
+  const VERIFIED_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>';
+  const verifiedBadgeHtml = `<span class="badge--verified">${VERIFIED_SVG} 의료진 검증</span>`;
+
   // ── 공지 게시글 렌더링 ──────────────────────
   if (isNotice) {
     document.getElementById('postArea').innerHTML = `
@@ -465,7 +468,7 @@
   } else {
 
   const authorHtml = post.medical
-    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span>`
+    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span> ${verifiedBadgeHtml}`
     : `<span class="pd-author">${post.author} · ${post.role}</span>`;
 
   document.getElementById('postArea').innerHTML = `
@@ -578,7 +581,8 @@
   const similar = findSimilar(post);
   document.getElementById('aiSimilar').innerHTML = `
     <div class="ai-similar-intro">
-      이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.
+      ${verifiedBadgeHtml}
+      <p style="margin-top:6px">이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.</p>
     </div>
     ${similar.map(s => `
       <a href="../post?id=${s.id}" class="ai-similar-card">
