@@ -9977,7 +9977,8 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
         <tr><td>임상 매칭</td><td class="c-blue">₩3,000만</td><td class="c-green">₩1.5억</td><td style="font-size:12px;">보수적: 파일럿 1건, 20명×₩150만</td></tr>
         <tr><td>PRO 라이선싱</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">—</td><td style="font-size:12px;">데이터 축적 단계, 매출 미발생</td></tr>
         <tr><td>스폰서십</td><td style="color:var(--text-dim);">—</td><td class="c-green">₩3,000만</td><td style="font-size:12px;">낙관적 시 파일럿 3~5건</td></tr>
-        <tr class="total"><td>합계</td><td class="c-blue">₩4,500만</td><td class="c-green">₩2.2억</td><td></td></tr>
+        <tr><td>광고 수익</td><td style="color:var(--text-dim);">—</td><td class="c-green">₩2,000만</td><td style="font-size:12px;">검진기관 노출 파일럿 3곳</td></tr>
+        <tr class="total"><td>합계</td><td class="c-blue">₩4,500만</td><td class="c-green">₩2.42억</td><td></td></tr>
       </tbody>
     </table>
 
@@ -9989,8 +9990,9 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
         <tr><td>임상 매칭</td><td class="c-blue">₩1.5억</td><td class="c-green">₩5억</td><td>26%</td></tr>
         <tr><td>PRO 라이선싱</td><td class="c-blue">₩3억</td><td class="c-green">₩7억</td><td>36%</td></tr>
         <tr><td>스폰서십</td><td class="c-blue">₩1억</td><td class="c-green">₩3.5억</td><td>18%</td></tr>
+        <tr><td>광고 수익</td><td class="c-blue">₩5,000만</td><td class="c-green">₩1억</td><td>5%</td></tr>
         <tr><td>기타 (맞춤 분석)</td><td style="color:var(--text-dim);">—</td><td class="c-green">₩5,000만</td><td>3%</td></tr>
-        <tr class="total"><td>연간 합계</td><td class="c-blue">₩7억</td><td class="c-green">₩19.5억</td><td>100%</td></tr>
+        <tr class="total"><td>연간 합계</td><td class="c-blue">₩7.5억</td><td class="c-green">₩20.5억</td><td>100%</td></tr>
       </tbody>
     </table>
 
@@ -10002,8 +10004,9 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
         <tr><td>임상 매칭</td><td class="c-blue">₩3억</td><td class="c-green">₩10억</td><td>25%</td></tr>
         <tr><td>PRO 라이선싱</td><td class="c-blue">₩5억</td><td class="c-green">₩15억</td><td>38%</td></tr>
         <tr><td>스폰서십</td><td class="c-blue">₩2억</td><td class="c-green">₩5억</td><td>13%</td></tr>
+        <tr><td>광고 수익</td><td class="c-blue">₩1억</td><td class="c-green">₩2억</td><td>5%</td></tr>
         <tr><td>LLM 라이선싱 (초기)</td><td style="color:var(--text-dim);">—</td><td class="c-green">₩4억</td><td>10%</td></tr>
-        <tr class="total"><td>연간 합계</td><td class="c-blue">₩12.5억</td><td class="c-green">₩40억</td><td>100%</td></tr>
+        <tr class="total"><td>연간 합계</td><td class="c-blue">₩13.5억</td><td class="c-green">₩42억</td><td>100%</td></tr>
       </tbody>
     </table>
 
@@ -10020,22 +10023,88 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   <!-- 09 핵심 리스크 -->
   <section class="bm-section bm-reveal" style="padding-bottom:120px;">
     <p class="bm-sec-label" style="color:var(--red);">09 · 핵심 리스크와 대응</p>
-    <h2 class="bm-sec-title">4가지 리스크 시나리오</h2>
+    <h2 class="bm-sec-title">5가지 리스크 시나리오</h2>
     <div class="risk-list">
+
       <div class="risk-item">
-        <div class="risk-head"><span class="risk-num">리스크 1</span><span class="risk-title">유료 전환율이 예상보다 낮을 때</span></div>
+        <div class="risk-head"><span class="risk-num">리스크 1</span><span class="risk-title">데이터 신뢰도를 훼손시키는 어뷰징 유저 발생</span></div>
+        <div class="risk-body">
+          <strong>영향:</strong> 커뮤니티 데이터의 품질 저하 → 제약사·연구기관에 판매하는 PRO 데이터·임상 매칭의 신뢰도가 직접 훼손됨. 수익 모델의 근간이 흔들린다.<br><br>
+          <strong>유형별 위험도:</strong><br><br>
+
+          <style>
+            #page-vcare-bm .abuse-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0 18px; }
+            #page-vcare-bm .abuse-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+            #page-vcare-bm .abuse-card.danger { border-color:rgba(255,92,106,.4); background:rgba(255,92,106,.05); }
+            #page-vcare-bm .abuse-head { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+            #page-vcare-bm .abuse-tag { font-family:'Space Mono',monospace; font-size:9px; padding:2px 8px; border-radius:4px; font-weight:700; }
+            #page-vcare-bm .abuse-tag.high { background:rgba(255,92,106,.15); color:var(--red); border:1px solid rgba(255,92,106,.3); }
+            #page-vcare-bm .abuse-tag.mid { background:rgba(255,184,32,.12); color:var(--yellow); border:1px solid rgba(255,184,32,.3); }
+            #page-vcare-bm .abuse-title { font-size:13px; font-weight:700; color:var(--text); }
+            #page-vcare-bm .abuse-desc { font-size:12px; color:var(--text-muted); line-height:1.75; }
+            @media(max-width:640px){ #page-vcare-bm .abuse-grid { grid-template-columns:1fr; } }
+          </style>
+
+          <div class="abuse-grid">
+            <div class="abuse-card danger">
+              <div class="abuse-head">
+                <span class="abuse-tag high">치명</span>
+                <span class="abuse-title">유형 1 · 가짜 환우</span>
+              </div>
+              <div class="abuse-desc">암환자가 아닌 사람이 환우인 척 가입. 동기: 동정심 유발(뮌하우젠 유사 행동), 커뮤니티 교란, 건강식품·민간요법 판매 목적 위장 가입 등.</div>
+            </div>
+            <div class="abuse-card danger">
+              <div class="abuse-head">
+                <span class="abuse-tag high">치명</span>
+                <span class="abuse-title">유형 2 · 허위 프로필</span>
+              </div>
+              <div class="abuse-desc">실제 환우이지만 병기·타입·치료 이력을 허위 입력. 의도적 어뷰징이 아닌 무지에 의한 오류일 수도 있지만, 데이터 신뢰도를 똑같이 깎는다.</div>
+            </div>
+            <div class="abuse-card">
+              <div class="abuse-head">
+                <span class="abuse-tag mid">주의</span>
+                <span class="abuse-title">유형 3 · 제약사·업체 위장 가입</span>
+              </div>
+              <div class="abuse-desc">제약사 직원 또는 건강식품 업체가 환우로 위장해 특정 약물·제품을 홍보하거나 "이거 먹고 나았다" 식의 콘텐츠를 시딩.</div>
+            </div>
+            <div class="abuse-card">
+              <div class="abuse-head">
+                <span class="abuse-tag mid">주의</span>
+                <span class="abuse-title">유형 4 · 데이터 수확 목적</span>
+              </div>
+              <div class="abuse-desc">경쟁 플랫폼이나 데이터 브로커가 환우 데이터를 수집하기 위해 가입.</div>
+            </div>
+            <div class="abuse-card danger" style="grid-column:1/-1;">
+              <div class="abuse-head">
+                <span class="abuse-tag high">최고위험</span>
+                <span class="abuse-title">유형 5 · 임상시험 매칭 악용</span>
+              </div>
+              <div class="abuse-desc">임상시험 참여 보상(교통비·영양제 지원 등)을 노리고 허위 프로필로 매칭을 시도. 제약사 신뢰를 한 번에 날릴 수 있어 전체 유형 중 가장 위험.</div>
+            </div>
+          </div>
+
+          <strong>대응:</strong><br>
+          ① <strong>가입 시 진단 확인 플로우</strong> — 병원명·진단 연월·담당과를 입력받아 패턴 이상 시 플래그 처리. 100% 검증은 불가능하지만 마찰 자체가 어뷰저를 걸러낸다.<br>
+          ② <strong>코어 유저·앰배서더의 1차 감지</strong> — 오랜 커뮤니티 멤버가 "어색한 발화 패턴"을 가장 먼저 포착한다. 신고 기능 + 운영팀 에스컬레이션 구조를 설계.<br>
+          ③ <strong>임상 매칭 전 2단계 검증 의무화</strong> — 유형 5 방지를 위해 매칭 신청 시 (i) 프로필 일관성 AI 검사 + (ii) 제약사 측 병원 스크리닝을 반드시 거치도록 계약에 명시. 온코케어는 "사전 필터링"을 제공하지, 최종 적격 판정은 제약사에 귀속됨을 명확히 한다.<br>
+          ④ <strong>이상 행동 탐지 모니터링</strong> — 가입 후 단기간에 특정 제품·약물명 반복 언급, 외부 링크 삽입, 과도한 다이렉트 메시지 발송 등을 자동 플래그.
+        </div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-head"><span class="risk-num">리스크 2</span><span class="risk-title">유료 전환율이 예상보다 낮을 때</span></div>
         <div class="risk-body"><strong>영향:</strong> B2C 매출 감소 → 전체 수익에 미치는 영향은 제한적 (비중 15~20%)<br><strong>대응:</strong> B2C 구독 가격을 ₩3,900으로 인하하거나 유료 기능의 가치를 높인다. 궁극적으로 B2B가 메인이므로, 무료 사용자가 많은 것 자체가 데이터 축적에는 오히려 유리.</div>
       </div>
       <div class="risk-item">
-        <div class="risk-head"><span class="risk-num">리스크 2</span><span class="risk-title">제약사 계약이 지연될 때</span></div>
+        <div class="risk-head"><span class="risk-num">리스크 3</span><span class="risk-title">제약사 계약이 지연될 때</span></div>
         <div class="risk-body"><strong>영향:</strong> B2B 매출 전체 지연 → 가장 큰 리스크. aitrics는 현재 제약사와의 직접적인 비즈니스 네트워크가 없으므로, 처음부터 관계를 구축해야 한다.<br><br><strong>대응:</strong><br>① 커뮤니티 데이터가 충분히 쌓인 후(12개월차+) 제약사에 접근 — 빈손이 아니라 "유방암 환우 1,000명의 구조화된 PRO 데이터"를 들고 가야 협상력이 생긴다.<br>② 첫 계약은 임상 매칭 파일럿을 무료 또는 성과 기반(매칭 성공 시에만 과금)으로 진행하여 진입 장벽을 낮춘다.<br>③ 국내 항암제 임상을 활발히 진행하는 제약사(한국로슈, 한국MSD, 삼성바이오에피스, 유한양행 등)의 의학부(Medical Affairs) 또는 임상운영팀을 1차 접점으로 삼는다.<br>④ 학회(ASCO Korea, 대한항암요법연구회 등) 부스 참가·발표를 통해 제약사 담당자와의 접점을 만든다.<br>⑤ CRO(임상시험수탁기관)와의 제휴도 병행 — 제약사에 직접 접근이 어려우면, CRO가 환자 모집 채널로 온코케어를 제약사에 제안하는 구조.</div>
       </div>
       <div class="risk-item">
-        <div class="risk-head"><span class="risk-num">리스크 3</span><span class="risk-title">PRO 데이터 축적이 느릴 때</span></div>
+        <div class="risk-head"><span class="risk-num">리스크 4</span><span class="risk-title">PRO 데이터 축적이 느릴 때</span></div>
         <div class="risk-body"><strong>영향:</strong> 라이선싱 매출 시작 시점 지연<br><strong>대응:</strong> 케어+ 유료 사용자에게 검사결과지 무제한 + 추이 트래킹을 제공하여 데이터 업로드를 유도. 앰배서더가 "나의 검사 기록 정리하기" 콘텐츠를 시딩. AI 학습 동의율을 높이기 위해 "당신의 데이터가 신약 개발에 기여합니다" 피드백을 강화.</div>
       </div>
       <div class="risk-item">
-        <div class="risk-head"><span class="risk-num">리스크 4</span><span class="risk-title">"암환자 데이터로 돈 번다" PR 리스크</span></div>
+        <div class="risk-head"><span class="risk-num">리스크 5</span><span class="risk-title">"암환자 데이터로 돈 번다" PR 리스크</span></div>
         <div class="risk-body"><strong>영향:</strong> 커뮤니티 신뢰 붕괴 → 가장 치명적<br><strong>대응:</strong> ① 모든 데이터 활용은 선택 동의 기반 (강제 없음), ② 비식별화 과정을 투명하게 공개, ③ "수익의 일부를 암환우 지원 기금으로 환원" 프로그램 운영, ④ 데이터 활용 현황을 연간 투명성 보고서로 공개.</div>
       </div>
     </div>
@@ -11345,8 +11414,138 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
         </table>
       </div>
 
+      <!-- 글로벌 비전 -->
+      <div style="margin-top:40px;">
+        <style>
+          #page-vcare-bm .global-box {
+            background: linear-gradient(135deg, rgba(61,127,255,0.08), rgba(0,232,176,0.06));
+            border: 1px solid rgba(61,127,255,0.3);
+            border-radius: 20px;
+            padding: 36px 40px;
+            position: relative;
+            overflow: hidden;
+          }
+          #page-vcare-bm .global-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #5590ff, #00e8b0);
+          }
+          #page-vcare-bm .global-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #5590ff;
+            margin-bottom: 16px;
+          }
+          #page-vcare-bm .global-title {
+            font-size: clamp(18px, 2.5vw, 26px);
+            font-weight: 900;
+            color: #f4f6ff;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+          }
+          #page-vcare-bm .global-title em {
+            font-style: normal;
+            background: linear-gradient(135deg, #5590ff, #00e8b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+          #page-vcare-bm .global-body {
+            font-size: 14px;
+            color: #b0bac9;
+            line-height: 1.95;
+            margin-bottom: 28px;
+          }
+          #page-vcare-bm .global-body strong { color: #f4f6ff; }
+          #page-vcare-bm .global-markets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+          }
+          #page-vcare-bm .global-market-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px 18px;
+            text-align: center;
+          }
+          #page-vcare-bm .gm-flag { font-size: 22px; margin-bottom: 8px; }
+          #page-vcare-bm .gm-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #f4f6ff;
+            margin-bottom: 4px;
+          }
+          #page-vcare-bm .gm-scale {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #00e8b0;
+            margin-bottom: 4px;
+          }
+          #page-vcare-bm .gm-std {
+            font-size: 10px;
+            color: #8892a4;
+          }
+          #page-vcare-bm .global-quote {
+            background: rgba(0,232,176,0.07);
+            border-left: 3px solid #00e8b0;
+            border-radius: 0 10px 10px 0;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-style: italic;
+            color: #f4f6ff;
+            line-height: 1.8;
+          }
+          @media(max-width:640px) {
+            #page-vcare-bm .global-markets { grid-template-columns: 1fr; }
+            #page-vcare-bm .global-box { padding: 24px 20px; }
+          }
+        </style>
+
+        <div class="global-box">
+          <div class="global-label">Phase 4 · Long-term Vision · 글로벌 확장</div>
+          <h3 class="global-title">지금 설계하는 아키텍처가<br><em>글로벌을 염두에 두고 있습니다</em></h3>
+          <p class="global-body">
+            온코케어를 <strong>FHIR 표준 기반</strong>으로 설계하는 이유는 한국 마이헬스웨이 연동만을 위한 게 아닙니다. FHIR는 미국·EU·일본이 모두 채택한 글로벌 표준이므로, <strong>한국에서 구축한 PHR 연동 아키텍처를 일본·미국에 그대로 복제할 수 있습니다.</strong> 한국에서 유방암·위암·대장암으로 검증한 모델을, 시장이 3~10배 큰 일본과 미국으로 확장하는 것이 장기 비전입니다.
+          </p>
+
+          <div class="global-markets">
+            <div class="global-market-card">
+              <div class="gm-flag">🇰🇷</div>
+              <div class="gm-name">한국 · 시작점</div>
+              <div class="gm-scale">기준 1×</div>
+              <div class="gm-std">마이헬스웨이 · FHIR R4</div>
+            </div>
+            <div class="global-market-card">
+              <div class="gm-flag">🇯🇵</div>
+              <div class="gm-name">일본 · 1차 확장</div>
+              <div class="gm-scale">시장 3~5×</div>
+              <div class="gm-std">FHIR 표준 채택 · 고령화 1위</div>
+            </div>
+            <div class="global-market-card">
+              <div class="gm-flag">🇺🇸</div>
+              <div class="gm-name">미국 · 최종 목표</div>
+              <div class="gm-scale">시장 8~10×</div>
+              <div class="gm-std">USCDI · FHIR R4 법제화</div>
+            </div>
+          </div>
+
+          <div class="global-quote">
+            "이건 한국 암환우 커뮤니티가 아니라, <strong>글로벌 의료 데이터 플랫폼의 시작점</strong>입니다."
+          </div>
+        </div>
+      </div>
+
       <!-- 우리 팀의 결론 -->
-      <div class="conclusion-box">
+      <div class="conclusion-box" style="margin-top:32px;">
         <div class="conclusion-label">Team Conclusion · 우리 팀의 결론</div>
         <div class="conclusion-title">우리 팀의 결론</div>
         <div class="conclusion-cards">
