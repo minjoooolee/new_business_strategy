@@ -2715,9 +2715,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
             KPI 달성 현황
           </a>
-          <a href="#" onclick="navigatePinkcare('matrix', event)" class="pinkcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-            운영 회고
+          <a href="#" onclick="navigatePinkcare('retrospective', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            온코케어 제안서
           </a>
           <div class="pinkcare-menu-divider"></div>
           <a href="#" onclick="navigatePinkcare('nextstep', event)" class="pinkcare-menu-item">
@@ -11625,13 +11625,13 @@ function applyHash(hash) {
 
 
   // GNB active 처리
-  const pinkcarePages = ['pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep'];
+  const pinkcarePages = ['pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep', 'pinkcare-retrospective'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
-  } else if (page === 'vcare-features' || page === 'pinkcare-retrospective' || page === 'vcare-bm') {
+  } else if (page === 'vcare-features' || page === 'vcare-bm') {
     const vcareBtn = document.getElementById('vcareBtn');
     if (vcareBtn) vcareBtn.classList.add('active');
   } else {
