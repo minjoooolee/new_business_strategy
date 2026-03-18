@@ -9581,6 +9581,7 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
       <li><a href="#bm-b2b1">임상 매칭</a></li>
       <li><a href="#bm-b2b2">PRO 라이선싱</a></li>
       <li><a href="#bm-sponsor">스폰서십</a></li>
+      <li><a href="#bm-ad">광고 수익</a></li>
       <li><a href="#bm-timeline">타임라인</a></li>
       <li><a href="#bm-projection">수익 프로젝션</a></li>
     </ul>
@@ -9811,7 +9812,125 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
     </div>
   </section>
 
-  <!-- 07 수익화 타임라인 -->
+  <!-- 07 광고 수익 모델 -->
+  <section class="bm-section bm-reveal" id="bm-ad">
+    <p class="bm-sec-label" style="color:var(--pink);">07 · 광고 수익 모델</p>
+    <h2 class="bm-sec-title">"광고처럼 보이지 않는 광고"만 해야 합니다</h2>
+    <p class="bm-sec-desc">광고를 완전히 배제하라는 게 아니라, 암환우 커뮤니티의 신뢰를 지키면서도 수익을 만드는 <strong>형태를 골라야</strong> 합니다.</p>
+
+    <style>
+      #page-vcare-bm .ad-type-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:24px 0; }
+      #page-vcare-bm .ad-type-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; position:relative; overflow:hidden; }
+      #page-vcare-bm .ad-type-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--green); }
+      #page-vcare-bm .ad-type-num { font-family:'Space Mono',monospace; font-size:9px; color:var(--green); letter-spacing:.15em; margin-bottom:10px; }
+      #page-vcare-bm .ad-type-title { font-size:14px; font-weight:800; color:var(--text); margin-bottom:8px; line-height:1.4; }
+      #page-vcare-bm .ad-type-price { font-family:'Poppins',sans-serif; font-size:13px; font-weight:700; color:var(--green); margin-bottom:10px; }
+      #page-vcare-bm .ad-type-desc { font-size:12.5px; color:var(--text-muted); line-height:1.75; }
+      #page-vcare-bm .ad-ban-box { background:rgba(255,92,106,.06); border:1px solid rgba(255,92,106,.25); border-radius:14px; padding:20px 24px; margin:24px 0; }
+      #page-vcare-bm .ad-ban-label { font-family:'Space Mono',monospace; font-size:9px; color:var(--red); letter-spacing:.18em; text-transform:uppercase; margin-bottom:12px; }
+      #page-vcare-bm .ad-ban-list { display:flex; flex-wrap:wrap; gap:8px; }
+      #page-vcare-bm .ad-ban-tag { font-size:12px; color:var(--red); background:rgba(255,92,106,.1); border:1px solid rgba(255,92,106,.2); border-radius:8px; padding:5px 12px; }
+      #page-vcare-bm .ad-ban-desc { font-size:13px; color:var(--text-muted); line-height:1.85; margin-top:12px; }
+      #page-vcare-bm .ad-result-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:13px; }
+      #page-vcare-bm .ad-result-table th { padding:10px 14px; background:var(--surface2); border:1px solid var(--border); font-size:11px; font-weight:700; text-align:left; }
+      #page-vcare-bm .ad-result-table td { padding:11px 14px; border:1px solid var(--border); color:var(--text-muted); }
+      #page-vcare-bm .ad-result-table tr.ad-total td { color:var(--text); font-weight:700; background:rgba(0,212,160,.04); }
+      #page-vcare-bm .ad-result-table .ad-ok { color:var(--green); font-weight:700; }
+      #page-vcare-bm .ad-result-table .ad-no { color:var(--red); font-weight:700; }
+      #page-vcare-bm .ad-result-table .ad-num { font-family:'Poppins',sans-serif; }
+      #page-vcare-bm .ad-conclusion { background:rgba(0,212,160,.06); border:1px solid rgba(0,212,160,.2); border-radius:14px; padding:20px 24px; font-size:14px; color:var(--text-muted); line-height:1.9; }
+      #page-vcare-bm .ad-conclusion strong { color:var(--text); }
+      @media(max-width:640px) { #page-vcare-bm .ad-type-grid { grid-template-columns:1fr; } }
+    </style>
+
+    <!-- 가능한 형태 -->
+    <div class="bm-sec-label" style="color:var(--green);margin-bottom:16px;">✅ 가능한 형태</div>
+    <div class="ad-type-grid">
+      <div class="ad-type-card">
+        <div class="ad-type-num">FORM 01</div>
+        <div class="ad-type-title">제약사 질환 인식 캠페인</div>
+        <div class="ad-type-price">건당 ₩500~2,000만</div>
+        <div class="ad-type-desc">"유방암 조기 발견의 중요성" 같은 교육 콘텐츠에 "OO제약 후원"을 붙이는 것. 이미 콘텐츠 스폰서십으로 설계한 것과 동일한 구조입니다.</div>
+      </div>
+      <div class="ad-type-card">
+        <div class="ad-type-num">FORM 02</div>
+        <div class="ad-type-title">건강검진기관·병원 정보 노출</div>
+        <div class="ad-type-price">월 ₩50~200만/기관</div>
+        <div class="ad-type-desc">"내 주변 유방암 전문 검진기관" 같은 정보형 노출. 검진기관이 노출 비용을 내는 구조. 광고가 아니라 정보 제공으로 받아들여집니다.</div>
+      </div>
+      <div class="ad-type-card">
+        <div class="ad-type-num">FORM 03</div>
+        <div class="ad-type-title">암환자 생활 지원 서비스 연결</div>
+        <div class="ad-type-price">CPA(전환당 수수료)</div>
+        <div class="ad-type-desc">가발, 영양 보충제, 운동 프로그램, 심리 상담 등 암환우 생활에 실제로 도움이 되는 서비스를 "추천"으로 노출. 환우에게 가치가 있으면 광고가 아니라 서비스가 됩니다.</div>
+      </div>
+    </div>
+
+    <!-- 절대 하면 안 되는 형태 -->
+    <div class="ad-ban-box">
+      <div class="ad-ban-label">❌ 절대 하면 안 되는 형태</div>
+      <div class="ad-ban-list">
+        <span class="ad-ban-tag">배너 광고</span>
+        <span class="ad-ban-tag">전면 광고(인터스티셜)</span>
+        <span class="ad-ban-tag">영상 광고 프리롤</span>
+        <span class="ad-ban-tag">피드 사이 디스플레이 광고</span>
+      </div>
+      <div class="ad-ban-desc">이런 전통적 광고 형태는 암환우 커뮤니티에서 신뢰를 깎습니다. 치료 정보를 보다가 배너 광고를 만나는 경험은 커뮤니티의 성격 자체를 훼손합니다.</div>
+    </div>
+
+    <!-- 결론 테이블 -->
+    <div class="bm-sec-label" style="color:var(--blue);margin-bottom:12px;">광고 수익 형태별 비교</div>
+    <table class="ad-result-table">
+      <thead>
+        <tr>
+          <th>형태</th>
+          <th>연간 매출</th>
+          <th>리스크</th>
+          <th>추천</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>전통 배너/디스플레이 광고</td>
+          <td class="ad-num">₩0.5~1.8억</td>
+          <td style="color:var(--red);">높음 (커뮤니티 신뢰 훼손)</td>
+          <td class="ad-no">❌</td>
+        </tr>
+        <tr>
+          <td>콘텐츠 스폰서십 (기존)</td>
+          <td class="ad-num">₩1~3억</td>
+          <td style="color:var(--green);">낮음 (교육 콘텐츠 형태)</td>
+          <td class="ad-ok">✅ 이미 있음</td>
+        </tr>
+        <tr>
+          <td>검진기관·병원 정보 노출</td>
+          <td class="ad-num">₩0.5~1.2억</td>
+          <td style="color:var(--green);">낮음 (정보 제공 형태)</td>
+          <td class="ad-ok">✅ 추가 가능</td>
+        </tr>
+        <tr>
+          <td>환우 생활 서비스 연결 (CPA)</td>
+          <td class="ad-num">₩0.3~1억</td>
+          <td style="color:var(--green);">낮음 (실제 도움이 되면)</td>
+          <td class="ad-ok">✅ 추가 가능</td>
+        </tr>
+        <tr class="ad-total">
+          <td><strong>합계 (추천 형태만)</strong></td>
+          <td class="ad-num"><strong>₩1.8~5.2억</strong></td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 최종 결론 -->
+    <div class="ad-conclusion">
+      배너 광고로 연 1.8억 벌면서 <strong>"암환자한테 광고 보여주는 회사"</strong>라는 낙인이 찍히는 것보다, 콘텐츠 스폰서십 + 검진기관 노출 + 생활 서비스 연결로 <strong>비슷한 매출을 만들면서 신뢰를 유지</strong>하는 게 훨씬 낫습니다.<br><br>
+      암환우 커뮤니티에서 광고는 <strong>"보이지 않아야" 성공하는 광고</strong>입니다.
+    </div>
+  </section>
+
+  <!-- 08 수익화 타임라인 -->
   <section class="bm-section bm-reveal" id="bm-timeline">
     <p class="bm-sec-label" style="color:var(--green);">07 · 수익화 타임라인</p>
     <h2 class="bm-sec-title">4단계 수익화 로드맵</h2>
