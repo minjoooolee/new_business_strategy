@@ -910,9 +910,10 @@
         });
       });
       footer.innerHTML = `
-        <button class="ai-assist-btn ai-assist-btn--back" onclick="closeAiAssist()">취소</button>
+        <button class="ai-assist-btn ai-assist-btn--back" id="aiAssistCancel">취소</button>
         <button class="ai-assist-btn ai-assist-btn--next" ${!aiAssistState.purpose?'disabled':''} id="aiAssistNext">다음</button>
       `;
+      document.getElementById('aiAssistCancel').addEventListener('click', closeAiAssist);
       document.getElementById('aiAssistNext').addEventListener('click', () => {
         if (!aiAssistState.purpose) return;
         if (aiAssistState.purpose === 'etc') { aiAssistStep = 3; }
@@ -1121,10 +1122,31 @@
   const hamBtn = document.getElementById('hamBtn');
   if(hamBtn) hamBtn.addEventListener('click',()=>document.body.classList.toggle('drawer-open'));
 
-  // 의료진 모드 — 댓글 입력 placeholder 변경
+  // 의료진 모드 — 댓글 입력 영역 전환
   function applyPostDoctorMode(isDoctor) {
     var ci = document.getElementById('commentInput');
-    if (ci) ci.placeholder = isDoctor ? '전문 의료 지식을 바탕으로 답변해 주세요.' : '경험이나 응원의 말씀을 남겨주세요.';
+    var cb = document.getElementById('commentBtn');
+    if (isDoctor) {
+      if (ci) {
+        ci.placeholder = 'AI 비서가 답변 작성을 도와드립니다. 아래 버튼을 클릭하세요.';
+        ci.style.background = '#faf5ff';
+        ci.style.borderColor = '#d8b4fe';
+      }
+      if (cb) {
+        cb.innerHTML = '🤖 AI 비서와 답변 작성';
+        cb.style.background = 'linear-gradient(135deg,#7c3aed,#6E3FA3)';
+      }
+    } else {
+      if (ci) {
+        ci.placeholder = '경험이나 응원의 말씀을 남겨주세요.';
+        ci.style.background = '';
+        ci.style.borderColor = '';
+      }
+      if (cb) {
+        cb.textContent = '답변 남기기';
+        cb.style.background = '';
+      }
+    }
   }
   window.addEventListener('oncocare-login', function(e) {
     if (e.detail) applyPostDoctorMode(e.detail.role === '의료진');

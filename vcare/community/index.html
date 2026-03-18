@@ -880,7 +880,9 @@
     }, delay);
   });
 // ── 의료진 모드 전환 ──
+var isDoctorMode = false;
 function applyDoctorMode(isDoctor) {
+  isDoctorMode = isDoctor;
   var writeBtn = document.querySelector('.btn-write');
   var heroTitle = document.querySelector('.hero-title');
   var heroDesc = document.querySelector('.hero-desc');
@@ -888,21 +890,32 @@ function applyDoctorMode(isDoctor) {
 
   if (isDoctor) {
     if (writeBtn) {
-      writeBtn.innerHTML = '의료진 답변하기 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>';
-      writeBtn.style.background = '#7c3aed';
+      writeBtn.innerHTML = '🤖 답변할 게시글 선택 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>';
+      writeBtn.style.background = 'linear-gradient(135deg,#7c3aed,#6E3FA3)';
+      writeBtn.href = '#postList';
     }
     if (heroTitle) heroTitle.innerHTML = '따뜻한 <em>환우 광장</em>';
     if (heroDesc) heroDesc.innerHTML = '환우들의 질문에 전문 지식으로 답변하고,<br>AI 답변의 정확성을 검증해 주세요.';
-    if (heroNote) heroNote.innerHTML = '의료진 답변 대기 중인 질문이 <strong>8</strong>건 있습니다.';
+    if (heroNote) heroNote.innerHTML = '의료진 답변 대기 중인 질문이 <strong>8</strong>건 있습니다. 아래 게시글을 클릭하면 AI 비서가 답변 작성을 도와드립니다.';
   } else {
     if (writeBtn) {
       writeBtn.innerHTML = '기록/응원 남기기 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>';
       writeBtn.style.background = '';
+      writeBtn.href = '../write';
     }
     if (heroTitle) heroTitle.innerHTML = '따뜻한 <em>환우 광장</em>';
     if (heroDesc) heroDesc.innerHTML = '같은 길을 걷는 환우들과 경험을 나누고,<br>서로의 희망이 되어주세요.';
   }
 }
+
+// 의료진이 게시글 클릭 시 안내 토스트
+document.addEventListener('click', function(e) {
+  if (!isDoctorMode) return;
+  var card = e.target.closest('.post-card');
+  if (!card) return;
+  // 게시글 클릭 시 이미 post 상세로 이동하므로 추가 처리 불필요
+  // post 상세 페이지에서 AI 비서가 작동함
+});
 
 window.addEventListener('oncocare-login', function(e) {
   if (e.detail) applyDoctorMode(e.detail.role === '의료진');
