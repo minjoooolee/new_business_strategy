@@ -469,7 +469,7 @@
 
   const authorHtml = post.medical
     ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span> ${verifiedBadgeHtml}`
-    : `<span class="pd-author">${post.author} · ${post.role}</span>${post.expertAns > 0 ? ' ' + verifiedBadgeHtml : ''}`;
+    : `<span class="pd-author">${post.author} · ${post.role}</span>`;
 
   document.getElementById('postArea').innerHTML = `
     <!-- 상단 카드 -->
@@ -554,7 +554,6 @@
               <div class="comment-meta">
                 <span class="comment-author ${c.doctor ? 'comment-author--doctor' : ''}">${c.doctor ? '의료진 답변' : c.u}</span>
                 <span class="comment-role ${c.doctor ? 'comment-role--doctor' : ''}">${c.role}</span>
-                ${c.doctor ? '<span class="badge--verified">' + VERIFIED_SVG + ' 의료진 검증</span>' : ''}
                 <span class="comment-date">${dateStr}</span>
               </div>
               <p class="comment-text">${c.text}</p>
@@ -582,7 +581,8 @@
   const similar = findSimilar(post);
   document.getElementById('aiSimilar').innerHTML = `
     <div class="ai-similar-intro">
-      이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.
+      ${verifiedBadgeHtml}
+      <p style="margin-top:6px">이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.</p>
     </div>
     ${similar.map(s => `
       <a href="../post?id=${s.id}" class="ai-similar-card">
