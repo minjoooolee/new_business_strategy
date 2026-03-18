@@ -10812,6 +10812,235 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
     </div><!-- /GPU Cost Analysis -->
 
+    <hr class="bm-divider">
+
+    <!-- ===== Go/No-Go 섹션 ===== -->
+    <style>
+      #page-vcare-bm .gng-hero {
+        text-align: center;
+        padding: 60px 0 48px;
+      }
+      #page-vcare-bm .gng-hero-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #00e8b0;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .gng-hero-title {
+        font-size: 40px;
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        line-height: 1.15;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gng-hero-title .go {
+        color: #00e8b0;
+        text-shadow: 0 0 40px rgba(0,232,176,0.3);
+      }
+      #page-vcare-bm .gng-hero-title .no {
+        color: #ff6b6b;
+        text-shadow: 0 0 40px rgba(255,107,107,0.3);
+      }
+      #page-vcare-bm .gng-hero-title .sep {
+        color: rgba(255,255,255,0.3);
+        font-weight: 300;
+        margin: 0 8px;
+      }
+      #page-vcare-bm .gng-hero-desc {
+        font-size: 15px;
+        color: #8892a4;
+        line-height: 1.8;
+        max-width: 580px;
+        margin: 0 auto;
+      }
+      #page-vcare-bm .gng-section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f4f6ff;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #page-vcare-bm .gng-section-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 20px;
+        background: linear-gradient(180deg, #00e8b0, #5590ff);
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      #page-vcare-bm .gng-table-wrap {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gng-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      #page-vcare-bm .gng-table thead th {
+        background: rgba(0,232,176,0.07);
+        padding: 12px 18px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        color: #8892a4;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gng-table tbody td {
+        padding: 14px 18px;
+        color: #c8d4f0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        vertical-align: top;
+        line-height: 1.6;
+      }
+      #page-vcare-bm .gng-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      #page-vcare-bm .gng-table tbody tr:hover td {
+        background: rgba(0,232,176,0.03);
+      }
+      #page-vcare-bm .gng-table .gng-metric {
+        font-weight: 700;
+        color: #f4f6ff;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gng-table .gng-target {
+        color: #00e8b0;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gng-rule-box {
+        background: linear-gradient(135deg, rgba(0,232,176,0.07), rgba(85,144,255,0.05));
+        border: 1px solid rgba(0,232,176,0.2);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        color: #c8d4f0;
+        line-height: 1.8;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      #page-vcare-bm .gng-rule-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      #page-vcare-bm .gng-rule-box strong {
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gng-rule-box em {
+        font-style: normal;
+        color: #ff9f43;
+      }
+      #page-vcare-bm .gng-rule-box .gng-nogo {
+        color: #ff6b6b;
+      }
+      #page-vcare-bm .gng-insight {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-left: 3px solid #00e8b0;
+        border-radius: 0 12px 12px 0;
+        padding: 20px 24px;
+        font-size: 14px;
+        color: #c8d4f0;
+        line-height: 1.8;
+      }
+      #page-vcare-bm .gng-insight strong {
+        color: #f4f6ff;
+      }
+      @media (max-width: 640px) {
+        #page-vcare-bm .gng-hero-title { font-size: 28px; }
+        #page-vcare-bm .gng-table { font-size: 11.5px; }
+        #page-vcare-bm .gng-table thead th,
+        #page-vcare-bm .gng-table tbody td { padding: 10px 12px; }
+      }
+    </style>
+
+    <div class="bm-section">
+      <div class="bm-section-label">05 · Decision Framework</div>
+
+      <!-- Hero -->
+      <div class="gng-hero">
+        <div class="gng-hero-label">6-Month Milestone · Decision Gate</div>
+        <h2 class="gng-hero-title">
+          <span class="go">GO</span>
+          <span class="sep">or</span>
+          <span class="no">NO GO</span>
+          <span style="color:#f4f6ff;">?</span>
+        </h2>
+        <p class="gng-hero-desc">6개월차 Go/No-Go 기준 — 온코케어가 계속 앞으로 나아갈 것인지 판단하는 데이터 기반 기준표입니다.</p>
+      </div>
+
+      <!-- 판단 기준 테이블 -->
+      <h3 class="gng-section-title">6개월차 Go/No-Go 판단 기준</h3>
+      <div class="gng-table-wrap">
+        <table class="gng-table">
+          <thead>
+            <tr>
+              <th>지표</th>
+              <th>Go 기준</th>
+              <th>산출 근거</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="gng-metric">MAU</td>
+              <td class="gng-target">300명 이상</td>
+              <td>월 1회 이상 접속. 유방암 단독 기준</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">DAU</td>
+              <td class="gng-target">50~80명</td>
+              <td>MAU의 15~25%. 암환우 커뮤니티 특성상 매일 오지 않아도 정상 — 항암 주기(3주)에 맞춰 들어오는 패턴</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">코어 유저</td>
+              <td class="gng-target">15명 이상</td>
+              <td>주간 발화 5건+. PoC에서 콩가님·귀하의채널 등 5~10명이 이 역할을 했으므로, 앰배서더 3명 + 자발적 코어 12명이면 충분</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">자생 세션</td>
+              <td class="gng-target">주 3회 이상</td>
+              <td>운영자·앰배서더 없이 환우끼리 대화가 시작된 횟수. 매일일 필요 없고 주 3회면 커뮤니티가 살아있다는 신호</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">검사결과지 이용</td>
+              <td class="gng-target">월 30건 이상</td>
+              <td>MAU 300명 중 10%가 월 1회 이용</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 판정 규칙 -->
+      <div class="gng-rule-box">
+        <div class="gng-rule-icon">⚖️</div>
+        <div>
+          <strong>3개 중 2개 이상 충족 시 Go</strong> · <em>1개 이하면 3개월 연장 후 재판단</em> · <span class="gng-nogo">연장 후에도 미달이면 No-Go</span>
+        </div>
+      </div>
+
+      <!-- 핵심 인사이트 -->
+      <div class="gng-insight">
+        핵심은 암환우 커뮤니티에서 <strong>DAU보다 "코어 유저 수"와 "자생 세션"이 더 중요한 지표</strong>라는 점입니다.<br><br>
+        DAU 50명이어도 그중 15명이 매일 대화하고 신규 환우를 맞이하면 커뮤니티는 살아 있습니다.<br>
+        반대로 <strong>DAU 200명이어도 코어 유저가 0명이면 운영자가 떠나는 순간 죽습니다.</strong>
+      </div>
+
+    </div><!-- /Go No-Go -->
+
   </div>
 
   </div><!-- /page-vcare-bm -->
