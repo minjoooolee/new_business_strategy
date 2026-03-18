@@ -2720,9 +2720,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
             KPI 달성 현황
           </a>
-          <a href="#" onclick="navigatePinkcare('retrospective', event)" class="pinkcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            온코케어 제안서
+          <a href="#" onclick="navigatePinkcare('matrix', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            운영 회고
           </a>
           <div class="pinkcare-menu-divider"></div>
           <a href="#" onclick="navigatePinkcare('nextstep', event)" class="pinkcare-menu-item">
@@ -2742,6 +2742,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             핵심 기능
           </a>
+          <a href="#" onclick="navigateVcare('proposal', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            제안서
+          </a>
           <a href="#" onclick="navigateVcare('bm', event)" class="vcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             BM 모델
@@ -2753,19 +2757,6 @@
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/app/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
             모바일 앱
-          </a>
-          <div class="pinkcare-menu-divider"></div>
-          <a href="#" onclick="navigateVcare('bm', event)" class="vcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-            BM 모델
-          </a>
-          <a href="#" onclick="navigateVcare('proposal', event)" class="vcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            온코케어 제안서
-          </a>
-          <a href="https://minjoooolee.github.io/new_business_strategy/#admin" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="19" cy="8" r="3"/></svg>
-            관리자 페이지
           </a>
         </div>
       </div>
@@ -10953,6 +10944,8 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
     </div><!-- /Go No-Go -->
 
   </div><!-- /page-vcare-bm -->
+
+
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
 
@@ -12362,13 +12355,13 @@ function applyHash(hash) {
 
 
   // GNB active 처리
-  const pinkcarePages = ['pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep', 'pinkcare-retrospective'];
+  const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
-  } else if (page === 'vcare-features' || page === 'vcare-bm') {
+  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective') {
     const vcareBtn = document.getElementById('vcareBtn');
     if (vcareBtn) vcareBtn.classList.add('active');
   } else {
