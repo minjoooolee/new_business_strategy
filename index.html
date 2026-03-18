@@ -11414,8 +11414,138 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
         </table>
       </div>
 
+      <!-- 글로벌 비전 -->
+      <div style="margin-top:40px;">
+        <style>
+          #page-vcare-bm .global-box {
+            background: linear-gradient(135deg, rgba(61,127,255,0.08), rgba(0,232,176,0.06));
+            border: 1px solid rgba(61,127,255,0.3);
+            border-radius: 20px;
+            padding: 36px 40px;
+            position: relative;
+            overflow: hidden;
+          }
+          #page-vcare-bm .global-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #5590ff, #00e8b0);
+          }
+          #page-vcare-bm .global-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #5590ff;
+            margin-bottom: 16px;
+          }
+          #page-vcare-bm .global-title {
+            font-size: clamp(18px, 2.5vw, 26px);
+            font-weight: 900;
+            color: #f4f6ff;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+          }
+          #page-vcare-bm .global-title em {
+            font-style: normal;
+            background: linear-gradient(135deg, #5590ff, #00e8b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+          #page-vcare-bm .global-body {
+            font-size: 14px;
+            color: #b0bac9;
+            line-height: 1.95;
+            margin-bottom: 28px;
+          }
+          #page-vcare-bm .global-body strong { color: #f4f6ff; }
+          #page-vcare-bm .global-markets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+          }
+          #page-vcare-bm .global-market-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px 18px;
+            text-align: center;
+          }
+          #page-vcare-bm .gm-flag { font-size: 22px; margin-bottom: 8px; }
+          #page-vcare-bm .gm-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #f4f6ff;
+            margin-bottom: 4px;
+          }
+          #page-vcare-bm .gm-scale {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #00e8b0;
+            margin-bottom: 4px;
+          }
+          #page-vcare-bm .gm-std {
+            font-size: 10px;
+            color: #8892a4;
+          }
+          #page-vcare-bm .global-quote {
+            background: rgba(0,232,176,0.07);
+            border-left: 3px solid #00e8b0;
+            border-radius: 0 10px 10px 0;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-style: italic;
+            color: #f4f6ff;
+            line-height: 1.8;
+          }
+          @media(max-width:640px) {
+            #page-vcare-bm .global-markets { grid-template-columns: 1fr; }
+            #page-vcare-bm .global-box { padding: 24px 20px; }
+          }
+        </style>
+
+        <div class="global-box">
+          <div class="global-label">Phase 4 · Long-term Vision · 글로벌 확장</div>
+          <h3 class="global-title">지금 설계하는 아키텍처가<br><em>글로벌을 염두에 두고 있습니다</em></h3>
+          <p class="global-body">
+            온코케어를 <strong>FHIR 표준 기반</strong>으로 설계하는 이유는 한국 마이헬스웨이 연동만을 위한 게 아닙니다. FHIR는 미국·EU·일본이 모두 채택한 글로벌 표준이므로, <strong>한국에서 구축한 PHR 연동 아키텍처를 일본·미국에 그대로 복제할 수 있습니다.</strong> 한국에서 유방암·위암·대장암으로 검증한 모델을, 시장이 3~10배 큰 일본과 미국으로 확장하는 것이 장기 비전입니다.
+          </p>
+
+          <div class="global-markets">
+            <div class="global-market-card">
+              <div class="gm-flag">🇰🇷</div>
+              <div class="gm-name">한국 · 시작점</div>
+              <div class="gm-scale">기준 1×</div>
+              <div class="gm-std">마이헬스웨이 · FHIR R4</div>
+            </div>
+            <div class="global-market-card">
+              <div class="gm-flag">🇯🇵</div>
+              <div class="gm-name">일본 · 1차 확장</div>
+              <div class="gm-scale">시장 3~5×</div>
+              <div class="gm-std">FHIR 표준 채택 · 고령화 1위</div>
+            </div>
+            <div class="global-market-card">
+              <div class="gm-flag">🇺🇸</div>
+              <div class="gm-name">미국 · 최종 목표</div>
+              <div class="gm-scale">시장 8~10×</div>
+              <div class="gm-std">USCDI · FHIR R4 법제화</div>
+            </div>
+          </div>
+
+          <div class="global-quote">
+            "이건 한국 암환우 커뮤니티가 아니라, <strong>글로벌 의료 데이터 플랫폼의 시작점</strong>입니다."
+          </div>
+        </div>
+      </div>
+
       <!-- 우리 팀의 결론 -->
-      <div class="conclusion-box">
+      <div class="conclusion-box" style="margin-top:32px;">
         <div class="conclusion-label">Team Conclusion · 우리 팀의 결론</div>
         <div class="conclusion-title">우리 팀의 결론</div>
         <div class="conclusion-cards">
