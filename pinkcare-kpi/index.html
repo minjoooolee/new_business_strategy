@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pinkcare PoC · KPI Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c14;
@@ -92,7 +92,7 @@
   }
   .kpi-page-meta-val {
     font-size: 13px; font-weight: 600; color: var(--text-muted);
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
   }
   .ksec-header {
     display: flex; align-items: center; gap: 12px;
@@ -118,11 +118,11 @@
     font-size: 15px; font-weight: 700; color: var(--text);
   }
   .kprogress-pct.overachieved {
-    color: #00ffcc; font-size: 14px; font-weight: 900; letter-spacing: -0.5px;
+    color: #00ffcc; font-size: 14px; font-weight: 600; letter-spacing: -0.5px;
   }
   .koverflow-chip {
     display: inline-flex; align-items: center; gap: 3px;
-    font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 10px; font-weight: 500; font-family: 'Poppins', sans-serif;
     padding: 2px 8px; border-radius: 20px;
     background: rgba(255,60,80,0.15);
     border: 1px solid rgba(255,60,80,0.5); color: #ff4d5e;
@@ -135,6 +135,14 @@
     background: linear-gradient(90deg, var(--accent2), #00ffcc, #7fffef);
     box-shadow: 0 0 10px rgba(0,212,160,0.45);
   }
+  .kdelta {
+    display: inline-flex; align-items: center; gap: 2px;
+    font-size: 11px; font-weight: 500; font-family: 'Poppins', sans-serif;
+    margin-left: 8px; letter-spacing: -0.3px;
+  }
+  .kdelta.up { color: #00e5b0; }
+  .kdelta.down { color: #ff6b6b; }
+  .kdelta.flat { color: var(--text-dim); }
   .kloop-wrap {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 18px; padding: 26px; margin-bottom: 8px;
@@ -157,7 +165,7 @@
   }
   .kloop-card-label { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
   .kloop-card-val {
-    font-size: 36px; font-weight: 900; font-family: 'Space Mono', monospace; color: var(--text);
+    font-size: 36px; font-weight: 600; font-family: 'Poppins', sans-serif; color: var(--text);
     line-height: 1.1; letter-spacing: -1px;
   }
   .kloop-card.highlight .kloop-card-val { color: #c084fc; }
@@ -176,7 +184,7 @@
   .kloop-pct-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px; }
   .kloop-pct-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #c084fc); border-radius: 3px; }
   .kloop-pct-label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
-  .kloop-pct-val { font-size: 14px; font-weight: 800; font-family: 'Space Mono', monospace; color: #c084fc; }
+  .kloop-pct-val { font-size: 14px; font-weight: 500; font-family: 'Poppins', sans-serif; color: #c084fc; }
   .kkpi-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 14px; margin-bottom: 16px;
@@ -221,7 +229,7 @@
     margin-bottom: 16px; min-height: 34px;
   }
   .kkpi-value {
-    font-size: 36px; font-weight: 900; font-family: 'Space Mono', monospace;
+    font-size: 36px; font-weight: 600; font-family: 'Poppins', sans-serif;
     letter-spacing: -1px; margin-bottom: 14px; color: var(--text);
   }
   .kkpi-value.achieved { color: var(--accent2); }
@@ -242,7 +250,7 @@
     display: flex; justify-content: space-between; align-items: center;
   }
   .kprogress-pct {
-    font-size: 12px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 12px; font-weight: 500; font-family: 'Poppins', sans-serif;
   }
   .kprogress-pct.achieved { color: var(--accent2); }
   .kprogress-pct.failed   { color: var(--accent3); }
@@ -254,7 +262,7 @@
   .ksub-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
   .ksub-row { display: flex; align-items: center; gap: 7px; }
   .ksub-val {
-    font-size: 15px; font-weight: 700; font-family: 'Space Mono', monospace;
+    font-size: 15px; font-weight: 500; font-family: 'Poppins', sans-serif;
   }
   .ksub-val.achieved { color: var(--accent2); }
   .ksub-val.failed   { color: var(--accent3); }
@@ -275,7 +283,7 @@
     font-size: 10px; font-weight: 700; color: var(--text-muted); flex-shrink: 0;
   }
   .kfunnel-label { flex: 1; color: var(--text-muted); font-size: 11px; }
-  .kfunnel-val { color: var(--text); font-weight: 600; font-family: 'Space Mono', monospace; font-size: 11px; }
+  .kfunnel-val { color: var(--text); font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 11px; }
   .kfunnel-rate { color: var(--text-dim); font-size: 10px; }
   .kquality-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
   .kquality-item {
@@ -290,7 +298,7 @@
     font-size: 10px; padding: 2px 8px; border-radius: 6px;
     background: rgba(240,165,0,0.1); color: var(--accent4); font-weight: 600;
   }
-  .kquality-val { font-size: 11px; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+  .kquality-val { font-size: 11px; color: var(--text-dim); font-family: 'Poppins', sans-serif; }
   .kchannel-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 16px; padding: 20px 22px; margin-bottom: 16px;
@@ -333,8 +341,8 @@
   .kseg-label { font-size: 12px; font-weight: 600; }
   .kseg-label.core { color: var(--accent2); }
   .kseg-label.light { color: var(--accent); }
-  .kseg-pct { font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; }
-  .kseg-count { font-size: 13px; font-weight: 700; font-family: 'Space Mono', monospace; }
+  .kseg-pct { font-size: 11px; font-weight: 500; font-family: 'Poppins', sans-serif; }
+  .kseg-count { font-size: 13px; font-weight: 500; font-family: 'Poppins', sans-serif; }
   .kseg-count.core { color: var(--accent2); }
   .kseg-count.light { color: var(--accent); }
   .ksegment-bar-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -353,12 +361,12 @@
   .ksegment-card.light { background: rgba(61,127,255,0.07); border: 1px solid rgba(61,127,255,0.18); }
   .ksegment-card.core  { background: rgba(0,212,160,0.07); border: 1px solid rgba(0,212,160,0.18); }
   .ksegment-card-label { font-size: 11px; color: var(--text-muted); font-weight: 600; width: 72px; flex-shrink: 0; }
-  .ksegment-card-val { font-size: 20px; font-weight: 900; font-family: 'Space Mono', monospace; flex: 1; }
+  .ksegment-card-val { font-size: 20px; font-weight: 600; font-family: 'Poppins', sans-serif; flex: 1; }
   .ksegment-card.total .ksegment-card-val { color: var(--text); }
   .ksegment-card.light .ksegment-card-val { color: var(--accent); }
   .ksegment-card.core  .ksegment-card-val { color: var(--accent2); }
   .ksegment-card-unit { font-size: 12px; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
-  .ksegment-card-crit { font-size: 10px; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+  .ksegment-card-crit { font-size: 10px; color: var(--text-dim); font-family: 'Poppins', sans-serif; }
   .kcore-table-wrap { border-top: 1px solid var(--border); padding-top: 20px; }
   .kcore-table-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
   .kcore-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -384,7 +392,7 @@
   .krole-tag { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
   .krole-tag.patient  { background: rgba(61,127,255,0.1); color: var(--accent); }
   .krole-tag.caregiver{ background: rgba(240,165,0,0.1); color: var(--accent4); }
-  .kmsg-val { font-family: 'Space Mono', monospace; font-weight: 700; color: var(--text); font-size: 13px; }
+  .kmsg-val { font-family: 'Poppins', sans-serif; font-weight: 500; color: var(--text); font-size: 13px; }
   .kalign-right { text-align: right; }
   .ksec-divider { height: 1px; background: linear-gradient(90deg, var(--border), transparent); margin: 44px 0; }
   .kdoc-footer {
@@ -423,7 +431,8 @@
     </div>
     <div class="kpi-page-meta">
       <div class="kpi-page-meta-label">Last Updated</div>
-      <div class="kpi-page-meta-val">2026.03.11 18:00</div>
+      <div class="kpi-page-meta-val">2026.03.17 19:07</div>
+      <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">3/16 전체 + 3/17 오후 6:29까지 통합</div>
     </div>
   </div>
   <!-- PRIMARY KPI -->
@@ -440,7 +449,7 @@
       </div>
       <div class="kkpi-name">핑크케어 유입</div>
       <div class="kkpi-note">SEO 마케팅 의도적 미실시 — 자연 유입·환우 네트워크 중심<br>채널별 전환율 추적 필수 (UTM / 전용 링크 기반)</div>
-      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -458,12 +467,12 @@
       </div>
       <div class="kkpi-name">오픈채팅 참여자 수</div>
       <div class="kkpi-note">액티브 사용자 기준 5배 규모 목표</div>
-      <div class="kkpi-value achieved">57<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">145<span class="kkpi-unit">명</span><span class="kdelta up">+13</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
-          <span class="kprogress-pct overachieved">285%</span>
-          <span class="koverflow-chip">+37명 초과</span>
+          <span class="kprogress-pct overachieved">725%</span>
+          <span class="koverflow-chip">+125명 초과</span>
           <span class="kprogress-goal">목표 20명</span>
         </div>
       </div>
@@ -476,12 +485,12 @@
       </div>
       <div class="kkpi-name">오픈채팅 메시지 수</div>
       <div class="kkpi-note">질문–경험 공유–답변 루프 형성 최소 규모<br>발신자 3명+ &amp; 질문-답변 쌍 10건+</div>
-      <div class="kkpi-value achieved">433<span class="kkpi-unit">건</span></div>
+      <div class="kkpi-value achieved">1,327<span class="kkpi-unit">건</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
-          <span class="kprogress-pct overachieved">866%</span>
-          <span class="koverflow-chip">+383건 초과</span>
+          <span class="kprogress-pct overachieved">2654%</span>
+          <span class="koverflow-chip">+1,277건 초과</span>
           <span class="kprogress-goal">목표 50건</span>
         </div>
       </div>
@@ -489,15 +498,15 @@
         <div>
           <div class="ksub-label">발신자 수</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">48명</div>
+            <div class="ksub-val achieved">333명</div>
             <div class="ksub-goal">목표 3명 이상</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
         </div>
         <div>
-          <div class="ksub-label">질문-답변 쌍</div>
+          <div class="ksub-label">질문-답변 쌍 (3/16~17 기간)</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">22건</div>
+            <div class="ksub-val achieved">27건</div>
             <div class="ksub-goal">목표 10건 이상</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
@@ -512,12 +521,12 @@
       </div>
       <div class="kkpi-name">오픈채팅 액티브 사용자</div>
       <div class="kkpi-note">초기 커뮤니티 대화 루프 형성: 3–5명 Active user 필요</div>
-      <div class="kkpi-value achieved">46<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">333<span class="kkpi-unit">명</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
-          <span class="kprogress-pct overachieved">1150%</span>
-          <span class="koverflow-chip">+42명 초과</span>
+          <span class="kprogress-pct overachieved">8325%</span>
+          <span class="koverflow-chip">+329명 초과</span>
           <span class="kprogress-goal">목표 4명</span>
         </div>
       </div>
@@ -525,16 +534,16 @@
         <div>
           <div class="ksub-label">라이트 유저 — 메시지 1~4건</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">35명</div>
-            <div class="ksub-goal">전체의 76%</div>
+            <div class="ksub-val achieved">306명</div>
+            <div class="ksub-goal">전체의 92%</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
         </div>
         <div>
           <div class="ksub-label">코어 유저 — 메시지 5건+</div>
           <div class="ksub-row">
-            <div class="ksub-val achieved">11명</div>
-            <div class="ksub-goal">전체의 24%</div>
+            <div class="ksub-val achieved">27명</div>
+            <div class="ksub-goal">전체의 8%</div>
             <div class="ksub-badge achieved">달성</div>
           </div>
         </div>
@@ -578,102 +587,119 @@
     <div class="ksegment-summary">
       <div>
         <div class="ksegment-bar-label-row">
-          <span class="kseg-label core">코어 유저 <span class="kseg-pct">24%</span></span>
-          <span class="kseg-count core">11명</span>
+          <span class="kseg-label core">코어 유저 <span class="kseg-pct">8%</span></span>
+          <span class="kseg-count core">27명</span>
         </div>
         <div class="ksegment-track">
-          <div class="ksegment-fill core" style="width:24%"></div>
-          <div class="ksegment-fill light" style="width:76%"></div>
+          <div class="ksegment-fill core" style="width:8%"></div>
+          <div class="ksegment-fill light" style="width:92%"></div>
         </div>
         <div class="ksegment-bar-label-row" style="margin-top:4px;">
-          <span class="kseg-label light">라이트 유저 <span class="kseg-pct">76%</span></span>
-          <span class="kseg-count light">35명</span>
+          <span class="kseg-label light">라이트 유저 <span class="kseg-pct">92%</span></span>
+          <span class="kseg-count light">306명</span>
         </div>
       </div>
       <div class="ksegment-cards">
         <div class="ksegment-card total">
           <div class="ksegment-card-label">전체 액티브</div>
-          <div class="ksegment-card-val">46<span class="ksegment-card-unit">명</span></div>
+          <div class="ksegment-card-val">333<span class="ksegment-card-unit">명</span></div>
           <div class="ksegment-card-crit">메시지 1건 이상</div>
         </div>
         <div class="ksegment-card light">
           <div class="ksegment-card-label">라이트 유저</div>
-          <div class="ksegment-card-val">35<span class="ksegment-card-unit">명</span></div>
-          <div class="ksegment-card-crit">메시지 1~4건 · 76%</div>
+          <div class="ksegment-card-val">306<span class="ksegment-card-unit">명</span></div>
+          <div class="ksegment-card-crit">메시지 1~4건 · 92%</div>
         </div>
         <div class="ksegment-card core">
           <div class="ksegment-card-label">코어 유저</div>
-          <div class="ksegment-card-val">11<span class="ksegment-card-unit">명</span></div>
-          <div class="ksegment-card-crit">메시지 5건+ · 24%</div>
+          <div class="ksegment-card-val">27<span class="ksegment-card-unit">명</span></div>
+          <div class="ksegment-card-crit">메시지 5건+ · 8%</div>
         </div>
       </div>
     </div>
-    <!-- 코어 유저 9명 상세 -->
+    <!-- 누적 발신 수 TOP 10 -->
     <div class="kcore-table-wrap">
-      <div class="kcore-table-title">🔥 코어 유저 11명 상세</div>
+      <div class="kcore-table-title">🔥 누적 발신 수 TOP 10 (2/27~3/17)</div>
       <table class="kcore-table">
         <thead>
           <tr>
+            <th>순위</th>
             <th>닉네임</th>
             <th>구분</th>
             <th>역할</th>
-            <th class="kalign-right">메시지 수</th>
+            <th class="kalign-right">누적 발신 수</th>
           </tr>
         </thead>
         <tbody>
           <tr class="top1">
+            <td>1</td>
             <td class="knickname">콩가</td>
             <td><span class="kstage-tag">4기</span></td>
             <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">75건</td>
+            <td class="kalign-right kmsg-val">163건</td>
           </tr>
           <tr>
+            <td>2</td>
             <td class="knickname">귀하의채널</td>
             <td><span class="kstage-tag">3기</span></td>
             <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">31건</td>
+            <td class="kalign-right kmsg-val">63건</td>
           </tr>
           <tr>
+            <td>3</td>
+            <td class="knickname">말년복</td>
+            <td><span class="kstage-tag">수술준비중</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">59건</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="knickname">율</td>
+            <td><span class="kstage-tag">삼음2기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">37건</td>
+          </tr>
+          <tr>
+            <td>5 <span class="knew-tag">NEW</span></td>
+            <td class="knickname">찌니</td>
+            <td><span class="kstage-tag">4기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">28건</td>
+          </tr>
+          <tr>
+            <td>6 ▲</td>
+            <td class="knickname">아두리</td>
+            <td><span class="kstage-tag">4기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">27건</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td class="knickname">사라. 제자리.</td>
+            <td><span class="kstage-tag">—</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">27건</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td class="knickname">에이아이트릭스 의료진</td>
+            <td><span class="kstage-tag">—</span></td>
+            <td><span class="krole-tag" style="background:rgba(168,85,247,0.1);color:#c084fc;">의료진</span></td>
+            <td class="kalign-right kmsg-val">26건</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td class="knickname">보리</td>
+            <td><span class="kstage-tag">양측제자리</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">25건</td>
+          </tr>
+          <tr>
+            <td>10 <span class="knew-tag">NEW</span></td>
             <td class="knickname">볼 찌르는 라이언</td>
             <td><span class="kstage-tag transfer">전이4기</span></td>
             <td><span class="krole-tag caregiver">보호자</span></td>
             <td class="kalign-right kmsg-val">24건</td>
-          </tr>
-          <tr>
-            <td class="knickname">아리코코</td>
-            <td><span class="kstage-tag">4기</span></td>
-            <td><span class="krole-tag caregiver">보호자</span></td>
-            <td class="kalign-right kmsg-val">15건</td>
-          </tr>
-          <tr>
-            <td class="knickname">길이</td>
-            <td><span class="kstage-tag">홀몬양성2기</span></td>
-            <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">10건</td>
-          </tr>
-          <tr>
-            <td class="knickname">극단적생존자</td>
-            <td><span class="kstage-tag transfer">전이4기</span></td>
-            <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">10건</td>
-          </tr>
-          <tr>
-            <td class="knickname">완성</td>
-            <td><span class="kstage-tag">1기예상</span></td>
-            <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">8건</td>
-          </tr>
-          <tr>
-            <td class="knickname">희망</td>
-            <td><span class="kstage-tag">수술예정</span></td>
-            <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">8건</td>
-          </tr>
-          <tr>
-            <td class="knickname">비타민</td>
-            <td><span class="kstage-tag">2기</span></td>
-            <td><span class="krole-tag patient">환우</span></td>
-            <td class="kalign-right kmsg-val">5건</td>
           </tr>
         </tbody>
       </table>
@@ -694,7 +720,7 @@
       </div>
       <div class="kkpi-name">핑크케어 유입</div>
       <div class="kkpi-note">Secondary KPI 기준 유입 수</div>
-      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
       <div class="kkpi-progress">
         <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
         <div class="kprogress-labels">
@@ -705,18 +731,18 @@
       </div>
     </div>
     <!-- 전환 -->
-    <div class="kkpi-card failed" style="animation-delay:0.1s">
+    <div class="kkpi-card measuring" style="animation-delay:0.1s">
       <div class="kkpi-top">
         <div class="kkpi-category">전환</div>
-        <div class="kkpi-badge failed">미달성</div>
+        <div class="kkpi-badge measuring">90%</div>
       </div>
       <div class="kkpi-name">검사기록 업로드</div>
       <div class="kkpi-note">전체 유입 기준 10% 목표<br>오픈채팅 참여자 기준 전환율 별도 추적</div>
-      <div class="kkpi-value failed">6<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-value achieved">9<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
       <div class="kkpi-progress">
-        <div class="kprogress-track"><div class="kprogress-fill failed" style="width:60%"></div></div>
+        <div class="kprogress-track"><div class="kprogress-fill" style="width:90%;background:var(--accent4)"></div></div>
         <div class="kprogress-labels">
-          <span class="kprogress-pct failed">60%</span>
+          <span class="kprogress-pct" style="color:var(--accent4);">90%</span>
           <span class="kprogress-goal">목표 10명</span>
         </div>
       </div>
@@ -730,8 +756,8 @@
         <div class="kfunnel-row">
           <div class="kfunnel-num">②</div>
           <div class="kfunnel-label">결과지 업로드</div>
-          <div class="kfunnel-val">6명</div>
-          <div class="kfunnel-rate">3.7%</div>
+          <div class="kfunnel-val">9명</div>
+          <div class="kfunnel-rate">5.6%</div>
         </div>
         <div class="kfunnel-row">
           <div class="kfunnel-num">③</div>
@@ -808,36 +834,213 @@
     <div class="kloop-cards">
       <div class="kloop-card">
         <div class="kloop-card-label">전체 루프 형성 대화쌍</div>
-        <div class="kloop-card-val">47</div>
+        <div class="kloop-card-val">83</div>
         <div class="kloop-card-unit">쌍</div>
       </div>
       <div class="kloop-card highlight">
         <div class="kloop-card-label">환우·보호자끼리만 루프</div>
-        <div class="kloop-card-val">16</div>
+        <div class="kloop-card-val">55</div>
         <div class="kloop-card-unit">쌍</div>
       </div>
     </div>
-    <div class="kloop-insight">
-      <div class="kloop-insight-title">
-        <span>💬</span>
-        <span>해석</span>
+    <!-- 3/16~3/17 발화량 분석 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+        <span>📊</span> 3/16~3/17 통합 발화량 분석
       </div>
-      <div class="kloop-insight-body">
-        대화 루프는 생각보다 훨씬 활발합니다. 환우끼리만 <b>16개 세션</b>이 자생적으로 형성됐고,
-        특히 오후 3시대에 4명이 참여하는 <b>9턴짜리 대화가 두 세션 연달아</b> 발생했습니다.<br>
-        주제도 단순 인사가 아닌 <b>항암 부작용, 조직검사, 치료 경험</b> 등 실질적인 정보 교환이 중심입니다.
-        KPI 3 관점에서 대화 루프는 <b>충분히 형성되고 있다</b>고 볼 수 있습니다.
-        <div class="kloop-pct-row">
-          <div class="kloop-pct-bar-wrap">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span class="kloop-pct-label">환우·보호자 자체 루프 비율</span>
-              <span class="kloop-pct-val">34%</span>
-            </div>
-            <div class="kloop-pct-track">
-              <div class="kloop-pct-fill" style="width:34%"></div>
-            </div>
-          </div>
+      <div style="font-size:12px;color:var(--accent4);font-weight:700;margin-bottom:14px;">운영자 개입 지속 — 정보글 드라이브 구간 유지</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+        <div style="background:var(--surface);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">운영자</div>
+          <div style="font-size:22px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--text);">35<span style="font-size:11px;font-weight:400;font-family:'Noto Sans KR',sans-serif;color:var(--text-muted);margin-left:2px;">건</span></div>
+          <div style="font-size:11px;font-weight:500;font-family:'Poppins',sans-serif;color:var(--accent4);margin-top:2px;">18.0% → 유지</div>
         </div>
+        <div style="background:rgba(0,212,160,0.07);border:1px solid rgba(0,212,160,0.18);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:10px;color:var(--accent2);margin-bottom:6px;font-weight:600;">환우·보호자</div>
+          <div style="font-size:22px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--accent2);">157<span style="font-size:11px;font-weight:400;font-family:'Noto Sans KR',sans-serif;color:var(--text-muted);margin-left:2px;">건</span></div>
+          <div style="font-size:11px;font-weight:500;font-family:'Poppins',sans-serif;color:var(--accent2);margin-top:2px;">80.9% ▼ 소폭</div>
+        </div>
+        <div style="background:var(--surface);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">의료진</div>
+          <div style="font-size:22px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--text);">2<span style="font-size:11px;font-weight:400;font-family:'Noto Sans KR',sans-serif;color:var(--text-muted);margin-left:2px;">건</span></div>
+          <div style="font-size:11px;font-weight:500;font-family:'Poppins',sans-serif;color:var(--text-dim);margin-top:2px;">1.0% →</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        이전 구간(3/15~16)과 마찬가지로 운영자가 <b style="color:var(--text);">평균 90자의 정보글을 35건 투하</b>하며 18% 비중을 유지하고 있습니다.
+        환우 발화 80.9%는 <b style="color:var(--accent2);">여전히 압도적</b>이나 PoC 최고치(89.9%) 대비 소폭 낮아진 상태입니다.
+      </div>
+    </div>
+    <!-- 시간대별 발화 분포 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+        <span>⏰</span> 시간대별 발화 분포
+      </div>
+      <!-- 테이블 형태 -->
+      <table class="kcore-table" style="margin-bottom:14px;">
+        <thead>
+          <tr>
+            <th>시간</th>
+            <th class="kalign-right">3/16</th>
+            <th class="kalign-right">3/17</th>
+            <th class="kalign-right">합계</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8시</td>
+            <td class="kalign-right kmsg-val">6</td>
+            <td class="kalign-right kmsg-val">4</td>
+            <td class="kalign-right kmsg-val">10건</td>
+          </tr>
+          <tr>
+            <td>11시</td>
+            <td class="kalign-right kmsg-val">24</td>
+            <td class="kalign-right kmsg-val">3</td>
+            <td class="kalign-right kmsg-val">27건</td>
+          </tr>
+          <tr>
+            <td>14시</td>
+            <td class="kalign-right kmsg-val">28</td>
+            <td class="kalign-right kmsg-val">2</td>
+            <td class="kalign-right kmsg-val">30건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 3/16 피크</td>
+          </tr>
+          <tr style="background:rgba(255,110,180,0.06);">
+            <td>15시</td>
+            <td class="kalign-right kmsg-val" style="color:#ff6eb4;">21</td>
+            <td class="kalign-right kmsg-val" style="color:#ff6eb4;">11</td>
+            <td class="kalign-right kmsg-val" style="color:#ff6eb4;">32건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 최고 피크</td>
+          </tr>
+          <tr>
+            <td>18시</td>
+            <td class="kalign-right kmsg-val">11</td>
+            <td class="kalign-right kmsg-val">0</td>
+            <td class="kalign-right kmsg-val">11건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 3/17 저녁 활동</td>
+          </tr>
+          <tr>
+            <td>21시</td>
+            <td class="kalign-right kmsg-val">20</td>
+            <td class="kalign-right kmsg-val">0</td>
+            <td class="kalign-right kmsg-val">20건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 3/16 야간 활동</td>
+          </tr>
+          <tr>
+            <td>22시</td>
+            <td class="kalign-right kmsg-val">10</td>
+            <td class="kalign-right kmsg-val">0</td>
+            <td class="kalign-right kmsg-val">10건</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        오후 3시(32건)가 이 구간 최고 피크로, <b style="color:var(--text);">오후 2~3시 집중 패턴이 3일 연속 반복</b>되고 있습니다.
+        3/16 오후 9시 야간 활동(20건)도 <b style="color:var(--accent2);">주목할 만</b>합니다.
+      </div>
+    </div>
+    <!-- 발신자별 질 vs 양 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+        <span>✍️</span> 발신자별 질 vs 양
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px;">콩가 23건·87자로 운영자 다음 최장 발화, 찌니 당일 코어 진입</div>
+      <table class="kcore-table" style="margin-bottom:14px;">
+        <thead>
+          <tr>
+            <th>발신자</th>
+            <th class="kalign-right">건수</th>
+            <th class="kalign-right">평균 글자수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="knickname">운영자</td>
+            <td class="kalign-right kmsg-val">35건</td>
+            <td class="kalign-right kmsg-val">90자</td>
+          </tr>
+          <tr>
+            <td class="knickname">콩가 <span class="kstage-tag">4기</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">23건</td>
+            <td class="kalign-right kmsg-val">87자</td>
+          </tr>
+          <tr>
+            <td class="knickname">율 <span class="kstage-tag">삼음2기</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">15건</td>
+            <td class="kalign-right kmsg-val">34자</td>
+          </tr>
+          <tr>
+            <td class="knickname">말년복 <span class="kstage-tag">수술준비중</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">10건</td>
+            <td class="kalign-right kmsg-val">49자</td>
+          </tr>
+          <tr>
+            <td class="knickname">보리 <span class="kstage-tag">양측제자리</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">10건</td>
+            <td class="kalign-right kmsg-val">74자</td>
+          </tr>
+          <tr>
+            <td class="knickname">찌니 <span class="kstage-tag">4기</span> <span class="krole-tag patient">환우</span> <span class="knew-tag">NEW</span></td>
+            <td class="kalign-right kmsg-val">8건</td>
+            <td class="kalign-right kmsg-val">8자</td>
+          </tr>
+          <tr>
+            <td class="knickname">Moonview <span class="kstage-tag">2기</span> <span class="krole-tag patient">환우</span> <span class="knew-tag">NEW</span></td>
+            <td class="kalign-right kmsg-val">6건</td>
+            <td class="kalign-right kmsg-val">18자</td>
+          </tr>
+          <tr>
+            <td class="knickname">KJH <span class="kstage-tag">삼중음성3기</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">5건</td>
+            <td class="kalign-right kmsg-val">22자</td>
+          </tr>
+          <tr>
+            <td class="knickname">사라. 제자리. <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">4건</td>
+            <td class="kalign-right kmsg-val">41자</td>
+          </tr>
+          <tr>
+            <td class="knickname">타이거 <span class="kstage-tag">홀몬2기</span> <span class="krole-tag patient">환우</span> <span class="knew-tag">NEW</span></td>
+            <td class="kalign-right kmsg-val">4건</td>
+            <td class="kalign-right kmsg-val">40자</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        콩가가 이 구간 23건·평균 87자로 <b style="color:var(--text);">운영자 다음으로 가장 긴 발화</b>를 기록했습니다.
+        찌니가 처음 등장해 8건으로 즉시 누적 5위에 진입하는 <b style="color:var(--accent2);">또 한 번의 당일 코어 패턴</b>이 나타났습니다.
+      </div>
+    </div>
+    <!-- 세션 유형 분포 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+        <span>📋</span> 세션 유형 분포 (3/16+3/17 통합)
+      </div>
+      <div style="font-size:12px;color:var(--accent2);font-weight:700;margin-bottom:14px;">환우 자생 세션 31% → 35% 소폭 회복</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:140px;font-size:12px;color:var(--text-muted);font-weight:600;">👤 운영자 포함</span>
+          <div style="flex:1;height:16px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:65%;height:100%;background:var(--accent);border-radius:4px;"></div></div>
+          <span style="width:70px;font-family:'Poppins',sans-serif;font-weight:700;color:var(--text-muted);text-align:right;font-size:13px;">11개 65%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:140px;font-size:12px;color:var(--text-muted);font-weight:600;">🌱 환우 자생</span>
+          <div style="flex:1;height:16px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:35%;height:100%;background:linear-gradient(90deg,var(--accent2),#00ffcc);border-radius:4px;"></div></div>
+          <span style="width:70px;font-family:'Poppins',sans-serif;font-weight:700;color:var(--accent2);text-align:right;font-size:13px;">6개 35%</span>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        이전 구간 대비 환우 자생 세션이 31% → 35%로 <b style="color:var(--accent2);">소폭 회복</b>됐습니다.
+        운영자 개입이 많은 구간임에도 <b style="color:var(--text);">환우 자생 세션이 꾸준히 유지</b>되고 있다는 점이 긍정적입니다.
       </div>
     </div>
   </div>
@@ -848,7 +1051,7 @@
     </div>
     <div class="kdoc-footer-right">
       Internal · 2026<br>
-      Last Updated 2026.03.11
+      Last Updated 2026.03.17
     </div>
   </div>
 </div>

@@ -547,6 +547,62 @@
 .badge--case    { background: #ecfdf5; color: #059669; }
 .badge--cheer   { background: #fdf2f8; color: #E24585; }
 .badge--news    { background: linear-gradient(135deg, #ecfdf5, #f0e8f7); color: #0d9488; border: 1px solid #ccfbf1; }
+.badge--notice  { background: linear-gradient(135deg, #e0f2fe, #ede9fe); color: #4f46e5; border: 1px solid #c7d2fe; letter-spacing: .03em; }
+
+/* ── 공지 게시글 ─────────────────────────── */
+.post-detail-card--notice {
+  background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 2px solid transparent;
+}
+
+/* ── 공지 이미지 ──────────────────────────── */
+.notice-img-block {
+  margin: 28px 0;
+}
+.notice-img-block img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 480px;
+  display: block;
+}
+.notice-img-caption {
+  font-size: .8rem;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ── 공지 본문 섹션 ────────────────────────── */
+.notice-body-section {
+  margin: 20px 0;
+  padding: 18px 20px;
+  background: #f9fafb;
+  border-left: 3px solid #6E3FA3;
+  border-radius: 0 8px 8px 0;
+}
+.notice-body-section h3 {
+  font-size: .98rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 8px;
+}
+.notice-body-section p {
+  font-size: .93rem;
+  color: #4b5563;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── 공지 해시태그 ─────────────────────────── */
+.notice-hashtags {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
 
 /* ── 메디컬팀 게시글 ─────────────────────── */
 .post-detail-card--medical {
