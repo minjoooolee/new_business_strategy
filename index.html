@@ -2744,7 +2744,7 @@
           </a>
           <a href="#" onclick="navigateVcare('bm', event)" class="vcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            BM 모델
+            BM&amp;결론
           </a>
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -9874,7 +9874,7 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   <div id="bm-progress"></div>
 
   <nav class="bm-nav">
-    <div class="bm-nav-logo">온코케어 · BM 모델</div>
+    <div class="bm-nav-logo">온코케어 · BM&amp;결론</div>
     <ul class="bm-nav-links">
       <li><a href="#bm-principle">수익화 원칙</a></li>
       <li><a href="#bm-structure">수익 구조</a></li>
@@ -11067,6 +11067,487 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
       </div>
 
     </div><!-- /Go No-Go -->
+
+    <hr class="bm-divider">
+
+    <!-- ===== PHR 연동 수익 모델 섹션 ===== -->
+    <style>
+      #page-vcare-bm .phr-hero {
+        text-align: center;
+        padding: 64px 0 48px;
+      }
+      #page-vcare-bm .phr-hero-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #00e8b0;
+        margin-bottom: 18px;
+      }
+      #page-vcare-bm .phr-hero-title {
+        font-size: clamp(26px, 4vw, 44px);
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        line-height: 1.18;
+        margin-bottom: 20px;
+        color: #f4f6ff;
+        background: linear-gradient(135deg, #f4f6ff 60%, #00e8b0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      #page-vcare-bm .phr-hero-desc {
+        font-size: 15px;
+        color: #8892a4;
+        line-height: 1.85;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      #page-vcare-bm .phr-section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f4f6ff;
+        margin: 40px 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #page-vcare-bm .phr-section-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 20px;
+        background: linear-gradient(180deg, #00e8b0, #5590ff);
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      #page-vcare-bm .phr-table-wrap {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 28px;
+      }
+      #page-vcare-bm .phr-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      #page-vcare-bm .phr-table thead th {
+        padding: 13px 18px;
+        background: rgba(255,255,255,0.05);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #8892a4;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      #page-vcare-bm .phr-table tbody td {
+        padding: 13px 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        color: #b0bac9;
+        vertical-align: top;
+        line-height: 1.7;
+      }
+      #page-vcare-bm .phr-table tbody td:first-child {
+        font-weight: 700;
+        color: #f4f6ff;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .phr-table tbody tr:last-child td { border-bottom: none; }
+      #page-vcare-bm .phr-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+      #page-vcare-bm .phr-table .phr-now { color: #8892a4; }
+      #page-vcare-bm .phr-table .phr-after { color: #00e8b0; font-weight: 600; }
+      #page-vcare-bm .phr-table .phr-hi { color: #00e8b0; font-family: 'Poppins', sans-serif; font-weight: 700; }
+      #page-vcare-bm .phr-table .phr-total td { background: rgba(0,232,176,0.06); font-weight: 700; color: #f4f6ff; }
+      #page-vcare-bm .phr-body-text {
+        font-size: 14px;
+        color: #8892a4;
+        line-height: 1.9;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .phr-body-text strong { color: #f4f6ff; }
+      #page-vcare-bm .phr-body-text em { color: #00e8b0; font-style: normal; font-weight: 700; }
+      #page-vcare-bm .phr-num-head {
+        font-size: 16px;
+        font-weight: 800;
+        color: #f4f6ff;
+        margin: 32px 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #page-vcare-bm .phr-num-badge {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #00e8b0, #5590ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 900;
+        color: #0d1117;
+        flex-shrink: 0;
+      }
+      #page-vcare-bm .phr-callout {
+        background: rgba(0,232,176,0.07);
+        border: 1px solid rgba(0,232,176,0.2);
+        border-radius: 12px;
+        padding: 18px 22px;
+        font-size: 14px;
+        color: #b0bac9;
+        line-height: 1.85;
+        margin: 18px 0 28px;
+      }
+      #page-vcare-bm .phr-callout strong { color: #00e8b0; }
+      #page-vcare-bm .phr-new-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 20px 0 32px;
+      }
+      #page-vcare-bm .phr-new-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      #page-vcare-bm .phr-new-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #00e8b0, #5590ff);
+      }
+      #page-vcare-bm .phr-new-icon {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      #page-vcare-bm .phr-new-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: #f4f6ff;
+        margin-bottom: 8px;
+      }
+      #page-vcare-bm .phr-new-price {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: #00e8b0;
+        margin-bottom: 8px;
+      }
+      #page-vcare-bm .phr-new-desc {
+        font-size: 12px;
+        color: #8892a4;
+        line-height: 1.7;
+      }
+      /* 우리 팀의 결론 */
+      #page-vcare-bm .conclusion-box {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 40px 36px;
+        margin-top: 40px;
+        text-align: center;
+      }
+      #page-vcare-bm .conclusion-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #8892a4;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .conclusion-title {
+        font-size: 24px;
+        font-weight: 900;
+        color: #f4f6ff;
+        margin-bottom: 32px;
+        letter-spacing: -0.5px;
+      }
+      #page-vcare-bm .conclusion-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        text-align: left;
+      }
+      #page-vcare-bm .conclusion-card {
+        border-radius: 16px;
+        padding: 24px 26px;
+      }
+      #page-vcare-bm .conclusion-card.go-card {
+        background: rgba(0,232,176,0.08);
+        border: 1.5px solid rgba(0,232,176,0.35);
+      }
+      #page-vcare-bm .conclusion-card.nogo-card {
+        background: rgba(255,107,107,0.08);
+        border: 1.5px solid rgba(255,107,107,0.3);
+      }
+      #page-vcare-bm .conclusion-verdict {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .conclusion-card.go-card .conclusion-verdict { color: #00e8b0; text-shadow: 0 0 30px rgba(0,232,176,0.3); }
+      #page-vcare-bm .conclusion-card.nogo-card .conclusion-verdict { color: #ff6b6b; text-shadow: 0 0 30px rgba(255,107,107,0.3); }
+      #page-vcare-bm .conclusion-cond {
+        font-size: 13px;
+        color: #b0bac9;
+        line-height: 1.85;
+      }
+      #page-vcare-bm .conclusion-cond strong { color: #f4f6ff; }
+      @media (max-width: 640px) {
+        #page-vcare-bm .phr-new-grid { grid-template-columns: 1fr; }
+        #page-vcare-bm .conclusion-cards { grid-template-columns: 1fr; }
+        #page-vcare-bm .phr-hero-title { font-size: 24px; }
+        #page-vcare-bm .phr-table { font-size: 11.5px; }
+        #page-vcare-bm .phr-table thead th,
+        #page-vcare-bm .phr-table tbody td { padding: 10px 12px; }
+      }
+    </style>
+
+    <div class="bm-section bm-reveal visible">
+      <div class="bm-section-label" style="color:#00d4a0;">12 · PHR 연동 수익 모델</div>
+
+      <!-- Hero -->
+      <div class="phr-hero">
+        <div class="phr-hero-label">Revenue Model · Game Changer Scenario</div>
+        <h2 class="phr-hero-title">커뮤니티가 데이터 신뢰성을 갖춘다면<br>게임체인저가 된다.</h2>
+        <p class="phr-hero-desc">지금 수익 모델 vs PHR 연동 후 수익 모델 — 데이터의 격이 달라지면 사업의 격이 달라집니다.</p>
+      </div>
+
+      <!-- 도입부 -->
+      <p class="phr-body-text">현재 온코케어의 데이터는 <strong>"환우가 직접 입력하고 사진으로 올린 것"</strong>입니다. 제약사 입장에서 이건 참고 자료이지, 공식 근거 자료는 아닙니다. 환우가 <strong>"저 HER2 양성이에요"</strong>라고 입력한 것과 서울대병원 병리과에서 나온 FHIR 표준 데이터는 격이 다릅니다.</p>
+      <p class="phr-body-text">PHR이 연동되면 온코케어가 가지는 데이터가 이렇게 바뀝니다:</p>
+
+      <!-- 데이터 변화 테이블 -->
+      <div class="phr-table-wrap">
+        <table class="phr-table">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>현재 (자가 보고)</th>
+              <th>PHR 연동 후</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>진단명·병기</td>
+              <td class="phr-now">환우가 직접 입력</td>
+              <td class="phr-after">병원 진단코드(KCD) 자동 연동</td>
+            </tr>
+            <tr>
+              <td>조직검사 결과</td>
+              <td class="phr-now">사진 촬영 → OCR</td>
+              <td class="phr-after">병원 병리 리포트 원본 (ER/PR/HER2/Ki-67 수치 포함)</td>
+            </tr>
+            <tr>
+              <td>혈액검사</td>
+              <td class="phr-now">사진 촬영 → OCR</td>
+              <td class="phr-after">병원 검체검사 결과 자동 연동 (시계열)</td>
+            </tr>
+            <tr>
+              <td>처방 이력</td>
+              <td class="phr-now">환우가 기억에 의존</td>
+              <td class="phr-after">처방전 전체 이력 자동 연동</td>
+            </tr>
+            <tr>
+              <td>영상 검사</td>
+              <td class="phr-now">없음</td>
+              <td class="phr-after">CT·MRI·PET 판독문 연동 가능</td>
+            </tr>
+            <tr>
+              <td>입퇴원 이력</td>
+              <td class="phr-now">없음</td>
+              <td class="phr-after">입원 기록·수술 기록 자동 연동</td>
+            </tr>
+            <tr>
+              <td>데이터 신뢰도</td>
+              <td class="phr-now">자가 보고 (오류 15%+)</td>
+              <td class="phr-after">병원 공식 데이터 (오류 ~0%)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="phr-body-text">이 차이가 각 수익 모델에 어떤 영향을 주는지 보겠습니다.</p>
+
+      <!-- 1. 임상시험 매칭 -->
+      <div class="phr-num-head">
+        <span class="phr-num-badge">1</span>
+        임상시험 매칭 — 단가가 2~5배 올라갑니다
+      </div>
+      <p class="phr-body-text"><strong>현재:</strong> 환우 프로필 기반 매칭. 온코케어가 "이 환우는 HER2 양성, 3기입니다"라고 제약사에 알려주지만, 이건 환우 자가 보고 데이터입니다. 제약사는 이걸 받고 나서 병원에서 다시 스크리닝을 해야 합니다. 스크리닝에서 30~50%가 탈락합니다. 그래서 건당 150~500만 원.</p>
+      <p class="phr-body-text"><strong>PHR 연동 후:</strong> 병원 공식 데이터로 사전 매칭합니다. "서울대병원 병리 결과 HER2 3+, Ki-67 40%, ECOG PS 0, 트라스투주맙+퍼투주맙 1차 치료 후 2025년 1월 진행 확인" — 이 수준의 데이터가 자동으로 있으면 스크리닝 탈락률이 10% 미만으로 떨어집니다. 제약사 입장에서 "거의 확실한 적격 환자"를 건네주는 것이므로 단가가 올라갑니다.</p>
+
+      <div class="phr-table-wrap">
+        <table class="phr-table">
+          <thead>
+            <tr>
+              <th>시나리오</th>
+              <th>건당 수수료</th>
+              <th>근거</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>현재 (자가 보고)</td>
+              <td class="phr-now">₩150~500만</td>
+              <td>스크리닝 필요, 탈락률 30~50%</td>
+            </tr>
+            <tr>
+              <td>PHR 연동 후</td>
+              <td class="phr-hi">₩500~1,500만</td>
+              <td>병원 데이터 사전 검증, 탈락률 10% 미만</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="phr-callout">
+        추가로, PHR 연동이 되면 <strong>"pre-screening as a service"</strong>라는 새 상품이 가능해집니다. 제약사가 임상시험 프로토콜을 온코케어에 주면, 온코케어가 DB에서 적격 환자를 자동 추출하고, 해당 환자에게 알림을 보내고, 관심을 표현한 환자의 병원 데이터를 패키징해서 제약사에 전달하는 풀 서비스. 이건 건당이 아니라 <strong>프로젝트 단위 계약(건당 5,000만~2억)</strong>이 가능합니다.
+      </div>
+
+      <!-- 2. PRO 데이터 라이선싱 -->
+      <div class="phr-num-head">
+        <span class="phr-num-badge">2</span>
+        PRO 데이터 라이선싱 — "PRO + 임상 데이터" 통합 라이선싱으로 업그레이드
+      </div>
+      <p class="phr-body-text"><strong>현재:</strong> 환우가 자발적으로 보고하는 부작용 패턴, 삶의 질 변화 = PRO 데이터. 가치가 있지만, 병원 임상 데이터와 연결되지 않으면 제약사가 논문에 쓰기 어렵습니다. "이 환우가 부작용을 호소했는데, 실제 검사 결과는 어땠는지" 확인할 수가 없으니까요.</p>
+      <p class="phr-body-text"><strong>PHR 연동 후:</strong> "호중구 수치가 1,200으로 떨어졌을 때 환우가 '피곤하고 열이 났다'고 보고" — 이렇게 임상 수치와 환자 경험이 매칭된 데이터가 됩니다. 이건 제약사가 수십억을 들여 RWE(Real-World Evidence) 연구를 따로 설계하지 않아도 얻을 수 있는 데이터입니다.</p>
+
+      <div class="phr-table-wrap">
+        <table class="phr-table">
+          <thead>
+            <tr>
+              <th>데이터 유형</th>
+              <th>현재 가격</th>
+              <th>PHR 연동 후 가격</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PRO 단독 (자가 보고)</td>
+              <td class="phr-now">₩3~5억/년</td>
+              <td class="phr-now">—</td>
+            </tr>
+            <tr>
+              <td>PRO + 임상 데이터 통합</td>
+              <td class="phr-now">—</td>
+              <td class="phr-hi">₩10~30억/년</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="phr-callout">
+        가격이 3~6배 뛰는 이유는, 이 데이터가 제약사에게 두 가지 비용을 동시에 절감해주기 때문입니다. <strong>PMS(시판 후 조사) 비용 + 별도 RWE 연구 비용.</strong> 각각 5~20억씩 들던 걸 하나로 해결해주는 셈입니다.
+      </div>
+
+      <!-- 3. 새로 생기는 수익원 -->
+      <div class="phr-num-head">
+        <span class="phr-num-badge">3</span>
+        새로 생기는 수익원 — PHR 없으면 아예 불가능했던 것들
+      </div>
+
+      <div class="phr-new-grid">
+        <div class="phr-new-card">
+          <div class="phr-new-icon">🧪</div>
+          <div class="phr-new-title">① 제약사 대상 RWE 연구 수탁</div>
+          <div class="phr-new-price">프로젝트당 ₩2~10억</div>
+          <div class="phr-new-desc">DB에서 레지멘별 환우 추출 → 병원 검사 수치 시계열 + 부작용 보고 매칭 → 비식별화 후 리포트 생성. 병원 후향적 차트 리뷰(6개월+, 수억 원)를 대체합니다.</div>
+        </div>
+        <div class="phr-new-card">
+          <div class="phr-new-icon">🏦</div>
+          <div class="phr-new-title">② 보험사 대상 리스크 분석 데이터</div>
+          <div class="phr-new-price">완전히 새로운 B2B 채널</div>
+          <div class="phr-new-desc">PHR에는 진료비 청구 이력도 포함됩니다. 암 병기별·유형별 2년간 평균 의료비 지출 패턴을 보험사에 제공해 보험 상품 설계에 활용합니다.</div>
+        </div>
+        <div class="phr-new-card">
+          <div class="phr-new-icon">🔬</div>
+          <div class="phr-new-title">③ 동반진단(CDx) 지원</div>
+          <div class="phr-new-price">건당 ₩5~20억</div>
+          <div class="phr-new-desc">병리 데이터(ER/PR/HER2/Ki-67/MSI/KRAS 등)가 구조화되어 있으므로, 바이오마커별 치료 반응 패턴을 추출해 신약 개발 제약사에 제공합니다.</div>
+        </div>
+      </div>
+
+      <!-- 수익 프로젝션 테이블 -->
+      <h3 class="phr-section-title">수익 프로젝션 변화 — PHR 연동 전후 비교 (24개월차 기준, 연환산)</h3>
+      <div class="phr-table-wrap">
+        <table class="phr-table">
+          <thead>
+            <tr>
+              <th>수익원</th>
+              <th>PHR 연동 전 (보수~낙관)</th>
+              <th>PHR 연동 후 (보수~낙관)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>케어+ 구독</td>
+              <td class="phr-now">₩2.5~6억</td>
+              <td class="phr-after">₩3~8억 <span style="font-size:11px;color:#8892a4;">(데이터 자동 연동 편의성으로 전환율↑)</span></td>
+            </tr>
+            <tr>
+              <td>임상시험 매칭</td>
+              <td class="phr-now">₩3~10억</td>
+              <td class="phr-after">₩8~30억 <span style="font-size:11px;color:#8892a4;">(단가 3배↑ + pre-screening 서비스)</span></td>
+            </tr>
+            <tr>
+              <td>PRO 라이선싱</td>
+              <td class="phr-now">₩5~15억</td>
+              <td class="phr-after">₩15~50억 <span style="font-size:11px;color:#8892a4;">(PRO+임상 통합 데이터)</span></td>
+            </tr>
+            <tr>
+              <td>콘텐츠 스폰서십</td>
+              <td class="phr-now">₩2~5억</td>
+              <td class="phr-now">₩2~5억 <span style="font-size:11px;color:#8892a4;">(변동 없음)</span></td>
+            </tr>
+            <tr>
+              <td>RWE 연구 수탁</td>
+              <td class="phr-now">없음</td>
+              <td class="phr-after">₩5~20억 <span style="font-size:11px;color:#8892a4;">(신규)</span></td>
+            </tr>
+            <tr>
+              <td>보험사 데이터</td>
+              <td class="phr-now">없음</td>
+              <td class="phr-after">₩2~10억 <span style="font-size:11px;color:#8892a4;">(신규)</span></td>
+            </tr>
+            <tr class="phr-total">
+              <td><strong>연간 합계</strong></td>
+              <td><strong>₩12.5~40억</strong></td>
+              <td class="phr-hi"><strong>₩35~120억+</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 우리 팀의 결론 -->
+      <div class="conclusion-box">
+        <div class="conclusion-label">Team Conclusion · 우리 팀의 결론</div>
+        <div class="conclusion-title">우리 팀의 결론</div>
+        <div class="conclusion-cards">
+          <div class="conclusion-card go-card">
+            <div class="conclusion-verdict">✓ GO</div>
+            <div class="conclusion-cond">
+              <strong>PHR 연동이 가능해지는 시점까지 자산 축적 관점에서 운영을 하고,</strong> 번레이트를 최소화하면서 환자-임상 매칭과 광고 수익으로 버틸 수 있다면 <strong style="color:#00e8b0;">GO!</strong>
+            </div>
+          </div>
+          <div class="conclusion-card nogo-card">
+            <div class="conclusion-verdict">✗ NO GO</div>
+            <div class="conclusion-cond">
+              <strong>PHR 연동 시점까지 이 구조로 지속이 어렵다고 판단된다면,</strong> <strong style="color:#ff6b6b;">NO GO!</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /PHR 수익 모델 -->
 
   </div><!-- /page-vcare-bm -->
 
