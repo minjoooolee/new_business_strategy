@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>onco.care — aitrics 지능형 의료 커뮤니티</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+</head>
+<body>
+
+<!-- ── GNB ─────────────────────────────────────────────────── -->
+<header class="gnb" id="gnb">
+  <div class="gnb-inner">
+
+    <a href="#" class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">onco.care</span>
+    </a>
+
+    <nav class="gnb-nav">
+      <ul>
+        <li><a href="#" class="active">홈</a></li>
+        <li><a href="feed">피드</a></li>
+        <li><a href="community">질환별 게시판</a></li>
+        <li><a href="cohort">in 코호트</a></li>
+        <li><a href="upload">검사결과지</a></li>
+        <li><a href="#">문의</a></li>
+      </ul>
+    </nav>
+
+    <div class="gnb-right">
+      <a href="#" class="btn-login">로그인</a>
+      <button class="hamburger" id="hamBtn" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="arc arc-a"></div>
+  <div class="arc arc-b"></div>
+
+  <div class="hero-body">
+      <p class="eyebrow">Connected AI. Precise Care.</p>
+      <h1 class="hero-title">
+        의료 AI 기업 <em>aitrics</em>의<br>
+        지능형 의료 커뮤니티
+      </h1>
+      <p class="hero-desc">
+        건강 정보를 나누고,<br>
+        맞춤형 건강 관리를 시작하세요.
+      </p>
+      <a href="#board" class="cta">커뮤니티 둘러보기 &rarr;</a>
+  </div>
+</section>
+
+<!-- ── 질환별 게시판 ─────────────────────────────────────────── -->
+<section class="board" id="board">
+  <div class="container">
+
+    <div class="board-header">
+      <h2 class="board-title">질환별 게시판</h2>
+      <p class="board-desc">관심 있는 질환을 선택하고 소통하세요</p>
+    </div>
+
+    <!-- 암 질환 -->
+    <div class="group">
+      <h3 class="group-label"><span class="dot dot-r"></span>암 질환</h3>
+      <div class="grid">
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#f43f5e">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <span class="card-name">유방암</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#f97316">
+              <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+            </svg>
+          </div>
+          <span class="card-name">위암</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#10b981">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+            </svg>
+          </div>
+          <span class="card-name">대장암</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#8b5cf6">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <span class="card-name">간암</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0ea5e9">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+            </svg>
+          </div>
+          <span class="card-name">갑상선암</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#6366f1">
+              <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+            </svg>
+          </div>
+          <span class="card-name">폐암</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- 정신건강 -->
+    <div class="group">
+      <h3 class="group-label"><span class="dot dot-p"></span>정신건강</h3>
+      <div class="grid">
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#a855f7">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-14h2v6h-2zm0 8h2v2h-2z"/>
+            </svg>
+          </div>
+          <span class="card-name">공황장애</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#6366f1">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/>
+            </svg>
+          </div>
+          <span class="card-name">우울증</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- 만성 질환 -->
+    <div class="group">
+      <h3 class="group-label"><span class="dot dot-p"></span>만성 질환</h3>
+      <div class="grid">
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#f59e0b">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+            </svg>
+          </div>
+          <span class="card-name">알러지</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#ef4444">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+          </div>
+          <span class="card-name">당뇨</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#ec4899">
+              <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/>
+            </svg>
+          </div>
+          <span class="card-name">심혈관</span>
+        </a>
+
+        <a href="#" class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#10b981">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            </svg>
+          </div>
+          <span class="card-name">소아성장</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <span class="footer-brand">onco.care by aitrics</span>
+      <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Mobile drawer ────────────────────────────────────────── -->
+<div class="dim" id="dim"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-top">
+    <a href="#" class="logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">onco.care</span>
+    </a>
+    <button class="drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <div class="drawer-links">
+    <a href="#" class="active">홈</a>
+    <a href="#">피드</a>
+    <a href="community">질환별 게시판</a>
+    <a href="cohort">in 코호트</a>
+    <a href="upload">검사결과지</a>
+    <a href="#">문의</a>
+    <a href="#" class="drawer-login">로그인</a>
+  </div>
+</nav>
+
+<script>
+  // GNB scroll shadow
+  const gnb = document.getElementById('gnb');
+  window.addEventListener('scroll', () => {
+    gnb.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+
+  // Mobile drawer
+  const ham = document.getElementById('hamBtn');
+  const dim = document.getElementById('dim');
+  const drawer = document.getElementById('drawer');
+  const close = document.getElementById('drawerClose');
+
+  function open()  { drawer.classList.add('on'); dim.classList.add('on'); document.body.style.overflow = 'hidden'; }
+  function shut()  { drawer.classList.remove('on'); dim.classList.remove('on'); document.body.style.overflow = ''; }
+
+  ham.addEventListener('click', open);
+  close.addEventListener('click', shut);
+  dim.addEventListener('click', shut);
+</script>
+<script src="login.js"></script>
+</body>
+</html>

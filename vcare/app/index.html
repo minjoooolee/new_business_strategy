@@ -1,0 +1,3723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>onco.care Mobile App Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --text: #111827;
+  --sub: #6b7280;
+  --muted: #9ca3af;
+  --border: #f3f4f6;
+  --bg-soft: #f9fafb;
+  --ai-gradient: linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
+  --font: 'Pretendard', 'Poppins', -apple-system, sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 8px;
+}
+
+body {
+  font-family: var(--font);
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Phone Frame */
+.phone-frame {
+  width: 375px;
+  height: 812px;
+  background: #fff;
+  border-radius: 44px;
+  border: 6px solid #1a1a1a;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 2px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notch */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 100;
+}
+
+/* Status Bar */
+.status-bar {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 24px 6px;
+  background: #fff;
+  flex-shrink: 0;
+  z-index: 90;
+  position: relative;
+}
+.status-bar .time {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+}
+.status-bar .icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-bar .icons svg { width: 16px; height: 16px; }
+
+/* Screen Container */
+.screen-area {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  display: none;
+  -webkit-overflow-scrolling: touch;
+}
+.screen.active { display: block; }
+.screen::-webkit-scrollbar { display: none; }
+
+/* Bottom Tab Bar */
+.tab-bar {
+  height: 80px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-top: 8px;
+  padding-bottom: 24px;
+  flex-shrink: 0;
+  z-index: 90;
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font);
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-item svg { width: 24px; height: 24px; }
+.tab-item span {
+  font-size: 10px;
+  font-weight: 500;
+}
+.tab-item.active svg { color: var(--text); }
+.tab-item.active span { color: var(--text); font-weight: 600; }
+.tab-item:not(.active) svg { color: var(--muted); }
+.tab-item:not(.active) span { color: var(--muted); }
+
+/* Common styles */
+.screen-header {
+  padding: 12px 20px 10px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.screen-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+.content-pad { padding: 0 20px 24px; }
+
+/* ===== HOME SCREEN ===== */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 8px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.home-logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+.home-logo span { color: #3fbfbc; }
+.home-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.home-header-icons svg {
+  width: 22px;
+  height: 22px;
+  color: var(--sub);
+  cursor: pointer;
+}
+.home-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Hero */
+.home-hero {
+  margin: 8px 20px 16px;
+  padding: 24px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(63,191,188,0.55) 0%, rgba(110,63,163,0.5) 50%, rgba(226,69,133,0.45) 100%), url('../images/medical-team.jpg') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(63,191,188,0.15), rgba(110,63,163,0.1));
+  filter: blur(20px);
+}
+.home-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(226,69,133,0.1), rgba(110,63,163,0.08));
+  filter: blur(15px);
+}
+.home-hero-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.home-hero h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+.home-hero p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  margin-top: 8px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* Disease Board */
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.section-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.disease-group {
+  margin-bottom: 20px;
+}
+.disease-group-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sub);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.disease-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.disease-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 4px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.disease-card:hover { background: var(--bg-soft); }
+.disease-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.disease-card span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+}
+
+/* ===== FEED SCREEN ===== */
+.compose-card {
+  margin: 12px 20px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.compose-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.compose-input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font);
+}
+
+.feed-card {
+  margin: 0 20px 12px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.feed-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.feed-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.feed-author-info {
+  flex: 1;
+}
+.feed-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.feed-badge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.badge-official {
+  background: linear-gradient(135deg, rgba(63,191,188,0.12), rgba(110,63,163,0.1));
+  color: #6E3FA3;
+}
+.badge-doctor {
+  background: rgba(63,191,188,0.1);
+  color: #3fbfbc;
+}
+.feed-date {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.feed-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.feed-text {
+  font-size: 13px;
+  color: var(--sub);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.feed-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.feed-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.feed-action svg { width: 16px; height: 16px; }
+
+/* ===== COMMUNITY SCREEN ===== */
+.community-header {
+  padding: 12px 20px 10px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.community-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.community-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+.btn-write {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--text);
+  border: none;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+.search-bar svg { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
+.search-bar span { font-size: 13px; color: var(--muted); }
+
+.filter-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.filter-pills::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--sub);
+  cursor: pointer;
+  font-family: var(--font);
+  white-space: nowrap;
+}
+.pill.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+.category-filters {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 4px;
+  flex-wrap: wrap;
+}
+.cat-filter {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  background: var(--bg-soft);
+  color: var(--sub);
+}
+.cat-filter.active { background: #eef2ff; color: #4f46e5; }
+
+.post-card {
+  margin: 0 20px 10px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.post-card:hover { background: var(--bg-soft); }
+.post-card.border-blue { border-left: 3px solid #3b82f6; }
+.post-card.border-green { border-left: 3px solid #22c55e; }
+.post-card.border-pink { border-left: 3px solid #ec4899; }
+.post-card.border-gradient {
+  border: 1px solid transparent;
+  background-image: linear-gradient(#fff, #fff), var(--ai-gradient);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+.post-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.post-badge.blue { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.post-badge.green { background: rgba(34,197,94,0.1); color: #16a34a; }
+.post-badge.pink { background: rgba(236,72,153,0.1); color: #ec4899; }
+.post-badge.teal-gradient {
+  background: linear-gradient(135deg, rgba(63,191,188,0.12), rgba(110,63,163,0.1));
+  color: #6E3FA3;
+}
+.post-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.post-excerpt {
+  font-size: 12px;
+  color: var(--sub);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.post-tags {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.post-tag {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--bg-soft);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.post-meta svg { width: 13px; height: 13px; }
+.post-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* ===== COHORT SCREEN ===== */
+.cohort-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 28px;
+  text-align: center;
+}
+.cohort-dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.cohort-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.cohort-dot.active {
+  background: var(--text);
+  width: 20px;
+  border-radius: 4px;
+}
+.cohort-icon-box {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: rgba(236,72,153,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+.cohort-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.cohort-content p {
+  font-size: 14px;
+  color: var(--sub);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.cohort-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.cohort-option {
+  width: 100%;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cohort-option:hover { border-color: #d1d5db; background: var(--bg-soft); }
+.cohort-option.selected {
+  border-color: var(--text);
+  background: var(--bg-soft);
+}
+.cohort-option-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.btn-next {
+  width: 100%;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--border);
+  color: var(--muted);
+}
+.btn-next.enabled {
+  background: var(--text);
+  color: #fff;
+}
+
+/* ===== CHAT SCREEN ===== */
+.chat-room {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-bottom: 1px solid var(--border);
+}
+.chat-room:hover { background: var(--bg-soft); }
+.chat-room-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  color: #fff;
+  font-weight: 600;
+}
+.chat-room-info { flex: 1; min-width: 0; }
+.chat-room-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chat-online {
+  font-size: 10px;
+  font-weight: 500;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.chat-online::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+.chat-last-msg {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chat-room-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+.chat-time {
+  font-size: 11px;
+  color: var(--muted);
+}
+.chat-unread {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: #E24585;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+  padding: 0 5px;
+}
+
+.chat-ai-card {
+  margin: 16px 20px;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  background-image: linear-gradient(#fff, #fff), var(--ai-gradient);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.chat-ai-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--ai-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.chat-ai-avatar svg { width: 20px; height: 20px; color: #fff; }
+.chat-ai-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.chat-ai-info p {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+/* ===== SUB SCREENS ===== */
+.sub-screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  overflow-y: auto;
+  z-index: 50;
+  display: none;
+  -webkit-overflow-scrolling: touch;
+}
+.sub-screen::-webkit-scrollbar { display: none; }
+
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.back-header svg { width: 20px; height: 20px; color: var(--text); flex-shrink:0; }
+.back-header span { font-size: 16px; font-weight: 600; color: var(--text); }
+.back-header-right { margin-left:auto; font-size:11px; color:#22c55e; font-weight:600; display:flex; align-items:center; gap:4px; }
+.back-header-right::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+
+/* Post Detail */
+.pd-card { margin:16px; padding:16px; border:1px solid var(--border); border-radius:var(--radius-sm); }
+.pd-badges { display:flex; gap:6px; margin-bottom:10px; }
+.pd-title { font-size:17px; font-weight:700; color:var(--text); line-height:1.45; margin-bottom:10px; }
+.pd-meta { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.pd-avatar { width:32px; height:32px; border-radius:50%; background:#e0e7ff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:#6366f1; flex-shrink:0; }
+.pd-meta-text { font-size:12px; color:var(--muted); }
+.pd-meta-text strong { color:var(--text); font-weight:600; }
+.pd-like-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:20px; border:1px solid #fecdd3; background:#fff; color:#E24585; font-size:13px; font-weight:600; cursor:pointer; }
+.pd-like-btn svg { width:16px; height:16px; fill:#E24585; }
+.pd-body { padding:0 16px; margin-bottom:16px; }
+.pd-body p { font-size:13px; line-height:1.75; color:#374151; margin-bottom:8px; }
+.pd-tags { display:flex; gap:6px; padding:0 16px; margin-bottom:16px; }
+.pd-tag { font-size:11px; color:var(--sub); background:var(--bg-soft); padding:4px 10px; border-radius:8px; }
+.pd-reactions { display:flex; gap:8px; padding:0 16px; margin-bottom:20px; }
+.pd-react-btn { display:flex; align-items:center; gap:5px; padding:9px 16px; border-radius:10px; border:1px solid var(--border); background:#fff; font-size:12px; color:var(--sub); cursor:pointer; }
+.pd-react-btn strong { font-weight:700; color:var(--text); }
+.pd-divider { border:none; border-top:1px solid var(--border); margin:0 16px 16px; }
+.pd-comments { padding:0 16px 24px; }
+.pd-comments-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; }
+.pd-comments-title strong { color:#6366f1; }
+.pd-comment-input { display:flex; gap:10px; margin-bottom:20px; }
+.pd-comment-input textarea { flex:1; padding:10px 12px; border:1px solid var(--border); border-radius:10px; font-size:12px; font-family:var(--font); resize:none; outline:none; color:var(--text); }
+.pd-comment-input textarea::placeholder { color:var(--muted); }
+.pd-comment-input button { padding:8px 14px; border-radius:8px; border:none; background:var(--text); color:#fff; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; align-self:flex-end; }
+.pd-comment { display:flex; gap:10px; padding:14px 0; border-top:1px solid var(--border); }
+.pd-comment-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; flex-shrink:0; }
+.pd-comment-body { flex:1; }
+.pd-comment-meta { display:flex; gap:6px; align-items:center; margin-bottom:4px; }
+.pd-comment-name { font-size:12px; font-weight:600; color:var(--text); }
+.pd-comment-role { font-size:10px; color:var(--muted); background:var(--bg-soft); padding:1px 6px; border-radius:4px; }
+.pd-comment-date { font-size:10px; color:var(--muted); }
+.pd-comment-text { font-size:12px; line-height:1.6; color:#374151; margin-bottom:6px; }
+.pd-comment-like { display:flex; align-items:center; gap:4px; font-size:11px; color:var(--muted); cursor:pointer; background:none; border:none; padding:0; }
+.pd-comment-like svg { width:13px; height:13px; fill:#d1d5db; }
+.pd-comment--doctor { background:#f0fdfa; border-radius:10px; padding:14px 12px; margin:-1px 0; border-top:1px solid #ccfbf1; }
+.pd-comment--doctor .pd-comment-avatar { background:#3fbfbc; color:#fff; }
+.pd-comment--doctor .pd-comment-name { color:#0d9488; }
+.pd-comment--doctor .pd-comment-role { background:#ccfbf1; color:#0d9488; }
+.pd-comment--doctor .pd-comment-text { color:#134e4a; }
+.pd-ai-panel { margin:0 16px 24px; padding:14px; background:#f0e8f7; border:1px solid #e0d4f0; border-radius:var(--radius-sm); }
+.pd-ai-header { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.pd-ai-avatar { width:26px; height:26px; border-radius:50%; background:var(--ai-gradient); display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:800; color:#fff; }
+.pd-ai-label { font-size:12px; font-weight:700; color:#6b21a8; }
+.pd-ai-intro { font-size:11px; color:#4a1d7a; line-height:1.5; margin-bottom:10px; padding:8px 10px; background:#fff; border-radius:8px; border:1px solid #e0d4f0; }
+.pd-ai-card { display:block; padding:10px; background:#fff; border:1px solid #e0d4f0; border-radius:8px; margin-bottom:6px; }
+.pd-ai-card-title { font-size:12px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:3px; }
+.pd-ai-card-meta { font-size:10px; color:var(--muted); }
+
+/* Chat Room Detail */
+.chat-detail-msgs { padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+.cd-msg { display:flex; gap:8px; align-items:flex-end; }
+.cd-msg--mine { flex-direction:row-reverse; }
+.cd-msg-avatar { width:28px; height:28px; border-radius:8px; background:#e5e7eb; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--sub); flex-shrink:0; }
+.cd-msg-avatar--ai { background:var(--ai-gradient); color:#fff; font-size:9px; font-weight:800; }
+.cd-msg-body { max-width:75%; }
+.cd-msg-name { font-size:10px; color:var(--muted); margin-bottom:3px; }
+.cd-msg--mine .cd-msg-name { text-align:right; }
+.cd-msg-bubble { display:inline-block; padding:9px 13px; border-radius:14px; font-size:12px; line-height:1.55; color:var(--text); background:var(--bg-soft); }
+.cd-msg--mine .cd-msg-bubble { background:var(--text); color:#fff; }
+.cd-msg--ai .cd-msg-bubble { background:linear-gradient(135deg,#e8d5f5,#d4bde8); color:#4a1d7a; border:1px solid #c9a8e0; }
+.cd-msg--ai .cd-msg-name { color:#6366f1; font-weight:600; }
+.cd-msg-time { font-size:9px; color:#d1d5db; margin-top:3px; }
+.cd-msg--mine .cd-msg-time { text-align:right; }
+.chat-input-bar { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border); background:#fff; position:sticky; bottom:0; }
+.chat-input-bar input { flex:1; height:38px; padding:0 12px; font-size:13px; color:var(--text); background:var(--bg-soft); border:1px solid var(--border); border-radius:10px; outline:none; font-family:var(--font); }
+.chat-input-bar button { padding:0 16px; height:38px; border:none; background:var(--text); color:#fff; border-radius:10px; font-size:12px; font-weight:600; cursor:pointer; }
+
+/* Disease Board */
+.disease-info-card { margin:16px; padding:16px; background:linear-gradient(135deg,rgba(63,191,188,0.06),rgba(110,63,163,0.04)); border-radius:var(--radius-sm); display:flex; align-items:center; gap:12px; }
+.disease-info-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; }
+.disease-info-text h3 { font-size:16px; font-weight:700; color:var(--text); }
+.disease-info-text p { font-size:12px; color:var(--sub); margin-top:2px; }
+
+/* Cohort Main */
+.cohort-profile-bar { margin:16px; padding:14px 16px; background:linear-gradient(135deg,#f0fdf4,#f0e8f7,#fef2f2); border:1px solid #e8dff0; border-radius:var(--radius-sm); }
+.cohort-profile-bar-top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.cohort-profile-icon { width:36px; height:36px; border-radius:10px; background:var(--ai-gradient); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cohort-profile-icon svg { width:18px; height:18px; color:#fff; }
+.cohort-profile-label { font-size:11px; color:var(--sub); }
+.cohort-profile-online { font-size:11px; color:#22c55e; font-weight:600; margin-left:auto; display:flex; align-items:center; gap:4px; }
+.cohort-profile-online::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+.cohort-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.cohort-tag { font-size:11px; font-weight:500; padding:3px 10px; background:#fff; border:1px solid var(--border); border-radius:16px; color:var(--text); }
+.cohort-section { padding:0 16px; margin-bottom:16px; }
+.cohort-section-title { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--text); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.cohort-notice { padding:12px; border:1.5px solid #fbbf24; background:#fffbeb; border-radius:10px; margin-bottom:8px; cursor:pointer; }
+.cohort-notice-badge { font-size:10px; font-weight:700; color:#92400e; background:#fef3c7; padding:2px 8px; border-radius:10px; display:inline-block; margin-bottom:4px; }
+.cohort-notice-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:3px; }
+.cohort-notice-desc { font-size:11px; color:var(--sub); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.cohort-post { padding:12px; border:1px solid var(--border); border-radius:10px; margin-bottom:8px; cursor:pointer; }
+.cohort-post-badge { font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px; display:inline-block; margin-bottom:4px; }
+.cohort-post-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:3px; }
+.cohort-post-desc { font-size:11px; color:var(--sub); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.cohort-post-meta { font-size:10px; color:var(--muted); margin-top:6px; }
+.cohort-mini-chat { margin:0 16px 24px; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+.cohort-mini-chat-header { padding:10px 14px; border-bottom:1px solid var(--border); background:#fafafa; }
+.cohort-mini-chat-header strong { font-size:13px; color:var(--text); }
+.cohort-mini-chat-header span { font-size:10px; color:#22c55e; margin-left:8px; }
+.cohort-mini-chat-msgs { padding:12px; display:flex; flex-direction:column; gap:10px; max-height:200px; overflow-y:auto; }
+.cohort-mini-chat-input { display:flex; gap:8px; padding:10px 12px; border-top:1px solid var(--border); }
+.cohort-mini-chat-input input { flex:1; height:34px; padding:0 10px; font-size:12px; border:1px solid var(--border); border-radius:8px; outline:none; font-family:var(--font); }
+.cohort-mini-chat-input button { padding:0 12px; height:34px; border:none; background:var(--text); color:#fff; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer; }
+
+/* Cohort success */
+.cohort-success { text-align:center; padding:40px 28px; }
+.cohort-success-icon { width:80px; height:80px; border-radius:50%; background:#dcfce7; display:flex; align-items:center; justify-content:center; font-size:36px; margin:0 auto 20px; }
+.cohort-success h2 { font-size:22px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.cohort-success p { font-size:14px; color:var(--sub); line-height:1.6; margin-bottom:8px; }
+.cohort-success-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:28px; }
+.cohort-success-tag { font-size:12px; font-weight:500; padding:4px 12px; background:var(--bg-soft); border:1px solid var(--border); border-radius:16px; color:var(--text); }
+
+/* ===== SIGNUP OVERLAY ===== */
+.signup-overlay {
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background:#fff; z-index:200;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+}
+.signup-header {
+  padding:60px 28px 0;
+  text-align:center;
+}
+.signup-logo {
+  font-family:'Poppins',sans-serif;
+  font-size:28px; font-weight:700; color:var(--text);
+  margin-bottom:4px;
+}
+.signup-logo span { color:#3fbfbc; }
+.signup-tagline {
+  font-size:12px; color:var(--muted); margin-bottom:32px;
+}
+.signup-step-dots {
+  display:flex; gap:8px; justify-content:center; margin-bottom:28px;
+}
+.signup-step-dot {
+  width:8px; height:8px; border-radius:50%; background:var(--border);
+  transition: all 0.2s;
+}
+.signup-step-dot.active { background:var(--text); width:20px; border-radius:4px; }
+.signup-step-dot.done { background:#10b981; }
+.signup-body {
+  flex:1; padding:0 28px 28px;
+  display:flex; flex-direction:column; align-items:center;
+}
+.signup-icon-box {
+  width:64px; height:64px; border-radius:18px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; margin-bottom:20px;
+}
+.signup-body h2 {
+  font-size:20px; font-weight:700; color:var(--text);
+  text-align:center; margin-bottom:8px; line-height:1.4;
+}
+.signup-body p {
+  font-size:13px; color:var(--sub); text-align:center;
+  line-height:1.6; margin-bottom:24px;
+}
+.signup-options {
+  width:100%; display:flex; flex-direction:column; gap:8px; margin-bottom:24px;
+}
+.signup-options--grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px;
+}
+.signup-opt {
+  width:100%; padding:14px 16px;
+  background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  font-size:14px; font-weight:500; color:var(--text);
+  font-family:var(--font); cursor:pointer;
+  transition:all 0.15s; text-align:left;
+  display:flex; align-items:center; gap:10px;
+}
+.signup-opt--compact {
+  padding:11px 14px; font-size:13px; justify-content:center; text-align:center;
+}
+.signup-opt:hover { border-color:#d1d5db; background:var(--bg-soft); }
+.signup-opt.selected { border-color:var(--text); background:var(--bg-soft); }
+.signup-opt-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+/* Medical professional signup */
+.signup-license-input {
+  width:100%; padding:14px 16px; border:1.5px solid var(--border);
+  border-radius:var(--radius-sm); font-size:14px; color:var(--text);
+  font-family:var(--font); outline:none; text-align:center;
+  margin-bottom:6px; transition:border-color 0.15s;
+}
+.signup-license-input:focus { border-color:var(--text); }
+.signup-role-tag {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:11px; font-weight:600; padding:4px 10px;
+  border-radius:20px; margin-bottom:16px;
+}
+.signup-role-tag--patient { background:rgba(63,191,188,0.1); color:#0d9488; }
+.signup-role-tag--medical { background:rgba(110,63,163,0.1); color:#6E3FA3; }
+.signup-nav {
+  display:flex; gap:10px; width:100%; margin-top:auto;
+}
+.signup-btn {
+  flex:1; padding:14px; border-radius:var(--radius-sm);
+  border:none; font-size:15px; font-weight:600;
+  font-family:var(--font); cursor:pointer; transition:all 0.15s;
+}
+.signup-btn--back { background:var(--bg-soft); color:var(--sub); flex:0.6; }
+.signup-btn--next { background:var(--border); color:var(--muted); flex:1; }
+.signup-btn--next.enabled { background:var(--text); color:#fff; }
+
+/* Cohort auto-enter */
+.cohort-auto-entering {
+  text-align:center; padding:48px 28px;
+}
+.cohort-auto-entering-spinner {
+  width:56px; height:56px; border-radius:50%;
+  border:3px solid var(--border); border-top-color:var(--text);
+  animation:cohortSpin 0.8s linear infinite;
+  margin:0 auto 20px;
+}
+@keyframes cohortSpin { to { transform:rotate(360deg); } }
+.cohort-auto-entering h3 {
+  font-size:18px; font-weight:700; color:var(--text); margin-bottom:6px;
+}
+.cohort-auto-entering p {
+  font-size:13px; color:var(--sub); line-height:1.5; margin-bottom:16px;
+}
+.cohort-auto-entering-tags {
+  display:flex; flex-wrap:wrap; gap:6px; justify-content:center;
+}
+
+/* ===== HOME TRUST / INFO SECTIONS ===== */
+.home-about {
+  margin:0 20px 16px; padding:20px; border-radius:var(--radius);
+  background:#fff; border:1px solid var(--border);
+}
+.home-about-label {
+  font-size:10px; font-weight:600; color:#6E3FA3;
+  background:rgba(110,63,163,0.08); padding:3px 10px;
+  border-radius:20px; display:inline-block; margin-bottom:10px;
+}
+.home-about h3 {
+  font-size:16px; font-weight:700; color:var(--text); line-height:1.45; margin-bottom:6px;
+}
+.home-about p {
+  font-size:12px; color:var(--sub); line-height:1.6;
+}
+
+.home-trust {
+  margin:0 20px 16px; padding:16px; border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(63,191,188,0.06),rgba(110,63,163,0.04));
+  border:1px solid rgba(63,191,188,0.15);
+}
+.home-trust-title {
+  font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px;
+  display:flex; align-items:center; gap:6px;
+}
+.home-trust-items { display:flex; flex-direction:column; gap:10px; }
+.home-trust-item {
+  display:flex; align-items:flex-start; gap:10px;
+}
+.home-trust-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0; background:rgba(63,191,188,0.1);
+}
+.home-trust-item-text strong { font-size:12px; font-weight:600; color:var(--text); display:block; margin-bottom:1px; }
+.home-trust-item-text span { font-size:11px; color:var(--muted); line-height:1.4; }
+
+.home-vdoc {
+  margin:0 20px 16px; padding:16px 20px;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,#3fbfbc,#6E3FA3);
+  display:flex; align-items:center; gap:14px;
+  cursor:pointer; transition:opacity 0.15s;
+}
+.home-vdoc:hover { opacity:0.9; }
+.home-vdoc-icon {
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(255,255,255,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; flex-shrink:0;
+}
+.home-vdoc-text h4 { font-size:14px; font-weight:700; color:#fff; margin-bottom:2px; }
+.home-vdoc-text p { font-size:11px; color:rgba(255,255,255,0.8); }
+.home-vdoc-arrow { margin-left:auto; color:rgba(255,255,255,0.7); font-size:18px; }
+
+/* Kakao signup button */
+.signup-kakao {
+  width:100%; padding:16px; border:none; border-radius:var(--radius-sm);
+  background:#FEE500; color:#3C1E1E; font-size:15px; font-weight:600;
+  font-family:var(--font); cursor:pointer; transition:opacity 0.15s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-bottom:16px;
+}
+.signup-kakao:hover { opacity:0.9; }
+.signup-kakao svg { width:22px; height:22px; }
+.signup-welcome {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  flex:1; text-align:center;
+}
+.signup-welcome-icon {
+  width:80px; height:80px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(63,191,188,0.1),rgba(110,63,163,0.08));
+  display:flex; align-items:center; justify-content:center;
+  font-size:36px; margin-bottom:20px;
+}
+.signup-nickname-input {
+  width:100%; padding:14px 16px; border:1.5px solid var(--border);
+  border-radius:var(--radius-sm); font-size:15px; color:var(--text);
+  font-family:var(--font); outline:none; text-align:center;
+  margin-bottom:8px; transition:border-color 0.15s;
+}
+.signup-nickname-input:focus { border-color:var(--text); }
+.signup-nickname-hint { font-size:11px; color:var(--muted); margin-bottom:24px; }
+
+/* ===== COHORT INNER TABS ===== */
+.cohort-inner-tab {
+  flex:1; padding:11px 0; border:none; background:none;
+  font-size:12px; font-weight:500; color:var(--muted);
+  font-family:var(--font); cursor:pointer;
+  border-bottom:2px solid transparent; transition:all 0.15s;
+}
+.cohort-inner-tab.active { color:var(--text); font-weight:700; border-bottom-color:var(--text); }
+.cohort-tab-content { display:none; }
+.cohort-tab-content.active { display:block; }
+
+/* ===== 임상/신약 매칭 탭 ===== */
+.matching-type-card.selected {
+  border-color:#6E3FA3 !important;
+  background:linear-gradient(135deg,#faf5ff,#f0f9ff) !important;
+  box-shadow:0 2px 12px rgba(110,63,163,.12);
+}
+.matching-section {
+  background:#fff; border:1px solid #f3f4f6; border-radius:14px;
+  padding:16px 14px; margin-bottom:12px;
+}
+.matching-section-title {
+  font-size:13px; font-weight:700; color:#111827;
+  margin-bottom:12px; padding-bottom:8px;
+  border-bottom:1px solid #f3f4f6;
+}
+.matching-field { margin-bottom:14px; }
+.matching-field:last-child { margin-bottom:0; }
+.matching-label {
+  display:block; font-size:12px; font-weight:600;
+  color:#374151; margin-bottom:6px;
+}
+.matching-hint {
+  font-size:11px; color:#9ca3af; margin-bottom:6px; line-height:1.4;
+}
+.matching-options {
+  display:flex; gap:6px; flex-wrap:nowrap; overflow-x:auto;
+  -webkit-overflow-scrolling:touch; padding-bottom:2px;
+}
+.matching-options--wrap { flex-wrap:wrap; }
+.matching-options--vertical { flex-direction:column; }
+.matching-opt {
+  flex-shrink:0; padding:7px 12px; font-family:var(--font);
+  font-size:11.5px; font-weight:500; color:#374151;
+  background:#fff; border:1.5px solid #e5e7eb; border-radius:10px;
+  cursor:pointer; transition:all .15s; text-align:left; line-height:1.4;
+}
+.matching-opt:hover { border-color:#9ca3af; background:#f9fafb; }
+.matching-opt.selected {
+  background:#111827; color:#fff; border-color:#111827;
+}
+.matching-opt--wide { width:100%; }
+.matching-input {
+  width:100%; padding:9px 12px; font-family:var(--font);
+  font-size:12px; color:#374151; background:#f9fafb;
+  border:1px solid #e5e7eb; border-radius:10px;
+  outline:none; transition:border-color .15s; box-sizing:border-box;
+}
+.matching-input:focus { border-color:#6E3FA3; }
+.matching-submit {
+  width:100%; padding:14px; margin-top:8px;
+  font-family:var(--font); font-size:14px; font-weight:700;
+  color:#fff; background:linear-gradient(135deg,#3fbfbc 0%,#6E3FA3 50%,#E24585 100%);
+  border:none; border-radius:14px; cursor:pointer;
+  transition:opacity .15s; box-shadow:0 4px 16px rgba(110,63,163,.25);
+}
+.matching-submit:hover { opacity:.9; }
+.matching-submit:active { transform:scale(.98); }
+
+/* ===== 매칭 결과 페이지 ===== */
+.matching-loading-spinner {
+  width:40px; height:40px; border-radius:50%;
+  border:3px solid #e5e7eb; border-top-color:#6E3FA3;
+  animation: matchSpin 0.8s linear infinite;
+}
+@keyframes matchSpin { to { transform:rotate(360deg); } }
+.matching-result-header {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 16px; background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.matching-result-back {
+  width:32px; height:32px; border-radius:8px;
+  background:#f3f4f6; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.matching-ai-summary {
+  margin:12px 16px; padding:12px 14px;
+  background:linear-gradient(135deg,#f0e8f7 0%,#ecfdf5 100%);
+  border:1px solid #d8b4fe; border-radius:12px;
+}
+.matching-result-filters {
+  display:flex; gap:6px; padding:8px 16px 12px;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+}
+.matching-filter-btn {
+  flex-shrink:0; padding:6px 14px; font-family:var(--font);
+  font-size:11.5px; font-weight:600; color:#6b7280;
+  background:#f3f4f6; border:none; border-radius:20px;
+  cursor:pointer; transition:all .15s;
+}
+.matching-filter-btn.active {
+  background:#111827; color:#fff;
+}
+.matching-result-card {
+  background:#fff; border:1.5px solid #e5e7eb;
+  border-radius:14px; padding:14px; cursor:pointer;
+  transition:all .15s;
+}
+.matching-result-card:hover { border-color:#d1d5db; }
+.mrc-header {
+  display:flex; align-items:center; gap:8px; margin-bottom:8px;
+}
+.mrc-score {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:3px 8px; font-family:'Poppins',sans-serif;
+  font-size:11px; font-weight:700; color:#fff;
+  border-radius:6px; min-width:40px;
+}
+.mrc-meta { display:flex; gap:6px; }
+.mrc-phase {
+  font-size:10px; font-weight:600; color:#6b21a8;
+  background:#f3e8ff; padding:2px 8px; border-radius:10px;
+}
+.mrc-status {
+  font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px;
+}
+.mrc-status--recruiting { background:#dcfce7; color:#166534; }
+.mrc-status--upcoming { background:#fef3c7; color:#92400e; }
+.mrc-title {
+  font-size:13px; font-weight:700; color:#111827;
+  line-height:1.45; margin-bottom:4px;
+}
+.mrc-hospital {
+  font-size:11px; color:#6b7280; margin-bottom:4px;
+}
+.mrc-drug {
+  font-size:11.5px; color:#374151; font-weight:500;
+  line-height:1.4; padding:6px 8px;
+  background:#f9fafb; border-radius:8px;
+}
+.mrc-detail {
+  max-height:0; overflow:hidden; transition:max-height .3s ease;
+}
+.mrc-detail.open { max-height:600px; }
+.mrc-detail-section {
+  padding:8px 0; border-top:1px solid #f3f4f6;
+}
+.mrc-detail-section:first-child { margin-top:10px; }
+.mrc-detail-label {
+  font-size:10.5px; font-weight:700; color:#9ca3af;
+  text-transform:uppercase; letter-spacing:.3px;
+  margin-bottom:4px;
+}
+.mrc-detail-value {
+  font-size:12px; color:#374151; line-height:1.55;
+}
+.mrc-criteria {
+  display:block; font-size:11.5px; color:#374151;
+  line-height:1.5; padding:1px 0;
+}
+.mrc-actions {
+  display:flex; gap:8px; margin-top:12px; padding-top:10px;
+  border-top:1px solid #f3f4f6;
+}
+.mrc-btn {
+  flex:1; padding:10px; font-family:var(--font);
+  font-size:12px; font-weight:700; border:none;
+  border-radius:10px; cursor:pointer; transition:opacity .15s;
+}
+.mrc-btn--primary {
+  background:linear-gradient(135deg,#3fbfbc,#6E3FA3);
+  color:#fff;
+}
+.mrc-btn--secondary {
+  background:#f3f4f6; color:#374151;
+}
+.mrc-btn:hover { opacity:.85; }
+.mrc-expand-hint {
+  font-size:10px; color:#9ca3af; text-align:center;
+  margin-top:8px;
+}
+
+/* Cohort FAB */
+.cohort-fab {
+  position:sticky; bottom:16px; float:right; margin-right:16px;
+  width:50px; height:50px; border-radius:50%;
+  background:var(--text); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.15);
+  transition:transform 0.15s;
+}
+.cohort-fab:hover { transform:scale(1.05); }
+.cohort-fab svg { width:22px; height:22px; color:#fff; }
+
+/* ===== UPLOAD BANNER (HOME) ===== */
+.upload-banner-app {
+  margin:0 20px 16px; padding:18px 16px 14px;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899);
+  position:relative; overflow:hidden; cursor:pointer;
+  transition:transform .15s;
+}
+.upload-banner-app:hover { transform:translateY(-1px); }
+.upload-banner-app-glow {
+  position:absolute; top:-40px; right:-40px;
+  width:120px; height:120px; border-radius:50%;
+  background:rgba(255,255,255,.15); filter:blur(20px); pointer-events:none;
+}
+.upload-banner-app-badge {
+  display:inline-block; padding:2px 8px; font-size:9px; font-weight:700;
+  color:#7c3aed; background:#fff; border-radius:10px; margin-bottom:10px; letter-spacing:.3px;
+}
+.upload-banner-app-main {
+  display:flex; align-items:center; gap:12px; margin-bottom:12px; position:relative; z-index:1;
+}
+.upload-banner-app-icon {
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(255,255,255,.2); display:flex; align-items:center;
+  justify-content:center; flex-shrink:0;
+}
+.upload-banner-app-text h3 { font-size:15px; font-weight:700; color:#fff; margin-bottom:2px; }
+.upload-banner-app-text p { font-size:11px; color:rgba(255,255,255,.8); }
+.upload-banner-app-features {
+  display:flex; flex-wrap:wrap; gap:6px; position:relative; z-index:1;
+}
+.upload-banner-app-features span {
+  font-size:10px; font-weight:500; color:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.15); padding:3px 8px; border-radius:8px;
+}
+
+/* ===== UPLOAD SUB-SCREEN ===== */
+.upl-info { margin:16px; padding:14px; background:#faf5ff; border:1px solid rgba(139,92,246,.12); border-radius:var(--radius-sm); }
+.upl-info-title { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px; }
+.upl-info-steps { display:flex; flex-direction:column; gap:10px; }
+.upl-step { display:flex; align-items:flex-start; gap:10px; }
+.upl-step-num { width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,#8b5cf6,#a855f7); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.upl-step strong { font-size:12px; color:var(--text); display:block; }
+.upl-step p { font-size:10px; color:var(--muted); margin-top:1px; }
+
+.upl-upload-area { padding:0 16px 16px; }
+.upl-count { font-size:12px; font-weight:600; color:#8b5cf6; margin-bottom:10px; }
+.upl-dropzone {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  padding:28px 16px; border:2px dashed #d1d5db; border-radius:var(--radius-sm);
+  background:var(--bg-soft); cursor:pointer; transition:.2s;
+}
+.upl-dropzone:active { border-color:#8b5cf6; background:#faf5ff; }
+.upl-dropzone p { font-size:12px; color:var(--muted); }
+
+.upl-btns { display:flex; gap:8px; margin-top:12px; }
+.upl-btn {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:10px 0; font-size:12px; font-weight:600; border:none; border-radius:var(--radius-xs);
+  cursor:pointer; font-family:var(--font); transition:.15s;
+}
+.upl-btn-cam { background:linear-gradient(135deg,#10b981,#059669); color:#fff; }
+.upl-btn-gal { background:#fff; color:var(--text); border:1px solid #d1d5db; }
+
+.upl-previews { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
+.upl-prev-item { position:relative; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+.upl-prev-item img { width:100%; height:80px; object-fit:cover; display:block; }
+.upl-prev-actions { display:flex; justify-content:space-between; padding:4px 6px; }
+.upl-prev-mask {
+  font-size:9px; font-weight:600; color:#8b5cf6; background:none; border:1px solid rgba(139,92,246,.2);
+  border-radius:4px; padding:2px 6px; cursor:pointer;
+}
+.upl-prev-rm { width:20px; height:20px; border:none; background:none; color:var(--muted); font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.upl-prev-rm:active { color:#ef4444; }
+.upl-prev-masked { position:absolute; top:4px; left:4px; font-size:8px; font-weight:700; color:#fff; background:rgba(16,185,129,.85); padding:1px 6px; border-radius:4px; }
+
+.upl-submit {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:14px; margin-top:16px; font-size:14px; font-weight:700; color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899);
+  border:none; border-radius:var(--radius-sm); cursor:pointer; font-family:var(--font);
+  transition:.15s; box-shadow:0 4px 16px rgba(139,92,246,.25);
+}
+.upl-submit:disabled { opacity:.4; cursor:not-allowed; }
+.upl-submit:not(:disabled):active { transform:scale(.98); }
+
+/* Analysis */
+.upl-analysis { padding:0 16px 24px; }
+.upl-progress { background:#fff; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; margin-bottom:12px; }
+.upl-progress-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.upl-progress-header strong { font-size:13px; color:var(--text); }
+.upl-spinner { width:20px; height:20px; border:2.5px solid #e5e7eb; border-top-color:#8b5cf6; border-radius:50%; animation:uplSpin .7s linear infinite; flex-shrink:0; }
+@keyframes uplSpin { to { transform:rotate(360deg); } }
+.upl-progress-steps { display:flex; flex-direction:column; gap:10px; }
+.upl-pstep { display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-soft); border-radius:8px; }
+.upl-pstep-dot { width:28px; height:28px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:.3s; }
+.upl-dot-pending { background:#e5e7eb; }
+.upl-dot-running { background:linear-gradient(135deg,#8b5cf6,#a855f7); animation:uplPulse 1.5s ease-in-out infinite; }
+@keyframes uplPulse { 0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,.3)} 50%{box-shadow:0 0 0 6px rgba(139,92,246,0)} }
+.upl-dot-done { background:#10b981; }
+.upl-pstep-info { flex:1; }
+.upl-pstep-info strong { font-size:11px; color:var(--text); display:block; }
+.upl-pstep-info p { font-size:9px; color:var(--muted); margin-top:1px; }
+.upl-pstep-status { font-size:10px; font-weight:600; color:var(--muted); white-space:nowrap; }
+
+.upl-result {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius-sm);
+  padding:14px; margin-bottom:10px; animation:uplFadeIn .4s ease;
+}
+@keyframes uplFadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.upl-result strong { font-size:13px; color:var(--text); }
+.upl-result-badge { display:inline-block; padding:2px 8px; font-size:9px; font-weight:700; color:#fff; border-radius:4px; margin-bottom:8px; margin-right:6px; }
+.upl-badge-ocr { background:linear-gradient(135deg,#3b82f6,#6366f1); }
+.upl-badge-law { background:linear-gradient(135deg,#10b981,#059669); }
+.upl-badge-doc { background:linear-gradient(135deg,#8b5cf6,#ec4899); }
+.upl-result-body { margin-top:10px; font-size:11px; color:var(--sub); line-height:1.6; }
+.upl-result-doctor { border-color:rgba(139,92,246,.15); background:linear-gradient(135deg,#faf5ff,#fff); }
+.upl-doctor-wait { display:flex; align-items:center; gap:8px; margin-top:10px; padding:10px; background:var(--bg-soft); border-radius:8px; font-size:11px; color:var(--sub); }
+.upl-doctor-wait strong { color:var(--text); }
+
+/* OCR table */
+.upl-ocr-table { width:100%; border-collapse:collapse; margin:8px 0; font-size:10px; }
+.upl-ocr-table th { padding:6px; text-align:left; background:var(--bg-soft); font-weight:600; color:var(--text); border-bottom:1px solid var(--border); }
+.upl-ocr-table td { padding:6px; border-bottom:1px solid var(--border); color:var(--sub); }
+.upl-status-ok { color:#10b981; font-weight:600; }
+.upl-status-low { color:#ef4444; font-weight:600; }
+
+/* Compliance */
+.upl-compliance-item { display:flex; align-items:flex-start; gap:8px; padding:8px; border-radius:8px; margin-bottom:6px; }
+.upl-compliance-item svg { flex-shrink:0; margin-top:1px; }
+.upl-comp-pass { background:#f0fdf4; }
+.upl-comp-warn { background:#fffbeb; }
+.upl-compliance-item strong { font-size:11px; color:var(--text); display:block; }
+.upl-compliance-item p { font-size:10px; color:var(--sub); margin-top:1px; }
+
+/* Mask modal */
+.upl-mask-modal {
+  position:absolute; inset:0; z-index:100; background:rgba(0,0,0,.5);
+  display:none; align-items:center; justify-content:center; padding:16px;
+}
+.upl-mask-modal.on { display:flex; }
+.upl-mask-inner { width:100%; max-height:90%; overflow-y:auto; background:#fff; border-radius:var(--radius); padding:16px; }
+.upl-mask-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.upl-mask-header strong { font-size:14px; }
+.upl-mask-header button { width:28px; height:28px; border:none; background:none; font-size:18px; cursor:pointer; color:var(--sub); }
+.upl-mask-canvas-wrap { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:12px; touch-action:none; }
+.upl-mask-canvas-wrap canvas { display:block; width:100%; }
+.upl-mask-actions { display:flex; gap:8px; }
+.upl-mask-auto { flex:1; display:flex; align-items:center; justify-content:center; gap:4px; padding:10px; font-size:12px; font-weight:600; border:1px solid var(--border); background:var(--bg-soft); border-radius:8px; cursor:pointer; color:var(--sub); font-family:var(--font); }
+.upl-mask-done { flex:1.5; padding:10px; font-size:12px; font-weight:600; border:none; background:linear-gradient(135deg,#8b5cf6,#a855f7); color:#fff; border-radius:8px; cursor:pointer; font-family:var(--font); }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2C5.2 2 2.7 3.1 1 5l1.4 1.4C3.8 5 5.8 4 8 4s4.2 1 5.6 2.4L15 5C13.3 3.1 10.8 2 8 2zm0 4C6.3 6 4.8 6.7 3.8 7.8L5.2 9.2C5.9 8.5 6.9 8 8 8s2.1.5 2.8 1.2L12.2 7.8C11.2 6.7 9.7 6 8 6zm0 4c-.8 0-1.6.4-2.1 1l2.1 2.5L10.1 11C9.6 10.4 8.8 10 8 10z"/></svg>
+      <svg viewBox="0 0 24 16" fill="currentColor"><rect x="0" y="2" width="19" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="5.5" width="2.5" height="5" rx="1" ry="1"/><rect x="2" y="4" width="12" height="8" rx="1" ry="1"/></svg>
+    </div>
+  </div>
+
+  <!-- ===== SIGNUP OVERLAY ===== -->
+  <div class="signup-overlay" id="signupOverlay">
+    <div class="signup-header">
+      <div class="signup-logo"><span>onco.</span>care</div>
+      <div class="signup-tagline">차세대 지능형 의료 전문 커뮤니티</div>
+      <div class="signup-step-dots" id="signupDots"></div>
+    </div>
+    <div class="signup-body" id="signupBody"></div>
+  </div>
+
+  <!-- Screen Area -->
+  <div class="screen-area">
+
+    <!-- HOME SCREEN -->
+    <div class="screen active" id="screen-home">
+      <div class="home-header">
+        <div class="home-logo"><span>onco.</span>care</div>
+        <div class="home-header-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="home-avatar">😊</div>
+        </div>
+      </div>
+
+      <div class="home-hero">
+        <div class="home-hero-tag">Next-Gen AI Medical Community</div>
+        <h2>차세대 지능형<br>의료 전문 커뮤니티</h2>
+        <p>의료 AI 기업 aitrics가 만든<br>환자 중심의 스마트 헬스케어 플랫폼</p>
+      </div>
+
+      <!-- 커뮤니티 소개 -->
+      <div class="home-about">
+        <div class="home-about-label">onco.care란?</div>
+        <h3>같은 질환, 같은 단계의<br>환우들과 연결됩니다</h3>
+        <p>onco.care는 AI 기반으로 같은 암종·병기·치료 단계의 환우들을 자동 매칭하여, 실시간 정보 공유와 정서적 지지를 제공하는 차세대 지능형 의료 전문 커뮤니티입니다.</p>
+      </div>
+
+      <!-- aitrics 신뢰도 -->
+      <div class="home-trust">
+        <div class="home-trust-title">🏥 aitrics — 신뢰할 수 있는 의료 AI</div>
+        <div class="home-trust-items">
+          <div class="home-trust-item">
+            <div class="home-trust-icon">🤖</div>
+            <div class="home-trust-item-text">
+              <strong>AI 기반 조기경보 시스템</strong>
+              <span>심정지·패혈증·급성신손상 등 조기 예측 AI를 국내외 대형 병원에 공급</span>
+            </div>
+          </div>
+          <div class="home-trust-item">
+            <div class="home-trust-icon">🏆</div>
+            <div class="home-trust-item-text">
+              <strong>SCI급 논문 다수 발표</strong>
+              <span>국제 학술지에 의료 AI 연구 성과를 지속적으로 발표하는 기술 기업</span>
+            </div>
+          </div>
+          <div class="home-trust-item">
+            <div class="home-trust-icon">🔒</div>
+            <div class="home-trust-item-text">
+              <strong>의료 데이터 보안</strong>
+              <span>HIPAA 수준의 개인정보 보호 체계 적용, 익명 기반 커뮤니티 운영</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 브이닥 앱 링크 -->
+      <div class="home-vdoc">
+        <div class="home-vdoc-icon">🩺</div>
+        <div class="home-vdoc-text">
+          <h4>브이닥(VDoc) 앱 바로가기</h4>
+          <p>aitrics의 AI 건강관리 앱으로 이동합니다</p>
+        </div>
+        <span class="home-vdoc-arrow">&rsaquo;</span>
+      </div>
+
+      <!-- 검사기록지 업로드 배너 (최상단 강조) -->
+      <div class="upload-banner-app" onclick="showSubScreen('sub-upload')">
+        <div class="upload-banner-app-glow"></div>
+        <div class="upload-banner-app-badge">NEW</div>
+        <div class="upload-banner-app-main">
+          <div class="upload-banner-app-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="upload-banner-app-text">
+            <h3>검사기록지 업로드</h3>
+            <p>사진으로 찍어 올리면 AI가 즉시 분석합니다</p>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="upload-banner-app-features">
+          <span>📷 카메라 촬영</span>
+          <span>🔒 개인정보 마스킹</span>
+          <span>🖼 최대 5장</span>
+          <span>🤖 AI 실시간 분석</span>
+        </div>
+      </div>
+
+      <div class="content-pad" style="padding-top:16px">
+        <div class="section-title">질환별 게시판</div>
+        <div class="section-subtitle">관심 질환의 커뮤니티에 참여하세요</div>
+
+        <div class="disease-group">
+          <div class="disease-group-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            암 질환
+          </div>
+          <div class="disease-grid">
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(236,72,153,0.1)">🎀</div>
+              <span>유방암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(245,158,11,0.1)">🟠</div>
+              <span>위암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(59,130,246,0.1)">🔵</div>
+              <span>대장암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(34,197,94,0.1)">🟢</div>
+              <span>간암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(139,92,246,0.1)">🟣</div>
+              <span>갑상선암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(107,114,128,0.1)">⚪</div>
+              <span>폐암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(168,85,247,0.1)">🟤</div>
+              <span>췌장암</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(20,184,166,0.1)">🩵</div>
+              <span>전립선암</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="disease-group">
+          <div class="disease-group-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            만성 / 정신건강
+          </div>
+          <div class="disease-grid">
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(245,158,11,0.1)">💛</div>
+              <span>당뇨</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(239,68,68,0.1)">❤️</div>
+              <span>심혈관</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(34,197,94,0.1)">💚</div>
+              <span>알러지</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(59,130,246,0.1)">💙</div>
+              <span>소아성장</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(168,85,247,0.1)">💜</div>
+              <span>공황장애</span>
+            </div>
+            <div class="disease-card">
+              <div class="disease-icon" style="background:rgba(110,63,163,0.1)">🤎</div>
+              <span>우울증</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEED SCREEN -->
+    <div class="screen" id="screen-feed">
+      <div class="screen-header">
+        <h1>피드</h1>
+      </div>
+
+      <div class="compose-card">
+        <div class="compose-avatar">😊</div>
+        <div class="compose-input">오늘 하루는 어떠신가요?</div>
+      </div>
+
+      <!-- Feed Card 1 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: linear-gradient(135deg, #3fbfbc, #6E3FA3);">v</div>
+          <div class="feed-author-info">
+            <div class="feed-author">onco.care 메디컬팀 <span class="feed-badge badge-official">Official</span></div>
+            <div class="feed-date">3시간 전</div>
+          </div>
+        </div>
+        <div class="feed-title">이번 주 건강 트렌드</div>
+        <div class="feed-text">2026년 3월 둘째 주 주요 건강 이슈를 정리했습니다. 최근 면역 항암제 병용 요법의 효과에 대한 새로운 연구 결과가 발표되었으며, 개인 맞춤형 영양 관리의 중요성이 다시 한번 강조되고 있습니다.</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            42
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            18
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Card 2 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: #e0e7ff; color: #6366f1;">환</div>
+          <div class="feed-author-info">
+            <div class="feed-author">@환우_m7n</div>
+            <div class="feed-date">5시간 전</div>
+          </div>
+        </div>
+        <div class="feed-title">항암 3차 완료 후기</div>
+        <div class="feed-text">드디어 3차 항암이 끝났습니다. 2차 때보다 부작용이 조금 덜했어요. 구역감은 여전했지만 피로감은 좀 나아진 것 같습니다. 같은 치료를 앞두고 계신 분들께 도움이 되었으면 합니다.</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            89
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            34
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Card 3 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: rgba(63,191,188,0.15); color: #3fbfbc;">김</div>
+          <div class="feed-author-info">
+            <div class="feed-author">Dr. 김 <span class="feed-badge badge-doctor">의료전문가</span></div>
+            <div class="feed-date">어제</div>
+          </div>
+        </div>
+        <div class="feed-title">유방암 HER2+ 최신 치료 가이드</div>
+        <div class="feed-text">HER2 양성 유방암의 최신 치료 가이드라인을 정리했습니다. T-DXd(엔허투) 기반의 2차 이후 치료 전략과 함께, 최근 주목받는 ADC 계열 약물의 임상 데이터를 공유합니다.</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            127
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            56
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed Card 4 -->
+      <div class="feed-card">
+        <div class="feed-card-header">
+          <div class="feed-avatar" style="background: #fce7f3; color: #ec4899;">정</div>
+          <div class="feed-author-info">
+            <div class="feed-author">@정원_sunshine</div>
+            <div class="feed-date">어제</div>
+          </div>
+        </div>
+        <div class="feed-title">투병 일기 #24 - 봄이 오고 있어요</div>
+        <div class="feed-text">병원 창문 밖으로 벚꽃이 피기 시작했어요. 올해도 봄을 맞이할 수 있어서 정말 감사합니다. 모든 환우분들께 따뜻한 봄 기운 전해드려요 🌸</div>
+        <div class="feed-actions">
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            215
+          </div>
+          <div class="feed-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            78
+          </div>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <!-- COMMUNITY SCREEN -->
+    <div class="screen" id="screen-community">
+      <div class="community-header">
+        <div class="community-header-row">
+          <h1>따뜻한 환우 광장</h1>
+          <button class="btn-write">기록/응원 남기기</button>
+        </div>
+
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span>글 제목, 내용, 태그 검색</span>
+        </div>
+
+        <div class="filter-pills">
+          <button class="pill active">전체</button>
+          <button class="pill">유방암</button>
+          <button class="pill">위암</button>
+          <button class="pill">대장암</button>
+          <button class="pill">간암</button>
+          <button class="pill">갑상선암</button>
+          <button class="pill">폐암</button>
+        </div>
+
+        <div class="category-filters">
+          <button class="cat-filter active">전체</button>
+          <button class="cat-filter">증상 질문</button>
+          <button class="cat-filter">희망 사례</button>
+          <button class="cat-filter">따뜻한 응원</button>
+          <button class="cat-filter">최신정보</button>
+        </div>
+      </div>
+
+      <div style="padding-top:12px">
+        <!-- Post 1 -->
+        <div class="post-card border-blue">
+          <span class="post-badge blue">증상 질문</span>
+          <div class="post-title">항암 후 손발 저림 증상, 어떻게 관리하시나요?</div>
+          <div class="post-excerpt">3차 항암 치료 이후로 손과 발이 많이 저립니다. 특히 아침에 일어나면 감각이 거의 없는 느낌인데, 혹시 같은 경험 있으신 분 계신가요?</div>
+          <div class="post-tags">
+            <span class="post-tag">#유방암</span>
+            <span class="post-tag">#항암부작용</span>
+            <span class="post-tag">#말초신경병증</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              324
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              47
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post-card border-green">
+          <span class="post-badge green">희망 사례</span>
+          <div class="post-title">위암 3기 진단 후 2년, 완치 판정 받았습니다</div>
+          <div class="post-excerpt">2024년 3월에 위암 3기 진단을 받고, 수술과 항암을 거쳐 드디어 완치 판정을 받았습니다. 포기하지 않길 정말 잘했다는 생각이 듭니다.</div>
+          <div class="post-tags">
+            <span class="post-tag">#위암</span>
+            <span class="post-tag">#완치</span>
+            <span class="post-tag">#희망</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              1,287
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              203
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="post-card border-pink">
+          <span class="post-badge pink">따뜻한 응원</span>
+          <div class="post-title">오늘 치료 시작하시는 모든 분들께</div>
+          <div class="post-excerpt">오늘도 병원에 가시는 모든 환우분들, 당신은 정말 용감하고 대단합니다. 치료 과정이 힘들겠지만, 우리 모두 응원하고 있어요.</div>
+          <div class="post-tags">
+            <span class="post-tag">#응원</span>
+            <span class="post-tag">#힘내세요</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              856
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              145
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 4 - Medical team gradient -->
+        <div class="post-card border-gradient">
+          <span class="post-badge teal-gradient">최신정보 · 메디컬팀</span>
+          <div class="post-title">2026년 대장암 검진 가이드라인 업데이트</div>
+          <div class="post-excerpt">onco.care 메디컬팀이 정리한 최신 대장암 검진 가이드라인입니다. 45세 이상 성인에게 권장되는 검진 주기와 방법을 확인해보세요.</div>
+          <div class="post-tags">
+            <span class="post-tag">#대장암</span>
+            <span class="post-tag">#검진가이드</span>
+            <span class="post-tag">#메디컬팀</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              2,103
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              89
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 5 -->
+        <div class="post-card border-blue">
+          <span class="post-badge blue">증상 질문</span>
+          <div class="post-title">갑상선암 수술 후 목소리 변화 경험</div>
+          <div class="post-excerpt">갑상선 전절제 수술을 받은 지 3개월 되었는데, 아직 목소리가 완전히 돌아오지 않았습니다. 비슷한 경험을 하신 분들의 회복 과정이 궁금합니다.</div>
+          <div class="post-tags">
+            <span class="post-tag">#갑상선암</span>
+            <span class="post-tag">#수술후기</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              198
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              32
+            </span>
+          </div>
+        </div>
+        <div style="height:16px"></div>
+      </div>
+    </div>
+
+    <!-- COHORT SCREEN -->
+    <div class="screen" id="screen-cohort">
+      <div class="screen-header">
+        <h1>in 코호트</h1>
+      </div>
+
+      <!-- 자동 입장 (회원가입 시 암종/병기 선택 완료된 경우) -->
+      <div id="cohortAutoBanner" style="display:none">
+        <div class="cohort-auto-entering">
+          <div class="cohort-auto-entering-spinner"></div>
+          <h3>코호트에 자동으로 입장합니다</h3>
+          <p>회원가입 시 선택하신 정보로<br>맞춤 코호트를 매칭 중입니다...</p>
+          <div class="cohort-auto-entering-tags" id="cohortAutoTags"></div>
+        </div>
+      </div>
+
+      <!-- 기존 온보딩 (회원가입 안 한 경우) -->
+      <div class="cohort-content" id="cohortOnboarding">
+        <div class="cohort-dots">
+          <div class="cohort-dot active"></div>
+          <div class="cohort-dot"></div>
+          <div class="cohort-dot"></div>
+        </div>
+
+        <div class="cohort-icon-box">🩺</div>
+
+        <h2>어떤 질환을<br>가지고 계세요?</h2>
+        <p>맞춤형 코호트 그룹을 구성하기 위해<br>기본 정보를 알려주세요.</p>
+
+        <div class="cohort-options">
+          <button class="cohort-option" onclick="selectCohort(this)">
+            <div class="cohort-option-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>
+            암 질환
+          </button>
+          <button class="cohort-option" onclick="selectCohort(this)">
+            <div class="cohort-option-icon" style="background:rgba(59,130,246,0.08)">💊</div>
+            만성 질환
+          </button>
+          <button class="cohort-option" onclick="selectCohort(this)">
+            <div class="cohort-option-icon" style="background:rgba(139,92,246,0.08)">🧠</div>
+            정신건강
+          </button>
+        </div>
+
+        <button class="btn-next" id="btnNext" onclick="nextCohortStep()">다음</button>
+      </div>
+    </div>
+
+    <!-- CHAT SCREEN -->
+    <div class="screen" id="screen-chat">
+      <div class="screen-header">
+        <h1>onco.care 채팅</h1>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">유</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">유방암 환우 채팅방 <span class="chat-online">12명 활동 중</span></div>
+          <div class="chat-last-msg">항암 후 컨디션 관리법 공유해요 💪</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오후 2:30</div>
+          <div class="chat-unread">3</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">위</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">위암 코호트 채팅 <span class="chat-online">8명 활동 중</span></div>
+          <div class="chat-last-msg">다음 주 정기모임 일정 안내드립니다</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오후 1:15</div>
+          <div class="chat-unread">7</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: var(--ai-gradient);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M18 14a6 6 0 0 1-12 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
+        </div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">onco.care AI 상담</div>
+          <div class="chat-last-msg">무엇이든 물어보세요</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">항상</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">대</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">대장암 정보 공유 <span class="chat-online">5명 활동 중</span></div>
+          <div class="chat-last-msg">새로운 검진 가이드라인이 나왔어요</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오전 11:42</div>
+        </div>
+      </div>
+
+      <div class="chat-room">
+        <div class="chat-room-icon" style="background: linear-gradient(135deg, #ef4444, #f87171);">심</div>
+        <div class="chat-room-info">
+          <div class="chat-room-name">심혈관 건강 모임 <span class="chat-online">3명 활동 중</span></div>
+          <div class="chat-last-msg">운동 루틴 공유합니다</div>
+        </div>
+        <div class="chat-room-meta">
+          <div class="chat-time">오전 9:30</div>
+        </div>
+      </div>
+
+      <div class="chat-ai-card">
+        <div class="chat-ai-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <div class="chat-ai-info">
+          <h3>onco.care AI에게 건강 질문하기</h3>
+          <p>증상, 치료, 생활습관에 대해 물어보세요</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUB: POST DETAIL ===== -->
+    <div class="sub-screen" id="sub-post-detail">
+      <div class="back-header" onclick="hideSubScreen('sub-post-detail')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>게시글</span>
+      </div>
+      <div class="pd-card">
+        <div class="pd-badges">
+          <span class="post-badge blue">증상 질문</span>
+          <span class="post-badge" style="background:var(--bg-soft);color:var(--sub);font-size:10px;">유방암</span>
+        </div>
+        <div class="pd-title">항암 후 손발 저림 증상, 어떻게 관리하시나요?</div>
+        <div class="pd-meta">
+          <div class="pd-avatar">환</div>
+          <div class="pd-meta-text"><strong>@환우_m7n</strong> · 환자 · 2026.03.09 · 조회 324</div>
+        </div>
+        <button class="pd-like-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          좋아요 <strong>89</strong>
+        </button>
+      </div>
+
+      <div class="pd-body">
+        <p>안녕하세요, 유방암 치료 중인 환자입니다.</p>
+        <p>항암 3차 이후부터 손발이 저리고 감각이 이상해졌어요. 특히 아침에 일어나면 감각이 거의 없는 느낌이고, 차가운 물건을 만지면 통증이 심합니다.</p>
+        <p>주치의께는 말씀드렸는데, 비타민 B6 보충을 권해주셨어요. 혹시 생활 속에서 도움이 되는 방법이 있는지 경험 나눠주세요.</p>
+        <p>같은 증상을 겪고 계신 분들의 조언이 정말 필요합니다. 모두 건강하시길 바랍니다.</p>
+      </div>
+
+      <div class="pd-tags">
+        <span class="pd-tag">#유방암</span>
+        <span class="pd-tag">#항암부작용</span>
+        <span class="pd-tag">#말초신경병증</span>
+      </div>
+
+      <div class="pd-reactions">
+        <button class="pd-react-btn">👍 응원해요 <strong>24</strong></button>
+        <button class="pd-react-btn">ℹ️ 유익해요 <strong>18</strong></button>
+      </div>
+
+      <hr class="pd-divider">
+
+      <div class="pd-comments">
+        <div class="pd-comments-title">답변 <strong>3</strong></div>
+
+        <div class="pd-comment-input">
+          <textarea rows="2" placeholder="경험이나 응원의 말씀을 남겨주세요."></textarea>
+          <button>답변 남기기</button>
+        </div>
+
+        <div class="pd-comment pd-comment--doctor">
+          <div class="pd-comment-avatar">🩺</div>
+          <div class="pd-comment-body">
+            <div class="pd-comment-meta">
+              <span class="pd-comment-name">의료진 답변</span>
+              <span class="pd-comment-role">의료진</span>
+              <span class="pd-comment-date">2026.03.09</span>
+            </div>
+            <div class="pd-comment-text">항암 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 됩니다. 비타민 B6 보충을 주치의와 상의해 보세요. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 말씀해주세요.</div>
+            <button class="pd-comment-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 38</button>
+          </div>
+        </div>
+
+        <div class="pd-comment">
+          <div class="pd-comment-avatar" style="background:#e0e7ff;color:#6366f1;">환</div>
+          <div class="pd-comment-body">
+            <div class="pd-comment-meta">
+              <span class="pd-comment-name">@환우_s0t</span>
+              <span class="pd-comment-role">환자</span>
+              <span class="pd-comment-date">2026.03.09</span>
+            </div>
+            <div class="pd-comment-text">저도 비슷한 경험이 있어요. 따뜻한 물에 발 담그기가 좀 도움됐어요! 저림이 심한 날은 보온 양말 꼭 신으세요.</div>
+            <button class="pd-comment-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 15</button>
+          </div>
+        </div>
+
+        <div class="pd-comment">
+          <div class="pd-comment-avatar" style="background:#fce7f3;color:#ec4899;">보</div>
+          <div class="pd-comment-body">
+            <div class="pd-comment-meta">
+              <span class="pd-comment-name">@보호자_k3a</span>
+              <span class="pd-comment-role">보호자</span>
+              <span class="pd-comment-date">2026.03.10</span>
+            </div>
+            <div class="pd-comment-text">저희 어머니도 같은 증상이 있으셨는데, 주치의 선생님께서 용량 조절 후 많이 나아지셨어요. 꼭 상담해보세요!</div>
+            <button class="pd-comment-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 8</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pd-ai-panel">
+        <div class="pd-ai-header">
+          <div class="pd-ai-avatar">AI</div>
+          <div class="pd-ai-label">onco.care AI 유사글 추천</div>
+        </div>
+        <div class="pd-ai-intro">이 글과 비슷한 경험을 공유한 게시글을 찾았어요.</div>
+        <div class="pd-ai-card">
+          <div class="pd-ai-card-title">항암 중 손발 저림, 이렇게 관리했어요</div>
+          <div class="pd-ai-card-meta">@환자_91z · 조회 156</div>
+        </div>
+        <div class="pd-ai-card">
+          <div class="pd-ai-card-title">말초신경병증 부작용 극복 후기</div>
+          <div class="pd-ai-card-meta">@환우_g4h · 조회 203</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUB: CHAT ROOM ===== -->
+    <div class="sub-screen" id="sub-chat-room">
+      <div class="back-header" onclick="hideSubScreen('sub-chat-room')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>유방암 환우 채팅방</span>
+        <div class="back-header-right">12명 활동 중</div>
+      </div>
+
+      <div class="chat-detail-msgs">
+        <div class="cd-msg cd-msg--ai">
+          <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">onco.care AI</div>
+            <div class="cd-msg-bubble">📋 <b>코호트 대화 요약</b><br>이 채팅방은 유방암 환우분들의 공간입니다. 최근 항암 부작용 관리와 수술 경험에 대한 대화가 활발하게 이루어지고 있어요.</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_mj7</div>
+            <div class="cd-msg-bubble">안녕하세요! 저도 유방암으로 항암 2차 진행 중이에요. 반가워요 😊</div>
+            <div class="cd-msg-time">14:02</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">보</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">보호자_k3a</div>
+            <div class="cd-msg-bubble">반갑습니다. 저는 보호자인데, 수술 후 관리가 걱정돼서 왔어요.</div>
+            <div class="cd-msg-time">14:05</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_th2</div>
+            <div class="cd-msg-bubble">저는 3차 항암 마치고 쉬는 중이에요. 손발 저림이 좀 있는데 다들 어떠세요?</div>
+            <div class="cd-msg-time">14:08</div>
+          </div>
+        </div>
+
+        <div class="cd-msg cd-msg--ai">
+          <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">onco.care AI</div>
+            <div class="cd-msg-bubble">항암 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말 착용이 도움이 돼요. 증상이 악화되면 용량 조절이 필요할 수 있으니 꼭 주치의께 말씀해주세요.</div>
+            <div class="cd-msg-time">14:09</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_91z</div>
+            <div class="cd-msg-bubble">저도 저림 있었는데, 따뜻한 물에 발 담그기가 좀 도움됐어요!</div>
+            <div class="cd-msg-time">14:12</div>
+          </div>
+        </div>
+
+        <div class="cd-msg cd-msg--mine">
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">나</div>
+            <div class="cd-msg-bubble">다들 반가워요! 저도 같은 단계라 많이 공감돼요.</div>
+            <div class="cd-msg-time">14:15</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">보</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">보호자_8a4</div>
+            <div class="cd-msg-bubble">수술 때 통증이 어느 정도였나요? 준비해야 할 게 있을까요?</div>
+            <div class="cd-msg-time">14:18</div>
+          </div>
+        </div>
+
+        <div class="cd-msg">
+          <div class="cd-msg-avatar">환</div>
+          <div class="cd-msg-body">
+            <div class="cd-msg-name">환자_mj7</div>
+            <div class="cd-msg-bubble">저는 수술 후 3일 정도가 제일 힘들었고, 그 이후로는 점점 나아졌어요. 쿠션이랑 긴 빨대가 유용했어요!</div>
+            <div class="cd-msg-time">14:20</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-bar">
+        <input type="text" placeholder="메시지를 입력하세요…">
+        <button>전송</button>
+      </div>
+    </div>
+
+    <!-- ===== SUB: DISEASE BOARD ===== -->
+    <div class="sub-screen" id="sub-disease-board">
+      <div class="back-header" onclick="hideSubScreen('sub-disease-board')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span id="disease-board-title">유방암 게시판</span>
+      </div>
+
+      <div class="disease-info-card">
+        <div class="disease-info-icon" id="disease-board-icon" style="background:rgba(236,72,153,0.1)">🎀</div>
+        <div class="disease-info-text">
+          <h3 id="disease-board-name">유방암</h3>
+          <p>환우 234명 참여 중</p>
+        </div>
+      </div>
+
+      <div class="post-card border-blue" onclick="showSubScreen('sub-post-detail')">
+        <span class="post-badge blue">증상 질문</span>
+        <div class="post-title">항암 후 손발 저림 증상, 어떻게 관리하시나요?</div>
+        <div class="post-excerpt">3차 항암 치료 이후로 손과 발이 많이 저립니다. 특히 아침에 일어나면 감각이 거의 없는 느낌인데...</div>
+        <div class="post-meta">
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 324</span>
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 47</span>
+        </div>
+      </div>
+
+      <div class="post-card border-green" onclick="showSubScreen('sub-post-detail')">
+        <span class="post-badge green">희망 사례</span>
+        <div class="post-title">HER2+ 항암 12차 완주했습니다!</div>
+        <div class="post-excerpt">처음 진단받았을 땐 세상이 무너지는 것 같았는데, 어느덧 마지막 주사를 맞고 왔네요. 여기서 얻은 정보와 응원 덕분이었습니다.</div>
+        <div class="post-meta">
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 892</span>
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 156</span>
+        </div>
+      </div>
+
+      <div class="post-card border-pink" onclick="showSubScreen('sub-post-detail')">
+        <span class="post-badge pink">따뜻한 응원</span>
+        <div class="post-title">오늘도 항암 치료를 버텨낸 우리 모두 파이팅!</div>
+        <div class="post-excerpt">병동 창밖을 보며 문득 환우분들 생각이 났어요. 지금 이 고통도 결국 지나갈 과정이라 믿습니다.</div>
+        <div class="post-meta">
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 567</span>
+          <span class="post-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 89</span>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <!-- ===== SUB: COHORT MAIN (탭 기반 리디자인) ===== -->
+    <div class="sub-screen" id="sub-cohort-main" style="display:flex;flex-direction:column;">
+      <!-- 헤더 -->
+      <div class="back-header" onclick="hideSubScreen('sub-cohort-main');showCohortOnboarding()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>in 코호트</span>
+        <div class="back-header-right">15명 활동 중</div>
+      </div>
+
+      <!-- 프로필 바 (컴팩트) -->
+      <div style="padding:10px 16px;background:#fff;border-bottom:1px solid var(--border)">
+        <div class="cohort-tags" id="cohort-main-tags" style="margin:0">
+          <span class="cohort-tag">암 질환</span>
+          <span class="cohort-tag">유방암</span>
+        </div>
+      </div>
+
+      <!-- 내부 탭 바 -->
+      <div style="display:flex;border-bottom:1px solid var(--border);background:#fff;flex-shrink:0">
+        <button class="cohort-inner-tab active" onclick="switchCohortTab('board',this)">📋 게시판</button>
+        <button class="cohort-inner-tab" onclick="switchCohortTab('chat',this)">💬 채팅</button>
+        <button class="cohort-inner-tab" onclick="switchCohortTab('notice',this)">📌 공지</button>
+        <button class="cohort-inner-tab" onclick="switchCohortTab('matching',this)">💊 임상/신약</button>
+      </div>
+
+      <!-- 탭 콘텐츠: 게시판 -->
+      <div class="cohort-tab-content active" id="cohort-tab-board" style="flex:1;overflow-y:auto;position:relative">
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:12px 16px 8px">
+          <span class="cohort-post-badge" style="background:rgba(34,197,94,0.1);color:#16a34a;">💡 팁</span>
+          <div class="cohort-post-title">항암 부작용 관리, 이렇게 했어요</div>
+          <div class="cohort-post-desc">같은 레지멘으로 항암 중인데, 3차 이후부터 구역감이 심해져서 생강차를 병행했더니 나아졌어요.</div>
+          <div class="cohort-post-meta">환자_mj7 · 👁 89 · 💬 14</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
+          <span class="cohort-post-badge" style="background:rgba(59,130,246,0.1);color:#2563eb;">ℹ️ 정보</span>
+          <div class="cohort-post-title">수술 후 운동 시작 시기에 대해</div>
+          <div class="cohort-post-desc">선생님이 2주 후부터 가벼운 걷기를 시작하라고 하셨는데, 다른 분들은 언제부터 시작하셨나요?</div>
+          <div class="cohort-post-meta">보호자_k3a · 👁 67 · 💬 11</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
+          <span class="cohort-post-badge" style="background:rgba(236,72,153,0.1);color:#ec4899;">💡 팁</span>
+          <div class="cohort-post-title">진단 후 마음 관리 어떻게 하세요?</div>
+          <div class="cohort-post-desc">진단 초기에 멘탈이 많이 흔들렸는데, 여기 같은 단계 환우분들은 어떻게 마음을 다잡으셨는지 궁금합니다.</div>
+          <div class="cohort-post-meta">환자_th2 · 👁 134 · 💬 23</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
+          <span class="cohort-post-badge" style="background:linear-gradient(135deg,#ecfdf5,#f0e8f7);color:#6b21a8;">🤖 AI</span>
+          <div class="cohort-post-title">[AI 분석] 코호트 주간 트렌드</div>
+          <div class="cohort-post-desc">이번 주 가장 많이 논의된 주제: 항암 부작용 관리(38%), 식이요법(24%), 심리적 지지(18%)</div>
+          <div class="cohort-post-meta">onco.care AI · 👁 203 · 💬 8</div>
+        </div>
+        <div class="cohort-post" onclick="showSubScreen('sub-post-detail')" style="margin:0 16px 8px">
+          <span class="cohort-post-badge" style="background:rgba(59,130,246,0.1);color:#2563eb;">ℹ️ 정보</span>
+          <div class="cohort-post-title">항암 중 면역력 관리 꿀팁 공유</div>
+          <div class="cohort-post-desc">단백질 섭취를 충분히 하고, 감염 예방을 위해 사람 많은 곳을 피하는 게 도움이 됐어요.</div>
+          <div class="cohort-post-meta">환자_91z · 👁 156 · 💬 19</div>
+        </div>
+        <div style="height:80px"></div>
+
+        <!-- 글쓰기 FAB -->
+        <button class="cohort-fab" onclick="alert('글쓰기 화면으로 이동합니다.')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </button>
+      </div>
+
+      <!-- 탭 콘텐츠: 채팅 (전체 화면) -->
+      <div class="cohort-tab-content" id="cohort-tab-chat" style="flex:1;display:none;flex-direction:column">
+        <div style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px" id="cohortChatArea">
+          <div class="cd-msg cd-msg--ai">
+            <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">onco.care AI</div>
+              <div class="cd-msg-bubble">📋 <b>코호트 대화 요약</b><br>이 채팅방은 같은 코호트 환우분들의 공간입니다. 최근 항암 부작용 관리와 수술 경험에 대한 대화가 활발합니다.</div>
+            </div>
+          </div>
+          <div class="cd-msg">
+            <div class="cd-msg-avatar">환</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">환자_mj7</div>
+              <div class="cd-msg-bubble">안녕하세요! 저도 같은 코호트에요. 반가워요 😊</div>
+              <div class="cd-msg-time">14:02</div>
+            </div>
+          </div>
+          <div class="cd-msg">
+            <div class="cd-msg-avatar">보</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">보호자_k3a</div>
+              <div class="cd-msg-bubble">반갑습니다. 저는 보호자인데, 수술 후 관리가 걱정돼서 왔어요.</div>
+              <div class="cd-msg-time">14:05</div>
+            </div>
+          </div>
+          <div class="cd-msg">
+            <div class="cd-msg-avatar">환</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">환자_th2</div>
+              <div class="cd-msg-bubble">저는 3차 항암 마치고 쉬는 중이에요. 손발 저림이 좀 있는데 다들 어떠세요?</div>
+              <div class="cd-msg-time">14:08</div>
+            </div>
+          </div>
+          <div class="cd-msg cd-msg--ai">
+            <div class="cd-msg-avatar cd-msg-avatar--ai">AI</div>
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">onco.care AI</div>
+              <div class="cd-msg-bubble">항암 치료 중 손발 저림(말초신경병증)은 흔한 부작용입니다. 차가운 것을 피하고, 보온 장갑·양말이 도움이 됩니다.</div>
+              <div class="cd-msg-time">14:09</div>
+            </div>
+          </div>
+          <div class="cd-msg cd-msg--mine">
+            <div class="cd-msg-body">
+              <div class="cd-msg-name">나</div>
+              <div class="cd-msg-bubble">다들 반가워요! 저도 같은 단계라 많이 공감돼요.</div>
+              <div class="cd-msg-time">14:15</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-bar">
+          <input type="text" placeholder="같은 코호트 환우들에게 메시지…">
+          <button>전송</button>
+        </div>
+      </div>
+
+      <!-- 탭 콘텐츠: 공지 -->
+      <div class="cohort-tab-content" id="cohort-tab-notice" style="flex:1;overflow-y:auto;display:none;padding:12px 16px">
+        <div class="cohort-notice" style="margin-bottom:8px">
+          <span class="cohort-notice-badge">📌 필독</span>
+          <div class="cohort-notice-title">[필독] 환우분들을 위한 치료 가이드라인 요약</div>
+          <div class="cohort-notice-desc">최신 NCCN 가이드라인의 핵심 포인트를 알기 쉽게 정리했습니다.</div>
+        </div>
+        <div class="cohort-notice" style="margin-bottom:8px">
+          <span class="cohort-notice-badge">📌 필독</span>
+          <div class="cohort-notice-title">코호트 이용 안내 — 같은 단계 환우끼리 소통해요</div>
+          <div class="cohort-notice-desc">이 공간은 동일한 암종·치료단계의 환우분들이 정보를 나누는 곳입니다. 개인정보 보호를 위해 실명은 자제해 주세요.</div>
+        </div>
+        <div class="cohort-notice" style="margin-bottom:8px">
+          <span class="cohort-notice-badge">📢 안내</span>
+          <div class="cohort-notice-title">onco.care AI 기능 업데이트 안내</div>
+          <div class="cohort-notice-desc">채팅 중 AI가 맥락에 맞는 의료 정보를 자동으로 제공합니다. 단, AI 응답은 참고용이며 주치의 상담을 대체하지 않습니다.</div>
+        </div>
+      </div>
+
+      <!-- 탭 콘텐츠: 임상/신약 매칭 -->
+      <div class="cohort-tab-content" id="cohort-tab-matching" style="flex:1;overflow-y:auto;display:none;padding:0">
+
+        <!-- 상단 헤더 -->
+        <div style="padding:20px 16px 16px;background:linear-gradient(135deg,#f0f9ff 0%,#faf5ff 100%);border-bottom:1px solid var(--border)">
+          <div style="font-size:15px;font-weight:700;color:#111827;margin-bottom:4px">어떤 약을 찾고 계세요?</div>
+          <div style="font-size:12px;color:#6b7280;line-height:1.5">AI가 나의 상태에 맞는 임상시험과 신약을 큐레이션해 드립니다.</div>
+        </div>
+
+        <!-- 임상 / 신약 카드 -->
+        <div style="display:flex;gap:10px;padding:16px">
+          <div class="matching-type-card" id="matchCardClinical" onclick="selectMatchingType('clinical')" style="flex:1;padding:16px 14px;border:1.5px solid #e5e7eb;border-radius:14px;text-align:center;cursor:pointer;transition:all .15s;background:#fff">
+            <div style="font-size:28px;margin-bottom:8px">🔬</div>
+            <div style="font-size:14px;font-weight:700;color:#111827;margin-bottom:4px">임상시험</div>
+            <div style="font-size:11px;color:#6b7280;line-height:1.4">현재 모집 중인<br>임상시험 매칭</div>
+          </div>
+          <div class="matching-type-card" id="matchCardDrug" onclick="selectMatchingType('drug')" style="flex:1;padding:16px 14px;border:1.5px solid #e5e7eb;border-radius:14px;text-align:center;cursor:pointer;transition:all .15s;background:#fff">
+            <div style="font-size:28px;margin-bottom:8px">💊</div>
+            <div style="font-size:14px;font-weight:700;color:#111827;margin-bottom:4px">신약</div>
+            <div style="font-size:11px;color:#6b7280;line-height:1.4">허가된 최신 신약<br>적합성 확인</div>
+          </div>
+        </div>
+
+        <!-- AI 큐레이션 폼 -->
+        <div style="padding:0 16px 20px">
+          <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#3fbfbc,#6E3FA3);font-size:9px;color:#fff;font-weight:800">AI</span>
+            맞춤 매칭을 위해 아래 정보를 입력해 주세요
+          </div>
+
+          <!-- 섹션 1: 진단 정보 -->
+          <div class="matching-section">
+            <div class="matching-section-title">📋 진단 정보</div>
+
+            <div class="matching-field">
+              <label class="matching-label">진단 받은 시점</label>
+              <div class="matching-options" id="matchDiagDate">
+                <button class="matching-opt" onclick="selectMatchOpt(this)">1개월 이내</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">1~6개월</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">6개월~1년</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">1~3년</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">3년 이상</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">현재 치료 상태</label>
+              <div class="matching-options" id="matchTxStatus">
+                <button class="matching-opt" onclick="selectMatchOpt(this)">치료 중</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">치료 완료</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">치료 전(대기 중)</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">재발/전이</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 섹션 2: 치료 이력 -->
+          <div class="matching-section">
+            <div class="matching-section-title">💉 치료 이력</div>
+
+            <div class="matching-field">
+              <label class="matching-label">받은 항암제/방사선 치료</label>
+              <div class="matching-hint">코호트 암종에 따라 자동 큐레이션됩니다</div>
+              <div class="matching-options matching-options--wrap" id="matchTxHistory">
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">항암화학요법</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">방사선 치료</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">표적치료제</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">면역항암제</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">호르몬 치료</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">해당 없음</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">치료 차수</label>
+              <div class="matching-options" id="matchTxLine">
+                <button class="matching-opt" onclick="selectMatchOpt(this)">1차</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">2차</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">3차</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">4차 이상</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">해당 없음</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">특정 약제 사용 여부</label>
+              <div class="matching-hint">시험 약과 중복 여부 확인용</div>
+              <input type="text" class="matching-input" placeholder="예: 키트루다, 허셉틴 등 (쉼표로 구분)">
+            </div>
+          </div>
+
+          <!-- 섹션 3: 신체 상태 -->
+          <div class="matching-section">
+            <div class="matching-section-title">🏃 신체 상태</div>
+
+            <div class="matching-field">
+              <label class="matching-label">일상 생활 수행 능력 (ECOG)</label>
+              <div class="matching-options matching-options--vertical" id="matchECOG">
+                <button class="matching-opt matching-opt--wide" onclick="selectMatchOpt(this)"><b>0점</b> — 정상 활동 가능</button>
+                <button class="matching-opt matching-opt--wide" onclick="selectMatchOpt(this)"><b>1점</b> — 경미한 증상, 일상 활동 가능</button>
+                <button class="matching-opt matching-opt--wide" onclick="selectMatchOpt(this)"><b>2점</b> — 낮 시간 50% 이상 활동 가능</button>
+                <button class="matching-opt matching-opt--wide" onclick="selectMatchOpt(this)"><b>3점</b> — 낮 시간 50% 이상 침대/의자 생활</button>
+                <button class="matching-opt matching-opt--wide" onclick="selectMatchOpt(this)"><b>4점</b> — 완전히 거동 불가</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">주요 장기 기능</label>
+              <div class="matching-hint">해당하는 항목을 모두 선택해 주세요</div>
+              <div class="matching-options matching-options--wrap" id="matchOrgan">
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">간수치 정상</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">간수치 이상</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">신장 기능 정상</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">신장 기능 이상</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">혈액 수치 정상</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">혈액 수치 이상</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">잘 모르겠어요</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">보행 가능 여부</label>
+              <div class="matching-options" id="matchMobility">
+                <button class="matching-opt" onclick="selectMatchOpt(this)">독립 보행 가능</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">보조기구 사용</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">보행 불가</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 섹션 4: 기저질환 및 금기사항 -->
+          <div class="matching-section">
+            <div class="matching-section-title">⚠️ 기저질환 및 금기사항</div>
+
+            <div class="matching-field">
+              <label class="matching-label">기저질환 여부</label>
+              <div class="matching-options matching-options--wrap" id="matchComorbid">
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">심장질환</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">자가면역 질환</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">감염성 질환</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">당뇨</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">고혈압</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">해당 없음</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">현재 복용 중인 약물</label>
+              <input type="text" class="matching-input" placeholder="예: 혈압약, 당뇨약 등 (쉼표로 구분)">
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">임신 또는 수유 중</label>
+              <div class="matching-options" id="matchPregnancy">
+                <button class="matching-opt" onclick="selectMatchOpt(this)">해당 없음</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">임신 중</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">수유 중</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">임신 계획 중</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 섹션 5: 유전자/바이오마커 -->
+          <div class="matching-section">
+            <div class="matching-section-title">🧬 유전자 · 바이오마커</div>
+
+            <div class="matching-field">
+              <label class="matching-label">유전자 변이 여부</label>
+              <div class="matching-hint">해당하는 항목을 모두 선택해 주세요</div>
+              <div class="matching-options matching-options--wrap" id="matchBiomarker">
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">BRCA 변이</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">HER2 양성</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">PD-L1 양성</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">EGFR 변이</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">ALK 변이</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">KRAS 변이</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">MSI-H/dMMR</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">기타 변이</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">변이 없음</button>
+                <button class="matching-opt" onclick="selectMatchOptMulti(this)">검사 안 함</button>
+              </div>
+            </div>
+
+            <div class="matching-field">
+              <label class="matching-label">유전자/바이오마커 검사 경험</label>
+              <div class="matching-options" id="matchGenTest">
+                <button class="matching-opt" onclick="selectMatchOpt(this)">검사 받은 적 있음</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">검사 받은 적 없음</button>
+                <button class="matching-opt" onclick="selectMatchOpt(this)">잘 모르겠어요</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 제출 버튼 -->
+          <button class="matching-submit" onclick="submitMatching()">
+            <span style="display:inline-flex;align-items:center;gap:6px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              AI 맞춤 매칭 시작하기
+            </span>
+          </button>
+        </div>
+
+        <div style="height:40px"></div>
+      </div>
+    </div>
+
+    <!-- ===== SUB: UPLOAD 검사기록지 ===== -->
+    <div class="sub-screen" id="sub-upload">
+      <div class="back-header" onclick="hideSubScreen('sub-upload'); resetUpload();">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>검사기록지 업로드</span>
+      </div>
+
+      <!-- 안내사항 -->
+      <div class="upl-info">
+        <div class="upl-info-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          업로드 안내
+        </div>
+        <div class="upl-info-steps">
+          <div class="upl-step"><span class="upl-step-num">1</span><div><strong>카메라로 문서 촬영</strong><p>밝은 환경에서 선명하게 촬영하세요</p></div></div>
+          <div class="upl-step"><span class="upl-step-num">2</span><div><strong>개인정보 자르기</strong><p>이름·주민번호 등 자동 감지 후 마스킹</p></div></div>
+          <div class="upl-step"><span class="upl-step-num">3</span><div><strong>최대 5장 업로드</strong><p>여러 페이지도 한 번에 제출 가능</p></div></div>
+          <div class="upl-step"><span class="upl-step-num">4</span><div><strong>AI 분석 → 의료진 답변</strong><p>OCR 변환 + 의료법 검증 후 전문의 답변</p></div></div>
+        </div>
+      </div>
+
+      <!-- 업로드 영역 -->
+      <div class="upl-upload-area" id="uplUploadArea">
+        <div class="upl-count">사진 <span id="uplImgCount">0</span>/5장</div>
+
+        <div class="upl-dropzone" id="uplDropzone" onclick="document.getElementById('uplFileInput').click()">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p>터치하여 사진을 추가하세요</p>
+          <input type="file" accept="image/*" multiple hidden id="uplFileInput">
+        </div>
+
+        <div class="upl-btns">
+          <button class="upl-btn upl-btn-cam" onclick="document.getElementById('uplCamInput').click()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            카메라 촬영
+          </button>
+          <button class="upl-btn upl-btn-gal" onclick="document.getElementById('uplFileInput').click()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            갤러리
+          </button>
+          <input type="file" accept="image/*" capture="environment" hidden id="uplCamInput">
+        </div>
+
+        <!-- 프리뷰 -->
+        <div class="upl-previews" id="uplPreviews"></div>
+
+        <!-- 제출 -->
+        <button class="upl-submit" id="uplSubmit" disabled onclick="startUplAnalysis()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          검사기록지 제출하기
+        </button>
+      </div>
+
+      <!-- AI 분석 결과 -->
+      <div class="upl-analysis" id="uplAnalysis" style="display:none">
+        <div class="upl-progress">
+          <div class="upl-progress-header">
+            <div class="upl-spinner" id="uplSpinner"></div>
+            <strong id="uplProgressTitle">AI 에이전트 분석 중…</strong>
+          </div>
+          <div class="upl-progress-steps">
+            <div class="upl-pstep" id="uplStep1">
+              <div class="upl-pstep-dot upl-dot-pending"></div>
+              <div class="upl-pstep-info"><strong>1단계 — OCR 텍스트 변환</strong><p>이미지에서 텍스트 추출</p></div>
+              <span class="upl-pstep-status" id="uplStep1St">대기</span>
+            </div>
+            <div class="upl-pstep" id="uplStep2">
+              <div class="upl-pstep-dot upl-dot-pending"></div>
+              <div class="upl-pstep-info"><strong>2단계 — 의료법 준수 검증</strong><p>법적 적합성 자동 체크</p></div>
+              <span class="upl-pstep-status" id="uplStep2St">대기</span>
+            </div>
+            <div class="upl-pstep" id="uplStep3">
+              <div class="upl-pstep-dot upl-dot-pending"></div>
+              <div class="upl-pstep-info"><strong>3단계 — 의료진 전달</strong><p>전문의에게 결과 전달</p></div>
+              <span class="upl-pstep-status" id="uplStep3St">대기</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- OCR 결과 -->
+        <div class="upl-result" id="uplOcr" style="display:none">
+          <div class="upl-result-badge upl-badge-ocr">OCR</div>
+          <strong>텍스트 추출 결과</strong>
+          <div class="upl-result-body" id="uplOcrBody"></div>
+        </div>
+
+        <!-- 의료법 결과 -->
+        <div class="upl-result" id="uplLaw" style="display:none">
+          <div class="upl-result-badge upl-badge-law">의료법</div>
+          <strong>의료법 준수 검증</strong>
+          <div class="upl-result-body" id="uplLawBody"></div>
+        </div>
+
+        <!-- 의료진 대기 -->
+        <div class="upl-result upl-result-doctor" id="uplDoctor" style="display:none">
+          <div class="upl-result-badge upl-badge-doc">의료진</div>
+          <strong>의료진 답변 대기 중</strong>
+          <p style="font-size:11px;color:var(--sub);margin-top:6px;line-height:1.5">AI 분석 결과가 전문 의료진에게 전달되었습니다.<br>답변이 등록되면 알림으로 알려드립니다.</p>
+          <div class="upl-doctor-wait">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>평균 응답 시간: <strong>2시간 이내</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 개인정보 마스킹 모달 -->
+      <div class="upl-mask-modal" id="uplMaskModal">
+        <div class="upl-mask-inner">
+          <div class="upl-mask-header">
+            <strong>개인정보 마스킹</strong>
+            <button onclick="closeMaskModal()">&times;</button>
+          </div>
+          <p style="font-size:11px;color:var(--sub);margin-bottom:10px">개인정보 영역을 드래그하여 마스킹하세요</p>
+          <div class="upl-mask-canvas-wrap">
+            <canvas id="uplMaskCanvas"></canvas>
+          </div>
+          <div class="upl-mask-actions">
+            <button class="upl-mask-auto" onclick="autoDetectMask()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              자동 감지
+            </button>
+            <button class="upl-mask-done" onclick="confirmMask()">마스킹 완료</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-item active" onclick="switchTab('home', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>홈</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('feed', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>피드</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('community', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>환우광장</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('cohort', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>in 코호트</span>
+    </button>
+    <button class="tab-item" onclick="switchTab('chat', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>채팅</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ===== SIGNUP FLOW =====
+const SIGNUP_CANCERS = {
+  '암 질환': ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암'],
+  '만성 질환': ['당뇨','심혈관','알러지','소아성장'],
+  '정신건강': ['공황장애','우울증']
+};
+const SIGNUP_STAGES = ['1기','2기','3기','4기','잘 모르겠어요'];
+const CANCER_EMOJI = {'유방암':'🎀','위암':'🟠','대장암':'🔵','간암':'🟢','갑상선암':'🟣','폐암':'⚪','췌장암':'🟤','전립선암':'🩵',
+  '당뇨':'💛','심혈관':'❤️','알러지':'💚','소아성장':'💙','공황장애':'💜','우울증':'🤎'};
+
+// Steps: 0=kakao, 1=role, 2=nickname(patient) or medicalType(medical), 3=license(medical) or diseaseType(patient),
+//         4=cancer(patient), 5=stage(patient, cancer only)
+let signupStep = 0;
+let signupData = { role:'', nickname:'', medicalType:'', license:'', diseaseType:'', cancer:'', stage:'' };
+
+function getSignupTotalSteps() {
+  if (signupData.role === '의료진') return 4; // kakao → role → medicalType → license
+  if (signupData.diseaseType === '암 질환') return 6; // kakao → role → nickname → diseaseType → cancer → stage
+  return 5; // kakao → role → nickname → diseaseType → cancer
+}
+
+function renderSignup() {
+  const dotsEl = document.getElementById('signupDots');
+  const bodyEl = document.getElementById('signupBody');
+  const total = getSignupTotalSteps();
+
+  dotsEl.innerHTML = Array.from({length: total}, (_, i) => {
+    const cls = i < signupStep ? 'signup-step-dot done' : (i === signupStep ? 'signup-step-dot active' : 'signup-step-dot');
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  if (signupStep === 0) {
+    // 카카오 로그인
+    dotsEl.innerHTML = '';
+    bodyEl.innerHTML = `
+      <div class="signup-welcome">
+        <div class="signup-welcome-icon">👋</div>
+        <h2>onco.care에 오신 것을<br>환영합니다</h2>
+        <p>차세대 지능형 의료 전문 커뮤니티<br>간편하게 가입하고 시작하세요.</p>
+        <button class="signup-kakao" onclick="signupStep=1;renderSignup()">
+          <svg viewBox="0 0 24 24" fill="#3C1E1E"><path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67l-.9 3.33c-.07.27.22.49.46.35l3.87-2.57c.6.08 1.23.12 1.91.12 5.52 0 10-3.58 10-7.9S17.52 3 12 3z"/></svg>
+          카카오톡으로 시작하기
+        </button>
+        <p style="font-size:11px;color:var(--muted);margin:0">가입 시 서비스 이용약관에 동의합니다.</p>
+      </div>`;
+  } else if (signupStep === 1) {
+    // 역할 선택: 환자/보호자 vs 의료진
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(63,191,188,0.1)">👤</div>
+      <h2>어떤 역할로<br>가입하시나요?</h2>
+      <p>역할에 맞는 맞춤 경험을 제공합니다.</p>
+      <div class="signup-options">
+        <button class="signup-opt ${signupData.role==='환자/보호자'?'selected':''}" onclick="pickSignup('role','환자/보호자',this)">
+          <div class="signup-opt-icon" style="background:rgba(63,191,188,0.08)">🙋</div>환자 / 보호자</button>
+        <button class="signup-opt ${signupData.role==='의료진'?'selected':''}" onclick="pickSignup('role','의료진',this)">
+          <div class="signup-opt-icon" style="background:rgba(110,63,163,0.08)">🩺</div>의료진 (의사·간호사)</button>
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=0;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.role?'enabled':''}" id="signupNextBtn" onclick="afterRoleSelect()">다음</button>
+      </div>`;
+  } else if (signupStep === 2 && signupData.role === '의료진') {
+    // 의료진: 직종 선택
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">🏥</div>
+      <div class="signup-role-tag signup-role-tag--medical">의료진 가입</div>
+      <h2>직종을 선택해 주세요</h2>
+      <p>의료 전문가 인증을 위해<br>직종 정보가 필요합니다.</p>
+      <div class="signup-options">
+        <button class="signup-opt ${signupData.medicalType==='의사'?'selected':''}" onclick="pickSignup('medicalType','의사',this)">
+          <div class="signup-opt-icon" style="background:rgba(63,191,188,0.08)">👨‍⚕️</div>의사</button>
+        <button class="signup-opt ${signupData.medicalType==='간호사'?'selected':''}" onclick="pickSignup('medicalType','간호사',this)">
+          <div class="signup-opt-icon" style="background:rgba(236,72,153,0.08)">👩‍⚕️</div>간호사</button>
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=1;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.medicalType?'enabled':''}" id="signupNextBtn" onclick="signupStep=3;renderSignup()">다음</button>
+      </div>`;
+  } else if (signupStep === 3 && signupData.role === '의료진') {
+    // 의료진: 면허번호 입력
+    const typeLabel = signupData.medicalType === '의사' ? '의사 면허번호' : '간호사 면허번호';
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">📋</div>
+      <div class="signup-role-tag signup-role-tag--medical">의료진 가입 · ${signupData.medicalType}</div>
+      <h2>${typeLabel}를<br>입력해 주세요</h2>
+      <p>면허번호는 인증 목적으로만 사용되며<br>외부에 공개되지 않습니다.</p>
+      <input class="signup-license-input" id="signupLicense" type="text" placeholder="예: 제 12345 호" maxlength="20" value="${signupData.license}">
+      <div class="signup-nickname-hint">면허번호는 관리자 인증 후 활성화됩니다</div>
+      <input class="signup-nickname-input" id="signupMedNick" type="text" placeholder="표시 이름 (예: Dr. 김)" maxlength="12" value="${signupData.nickname}" style="margin-top:12px">
+      <div class="signup-nickname-hint">커뮤니티에서 표시될 이름입니다</div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=2;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next" id="signupNextBtn" onclick="finishMedicalSignup()">가입 완료</button>
+      </div>`;
+    const licInput = document.getElementById('signupLicense');
+    const nickInput = document.getElementById('signupMedNick');
+    const btn = document.getElementById('signupNextBtn');
+    function checkMed() {
+      if (licInput.value.trim().length >= 3 && nickInput.value.trim().length >= 2) btn.classList.add('enabled');
+      else btn.classList.remove('enabled');
+    }
+    licInput.addEventListener('input', checkMed);
+    nickInput.addEventListener('input', checkMed);
+    checkMed();
+    licInput.focus();
+  } else if (signupStep === 2 && signupData.role === '환자/보호자') {
+    // 환자: 닉네임 설정
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(63,191,188,0.1)">✏️</div>
+      <div class="signup-role-tag signup-role-tag--patient">환자/보호자 가입</div>
+      <h2>닉네임을 설정해 주세요</h2>
+      <p>커뮤니티에서 사용할 닉네임입니다.<br>개인정보 보호를 위해 실명은 피해주세요.</p>
+      <input class="signup-nickname-input" id="signupNickname" type="text" placeholder="예: 힘내는환우, 봄날의햇살" maxlength="12" value="${signupData.nickname}">
+      <div class="signup-nickname-hint">2~12자, 한글·영문·숫자 사용 가능</div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=1;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next" id="signupNextBtn" onclick="saveNicknameAndNext()">다음</button>
+      </div>`;
+    const input = document.getElementById('signupNickname');
+    const btn = document.getElementById('signupNextBtn');
+    function checkNick() {
+      if (input.value.trim().length >= 2) btn.classList.add('enabled');
+      else btn.classList.remove('enabled');
+    }
+    input.addEventListener('input', checkNick);
+    checkNick();
+    input.focus();
+  } else if (signupStep === 3 && signupData.role === '환자/보호자') {
+    // 환자: 질환 유형 선택
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(236,72,153,0.08)">🩺</div>
+      <h2>어떤 질환을<br>가지고 계세요?</h2>
+      <p>맞춤 코호트 매칭을 위해 선택해 주세요.</p>
+      <div class="signup-options">
+        <button class="signup-opt ${signupData.diseaseType==='암 질환'?'selected':''}" onclick="pickSignup('diseaseType','암 질환',this)">
+          <div class="signup-opt-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>암 질환</button>
+        <button class="signup-opt ${signupData.diseaseType==='만성 질환'?'selected':''}" onclick="pickSignup('diseaseType','만성 질환',this)">
+          <div class="signup-opt-icon" style="background:rgba(59,130,246,0.08)">💊</div>만성 질환</button>
+        <button class="signup-opt ${signupData.diseaseType==='정신건강'?'selected':''}" onclick="pickSignup('diseaseType','정신건강',this)">
+          <div class="signup-opt-icon" style="background:rgba(139,92,246,0.08)">🧠</div>정신건강</button>
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=2;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.diseaseType?'enabled':''}" id="signupNextBtn" onclick="signupStep=4;renderSignup()">다음</button>
+      </div>`;
+  } else if (signupStep === 4) {
+    // 환자: 암종(질환) 선택 — 2열 그리드 compact
+    const list = SIGNUP_CANCERS[signupData.diseaseType] || [];
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(110,63,163,0.08)">🎗️</div>
+      <h2>질환을 선택해 주세요</h2>
+      <p>해당하는 질환을 선택하면 같은 환우들을 찾아드립니다.</p>
+      <div class="signup-options signup-options--grid">
+        ${list.map(d => `<button class="signup-opt signup-opt--compact ${signupData.cancer===d?'selected':''}" onclick="pickSignup('cancer','${d}',this)">
+          <span style="font-size:16px">${CANCER_EMOJI[d]||'🏥'}</span>${d}</button>`).join('')}
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=3;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.cancer?'enabled':''}" id="signupNextBtn" onclick="afterCancerSelect()">다음</button>
+      </div>`;
+  } else if (signupStep === 5) {
+    // 환자: 병기 선택 (암 질환만)
+    bodyEl.innerHTML = `
+      <div class="signup-icon-box" style="background:rgba(245,158,11,0.08)">📊</div>
+      <h2>병기(Stage)를<br>선택해 주세요</h2>
+      <p>현재 진단받은 병기를 선택하면<br>같은 단계의 환우를 매칭합니다.</p>
+      <div class="signup-options signup-options--grid">
+        ${SIGNUP_STAGES.map(s => `<button class="signup-opt signup-opt--compact ${signupData.stage===s?'selected':''}" onclick="pickSignup('stage','${s}',this)">${s}</button>`).join('')}
+      </div>
+      <div class="signup-nav">
+        <button class="signup-btn signup-btn--back" onclick="signupStep=4;renderSignup()">이전</button>
+        <button class="signup-btn signup-btn--next ${signupData.stage?'enabled':''}" id="signupNextBtn" onclick="finishSignup()">가입 완료</button>
+      </div>`;
+  }
+}
+
+function afterRoleSelect() {
+  if (!signupData.role) return;
+  // 역할 전환 시 하위 초기화
+  signupStep = 2;
+  renderSignup();
+}
+
+function afterCancerSelect() {
+  if (!signupData.cancer) return;
+  if (signupData.diseaseType === '암 질환') {
+    signupStep = 5; // 병기 선택으로
+  } else {
+    finishSignup(); // 비암 질환은 바로 완료
+  }
+  renderSignup();
+}
+
+function saveNicknameAndNext() {
+  const nick = document.getElementById('signupNickname').value.trim();
+  if (nick.length < 2) return;
+  signupData.nickname = nick;
+  signupStep = 3;
+  renderSignup();
+}
+
+function pickSignup(key, val, el) {
+  el.closest('.signup-options').querySelectorAll('.signup-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  signupData[key] = val;
+  if (key === 'role') { signupData.medicalType=''; signupData.license=''; signupData.diseaseType=''; signupData.cancer=''; signupData.stage=''; }
+  if (key === 'diseaseType') { signupData.cancer = ''; signupData.stage = ''; }
+  if (key === 'cancer') { signupData.stage = ''; }
+  const btn = document.getElementById('signupNextBtn');
+  if (btn) btn.classList.add('enabled');
+}
+
+function finishMedicalSignup() {
+  const lic = document.getElementById('signupLicense').value.trim();
+  const nick = document.getElementById('signupMedNick').value.trim();
+  if (lic.length < 3 || nick.length < 2) return;
+  signupData.license = lic;
+  signupData.nickname = nick;
+  closeSignupOverlay();
+  // 가입 완료 후 홈 화면으로 이동
+  goHomeAfterSignup();
+}
+
+function finishSignup() {
+  if (signupStep === 5 && !signupData.stage) return;
+  closeSignupOverlay();
+  setupCohortAutoEnter();
+  // 가입 완료 후 홈 화면으로 이동
+  goHomeAfterSignup();
+}
+
+function closeSignupOverlay() {
+  const overlay = document.getElementById('signupOverlay');
+  overlay.style.transition = 'opacity 0.3s';
+  overlay.style.opacity = '0';
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+  // 프로필 아바타 업데이트
+  const avatarEl = document.querySelector('.home-avatar');
+  if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
+}
+
+function goHomeAfterSignup() {
+  // 모든 서브 스크린 닫기
+  document.querySelectorAll('.sub-screen').forEach(s => s.style.display = 'none');
+  // 모든 스크린 비활성화 후 홈 활성화
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-home').classList.add('active');
+  // 탭바 홈 활성화
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  document.querySelector('.tab-item').classList.add('active');
+}
+
+function setupCohortAutoEnter() {
+  if (!signupData.cancer) return;
+  const banner = document.getElementById('cohortAutoBanner');
+  const onboarding = document.getElementById('cohortOnboarding');
+  const tagsEl = document.getElementById('cohortAutoTags');
+  if (onboarding) onboarding.style.display = 'none';
+  if (banner) banner.style.display = 'block';
+  let tags = `<span class="cohort-success-tag">${signupData.diseaseType}</span>`;
+  tags += `<span class="cohort-success-tag">${signupData.cancer}</span>`;
+  if (signupData.stage) tags += `<span class="cohort-success-tag">${signupData.stage}</span>`;
+  tagsEl.innerHTML = tags;
+}
+
+// 코호트 탭 진입 시 자동 입장 (1.2초 후 자동 전환)
+let cohortAutoTimer = null;
+function triggerCohortAutoEnter() {
+  if (!signupData.cancer) return;
+  if (cohortAutoTimer) clearTimeout(cohortAutoTimer);
+  cohortAutoTimer = setTimeout(() => {
+    cohortSelections.type = signupData.diseaseType;
+    cohortSelections.disease = signupData.cancer;
+    const tags = document.getElementById('cohort-main-tags');
+    let html = `<span class="cohort-tag">${signupData.diseaseType}</span><span class="cohort-tag">${signupData.cancer}</span>`;
+    if (signupData.stage) html += `<span class="cohort-tag">${signupData.stage}</span>`;
+    if (tags) tags.innerHTML = html;
+    document.getElementById('cohortAutoBanner').style.display = 'none';
+    showSubScreen('sub-cohort-main');
+  }, 1200);
+}
+
+// 코호트 내부 탭 전환
+function switchCohortTab(name, el) {
+  document.querySelectorAll('.cohort-inner-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.cohort-tab-content').forEach(c => { c.style.display = 'none'; c.classList.remove('active'); });
+  const target = document.getElementById('cohort-tab-' + name);
+  if (target) {
+    target.style.display = name === 'chat' ? 'flex' : 'block';
+    target.classList.add('active');
+  }
+}
+
+// 임상/신약 매칭 - 타입 선택
+function selectMatchingType(type) {
+  document.querySelectorAll('.matching-type-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(type === 'clinical' ? 'matchCardClinical' : 'matchCardDrug').classList.add('selected');
+}
+
+// 단일 선택
+function selectMatchOpt(btn) {
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.matching-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+// 다중 선택
+function selectMatchOptMulti(btn) {
+  btn.classList.toggle('selected');
+  // '해당 없음' 또는 '검사 안 함' 선택 시 다른 항목 해제
+  const exclusive = ['해당 없음', '검사 안 함', '변이 없음'];
+  if (exclusive.some(e => btn.textContent.trim() === e) && btn.classList.contains('selected')) {
+    btn.parentElement.querySelectorAll('.matching-opt').forEach(b => {
+      if (b !== btn) b.classList.remove('selected');
+    });
+  } else {
+    // 다른 항목 선택 시 '해당 없음' 해제
+    btn.parentElement.querySelectorAll('.matching-opt').forEach(b => {
+      if (exclusive.some(e => b.textContent.trim() === e)) b.classList.remove('selected');
+    });
+  }
+}
+
+// 매칭 제출 → 결과 화면 표시
+function submitMatching() {
+  const matchingTab = document.getElementById('cohort-tab-matching');
+  const selectedType = document.querySelector('.matching-type-card.selected');
+  const type = selectedType ? (selectedType.id === 'matchCardClinical' ? 'clinical' : 'drug') : 'clinical';
+
+  // 로딩 표시
+  matchingTab.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center">
+      <div class="matching-loading-spinner"></div>
+      <div style="font-size:14px;font-weight:700;color:#111827;margin-top:20px">AI가 분석 중입니다</div>
+      <div style="font-size:12px;color:#6b7280;margin-top:6px">입력하신 정보를 바탕으로 맞춤 ${type === 'clinical' ? '임상시험' : '신약'}을 찾고 있어요...</div>
+    </div>
+  `;
+
+  setTimeout(() => renderMatchingResults(matchingTab, type), 1800);
+}
+
+function renderMatchingResults(container, type) {
+  const clinicalTrials = [
+    { id:'CT-2026-0412', phase:'Phase III', status:'모집 중', hospital:'서울대학교병원', title:'HER2 양성 유방암 환자 대상 T-DXd 병용요법 임상시험', drug:'트라스투주맙 데룩스테칸(T-DXd) + 면역항암제 병용', target:'HER2+ 유방암 2~3차 치료', matchScore:94, criteria:['HER2 양성 확인','ECOG 0-1','간/신장 기능 정상','이전 T-DM1 치료 이력'], schedule:'3주 1회 투여, 총 12개월', benefit:'최신 ADC 약물 무상 제공 + 정기검진 + 교통비 지원' },
+    { id:'CT-2026-0387', phase:'Phase II', status:'모집 중', hospital:'삼성서울병원', title:'PD-L1 양성 고형암 대상 신규 이중항체 임상시험', drug:'BL-0298 (PD-L1/VEGF 이중항체)', target:'PD-L1 양성, 기존 면역항암제 경험', matchScore:87, criteria:['PD-L1 양성 (TPS ≥1%)','ECOG 0-2','면역항암제 사용 이력','자가면역질환 없음'], schedule:'2주 1회 투여, 최대 24개월', benefit:'시험약 무상 + 동반진단 검사 무료 + 교통비' },
+    { id:'CT-2026-0521', phase:'Phase I/II', status:'모집 예정', hospital:'세브란스병원', title:'BRCA 변이 유방암 대상 PARP 억제제 병용요법', drug:'올라파립 + 신규 ATR 억제제', target:'BRCA1/2 변이 유방암', matchScore:72, criteria:['BRCA 변이 확인','2차 이상 치료 경험','골수 기능 양호'], schedule:'매일 경구 투여, 6개월 후 평가', benefit:'시험약 무상 + 유전자검사 무료' },
+    { id:'CT-2026-0298', phase:'Phase III', status:'모집 중', hospital:'아산병원', title:'호르몬 수용체 양성 유방암 CDK4/6 억제제 비교 임상', drug:'새로운 CDK4/6 억제제 vs 팔보시클립', target:'HR+/HER2- 전이성 유방암 1차 치료', matchScore:65, criteria:['HR 양성/HER2 음성','전이성 유방암','CDK4/6 억제제 미사용'], schedule:'28일 주기, 질병 진행까지', benefit:'시험약 + 호르몬제 무상 제공' },
+  ];
+
+  const newDrugs = [
+    { name:'엔허투(트라스투주맙 데룩스테칸)', company:'다이이찌산쿄/아스트라제네카', approval:'2025.09 보험급여 적용', category:'ADC (항체-약물 접합체)', target:'HER2 양성/저발현 유방암', matchScore:96, indication:'HER2+ 전이성 유방암 2차 이상', sideEffects:['간질성 폐질환(ILD)','구역/구토','호중구 감소','피로'], coverage:'건강보험 급여 적용 (본인부담 5%)', advantage:'HER2 저발현에서도 효과 입증, 기존 T-DM1 대비 생존기간 연장' },
+    { name:'키스칼리(리보시클립)', company:'노바티스', approval:'2024.03 보험급여 적용', category:'CDK4/6 억제제', target:'HR+/HER2- 유방암', matchScore:88, indication:'HR+/HER2- 진행성/전이성 유방암 1차 치료', sideEffects:['호중구 감소','QT 연장','간수치 상승','구역'], coverage:'건강보험 급여 적용 (본인부담 5%)', advantage:'OS(전체 생존기간) 개선 최초 입증 CDK4/6 억제제' },
+    { name:'패드세브(sacituzumab govitecan)', company:'길리어드', approval:'2025.12 허가', category:'ADC (항체-약물 접합체)', target:'삼중음성 유방암(TNBC)', matchScore:74, indication:'2차 이상 전이성 TNBC', sideEffects:['호중구 감소','설사','구역/구토','탈모'], coverage:'비급여 (급여 심사 진행 중)', advantage:'TNBC 표준치료 대비 PFS·OS 유의미한 개선' },
+    { name:'투키사(투카티닙)', company:'씨젠', approval:'2025.06 보험급여 적용', category:'소분자 TKI', target:'HER2+ 유방암 뇌전이', matchScore:61, indication:'HER2+ 전이성 유방암 (뇌전이 포함) 3차 이상', sideEffects:['설사','손발증후군','간수치 상승'], coverage:'건강보험 급여 적용', advantage:'뇌전이 환자에서 유의미한 효과 입증' },
+  ];
+
+  const results = type === 'clinical' ? clinicalTrials : newDrugs;
+  const typeLabel = type === 'clinical' ? '임상시험' : '신약';
+  const typeIcon = type === 'clinical' ? '🔬' : '💊';
+
+  container.innerHTML = `
+    <div style="padding:0">
+      <!-- 결과 헤더 -->
+      <div class="matching-result-header">
+        <button class="matching-result-back" onclick="resetMatchingForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#111827">${typeIcon} AI 맞춤 ${typeLabel} 매칭 결과</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px">내 조건에 맞는 ${results.length}건의 ${typeLabel}을 찾았습니다</div>
+        </div>
+      </div>
+
+      <!-- AI 요약 배너 -->
+      <div class="matching-ai-summary">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#3fbfbc,#6E3FA3);font-size:8px;color:#fff;font-weight:800">AI</span>
+          <span style="font-size:12px;font-weight:700;color:#6b21a8">onco.care AI 분석</span>
+        </div>
+        <div style="font-size:12px;color:#4a1d7a;line-height:1.6">
+          입력하신 정보를 기반으로 적합도가 높은 순서대로 정렬했습니다.
+          ${type === 'clinical' ? '임상시험 참여 전 반드시 담당 주치의와 상의하세요.' : '약제 변경은 반드시 담당 주치의와 상의 후 결정하세요.'}
+        </div>
+      </div>
+
+      <!-- 필터 -->
+      <div class="matching-result-filters">
+        <button class="matching-filter-btn active" onclick="filterResults(this,'all')">전체 ${results.length}</button>
+        ${type === 'clinical'
+          ? '<button class="matching-filter-btn" onclick="filterResults(this,\'recruiting\')">모집 중</button><button class="matching-filter-btn" onclick="filterResults(this,\'upcoming\')">모집 예정</button>'
+          : '<button class="matching-filter-btn" onclick="filterResults(this,\'covered\')">급여 적용</button><button class="matching-filter-btn" onclick="filterResults(this,\'uncovered\')">비급여</button>'
+        }
+      </div>
+
+      <!-- 결과 카드 리스트 -->
+      <div style="padding:0 16px 20px;display:flex;flex-direction:column;gap:12px">
+        ${type === 'clinical'
+          ? results.map((r,i) => renderClinicalCard(r,i)).join('')
+          : results.map((r,i) => renderDrugCard(r,i)).join('')
+        }
+      </div>
+
+      <div style="padding:0 16px 32px">
+        <div style="font-size:11px;color:#9ca3af;line-height:1.5;text-align:center;padding:12px;background:#f9fafb;border-radius:10px">
+          본 매칭 결과는 AI가 입력된 정보를 기반으로 제공하는 참고 자료이며, 의학적 진단이나 처방을 대체하지 않습니다.
+          구체적인 치료 방침은 반드시 담당 의료진과 상의하세요.
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderClinicalCard(r, idx) {
+  const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
+  const statusClass = r.status === '모집 중' ? 'recruiting' : 'upcoming';
+  return `
+    <div class="matching-result-card" data-status="${statusClass}" onclick="this.querySelector('.mrc-detail').classList.toggle('open')">
+      <div class="mrc-header">
+        <div class="mrc-score" style="background:${scoreColor}">${r.matchScore}%</div>
+        <div class="mrc-meta">
+          <span class="mrc-phase">${r.phase}</span>
+          <span class="mrc-status mrc-status--${statusClass}">${r.status}</span>
+        </div>
+      </div>
+      <div class="mrc-title">${r.title}</div>
+      <div class="mrc-hospital">${r.hospital} · ${r.id}</div>
+      <div class="mrc-drug">시험약: ${r.drug}</div>
+      <div class="mrc-detail">
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">대상</div>
+          <div class="mrc-detail-value">${r.target}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">주요 참여 조건</div>
+          <div class="mrc-detail-value">${r.criteria.map(c => '<span class="mrc-criteria">✓ ' + c + '</span>').join('')}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">투여 스케줄</div>
+          <div class="mrc-detail-value">${r.schedule}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">참여 혜택</div>
+          <div class="mrc-detail-value" style="color:#10b981;font-weight:600">${r.benefit}</div>
+        </div>
+        <div class="mrc-actions">
+          <button class="mrc-btn mrc-btn--primary" onclick="event.stopPropagation();alert('담당 코디네이터에게 연결합니다.')">참여 문의하기</button>
+          <button class="mrc-btn mrc-btn--secondary" onclick="event.stopPropagation();alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
+        </div>
+      </div>
+      <div class="mrc-expand-hint">탭하여 상세 보기</div>
+    </div>
+  `;
+}
+
+function renderDrugCard(r, idx) {
+  const scoreColor = r.matchScore >= 90 ? '#10b981' : r.matchScore >= 75 ? '#f59e0b' : '#6b7280';
+  const coverageClass = r.coverage.includes('급여') && !r.coverage.includes('비급여') ? 'covered' : 'uncovered';
+  return `
+    <div class="matching-result-card" data-status="${coverageClass}" onclick="this.querySelector('.mrc-detail').classList.toggle('open')">
+      <div class="mrc-header">
+        <div class="mrc-score" style="background:${scoreColor}">${r.matchScore}%</div>
+        <div class="mrc-meta">
+          <span class="mrc-phase">${r.category}</span>
+          <span class="mrc-status mrc-status--${coverageClass === 'covered' ? 'recruiting' : 'upcoming'}">${r.coverage.includes('비급여') ? '비급여' : '급여 적용'}</span>
+        </div>
+      </div>
+      <div class="mrc-title">${r.name}</div>
+      <div class="mrc-hospital">${r.company} · ${r.approval}</div>
+      <div class="mrc-drug">적응증: ${r.indication}</div>
+      <div class="mrc-detail">
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">대상</div>
+          <div class="mrc-detail-value">${r.target}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">차별점</div>
+          <div class="mrc-detail-value" style="color:#6b21a8;font-weight:600">${r.advantage}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">주요 부작용</div>
+          <div class="mrc-detail-value">${r.sideEffects.map(s => '<span class="mrc-criteria">· ' + s + '</span>').join('')}</div>
+        </div>
+        <div class="mrc-detail-section">
+          <div class="mrc-detail-label">보험 적용</div>
+          <div class="mrc-detail-value" style="font-weight:600">${r.coverage}</div>
+        </div>
+        <div class="mrc-actions">
+          <button class="mrc-btn mrc-btn--primary" onclick="event.stopPropagation();alert('담당 의료진에게 문의를 전달합니다.')">처방 문의하기</button>
+          <button class="mrc-btn mrc-btn--secondary" onclick="event.stopPropagation();alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
+        </div>
+      </div>
+      <div class="mrc-expand-hint">탭하여 상세 보기</div>
+    </div>
+  `;
+}
+
+function resetMatchingForm() {
+  const matchingTab = document.getElementById('cohort-tab-matching');
+  matchingTab.remove();
+  // 탭 콘텐츠를 다시 생성
+  const tabContainer = document.querySelector('#sub-cohort-main > div:last-of-type') || document.querySelector('.cohort-tab-content:last-of-type').parentElement;
+  // 간단히 페이지 전체를 다시 로드하는 대신, board 탭으로 전환
+  switchCohortTab('board', document.querySelector('.cohort-inner-tab'));
+  location.reload();
+}
+
+function filterResults(btn, filter) {
+  btn.parentElement.querySelectorAll('.matching-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.matching-result-card').forEach(card => {
+    if (filter === 'all') { card.style.display = ''; return; }
+    card.style.display = card.dataset.status === filter ? '' : 'none';
+  });
+}
+
+// 초기 렌더링
+renderSignup();
+
+// Tab switching
+function switchTab(name, el) {
+  document.querySelectorAll('.sub-screen').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  el.classList.add('active');
+  // 코호트 탭 진입 시 자동 입장 트리거
+  if (name === 'cohort' && signupData.cancer) triggerCohortAutoEnter();
+}
+
+// Sub-screen navigation
+function showSubScreen(id) {
+  document.getElementById(id).style.display = 'block';
+}
+function hideSubScreen(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Cohort onboarding
+let cohortStep = 1;
+let cohortSelections = {};
+const COHORT_DISEASES = {
+  '암 질환': ['유방암','위암','대장암','간암','갑상선암','폐암','췌장암','전립선암'],
+  '만성 질환': ['당뇨','심혈관','알러지','소아성장'],
+  '정신건강': ['공황장애','우울증']
+};
+
+function selectCohort(el) {
+  document.querySelectorAll('.cohort-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  // Get text without the icon div content
+  const clone = el.cloneNode(true);
+  const icon = clone.querySelector('.cohort-option-icon');
+  if (icon) icon.remove();
+  cohortSelections.type = clone.textContent.trim();
+  document.getElementById('btnNext').classList.add('enabled');
+}
+
+function showCohortOnboarding() {
+  cohortStep = 1;
+  cohortSelections = {};
+  const content = document.querySelector('.cohort-content');
+  content.style.display = 'flex';
+  renderCohortStep();
+}
+
+function renderCohortStep() {
+  const content = document.querySelector('.cohort-content');
+  if (cohortStep === 1) {
+    content.innerHTML = `
+      <div class="cohort-dots"><div class="cohort-dot active"></div><div class="cohort-dot"></div><div class="cohort-dot"></div></div>
+      <div class="cohort-icon-box">🩺</div>
+      <h2>어떤 질환을<br>가지고 계세요?</h2>
+      <p>맞춤형 코호트 그룹을 구성하기 위해<br>기본 정보를 알려주세요.</p>
+      <div class="cohort-options">
+        <button class="cohort-option" onclick="selectCohort(this)">
+          <div class="cohort-option-icon" style="background:rgba(236,72,153,0.08)">🎗️</div>암 질환</button>
+        <button class="cohort-option" onclick="selectCohort(this)">
+          <div class="cohort-option-icon" style="background:rgba(59,130,246,0.08)">💊</div>만성 질환</button>
+        <button class="cohort-option" onclick="selectCohort(this)">
+          <div class="cohort-option-icon" style="background:rgba(139,92,246,0.08)">🧠</div>정신건강</button>
+      </div>
+      <button class="btn-next" id="btnNext" onclick="nextCohortStep()">다음</button>`;
+  } else if (cohortStep === 2) {
+    const diseases = COHORT_DISEASES[cohortSelections.type] || [];
+    content.innerHTML = `
+      <div class="cohort-dots"><div class="cohort-dot" style="background:#10b981"></div><div class="cohort-dot active"></div><div class="cohort-dot"></div></div>
+      <div class="cohort-icon-box">🎗️</div>
+      <h2>질환을 선택해 주세요</h2>
+      <p>해당하는 질환을 선택하면<br>같은 환우들을 찾아드립니다.</p>
+      <div class="cohort-options">
+        ${diseases.map(d => `<button class="cohort-option" onclick="selectDisease(this,'${d}')">
+          <div class="cohort-option-icon" style="background:rgba(110,63,163,0.08)">🏥</div>${d}</button>`).join('')}
+      </div>
+      <div style="display:flex;gap:10px;width:100%">
+        <button class="btn-next" style="background:var(--bg-soft);color:var(--sub);flex:1" onclick="cohortStep=1;renderCohortStep()">이전</button>
+        <button class="btn-next" id="btnNext" style="flex:2" onclick="nextCohortStep()">다음</button>
+      </div>`;
+  } else if (cohortStep === 3) {
+    content.innerHTML = `
+      <div class="cohort-success">
+        <div class="cohort-success-icon">✅</div>
+        <h2>코호트 매칭 완료!</h2>
+        <p>같은 질환의 환우분들과<br>연결되었습니다.</p>
+        <div class="cohort-success-tags">
+          <span class="cohort-success-tag">${cohortSelections.type}</span>
+          <span class="cohort-success-tag">${cohortSelections.disease}</span>
+        </div>
+        <button class="btn-next enabled" onclick="enterCohort()">코호트 입장하기</button>
+      </div>`;
+  }
+}
+
+function selectDisease(el, name) {
+  document.querySelectorAll('.cohort-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  cohortSelections.disease = name;
+  document.getElementById('btnNext').classList.add('enabled');
+}
+
+function nextCohortStep() {
+  if (cohortStep === 1 && !cohortSelections.type) return;
+  if (cohortStep === 2 && !cohortSelections.disease) return;
+  cohortStep++;
+  renderCohortStep();
+}
+
+function enterCohort() {
+  const tags = document.getElementById('cohort-main-tags');
+  if (tags) tags.innerHTML = `<span class="cohort-tag">${cohortSelections.type}</span><span class="cohort-tag">${cohortSelections.disease}</span>`;
+  document.querySelector('.cohort-content').style.display = 'none';
+  showSubScreen('sub-cohort-main');
+}
+
+// Make disease cards clickable
+document.querySelectorAll('.disease-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const name = card.querySelector('span').textContent;
+    const icon = card.querySelector('.disease-icon').textContent;
+    document.getElementById('disease-board-title').textContent = name + ' 게시판';
+    document.getElementById('disease-board-name').textContent = name;
+    document.getElementById('disease-board-icon').textContent = icon;
+    showSubScreen('sub-disease-board');
+  });
+});
+
+// Make post cards clickable
+document.querySelectorAll('#screen-community .post-card').forEach(card => {
+  card.addEventListener('click', () => showSubScreen('sub-post-detail'));
+});
+
+// Make feed cards clickable
+document.querySelectorAll('.feed-card').forEach(card => {
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', () => showSubScreen('sub-post-detail'));
+});
+
+// Make chat rooms clickable
+document.querySelectorAll('.chat-room').forEach(room => {
+  room.addEventListener('click', () => showSubScreen('sub-chat-room'));
+});
+
+// ===== UPLOAD LOGIC =====
+const UPL_MAX = 5;
+let uplImages = []; // {file, dataUrl, masked}
+let uplMaskIdx = -1;
+let uplMaskRects = [];
+let uplDrawing = false;
+let uplDrawStart = {};
+
+const uplFileInput = document.getElementById('uplFileInput');
+const uplCamInput = document.getElementById('uplCamInput');
+const uplPreviews = document.getElementById('uplPreviews');
+const uplImgCount = document.getElementById('uplImgCount');
+const uplSubmit = document.getElementById('uplSubmit');
+const uplDropzone = document.getElementById('uplDropzone');
+
+uplFileInput.addEventListener('change', () => { uplHandleFiles(Array.from(uplFileInput.files)); uplFileInput.value=''; });
+uplCamInput.addEventListener('change', () => { uplHandleFiles(Array.from(uplCamInput.files)); uplCamInput.value=''; });
+
+function uplHandleFiles(files) {
+  const rem = UPL_MAX - uplImages.length;
+  files.filter(f=>f.type.startsWith('image/')).slice(0,rem).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => { uplImages.push({file, dataUrl:e.target.result, masked:false}); uplRender(); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function uplRender() {
+  uplImgCount.textContent = uplImages.length;
+  uplSubmit.disabled = uplImages.length === 0;
+  uplDropzone.style.display = uplImages.length >= UPL_MAX ? 'none' : '';
+  document.querySelector('.upl-btns').style.display = uplImages.length >= UPL_MAX ? 'none' : '';
+
+  uplPreviews.innerHTML = '';
+  uplImages.forEach((img, i) => {
+    const d = document.createElement('div');
+    d.className = 'upl-prev-item';
+    d.innerHTML = `
+      <img src="${img.dataUrl}" alt="검사기록지">
+      ${img.masked ? '<div class="upl-prev-masked">마스킹됨</div>' : ''}
+      <div class="upl-prev-actions">
+        <button class="upl-prev-mask" data-i="${i}">${img.masked?'완료':'마스킹'}</button>
+        <button class="upl-prev-rm" data-i="${i}">&times;</button>
+      </div>`;
+    uplPreviews.appendChild(d);
+  });
+}
+
+uplPreviews.addEventListener('click', e => {
+  const rm = e.target.closest('.upl-prev-rm');
+  if (rm) { uplImages.splice(+rm.dataset.i,1); uplRender(); return; }
+  const mk = e.target.closest('.upl-prev-mask');
+  if (mk) openMaskModal(+mk.dataset.i);
+});
+
+// Mask modal
+const uplMaskModal = document.getElementById('uplMaskModal');
+const uplMaskCanvas = document.getElementById('uplMaskCanvas');
+
+function openMaskModal(idx) {
+  uplMaskIdx = idx; uplMaskRects = [];
+  uplMaskModal.classList.add('on');
+  const img = new Image();
+  img.onload = () => {
+    const w = uplMaskModal.querySelector('.upl-mask-inner').clientWidth - 32;
+    const scale = w / img.width;
+    uplMaskCanvas.width = w;
+    uplMaskCanvas.height = img.height * scale;
+    uplMaskCanvas.getContext('2d').drawImage(img, 0, 0, uplMaskCanvas.width, uplMaskCanvas.height);
+  };
+  img.src = uplImages[idx].dataUrl;
+}
+
+function closeMaskModal() { uplMaskModal.classList.remove('on'); }
+
+// Drawing on canvas (touch + mouse)
+uplMaskCanvas.addEventListener('mousedown', e => { uplStartDraw(e.offsetX, e.offsetY); });
+uplMaskCanvas.addEventListener('mousemove', e => { if(uplDrawing) uplMoveDraw(e.offsetX, e.offsetY); });
+uplMaskCanvas.addEventListener('mouseup', e => { if(uplDrawing) uplEndDraw(e.offsetX, e.offsetY); });
+
+uplMaskCanvas.addEventListener('touchstart', e => {
+  e.preventDefault(); const t=e.touches[0]; const r=uplMaskCanvas.getBoundingClientRect();
+  uplStartDraw(t.clientX-r.left, t.clientY-r.top);
+}, {passive:false});
+uplMaskCanvas.addEventListener('touchmove', e => {
+  e.preventDefault(); if(!uplDrawing) return; const t=e.touches[0]; const r=uplMaskCanvas.getBoundingClientRect();
+  uplMoveDraw(t.clientX-r.left, t.clientY-r.top);
+}, {passive:false});
+uplMaskCanvas.addEventListener('touchend', e => {
+  if(!uplDrawing) return; const t=e.changedTouches[0]; const r=uplMaskCanvas.getBoundingClientRect();
+  uplEndDraw(t.clientX-r.left, t.clientY-r.top);
+});
+
+function uplStartDraw(x,y) { uplDrawing=true; uplDrawStart={x,y}; }
+function uplMoveDraw(x,y) {
+  uplRedrawCanvas();
+  const ctx=uplMaskCanvas.getContext('2d');
+  ctx.fillStyle='rgba(0,0,0,.45)'; ctx.fillRect(uplDrawStart.x,uplDrawStart.y,x-uplDrawStart.x,y-uplDrawStart.y);
+  ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.strokeRect(uplDrawStart.x,uplDrawStart.y,x-uplDrawStart.x,y-uplDrawStart.y);
+}
+function uplEndDraw(x,y) {
+  uplDrawing=false;
+  uplMaskRects.push({x:uplDrawStart.x,y:uplDrawStart.y,w:x-uplDrawStart.x,h:y-uplDrawStart.y});
+  uplRedrawCanvas();
+}
+
+function uplRedrawCanvas() {
+  const img=new Image();
+  img.onload=()=>{
+    const ctx=uplMaskCanvas.getContext('2d');
+    ctx.clearRect(0,0,uplMaskCanvas.width,uplMaskCanvas.height);
+    ctx.drawImage(img,0,0,uplMaskCanvas.width,uplMaskCanvas.height);
+    uplMaskRects.forEach(r=>{
+      ctx.fillStyle='rgba(0,0,0,.6)'; ctx.fillRect(r.x,r.y,r.w,r.h);
+      ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.strokeRect(r.x,r.y,r.w,r.h);
+      ctx.fillStyle='#fff'; ctx.font='10px Pretendard'; ctx.fillText('마스킹',r.x+3,r.y+12);
+    });
+  };
+  img.src=uplImages[uplMaskIdx].dataUrl;
+}
+
+function autoDetectMask() {
+  const w=uplMaskCanvas.width, h=uplMaskCanvas.height;
+  uplMaskRects=[{x:w*.05,y:h*.02,w:w*.45,h:h*.06},{x:w*.05,y:h*.09,w:w*.35,h:h*.05}];
+  uplRedrawCanvas();
+}
+
+function confirmMask() {
+  if(uplMaskRects.length>0) {
+    uplImages[uplMaskIdx].dataUrl = uplMaskCanvas.toDataURL('image/jpeg',.92);
+    uplImages[uplMaskIdx].masked = true;
+    uplRender();
+  }
+  closeMaskModal();
+}
+
+function resetUpload() {
+  uplImages=[]; uplRender();
+  document.getElementById('uplAnalysis').style.display='none';
+  document.getElementById('uplUploadArea').style.display='';
+  document.getElementById('uplOcr').style.display='none';
+  document.getElementById('uplLaw').style.display='none';
+  document.getElementById('uplDoctor').style.display='none';
+  ['uplStep1','uplStep2','uplStep3'].forEach(id => {
+    document.getElementById(id).querySelector('.upl-pstep-dot').className='upl-pstep-dot upl-dot-pending';
+  });
+  document.getElementById('uplStep1St').textContent='대기';
+  document.getElementById('uplStep2St').textContent='대기';
+  document.getElementById('uplStep3St').textContent='대기';
+  document.getElementById('uplSpinner').style.display='';
+  document.getElementById('uplProgressTitle').textContent='AI 에이전트 분석 중…';
+}
+
+function uplSetStep(id, state) {
+  const dot = document.getElementById(id).querySelector('.upl-pstep-dot');
+  dot.className = 'upl-pstep-dot ' + (state==='running'?'upl-dot-running':state==='done'?'upl-dot-done':'upl-dot-pending');
+}
+
+function startUplAnalysis() {
+  if(uplImages.length===0) return;
+  document.getElementById('uplAnalysis').style.display='block';
+  document.getElementById('uplUploadArea').style.display='none';
+  document.getElementById('uplAnalysis').scrollIntoView({behavior:'smooth'});
+
+  // Step 1: OCR
+  uplSetStep('uplStep1','running'); document.getElementById('uplStep1St').textContent='분석 중…';
+  setTimeout(()=>{
+    uplSetStep('uplStep1','done'); document.getElementById('uplStep1St').textContent='완료';
+    showUplOcr();
+    // Step 2
+    uplSetStep('uplStep2','running'); document.getElementById('uplStep2St').textContent='검증 중…';
+    setTimeout(()=>{
+      uplSetStep('uplStep2','done'); document.getElementById('uplStep2St').textContent='완료';
+      showUplLaw();
+      // Step 3
+      uplSetStep('uplStep3','running'); document.getElementById('uplStep3St').textContent='전달 중…';
+      setTimeout(()=>{
+        uplSetStep('uplStep3','done'); document.getElementById('uplStep3St').textContent='대기 중';
+        document.getElementById('uplDoctor').style.display='block';
+        document.getElementById('uplSpinner').style.display='none';
+        document.getElementById('uplProgressTitle').textContent='AI 분석 완료 — 의료진 답변 대기';
+      }, 1000);
+    }, 2200);
+  }, 2500);
+}
+
+function showUplOcr() {
+  document.getElementById('uplOcr').style.display='block';
+  document.getElementById('uplOcrBody').innerHTML=`
+    <p style="margin-bottom:4px"><strong style="color:var(--text)">검사명:</strong> 일반혈액검사 (CBC)</p>
+    <p style="margin-bottom:8px"><strong style="color:var(--text)">검사일:</strong> 2026-03-14</p>
+    <table class="upl-ocr-table">
+      <thead><tr><th>항목</th><th>결과</th><th>참고치</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>WBC</td><td>7,200</td><td>4,000–10,000</td><td class="upl-status-ok">정상</td></tr>
+        <tr><td>RBC</td><td>4.8</td><td>4.2–5.4</td><td class="upl-status-ok">정상</td></tr>
+        <tr><td>Hemoglobin</td><td>11.2</td><td>12.0–16.0</td><td class="upl-status-low">↓ 낮음</td></tr>
+        <tr><td>Hematocrit</td><td>35.1</td><td>36.0–46.0</td><td class="upl-status-low">↓ 낮음</td></tr>
+        <tr><td>Platelet</td><td>245,000</td><td>150K–400K</td><td class="upl-status-ok">정상</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:10px;color:var(--muted);margin-top:4px">텍스트 인식 신뢰도: <strong style="color:#10b981">98.7%</strong></p>`;
+}
+
+function showUplLaw() {
+  document.getElementById('uplLaw').style.display='block';
+  document.getElementById('uplLawBody').innerHTML=`
+    <div class="upl-compliance-item upl-comp-pass">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>개인정보 보호법 준수</strong><p>개인식별정보(PII) 적절히 마스킹됨</p></div>
+    </div>
+    <div class="upl-compliance-item upl-comp-pass">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>의료법 제21조 (기록 열람)</strong><p>환자 본인의 검사기록 열람 — 적법 요청</p></div>
+    </div>
+    <div class="upl-compliance-item upl-comp-pass">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>의료법 제19조 (비밀누설 금지)</strong><p>답변 시 개인정보 미포함 자동 검증</p></div>
+    </div>
+    <div class="upl-compliance-item upl-comp-warn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div><strong>참고 안내</strong><p>AI 분석은 참고용이며 최종 판단은 전문 의료진 소견을 따르세요 (의료법 제27조)</p></div>
+    </div>`;
+}
+</script>
+
+</body>
+</html>

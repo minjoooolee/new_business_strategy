@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>검사결과지 설명 서비스 — onco.care</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="../upload.css">
+  <style>
+/* ============================================================
+   검사결과지 설명 서비스 — 환자용 안내 페이지
+   ============================================================ */
+
+/* ── Section common ── */
+.tr-section { padding: 48px 0; }
+.tr-section:nth-child(even) { background: var(--bg-soft); }
+.tr-container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+.tr-section-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .5px;
+  color: #6E3FA3; background: rgba(110,63,163,.06);
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+}
+.tr-section-title { font-size: 1.35rem; font-weight: 700; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+.tr-section-desc { font-size: .9rem; color: var(--sub); line-height: 1.7; margin-bottom: 28px; }
+
+/* ── 1. Service intro top card ── */
+.tr-do-dont {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0;
+}
+.tr-do-dont-card {
+  padding: 24px; border-radius: 14px; border: 1px solid var(--border);
+}
+.tr-do-card { background: #f0fdf4; border-color: rgba(16,185,129,.15); }
+.tr-dont-card { background: #fef2f2; border-color: rgba(239,68,68,.12); }
+.tr-do-dont-title {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .92rem; font-weight: 700; margin-bottom: 14px;
+}
+.tr-do-card .tr-do-dont-title { color: #059669; }
+.tr-dont-card .tr-do-dont-title { color: #dc2626; }
+.tr-do-dont-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.tr-do-dont-list li {
+  font-size: .84rem; line-height: 1.6; color: var(--sub);
+  padding-left: 20px; position: relative;
+}
+.tr-do-card .tr-do-dont-list li::before { content: '✓'; position: absolute; left: 0; color: #10b981; font-weight: 700; }
+.tr-dont-card .tr-do-dont-list li::before { content: '✕'; position: absolute; left: 0; color: #ef4444; font-weight: 700; }
+
+/* ── 2. Disease cards ── */
+.tr-disease-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.tr-disease-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px 20px; cursor: default;
+  transition: transform .18s, box-shadow .18s;
+}
+.tr-disease-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.tr-disease-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.tr-disease-icon {
+  width: 44px; height: 44px; border-radius: 12px; display: flex;
+  align-items: center; justify-content: center; font-size: 22px;
+}
+.tr-disease-name { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.tr-disease-sub { font-size: .78rem; color: var(--muted); margin-bottom: 14px; }
+.tr-disease-examples { display: flex; flex-direction: column; gap: 12px; }
+.tr-disease-example {
+  padding: 12px 14px; background: var(--bg-soft); border-radius: 10px;
+}
+.tr-disease-example strong {
+  display: block; font-size: .82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;
+}
+.tr-disease-example p {
+  font-size: .78rem; color: var(--sub); line-height: 1.5; font-style: italic;
+}
+
+/* ── 3. Steps ── */
+.tr-steps { display: flex; flex-direction: column; gap: 20px; }
+.tr-step {
+  display: flex; gap: 20px; padding: 24px; background: #fff;
+  border: 1px solid var(--border); border-radius: 14px;
+  transition: transform .18s, box-shadow .18s;
+}
+.tr-step:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+.tr-step-num {
+  width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, #6E3FA3, #a855f7);
+}
+.tr-step-body { flex: 1; }
+.tr-step-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.tr-step-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.tr-step-list li {
+  font-size: .84rem; line-height: 1.7; color: var(--sub);
+  padding-left: 16px; position: relative;
+}
+.tr-step-list li::before { content: '•'; position: absolute; left: 0; color: #6E3FA3; font-weight: 700; }
+
+/* ── 4. Consent ── */
+.tr-consents { display: flex; flex-direction: column; gap: 14px; }
+.tr-consent-card {
+  padding: 20px 22px; border-radius: 12px; border: 1px solid var(--border); background: #fff;
+}
+.tr-consent-badge {
+  display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .3px;
+  padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; color: #fff;
+}
+.tr-consent-required .tr-consent-badge { background: #ef4444; }
+.tr-consent-optional .tr-consent-badge { background: #6b7280; }
+.tr-consent-card h4 { font-size: .92rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.tr-consent-card p { font-size: .82rem; color: var(--sub); line-height: 1.65; }
+.tr-consent-card ul {
+  list-style: none; margin: 8px 0 0; display: flex; flex-direction: column; gap: 2px;
+}
+.tr-consent-card ul li { font-size: .8rem; color: var(--sub); padding-left: 16px; position: relative; line-height: 1.6; }
+.tr-consent-card ul li::before { content: '•'; position: absolute; left: 0; color: var(--muted); }
+
+/* ── 5. Result preview ── */
+.tr-result-preview {
+  background: #fff; border: 1px solid var(--border); border-radius: 16px;
+  padding: 28px; margin-bottom: 24px;
+}
+.tr-result-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.tr-result-item:last-child { border-bottom: none; }
+.tr-result-bullet {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+  background: #6E3FA3;
+}
+.tr-result-item strong { font-size: .88rem; color: var(--text); display: block; margin-bottom: 2px; }
+.tr-result-item p { font-size: .82rem; color: var(--sub); line-height: 1.6; }
+
+.tr-disclaimer-box {
+  padding: 18px 20px; border-radius: 12px;
+  background: linear-gradient(135deg, #faf5ff, #f0fdf4);
+  border: 1px solid rgba(110,63,163,.1);
+}
+.tr-disclaimer-box p {
+  font-size: .82rem; color: #4a1d7a; line-height: 1.7;
+}
+.tr-action-btns { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+.tr-action-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 20px; font-size: .88rem; font-weight: 600;
+  border: 1px solid #d1d5db; border-radius: 10px; background: #fff;
+  color: var(--text); cursor: pointer; transition: .15s; text-decoration: none;
+}
+.tr-action-btn:hover { border-color: #6E3FA3; color: #6E3FA3; background: rgba(110,63,163,.03); }
+
+/* ── 6. Comparison table ── */
+.tr-compare-table {
+  width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.tr-compare-table th, .tr-compare-table td {
+  padding: 14px 18px; text-align: left; font-size: .85rem;
+}
+.tr-compare-table thead th {
+  background: var(--bg-soft); font-weight: 700; color: var(--text); border-bottom: 1px solid var(--border);
+}
+.tr-compare-table thead th:last-child { color: #6E3FA3; }
+.tr-compare-table tbody td {
+  border-bottom: 1px solid var(--border); color: var(--sub); vertical-align: top;
+}
+.tr-compare-table tbody td:last-child { color: var(--text); font-weight: 600; }
+.tr-compare-table tbody tr:last-child td { border-bottom: none; }
+
+/* ── 7. FAQ ── */
+.tr-faq-list { display: flex; flex-direction: column; gap: 10px; }
+.tr-faq-item {
+  border: 1px solid var(--border); border-radius: 12px; background: #fff; overflow: hidden;
+}
+.tr-faq-q {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 20px; font-size: .9rem; font-weight: 600; color: var(--text);
+  cursor: pointer; background: none; border: none; width: 100%; text-align: left;
+  transition: background .15s;
+}
+.tr-faq-q:hover { background: var(--bg-soft); }
+.tr-faq-q .faq-arrow {
+  width: 20px; height: 20px; flex-shrink: 0; transition: transform .2s;
+  color: var(--muted);
+}
+.tr-faq-item.open .tr-faq-q .faq-arrow { transform: rotate(180deg); }
+.tr-faq-a {
+  padding: 0 20px 0; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s;
+}
+.tr-faq-item.open .tr-faq-a { max-height: 200px; padding: 0 20px 18px; }
+.tr-faq-a p { font-size: .85rem; color: var(--sub); line-height: 1.7; }
+
+/* ── 8. Footer disclaimer ── */
+.tr-footer-legal {
+  padding: 32px 0; background: #f9fafb; border-top: 1px solid var(--border);
+}
+.tr-footer-legal p {
+  font-size: .78rem; color: var(--muted); line-height: 1.7; text-align: center; max-width: 680px; margin: 0 auto;
+}
+.tr-footer-legal .tr-footer-links {
+  text-align: center; margin-top: 10px; font-size: .78rem; color: var(--muted);
+}
+.tr-footer-legal .tr-footer-links a { color: var(--sub); font-weight: 600; }
+
+/* ── CTA ── */
+.tr-cta-section { text-align: center; padding: 56px 0; background: linear-gradient(135deg, rgba(110,63,163,.04), rgba(63,191,188,.04)); }
+.tr-cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 40px; font-size: 1rem; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+  border: none; border-radius: 12px; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(139,92,246,.3);
+  transition: transform .18s, box-shadow .18s;
+  text-decoration: none;
+}
+.tr-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139,92,246,.4); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .tr-do-dont { grid-template-columns: 1fr; }
+  .tr-disease-grid { grid-template-columns: 1fr; }
+  .tr-step { flex-direction: column; gap: 12px; }
+  .tr-compare-table th, .tr-compare-table td { padding: 10px 12px; font-size: .8rem; }
+  .tr-section-title { font-size: 1.15rem; }
+}
+/* ── Doctor dashboard ── */
+.dr-tab {
+  padding: 8px 16px; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  background: #fff; font-size: .85rem; font-weight: 600; color: var(--sub);
+  cursor: pointer; transition: .15s;
+}
+.dr-tab:hover { border-color: #d1d5db; }
+.dr-tab.active { border-color: #6E3FA3; background: rgba(110,63,163,.04); color: #6E3FA3; }
+
+.dr-tab-content { display: none; }
+.dr-tab-content.active { display: block; }
+
+.dr-status { font-size: .78rem; font-weight: 600; white-space: nowrap; }
+.dr-time-warn { color: #ef4444; font-weight: 600; }
+
+.dr-confirm-btn {
+  padding: 6px 14px; font-size: .78rem; font-weight: 600;
+  background: #6E3FA3; color: #fff; border: none; border-radius: 6px;
+  cursor: pointer; transition: .15s; white-space: nowrap;
+}
+.dr-confirm-btn:hover { filter: brightness(.9); }
+
+/* Confirm modal */
+.dr-modal {
+  position: fixed; inset: 0; z-index: 2000;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+  padding: 20px;
+}
+.dr-modal.on { display: flex; }
+.dr-modal-inner {
+  background: #fff; border-radius: 16px; width: 100%; max-width: 960px;
+  max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,.18);
+}
+.dr-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+}
+.dr-modal-header h3 { font-size: 1.05rem; font-weight: 700; }
+.dr-modal-close {
+  width: 32px; height: 32px; background: var(--bg-soft); border: none;
+  border-radius: 50%; font-size: 1.2rem; color: var(--sub); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.dr-modal-body { padding: 24px; }
+.dr-modal-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.dr-modal-section-title { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.dr-modal-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 40px; background: var(--bg-soft); border-radius: 10px;
+  color: var(--muted); font-size: .82rem;
+}
+.dr-ai-draft {
+  padding: 16px; background: #f0fdf4; border: 1px solid rgba(16,185,129,.12);
+  border-radius: 10px; font-size: .84rem; color: var(--sub); line-height: 1.7;
+}
+.dr-edit-area {
+  width: 100%; min-height: 200px; padding: 14px; border: 1.5px solid #e5e7eb;
+  border-radius: 10px; font-size: .84rem; font-family: inherit; color: var(--text);
+  line-height: 1.7; resize: vertical; outline: none;
+}
+.dr-edit-area:focus { border-color: #6E3FA3; }
+.dr-edit-reason {
+  width: 100%; padding: 10px 12px; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  font-size: .84rem; font-family: inherit; color: var(--text); margin-top: 8px; outline: none;
+}
+.dr-edit-memo {
+  width: 100%; padding: 10px 12px; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  font-size: .84rem; font-family: inherit; color: var(--text); margin-top: 8px; outline: none;
+}
+.dr-modal-actions { display: flex; gap: 10px; margin-top: 16px; }
+.dr-reject-btn {
+  flex: 1; padding: 12px; border: 1px solid #ef4444; background: #fff;
+  color: #ef4444; font-size: .88rem; font-weight: 600; border-radius: 10px;
+  cursor: pointer; transition: .15s;
+}
+.dr-reject-btn:hover { background: #fef2f2; }
+.dr-do-confirm-btn {
+  flex: 2; padding: 12px; border: none; background: #10b981;
+  color: #fff; font-size: .88rem; font-weight: 600; border-radius: 10px;
+  cursor: pointer; transition: .15s;
+}
+.dr-do-confirm-btn:hover { filter: brightness(.9); }
+.dr-mandatory-notice {
+  margin-top: 20px; padding: 14px 16px; background: #fffbeb;
+  border: 1px solid rgba(245,158,11,.15); border-radius: 10px;
+  font-size: .82rem; color: #92400e; line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .dr-modal-split { grid-template-columns: 1fr; }
+  .dr-modal-inner { max-width: 100%; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ── GNB ─────────────────────────────────────────────────── -->
+<header class="gnb" id="gnb">
+  <div class="gnb-inner">
+    <a href="../" class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">onco.care</span>
+    </a>
+    <nav class="gnb-nav">
+      <ul>
+        <li><a href="../">홈</a></li>
+        <li><a href="../feed">피드</a></li>
+        <li><a href="../community">질환별 게시판</a></li>
+        <li><a href="../cohort">in 코호트</a></li>
+        <li><a href="./" class="active">검사결과지</a></li>
+        <li><a href="#">문의</a></li>
+      </ul>
+    </nav>
+    <div class="gnb-right">
+      <a href="#" class="btn-login">로그인</a>
+      <button class="hamburger" id="hamBtn" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     환자용 뷰
+     ═══════════════════════════════════════════════════════════ -->
+<div id="patientView">
+
+<!-- 1. 서비스 소개 (Hero) -->
+<section class="page-hero">
+  <div class="hero-blob"></div>
+  <div class="hero-body" style="max-width:820px;padding:0 24px;">
+    <p class="eyebrow">Medical Report Explanation Service</p>
+    <h1 class="hero-title">내 검사결과지, 무슨 뜻인지<br>이제 알 수 있습니다</h1>
+    <p class="hero-desc">검사결과지에 적힌 어려운 의학 용어를 쉬운 말로 풀어드립니다.<br>AI가 먼저 설명하고, 의료진이 확인합니다.</p>
+  </div>
+</section>
+
+<!-- 이 서비스가 하는 것 / 하지 않는 것 -->
+<section class="tr-section" style="padding-top:36px;">
+  <div class="tr-container">
+    <div class="tr-do-dont">
+      <div class="tr-do-dont-card tr-do-card">
+        <div class="tr-do-dont-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          이 서비스가 제공하는 것
+        </div>
+        <ul class="tr-do-dont-list">
+          <li>검사결과지에 적힌 의학 용어를 알기 쉬운 말로 풀어서 설명</li>
+          <li>각 수치의 일반적인 정상 범위와 의미 안내</li>
+          <li>해당 검사가 치료 과정에서 어떤 역할을 하는지 배경 정보 제공</li>
+        </ul>
+      </div>
+      <div class="tr-do-dont-card tr-dont-card">
+        <div class="tr-do-dont-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          이 서비스가 하지 않는 것
+        </div>
+        <ul class="tr-do-dont-list">
+          <li>개인의 건강 상태에 대한 진단·판단·예후 예측</li>
+          <li>치료 방법의 권고·변경·중단에 관한 조언</li>
+          <li>담당 주치의의 진료를 대체하는 모든 행위</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     2. 질환 선택 (카드형 UI)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">DISEASE SELECTION</div>
+    <h2 class="tr-section-title">질환별 검사결과지 설명</h2>
+    <p class="tr-section-desc">해당하는 질환을 선택하면 자주 이용되는 검사결과지 유형을 확인할 수 있습니다.</p>
+
+    <div class="tr-disease-grid">
+
+      <!-- 유방암 -->
+      <div class="tr-disease-card">
+        <div class="tr-disease-header">
+          <div class="tr-disease-icon" style="background:rgba(236,72,153,0.08)">🎀</div>
+          <div class="tr-disease-name">유방암</div>
+        </div>
+        <div class="tr-disease-sub">검사결과지 — 이런 분이 많이 이용합니다</div>
+        <div class="tr-disease-examples">
+          <div class="tr-disease-example">
+            <strong>조직검사 결과지</strong>
+            <p>"처음 진단받고 결과지를 받았는데, 무슨 말인지 모르겠어요"</p>
+          </div>
+          <div class="tr-disease-example">
+            <strong>혈액검사(CBC) 결과지</strong>
+            <p>"항암 중 피검사 수치가 떨어졌는데, 얼마나 걱정해야 하나요?"</p>
+          </div>
+          <div class="tr-disease-example">
+            <strong>종양표지자 결과지</strong>
+            <p>"추적검사에서 수치가 올랐는데, 이게 무슨 뜻인가요?"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 위암 -->
+      <div class="tr-disease-card">
+        <div class="tr-disease-header">
+          <div class="tr-disease-icon" style="background:rgba(234,179,8,0.08)">🟡</div>
+          <div class="tr-disease-name">위암</div>
+        </div>
+        <div class="tr-disease-sub">검사결과지 — 이런 분이 많이 이용합니다</div>
+        <div class="tr-disease-examples">
+          <div class="tr-disease-example">
+            <strong>조직검사 결과지</strong>
+            <p>"분화도, 미만형… 처음 듣는 단어뿐이에요"</p>
+          </div>
+          <div class="tr-disease-example">
+            <strong>혈액검사(CBC) 결과지</strong>
+            <p>"항암 후 피검사 수치가 많이 떨어졌어요"</p>
+          </div>
+          <div class="tr-disease-example">
+            <strong>종양표지자 결과지</strong>
+            <p>"CA 19-9 수치가 높다는데 뭘 의미하나요?"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 대장암 -->
+      <div class="tr-disease-card">
+        <div class="tr-disease-header">
+          <div class="tr-disease-icon" style="background:rgba(249,115,22,0.08)">🟠</div>
+          <div class="tr-disease-name">대장암</div>
+        </div>
+        <div class="tr-disease-sub">검사결과지 — 이런 분이 많이 이용합니다</div>
+        <div class="tr-disease-examples">
+          <div class="tr-disease-example">
+            <strong>조직검사 결과지</strong>
+            <p>"MSI, KRAS 변이… 치료에 어떤 영향을 주는 건가요?"</p>
+          </div>
+          <div class="tr-disease-example">
+            <strong>혈액검사(CBC) 결과지</strong>
+            <p>"호중구가 너무 낮아서 항암을 미뤄야 한다는데요"</p>
+          </div>
+          <div class="tr-disease-example">
+            <strong>종양표지자 결과지</strong>
+            <p>"CEA가 올랐는데, 재발인 건 아닌지 불안해요"</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3. 이용 방법 안내 (3단계)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">HOW IT WORKS</div>
+    <h2 class="tr-section-title">이용 방법</h2>
+    <p class="tr-section-desc">3단계로 간단하게 검사결과지 설명을 받을 수 있습니다.</p>
+
+    <div class="tr-steps">
+      <div class="tr-step">
+        <div class="tr-step-num">1</div>
+        <div class="tr-step-body">
+          <div class="tr-step-title">검사결과지 촬영·업로드</div>
+          <ul class="tr-step-list">
+            <li>검사결과지를 폰 카메라로 촬영하거나, 저장된 이미지를 선택합니다</li>
+            <li>개인정보(환자명, 주민번호, 등록번호)가 보이는 부분은 반드시 가려주세요</li>
+            <li>시스템이 개인정보 영역을 자동으로 감지하여 블러 처리를 도와드립니다</li>
+            <li>최대 5장까지 업로드 가능합니다</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tr-step">
+        <div class="tr-step-num">2</div>
+        <div class="tr-step-body">
+          <div class="tr-step-title">AI 설명 + 의료진 확인</div>
+          <ul class="tr-step-list">
+            <li>AI가 검사결과지의 용어와 수치를 서술형으로 먼저 설명합니다</li>
+            <li>의료진이 내용을 검토·확인한 뒤 "✅ 의료진 검증됨" 뱃지가 표시됩니다</li>
+            <li>일반적으로 24시간 이내에 완료됩니다</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tr-step">
+        <div class="tr-step-num">3</div>
+        <div class="tr-step-body">
+          <div class="tr-step-title">설명 결과 확인</div>
+          <ul class="tr-step-list">
+            <li>내 검사결과지의 각 항목이 무슨 뜻인지 알기 쉬운 말로 확인할 수 있습니다</li>
+            <li>궁금한 점이 더 있으면 커뮤니티 게시판에서 질문할 수 있습니다</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     4. 동의 화면 (업로드 전 노출)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">CONSENT</div>
+    <h2 class="tr-section-title">개인정보 수집·이용 동의</h2>
+    <p class="tr-section-desc">검사결과지 업로드 전 아래 동의가 필요합니다.</p>
+
+    <div class="tr-consents">
+      <div class="tr-consent-card tr-consent-required">
+        <span class="tr-consent-badge">필수</span>
+        <h4>개인정보 수집·이용 동의</h4>
+        <p>검사결과지 설명 서비스 제공 목적으로 검사결과지 이미지 및 질환 정보를 수집·이용합니다.</p>
+        <ul>
+          <li>수집 항목: 카카오 로그인 식별자, 닉네임, 질환 종류, 검사결과지 이미지</li>
+          <li>보유 기간: 설명 완료 후 30일 이내 파기</li>
+          <li>동의를 거부할 수 있으며, 거부 시 서비스 이용이 제한됩니다.</li>
+        </ul>
+      </div>
+      <div class="tr-consent-card tr-consent-required">
+        <span class="tr-consent-badge">필수</span>
+        <h4>민감정보(건강정보) 수집 동의</h4>
+        <p>건강에 관한 정보(검사결과 수치)는 개인정보보호법 제23조에 따른 민감정보에 해당하며, 별도 동의를 받습니다.</p>
+      </div>
+      <div class="tr-consent-card tr-consent-optional">
+        <span class="tr-consent-badge">선택</span>
+        <h4>AI 품질 향상을 위한 데이터 활용 동의</h4>
+        <p>비식별화 처리된 검사결과 데이터를 의료 AI 품질 향상을 위한 학습에 활용하는 것에 동의합니다.</p>
+        <ul>
+          <li>거부하셔도 서비스 이용에 불이익이 없습니다.</li>
+          <li>동의 후에도 언제든 철회할 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     5. 설명 결과 화면 (미리보기)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">RESULT PREVIEW</div>
+    <h2 class="tr-section-title">설명 결과는 이렇게 보여집니다</h2>
+    <p class="tr-section-desc">AI가 분석한 설명에 의료진 검증이 완료되면 아래와 같은 형태로 결과를 확인할 수 있습니다.</p>
+
+    <div class="tr-result-preview">
+      <div class="tr-result-item">
+        <div class="tr-result-bullet"></div>
+        <div>
+          <strong>검사결과지 원본 이미지</strong>
+          <p>개인정보가 블러 처리된 상태로 표시됩니다.</p>
+        </div>
+      </div>
+      <div class="tr-result-item">
+        <div class="tr-result-bullet" style="background:#10b981"></div>
+        <div>
+          <strong>항목별 설명</strong>
+          <p>각 수치/용어 옆에 서술형 설명이 표시됩니다.</p>
+        </div>
+      </div>
+      <div class="tr-result-item">
+        <div class="tr-result-bullet" style="background:#3b82f6"></div>
+        <div>
+          <strong>✅ 의료진 검증됨 뱃지</strong>
+          <p>의료진 컨펌이 완료되면 뱃지가 표시됩니다.</p>
+        </div>
+      </div>
+      <div class="tr-result-item">
+        <div class="tr-result-bullet" style="background:#f59e0b"></div>
+        <div>
+          <strong>근거 출처 링크</strong>
+          <p>해당 설명의 근거가 된 논문·가이드라인 출처가 함께 제공됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-disclaimer-box">
+      <p>⚕️ 본 설명은 검사결과지에 기재된 의학 용어와 수치의 일반적인 의미를 안내하는 것이며, 의료법상 진료·진단·처방·상담 행위가 아닙니다. 개인의 건강 상태에 대한 판단은 반드시 담당 주치의와 상의하시기 바랍니다.</p>
+    </div>
+
+    <div class="tr-action-btns">
+      <a href="../community" class="tr-action-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        커뮤니티에 질문하기
+      </a>
+      <a href="../community" class="tr-action-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        같은 검사를 받은 환우 글 보기
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     6. "왜 다른 곳의 설명과 다른가요?" 섹션
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">WHY DIFFERENT</div>
+    <h2 class="tr-section-title">왜 다른 곳의 설명과 다른가요?</h2>
+    <p class="tr-section-desc">일반 AI 서비스와 onco.care 검사결과지 설명 서비스의 차이점입니다.</p>
+
+    <table class="tr-compare-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>일반 AI (챗GPT 등)</th>
+          <th>onco.care 검사결과지 설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AI 엔진</td>
+          <td>범용 모델 — 의료 특화 아님</td>
+          <td>MOCA 의료 특화 AI 엔진</td>
+        </tr>
+        <tr>
+          <td>출처</td>
+          <td>출처 불명확</td>
+          <td>논문·가이드라인 출처 명시</td>
+        </tr>
+        <tr>
+          <td>검증</td>
+          <td>검증 없음</td>
+          <td>의료진이 직접 확인</td>
+        </tr>
+        <tr>
+          <td>책임</td>
+          <td>오류 시 책임 소재 불명</td>
+          <td>aitrics 의료진팀 운영</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     7. FAQ (자주 묻는 질문)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">FAQ</div>
+    <h2 class="tr-section-title">자주 묻는 질문</h2>
+    <p class="tr-section-desc"></p>
+
+    <div class="tr-faq-list">
+      <div class="tr-faq-item">
+        <button class="tr-faq-q">
+          <span>Q. 이 서비스는 무료인가요?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tr-faq-a"><p>네, 현재 무료로 제공됩니다. 카카오 로그인으로 바로 이용 가능합니다.</p></div>
+      </div>
+      <div class="tr-faq-item">
+        <button class="tr-faq-q">
+          <span>Q. 검사결과지에 개인정보가 있는데 안전한가요?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tr-faq-a"><p>업로드 전 개인정보(환자명·주민번호 등) 제거를 안내하며, 시스템이 자동 블러 처리를 지원합니다. 업로드된 이미지는 설명 완료 후 30일 내 자동 파기됩니다.</p></div>
+      </div>
+      <div class="tr-faq-item">
+        <button class="tr-faq-q">
+          <span>Q. 의료진이 직접 보나요?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tr-faq-a"><p>AI가 먼저 설명 초안을 생성하고, aitrics 소속 의료진이 검토·확인합니다. 진료·진단·처방 행위는 하지 않으며, 용어와 수치의 일반적 의미를 설명하는 서비스입니다.</p></div>
+      </div>
+      <div class="tr-faq-item">
+        <button class="tr-faq-q">
+          <span>Q. 설명 결과를 담당 주치의에게 보여줘도 되나요?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tr-faq-a"><p>물론입니다. 다만 본 설명은 일반적인 의학 정보 안내이므로, 개인 상태에 대한 판단은 반드시 담당 주치의와 상의하시기 바랍니다.</p></div>
+      </div>
+      <div class="tr-faq-item">
+        <button class="tr-faq-q">
+          <span>Q. 어떤 검사결과지를 올릴 수 있나요?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tr-faq-a"><p>현재 유방암·위암·대장암의 조직검사 결과지, 혈액검사(CBC) 결과지, 종양표지자 결과지를 지원합니다.</p></div>
+      </div>
+      <div class="tr-faq-item">
+        <button class="tr-faq-q">
+          <span>Q. 설명 결과가 나오기까지 얼마나 걸리나요?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tr-faq-a"><p>AI 설명은 즉시 생성되며, 의료진 확인까지 일반적으로 24시간 이내에 완료됩니다.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CTA (검사결과지 업로드 시작)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="tr-cta-section">
+  <div class="tr-container" style="text-align:center">
+    <h2 class="tr-section-title" style="margin-bottom:10px">내 검사결과지, 지금 바로 설명받기</h2>
+    <p class="tr-section-desc" style="margin-bottom:28px">카카오 로그인 후 검사결과지를 업로드하면 AI가 즉시 분석합니다.</p>
+    <a href="#" class="tr-cta-btn" id="startUploadBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
+      검사결과지 업로드하기
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     8. 페이지 하단 (푸터)
+     ═══════════════════════════════════════════════════════════ -->
+</div><!-- /patientView -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     의료진용 뷰 (컨펌 대시보드)
+     ═══════════════════════════════════════════════════════════ -->
+<div id="doctorView" style="display:none">
+
+<!-- Doctor Hero -->
+<section class="page-hero">
+  <div class="hero-blob"></div>
+  <div class="hero-body" style="max-width:820px;padding:0 24px;">
+    <p class="eyebrow">Medical Staff Dashboard</p>
+    <h1 class="hero-title">검사결과지 컨펌 대시보드</h1>
+    <p class="hero-desc">AI가 생성한 검사결과지 설명 초안을 검토·수정·컨펌하는 Human-in-the-Loop 역할입니다.</p>
+  </div>
+</section>
+
+<!-- 1. 역할 정의 — 하는 것 / 하지 않는 것 -->
+<section class="tr-section" style="padding-top:36px">
+  <div class="tr-container">
+    <div class="tr-do-dont">
+      <div class="tr-do-dont-card tr-do-card">
+        <div class="tr-do-dont-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          의료진이 하는 것
+        </div>
+        <ul class="tr-do-dont-list">
+          <li>AI 설명 초안의 의학적 정확성 검토</li>
+          <li>부정확하거나 오해 소지가 있는 표현 수정</li>
+          <li>검토 완료 후 "컨펌" 버튼 클릭 → "✅ 의료진 검증됨" 뱃지 자동 부여</li>
+          <li>수정 사유 간단 메모 (AI 학습 피드백용)</li>
+        </ul>
+      </div>
+      <div class="tr-do-dont-card tr-dont-card">
+        <div class="tr-do-dont-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          의료진이 하지 않는 것
+        </div>
+        <ul class="tr-do-dont-list">
+          <li>개인 환자에 대한 진단·예후 판단·치료 권고 작성</li>
+          <li>"~하셔야 합니다", "~일 가능성이 높습니다" 등 처방성·판단성 표현 사용</li>
+          <li>환자와의 1:1 비대면 진료·상담 행위</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 컨펌 대상 검사결과지 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">CONFIRM TARGETS</div>
+    <h2 class="tr-section-title">컨펌 대상 검사결과지</h2>
+    <p class="tr-section-desc">질환별 3종의 검사결과지에 대한 AI 설명 초안을 검토합니다.</p>
+
+    <!-- 탭 -->
+    <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap">
+      <button class="dr-tab active" onclick="switchDrTab(this,'breast')">🎀 유방암</button>
+      <button class="dr-tab" onclick="switchDrTab(this,'stomach')">🟡 위암</button>
+      <button class="dr-tab" onclick="switchDrTab(this,'colon')">🟠 대장암</button>
+    </div>
+
+    <!-- 유방암 -->
+    <div class="dr-tab-content active" id="drTab-breast">
+      <table class="tr-compare-table" style="margin-bottom:0">
+        <thead><tr><th>#</th><th>검사결과지</th><th>AI 설명 항목</th><th>컨펌 시 중점 확인</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>조직검사(병리)</strong></td><td style="font-size:.8rem;line-height:1.6">ER/PR 양성·음성 의미, HER2 점수(0~3+), Ki-67 수치와 증식 속도, Nuclear Grade 1~3, 침윤 유형(IDC/ILC/DCIS), 림프관·혈관 침윤</td><td style="font-size:.8rem;line-height:1.6">AI가 "삼중음성", "Luminal A/B" 등 아형 분류를 개인에게 적용하는 표현을 쓰지 않았는지 확인. HER2 2+의 경우 "추가 검사(FISH/SISH)로 확인이 필요합니다"로 안내하는지 확인</td></tr>
+          <tr><td>2</td><td><strong>혈액검사(CBC)</strong></td><td style="font-size:.8rem;line-height:1.6">WBC·ANC·Hb·PLT 정상 범위, 항암 중 호중구 감소 패턴</td><td style="font-size:.8rem;line-height:1.6">AI가 "항암을 미뤄야 합니다" 등 치료 결정성 표현을 쓰지 않았는지 확인. "담당 주치의와 상의" 안내 포함 여부</td></tr>
+          <tr><td>3</td><td><strong>종양표지자</strong></td><td style="font-size:.8rem;line-height:1.6">CEA·CA 15-3 정상 범위, 수치 상승의 일반적 의미</td><td style="font-size:.8rem;line-height:1.6">AI가 "재발입니다", "전이입니다" 등 진단적 표현을 쓰지 않았는지 확인. "수치 상승이 반드시 재발을 의미하지 않습니다" 포함 여부</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 위암 -->
+    <div class="dr-tab-content" id="drTab-stomach">
+      <table class="tr-compare-table" style="margin-bottom:0">
+        <thead><tr><th>#</th><th>검사결과지</th><th>AI 설명 항목</th><th>컨펌 시 중점 확인</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>조직검사(병리)</strong></td><td style="font-size:.8rem;line-height:1.6">조직학적 유형(관상선암/반지세포암 등), 분화도(고/중/저), 침윤 깊이, Lauren 분류(장형/미만형), HER2 발현</td><td style="font-size:.8rem;line-height:1.6">"미만형이므로 예후가 나쁩니다" 같은 개인 예후 판단 표현 배제 확인. "분화도가 낮다 = 나쁘다"로 단정하지 않았는지 확인</td></tr>
+          <tr><td>2</td><td><strong>혈액검사(CBC)</strong></td><td style="font-size:.8rem;line-height:1.6">WBC·ANC·Hb·PLT 정상 범위, 빈혈·호중구 감소 패턴</td><td style="font-size:.8rem;line-height:1.6">유방암과 동일 기준 적용</td></tr>
+          <tr><td>3</td><td><strong>종양표지자</strong></td><td style="font-size:.8rem;line-height:1.6">CEA·CA 19-9·CA 72-4 정상 범위, 수치 변화의 일반적 의미</td><td style="font-size:.8rem;line-height:1.6">CA 19-9는 양성 질환에서도 상승 가능하다는 안내 포함 여부</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 대장암 -->
+    <div class="dr-tab-content" id="drTab-colon">
+      <table class="tr-compare-table" style="margin-bottom:0">
+        <thead><tr><th>#</th><th>검사결과지</th><th>AI 설명 항목</th><th>컨펌 시 중점 확인</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>조직검사(병리)</strong></td><td style="font-size:.8rem;line-height:1.6">조직학적 유형, 분화도, 침윤 깊이, MSI(미세부수체 불안정성), KRAS/BRAF 변이</td><td style="font-size:.8rem;line-height:1.6">MSI-H/MSS 설명 정확성, "KRAS 변이 여부가 치료 옵션 선택에 참고가 됩니다"로 순화했는지 확인</td></tr>
+          <tr><td>2</td><td><strong>혈액검사(CBC)</strong></td><td style="font-size:.8rem;line-height:1.6">WBC·ANC·Hb·PLT 정상 범위, 항암 중 수치 변동 패턴</td><td style="font-size:.8rem;line-height:1.6">유방암과 동일 기준 적용</td></tr>
+          <tr><td>3</td><td><strong>종양표지자</strong></td><td style="font-size:.8rem;line-height:1.6">CEA·CA 19-9 정상 범위, 수술 전후 CEA 변화의 일반적 의미</td><td style="font-size:.8rem;line-height:1.6">"CEA가 5 이상이면 재발"이라는 단정적 표현 배제 확인</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 컨펌 워크플로우 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">WORKFLOW</div>
+    <h2 class="tr-section-title">컨펌 워크플로우</h2>
+    <p class="tr-section-desc"></p>
+
+    <div class="tr-steps">
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#3b82f6,#6366f1)">1</div><div class="tr-step-body"><div class="tr-step-title">환자 업로드 완료</div><ul class="tr-step-list"><li>환자가 검사결과지를 업로드하면 AI 설명 초안이 자동 생성됩니다 (MOCA 엔진)</li></ul></div></div>
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#8b5cf6,#a855f7)">2</div><div class="tr-step-body"><div class="tr-step-title">컨펌 대기 — 대시보드 노출</div><ul class="tr-step-list"><li>질환별 필터 (유방암 / 위암 / 대장암)</li><li>검사 종류별 필터 (조직검사 / CBC / 종양표지자)</li><li>대기 시간 표시 (목표: 24시간 이내)</li></ul></div></div>
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">3</div><div class="tr-step-body"><div class="tr-step-title">의료진 검토</div><ul class="tr-step-list"><li>AI 초안 전문 확인</li><li>수정 필요 시 → 직접 텍스트 수정</li><li>수정 사유 메모 (드롭다운: 의학적 부정확 / 표현 순화 필요 / 진단적 표현 수정 / 출처 보완 / 기타)</li></ul></div></div>
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#10b981,#059669)">4</div><div class="tr-step-body"><div class="tr-step-title">컨펌 완료 → 환자 알림</div><ul class="tr-step-list"><li>"✅ 의료진 검증됨" 뱃지가 환자 화면에 자동 표시</li><li>컨펌 일시·의료진 식별자(익명) 시스템 기록</li><li>환자에게 푸시 알림 / 카카오 알림톡 발송</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 컨펌 대시보드 (시뮬레이션) -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">DASHBOARD</div>
+    <h2 class="tr-section-title">컨펌 대기 목록</h2>
+    <p class="tr-section-desc">현재 컨펌 대기 중인 검사결과지 목록입니다.</p>
+
+    <!-- 필터 -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="dr-tab active" style="font-size:.78rem" onclick="filterDash(this,'all')">전체 6건</button>
+      <button class="dr-tab" style="font-size:.78rem" onclick="filterDash(this,'waiting')">🟡 대기</button>
+      <button class="dr-tab" style="font-size:.78rem" onclick="filterDash(this,'done')">🟢 완료</button>
+      <button class="dr-tab" style="font-size:.78rem" onclick="filterDash(this,'fix')">🔴 수정필요</button>
+    </div>
+
+    <!-- 대시보드 테이블 -->
+    <div style="overflow-x:auto">
+      <table class="tr-compare-table" id="dashTable">
+        <thead>
+          <tr><th>상태</th><th>질환</th><th>검사 종류</th><th>접수 시각</th><th>대기 시간</th><th>담당</th><th>액션</th></tr>
+        </thead>
+        <tbody>
+          <tr data-status="waiting"><td><span class="dr-status dr-status-wait">🟡 대기</span></td><td>유방암</td><td>조직검사</td><td>03/17 09:12</td><td class="dr-time-warn">14시간 48분</td><td>미배정</td><td><button class="dr-confirm-btn" onclick="openConfirmModal(this)">검토하기</button></td></tr>
+          <tr data-status="waiting"><td><span class="dr-status dr-status-wait">🟡 대기</span></td><td>위암</td><td>CBC</td><td>03/17 10:30</td><td>13시간 30분</td><td>미배정</td><td><button class="dr-confirm-btn" onclick="openConfirmModal(this)">검토하기</button></td></tr>
+          <tr data-status="waiting"><td><span class="dr-status dr-status-wait">🟡 대기</span></td><td>대장암</td><td>종양표지자</td><td>03/17 11:45</td><td>12시간 15분</td><td>미배정</td><td><button class="dr-confirm-btn" onclick="openConfirmModal(this)">검토하기</button></td></tr>
+          <tr data-status="done"><td><span class="dr-status dr-status-done">🟢 완료</span></td><td>유방암</td><td>CBC</td><td>03/16 14:20</td><td style="color:#10b981">완료</td><td>Dr.K</td><td><button class="dr-confirm-btn" style="opacity:.5">완료됨</button></td></tr>
+          <tr data-status="done"><td><span class="dr-status dr-status-done">🟢 완료</span></td><td>대장암</td><td>조직검사</td><td>03/16 09:05</td><td style="color:#10b981">완료</td><td>Dr.L</td><td><button class="dr-confirm-btn" style="opacity:.5">완료됨</button></td></tr>
+          <tr data-status="fix"><td><span class="dr-status dr-status-fix">🔴 수정필요</span></td><td>위암</td><td>조직검사</td><td>03/16 16:40</td><td class="dr-time-warn">재생성 대기</td><td>Dr.K</td><td><button class="dr-confirm-btn" onclick="openConfirmModal(this)">재검토</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 컨펌 작업 모달 (시뮬레이션) -->
+<div class="dr-modal" id="confirmModal">
+  <div class="dr-modal-inner">
+    <div class="dr-modal-header">
+      <h3>검사결과지 컨펌</h3>
+      <button class="dr-modal-close" onclick="closeConfirmModal()">&times;</button>
+    </div>
+    <div class="dr-modal-body">
+      <div class="dr-modal-split">
+        <!-- 좌측: 원본 + AI 초안 -->
+        <div class="dr-modal-left">
+          <div class="dr-modal-section-title">검사결과지 원본 (개인정보 블러 처리)</div>
+          <div class="dr-modal-placeholder">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>원본 이미지 영역</span>
+          </div>
+          <div class="dr-modal-section-title" style="margin-top:20px">AI 설명 초안 (MOCA 엔진)</div>
+          <div class="dr-ai-draft">
+            <p><strong>검사명:</strong> 일반혈액검사 (CBC)</p>
+            <p><strong>검사일:</strong> 2026-03-17</p>
+            <p style="margin-top:12px"><strong>WBC (백혈구) — 7,200 /μL</strong><br>백혈구 수치는 4,000~10,000이 일반적인 정상 범위입니다. 현재 수치는 정상 범위에 해당합니다.</p>
+            <p style="margin-top:8px"><strong>Hemoglobin (혈색소) — 11.2 g/dL</strong><br>혈색소 수치는 12.0~16.0이 일반적인 정상 범위입니다. 현재 수치는 정상 범위보다 다소 낮으며, 항암 치료 과정에서 일시적으로 감소할 수 있는 것으로 알려져 있습니다. 담당 주치의와 상의하시는 것이 권장됩니다.</p>
+            <p style="margin-top:8px"><strong>Platelet (혈소판) — 245,000 /μL</strong><br>혈소판 수치는 150,000~400,000이 일반적인 정상 범위입니다. 현재 수치는 정상 범위에 해당합니다.</p>
+          </div>
+        </div>
+        <!-- 우측: 수정·컨펌 -->
+        <div class="dr-modal-right">
+          <div class="dr-modal-section-title">수정·컨펌</div>
+          <textarea class="dr-edit-area" placeholder="AI 초안을 수정할 수 있습니다. 수정 부분은 하이라이트로 표시됩니다.">WBC (백혈구) — 7,200 /μL
+백혈구 수치는 4,000~10,000이 일반적인 정상 범위입니다. 현재 수치는 정상 범위에 해당합니다.
+
+Hemoglobin (혈색소) — 11.2 g/dL
+혈색소 수치는 12.0~16.0이 일반적인 정상 범위입니다. 현재 수치는 정상 범위보다 다소 낮으며, 항암 치료 과정에서 일시적으로 감소할 수 있는 것으로 알려져 있습니다. 담당 주치의와 상의하시는 것이 권장됩니다.
+
+Platelet (혈소판) — 245,000 /μL
+혈소판 수치는 150,000~400,000이 일반적인 정상 범위입니다. 현재 수치는 정상 범위에 해당합니다.</textarea>
+          <div class="dr-modal-section-title" style="margin-top:16px">수정 사유</div>
+          <select class="dr-edit-reason">
+            <option value="">수정 사유 선택</option>
+            <option>의학적 부정확</option>
+            <option>표현 순화 필요</option>
+            <option>진단적 표현 수정</option>
+            <option>출처 보완</option>
+            <option>기타</option>
+          </select>
+          <input class="dr-edit-memo" type="text" placeholder="추가 메모 (선택)">
+          <div class="dr-modal-actions">
+            <button class="dr-reject-btn" onclick="closeConfirmModal()">반려 — 재생성 요청</button>
+            <button class="dr-do-confirm-btn" onclick="doConfirm()">✅ 컨펌</button>
+          </div>
+        </div>
+      </div>
+      <div class="dr-mandatory-notice">⚕️ 본 설명은 검사결과지에 기재된 의학 용어와 수치의 일반적인 의미를 안내하는 것이며, 의료법상 진료·진단·처방·상담 행위가 아닙니다. 개인의 건강 상태에 대한 판단은 반드시 담당 주치의와 상의하시기 바랍니다.<br><em style="font-size:.72rem;color:#9ca3af">이 문구는 자동 삽입되며 의료진이 삭제할 수 없습니다.</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. 답변 작성 가이드라인 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">WRITING GUIDE</div>
+    <h2 class="tr-section-title">답변 작성 가이드라인</h2>
+    <p class="tr-section-desc">사용 가능 표현 vs 사용 금지 표현</p>
+
+    <table class="tr-compare-table">
+      <thead><tr><th>상황</th><th style="color:#10b981">✅ 사용 가능</th><th style="color:#ef4444">❌ 사용 금지</th></tr></thead>
+      <tbody>
+        <tr><td><strong>수치 설명</strong></td><td style="font-size:.8rem">"ER 양성이란 에스트로겐 수용체가 존재한다는 의미입니다"</td><td style="font-size:.8rem">"ER 양성이니 호르몬 치료를 받으셔야 합니다"</td></tr>
+        <tr><td><strong>일반 정보</strong></td><td style="font-size:.8rem">"Ki-67이 14% 이상이면 일반적으로 증식 속도가 빠른 것으로 알려져 있습니다"</td><td style="font-size:.8rem">"Ki-67이 40%이므로 예후가 좋지 않습니다"</td></tr>
+        <tr><td><strong>수치 변화</strong></td><td style="font-size:.8rem">"CEA 수치는 다양한 요인에 의해 변동될 수 있으며, 담당 주치의와 상의하시는 것이 권장됩니다"</td><td style="font-size:.8rem">"CEA가 올랐으니 재발입니다"</td></tr>
+        <tr><td><strong>치료 관련</strong></td><td style="font-size:.8rem">"해당 검사 항목은 치료 방향 결정에 참고가 되는 것으로 알려져 있습니다"</td><td style="font-size:.8rem">"이 결과로 보면 항암을 하셔야 합니다"</td></tr>
+        <tr><td><strong>추가 검사</strong></td><td style="font-size:.8rem">"HER2 2+인 경우 추가 확인 검사(FISH 등)가 진행되는 경우가 일반적입니다"</td><td style="font-size:.8rem">"FISH 검사를 받으세요"</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 7. 민감 상황 대응 가이드 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">SENSITIVE CASES</div>
+    <h2 class="tr-section-title">민감 상황 대응 가이드</h2>
+    <p class="tr-section-desc"></p>
+
+    <table class="tr-compare-table">
+      <thead><tr><th>상황</th><th>대응</th></tr></thead>
+      <tbody>
+        <tr><td style="font-size:.84rem">환자가 "이 결과면 재발인가요?" 등 진단 요청</td><td style="font-size:.84rem">"수치 변화의 의미는 다양한 맥락에서 해석될 수 있으므로, 담당 주치의와 상의하시는 것이 가장 정확합니다"로 안내</td></tr>
+        <tr><td style="font-size:.84rem">4기 전이·여명 관련 수치 포함 결과지</td><td style="font-size:.84rem">수치의 일반적 의미만 설명. 예후·생존율 언급 금지. "담당 주치의와의 상담을 권장합니다"로 마무리</td></tr>
+        <tr><td style="font-size:.84rem">개인정보가 블러 처리되지 않은 결과지</td><td style="font-size:.84rem">컨펌 진행 불가. "반려 — 개인정보 재처리 필요"로 반려 후 재업로드 요청 알림</td></tr>
+        <tr><td style="font-size:.84rem">AI 초안에 명백히 틀린 의학 정보</td><td style="font-size:.84rem">전체 수정 후 컨펌. 수정 사유 "의학적 부정확"으로 기록. AI 학습 피드백으로 자동 전달</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 8. Tier별 역할 분담 & 보상 체계 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">TIER SYSTEM</div>
+    <h2 class="tr-section-title">의료진 Tier별 역할 분담</h2>
+    <p class="tr-section-desc"></p>
+
+    <table class="tr-compare-table" style="margin-bottom:32px">
+      <thead><tr><th>Tier</th><th>대상</th><th>주요 역할</th><th>컨펌 범위</th><th>빈도</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tier 1</strong></td><td>aitrics 사내 의료진</td><td>일상적 컨펌</td><td>CBC, 종양표지자 (정형화 항목)</td><td>상시</td></tr>
+        <tr><td><strong>Tier 2</strong></td><td>닥터앤서 3.0 PI 교수진</td><td>전문 영역 컨펌</td><td>조직검사(병리) 결과지</td><td>주 1~2회</td></tr>
+        <tr><td><strong>Tier 3</strong></td><td>세부 전문의</td><td>고난도·민감 건 컨펌</td><td>에스컬레이션 건</td><td>월 1회 자문</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="tr-section-title" style="font-size:1.1rem;margin-bottom:18px">보상 체계</h3>
+    <table class="tr-compare-table">
+      <thead><tr><th>활동</th><th>보상</th></tr></thead>
+      <tbody>
+        <tr><td>월 30건 이상 컨펌</td><td>커뮤니티 PRO 데이터 연구용 접근권 부여</td></tr>
+        <tr><td>월 50건 이상 컨펌</td><td>공동 연구·학회 발표 시 공저자 자격 부여</td></tr>
+        <tr><td>분기 최다 컨펌 의료진</td><td>aitrics 주최 학술 세미나 발표 기회</td></tr>
+        <tr><td>앰배서더 위촉 행사 참여</td><td>의료진 자문위원으로 공개 소개</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 9. 개인정보 처리 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">PRIVACY</div>
+    <h2 class="tr-section-title">개인정보 처리 — 의료진 접근 권한</h2>
+    <p class="tr-section-desc"></p>
+
+    <table class="tr-compare-table">
+      <thead><tr><th>항목</th><th>접근 가능 여부</th></tr></thead>
+      <tbody>
+        <tr><td>검사결과지 이미지 (개인정보 블러 상태)</td><td style="color:#10b981;font-weight:600">✅ 열람 가능</td></tr>
+        <tr><td>검사 수치 데이터</td><td style="color:#10b981;font-weight:600">✅ 열람 가능</td></tr>
+        <tr><td>환자 실명·주민번호·등록번호</td><td style="color:#ef4444;font-weight:600">❌ 접근 불가 (시스템 차단)</td></tr>
+        <tr><td>환자 카카오 로그인 식별자</td><td style="color:#ef4444;font-weight:600">❌ 접근 불가 (익명 처리)</td></tr>
+        <tr><td>환자 닉네임</td><td style="color:#10b981;font-weight:600">✅ 열람 가능 (커뮤니티 닉네임만)</td></tr>
+        <tr><td>컨펌 이력·수정 로그</td><td style="color:#10b981;font-weight:600">✅ 본인 이력만 열람 가능</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 10. AI 품질 피드백 루프 -->
+<section class="tr-section">
+  <div class="tr-container">
+    <div class="tr-section-label">AI FEEDBACK LOOP</div>
+    <h2 class="tr-section-title">AI 초안 품질 피드백 루프</h2>
+    <p class="tr-section-desc"></p>
+
+    <div class="tr-steps">
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#f59e0b,#f97316)">1</div><div class="tr-step-body"><div class="tr-step-title">의료진이 AI 초안을 수정</div><ul class="tr-step-list"><li>수정 사유 + 수정 전/후 텍스트가 자동 기록됩니다</li></ul></div></div>
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#3b82f6,#6366f1)">2</div><div class="tr-step-body"><div class="tr-step-title">월간 AI 품질 리포트 생성</div><ul class="tr-step-list"><li>수정률 추이 (목표: 월별 감소)</li><li>수정 사유별 빈도 분석</li><li>질환별·검사 종류별 수정률 비교</li></ul></div></div>
+      <div class="tr-step"><div class="tr-step-num" style="background:linear-gradient(135deg,#10b981,#059669)">3</div><div class="tr-step-body"><div class="tr-step-title">AI 모델 개선에 반영</div><ul class="tr-step-list"><li>반복되는 수정 패턴을 MOCA 엔진 파인튜닝에 활용</li><li>"의학적 부정확" 사유의 구체 사례를 학습 데이터로 추가</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /doctorView -->
+
+<div class="tr-footer-legal">
+  <div class="tr-container">
+    <p>본 서비스는 의료법상 의료행위(진료·진단·처방·상담)를 제공하지 않습니다. 검사결과지에 기재된 의학 용어와 수치의 일반적인 의미를 안내하는 정보 제공 서비스입니다. 개인의 건강 상태에 대한 판단은 반드시 담당 주치의와 상의하시기 바랍니다.</p>
+    <div class="tr-footer-links">
+      aitrics 주식회사 | <a href="#">개인정보 처리방침</a> | <a href="#">이용약관</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <span class="footer-brand">onco.care by aitrics</span>
+      <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Mobile drawer ────────────────────────────────────────── -->
+<div class="dim" id="dim"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-top">
+    <a href="../" class="logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">onco.care</span>
+    </a>
+    <button class="drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <div class="drawer-links">
+    <a href="../">홈</a>
+    <a href="../feed">피드</a>
+    <a href="../community">질환별 게시판</a>
+    <a href="../cohort">in 코호트</a>
+    <a href="./" class="active">검사결과지</a>
+    <a href="#">문의</a>
+    <a href="#" class="drawer-login">로그인</a>
+  </div>
+</nav>
+
+<script>
+// ── GNB & drawer
+const gnb = document.getElementById('gnb');
+window.addEventListener('scroll', () => {
+  gnb.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+
+const ham = document.getElementById('hamBtn');
+const dim = document.getElementById('dim');
+const drawer = document.getElementById('drawer');
+const drawerClose = document.getElementById('drawerClose');
+function openDrawer()  { drawer.classList.add('on'); dim.classList.add('on'); document.body.style.overflow = 'hidden'; }
+function closeDrawer() { drawer.classList.remove('on'); dim.classList.remove('on'); document.body.style.overflow = ''; }
+ham.addEventListener('click', openDrawer);
+drawerClose.addEventListener('click', closeDrawer);
+dim.addEventListener('click', closeDrawer);
+
+// ── FAQ accordion
+document.querySelectorAll('.tr-faq-q').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const item = btn.closest('.tr-faq-item');
+    const wasOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.tr-faq-item').forEach(function(i) { i.classList.remove('open'); });
+    // Toggle current
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// ── CTA button triggers login if not logged in
+document.getElementById('startUploadBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  var loginBtn = document.querySelector('.btn-login');
+  if (loginBtn) loginBtn.click();
+});
+
+// ── View switching based on login role ──
+function switchView(role) {
+  var patientView = document.getElementById('patientView');
+  var doctorView = document.getElementById('doctorView');
+  if (role === '의료진') {
+    patientView.style.display = 'none';
+    doctorView.style.display = 'block';
+  } else {
+    patientView.style.display = 'block';
+    doctorView.style.display = 'none';
+  }
+}
+
+// Listen for login event
+window.addEventListener('oncocare-login', function(e) {
+  if (e.detail && e.detail.role) switchView(e.detail.role);
+});
+
+// ── Doctor dashboard tab switching ──
+function switchDrTab(btn, tabId) {
+  btn.parentElement.querySelectorAll('.dr-tab').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.dr-tab-content').forEach(function(c) { c.classList.remove('active'); });
+  var target = document.getElementById('drTab-' + tabId);
+  if (target) target.classList.add('active');
+}
+
+// ── Dashboard filter ──
+function filterDash(btn, filter) {
+  btn.parentElement.querySelectorAll('.dr-tab').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('#dashTable tbody tr').forEach(function(row) {
+    if (filter === 'all') { row.style.display = ''; return; }
+    row.style.display = row.dataset.status === filter ? '' : 'none';
+  });
+}
+
+// ── Confirm modal ──
+function openConfirmModal() {
+  document.getElementById('confirmModal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeConfirmModal() {
+  document.getElementById('confirmModal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+function doConfirm() {
+  alert('✅ 컨펌이 완료되었습니다. 환자에게 알림이 전송됩니다.');
+  closeConfirmModal();
+}
+</script>
+<script src="../login.js"></script>
+</body>
+</html>

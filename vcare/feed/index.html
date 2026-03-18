@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>피드 — onco.care</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../feed.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+</head>
+<body>
+
+<!-- GNB -->
+<header class="gnb" id="gnb">
+  <div class="gnb-inner">
+    <a href="../" class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">onco.care</span>
+    </a>
+    <nav class="gnb-nav">
+      <ul>
+        <li><a href="../">홈</a></li>
+        <li><a href="../feed" class="active">피드</a></li>
+        <li><a href="../community">질환별 게시판</a></li>
+        <li><a href="../cohort">in 코호트</a></li>
+        <li><a href="../upload">검사결과지</a></li>
+        <li><a href="#">문의</a></li>
+      </ul>
+    </nav>
+    <div class="gnb-right">
+      <a href="#" class="btn-login">로그인</a>
+      <button class="hamburger" id="hamBtn" aria-label="메뉴">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 피드 히어로 -->
+<section class="page-hero page-hero--feed">
+  <div class="hero-blob"></div>
+  <div class="arc arc-a"></div>
+  <div class="arc arc-b"></div>
+  <div class="hero-body">
+    <p class="eyebrow">Real Stories. Real Care.</p>
+    <h1 class="hero-title">
+      onco.care <em>피드</em>
+    </h1>
+    <p class="hero-desc">
+      의료진과 환우들이 나누는 건강 정보와<br>
+      따뜻한 이야기를 만나보세요.
+    </p>
+  </div>
+</section>
+
+<!-- 피드 본문 -->
+<main class="feed-main">
+  <div class="feed-container">
+
+    <!-- 글쓰기 영역 -->
+    <div class="compose-card">
+      <div class="compose-top">
+        <div class="compose-avatar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#a78bfa">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+        <input
+          class="compose-input"
+          type="text"
+          placeholder="김환자님, 오늘 하루는 어떠신가요? 가벼운 안부나 사진을 남겨주세요."
+          readonly
+        >
+      </div>
+      <div class="compose-bottom">
+        <div class="compose-actions">
+          <button class="compose-btn" title="사진 첨부">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </button>
+          <button class="compose-btn" title="위치 추가">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#f87171">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </button>
+        </div>
+        <button class="compose-submit">게시하기</button>
+      </div>
+    </div>
+
+    <!-- 피드 카드 1 -->
+    <article class="feed-card">
+      <header class="feed-card-header">
+        <div class="feed-avatar feed-avatar--blue">V</div>
+        <div class="feed-meta">
+          <div class="feed-author-row">
+            <span class="feed-author">온코케어 메디컬팀</span>
+            <span class="badge badge--staff">운영진</span>
+          </div>
+          <span class="feed-date">2026. 3. 12. &bull; 오전 11:27</span>
+        </div>
+      </header>
+
+      <div class="feed-body">
+        <h2 class="feed-title">항암 중 식욕 부진, 이렇게 해결하세요</h2>
+        <ol class="feed-list">
+          <li>소량씩 자주 섭취하기</li>
+          <li>고단백 간식 활용 (삶은 달걀, 두유)</li>
+          <li>시원한 음식으로 울렁거림 달래기</li>
+        </ol>
+        <div class="feed-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
+            alt="건강한 식단"
+            class="feed-image"
+            loading="lazy"
+          >
+          <span class="image-badge">카드뉴스</span>
+        </div>
+      </div>
+
+      <footer class="feed-card-footer">
+        <div class="feed-reactions">
+          <button class="reaction-btn reaction-btn--liked">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f43f5e">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span>124</span>
+          </button>
+          <button class="reaction-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            <span>18</span>
+          </button>
+        </div>
+        <button class="bookmark-btn" title="저장">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+          </svg>
+        </button>
+      </footer>
+    </article>
+
+    <!-- 피드 카드 2 -->
+    <article class="feed-card">
+      <header class="feed-card-header">
+        <div class="feed-avatar feed-avatar--green">K</div>
+        <div class="feed-meta">
+          <div class="feed-author-row">
+            <span class="feed-author">김민수 교수</span>
+            <span class="badge badge--doctor">의료진</span>
+          </div>
+          <span class="feed-date">2026. 3. 12. &bull; 오전 9:15</span>
+        </div>
+      </header>
+
+      <div class="feed-body">
+        <h2 class="feed-title">당뇨 환자의 운동 시간대, 언제가 좋을까요?</h2>
+        <p class="feed-text">식후 30분~1시간 사이 가벼운 산책이 혈당 조절에 가장 효과적입니다. 공복 운동은 저혈당 위험이 있으므로 반드시 혈당을 확인한 후 진행하세요.</p>
+      </div>
+
+      <footer class="feed-card-footer">
+        <div class="feed-reactions">
+          <button class="reaction-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span>87</span>
+          </button>
+          <button class="reaction-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            <span>32</span>
+          </button>
+        </div>
+        <button class="bookmark-btn" title="저장">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+          </svg>
+        </button>
+      </footer>
+    </article>
+
+    <!-- 피드 카드 3 -->
+    <article class="feed-card">
+      <header class="feed-card-header">
+        <div class="feed-avatar feed-avatar--pink">이</div>
+        <div class="feed-meta">
+          <div class="feed-author-row">
+            <span class="feed-author">이서연 교수</span>
+            <span class="badge badge--doctor">의료진</span>
+          </div>
+          <span class="feed-date">2026. 3. 11. &bull; 오후 3:40</span>
+        </div>
+      </header>
+
+      <div class="feed-body">
+        <h2 class="feed-title">심혈관 건강을 위한 식단 가이드</h2>
+        <p class="feed-text">포화지방과 나트륨 섭취를 줄이고, 오메가-3가 풍부한 등 푸른 생선과 견과류를 꾸준히 섭취하면 심혈관 질환 예방에 큰 도움이 됩니다.</p>
+        <div class="feed-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80"
+            alt="건강 식단"
+            class="feed-image"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <footer class="feed-card-footer">
+        <div class="feed-reactions">
+          <button class="reaction-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span>56</span>
+          </button>
+          <button class="reaction-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            <span>9</span>
+          </button>
+        </div>
+        <button class="bookmark-btn" title="저장">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+          </svg>
+        </button>
+      </footer>
+    </article>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <span class="footer-brand">onco.care by aitrics</span>
+      <span class="footer-copy">&copy; 2026 aitrics. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 모바일 드로어 -->
+<div class="dim" id="dim"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-top">
+    <a href="../" class="logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="9" r="5.5" stroke="#111827" stroke-width="1.6"/>
+        <path d="M7 17.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">onco.care</span>
+    </a>
+    <button class="drawer-close" id="drawerClose">&times;</button>
+  </div>
+  <div class="drawer-links">
+    <a href="../">홈</a>
+    <a href="../feed" class="active">피드</a>
+    <a href="../community">질환별 게시판</a>
+    <a href="../cohort">in 코호트</a>
+    <a href="../upload">검사결과지</a>
+    <a href="#">문의</a>
+    <a href="#" class="drawer-login">로그인</a>
+  </div>
+</nav>
+
+<script>
+  const gnb = document.getElementById('gnb');
+  window.addEventListener('scroll', () => {
+    gnb.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+
+  const ham = document.getElementById('hamBtn');
+  const dim = document.getElementById('dim');
+  const drawer = document.getElementById('drawer');
+  const close = document.getElementById('drawerClose');
+  function open() { drawer.classList.add('on'); dim.classList.add('on'); document.body.style.overflow = 'hidden'; }
+  function shut() { drawer.classList.remove('on'); dim.classList.remove('on'); document.body.style.overflow = ''; }
+  ham.addEventListener('click', open);
+  close.addEventListener('click', shut);
+  dim.addEventListener('click', shut);
+
+  // 좋아요 토글
+  document.querySelectorAll('.reaction-btn').forEach(btn => {
+    if (btn.querySelector('path[fill="#f43f5e"]')) return; // 이미 liked 상태 스킵
+    btn.addEventListener('click', function() {
+      const svg = this.querySelector('svg');
+      const path = this.querySelector('path');
+      const span = this.querySelector('span');
+      const isLiked = svg.getAttribute('fill') === '#f43f5e';
+      if (path && span) {
+        const count = parseInt(span.textContent);
+        if (this.classList.contains('reaction-btn--liked') || svg.getAttribute('fill') === '#f43f5e') {
+          svg.setAttribute('fill', 'none');
+          svg.setAttribute('stroke', '#9ca3af');
+          span.textContent = count - 1;
+        } else {
+          svg.setAttribute('fill', '#f43f5e');
+          svg.removeAttribute('stroke');
+          span.textContent = count + 1;
+        }
+      }
+    });
+  });
+</script>
+<script src="../login.js"></script>
+</body>
+</html>

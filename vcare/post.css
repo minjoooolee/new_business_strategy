@@ -1,0 +1,707 @@
+/* ============================================================
+   게시글 상세 페이지 — post.css
+   ============================================================ */
+
+/* ── 레이아웃 ─────────────────────────────── */
+.post-main {
+  max-width: var(--w, 960px);
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+.post-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+
+.post-content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── 상단 카드 ────────────────────────────── */
+.post-detail-card {
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.post-detail-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.post-detail-top-left {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.post-disease-badge {
+  font-size: .7rem;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.post-detail-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pd-btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: .72rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.pd-btn:hover {
+  background: #f9fafb;
+}
+
+.pd-btn--delete:hover {
+  color: #ef4444;
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.post-detail-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.post-detail-meta {
+  display: flex;
+  gap: 12px;
+  font-size: .75rem;
+  color: #9ca3af;
+  margin-bottom: 16px;
+}
+
+.pd-author { color: #6b7280; font-weight: 500; }
+
+/* ── 좋아요 (상단) ───────────────────────── */
+.post-detail-like {
+  padding-top: 14px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.pd-like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #fecdd3;
+  background: #fff;
+  color: #E24585;
+  font-size: .78rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.pd-like-btn svg { fill: #E24585; }
+
+.pd-like-btn strong {
+  font-weight: 700;
+}
+
+.pd-like-btn:hover {
+  background: #fff1f2;
+}
+
+.pd-like-btn--active {
+  background: #E24585;
+  color: #fff;
+  border-color: #E24585;
+}
+
+.pd-like-btn--active svg { fill: #fff; }
+
+/* ── 본문 ─────────────────────────────────── */
+.post-detail-body {
+  padding: 0 4px;
+  margin-bottom: 24px;
+}
+
+.post-detail-body p {
+  font-size: .88rem;
+  line-height: 1.8;
+  color: #374151;
+  margin: 0 0 4px;
+}
+
+/* ── 태그 ─────────────────────────────────── */
+.post-detail-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.post-detail-tags .tag {
+  font-size: .72rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+/* ── 응원해요 / 유익해요 (하단) ──────────── */
+.post-detail-reactions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.pd-reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: .8rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.pd-reaction svg { stroke: #6b7280; }
+
+.pd-reaction strong { font-weight: 700; color: #111827; }
+
+.pd-reaction:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.pd-reaction--active {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+.pd-reaction--active svg { stroke: #fff; }
+.pd-reaction--active strong { color: #fff; }
+
+/* ── 구분선 ───────────────────────────────── */
+.post-divider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 0 0 28px;
+}
+
+/* ── 답변 섹션 ────────────────────────────── */
+.comments-title {
+  font-size: .92rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+.comments-title strong {
+  color: #6366f1;
+}
+
+/* 답변 작성 */
+.comment-write {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.comment-write-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.comment-write-input-wrap {
+  flex: 1;
+}
+
+.comment-write-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: #111827;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  transition: border-color .15s;
+}
+
+.comment-write-input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, .1);
+}
+
+.comment-write-input::placeholder { color: #9ca3af; }
+
+.comment-write-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #111827;
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.comment-write-btn:hover {
+  background: #1f2937;
+}
+
+/* 답변 목록 */
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid #f3f4f6;
+}
+
+.comment-item--new {
+  animation: commentIn .3s ease-out;
+}
+
+@keyframes commentIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.comment-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.comment-author {
+  font-size: .78rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.comment-role {
+  font-size: .68rem;
+  color: #9ca3af;
+  background: #f3f4f6;
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+/* 의료진 답변 스타일 */
+.comment-avatar--doctor {
+  background: #3fbfbc;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-avatar--doctor svg {
+  width: 16px;
+  height: 16px;
+}
+
+.comment-author--doctor {
+  color: #0d9488;
+  font-weight: 700;
+}
+
+.comment-role--doctor {
+  background: #ccfbf1;
+  color: #0d9488;
+}
+
+.comment-item--doctor {
+  background: #f0fdfa;
+  border-radius: 12px;
+  padding: 18px 14px;
+  margin: -1px 0;
+  border-top: 1px solid #ccfbf1;
+}
+
+.comment-item--doctor .comment-text {
+  color: #134e4a;
+}
+
+.comment-date {
+  font-size: .68rem;
+  color: #d1d5db;
+}
+
+.comment-text {
+  font-size: .82rem;
+  line-height: 1.65;
+  color: #374151;
+  margin: 0 0 8px;
+}
+
+.comment-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  color: #9ca3af;
+  font-size: .72rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color .15s;
+}
+
+.comment-like svg {
+  width: 14px;
+  height: 14px;
+  fill: #d1d5db;
+}
+
+.comment-like:hover { color: #E24585; }
+.comment-like:hover svg { fill: #E24585; }
+
+.comment-like--active { color: #E24585; }
+.comment-like--active svg { fill: #E24585; }
+
+/* ── AI 유사글 패널 (오른쪽) ──────────────── */
+.post-ai-panel {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 72px;
+  background: #f0e8f7;
+  border: 1px solid #e0d4f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.ai-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e0d4f0;
+}
+
+.ai-panel-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: .6rem;
+  font-weight: 800;
+  letter-spacing: -.2px;
+  flex-shrink: 0;
+}
+
+.ai-panel-title {
+  font-size: .82rem;
+  font-weight: 700;
+  color: #6b21a8;
+}
+
+.ai-panel-body {
+  padding: 14px 14px 16px;
+}
+
+.ai-similar-intro {
+  font-size: .76rem;
+  line-height: 1.55;
+  color: #4a1d7a;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e0d4f0;
+}
+
+.ai-similar-card {
+  display: block;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e0d4f0;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: all .15s;
+}
+
+.ai-similar-card:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 2px 8px rgba(107, 33, 168, .08);
+}
+
+.ai-similar-badge-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ai-similar-disease {
+  font-size: .65rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.ai-similar-title {
+  font-size: .76rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.45;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ai-similar-excerpt {
+  font-size: .7rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ai-similar-meta {
+  font-size: .65rem;
+  color: #9ca3af;
+}
+
+/* ── badge 공통 (community.css 의존 없이) ── */
+.post-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.badge--symptom { background: #eff6ff; color: #2563eb; }
+.badge--case    { background: #ecfdf5; color: #059669; }
+.badge--cheer   { background: #fdf2f8; color: #E24585; }
+.badge--news    { background: linear-gradient(135deg, #ecfdf5, #f0e8f7); color: #0d9488; border: 1px solid #ccfbf1; }
+
+/* ── 메디컬팀 게시글 ─────────────────────── */
+.post-detail-card--medical {
+  background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, #3fbfbc 0%, #64CCC9 25%, #6E3FA3 50%, #E24585 78%, #ffffff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 2px solid transparent;
+}
+
+.pd-author--medical {
+  background: linear-gradient(135deg, #3fbfbc, #6E3FA3, #E24585);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* ── URL 미리보기 카드 (OG 스타일) ────────── */
+.url-preview-card {
+  display: flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: all .15s;
+}
+
+.url-preview-card:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 4px 16px rgba(107, 33, 168, .1);
+}
+
+.url-preview-thumb {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.url-preview-thumb-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .7rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -.3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  position: relative;
+  z-index: 1;
+}
+
+.url-preview-thumb-domain {
+  font-size: .65rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+
+.url-preview-body {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.url-preview-site {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .7rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.url-preview-site svg {
+  flex-shrink: 0;
+}
+
+.url-preview-title {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.45;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.url-preview-desc {
+  font-size: .75rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.url-preview-url {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .68rem;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.url-preview-url svg {
+  flex-shrink: 0;
+}
+
+/* ── 반응형 ───────────────────────────────── */
+@media (max-width: 768px) {
+  .post-layout {
+    flex-direction: column;
+  }
+
+  .post-ai-panel {
+    width: 100%;
+    position: static;
+    order: -1;
+    margin-bottom: 20px;
+  }
+
+  .post-detail-card {
+    padding: 16px 18px;
+  }
+
+  .post-detail-title {
+    font-size: 1.05rem;
+  }
+
+  .post-detail-reactions {
+    flex-wrap: wrap;
+  }
+}

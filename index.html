@@ -4282,306 +4282,232 @@
     <div class="cd-divider"></div>
 
     <!-- S2-why-aitrics: 왜 aitrics가 해야 하는가 -->
-    <div class="cd-section" id="cd-s2-why-aitrics">
+    <div class="cd-section" id="cd-s2c-concept">
       <style>
-        /* ── cd-s2-why-aitrics 전용 스타일 (wa- prefix) ── */
-        #cd-s2-why-aitrics .wa-hero-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--accent2); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
-        #cd-s2-why-aitrics .wa-hero-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--accent2); }
-        #cd-s2-why-aitrics .wa-hero-title { font-size:38px; font-weight:900; line-height:1.2; letter-spacing:-1px; margin-bottom:20px; background:linear-gradient(135deg,#fff 0%,#b8ffd0 40%,var(--accent2) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-        #cd-s2-why-aitrics .wa-hero-desc { font-size:14px; color:var(--text-muted); line-height:1.95; max-width:720px; margin-bottom:56px; }
-        #cd-s2-why-aitrics .wa-block { margin-bottom:52px; }
-        #cd-s2-why-aitrics .wa-block-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:10px; }
-        #cd-s2-why-aitrics .wa-block-title { font-size:20px; font-weight:900; letter-spacing:-0.4px; color:var(--text); margin-bottom:8px; }
-        #cd-s2-why-aitrics .wa-block-sub { font-size:13px; color:var(--text-muted); line-height:1.9; margin-bottom:24px; }
-        /* 반론 박스 */
-        #cd-s2-why-aitrics .wa-objection { background:rgba(255,107,107,0.05); border:1px solid rgba(255,107,107,0.2); border-radius:14px; padding:22px 24px; margin-bottom:28px; display:flex; align-items:flex-start; gap:14px; }
-        #cd-s2-why-aitrics .wa-obj-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
-        #cd-s2-why-aitrics .wa-obj-title { font-size:13px; font-weight:800; color:#ff6b6b; margin-bottom:6px; }
-        #cd-s2-why-aitrics .wa-obj-desc { font-size:12px; color:var(--text-muted); line-height:1.8; }
-        /* UA 카드 */
-        #cd-s2-why-aitrics .wa-ua-list { display:flex; flex-direction:column; gap:16px; }
-        #cd-s2-why-aitrics .wa-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
-        #cd-s2-why-aitrics .wa-card-header { display:flex; align-items:center; gap:14px; padding:18px 22px 16px; border-bottom:1px solid var(--border); }
-        #cd-s2-why-aitrics .wa-num { font-size:10px; font-weight:700; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--text-dim); flex-shrink:0; }
-        #cd-s2-why-aitrics .wa-icon { font-size:22px; flex-shrink:0; }
-        #cd-s2-why-aitrics .wa-title { font-size:15px; font-weight:900; flex:1; }
-        #cd-s2-why-aitrics .wa-badge { font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 10px; border-radius:5px; flex-shrink:0; }
-        #cd-s2-why-aitrics .wa-card-body { padding:18px 22px; display:flex; gap:20px; }
-        #cd-s2-why-aitrics .wa-desc { flex:1; font-size:13px; color:var(--text-muted); line-height:1.85; }
-        #cd-s2-why-aitrics .wa-evidence { flex-shrink:0; width:240px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:13px 14px; }
-        #cd-s2-why-aitrics .wa-ev-label { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
-        #cd-s2-why-aitrics .wa-ev-item { display:flex; align-items:flex-start; gap:7px; font-size:11px; color:var(--text-muted); line-height:1.6; margin-bottom:6px; }
-        #cd-s2-why-aitrics .wa-ev-item:last-child { margin-bottom:0; }
-        #cd-s2-why-aitrics .wa-ev-dot { width:4px; height:4px; border-radius:50%; background:var(--text-dim); flex-shrink:0; margin-top:6px; }
-        /* 카드 색상 테마 */
-        #cd-s2-why-aitrics .wa-card.vc   .wa-title  { color:var(--accent); }
-        #cd-s2-why-aitrics .wa-card.vc   .wa-badge  { background:rgba(79,127,255,0.1); color:var(--accent); border:1px solid rgba(79,127,255,0.2); }
-        #cd-s2-why-aitrics .wa-card.vc   .wa-card-header { background:rgba(79,127,255,0.03); }
-        #cd-s2-why-aitrics .wa-card.moca .wa-title  { color:var(--accent2); }
-        #cd-s2-why-aitrics .wa-card.moca .wa-badge  { background:rgba(0,229,176,0.1); color:var(--accent2); border:1px solid rgba(0,229,176,0.2); }
-        #cd-s2-why-aitrics .wa-card.moca .wa-card-header { background:rgba(0,229,176,0.03); }
-        #cd-s2-why-aitrics .wa-card.data .wa-title  { color:var(--accent4); }
-        #cd-s2-why-aitrics .wa-card.data .wa-badge  { background:rgba(255,209,102,0.1); color:var(--accent4); border:1px solid rgba(255,209,102,0.2); }
-        #cd-s2-why-aitrics .wa-card.data .wa-card-header { background:rgba(255,209,102,0.03); }
-        #cd-s2-why-aitrics .wa-card.trust .wa-title { color:#a78bfa; }
-        #cd-s2-why-aitrics .wa-card.trust .wa-badge { background:rgba(167,139,250,0.1); color:#a78bfa; border:1px solid rgba(167,139,250,0.2); }
-        #cd-s2-why-aitrics .wa-card.trust .wa-card-header { background:rgba(167,139,250,0.03); }
-        #cd-s2-why-aitrics .wa-card.doc  .wa-title  { color:#ff6eb4; }
-        #cd-s2-why-aitrics .wa-card.doc  .wa-badge  { background:rgba(255,110,180,0.1); color:#ff6eb4; border:1px solid rgba(255,110,180,0.2); }
-        #cd-s2-why-aitrics .wa-card.doc  .wa-card-header { background:rgba(255,110,180,0.03); }
-        /* 비교표 */
-        #cd-s2-why-aitrics .wa-compare-wrap { background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; margin:24px 0; }
-        #cd-s2-why-aitrics .wa-compare-table { width:100%; border-collapse:collapse; }
-        #cd-s2-why-aitrics .wa-compare-table thead tr { background:var(--surface2); border-bottom:1px solid var(--border); }
-        #cd-s2-why-aitrics .wa-compare-table th { padding:12px 18px; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-dim); text-align:left; }
-        #cd-s2-why-aitrics .wa-compare-table tbody tr { border-bottom:1px solid var(--border); }
-        #cd-s2-why-aitrics .wa-compare-table tbody tr:last-child { border-bottom:none; }
-        #cd-s2-why-aitrics .wa-compare-table td { padding:13px 18px; font-size:12px; color:var(--text-muted); vertical-align:middle; }
-        #cd-s2-why-aitrics .wa-col-item { font-weight:700; color:var(--text); width:22%; }
-        #cd-s2-why-aitrics .wa-col-aitrics { color:var(--accent2); font-weight:600; }
-        #cd-s2-why-aitrics .wa-tag-yes     { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:5px; background:rgba(0,229,176,0.1); color:var(--accent2); border:1px solid rgba(0,229,176,0.2); }
-        #cd-s2-why-aitrics .wa-tag-no      { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:5px; background:rgba(255,107,107,0.08); color:#ff6b6b; border:1px solid rgba(255,107,107,0.18); }
-        #cd-s2-why-aitrics .wa-tag-partial { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:5px; background:rgba(255,209,102,0.08); color:var(--accent4); border:1px solid rgba(255,209,102,0.18); }
-        /* 결론 박스 */
-        #cd-s2-why-aitrics .wa-conclusion { background:linear-gradient(135deg,rgba(0,229,176,0.07),rgba(79,127,255,0.05)); border:1.5px solid rgba(0,229,176,0.3); border-radius:18px; padding:32px; margin-top:32px; text-align:center; position:relative; overflow:hidden; }
-        #cd-s2-why-aitrics .wa-conclusion::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent2),var(--accent),transparent); }
-        #cd-s2-why-aitrics .wa-conclusion-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent2); margin-bottom:14px; }
-        #cd-s2-why-aitrics .wa-conclusion-title { font-size:22px; font-weight:900; letter-spacing:-0.5px; color:var(--text); margin-bottom:16px; line-height:1.4; }
-        #cd-s2-why-aitrics .wa-conclusion-title em { font-style:normal; color:var(--accent2); }
-        #cd-s2-why-aitrics .wa-conclusion-desc { font-size:13px; color:var(--text-muted); line-height:1.9; max-width:640px; margin:0 auto; }
-        /* 인사이트 박스 */
-        #cd-s2-why-aitrics .wa-insight { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:16px 20px; font-size:12px; color:var(--text-muted); line-height:1.8; }
-        @media (max-width:640px) {
-          #cd-s2-why-aitrics .wa-card-body { flex-direction:column; }
-          #cd-s2-why-aitrics .wa-evidence { width:100%; }
-          #cd-s2-why-aitrics .wa-hero-title { font-size:28px; }
-        }
+        /* ── S2c-concept 전용 스타일 ── */
+        #cd-s2c-concept .s2c-hero { margin-bottom:48px; }
+        #cd-s2c-concept .s2c-hero-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+        #cd-s2c-concept .s2c-hero-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--accent); }
+        #cd-s2c-concept .s2c-hero-desc { font-size:14px; color:var(--text-muted); line-height:1.9; margin-top:14px; }
+        #cd-s2c-concept .s2c-sec { margin-bottom:52px; }
+        #cd-s2c-concept .s2c-sec-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
+        #cd-s2c-concept .s2c-sec-title { font-size:19px; font-weight:900; letter-spacing:-0.4px; color:var(--text); margin-bottom:8px; }
+        #cd-s2c-concept .s2c-sec-sub { font-size:13px; color:var(--text-muted); line-height:1.8; margin-bottom:22px; }
+        /* 3축 다이어그램 */
+        #cd-s2c-concept .s2c-triad { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 28px; margin:24px 0; overflow:hidden; }
+        #cd-s2c-concept .s2c-triad::before { content:''; position:absolute; inset:0; border-radius:20px; background:radial-gradient(ellipse at 50% 30%,rgba(61,127,255,0.06) 0%,transparent 70%); pointer-events:none; }
+        #cd-s2c-concept .s2c-triad-node { display:flex; flex-direction:column; align-items:center; gap:7px; padding:18px 20px; border-radius:14px; border:1px solid; text-align:center; position:relative; z-index:1; }
+        #cd-s2c-concept .s2c-triad-node-icon { font-size:24px; }
+        #cd-s2c-concept .s2c-triad-node-label { font-size:13px; font-weight:900; }
+        #cd-s2c-concept .s2c-triad-node-sub { font-size:10px; color:var(--text-dim); line-height:1.5; }
+        #cd-s2c-concept .s2c-triad-node.user { background:rgba(255,110,180,0.06); border-color:rgba(255,110,180,0.3); }
+        #cd-s2c-concept .s2c-triad-node.user .s2c-triad-node-label { color:var(--pink); }
+        #cd-s2c-concept .s2c-triad-node.info { background:rgba(0,212,160,0.06); border-color:rgba(0,212,160,0.3); }
+        #cd-s2c-concept .s2c-triad-node.info .s2c-triad-node-label { color:var(--accent2); }
+        #cd-s2c-concept .s2c-triad-node.doctor { background:rgba(240,165,0,0.06); border-color:rgba(240,165,0,0.3); }
+        #cd-s2c-concept .s2c-triad-node.doctor .s2c-triad-node-label { color:var(--accent4); }
+        #cd-s2c-concept .s2c-triad-node.llm { background:rgba(61,127,255,0.08); border-color:rgba(61,127,255,0.35); box-shadow:0 0 30px rgba(61,127,255,0.1); }
+        #cd-s2c-concept .s2c-triad-node.llm .s2c-triad-node-label { color:var(--accent); }
+        #cd-s2c-concept .s2c-conn { display:flex; flex-direction:column; align-items:center; gap:4px; padding:0 14px; flex-shrink:0; }
+        #cd-s2c-concept .s2c-conn-arrow { font-size:15px; color:var(--text-dim); }
+        #cd-s2c-concept .s2c-conn-label { font-size:9px; color:var(--text-dim); white-space:nowrap; }
+        /* 데이터 플로우 */
+        #cd-s2c-concept .s2c-flow { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; margin:20px 0; }
+        #cd-s2c-concept .s2c-flow-title { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:18px; }
+        #cd-s2c-concept .s2c-flow-steps { display:flex; align-items:center; gap:0; overflow-x:auto; padding-bottom:4px; }
+        #cd-s2c-concept .s2c-step { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:7px; min-width:105px; }
+        #cd-s2c-concept .s2c-step-box { width:96px; padding:10px 8px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); text-align:center; }
+        #cd-s2c-concept .s2c-step-box.hl-blue { background:rgba(61,127,255,0.08); border-color:rgba(61,127,255,0.3); }
+        #cd-s2c-concept .s2c-step-box.hl-green { background:rgba(0,212,160,0.08); border-color:rgba(0,212,160,0.3); }
+        #cd-s2c-concept .s2c-step-box.hl-yellow { background:rgba(240,165,0,0.07); border-color:rgba(240,165,0,0.3); }
+        #cd-s2c-concept .s2c-step-icon { font-size:17px; margin-bottom:4px; }
+        #cd-s2c-concept .s2c-step-label { font-size:10px; font-weight:700; color:var(--text); line-height:1.4; }
+        #cd-s2c-concept .s2c-step-sub { font-size:9px; color:var(--text-muted); line-height:1.4; }
+        #cd-s2c-concept .s2c-arrow { flex-shrink:0; padding:0 4px; }
+        #cd-s2c-concept .s2c-arrow-line { width:26px; height:1.5px; background:linear-gradient(90deg,var(--border2),var(--accent)); position:relative; }
+        #cd-s2c-concept .s2c-arrow-line::after { content:''; position:absolute; right:-5px; top:-3.5px; border:4px solid transparent; border-left:6px solid var(--accent); }
+        #cd-s2c-concept .s2c-arrow-tag { font-size:8px; color:var(--text-dim); white-space:nowrap; margin-top:3px; }
+        /* HITL */
+        #cd-s2c-concept .s2c-hitl { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; margin:20px 0; }
+        #cd-s2c-concept .s2c-hitl-row { display:flex; align-items:center; gap:8px; justify-content:center; flex-wrap:wrap; }
+        #cd-s2c-concept .s2c-hitl-box { padding:11px 14px; border-radius:10px; border:1px solid; text-align:center; min-width:110px; }
+        #cd-s2c-concept .s2c-hitl-box-icon { font-size:17px; margin-bottom:3px; }
+        #cd-s2c-concept .s2c-hitl-box-label { font-size:11px; font-weight:700; }
+        #cd-s2c-concept .s2c-hitl-box-sub { font-size:9px; color:var(--text-muted); margin-top:2px; }
+        #cd-s2c-concept .s2c-hitl-box.patient { background:rgba(255,110,180,0.07); border-color:rgba(255,110,180,0.3); }
+        #cd-s2c-concept .s2c-hitl-box.patient .s2c-hitl-box-label { color:var(--pink); }
+        #cd-s2c-concept .s2c-hitl-box.ai { background:rgba(61,127,255,0.07); border-color:rgba(61,127,255,0.3); }
+        #cd-s2c-concept .s2c-hitl-box.ai .s2c-hitl-box-label { color:var(--accent); }
+        #cd-s2c-concept .s2c-hitl-box.doctor { background:rgba(240,165,0,0.07); border-color:rgba(240,165,0,0.3); }
+        #cd-s2c-concept .s2c-hitl-box.doctor .s2c-hitl-box-label { color:var(--accent4); }
+        #cd-s2c-concept .s2c-hitl-box.confirm { background:rgba(0,212,160,0.07); border-color:rgba(0,212,160,0.3); }
+        #cd-s2c-concept .s2c-hitl-box.confirm .s2c-hitl-box-label { color:var(--accent2); }
+        #cd-s2c-concept .s2c-hitl-arrow { display:flex; flex-direction:column; align-items:center; gap:2px; }
+        #cd-s2c-concept .s2c-hitl-arr-line { width:28px; height:2px; background:linear-gradient(90deg,var(--border2),var(--accent)); position:relative; }
+        #cd-s2c-concept .s2c-hitl-arr-line::after { content:''; position:absolute; right:-6px; top:-3.5px; border:4.5px solid transparent; border-left:7px solid var(--accent); }
+        #cd-s2c-concept .s2c-hitl-arr-tag { font-size:8px; color:var(--text-dim); white-space:nowrap; }
+        #cd-s2c-concept .s2c-hitl-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(61,127,255,0.1); border:1px solid rgba(61,127,255,0.25); color:var(--accent); font-size:10px; font-weight:700; padding:5px 12px; border-radius:20px; margin-top:14px; letter-spacing:0.5px; }
       </style>
 
-      <!-- 헤더 -->
-      <div class="wa-hero-eyebrow">Why aitrics · Unfair Advantage</div>
-      <h2 class="wa-hero-title">왜 aitrics가<br>해야 하는가</h2>
-      <p class="wa-hero-desc">
-        지능형 의료 커뮤니티의 필요성은 누구든 설명할 수 있습니다. 하지만 "왜 하필 aitrics인가"는 다른 질문입니다.
-        우리가 가진 것, 경쟁자가 단기간에 복제할 수 없는 것 — 그 Unfair Advantage가 이 사업의 존립 근거입니다.
-      </p>
-
-      <!-- 01. 가장 불편한 질문 -->
-      <div class="wa-block">
-        <div class="wa-block-eyebrow">01 · The Hard Question</div>
-        <h3 class="wa-block-title">가장 불편한 질문부터 시작합니다</h3>
-        <p class="wa-block-sub">좋은 아이디어라고 해서 우리가 해야 하는 이유는 없습니다. 이 질문에 답하지 못하면 사업이 아니라 실험에 그칩니다.</p>
-        <div class="wa-objection">
-          <div class="wa-obj-icon">🤔</div>
-          <div>
-            <div class="wa-obj-title">"지능형 의료 커뮤니티, 카카오나 네이버도 만들 수 있지 않나요?"</div>
-            <div class="wa-obj-desc">맞습니다. 커뮤니티 플랫폼 기술, LLM API, 마케팅 자본 — 이 세 가지만 있으면 누구든 비슷한 서비스를 런칭할 수 있습니다. 그렇다면 왜 aitrics가 이 시장을 선점할 수 있다고 말할 수 있을까요? 그 답은 기술이나 자본이 아니라, aitrics만이 가진 구조적 우위에 있습니다.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 02. Unfair Advantage 5가지 -->
-      <div class="wa-block">
-        <div class="wa-block-eyebrow">02 · Unfair Advantage</div>
-        <h3 class="wa-block-title">aitrics만이 가진 5가지 구조적 우위</h3>
-        <p class="wa-block-sub">aitrics의 Unfair Advantage는 하루아침에 만들어진 것이 아닙니다. 10년의 의료 AI 사업이 쌓아온 자산이 지능형 커뮤니티의 출발선을 완전히 다른 곳에 세워줍니다.</p>
-        <div class="wa-ua-list">
-          <!-- 1. VitalCare 병원 네트워크 -->
-          <div class="wa-card vc">
-            <div class="wa-card-header">
-              <span class="wa-num">01</span>
-              <span class="wa-icon">🏥</span>
-              <span class="wa-title">100개 병원 네트워크 — VitalCare</span>
-              <span class="wa-badge">독점 자산</span>
-            </div>
-            <div class="wa-card-body">
-              <div class="wa-desc">
-                aitrics의 VitalCare는 이미 국내 100개 이상의 병원에 도입된 AI 의료 솔루션입니다. 이 병원 네트워크는 지능형 커뮤니티가 가장 필요로 하는 것 — <strong style="color:var(--accent)">신뢰할 수 있는 의료진 파트너십</strong> — 을 즉시 확보할 수 있게 해줍니다.<br><br>
-                환우가 커뮤니티에서 가장 원하는 것은 "의료진의 검증된 답변"입니다. 일반 플랫폼이 의료진을 섭외하는 데 수년이 걸릴 때, aitrics는 이미 신뢰 관계가 형성된 100개 병원의 의료진과 협력할 수 있습니다.
-              </div>
-              <div class="wa-evidence">
-                <div class="wa-ev-label">Evidence</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>VitalCare 국내 도입 병원 100개+</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>FDA 510(k) 승인 · 글로벌 의료 신뢰도</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>병원 내 의료진과의 기존 협력 구조</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>신촌 세브란스 등 주요 병원 네트워크</div>
-              </div>
-            </div>
-          </div>
-          <!-- 2. MOCA 엔진 -->
-          <div class="wa-card moca">
-            <div class="wa-card-header">
-              <span class="wa-num">02</span>
-              <span class="wa-icon">🧠</span>
-              <span class="wa-title">의료 특화 AI 엔진 — MOCA</span>
-              <span class="wa-badge">기술 우위</span>
-            </div>
-            <div class="wa-card-body">
-              <div class="wa-desc">
-                일반 LLM(GPT, Claude)은 범용 언어 모델입니다. 의료 용어의 임상적 맥락, 검사 수치의 정상 범위, 치료 프로토콜의 최신 가이드라인을 일반 모델이 정확히 처리하는 데는 한계가 있습니다.<br><br>
-                aitrics의 MOCA 엔진은 실제 임상 데이터 위에서 훈련된 의료 특화 모델입니다. <strong style="color:var(--accent2)">검사기록지 분석, 증상 해석, 의료 Q&A</strong> — 커뮤니티의 핵심 기능이 일반 플랫폼보다 구조적으로 더 정확하고 안전하게 작동합니다.
-              </div>
-              <div class="wa-evidence">
-                <div class="wa-ev-label">Evidence</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>MOCA 엔진 기반 V.Doc 개발 완료</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>임상 데이터 기반 의료 AI 추론</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>닥터앤서 3.0 모델군 (C/PEDI/G-Rehab)</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>검사결과지 설명 서비스 PoC 운영 중</div>
-              </div>
-            </div>
-          </div>
-          <!-- 3. 임상 데이터 자산 -->
-          <div class="wa-card data">
-            <div class="wa-card-header">
-              <span class="wa-num">03</span>
-              <span class="wa-icon">📊</span>
-              <span class="wa-title">병원에서 쌓인 임상 데이터 레퍼런스</span>
-              <span class="wa-badge">데이터 우위</span>
-            </div>
-            <div class="wa-card-body">
-              <div class="wa-desc">
-                커뮤니티에서 환자가 올린 검사기록을 올바르게 해석하려면, 그 수치가 임상적으로 어떤 의미인지 아는 모델이 필요합니다. 일반 플랫폼은 이 데이터 맥락을 처음부터 쌓아야 합니다.<br><br>
-                aitrics는 100개 병원에서 VitalCare를 운영하며 축적한 <strong style="color:var(--accent4)">실제 임상 환경의 데이터 레퍼런스</strong>를 보유하고 있습니다. 이는 커뮤니티 내 의료 정보의 정확도와 신뢰도를 처음부터 다른 수준으로 만들어주는 기초 자산입니다.
-              </div>
-              <div class="wa-evidence">
-                <div class="wa-ev-label">Evidence</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>100개 병원 VitalCare 운영 데이터</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>입원환자 상태 악화 예측 임상 레퍼런스</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>누적 투자 731억 · 2024 매출 100억</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>의료 AI 검증 트랙 레코드 10년</div>
-              </div>
-            </div>
-          </div>
-          <!-- 4. 의료 신뢰도 브랜드 -->
-          <div class="wa-card trust">
-            <div class="wa-card-header">
-              <span class="wa-num">04</span>
-              <span class="wa-icon">🛡️</span>
-              <span class="wa-title">의료 AI 신뢰도 브랜드</span>
-              <span class="wa-badge">신뢰 자산</span>
-            </div>
-            <div class="wa-card-body">
-              <div class="wa-desc">
-                의료 커뮤니티에서 가장 극복하기 어려운 장벽은 신뢰입니다. 환자는 생명과 직결된 정보를 낯선 플랫폼에서 얻으려 하지 않습니다. 카카오, 네이버가 기술과 자본을 갖더라도 "의료 AI 전문 기업"이라는 인식은 단기간에 얻을 수 없습니다.<br><br>
-                aitrics는 이미 <strong style="color:#a78bfa">FDA 510(k) 승인, 100개 병원 도입, 10년의 의료 AI 레퍼런스</strong>를 가진 기업입니다. 환자가 "이 플랫폼의 정보는 믿을 수 있다"고 느끼는 데 필요한 신뢰 자산을 이미 보유하고 있습니다.
-              </div>
-              <div class="wa-evidence">
-                <div class="wa-ev-label">Evidence</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>FDA 510(k) 승인 — 글로벌 의료 인증</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>닥터앤서 3.0 정부 공인 AI 의료 플랫폼</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>대표 김광준 — 의료 AI 10년 전문가</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>주요 병원·의료기관 레퍼런스 다수</div>
-              </div>
-            </div>
-          </div>
-          <!-- 5. V.Doc -->
-          <div class="wa-card doc">
-            <div class="wa-card-header">
-              <span class="wa-num">05</span>
-              <span class="wa-icon">🔗</span>
-              <span class="wa-title">V.Doc — 병원과 커뮤니티를 잇는 연결고리</span>
-              <span class="wa-badge">생태계 우위</span>
-            </div>
-            <div class="wa-card-body">
-              <div class="wa-desc">
-                지능형 커뮤니티의 최종 목적지는 User 데이터를 기반으로 의료 AI를 고도화하는 것입니다. 그 데이터가 병원 시스템(EMR·PHR)과 연결될 때 가치는 기하급수적으로 올라갑니다.<br><br>
-                aitrics는 V.Doc이라는 <strong style="color:#ff6eb4">병원 사전문진 AI 솔루션</strong>을 보유하고 있습니다. 커뮤니티에서 환자가 남긴 데이터가 V.Doc을 통해 실제 진료 정보와 연결되는 구조 — 이 파이프라인을 처음부터 설계할 수 있는 기업은 aitrics뿐입니다.
-              </div>
-              <div class="wa-evidence">
-                <div class="wa-ev-label">Evidence</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>V.Doc AI 사전문진 솔루션 보유</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>MOCA 엔진 기반 문진 → 커뮤니티 연계 가능</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>커뮤니티 PRO 데이터 → EMR 연동 로드맵</div>
-                <div class="wa-ev-item"><div class="wa-ev-dot"></div>병원 안팎을 잇는 유일한 AI 기업 포지션</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 03. 경쟁자 비교표 -->
-      <div class="wa-block">
-        <div class="wa-block-eyebrow">03 · Competitive Landscape</div>
-        <h3 class="wa-block-title">경쟁자는 무엇을 가지고 있지 않은가</h3>
-        <p class="wa-block-sub">aitrics의 우위는 상대적으로 정의됩니다. 같은 시장을 노릴 수 있는 플레이어들과 비교했을 때, 구조적 차이가 명확합니다.</p>
-        <div class="wa-compare-wrap">
-          <table class="wa-compare-table">
-            <thead>
-              <tr>
-                <th class="wa-col-item">역량</th>
-                <th>aitrics</th>
-                <th>카카오·네이버</th>
-                <th>환우 카페·커뮤니티</th>
-                <th>의료 스타트업</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="wa-col-item">의료 AI 엔진</td>
-                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ MOCA 보유</span></td>
-                <td><span class="wa-tag-no">✗ 범용 LLM만</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-partial">△ 일부 보유</span></td>
-              </tr>
-              <tr>
-                <td class="wa-col-item">병원 네트워크</td>
-                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ 100개 병원</span></td>
-                <td><span class="wa-tag-partial">△ 제휴 수준</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-no">✗ 초기 단계</span></td>
-              </tr>
-              <tr>
-                <td class="wa-col-item">임상 데이터 레퍼런스</td>
-                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ 10년 축적</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-partial">△ 제한적</span></td>
-              </tr>
-              <tr>
-                <td class="wa-col-item">의료 AI 신뢰도</td>
-                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ FDA 510(k)</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-partial">△ 검증 중</span></td>
-              </tr>
-              <tr>
-                <td class="wa-col-item">병원-커뮤니티 연결</td>
-                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ V.Doc 연계</span></td>
-                <td><span class="wa-tag-no">✗ 불가</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-partial">△ 구상 단계</span></td>
-              </tr>
-              <tr>
-                <td class="wa-col-item">플랫폼·자본</td>
-                <td><span class="wa-tag-partial">△ 중간</span></td>
-                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ 압도적</span></td>
-                <td><span class="wa-tag-no">✗ 없음</span></td>
-                <td><span class="wa-tag-partial">△ 제한적</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="wa-insight">
-          💡 <strong style="color:var(--text)">핵심 인사이트</strong> — 카카오·네이버는 자본과 플랫폼은 있지만 의료 AI 신뢰도가 없습니다. 의료 스타트업은 기술은 있지만 병원 네트워크가 없습니다. 환우 커뮤니티는 사용자는 있지만 AI가 없습니다. aitrics는 이 세 가지를 동시에 가진 유일한 포지션입니다.
-        </div>
-      </div>
-
-      <!-- 결론 -->
-      <div class="wa-conclusion">
-        <div class="wa-conclusion-eyebrow">Conclusion · Why aitrics</div>
-        <h3 class="wa-conclusion-title">지능형 의료 커뮤니티를<br><em>aitrics가 해야 하는 이유</em></h3>
-        <p class="wa-conclusion-desc">
-          100개 병원 네트워크, MOCA 의료 AI 엔진, 10년의 임상 데이터 레퍼런스, FDA 인증 신뢰도, V.Doc 연결고리 —
-          이 다섯 가지 자산은 경쟁자가 단기간에 복제할 수 없습니다.
-          지능형 의료 커뮤니티는 이 자산들이 가장 자연스럽게 결합되는 사업입니다.
-          우리가 지금 이 자리에서 시작해야 하는 이유입니다.
+      <!-- HERO -->
+      <div class="s2c-hero">
+        <div class="s2c-hero-eyebrow">Intelligent Community · Concept</div>
+        <h2 class="cd-sec-title">지능형 커뮤니티란 <em>무엇인가</em></h2>
+        <p class="s2c-hero-desc">
+          커뮤니티는 말로 시작됐습니다. 그리고 오랫동안 말로만 머물렀습니다.<br>
+          지능형 커뮤니티는 다릅니다. 데이터가 대화의 중심에 들어오고, LLM이 그 데이터를 해석하며,
+          환자와 의료진의 신뢰도 높은 소통이 비로소 가능해집니다.
         </p>
       </div>
-    </div><!-- /cd-s2-why-aitrics -->
+
+      <!-- 01: 세 개의 축 -->
+      <div class="s2c-sec">
+        <div class="s2c-sec-eyebrow">01 · Structure</div>
+        <h3 class="s2c-sec-title">지능형 커뮤니티를 이루는 세 개의 축</h3>
+        <p class="s2c-sec-sub">환자와 의료진 둘만 있으면 말로만 오갑니다. 신뢰가 없습니다. 그 중간에 데이터라는 축이 반드시 필요합니다. 그리고 LLM이 그 세 축 모두를 연결하고 강화합니다.</p>
+        <div class="s2c-triad">
+          <!-- 상단: 유저 -->
+          <div style="display:flex;justify-content:center;margin-bottom:14px;">
+            <div class="s2c-triad-node user" style="min-width:160px;">
+              <div class="s2c-triad-node-icon">👥</div>
+              <div class="s2c-triad-node-label">유저</div>
+              <div class="s2c-triad-node-sub">환우 · 보호자<br>데이터를 올리고 상의하는 주체</div>
+            </div>
+          </div>
+          <!-- 화살표 -->
+          <div style="display:flex;justify-content:center;align-items:center;gap:40px;margin-bottom:10px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+              <span style="font-size:10px;color:var(--text-dim);">검사기록 · PHR 업로드</span>
+              <span style="font-size:17px;color:var(--text-dim);">↓</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+              <span style="font-size:17px;color:var(--text-dim);">↓</span>
+              <span style="font-size:10px;color:var(--text-dim);">질문 · 상담 요청</span>
+            </div>
+          </div>
+          <!-- 중간: 정보 + LLM + 의료진 -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:18px;">
+            <div class="s2c-triad-node info" style="flex:1;max-width:190px;">
+              <div class="s2c-triad-node-icon">📄</div>
+              <div class="s2c-triad-node-label">정보</div>
+              <div class="s2c-triad-node-sub">검사결과 · 논문 · 가이드라인<br>신뢰 기반 데이터 허브</div>
+            </div>
+            <div class="s2c-conn">
+              <div class="s2c-conn-arrow">⇄</div>
+              <div class="s2c-conn-label">해석 · 재가공</div>
+            </div>
+            <div class="s2c-triad-node llm" style="flex:1;max-width:170px;">
+              <div class="s2c-triad-node-icon">🧠</div>
+              <div class="s2c-triad-node-label">LLM</div>
+              <div class="s2c-triad-node-sub">데이터 해석 · 초안 생성<br>신뢰도의 핵심 연결자</div>
+            </div>
+            <div class="s2c-conn">
+              <div class="s2c-conn-arrow">⇄</div>
+              <div class="s2c-conn-label">컨펌 · 검증</div>
+            </div>
+            <div class="s2c-triad-node doctor" style="flex:1;max-width:190px;">
+              <div class="s2c-triad-node-icon">🩺</div>
+              <div class="s2c-triad-node-label">의료진</div>
+              <div class="s2c-triad-node-sub">전문가 · 교수<br>Human-in-the-Loop 역할</div>
+            </div>
+          </div>
+          <!-- 설명 박스 -->
+          <div style="display:flex;justify-content:center;">
+            <div style="background:rgba(61,127,255,0.06);border:1px solid rgba(61,127,255,0.2);border-radius:10px;padding:11px 22px;text-align:center;max-width:540px;">
+              <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:3px;">LLM이 들어왔을 때 달라지는 것</div>
+              <div style="font-size:11px;color:var(--text-muted);line-height:1.7;">모든 대화가 신뢰도를 갖습니다 · 데이터 없이는 LLM도 답할 수 없습니다 · 그래서 환자도 데이터를 올리는 플로우가 생깁니다</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02: 데이터 플로우 -->
+      <div class="s2c-sec">
+        <div class="s2c-sec-eyebrow">02 · Data Flow</div>
+        <h3 class="s2c-sec-title">데이터가 흐르는 방식</h3>
+        <p class="s2c-sec-sub">환자가 검사기록을 올리면, LLM이 해석하고, 의료진이 컨펌합니다. 이 단순한 플로우가 커뮤니티의 신뢰도를 전혀 다른 수준으로 끌어올립니다.</p>
+        <div class="s2c-flow">
+          <div class="s2c-flow-title">Data → Insight → Trust 플로우</div>
+          <div class="s2c-flow-steps">
+            <div class="s2c-step">
+              <div class="s2c-step-box">
+                <div class="s2c-step-icon">📋</div>
+                <div class="s2c-step-label">검사기록 업로드</div>
+                <div class="s2c-step-sub">환자가 검사결과지 · PHR 올림</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">OCR · 파싱</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box hl-blue">
+                <div class="s2c-step-icon">🧠</div>
+                <div class="s2c-step-label">LLM 분석</div>
+                <div class="s2c-step-sub">수치 해석 · 서술형 초안 생성</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">초안 전달</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box hl-yellow">
+                <div class="s2c-step-icon">🩺</div>
+                <div class="s2c-step-label">의료진 컨펌</div>
+                <div class="s2c-step-sub">Human-in-the-Loop 검토</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">검증 완료</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box hl-green">
+                <div class="s2c-step-icon">💬</div>
+                <div class="s2c-step-label">환자에게 전달</div>
+                <div class="s2c-step-sub">알아듣는 말로 서술형 제공</div>
+              </div>
+            </div>
+            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">축적</div></div>
+            <div class="s2c-step">
+              <div class="s2c-step-box">
+                <div class="s2c-step-icon">📊</div>
+                <div class="s2c-step-label">데이터 누적</div>
+                <div class="s2c-step-sub">커뮤니티 신뢰 자산화</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- HITL -->
+        <div class="s2c-hitl">
+          <div class="s2c-flow-title">Human-in-the-Loop 구조</div>
+          <div class="s2c-hitl-row">
+            <div class="s2c-hitl-box patient">
+              <div class="s2c-hitl-box-icon">🧑</div>
+              <div class="s2c-hitl-box-label">환자</div>
+              <div class="s2c-hitl-box-sub">검사결과 업로드</div>
+            </div>
+            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">데이터 제공</div></div>
+            <div class="s2c-hitl-box ai">
+              <div class="s2c-hitl-box-icon">🤖</div>
+              <div class="s2c-hitl-box-label">LLM 에이전트</div>
+              <div class="s2c-hitl-box-sub">초안 분석 자동 생성</div>
+            </div>
+            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">초안 전달</div></div>
+            <div class="s2c-hitl-box doctor">
+              <div class="s2c-hitl-box-icon">🩺</div>
+              <div class="s2c-hitl-box-label">의료진</div>
+              <div class="s2c-hitl-box-sub">검토 후 컨펌</div>
+            </div>
+            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">확정 답변</div></div>
+            <div class="s2c-hitl-box confirm">
+              <div class="s2c-hitl-box-icon">✅</div>
+              <div class="s2c-hitl-box-label">신뢰 답변</div>
+              <div class="s2c-hitl-box-sub">환자에게 전달</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;">
+            <div class="s2c-hitl-badge">⚡ 의료진은 컨펌만 — AI가 부담을 구조적으로 줄입니다</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /cd-s2c -->
 
     <div class="cd-divider"></div>
 
-    <!-- S2b: 핑크케어 구조 -->
+    <!-- S2d: 지능형 커뮤니티 기술 아키텍처 -->
     <div class="cd-section" id="cd-s2b">
       <div class="cd-sec-label">02b · Structure</div>
       <h2 class="cd-sec-title">핑크케어의 <em>세 가지 축</em></h2>
@@ -4929,232 +4855,6 @@
     <div class="cd-divider"></div>
 
     <!-- S2c-concept: 지능형 커뮤니티란 무엇인가 -->
-    <div class="cd-section" id="cd-s2c-concept">
-      <style>
-        /* ── S2c-concept 전용 스타일 ── */
-        #cd-s2c-concept .s2c-hero { margin-bottom:48px; }
-        #cd-s2c-concept .s2c-hero-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
-        #cd-s2c-concept .s2c-hero-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--accent); }
-        #cd-s2c-concept .s2c-hero-desc { font-size:14px; color:var(--text-muted); line-height:1.9; margin-top:14px; }
-        #cd-s2c-concept .s2c-sec { margin-bottom:52px; }
-        #cd-s2c-concept .s2c-sec-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
-        #cd-s2c-concept .s2c-sec-title { font-size:19px; font-weight:900; letter-spacing:-0.4px; color:var(--text); margin-bottom:8px; }
-        #cd-s2c-concept .s2c-sec-sub { font-size:13px; color:var(--text-muted); line-height:1.8; margin-bottom:22px; }
-        /* 3축 다이어그램 */
-        #cd-s2c-concept .s2c-triad { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px 28px; margin:24px 0; overflow:hidden; }
-        #cd-s2c-concept .s2c-triad::before { content:''; position:absolute; inset:0; border-radius:20px; background:radial-gradient(ellipse at 50% 30%,rgba(61,127,255,0.06) 0%,transparent 70%); pointer-events:none; }
-        #cd-s2c-concept .s2c-triad-node { display:flex; flex-direction:column; align-items:center; gap:7px; padding:18px 20px; border-radius:14px; border:1px solid; text-align:center; position:relative; z-index:1; }
-        #cd-s2c-concept .s2c-triad-node-icon { font-size:24px; }
-        #cd-s2c-concept .s2c-triad-node-label { font-size:13px; font-weight:900; }
-        #cd-s2c-concept .s2c-triad-node-sub { font-size:10px; color:var(--text-dim); line-height:1.5; }
-        #cd-s2c-concept .s2c-triad-node.user { background:rgba(255,110,180,0.06); border-color:rgba(255,110,180,0.3); }
-        #cd-s2c-concept .s2c-triad-node.user .s2c-triad-node-label { color:var(--pink); }
-        #cd-s2c-concept .s2c-triad-node.info { background:rgba(0,212,160,0.06); border-color:rgba(0,212,160,0.3); }
-        #cd-s2c-concept .s2c-triad-node.info .s2c-triad-node-label { color:var(--accent2); }
-        #cd-s2c-concept .s2c-triad-node.doctor { background:rgba(240,165,0,0.06); border-color:rgba(240,165,0,0.3); }
-        #cd-s2c-concept .s2c-triad-node.doctor .s2c-triad-node-label { color:var(--accent4); }
-        #cd-s2c-concept .s2c-triad-node.llm { background:rgba(61,127,255,0.08); border-color:rgba(61,127,255,0.35); box-shadow:0 0 30px rgba(61,127,255,0.1); }
-        #cd-s2c-concept .s2c-triad-node.llm .s2c-triad-node-label { color:var(--accent); }
-        #cd-s2c-concept .s2c-conn { display:flex; flex-direction:column; align-items:center; gap:4px; padding:0 14px; flex-shrink:0; }
-        #cd-s2c-concept .s2c-conn-arrow { font-size:15px; color:var(--text-dim); }
-        #cd-s2c-concept .s2c-conn-label { font-size:9px; color:var(--text-dim); white-space:nowrap; }
-        /* 데이터 플로우 */
-        #cd-s2c-concept .s2c-flow { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; margin:20px 0; }
-        #cd-s2c-concept .s2c-flow-title { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:18px; }
-        #cd-s2c-concept .s2c-flow-steps { display:flex; align-items:center; gap:0; overflow-x:auto; padding-bottom:4px; }
-        #cd-s2c-concept .s2c-step { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:7px; min-width:105px; }
-        #cd-s2c-concept .s2c-step-box { width:96px; padding:10px 8px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); text-align:center; }
-        #cd-s2c-concept .s2c-step-box.hl-blue { background:rgba(61,127,255,0.08); border-color:rgba(61,127,255,0.3); }
-        #cd-s2c-concept .s2c-step-box.hl-green { background:rgba(0,212,160,0.08); border-color:rgba(0,212,160,0.3); }
-        #cd-s2c-concept .s2c-step-box.hl-yellow { background:rgba(240,165,0,0.07); border-color:rgba(240,165,0,0.3); }
-        #cd-s2c-concept .s2c-step-icon { font-size:17px; margin-bottom:4px; }
-        #cd-s2c-concept .s2c-step-label { font-size:10px; font-weight:700; color:var(--text); line-height:1.4; }
-        #cd-s2c-concept .s2c-step-sub { font-size:9px; color:var(--text-muted); line-height:1.4; }
-        #cd-s2c-concept .s2c-arrow { flex-shrink:0; padding:0 4px; }
-        #cd-s2c-concept .s2c-arrow-line { width:26px; height:1.5px; background:linear-gradient(90deg,var(--border2),var(--accent)); position:relative; }
-        #cd-s2c-concept .s2c-arrow-line::after { content:''; position:absolute; right:-5px; top:-3.5px; border:4px solid transparent; border-left:6px solid var(--accent); }
-        #cd-s2c-concept .s2c-arrow-tag { font-size:8px; color:var(--text-dim); white-space:nowrap; margin-top:3px; }
-        /* HITL */
-        #cd-s2c-concept .s2c-hitl { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; margin:20px 0; }
-        #cd-s2c-concept .s2c-hitl-row { display:flex; align-items:center; gap:8px; justify-content:center; flex-wrap:wrap; }
-        #cd-s2c-concept .s2c-hitl-box { padding:11px 14px; border-radius:10px; border:1px solid; text-align:center; min-width:110px; }
-        #cd-s2c-concept .s2c-hitl-box-icon { font-size:17px; margin-bottom:3px; }
-        #cd-s2c-concept .s2c-hitl-box-label { font-size:11px; font-weight:700; }
-        #cd-s2c-concept .s2c-hitl-box-sub { font-size:9px; color:var(--text-muted); margin-top:2px; }
-        #cd-s2c-concept .s2c-hitl-box.patient { background:rgba(255,110,180,0.07); border-color:rgba(255,110,180,0.3); }
-        #cd-s2c-concept .s2c-hitl-box.patient .s2c-hitl-box-label { color:var(--pink); }
-        #cd-s2c-concept .s2c-hitl-box.ai { background:rgba(61,127,255,0.07); border-color:rgba(61,127,255,0.3); }
-        #cd-s2c-concept .s2c-hitl-box.ai .s2c-hitl-box-label { color:var(--accent); }
-        #cd-s2c-concept .s2c-hitl-box.doctor { background:rgba(240,165,0,0.07); border-color:rgba(240,165,0,0.3); }
-        #cd-s2c-concept .s2c-hitl-box.doctor .s2c-hitl-box-label { color:var(--accent4); }
-        #cd-s2c-concept .s2c-hitl-box.confirm { background:rgba(0,212,160,0.07); border-color:rgba(0,212,160,0.3); }
-        #cd-s2c-concept .s2c-hitl-box.confirm .s2c-hitl-box-label { color:var(--accent2); }
-        #cd-s2c-concept .s2c-hitl-arrow { display:flex; flex-direction:column; align-items:center; gap:2px; }
-        #cd-s2c-concept .s2c-hitl-arr-line { width:28px; height:2px; background:linear-gradient(90deg,var(--border2),var(--accent)); position:relative; }
-        #cd-s2c-concept .s2c-hitl-arr-line::after { content:''; position:absolute; right:-6px; top:-3.5px; border:4.5px solid transparent; border-left:7px solid var(--accent); }
-        #cd-s2c-concept .s2c-hitl-arr-tag { font-size:8px; color:var(--text-dim); white-space:nowrap; }
-        #cd-s2c-concept .s2c-hitl-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(61,127,255,0.1); border:1px solid rgba(61,127,255,0.25); color:var(--accent); font-size:10px; font-weight:700; padding:5px 12px; border-radius:20px; margin-top:14px; letter-spacing:0.5px; }
-      </style>
-
-      <!-- HERO -->
-      <div class="s2c-hero">
-        <div class="s2c-hero-eyebrow">Intelligent Community · Concept</div>
-        <h2 class="cd-sec-title">지능형 커뮤니티란 <em>무엇인가</em></h2>
-        <p class="s2c-hero-desc">
-          커뮤니티는 말로 시작됐습니다. 그리고 오랫동안 말로만 머물렀습니다.<br>
-          지능형 커뮤니티는 다릅니다. 데이터가 대화의 중심에 들어오고, LLM이 그 데이터를 해석하며,
-          환자와 의료진의 신뢰도 높은 소통이 비로소 가능해집니다.
-        </p>
-      </div>
-
-      <!-- 01: 세 개의 축 -->
-      <div class="s2c-sec">
-        <div class="s2c-sec-eyebrow">01 · Structure</div>
-        <h3 class="s2c-sec-title">지능형 커뮤니티를 이루는 세 개의 축</h3>
-        <p class="s2c-sec-sub">환자와 의료진 둘만 있으면 말로만 오갑니다. 신뢰가 없습니다. 그 중간에 데이터라는 축이 반드시 필요합니다. 그리고 LLM이 그 세 축 모두를 연결하고 강화합니다.</p>
-        <div class="s2c-triad">
-          <!-- 상단: 유저 -->
-          <div style="display:flex;justify-content:center;margin-bottom:14px;">
-            <div class="s2c-triad-node user" style="min-width:160px;">
-              <div class="s2c-triad-node-icon">👥</div>
-              <div class="s2c-triad-node-label">유저</div>
-              <div class="s2c-triad-node-sub">환우 · 보호자<br>데이터를 올리고 상의하는 주체</div>
-            </div>
-          </div>
-          <!-- 화살표 -->
-          <div style="display:flex;justify-content:center;align-items:center;gap:40px;margin-bottom:10px;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-              <span style="font-size:10px;color:var(--text-dim);">검사기록 · PHR 업로드</span>
-              <span style="font-size:17px;color:var(--text-dim);">↓</span>
-            </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-              <span style="font-size:17px;color:var(--text-dim);">↓</span>
-              <span style="font-size:10px;color:var(--text-dim);">질문 · 상담 요청</span>
-            </div>
-          </div>
-          <!-- 중간: 정보 + LLM + 의료진 -->
-          <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:18px;">
-            <div class="s2c-triad-node info" style="flex:1;max-width:190px;">
-              <div class="s2c-triad-node-icon">📄</div>
-              <div class="s2c-triad-node-label">정보</div>
-              <div class="s2c-triad-node-sub">검사결과 · 논문 · 가이드라인<br>신뢰 기반 데이터 허브</div>
-            </div>
-            <div class="s2c-conn">
-              <div class="s2c-conn-arrow">⇄</div>
-              <div class="s2c-conn-label">해석 · 재가공</div>
-            </div>
-            <div class="s2c-triad-node llm" style="flex:1;max-width:170px;">
-              <div class="s2c-triad-node-icon">🧠</div>
-              <div class="s2c-triad-node-label">LLM</div>
-              <div class="s2c-triad-node-sub">데이터 해석 · 초안 생성<br>신뢰도의 핵심 연결자</div>
-            </div>
-            <div class="s2c-conn">
-              <div class="s2c-conn-arrow">⇄</div>
-              <div class="s2c-conn-label">컨펌 · 검증</div>
-            </div>
-            <div class="s2c-triad-node doctor" style="flex:1;max-width:190px;">
-              <div class="s2c-triad-node-icon">🩺</div>
-              <div class="s2c-triad-node-label">의료진</div>
-              <div class="s2c-triad-node-sub">전문가 · 교수<br>Human-in-the-Loop 역할</div>
-            </div>
-          </div>
-          <!-- 설명 박스 -->
-          <div style="display:flex;justify-content:center;">
-            <div style="background:rgba(61,127,255,0.06);border:1px solid rgba(61,127,255,0.2);border-radius:10px;padding:11px 22px;text-align:center;max-width:540px;">
-              <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:3px;">LLM이 들어왔을 때 달라지는 것</div>
-              <div style="font-size:11px;color:var(--text-muted);line-height:1.7;">모든 대화가 신뢰도를 갖습니다 · 데이터 없이는 LLM도 답할 수 없습니다 · 그래서 환자도 데이터를 올리는 플로우가 생깁니다</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 02: 데이터 플로우 -->
-      <div class="s2c-sec">
-        <div class="s2c-sec-eyebrow">02 · Data Flow</div>
-        <h3 class="s2c-sec-title">데이터가 흐르는 방식</h3>
-        <p class="s2c-sec-sub">환자가 검사기록을 올리면, LLM이 해석하고, 의료진이 컨펌합니다. 이 단순한 플로우가 커뮤니티의 신뢰도를 전혀 다른 수준으로 끌어올립니다.</p>
-        <div class="s2c-flow">
-          <div class="s2c-flow-title">Data → Insight → Trust 플로우</div>
-          <div class="s2c-flow-steps">
-            <div class="s2c-step">
-              <div class="s2c-step-box">
-                <div class="s2c-step-icon">📋</div>
-                <div class="s2c-step-label">검사기록 업로드</div>
-                <div class="s2c-step-sub">환자가 검사결과지 · PHR 올림</div>
-              </div>
-            </div>
-            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">OCR · 파싱</div></div>
-            <div class="s2c-step">
-              <div class="s2c-step-box hl-blue">
-                <div class="s2c-step-icon">🧠</div>
-                <div class="s2c-step-label">LLM 분석</div>
-                <div class="s2c-step-sub">수치 해석 · 서술형 초안 생성</div>
-              </div>
-            </div>
-            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">초안 전달</div></div>
-            <div class="s2c-step">
-              <div class="s2c-step-box hl-yellow">
-                <div class="s2c-step-icon">🩺</div>
-                <div class="s2c-step-label">의료진 컨펌</div>
-                <div class="s2c-step-sub">Human-in-the-Loop 검토</div>
-              </div>
-            </div>
-            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">검증 완료</div></div>
-            <div class="s2c-step">
-              <div class="s2c-step-box hl-green">
-                <div class="s2c-step-icon">💬</div>
-                <div class="s2c-step-label">환자에게 전달</div>
-                <div class="s2c-step-sub">알아듣는 말로 서술형 제공</div>
-              </div>
-            </div>
-            <div class="s2c-arrow"><div class="s2c-arrow-line"></div><div class="s2c-arrow-tag">축적</div></div>
-            <div class="s2c-step">
-              <div class="s2c-step-box">
-                <div class="s2c-step-icon">📊</div>
-                <div class="s2c-step-label">데이터 누적</div>
-                <div class="s2c-step-sub">커뮤니티 신뢰 자산화</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- HITL -->
-        <div class="s2c-hitl">
-          <div class="s2c-flow-title">Human-in-the-Loop 구조</div>
-          <div class="s2c-hitl-row">
-            <div class="s2c-hitl-box patient">
-              <div class="s2c-hitl-box-icon">🧑</div>
-              <div class="s2c-hitl-box-label">환자</div>
-              <div class="s2c-hitl-box-sub">검사결과 업로드</div>
-            </div>
-            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">데이터 제공</div></div>
-            <div class="s2c-hitl-box ai">
-              <div class="s2c-hitl-box-icon">🤖</div>
-              <div class="s2c-hitl-box-label">LLM 에이전트</div>
-              <div class="s2c-hitl-box-sub">초안 분석 자동 생성</div>
-            </div>
-            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">초안 전달</div></div>
-            <div class="s2c-hitl-box doctor">
-              <div class="s2c-hitl-box-icon">🩺</div>
-              <div class="s2c-hitl-box-label">의료진</div>
-              <div class="s2c-hitl-box-sub">검토 후 컨펌</div>
-            </div>
-            <div class="s2c-hitl-arrow"><div class="s2c-hitl-arr-line"></div><div class="s2c-hitl-arr-tag">확정 답변</div></div>
-            <div class="s2c-hitl-box confirm">
-              <div class="s2c-hitl-box-icon">✅</div>
-              <div class="s2c-hitl-box-label">신뢰 답변</div>
-              <div class="s2c-hitl-box-sub">환자에게 전달</div>
-            </div>
-          </div>
-          <div style="display:flex;justify-content:center;">
-            <div class="s2c-hitl-badge">⚡ 의료진은 컨펌만 — AI가 부담을 구조적으로 줄입니다</div>
-          </div>
-        </div>
-      </div>
-    </div><!-- /cd-s2c -->
-
-    <div class="cd-divider"></div>
-
-    <!-- S2d: 지능형 커뮤니티 기술 아키텍처 -->
     <div class="cd-section" id="cd-s2d">
       <div class="cd-sec-label">02d · Technical Architecture</div>
       <h2 class="cd-sec-title">지능형 커뮤니티 <em>기술 아키텍처</em></h2>
@@ -5433,6 +5133,306 @@
     <div class="cd-divider"></div>
 
     <!-- S3: 자산적 우위 -->
+    <div class="cd-section" id="cd-s2-why-aitrics">
+      <style>
+        /* ── cd-s2-why-aitrics 전용 스타일 (wa- prefix) ── */
+        #cd-s2-why-aitrics .wa-hero-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--accent2); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+        #cd-s2-why-aitrics .wa-hero-eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--accent2); }
+        #cd-s2-why-aitrics .wa-hero-title { font-size:38px; font-weight:900; line-height:1.2; letter-spacing:-1px; margin-bottom:20px; background:linear-gradient(135deg,#fff 0%,#b8ffd0 40%,var(--accent2) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        #cd-s2-why-aitrics .wa-hero-desc { font-size:14px; color:var(--text-muted); line-height:1.95; max-width:720px; margin-bottom:56px; }
+        #cd-s2-why-aitrics .wa-block { margin-bottom:52px; }
+        #cd-s2-why-aitrics .wa-block-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:10px; }
+        #cd-s2-why-aitrics .wa-block-title { font-size:20px; font-weight:900; letter-spacing:-0.4px; color:var(--text); margin-bottom:8px; }
+        #cd-s2-why-aitrics .wa-block-sub { font-size:13px; color:var(--text-muted); line-height:1.9; margin-bottom:24px; }
+        /* 반론 박스 */
+        #cd-s2-why-aitrics .wa-objection { background:rgba(255,107,107,0.05); border:1px solid rgba(255,107,107,0.2); border-radius:14px; padding:22px 24px; margin-bottom:28px; display:flex; align-items:flex-start; gap:14px; }
+        #cd-s2-why-aitrics .wa-obj-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
+        #cd-s2-why-aitrics .wa-obj-title { font-size:13px; font-weight:800; color:#ff6b6b; margin-bottom:6px; }
+        #cd-s2-why-aitrics .wa-obj-desc { font-size:12px; color:var(--text-muted); line-height:1.8; }
+        /* UA 카드 */
+        #cd-s2-why-aitrics .wa-ua-list { display:flex; flex-direction:column; gap:16px; }
+        #cd-s2-why-aitrics .wa-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+        #cd-s2-why-aitrics .wa-card-header { display:flex; align-items:center; gap:14px; padding:18px 22px 16px; border-bottom:1px solid var(--border); }
+        #cd-s2-why-aitrics .wa-num { font-size:10px; font-weight:700; letter-spacing:1px; font-family:'Space Mono',monospace; color:var(--text-dim); flex-shrink:0; }
+        #cd-s2-why-aitrics .wa-icon { font-size:22px; flex-shrink:0; }
+        #cd-s2-why-aitrics .wa-title { font-size:15px; font-weight:900; flex:1; }
+        #cd-s2-why-aitrics .wa-badge { font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 10px; border-radius:5px; flex-shrink:0; }
+        #cd-s2-why-aitrics .wa-card-body { padding:18px 22px; display:flex; gap:20px; }
+        #cd-s2-why-aitrics .wa-desc { flex:1; font-size:13px; color:var(--text-muted); line-height:1.85; }
+        #cd-s2-why-aitrics .wa-evidence { flex-shrink:0; width:240px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:13px 14px; }
+        #cd-s2-why-aitrics .wa-ev-label { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
+        #cd-s2-why-aitrics .wa-ev-item { display:flex; align-items:flex-start; gap:7px; font-size:11px; color:var(--text-muted); line-height:1.6; margin-bottom:6px; }
+        #cd-s2-why-aitrics .wa-ev-item:last-child { margin-bottom:0; }
+        #cd-s2-why-aitrics .wa-ev-dot { width:4px; height:4px; border-radius:50%; background:var(--text-dim); flex-shrink:0; margin-top:6px; }
+        /* 카드 색상 테마 */
+        #cd-s2-why-aitrics .wa-card.vc   .wa-title  { color:var(--accent); }
+        #cd-s2-why-aitrics .wa-card.vc   .wa-badge  { background:rgba(79,127,255,0.1); color:var(--accent); border:1px solid rgba(79,127,255,0.2); }
+        #cd-s2-why-aitrics .wa-card.vc   .wa-card-header { background:rgba(79,127,255,0.03); }
+        #cd-s2-why-aitrics .wa-card.moca .wa-title  { color:var(--accent2); }
+        #cd-s2-why-aitrics .wa-card.moca .wa-badge  { background:rgba(0,229,176,0.1); color:var(--accent2); border:1px solid rgba(0,229,176,0.2); }
+        #cd-s2-why-aitrics .wa-card.moca .wa-card-header { background:rgba(0,229,176,0.03); }
+        #cd-s2-why-aitrics .wa-card.data .wa-title  { color:var(--accent4); }
+        #cd-s2-why-aitrics .wa-card.data .wa-badge  { background:rgba(255,209,102,0.1); color:var(--accent4); border:1px solid rgba(255,209,102,0.2); }
+        #cd-s2-why-aitrics .wa-card.data .wa-card-header { background:rgba(255,209,102,0.03); }
+        #cd-s2-why-aitrics .wa-card.trust .wa-title { color:#a78bfa; }
+        #cd-s2-why-aitrics .wa-card.trust .wa-badge { background:rgba(167,139,250,0.1); color:#a78bfa; border:1px solid rgba(167,139,250,0.2); }
+        #cd-s2-why-aitrics .wa-card.trust .wa-card-header { background:rgba(167,139,250,0.03); }
+        #cd-s2-why-aitrics .wa-card.doc  .wa-title  { color:#ff6eb4; }
+        #cd-s2-why-aitrics .wa-card.doc  .wa-badge  { background:rgba(255,110,180,0.1); color:#ff6eb4; border:1px solid rgba(255,110,180,0.2); }
+        #cd-s2-why-aitrics .wa-card.doc  .wa-card-header { background:rgba(255,110,180,0.03); }
+        /* 비교표 */
+        #cd-s2-why-aitrics .wa-compare-wrap { background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; margin:24px 0; }
+        #cd-s2-why-aitrics .wa-compare-table { width:100%; border-collapse:collapse; }
+        #cd-s2-why-aitrics .wa-compare-table thead tr { background:var(--surface2); border-bottom:1px solid var(--border); }
+        #cd-s2-why-aitrics .wa-compare-table th { padding:12px 18px; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-dim); text-align:left; }
+        #cd-s2-why-aitrics .wa-compare-table tbody tr { border-bottom:1px solid var(--border); }
+        #cd-s2-why-aitrics .wa-compare-table tbody tr:last-child { border-bottom:none; }
+        #cd-s2-why-aitrics .wa-compare-table td { padding:13px 18px; font-size:12px; color:var(--text-muted); vertical-align:middle; }
+        #cd-s2-why-aitrics .wa-col-item { font-weight:700; color:var(--text); width:22%; }
+        #cd-s2-why-aitrics .wa-col-aitrics { color:var(--accent2); font-weight:600; }
+        #cd-s2-why-aitrics .wa-tag-yes     { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:5px; background:rgba(0,229,176,0.1); color:var(--accent2); border:1px solid rgba(0,229,176,0.2); }
+        #cd-s2-why-aitrics .wa-tag-no      { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:5px; background:rgba(255,107,107,0.08); color:#ff6b6b; border:1px solid rgba(255,107,107,0.18); }
+        #cd-s2-why-aitrics .wa-tag-partial { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:5px; background:rgba(255,209,102,0.08); color:var(--accent4); border:1px solid rgba(255,209,102,0.18); }
+        /* 결론 박스 */
+        #cd-s2-why-aitrics .wa-conclusion { background:linear-gradient(135deg,rgba(0,229,176,0.07),rgba(79,127,255,0.05)); border:1.5px solid rgba(0,229,176,0.3); border-radius:18px; padding:32px; margin-top:32px; text-align:center; position:relative; overflow:hidden; }
+        #cd-s2-why-aitrics .wa-conclusion::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent2),var(--accent),transparent); }
+        #cd-s2-why-aitrics .wa-conclusion-eyebrow { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent2); margin-bottom:14px; }
+        #cd-s2-why-aitrics .wa-conclusion-title { font-size:22px; font-weight:900; letter-spacing:-0.5px; color:var(--text); margin-bottom:16px; line-height:1.4; }
+        #cd-s2-why-aitrics .wa-conclusion-title em { font-style:normal; color:var(--accent2); }
+        #cd-s2-why-aitrics .wa-conclusion-desc { font-size:13px; color:var(--text-muted); line-height:1.9; max-width:640px; margin:0 auto; }
+        /* 인사이트 박스 */
+        #cd-s2-why-aitrics .wa-insight { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:16px 20px; font-size:12px; color:var(--text-muted); line-height:1.8; }
+        @media (max-width:640px) {
+          #cd-s2-why-aitrics .wa-card-body { flex-direction:column; }
+          #cd-s2-why-aitrics .wa-evidence { width:100%; }
+          #cd-s2-why-aitrics .wa-hero-title { font-size:28px; }
+        }
+      </style>
+
+      <!-- 헤더 -->
+      <div class="wa-hero-eyebrow">Why aitrics · Unfair Advantage</div>
+      <h2 class="wa-hero-title">왜 aitrics가<br>해야 하는가</h2>
+      <p class="wa-hero-desc">
+        지능형 의료 커뮤니티의 필요성은 누구든 설명할 수 있습니다. 하지만 "왜 하필 aitrics인가"는 다른 질문입니다.
+        우리가 가진 것, 경쟁자가 단기간에 복제할 수 없는 것 — 그 Unfair Advantage가 이 사업의 존립 근거입니다.
+      </p>
+
+      <!-- 01. 가장 불편한 질문 -->
+      <div class="wa-block">
+        <div class="wa-block-eyebrow">01 · The Hard Question</div>
+        <h3 class="wa-block-title">가장 불편한 질문부터 시작합니다</h3>
+        <p class="wa-block-sub">좋은 아이디어라고 해서 우리가 해야 하는 이유는 없습니다. 이 질문에 답하지 못하면 사업이 아니라 실험에 그칩니다.</p>
+        <div class="wa-objection">
+          <div class="wa-obj-icon">🤔</div>
+          <div>
+            <div class="wa-obj-title">"지능형 의료 커뮤니티, 카카오나 네이버도 만들 수 있지 않나요?"</div>
+            <div class="wa-obj-desc">맞습니다. 커뮤니티 플랫폼 기술, LLM API, 마케팅 자본 — 이 세 가지만 있으면 누구든 비슷한 서비스를 런칭할 수 있습니다. 그렇다면 왜 aitrics가 이 시장을 선점할 수 있다고 말할 수 있을까요? 그 답은 기술이나 자본이 아니라, aitrics만이 가진 구조적 우위에 있습니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02. Unfair Advantage 5가지 -->
+      <div class="wa-block">
+        <div class="wa-block-eyebrow">02 · Unfair Advantage</div>
+        <h3 class="wa-block-title">aitrics만이 가진 5가지 구조적 우위</h3>
+        <p class="wa-block-sub">aitrics의 Unfair Advantage는 하루아침에 만들어진 것이 아닙니다. 10년의 의료 AI 사업이 쌓아온 자산이 지능형 커뮤니티의 출발선을 완전히 다른 곳에 세워줍니다.</p>
+        <div class="wa-ua-list">
+          <!-- 1. VitalCare 병원 네트워크 -->
+          <div class="wa-card vc">
+            <div class="wa-card-header">
+              <span class="wa-num">01</span>
+              <span class="wa-icon">🏥</span>
+              <span class="wa-title">100개 병원 네트워크 — VitalCare</span>
+              <span class="wa-badge">독점 자산</span>
+            </div>
+            <div class="wa-card-body">
+              <div class="wa-desc">
+                aitrics의 VitalCare는 이미 국내 100개 이상의 병원에 도입된 AI 의료 솔루션입니다. 이 병원 네트워크는 지능형 커뮤니티가 가장 필요로 하는 것 — <strong style="color:var(--accent)">신뢰할 수 있는 의료진 파트너십</strong> — 을 즉시 확보할 수 있게 해줍니다.<br><br>
+                환우가 커뮤니티에서 가장 원하는 것은 "의료진의 검증된 답변"입니다. 일반 플랫폼이 의료진을 섭외하는 데 수년이 걸릴 때, aitrics는 이미 신뢰 관계가 형성된 100개 병원의 의료진과 협력할 수 있습니다.
+              </div>
+              <div class="wa-evidence">
+                <div class="wa-ev-label">Evidence</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>VitalCare 국내 도입 병원 100개+</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>FDA 510(k) 승인 · 글로벌 의료 신뢰도</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>병원 내 의료진과의 기존 협력 구조</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>신촌 세브란스 등 주요 병원 네트워크</div>
+              </div>
+            </div>
+          </div>
+          <!-- 2. MOCA 엔진 -->
+          <div class="wa-card moca">
+            <div class="wa-card-header">
+              <span class="wa-num">02</span>
+              <span class="wa-icon">🧠</span>
+              <span class="wa-title">의료 특화 AI 엔진 — MOCA</span>
+              <span class="wa-badge">기술 우위</span>
+            </div>
+            <div class="wa-card-body">
+              <div class="wa-desc">
+                일반 LLM(GPT, Claude)은 범용 언어 모델입니다. 의료 용어의 임상적 맥락, 검사 수치의 정상 범위, 치료 프로토콜의 최신 가이드라인을 일반 모델이 정확히 처리하는 데는 한계가 있습니다.<br><br>
+                aitrics의 MOCA 엔진은 실제 임상 데이터 위에서 훈련된 의료 특화 모델입니다. <strong style="color:var(--accent2)">검사기록지 분석, 증상 해석, 의료 Q&A</strong> — 커뮤니티의 핵심 기능이 일반 플랫폼보다 구조적으로 더 정확하고 안전하게 작동합니다.
+              </div>
+              <div class="wa-evidence">
+                <div class="wa-ev-label">Evidence</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>MOCA 엔진 기반 V.Doc 개발 완료</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>임상 데이터 기반 의료 AI 추론</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>닥터앤서 3.0 모델군 (C/PEDI/G-Rehab)</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>검사결과지 설명 서비스 PoC 운영 중</div>
+              </div>
+            </div>
+          </div>
+          <!-- 3. 임상 데이터 자산 -->
+          <div class="wa-card data">
+            <div class="wa-card-header">
+              <span class="wa-num">03</span>
+              <span class="wa-icon">📊</span>
+              <span class="wa-title">병원에서 쌓인 임상 데이터 레퍼런스</span>
+              <span class="wa-badge">데이터 우위</span>
+            </div>
+            <div class="wa-card-body">
+              <div class="wa-desc">
+                커뮤니티에서 환자가 올린 검사기록을 올바르게 해석하려면, 그 수치가 임상적으로 어떤 의미인지 아는 모델이 필요합니다. 일반 플랫폼은 이 데이터 맥락을 처음부터 쌓아야 합니다.<br><br>
+                aitrics는 100개 병원에서 VitalCare를 운영하며 축적한 <strong style="color:var(--accent4)">실제 임상 환경의 데이터 레퍼런스</strong>를 보유하고 있습니다. 이는 커뮤니티 내 의료 정보의 정확도와 신뢰도를 처음부터 다른 수준으로 만들어주는 기초 자산입니다.
+              </div>
+              <div class="wa-evidence">
+                <div class="wa-ev-label">Evidence</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>100개 병원 VitalCare 운영 데이터</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>입원환자 상태 악화 예측 임상 레퍼런스</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>누적 투자 731억 · 2024 매출 100억</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>의료 AI 검증 트랙 레코드 10년</div>
+              </div>
+            </div>
+          </div>
+          <!-- 4. 의료 신뢰도 브랜드 -->
+          <div class="wa-card trust">
+            <div class="wa-card-header">
+              <span class="wa-num">04</span>
+              <span class="wa-icon">🛡️</span>
+              <span class="wa-title">의료 AI 신뢰도 브랜드</span>
+              <span class="wa-badge">신뢰 자산</span>
+            </div>
+            <div class="wa-card-body">
+              <div class="wa-desc">
+                의료 커뮤니티에서 가장 극복하기 어려운 장벽은 신뢰입니다. 환자는 생명과 직결된 정보를 낯선 플랫폼에서 얻으려 하지 않습니다. 카카오, 네이버가 기술과 자본을 갖더라도 "의료 AI 전문 기업"이라는 인식은 단기간에 얻을 수 없습니다.<br><br>
+                aitrics는 이미 <strong style="color:#a78bfa">FDA 510(k) 승인, 100개 병원 도입, 10년의 의료 AI 레퍼런스</strong>를 가진 기업입니다. 환자가 "이 플랫폼의 정보는 믿을 수 있다"고 느끼는 데 필요한 신뢰 자산을 이미 보유하고 있습니다.
+              </div>
+              <div class="wa-evidence">
+                <div class="wa-ev-label">Evidence</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>FDA 510(k) 승인 — 글로벌 의료 인증</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>닥터앤서 3.0 정부 공인 AI 의료 플랫폼</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>대표 김광준 — 의료 AI 10년 전문가</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>주요 병원·의료기관 레퍼런스 다수</div>
+              </div>
+            </div>
+          </div>
+          <!-- 5. V.Doc -->
+          <div class="wa-card doc">
+            <div class="wa-card-header">
+              <span class="wa-num">05</span>
+              <span class="wa-icon">🔗</span>
+              <span class="wa-title">V.Doc — 병원과 커뮤니티를 잇는 연결고리</span>
+              <span class="wa-badge">생태계 우위</span>
+            </div>
+            <div class="wa-card-body">
+              <div class="wa-desc">
+                지능형 커뮤니티의 최종 목적지는 User 데이터를 기반으로 의료 AI를 고도화하는 것입니다. 그 데이터가 병원 시스템(EMR·PHR)과 연결될 때 가치는 기하급수적으로 올라갑니다.<br><br>
+                aitrics는 V.Doc이라는 <strong style="color:#ff6eb4">병원 사전문진 AI 솔루션</strong>을 보유하고 있습니다. 커뮤니티에서 환자가 남긴 데이터가 V.Doc을 통해 실제 진료 정보와 연결되는 구조 — 이 파이프라인을 처음부터 설계할 수 있는 기업은 aitrics뿐입니다.
+              </div>
+              <div class="wa-evidence">
+                <div class="wa-ev-label">Evidence</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>V.Doc AI 사전문진 솔루션 보유</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>MOCA 엔진 기반 문진 → 커뮤니티 연계 가능</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>커뮤니티 PRO 데이터 → EMR 연동 로드맵</div>
+                <div class="wa-ev-item"><div class="wa-ev-dot"></div>병원 안팎을 잇는 유일한 AI 기업 포지션</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03. 경쟁자 비교표 -->
+      <div class="wa-block">
+        <div class="wa-block-eyebrow">03 · Competitive Landscape</div>
+        <h3 class="wa-block-title">경쟁자는 무엇을 가지고 있지 않은가</h3>
+        <p class="wa-block-sub">aitrics의 우위는 상대적으로 정의됩니다. 같은 시장을 노릴 수 있는 플레이어들과 비교했을 때, 구조적 차이가 명확합니다.</p>
+        <div class="wa-compare-wrap">
+          <table class="wa-compare-table">
+            <thead>
+              <tr>
+                <th class="wa-col-item">역량</th>
+                <th>aitrics</th>
+                <th>카카오·네이버</th>
+                <th>환우 카페·커뮤니티</th>
+                <th>의료 스타트업</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="wa-col-item">의료 AI 엔진</td>
+                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ MOCA 보유</span></td>
+                <td><span class="wa-tag-no">✗ 범용 LLM만</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-partial">△ 일부 보유</span></td>
+              </tr>
+              <tr>
+                <td class="wa-col-item">병원 네트워크</td>
+                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ 100개 병원</span></td>
+                <td><span class="wa-tag-partial">△ 제휴 수준</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-no">✗ 초기 단계</span></td>
+              </tr>
+              <tr>
+                <td class="wa-col-item">임상 데이터 레퍼런스</td>
+                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ 10년 축적</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-partial">△ 제한적</span></td>
+              </tr>
+              <tr>
+                <td class="wa-col-item">의료 AI 신뢰도</td>
+                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ FDA 510(k)</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-partial">△ 검증 중</span></td>
+              </tr>
+              <tr>
+                <td class="wa-col-item">병원-커뮤니티 연결</td>
+                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ V.Doc 연계</span></td>
+                <td><span class="wa-tag-no">✗ 불가</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-partial">△ 구상 단계</span></td>
+              </tr>
+              <tr>
+                <td class="wa-col-item">플랫폼·자본</td>
+                <td><span class="wa-tag-partial">△ 중간</span></td>
+                <td class="wa-col-aitrics"><span class="wa-tag-yes">✓ 압도적</span></td>
+                <td><span class="wa-tag-no">✗ 없음</span></td>
+                <td><span class="wa-tag-partial">△ 제한적</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wa-insight">
+          💡 <strong style="color:var(--text)">핵심 인사이트</strong> — 카카오·네이버는 자본과 플랫폼은 있지만 의료 AI 신뢰도가 없습니다. 의료 스타트업은 기술은 있지만 병원 네트워크가 없습니다. 환우 커뮤니티는 사용자는 있지만 AI가 없습니다. aitrics는 이 세 가지를 동시에 가진 유일한 포지션입니다.
+        </div>
+      </div>
+
+      <!-- 결론 -->
+      <div class="wa-conclusion">
+        <div class="wa-conclusion-eyebrow">Conclusion · Why aitrics</div>
+        <h3 class="wa-conclusion-title">지능형 의료 커뮤니티를<br><em>aitrics가 해야 하는 이유</em></h3>
+        <p class="wa-conclusion-desc">
+          100개 병원 네트워크, MOCA 의료 AI 엔진, 10년의 임상 데이터 레퍼런스, FDA 인증 신뢰도, V.Doc 연결고리 —
+          이 다섯 가지 자산은 경쟁자가 단기간에 복제할 수 없습니다.
+          지능형 의료 커뮤니티는 이 자산들이 가장 자연스럽게 결합되는 사업입니다.
+          우리가 지금 이 자리에서 시작해야 하는 이유입니다.
+        </p>
+      </div>
+    </div><!-- /cd-s2-why-aitrics -->
+
+    <div class="cd-divider"></div>
+
+    <!-- S2b: 핑크케어 구조 -->
     <div class="cd-section" id="cd-s3">
       <div class="cd-sec-label">03 · Asset Value</div>
       <h2 class="cd-sec-title">기술 우위가 아닌<br><em>자산 우위</em>를 갖는다</h2>
@@ -8498,371 +8498,938 @@
   <!-- ===== PINKCARE NEXT STEP PAGE ===== -->
   <div class="page-section" id="page-pinkcare-nextstep">
   <style>
-    #page-pinkcare-nextstep { --bg:#080a10; --surface:#0f1219; --surface2:#141824; --border:#1e2535; --blue:#3d7fff; --green:#00d4a0; --pink:#ff6eb4; --yellow:#f0a500; --purple:#a78bfa; --red:#ff5c6a; --text:#e8eaf2; --text-muted:#7a8aaa; --text-dim:#374060; color:var(--text); line-height:1.7; }
-    #page-pinkcare-nextstep .p2-hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 48px 80px; position:relative; overflow:hidden; text-align:center; }
-    #page-pinkcare-nextstep .p2-hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 50% at 20% 50%, rgba(61,127,255,.06) 0%,transparent 60%), radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,212,160,.04) 0%,transparent 60%); pointer-events:none; }
-    #page-pinkcare-nextstep .p2-hero::after { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent); pointer-events:none; }
-    #page-pinkcare-nextstep .p2-hero-kicker { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:.25em; text-transform:uppercase; margin-bottom:24px; opacity:0; animation:fadeUp .5s ease forwards .1s; }
-    #page-pinkcare-nextstep .p2-hero-title { font-size:clamp(32px,5vw,64px); font-weight:900; line-height:1.1; letter-spacing:-.02em; margin-bottom:12px; opacity:0; animation:fadeUp .6s ease forwards .2s; }
-    #page-pinkcare-nextstep .p2-hero-title em { font-style:normal; background:linear-gradient(135deg,var(--blue),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    #page-pinkcare-nextstep .p2-hero-subtitle { font-size:clamp(14px,1.8vw,20px); color:var(--text-muted); margin-bottom:48px; opacity:0; animation:fadeUp .6s ease forwards .3s; }
-    #page-pinkcare-nextstep .p2-hero-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:64px; opacity:0; animation:fadeUp .6s ease forwards .4s; }
-    #page-pinkcare-nextstep .p2-chip { font-family:'Space Mono',monospace; font-size:9px; padding:5px 14px; border-radius:20px; border:1px solid var(--border); color:var(--text-muted); background:var(--surface); }
-    #page-pinkcare-nextstep .p2-chip.new { background:rgba(61,127,255,.1); color:var(--blue); border-color:rgba(61,127,255,.3); }
-    #page-pinkcare-nextstep .p2-index-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:900px; width:100%; opacity:0; animation:fadeUp .7s ease forwards .5s; }
-    #page-pinkcare-nextstep .p2-idx-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 18px; text-decoration:none; color:var(--text); transition:border-color .25s,transform .25s; display:flex; flex-direction:column; gap:6px; }
-    #page-pinkcare-nextstep .p2-idx-card:hover { border-color:rgba(61,127,255,.35); transform:translateY(-3px); }
-    #page-pinkcare-nextstep .p2-idx-num { font-family:'Space Mono',monospace; font-size:9px; color:var(--text-dim); }
-    #page-pinkcare-nextstep .p2-idx-label { font-size:12px; font-weight:700; }
-    #page-pinkcare-nextstep .p2-idx-accent { width:24px; height:2px; border-radius:1px; margin-top:4px; }
-    #page-pinkcare-nextstep .p2-section { padding:100px 48px; max-width:860px; margin:0 auto; border-top:1px solid var(--border); }
-    #page-pinkcare-nextstep .p2-section-header { margin-bottom:48px; }
-    #page-pinkcare-nextstep .p2-section-num { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:.15em; margin-bottom:10px; }
-    #page-pinkcare-nextstep .p2-section-title { font-size:clamp(26px,3.5vw,40px); font-weight:900; line-height:1.15; letter-spacing:-.02em; margin-bottom:12px; }
-    #page-pinkcare-nextstep .p2-section-tag { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; padding:4px 12px; border-radius:20px; margin-bottom:16px; }
-    #page-pinkcare-nextstep .p2-learned { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:28px 32px; margin-bottom:32px; position:relative; overflow:hidden; }
-    #page-pinkcare-nextstep .p2-learned::before { content:'PoC에서 배운 것'; position:absolute; top:16px; right:20px; font-family:'Space Mono',monospace; font-size:9px; color:var(--text-dim); letter-spacing:.1em; }
-    #page-pinkcare-nextstep .p2-learned::after { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,var(--blue),var(--green)); border-radius:3px 0 0 3px; }
-    #page-pinkcare-nextstep .p2-learned p { font-size:14px; color:var(--text-muted); line-height:1.9; }
-    #page-pinkcare-nextstep .p2-sub { margin-bottom:40px; }
-    #page-pinkcare-nextstep .p2-sub-title { font-size:17px; font-weight:700; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
-    #page-pinkcare-nextstep .p2-sub-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
-    #page-pinkcare-nextstep .p2-sub-body { font-size:14px; color:var(--text-muted); line-height:1.95; }
-    #page-pinkcare-nextstep .p2-sub-body strong { color:var(--text); font-weight:700; }
-    #page-pinkcare-nextstep .p2-sub-body p + p { margin-top:14px; }
-    #page-pinkcare-nextstep .p2-list-cards { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
-    #page-pinkcare-nextstep .p2-list-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px 18px; display:flex; gap:14px; align-items:flex-start; }
-    #page-pinkcare-nextstep .p2-list-card-icon { width:30px; height:30px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; }
-    #page-pinkcare-nextstep .p2-list-card-text { font-size:13px; color:var(--text-muted); line-height:1.8; }
-    #page-pinkcare-nextstep .p2-list-card-text strong { color:var(--text); display:block; font-weight:700; font-size:13px; margin-bottom:2px; }
-    #page-pinkcare-nextstep .p2-quote { background:linear-gradient(135deg,rgba(61,127,255,.06),rgba(0,212,160,.04)); border:1px solid rgba(61,127,255,.2); border-radius:14px; padding:24px 28px; margin:20px 0; position:relative; }
-    #page-pinkcare-nextstep .p2-quote::before { content:'"'; position:absolute; top:8px; left:16px; font-size:60px; line-height:.8; color:var(--blue); opacity:.2; }
-    #page-pinkcare-nextstep .p2-quote p { font-size:15px; color:var(--text); line-height:1.8; padding-left:24px; font-weight:500; }
-    #page-pinkcare-nextstep .p2-hl { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin:16px 0; }
-    #page-pinkcare-nextstep .p2-hl.warning { border-color:rgba(240,165,0,.25); background:rgba(240,165,0,.04); }
-    #page-pinkcare-nextstep .p2-hl.info { border-color:rgba(61,127,255,.25); background:rgba(61,127,255,.04); }
-    #page-pinkcare-nextstep .p2-hl.success { border-color:rgba(0,212,160,.25); background:rgba(0,212,160,.04); }
-    #page-pinkcare-nextstep .p2-hl p { font-size:13.5px; line-height:1.85; }
-    #page-pinkcare-nextstep .p2-hl p strong { color:var(--text); }
-    #page-pinkcare-nextstep .p2-stats { display:flex; gap:16px; margin:20px 0; flex-wrap:wrap; }
-    #page-pinkcare-nextstep .p2-stat { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; flex:1; min-width:140px; }
-    #page-pinkcare-nextstep .p2-stat-val { font-family:'Space Mono',monospace; font-size:28px; font-weight:700; color:var(--text); line-height:1; margin-bottom:6px; }
-    #page-pinkcare-nextstep .p2-stat-label { font-size:11px; color:var(--text-muted); }
-    #page-pinkcare-nextstep .p2-closing { max-width:860px; margin:0 auto; padding:80px 48px 120px; text-align:center; border-top:1px solid var(--border); }
-    #page-pinkcare-nextstep .p2-closing-title { font-size:clamp(28px,4vw,48px); font-weight:900; line-height:1.15; margin-bottom:20px; letter-spacing:-.02em; }
-    #page-pinkcare-nextstep .p2-closing-title em { font-style:normal; color:var(--blue); }
-    #page-pinkcare-nextstep .p2-closing-desc { font-size:15px; color:var(--text-muted); line-height:1.9; max-width:580px; margin:0 auto 40px; }
-    #page-pinkcare-nextstep .p2-closing-motto { font-family:'Space Mono',monospace; font-size:22px; font-weight:700; color:var(--text); letter-spacing:.05em; }
-    #page-pinkcare-nextstep .p2-closing-motto span { color:var(--blue); }
-    #page-pinkcare-nextstep .p2-footer { border-top:1px solid var(--border); padding:36px 48px; display:flex; align-items:center; justify-content:space-between; }
-    #page-pinkcare-nextstep .p2-footer-logo { font-family:'Space Mono',monospace; font-size:12px; color:var(--blue); }
-    #page-pinkcare-nextstep .p2-footer-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
-    #page-pinkcare-nextstep .p2-reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s ease; }
-    #page-pinkcare-nextstep .p2-reveal.visible { opacity:1; transform:none; }
-    #page-pinkcare-nextstep .p2-reveal-d1 { transition-delay:.1s; }
-    #page-pinkcare-nextstep .p2-reveal-d2 { transition-delay:.2s; }
-    @media(max-width:768px){
-      #page-pinkcare-nextstep .p2-hero, #page-pinkcare-nextstep .p2-section, #page-pinkcare-nextstep .p2-closing { padding-left:20px; padding-right:20px; }
-      #page-pinkcare-nextstep .p2-index-grid { grid-template-columns:repeat(2,1fr); }
-      #page-pinkcare-nextstep .p2-stats { flex-direction:column; }
-    }
+:root {
+  --bg: #080a10;
+  --surface: #0f1219;
+  --surface2: #141824;
+  --border: #2a3550;
+  --blue: #3d7fff;
+  --green: #00d4a0;
+  --pink: #ff6eb4;
+  --yellow: #f0a500;
+  --purple: #a78bfa;
+  --red: #ff5c6a;
+  --text: #e8eaf2;
+  --text-muted: #7a8aaa;
+  --text-dim: #2e3a55;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
+
+#progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--green)); z-index:1000; transition:width .1s; }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px; height:60px;
+  background:rgba(8,10,16,.94); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo { font-family:'Space Mono',monospace; font-size:12px; color:var(--blue); }
+.nav-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:120px 48px 80px; position:relative; overflow:hidden; text-align:center;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 50% at 30% 50%, rgba(61,127,255,.07) 0%,transparent 60%),
+              radial-gradient(ellipse 50% 50% at 75% 50%, rgba(0,212,160,.05) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero::after {
+  content:''; position:absolute; inset:0;
+  background-image: linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,black,transparent);
+  pointer-events:none;
+}
+.hero-kicker { font-family:'Space Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:.25em; text-transform:uppercase; margin-bottom:20px; opacity:0; animation:fadeUp .5s ease forwards .1s; }
+.hero-title { font-size:clamp(30px,4.5vw,58px); font-weight:900; line-height:1.1; letter-spacing:-.025em; margin-bottom:16px; opacity:0; animation:fadeUp .6s ease forwards .2s; }
+.hero-title em { font-style:normal; background:linear-gradient(135deg,var(--blue),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:15px; color:var(--text-muted); max-width:480px; line-height:1.8; margin-bottom:60px; opacity:0; animation:fadeUp .6s ease forwards .3s; }
+
+/* ── 7관점 네비게이션 맵 ── */
+.perspective-map {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:0;
+  width:100%; max-width:980px; border:1px solid var(--border); border-radius:16px; overflow:hidden;
+  opacity:0; animation:fadeUp .7s ease forwards .4s;
+}
+.pm-item {
+  padding:20px 12px; text-align:center; text-decoration:none; color:var(--text);
+  border-right:1px solid var(--border); position:relative; overflow:hidden;
+  transition:background .25s;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+}
+.pm-item:last-child { border-right:none; }
+.pm-item:hover { background:rgba(255,255,255,.03); }
+.pm-item::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; }
+.pm-item:nth-child(1)::after { background:var(--blue); }
+.pm-item:nth-child(2)::after { background:var(--green); }
+.pm-item:nth-child(3)::after { background:var(--red); }
+.pm-item:nth-child(4)::after { background:var(--pink); }
+.pm-item:nth-child(5)::after { background:var(--purple); }
+.pm-item:nth-child(6)::after { background:var(--yellow); }
+.pm-item:nth-child(7)::after { background:var(--green); }
+.pm-num { font-family:'Space Mono',monospace; font-size:9px; color:var(--text-muted); }
+.pm-label { font-size:11px; font-weight:700; line-height:1.3; }
+
+/* ── PERSPECTIVE SECTION ── */
+.ps {
+  max-width:900px; margin:0 auto;
+  padding:100px 48px;
+  border-top:1px solid var(--border);
+}
+
+/* 관점 헤더 — 크고 강하게 */
+.ps-header {
+  display:grid; grid-template-columns:80px 1fr; gap:0; margin-bottom:56px; align-items:start;
+}
+.ps-num-block {
+  display:flex; flex-direction:column; align-items:center; padding-top:6px;
+}
+.ps-num-big {
+  font-family:'Space Mono',monospace; font-size:52px; font-weight:700; line-height:1;
+  opacity:.12; letter-spacing:-.04em;
+}
+.ps-num-line { width:2px; height:40px; margin-top:8px; border-radius:1px; }
+.ps-title-block {}
+.ps-category { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:10px; }
+.ps-title { font-size:clamp(28px,3.5vw,42px); font-weight:900; line-height:1.12; letter-spacing:-.025em; margin-bottom:16px; }
+.ps-core {
+  font-size:14px; line-height:1.85; padding:16px 20px;
+  background:var(--surface); border-radius:10px; border-left:3px solid;
+  color:var(--text-muted);
+}
+.ps-core strong { color:var(--text); }
+
+/* 항목들 */
+.ps-items { display:flex; flex-direction:column; gap:32px; margin-top:40px; }
+.ps-item {}
+.ps-item-title {
+  font-size:19px; font-weight:900; margin-bottom:12px; line-height:1.3;
+  display:flex; align-items:center; gap:12px; color:var(--text);
+  letter-spacing:-.01em;
+}
+.ps-item-title::before { content:''; width:24px; height:2px; flex-shrink:0; border-radius:1px; }
+.ps-item:nth-child(1) .ps-item-title::before { background:var(--blue); }
+.ps-item:nth-child(2) .ps-item-title::before { background:var(--blue); }
+.ps-item:nth-child(3) .ps-item-title::before { background:var(--blue); }
+.ps-item:nth-child(4) .ps-item-title::before { background:var(--blue); }
+.ps-item-body { font-size:13.5px; color:var(--text-muted); line-height:1.95; }
+.ps-item-body strong { color:var(--text); font-weight:700; }
+.ps-item-body p + p { margin-top:12px; }
+
+/* 색상 오버라이드 per section */
+.c-blue .ps-item-title::before  { background:var(--blue)!important; }
+.c-green .ps-item-title::before { background:var(--green)!important; }
+.c-red .ps-item-title::before   { background:var(--red)!important; }
+.c-pink .ps-item-title::before  { background:var(--pink)!important; }
+.c-purple .ps-item-title::before{ background:var(--purple)!important; }
+.c-yellow .ps-item-title::before{ background:var(--yellow)!important; }
+
+/* 카드 그리드 */
+.mini-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+.mini-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.mc-icon { font-size:18px; margin-bottom:8px; }
+.mc-title { font-size:12px; font-weight:700; margin-bottom:4px; }
+.mc-desc { font-size:11.5px; color:var(--text-muted); line-height:1.7; }
+
+/* 2컬럼 카드 */
+.two-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+
+/* 강조 박스 */
+.em-box {
+  border-radius:12px; padding:18px 22px; margin-top:14px;
+  font-size:13.5px; line-height:1.85;
+}
+.em-box strong { font-weight:700; }
+.em-blue   { background:rgba(61,127,255,.07); border:1px solid rgba(61,127,255,.2); }
+.em-green  { background:rgba(0,212,160,.07); border:1px solid rgba(0,212,160,.2); }
+.em-red    { background:rgba(255,92,106,.07); border:1px solid rgba(255,92,106,.2); }
+.em-yellow { background:rgba(240,165,0,.07); border:1px solid rgba(240,165,0,.2); }
+
+/* stat 인라인 */
+.stat-inline { display:flex; gap:12px; margin-top:14px; flex-wrap:wrap; }
+.si { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 16px; }
+.si-val { font-family:'Space Mono',monospace; font-size:22px; font-weight:700; line-height:1; margin-bottom:4px; }
+.si-label { font-size:10px; color:var(--text-muted); }
+
+/* ── CLOSING ── */
+.closing {
+  max-width:900px; margin:0 auto; padding:80px 48px 120px;
+  border-top:1px solid var(--border); text-align:center;
+}
+.closing-title { font-size:clamp(28px,4vw,50px); font-weight:900; line-height:1.12; letter-spacing:-.025em; margin-bottom:20px; }
+.closing-desc { font-size:14px; color:var(--text-muted); line-height:1.95; max-width:560px; margin:0 auto 48px; }
+.closing-motto { font-family:'Space Mono',monospace; font-size:24px; font-weight:700; color:var(--text); letter-spacing:.04em; }
+.closing-motto span { color:var(--blue); }
+
+footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; align-items:center; justify-content:space-between; }
+.footer-logo { font-family:'Space Mono',monospace; font-size:12px; color:var(--blue); }
+.footer-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
+
+
+/* ── CHAPTER DIVIDER ── */
+.ch-divider {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  padding: 0;
+}
+.ch-divider-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.ch-divider-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ch-divider-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ch-divider-tag::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+}
+.ch-divider-title {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  color: var(--text);
+}
+.ch-divider-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 320px;
+}
+.ch-divider-num {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(120px, 18vw, 200px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.05em;
+  opacity: .055;
+  flex-shrink: 0;
+  user-select: none;
+}
+.ch-divider-line {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  opacity: .3;
+}
+@media(max-width:860px){
+  .ch-divider-inner { padding: 48px 20px; }
+  .ch-divider-num { display: none; }
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.reveal { opacity:0; transform:translateY(32px); transition:opacity .75s ease,transform .75s ease; }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-d1 { transition-delay:.12s; }
+.reveal-d2 { transition-delay:.22s; }
+
+@media(max-width:860px){
+  nav{padding:0 20px;}
+  .hero,.ps,.closing{padding-left:20px;padding-right:20px;}
+  .perspective-map{grid-template-columns:repeat(4,1fr);}
+  .ps-header{grid-template-columns:1fr;}
+  .ps-num-block{display:none;}
+  .mini-cards,.two-cards{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:540px){
+  .perspective-map{grid-template-columns:repeat(2,1fr);}
+  .mini-cards,.two-cards{grid-template-columns:1fr;}
+}
   </style>
+<div id="progress"></div>
+<nav>
+  <div class="nav-logo">aitrics · 신사업전략부서</div>
+  <div class="nav-meta">Phase 2 검토사항 · 2026.03 · Confidential</div>
+</nav>
 
-  <!-- HERO -->
-  <section class="p2-hero">
-    <p class="p2-hero-kicker">핑크케어 PoC 회고 기반</p>
-    <h1 class="p2-hero-title">다질환 확장 + LLM 도입을 위한<br><em>Phase 2 검토사항 종합</em></h1>
-    <p class="p2-hero-subtitle">7개 관점별 PoC 학습 사항 및 다음 단계 고민 정리</p>
-    <div class="p2-hero-chips">
-      <span class="p2-chip">서비스 기획</span>
-      <span class="p2-chip">콘텐츠 기획</span>
-      <span class="p2-chip">법률·보안</span>
-      <span class="p2-chip">마케팅</span>
-      <span class="p2-chip">개발</span>
-      <span class="p2-chip">운영</span>
-      <span class="p2-chip">의료진</span>
-      <span class="p2-chip new">[NEW] PoC 회고 이후 추가</span>
-    </div>
-    <div class="p2-index-grid">
-      <a href="#p2-s1" class="p2-idx-card"><span class="p2-idx-num">01</span><span class="p2-idx-label">서비스 기획</span><div class="p2-idx-accent" style="background:var(--blue)"></div></a>
-      <a href="#p2-s2" class="p2-idx-card"><span class="p2-idx-num">02</span><span class="p2-idx-label">콘텐츠 기획</span><div class="p2-idx-accent" style="background:var(--green)"></div></a>
-      <a href="#p2-s3" class="p2-idx-card"><span class="p2-idx-num">03</span><span class="p2-idx-label">법률·보안</span><div class="p2-idx-accent" style="background:var(--red)"></div></a>
-      <a href="#p2-s4" class="p2-idx-card"><span class="p2-idx-num">04</span><span class="p2-idx-label">마케팅</span><div class="p2-idx-accent" style="background:var(--pink)"></div></a>
-      <a href="#p2-s5" class="p2-idx-card"><span class="p2-idx-num">05</span><span class="p2-idx-label">개발</span><div class="p2-idx-accent" style="background:var(--purple)"></div></a>
-      <a href="#p2-s6" class="p2-idx-card"><span class="p2-idx-num">06</span><span class="p2-idx-label">운영</span><div class="p2-idx-accent" style="background:var(--yellow)"></div></a>
-      <a href="#p2-s7" class="p2-idx-card"><span class="p2-idx-num">07</span><span class="p2-idx-label">의료진</span><div class="p2-idx-accent" style="background:var(--green)"></div></a>
-      <a href="#p2-closing" class="p2-idx-card"><span class="p2-idx-num">→</span><span class="p2-idx-label">실행 원칙</span><div class="p2-idx-accent" style="background:var(--blue)"></div></a>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-kicker">핑크케어 PoC 회고 기반</p>
+  <h1 class="hero-title"><span>Phase 2 검토사항 종합</span></h1>
+  <p class="hero-sub">의사결정 주제 기반 5-Chapter 재구조화 — PoC 인사이트 → 선행조건 → 제품설계 → 성장전략 → 측정</p>
 
-  <!-- 01 서비스 기획 -->
-  <section class="p2-section p2-reveal" id="p2-s1">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 01</p>
-      <span class="p2-section-tag" style="background:rgba(61,127,255,.1);color:var(--blue);border:1px solid rgba(61,127,255,.25);">서비스 기획 관점</span>
-      <h2 class="p2-section-title">UX의 중심이<br>화면에서 운영 정책으로</h2>
-    </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>핑크케어 PoC에서 서비스 기획의 역할이 공백 상태였다. PM이 직접 프로토타입을 만들고 스콥이 단일 기능으로 축소되면서 기획 담당자가 역할을 충분히 발휘하지 못했다. 또한 <strong style="color:var(--text)">"검사기록지가 hook이다"</strong>라는 원래 가설이 틀렸고, 실제로는 커뮤니티 안착 후 심화 기능으로 작동한다는 것을 알게 되었다. 유저 여정의 순서가 기획팀의 예상과 반대였다.</p>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--blue)"></span>서비스 기획 역할 재정의</div>
-      <div class="p2-sub-body">
-        <p>회고에서 <strong>"화면 정의서가 아니라 운영 정책 설계"</strong>가 기획의 핵심이라고 지적했다. 다질환 확장 시에는 이것이 훨씬 복잡해진다. 질환별로 유저 여정이 다르기 때문이다.</p>
-      </div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(255,110,180,.12)">🎗</div><div class="p2-list-card-text"><strong>유방암 환우</strong>진단 직후 공포에서 정보를 찾는다</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(167,139,250,.12)">🧠</div><div class="p2-list-card-text"><strong>공황장애 환자</strong>발작 시점에 즉각적 대응 정보를 찾는다</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(0,212,160,.12)">👶</div><div class="p2-list-card-text"><strong>소아성장</strong>환자가 아닌 부모가 주 사용자다</div></div>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--blue)"></span>AI-인간 전환 지점의 UX 설계</div>
-      <div class="p2-sub-body">
-        <p>LLM 에이전트가 들어오면 서비스 기획이 다뤄야 할 범위가 크게 늘어난다. "AI 답변이 화면에서 어떻게 표시되는가", "의료진 컨펌 전/후 답변의 UI 차이를 어떻게 보여주는가", "AI가 답변할 수 없는 영역에서 어떤 플로우로 의료진에게 넘기는가" 등 AI-인간 전환 지점의 UX를 기획해야 한다.</p>
-        <p>핑크케어에서 대화 주제 1위가 심리/감정(123건)이었던 점을 고려하면, <strong>AI가 정서적 대화에 개입하는 수위와 방식</strong>을 서비스 레벨에서 규정해야 한다.</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--blue)"></span>게시판 + 채팅 병행 구조</div>
-      <div class="p2-hl info">
-        <p><strong>🗂 게시판</strong> — 정보 아카이빙, 검사기록지 분석 결과 공유, 의료진 Q&A<br><br><strong>💬 채팅</strong> — 환우 간 실시간 정서적 지지, 급한 질문, 일상 공유</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--blue)"></span>보호자 기능</div>
-      <div class="p2-sub-body">
-        <p>회고에서 보호자가 발화자의 20%였고, 가장 밀도 높은 세션(세션 17, 46건)이 전이 4기 어머니를 둔 보호자 중심이었다. 소아성장이나 고령 환자 질환으로 확장하면 보호자 비율이 더 높아질 수 있으므로, <strong>보호자 전용 뷰나 기능을 처음부터 고려</strong>해야 한다.</p>
-      </div>
-    </div>
-  </section>
+  <!-- Phase 로드맵 -->
+  <div style="max-width:720px;width:100%;margin-bottom:48px;opacity:0;animation:fadeUp .65s ease forwards .35s;">
+    <div style="display:flex;align-items:center;gap:0;position:relative;">
 
-  <!-- 02 콘텐츠 기획 -->
-  <section class="p2-section p2-reveal" id="p2-s2">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 02</p>
-      <span class="p2-section-tag" style="background:rgba(0,212,160,.1);color:var(--green);border:1px solid rgba(0,212,160,.25);">콘텐츠 기획 관점</span>
-      <h2 class="p2-section-title">AI 시딩이 아닌<br>사람이 쓴 첫 글이 필요하다</h2>
-    </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>핑크케어에서 콘텐츠는 사실상 "환우들의 자발적 대화"와 "의료진의 간헐적 답변"이 전부였다. 별도의 콘텐츠 기획이나 시딩은 없었고, 그럼에도 커뮤니티가 형성된 것은 환우 네트워크의 힘이었다.</p>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--green)"></span>콜드스타트 해소: AI 시딩이 아닌 콘텐츠 작성자 확보</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">✍️</div><div class="p2-list-card-text"><strong>의료 콘텐츠 에디터</strong>의학 지식을 환자가 읽을 수 있는 수준으로 가공. LLM이 초안을 만들고 에디터가 검수·재가공</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(255,110,180,.12)">🌸</div><div class="p2-list-card-text"><strong>환우 콘텐츠 리더</strong>핑크케어에서 콩가님(130건), 귀하의채널(51건)이 자발적으로 수행한 역할. Phase 2에서는 명시적으로 설계하고 질환별 사전 확보 필요</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(0,212,160,.12)">🩺</div><div class="p2-list-card-text"><strong>의료진 콘텐츠 기고</strong>의료진 1인이 월 2~4건만 기고해도 커뮤니티 신뢰도에 큰 영향</div></div>
+      <!-- Phase 1 -->
+      <div style="flex:1;position:relative;">
+        <div style="background:var(--surface);border:1px solid #2a3550;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;transition:border-color .2s;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:.18em;margin-bottom:12px;">PHASE 1</div>
+          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(61,127,255,.12);color:var(--blue);border:1px solid rgba(61,127,255,.25);margin-bottom:14px;">완료</div>
+          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">핑크케어 PoC</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">유방암 단일 질환<br>오픈채팅 기반 검증</div>
+        </div>
       </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--green)"></span>의료진 답변의 콘텐츠 자산화</div>
-      <div class="p2-quote">
-        <p>"이전에 OO 교수님이 유사 질문에 이렇게 답변하셨습니다" — LLM이 기존 의료진 답변을 참조해 초안을 만드는 구조. 의료진의 4.2%가 만들어내는 가치가 기하급수적으로 확장된다.</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--green)"></span>질환별 콘텐츠 우선순위</div>
-      <div class="p2-stats">
-        <div class="p2-stat"><div class="p2-stat-val" style="color:var(--pink)">123건</div><div class="p2-stat-label">심리/감정 — 1위</div></div>
-        <div class="p2-stat"><div class="p2-stat-val" style="color:var(--blue)">117건</div><div class="p2-stat-label">항암/치료 — 2위</div></div>
-        <div class="p2-stat"><div class="p2-stat-val" style="color:var(--green)">101건</div><div class="p2-stat-label">정보공유 — 3위</div></div>
-        <div class="p2-stat"><div class="p2-stat-val" style="color:var(--yellow)">91건</div><div class="p2-stat-label">병기/진단 — 4위</div></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- 03 법률·보안 -->
-  <section class="p2-section p2-reveal" id="p2-s3">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 03</p>
-      <span class="p2-section-tag" style="background:rgba(255,92,106,.1);color:var(--red);border:1px solid rgba(255,92,106,.25);">법률·보안 관점</span>
-      <h2 class="p2-section-title">서비스 스콥을 법률로<br>먼저 정의해야 한다</h2>
-    </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>핑크케어는 오픈채팅 기반의 정보 공유 수준이었기 때문에 직접적 법적 이슈가 크지 않았다. 하지만 V.Care로 전환하면서 LLM이 의료 정보를 직접 제공하기 시작하면 법적 지형이 완전히 달라진다.</p>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--red)"></span>의료법상 "의료행위" 범위</div>
-      <div class="p2-hl warning">
-        <p>AI가 개인의 검사결과지를 분석해 수치별 의미를 설명하는 것이 의료행위에 해당하는지 여부를 <strong>법률 자문을 통해 명확히</strong> 해야 한다. 기획 단계에서 결정할 문제가 아니라, 법률 전문가의 의견을 먼저 받고 그에 맞춰 서비스 스콥을 조정해야 하는 사안이다.</p>
+      <!-- 화살표 -->
+      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;">
+        <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="8" x2="26" y2="8" stroke="#2a3550" stroke-width="1.5"/>
+          <polyline points="20,3 28,8 20,13" stroke="#2a3550" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--red)"></span>개인정보보호법 및 민감 의료정보</div>
-      <div class="p2-sub-body">
-        <p>V.Care는 자체 플랫폼이므로 환자의 검사기록, 병기, 치료 이력 등 민감 의료 정보를 직접 저장하게 된다. <strong>민감정보 수집·이용·저장에 대한 동의 절차, 데이터 암호화, 보관 기간</strong> 등을 처음부터 설계해야 한다.</p>
-        <p>특히 제안서의 최종 목표가 "커뮤니티 데이터로 의료 특화 LLM을 학습시키는 것"이라면, 사용자 동의 범위에 <strong>"AI 학습 활용"이 명시적으로 포함</strong>되어야 한다.</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--red)"></span>면책 고지 및 약관 설계</div>
-      <div class="p2-sub-body">
-        <p>"AI가 제공하는 정보는 의료적 조언이 아니며, 반드시 담당 의료진과 상의하세요"라는 고지가 법적으로 유효하려면 <strong>어느 수준의 명시성과 동의 절차</strong>가 필요한지를 법률 검토해야 한다.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- 04 마케팅 -->
-  <section class="p2-section p2-reveal" id="p2-s4">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 04</p>
-      <span class="p2-section-tag" style="background:rgba(255,110,180,.1);color:var(--pink);border:1px solid rgba(255,110,180,.25);">마케팅 관점</span>
-      <h2 class="p2-section-title">의료 커뮤니티는<br>철저히 당사자 마켓이다</h2>
-    </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>핑크케어의 마케팅은 의도적 비집행이었고, 환우 유튜버 단일 채널에 집중했다. <strong style="color:var(--text)">Paid CAC 0원</strong>을 달성했지만, UTM이 없어 유입 경로를 소급 추적할 수 없었다. 유입자 대부분이 당사자(환우 62%, 보호자 20%)로 구성되어 "의료 커뮤니티는 철저히 당사자 마켓"임이 증명되었다.</p>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--pink)"></span>질환별 유입 채널 전략</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(255,110,180,.12)">🎗</div><div class="p2-list-card-text"><strong>유방암</strong>암투병 유튜버 채널이 작동했다 — 검증된 방식</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">🏥</div><div class="p2-list-card-text"><strong>위암·대장암</strong>닥터앤서 3.0 PI 교수님 경유 가능</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(167,139,250,.12)">🧠</div><div class="p2-list-card-text"><strong>정신건강</strong>환우 유튜버도 적고 PI 교수 경유도 어려울 수 있다 — 별도 채널 매핑 필요</div></div>
+      <!-- Phase 2 -->
+      <div style="flex:1;position:relative;">
+        <div style="background:linear-gradient(135deg,rgba(0,212,160,.08),rgba(0,212,160,.03));border:1px solid rgba(0,212,160,.35);border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;box-shadow:0 0 32px rgba(0,212,160,.08);">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:.18em;margin-bottom:12px;">PHASE 2</div>
+          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(0,212,160,.15);color:var(--green);border:1px solid rgba(0,212,160,.35);margin-bottom:14px;">● 진행 중</div>
+          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">암종 3종 확장</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">유방암 · 위암 · 대장암<br>온코케어 플랫폼 런칭</div>
+        </div>
       </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--pink)"></span>SEO 기반 유입 설계</div>
-      <div class="p2-quote">
-        <p>"유방암 2기 항암 부작용"을 검색한 환자가 V.Care의 게시글을 발견하고 유입되는 구조 → 유튜버 의존도를 낮추면서 자체 유입 채널 확보</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--pink)"></span>채널별 전환율 추적</div>
-      <div class="p2-sub-body">
-        <p>팜플렛 QR, 유튜버 링크, SEO 유입, 지인 소개 등 모든 채널에 <strong>고유 UTM을 달아서</strong> 추적해야 한다. 닥터앤서 PI 교수님 경유 팜플렛에는 <strong>병원별·교수별 고유 QR/UTM</strong>을 각각 부여해야 한다.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- 05 개발 -->
-  <section class="p2-section p2-reveal" id="p2-s5">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 05</p>
-      <span class="p2-section-tag" style="background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.25);">개발 관점</span>
-      <h2 class="p2-section-title">웹 + 앱 동시 개발,<br>AI 에이전트는 3개부터</h2>
-    </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>개발팀은 촉박한 일정에도 안정적으로 구현을 완료했다. 하지만 기능 정의가 불완전한 상태에서 빠른 런칭을 강행하면서 의료진 로그인 플로우, 이미지 업로드 버그, 알림톡 연동 등이 PoC 기간 중 긴급 요청으로 계속 발생했다.</p>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--purple)"></span>웹 + 네이티브 앱 동시 개발</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">🌐</div><div class="p2-list-card-text"><strong>웹이 필요한 이유</strong>SEO 마케팅 기반. 게시판 콘텐츠가 구글·네이버에 노출되려면 웹 페이지가 필수. 의료진·운영자는 PC 환경에서 작업할 가능성이 높다.</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(167,139,250,.12)">📱</div><div class="p2-list-card-text"><strong>네이티브 앱이 필요한 이유</strong>환우와 보호자는 모바일 사용자다. 심야(23시~3시) 31건 메시지는 병상에서 스마트폰으로 접속하는 패턴.</div></div>
+      <!-- 화살표 -->
+      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;">
+        <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="8" x2="26" y2="8" stroke="#2a3550" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <polyline points="20,3 28,8 20,13" stroke="#2a3550" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-      <div class="p2-hl info" style="margin-top:14px;">
-        <p><strong>API 서버를 공유하되 클라이언트를 분리하는 아키텍처</strong>가 필요하다.</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--purple)"></span>AI 에이전트 우선순위 — 12개 중 3개부터</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(0,212,160,.12)">🔬</div><div class="p2-list-card-text"><strong>① 검사결과 분석 에이전트</strong>이미 검증된 니즈 — 최우선</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">🔗</div><div class="p2-list-card-text"><strong>② 유사 게시글 찾기 에이전트</strong>대화 루프 형성 촉진</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(255,92,106,.12)">🛡</div><div class="p2-list-card-text"><strong>③ 위험 감지 에이전트</strong>오정보 필터링, 신뢰 확보</div></div>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--purple)"></span>심야 시간대 대응</div>
-      <div class="p2-sub-body">
-        <p>23시~3시 사이에 31건의 메시지가 발생했다. <strong>의료진이나 운영자가 대응할 수 없는 시간대에 LLM 에이전트가 1차 응답</strong>을 제공하는 구조가 기술적으로 필요하다.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- 06 운영 -->
-  <section class="p2-section p2-reveal" id="p2-s6">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 06</p>
-      <span class="p2-section-tag" style="background:rgba(240,165,0,.1);color:var(--yellow);border:1px solid rgba(240,165,0,.25);">운영진 관점</span>
-      <h2 class="p2-section-title">PM 1인 운영의 한계,<br>코어 환우를 설계해야 한다</h2>
-    </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>핑크케어 운영자(aitrics)가 발신자 1위(234건)였다. 자생 세션이 48%에 도달했지만, 이것은 17일간 운영자가 매일 강도 높게 참여한 결과다. <strong style="color:var(--text)">PM 1인이 운영을 흡수하면서 번아웃 리스크가 발생했다.</strong></p>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--yellow)"></span>운영 인력 스케일링 모델</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">🤖</div><div class="p2-list-card-text"><strong>옵션 1</strong>소수 운영자 + LLM이 운영 업무 상당 부분 자동화(새 유저 환영, FAQ 응답, 게시글 분류 등)</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(255,110,180,.12)">🌸</div><div class="p2-list-card-text"><strong>옵션 2</strong>질환별 코어 유저를 커뮤니티 매니저로 전환</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(0,212,160,.12)">🗂</div><div class="p2-list-card-text"><strong>옵션 3</strong>질환을 2~3개씩 묶어 하나의 운영자가 관리하는 클러스터 운영</div></div>
+      <!-- Phase 3 -->
+      <div style="flex:1;position:relative;">
+        <div style="background:var(--surface);border:1px solid #2a3550;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;opacity:.7;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--pink));"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--purple);letter-spacing:.18em;margin-bottom:12px;">PHASE 3</div>
+          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);margin-bottom:14px;">예정</div>
+          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">전 질환 확장</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">각종 암종 + 만성질환<br>(당뇨·심부전) + 정신건강<br>(우울증·공황장애)</div>
+        </div>
       </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--yellow)"></span>코어 환우를 어떻게 만들 것인가</div>
-      <div class="p2-hl success">
-        <p>코어 환우에게 제공할 가치 — <strong>금전적 인센티브보다:</strong> "의료진과의 직접 소통 채널", "최신 논문·임상시험 정보 우선 제공", "V.Care 서비스 방향에 대한 자문 참여" 등 정보적·심리적 가치가 더 강한 동기가 된다.</p>
-      </div>
-    </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--yellow)"></span>KPI 재설계</div>
-      <div class="p2-sub-body">
-        <p>다음 단계에서는 <strong>유입 → 가입 → 첫 발화 → 코어 유저화 → 데이터 제공의 퍼널 전환율</strong>을 처음부터 추적해야 한다. LLM 답변 만족도, AI 답변 후 의료진 컨펌까지 리드타임 등 <strong>AI 관련 품질 지표</strong>도 새로 설계해야 한다.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- 07 의료진 -->
-  <section class="p2-section p2-reveal" id="p2-s7">
-    <div class="p2-section-header">
-      <p class="p2-section-num">Perspective · 07</p>
-      <span class="p2-section-tag" style="background:rgba(0,212,160,.1);color:var(--green);border:1px solid rgba(0,212,160,.25);">의료진 관점</span>
-      <h2 class="p2-section-title">4.2%가 만들어낸<br>2~14배의 활성화</h2>
     </div>
-    <div class="p2-learned p2-reveal p2-reveal-d1">
-      <p>의료진(김성일) 참여가 전체 메시지의 4.2%(34건)에 불과했지만, 답변 직후 커뮤니티 활성도가 2~14배로 급증했다. <strong style="color:var(--text)">의료진 답변은 양이 아니라 존재 자체가 커뮤니티의 신뢰와 활성화를 결정하는 핵심 요소</strong>라는 것이 데이터로 증명되었다.</p>
+  </div>
+
+  <div class="perspective-map" style="grid-template-columns:repeat(4,1fr);">
+    <a href="#ch1-anchor" class="pm-item"><span class="pm-num">Ch 1</span><span class="pm-label">PoC에서<br>배운 것</span></a>
+    <a href="#ch2-anchor" class="pm-item"><span class="pm-num">Ch 2</span><span class="pm-label">먼저<br>결정할 것</span></a>
+    <a href="#ch3-anchor" class="pm-item"><span class="pm-num">Ch 3</span><span class="pm-label">무엇을<br>만드는가</span></a>
+    <a href="#ch4-anchor" class="pm-item"><span class="pm-num">Ch 4</span><span class="pm-label">어떻게<br>사람 모으는가</span></a>
+  </div>
+</section>
+
+<!-- CH1 HERO -->
+<div class="ch-divider reveal" id="ch1-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(61,127,255,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--blue), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--blue);">Chapter 1</p>
+      <h2 class="ch-divider-title">PoC에서<br>배운 것</h2>
+      <p class="ch-divider-desc">17일간의 핑크케어 오픈채팅이 남긴 데이터. Phase 2의 모든 결정이 여기서 출발한다.</p>
     </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--green)"></span>의료진 유입 방안</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">🏥</div><div class="p2-list-card-text"><strong>닥터앤서 3.0 PI 교수님 라인</strong>위암·대장암은 과제 참여 PI 교수님과 전공의·전임의를 연결. 과제의 환자 모니터링 도구로 V.Care를 포지셔닝</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(0,212,160,.12)">🔬</div><div class="p2-list-card-text"><strong>학회·연구회 연계</strong>질환별 학회에서 디지털 헬스케어에 관심 있는 의료진 발굴. 학회 발표 기회나 공동 연구 제안이 참여 동기</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(167,139,250,.12)">👨‍⚕️</div><div class="p2-list-card-text"><strong>전공의·전임의 타겟팅</strong>교수급보다 디지털 헬스케어에 관심 있는 젊은 의료진이 더 적극적일 수 있다</div></div>
+    <div class="ch-divider-num" style="color:var(--blue);">01</div>
+  </div>
+</div>
+
+
+<section class="ps c-blue reveal" id="ch1">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--yellow)">06</div>
+      <div class="ps-num-line" style="background:var(--yellow)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--blue)">Ch 1 · PoC에서 배운 것</p>
+      <h2 class="ps-title">사람들을 모은 것은<br>기능이 아니라 <span style="color:var(--blue);">사람</span>이었다</h2>
+      <div class="ps-core" style="border-color:var(--yellow)">
+        운영자가 발신 1위(234건)였고, 의료진 답변 4.2%가 활성도를 2~14배 만들었다. <strong>PoC의 모든 데이터가 가리키는 방향은 하나다 — 기능이 아닌 신뢰받는 사람이 커뮤니티를 만든다.</strong>
       </div>
     </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--green)"></span>의료진 참여 인센티브 구조</div>
-      <div class="p2-list-cards">
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(61,127,255,.12)">📄</div><div class="p2-list-card-text"><strong>학술적 가치</strong>커뮤니티에서 축적된 PRO 데이터를 공동 연구로 활용할 수 있는 기회 제공</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(0,212,160,.12)">👁</div><div class="p2-list-card-text"><strong>환자 모니터링</strong>본인의 환자가 퇴원 후 어떤 경험을 하는지를 커뮤니티를 통해 간접적으로 파악</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(240,165,0,.12)">⚡</div><div class="p2-list-card-text"><strong>LLM 보조</strong>AI가 답변 초안을 만들어주므로 의료진은 검토·수정만 하면 되어 시간 부담이 크게 줄어듦</div></div>
-        <div class="p2-list-card"><div class="p2-list-card-icon" style="background:rgba(167,139,250,.12)">✨</div><div class="p2-list-card-text"><strong>브랜딩</strong>"OO 교수의 검증된 답변"이라는 형태로 커뮤니티 내 전문가 프로필 구축</div></div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">코어 환우를 의도적으로 설계·육성해야 한다</div>
+      <div class="ps-item-body">
+        <p>콩가님(130건), 귀하의채널(51건)은 자발적으로 등장했다. 다질환 확장에서는 <strong>매 질환마다 이 행운을 기대할 수 없다.</strong></p>
+        <div class="em-box em-yellow" style="margin-top:12px;">
+          코어 환우에게 줄 가치: <strong>금전적 인센티브 ✗</strong> — "의료진과의 직접 소통 채널", "최신 임상·논문 정보 우선 제공", "서비스 방향 자문 참여" 등 정보적·심리적 가치가 더 강한 동기가 된다.
+        </div>
       </div>
     </div>
-    <div class="p2-sub p2-reveal">
-      <div class="p2-sub-title"><span class="p2-sub-dot" style="background:var(--green)"></span>의료진 프레이밍</div>
-      <div class="p2-quote">
-        <p>"의료진을 대체하는 것이 아니라 의료진의 도달 범위를 확장하는 것" — Phase 2에 참여할 의료진과 LLM의 역할과 한계에 대해 충분히 사전 소통해야 한다.</p>
+
+    <div class="ps-item">
+      <div class="ps-item-title">환우가 원하는 것은 위로가 아니라 희소식이었다</div>
+      <div class="ps-item-body">
+        <div class="fs-quote" style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 28px;position:relative;">
+          <div style="font-size:48px;line-height:.8;position:absolute;top:12px;left:16px;opacity:.15;color:var(--blue);">"</div>
+          <p style="font-size:15px;color:var(--text);line-height:1.85;padding-left:24px;font-weight:500;">그 어떤 위로의 말보다 신약 개발과 새로운 임상이 열리는 소식이 가장 큰 힘이 됩니다</p>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:8px;padding-left:24px;">— 귀하의채널 (핑크케어 오픈채팅 · 51건 발화)</p>
+        </div>
+        <p style="margin-top:14px;">공감과 위로는 커뮤니티의 기본값이다. 하지만 환우가 진짜 원하는 것은 <strong>자신의 상황을 바꿀 수 있는 정보</strong>였다. 신약·임상 정보는 단순한 콘텐츠가 아니라 — 환자에게는 생존 가능성의 확장이다. 온코케어가 기존 커뮤니티와 달라야 하는 이유가 여기 있다.</p>
       </div>
     </div>
-  </section>
 
-  <!-- CLOSING -->
-  <section class="p2-closing p2-reveal" id="p2-closing">
-    <h2 class="p2-closing-title">7개 관점을 한꺼번에<br>해결하려 하지 말 것.<br><em>그것 자체가 진짜 실패다.</em></h2>
-    <p class="p2-closing-desc">
-      핑크케어 PoC의 가장 중요한 교훈은 "원래 가설은 틀렸지만 더 중요한 것을 발견했다"는 것이었고,
-      이것이 가능했던 이유는 17일이라는 짧은 기간에 최소 자원으로 부딪혀봤기 때문이다.<br><br>
-      각 관점에서 <strong>"Phase 2 첫 2주 안에 반드시 결정해야 하는 것"</strong>과
-      <strong>"운영하면서 점진적으로 개선할 것"</strong>을 나누는 것이 실행의 출발점이 되어야 한다.
-    </p>
-    <div class="p2-closing-motto"><span>Prove</span> or Pivot.</div>
-  </section>
+    <div class="ps-item">
+      <div class="ps-item-title">환우가 환우를 가르친다 — 경험 지식의 전문성</div>
+      <div class="ps-item-body">
+        <p>콩가님이 아두리님에게 자연치유 위험성을 설명하고, 4기 수술 가능성을 본인 경험으로 답하고, 도세탁셀 부작용이 맥쿨 때문이라는 걸 알려주는 장면들이 반복됐다. 귀하의채널님도 호중구 수치를 아이패드에 직접 정리해서 공유했다. 이건 의료진도 못 주는 <strong>"경험 기반 임상 지식"</strong>이다. Phase 2에서 이 환우 경험 지식을 구조화된 콘텐츠로 아카이빙하는 설계가 필요하다.</p>
+      </div>
+    </div>
 
-  <footer class="p2-footer">
-    <div class="p2-footer-logo">aitrics · 신사업전략부서</div>
-    <div class="p2-footer-meta">2026.03 · Confidential · Internal Use Only</div>
-  </footer>
+    <div class="ps-item">
+      <div class="ps-item-title">진단 직후~수술 대기 구간이 가장 불안하고, 가장 많이 말한다</div>
+      <div class="ps-item-body">
+        <p>말년복님(수술준비중)이 이 채팅방에서 가장 활발한 발화자 중 하나인데, 아직 치료도 시작 안 한 분이다. "지옥이 이럴까 싶어요", "모래성을 쌓은 느낌", "기다림에 지치고 두렵고" — 진단 후 수술까지의 공백 기간에 정보도 없고 할 수 있는 것도 없어서 가장 불안하다. <strong>이 "대기 구간" 환우가 커뮤니티 초기 유입의 핵심 타깃이 될 수 있다.</strong></p>
+      </div>
+    </div>
 
-  <script>
-  (function(){
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.07 });
-    document.querySelectorAll('#page-pinkcare-nextstep .p2-reveal').forEach(function(el){ obs.observe(el); });
-  })();
-  </script>
+    <div class="ps-item">
+      <div class="ps-item-title">환우들은 이미 AI를 쓰고 있다 — 그런데 못 믿는다</div>
+      <div class="ps-item-body">
+        <p>귀하의채널님이 "물어볼 곳이 없어서 누워서 챗GPT와 마이크로 대화했다"고 하고, 콩가님이 "AI가 틀린 적이 한두 번이 아니라서 더블체크한다"고 말했다. 환우들이 이미 범용 AI를 의료 상담에 쓰고 있지만 신뢰하지는 못하는 상태다. <strong>이건 온코케어의 MOCA 엔진이 "범용 AI와 다른 의료 특화 AI"로 포지셔닝할 수 있는 직접적 근거다.</strong></p>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">의료진 존재가 유입 동기이자 기대 관리 리스크다</div>
+      <div class="ps-item-body">
+        <p>태양님이 "의료AI면 정밀하게 상담! 믿을만하네요"라고 반응하는 반면, 지니님은 "유방암 전문 커뮤니티라 해서 유방외과 의료진이 계신 줄 알았습니다"라고 실망했다. 사라님은 "상담도 못하면 왜?"라고 반발했다. 의료진 존재가 유입의 핵심 동기이면서 동시에 기대치 불일치 시 이탈 원인이 된다. <strong>Phase 2에서 "의료진이 할 수 있는 것 / 못하는 것"의 명확한 온보딩 설계가 필수다.</strong></p>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">병기가 섞이면 감정 충돌이 생긴다 — in 코호트 분리의 근거</div>
+      <div class="ps-item-body">
+        <p>1기 수술 대기 환우(말년복님)와 전이 4기 환우(콩가님, 얍!님)가 같은 공간에 있을 때 미묘한 온도차가 보였다. 얍!님의 "어차피 인생은 유한하니 오늘을 신나게 보내세요"는 4기 환우의 진심이지만 1기 환우에게는 받아들이기 어려운 말이다. 콩가님도 인스타에서 <strong>"1기 환우가 4기 앞에서 불안을 말할 때 4기는 마음이 불편할 수 있다"</strong>고 직접 언급한 적 있다. 이것이 in 코호트 분리의 실제 근거다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 의료진 -->
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">PoC에서 배운 핵심이 확인됐다면, Phase 2를 시작하기 전에 반드시 끝내야 할 선행조건 2가지를 결정해야 한다.</div></div>
+<!-- CH2 HERO -->
+<div class="ch-divider reveal" id="ch2-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(255,92,106,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--red), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--red);">Chapter 2</p>
+      <h2 class="ch-divider-title">먼저<br>결정해야 할 것</h2>
+      <p class="ch-divider-desc">제품을 만들기 전에 반드시 끝내야 하는 선행조건. 이것이 안 끝나면 나머지 실행이 전부 멈춘다.</p>
+    </div>
+    <div class="ch-divider-num" style="color:var(--red);">02</div>
+  </div>
+</div>
+
+
+<section class="ps c-red reveal" id="ch2-1">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--red)">03</div>
+      <div class="ps-num-line" style="background:var(--red)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--red)">Ch 2 · 먼저 결정해야 할 것</p>
+      <h2 class="ps-title">법률 자문이<br>서비스 설계보다 먼저다</h2>
+      <div class="ps-core" style="border-color:var(--red)">
+        AI의 검사결과지 분석이 "의료행위"에 해당하는지 여부를 <strong>법률 전문가가 먼저 정의해야 한다.</strong> 이것이 끝나야 제품 스콥을 확정할 수 있다.
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">AI의 검사결과지 분석이 "의료행위"인지 법률 자문이 필요하다</div>
+      <div class="ps-item-body">
+        <p>"일반적인 의학 정보 제공"과 "개인에 대한 의료적 판단"의 경계를 어디에 그을 것인지가 핵심이다. 기획 단계에서 결정할 문제가 아니라, <strong>법률 전문가 의견 → 서비스 스콥 조정</strong> 순으로 가야 한다.</p>
+
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">민감 의료정보 수집·저장·AI 학습 활용 동의를 설계해야 한다</div>
+      <div class="ps-item-body">
+        <p>최종 목표가 "커뮤니티 데이터로 의료 특화 LLM을 학습시키는 것"이라면, 사용자 동의 범위에 <strong>"AI 학습 활용"이 명시적으로 포함</strong>되어야 한다. 이것이 환우들에게 어떤 인상을 줄지도 함께 고려해야 한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH3 HERO -->
+<div class="ch-divider reveal" id="ch3-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(167,139,250,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--purple), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--purple);">Chapter 3</p>
+      <h2 class="ch-divider-title">무엇을<br>만드는가</h2>
+      <p class="ch-divider-desc">플랫폼 형태, AI 에이전트, 질환별 설계, 콘텐츠 정책. Phase 2에서 만들 것의 전체 그림.</p>
+    </div>
+    <div class="ch-divider-num" style="color:var(--purple);">03</div>
+  </div>
+</div>
+
+
+<!-- 04 마케팅 -->
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 32px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">법률 검토가 완료되면 "Phase 2에서 무엇을 만드는가"를 확정할 수 있다.</div></div>
+
+<section class="ps c-purple reveal" id="ch3-1">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--purple)">04</div>
+      <div class="ps-num-line" style="background:var(--purple)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--purple)">Ch 3 · 무엇을 만드는가</p>
+      <h2 class="ps-title">오픈채팅의 페인포인트를<br>AI로 해결 — 5가지 에이전트</h2>
+      <div class="ps-core" style="border-color:var(--purple)">
+        오픈채팅방에서 직접 경험한 문제들 — 대화 혼잡, 의료진 부담, 신뢰 부족, 정보 빈곤 — 각각을 전담 AI 에이전트로 해결합니다. <strong>인원이 늘어도 품질은 유지됩니다.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">5가지 에이전트 — 페인포인트별 1:1 대응</div>
+      <div class="ps-item-body">
+        <div class="mini-cards" style="grid-template-columns:repeat(5,1fr)">
+          <div class="mini-card">
+            <div class="mc-icon">🔭</div>
+            <div class="mc-title">AGENT 01 · 임상·신약 큐레이션</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--green);font-size:11px;">가장 큰 힘이 되는 정보</div>
+            <div class="mc-desc">최신 임상시험·신약 소식을 환우 상태에 맞게 매칭해 제공. "그 어떤 위로보다 희소식이 힘이 된다"는 환우의 말에서 출발한 에이전트.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">🔬</div>
+            <div class="mc-title">AGENT 02 · 검사결과 해석</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">의료진이 계속 답변하면 로딩 과다</div>
+            <div class="mc-desc">검사지를 업로드하면 AI가 서술형으로 먼저 해석. 의료진은 초안을 컨펌하는 Human-in-Loop 구조. 전문 용어를 알기 쉬운 말로 풀어줍니다.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">✍️</div>
+            <div class="mc-title">AGENT 03 · 초안 답변 작성</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">의료진의 답변 부담으로 참여 저조</div>
+            <div class="mc-desc">커뮤니티 질문글이 올라오면 Evidence 기반 답변 초안을 자동 생성. 의료진은 확인·수정·컨펌만 합니다. 신뢰도와 참여율을 동시에 높입니다.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">📋</div>
+            <div class="mc-title">AGENT 04 · 대화 목록 관리</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">100명+ 되면 대화가 뒤죽박죽</div>
+            <div class="mc-desc">유저의 체류 이력·관심 패턴을 분석해 관련 글을 상단 노출. 복잡해지는 멀티스레드 대화를 구조화합니다. 규모가 커져도 개인화된 피드를 유지합니다.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-icon">📡</div>
+            <div class="mc-title">AGENT 05 · 최신 정보 큐레이션</div>
+            <div class="mc-desc" style="margin-bottom:8px;color:var(--red);font-size:11px;">환자들은 얻기 힘든 전문 정보를 원함</div>
+            <div class="mc-desc">최신 논문·학회 자료·저널을 실시간 수집·요약해 커뮤니티에 공급. 전문가의 컨펌을 받은 신뢰도 높은 정보를 자동으로 제공합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">AI를 넣는 이유 3가지</div>
+      <div class="ps-item-body">
+        <div class="mini-cards">
+          <div class="mini-card"><div class="mc-icon">🚀</div><div class="mc-title">① 확장성</div><div class="mc-desc">인력 없이 복수 질환으로 확장 가능</div></div>
+          <div class="mini-card"><div class="mc-icon">⚡</div><div class="mc-title">② 효율성</div><div class="mc-desc">의료진·운영 부담 최소화</div></div>
+          <div class="mini-card"><div class="mc-icon">🛡</div><div class="mc-title">③ 신뢰성</div><div class="mc-desc">데이터·근거 기반 대화 품질 유지</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">PoC 인사이트별 해결방안</div>
+      <div class="ps-item-body" style="margin-top:8px;">
+
+        <!-- 스타일 -->
+        <style>
+          .insight-table { display:flex; flex-direction:column; gap:12px; }
+          .it-row { border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+          .it-head { display:grid; grid-template-columns:36px 1fr; background:var(--surface2); border-bottom:1px solid var(--border); }
+          .it-num { padding:14px 0; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); border-right:1px solid var(--border); }
+          .it-insight { padding:14px 18px; font-size:14px; font-weight:700; color:var(--text); letter-spacing:-.01em; }
+          .it-body { display:grid; grid-template-columns:1fr 1fr; }
+          .it-simp { padding:14px 18px; border-right:1px solid var(--border); }
+          .it-sol  { padding:14px 18px; }
+          .it-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.15em; text-transform:uppercase; margin-bottom:8px; }
+          .it-simp .it-label { color:var(--blue); }
+          .it-sol  .it-label { color:var(--green); }
+          .it-text { font-size:12.5px; color:var(--text-muted); line-height:1.8; }
+          .it-text strong { color:var(--text); }
+          .it-text li { margin-left:14px; margin-bottom:4px; }
+          @media(max-width:720px){ .it-body{ grid-template-columns:1fr; } .it-simp{ border-right:none; border-bottom:1px solid var(--border); } }
+        </style>
+
+        <div class="insight-table">
+
+          <!-- 01 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">01</div>
+              <div class="it-insight">코어 환우를 의도적으로 설계·육성해야 한다</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">콩가님·귀하의채널은 행운이었다. 다질환 확장 시 매 질환마다 이 행운을 기대할 수 없다. 코어 환우의 등장을 <strong>"우연"에서 "시스템"으로</strong> 전환해야 한다.</div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① 질환별 영향력 유튜버 사전 섭외</strong><br>유방암·위암·대장암 각 질환의 암투병 유튜버를 리스트업하고 직접 컨택. 이들이 원하는 건 크지 않은 고정 수익 + 본인 영향력 과시.</p>
+                  <p style="margin-bottom:10px;"><strong>② "앰배서더" 위촉 계약 체결</strong><br>코어 환우로서의 R&R을 명확히 정의한 계약. 주간 경험 공유글 작성, 신규 환우 온보딩, 위험 콘텐츠(민간요법 등) 1차 필터링 등 구체적 역할 명시. <strong>질환당 2~3명 복수 위촉</strong>으로 콩가님 의존 구조 반복 방지. 계약서에 "의학적으로 검증되지 않은 치료법 권유 금지" 조항 + 문제 발생 시 위촉 해제 절차 사전 명시.</p>
+                  <p style="margin-bottom:10px;"><strong>③ 앰배서더 위촉 행사 개최</strong><br>암환우·기자 초청 행사. 위촉식 + aitrics 지능형 의료 커뮤니티 소개. 앰배서더는 영향력 과시, aitrics는 PR. 이 행사 자체가 뉴스가 되어 추가 유입 채널이 된다.</p>
+                  <p><strong>④ 행사를 "콘텐츠"로 확장</strong><br>위촉 행사 현장 영상을 앰배서더 유튜브 채널에도 업로드 → 각 채널 구독자에게 온코케어 자연 노출. 콩가님이 인스타에 자발적으로 핑크케어를 홍보한 것을 공식화·구조화하는 것이다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">02</div>
+              <div class="it-insight">환우가 원하는 것은 위로가 아니라 희소식이었다</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">공감·위로는 커뮤니티의 기본값이지 차별점이 아니다. 환우에게 진짜 힘이 되는 건 <strong>"나에게 해당되는 구체적 희소식"</strong> — 신약·임상·새로운 치료 옵션. 이것이 온코케어가 기존 환우 카페와 달라야 하는 이유.</div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① AGENT 01 임상·신약 큐레이션 에이전트로 해결</strong><br>ClinicalTrials.gov·KCTI 등 공공 데이터를 기반으로, 환우의 병기·타입·치료 이력에 맞는 임상시험·신약 정보를 자동 매칭해서 알림. 콩가님이 운영자에게 "교수님이 임상 열린다고 했는데 알아봐달라"고 한 그 순간을 시스템화하는 것.</p>
+                  <p style="margin-bottom:10px;"><strong>② AGENT 05 최신 정보 큐레이션 에이전트와 연동</strong><br>최신 논문·학회 발표를 스캔 → 카드뉴스로 재가공 → 질환·타입별 커뮤니티에 배포. 핑크케어 운영자가 수동으로 하던 것(키트루다 정리, 자니다타맙 논문 정리)을 자동화.</p>
+                  <p><strong>③ "나와 같은 타입" 필터가 핵심</strong><br>삼중음성 환우에게 허투양성 신약 뉴스를 보내면 소용없다. 가입 시 병기·타입을 입력받아 <strong>내 타입 정보가 먼저 오는 개인화 피드</strong>를 구성하는 것이 에이전트의 핵심 로직이 되어야 한다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">03</div>
+              <div class="it-insight">환우가 환우를 가르친다 — 경험 지식의 전문성</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">채팅에서 흘러가는 경험 지식(콩가님의 "맥쿨 부작용", 귀하의채널님의 "호중구 수치 패턴 정리")은 의료진도 못 주는 실전 지식이다. 이 지식은 <strong>실시간성보다 누적·검색·재활용이 중요</strong>하다. 채팅만으로는 자산이 안 된다.</div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① 채팅 + 게시판 이중 구조</strong><br>채팅은 정서적 지지·급한 질문용(흐르는 대화), 게시판은 경험 지식의 축적·검색용(쌓이는 정보). 두 채널의 역할이 명확히 다르다.</p>
+                  <p style="margin-bottom:10px;"><strong>② 채팅 → 게시판 승격 시스템</strong><br>채팅에서 유의미한 경험 공유가 나오면, 코어 환우·운영자가 "이거 게시판에 올려도 될까요?"로 승격. 채팅의 휘발성을 게시판의 영속성으로 전환.</p>
+                  <p style="margin-bottom:10px;"><strong>③ 게시판 콘텐츠의 SEO 노출</strong><br>"도세탁셀 심장 두근거림", "호중구 수치 떨어졌을 때" 같은 키워드로 구글·네이버에 노출. 환우가 검색 → 온코케어 게시글 발견 → 유입. 경험 지식이 곧 마케팅 자산이 된다.</p>
+                  <p><strong>④ 경험 지식 신뢰도 3단계 뱃지</strong><br>게시판 콘텐츠에 뱃지를 부여한다: <strong>"환우 경험"</strong>(개인 경험 공유) → <strong>"다수 공감"</strong>(10명 이상 공감) → <strong>"의료진 확인"</strong>(의료진이 컨펌). 경험 공유의 자유도를 유지하면서도 정보 신뢰도를 시각적으로 구분.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">04</div>
+              <div class="it-insight">진단 직후~수술 대기 구간이 가장 불안하고 가장 말이 많다</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">말년복님처럼 아직 치료도 시작 안 한 환우가 가장 활발한 발화자. "지옥이 이럴까 싶어요", "모래성을 쌓은 느낌" — 진단 후 수술까지 공백 기간에 정보도 없고 할 수 있는 것도 없어서 가장 불안하다. <strong>이 구간이 초기 유입 핵심 타깃이자, 코호트 분리의 근거</strong>가 된다.</div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① SEO 키워드 전략: 진단 직후 검색어 타깃</strong><br>"유방암 진단 받았는데", "조직검사 결과 기다리는 중", "유방암 수술 전 뭐 해야 하나". 이 키워드로 온코케어 게시글을 노출시키면, 가장 불안하고 가장 말 많은 환우가 자연 유입된다.</p>
+                  <p style="margin-bottom:10px;"><strong>② "수술 준비중" 전용 코호트 채팅방</strong><br>in 코호트와 연결. 같은 상황의 환우끼리 연결되면 "나만 이런 게 아니구나"라는 안도감이 생기고, 이것 자체가 강력한 리텐션 요인이 된다.</p>
+                  <p style="margin-bottom:10px;"><strong>③ 진단 직후 가이드 콘텐츠 시리즈</strong><br>"유방암 진단 후 지금 알아야 할 5가지", "조직검사 결과지 읽는 법" 등. 말년복님이 "아는 게 아무것도 없습니다"라고 한 그 순간에 건네야 하는 콘텐츠.</p>
+                  <p><strong>④ 앰배서더 유튜브 × SEO 이중 파이프라인</strong><br>앰배서더 유튜버가 "진단 직후 뭐 했는지" 경험담 영상을 올리고, 영상 설명란에 온코케어 링크를 삽입. 유튜브 검색에서도, 온코케어 게시판 SEO에서도 동시에 유입되는 구조. 핑크케어 PoC에서 콩가님 인스타가 자발적으로 만든 유입 구조를 공식 전략으로 설계하는 것이다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 05 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">05</div>
+              <div class="it-insight">환우들은 이미 AI를 쓰고 있다 — 그런데 못 믿는다</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">귀하의채널님 "물어볼 곳이 없어서 챗GPT와 마이크로 대화했다", 콩가님 "AI가 틀린 적이 한두 번이 아니라서 더블체크한다". 범용 AI를 의료 상담에 쓰지만 신뢰하지 못한다. 문제는 AI의 존재가 아니라 <strong>신뢰의 부재</strong>다. MOCA 포지셔닝의 직접적 근거.</div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① "의료진이 인증한 AI 답변" 기능 구현</strong><br>MOCA가 1차 답변 생성 → 의료진이 검토·컨펌 → "✅ 의료진 검증됨" 뱃지 표시. 챗GPT와의 결정적 차별점을 시각적으로 보여준다. 의료진은 초안을 확인·수정만 하면 되므로 답변 효율도 확보.</p>
+                  <p style="margin-bottom:10px;"><strong>② AI 답변에 근거 출처 명시</strong><br>모든 AI 답변에 논문·가이드라인 출처를 링크. "AI가 뭘 근거로 이 말을 하는지" 보이면 신뢰가 달라진다. 콩가님이 "구글링으로 더블체크"하던 행동을 AI 답변 안에서 해결.</p>
+                  <p><strong>③ 답변 유형별 3단계 등급 분리</strong><br>모든 답변에 의료진 컨펌을 붙이면 병목이 생긴다.<br>— <strong>자동 제공</strong>: 일반 의학 상식, 약물 기본 정보. AI만으로 충분.<br>— <strong>AI 생성 + 의료진 컨펌 필요</strong>: 개인 검사결과 해석, 치료 옵션 비교. 반드시 Human-in-Loop.<br>— <strong>의료진 직접 답변</strong>: 민감 상황, 전이·여명 관련.<br>이렇게 나누면 의료진은 진짜 필요한 곳에만 집중할 수 있다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 06 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">06</div>
+              <div class="it-insight">의료진 존재가 유입 동기이자 기대 관리 리스크다</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">태양님 "의료AI면 정밀하게 상담! 믿을만하네요" vs 지니님 "유방외과 의료진이 계신 줄 알았습니다" vs 사라님 "상담도 못하면 왜?". "의료진이 있다"는 사실이 유입 핵심 동기이면서, 기대치 불일치 시 이탈 원인이 된다. <strong>동시에 의료진 모객 자체도 어렵다.</strong></div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① 기대치 온보딩 설계</strong><br>입장 시 첫 화면에 명확히: "✅ 받을 수 있는 것: 검사결과 수치 설명, 신약·임상 정보, 같은 병기 환우 연결 / ❌ 받을 수 없는 것: 진료·진단·처방·개인 상담"</p>
+                  <p style="margin-bottom:10px;"><strong>② 의료진 보상 체계: PRO 데이터 공유</strong><br>일정 활동 수준 이상의 의료진에게 커뮤니티에서 축적된 PRO(Patient-Reported Outcomes) 데이터를 연구용으로 공유. 의료진에게 "논문 쓸 수 있는 데이터"는 금전보다 강한 인센티브.</p>
+                  <p style="margin-bottom:10px;"><strong>③ 의료진 참여 구조를 3단계로 설계</strong><br>— <strong>Tier 1 사내 의료진(상시)</strong>: 기본 Q&A 답변, AI 초안 컨펌.<br>— <strong>Tier 2 닥터앤서 3.0 PI 교수진(주간)</strong>: 주 1~2회 전문 질문 답변. 보상: PRO 데이터 + 공동 연구 기회.<br>— <strong>Tier 3 세부 전문의(월간 자문)</strong>: 월 1회 Q&A 세션. 앰배서더 위촉 행사에 함께 초청.</p>
+                  <p><strong>④ 사내 의료봉사 홍보</strong><br>aitrics 사내 의료진의 커뮤니티 의료봉사를 게시판 고정 게시물로 게시. ESG 관점에서도 가치가 있고, 정부 사업·병원 파트너십 협상에서도 레퍼런스가 된다. 봉사 활동을 카드뉴스·영상으로 만들어 앰배서더 채널에 배포하면 유입 콘텐츠로도 작동.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 07 -->
+          <div class="it-row">
+            <div class="it-head">
+              <div class="it-num">07</div>
+              <div class="it-insight">병기가 섞이면 감정 충돌이 생긴다 — in 코호트의 근거</div>
+            </div>
+            <div class="it-body">
+              <div class="it-simp">
+                <div class="it-label">시사점</div>
+                <div class="it-text">얍!님의 "어차피 인생은 유한하니 오늘을 신나게 보내세요"는 4기 환우의 진심이지만 1기 환우에게는 받아들이기 어렵다. 콩가님도 인스타에서 "1기 환우가 4기 앞에서 불안을 말할 때 4기는 마음이 불편할 수 있다"고 직접 언급. 정보 요구사항도, 감정의 온도도 다르다.</div>
+              </div>
+              <div class="it-sol">
+                <div class="it-label">해결방안</div>
+                <div class="it-text">
+                  <p style="margin-bottom:10px;"><strong>① in 코호트 — 치료 단계별 분리 채팅</strong><br>"수술 준비중", "선항암 중", "표적치료 중", "전이 4기" 등 치료 단계별 소그룹 채팅. 같은 깊이의 대화가 가능하고, 감정 온도가 맞는 사람끼리 연결.</p>
+                  <p style="margin-bottom:10px;"><strong>② 전체 광장(통합 공간) 병행</strong><br>유방암 전체 뉴스, 신약 정보, 일반 Q&A는 통합 공간에서. 콩가님(4기)이 말년복님(수술 준비중)을 격려하는 것도 여기서 자연스럽게 가능. 코호트와 광장의 이중 구조.</p>
+                  <p style="margin-bottom:10px;"><strong>③ 코호트 "졸업·이동" 시스템</strong><br>치료 단계가 바뀌면(수술 완료, 항암 종료 등) 코호트를 이동. 각 코호트에 "나보다 먼저 이 단계를 겪은 선배"가 항상 존재하는 선순환 구조가 만들어진다.</p>
+                  <p><strong>④ 전이 4기 코호트 특수 설계</strong><br>여명·호스피스 같은 민감 주제가 자주 나오는 이 코호트에는 <strong>정서적 모더레이터(코어 환우 or 전문 상담사)를 반드시 배치</strong>하고, AI 위험 감지 에이전트의 모니터링 수준도 높인다. AI는 감지만 하고, 개입은 반드시 사람이 한다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 운영 -->
+<section class="ps c-green reveal" id="ch3-2">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--green)">02</div>
+      <div class="ps-num-line" style="background:var(--green)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--green)">Ch 3 · 무엇을 만드는가</p>
+      <h2 class="ps-title">질환별 레드라인과<br>콘텐츠 운영 정책</h2>
+      <div class="ps-core" style="border-color:var(--green)">
+        빈 게시판에 AI 글을 채우면 실패한다. 환우들은 AI가 쓴 글과 사람이 쓴 글을 구분한다. <strong>콘텐츠 정책과 레드라인은 질환마다 달라야 하고, 콜드스타트는 사람이 써야 한다.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">콘텐츠 작성자 3유형을 질환별로 사전 확보해야 한다</div>
+      <div class="ps-item-body">
+        <div class="mini-cards">
+          <div class="mini-card"><div class="mc-icon">✍️</div><div class="mc-title">의료 콘텐츠 에디터</div><div class="mc-desc">LLM이 초안, 에디터가 검수·재가공. 카드뉴스·가이드라인 요약</div></div>
+          <div class="mini-card"><div class="mc-icon">🌸</div><div class="mc-title">환우 콘텐츠 리더</div><div class="mc-desc">콩가님(130건)·귀하의채널(51건)이 자발적으로 수행한 역할. 명시적으로 설계 필요</div></div>
+          <div class="mini-card"><div class="mc-icon">🩺</div><div class="mc-title">의료진 콘텐츠 기고</div><div class="mc-desc">월 2~4건만으로도 신뢰도에 큰 영향. LLM 초안 + 의료진 이름을 거는 구조</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">의료진 답변 4.2%를 자산으로 만들어야 한다</div>
+      <div class="ps-item-body">
+        <p>의료진 답변 직후 활성도가 <strong>2~14배 급증</strong>했다. 일회성 채팅으로 흘려보내지 않고 "검증된 콘텐츠"로 아카이빙하면, LLM이 비슷한 질문에 "이전에 OO 교수님이 이렇게 답변하셨습니다"로 참조할 수 있다. 4.2%의 가치가 기하급수적으로 확장된다.</p>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">질환별 콘텐츠 레드라인을 사전에 정의해야 한다</div>
+      <div class="ps-item-body">
+        <p>질환마다 "민간요법의 유혹" 양상이 다르다. <strong>암: 자연치유 요법 / 공황장애: 비처방 약물 / 당뇨: 검증되지 않은 식이요법.</strong> LLM 오정보 필터링 에이전트가 이 기준을 기반으로 작동해야 한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 법률·보안 -->
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">무엇을 만들지 결정했다면, 사람을 어떻게 모을 것인지 전략을 세워야 한다.</div></div>
+
+<!-- CH4 HERO -->
+<div class="ch-divider reveal" id="ch4-anchor">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(255,110,180,.05) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="ch-divider-line" style="background:linear-gradient(90deg, var(--pink), transparent);"></div>
+  <div class="ch-divider-inner">
+    <div class="ch-divider-left">
+      <p class="ch-divider-tag" style="color:var(--pink);">Chapter 4</p>
+      <h2 class="ch-divider-title">어떻게 사람을<br>모으는가</h2>
+      <p class="ch-divider-desc">환우 유입, 코어 환우 육성, 의료진 확보, 답변 자산화.</p>
+    </div>
+    <div class="ch-divider-num" style="color:var(--pink);">04</div>
+  </div>
+</div>
+
+
+<section class="ps c-pink reveal" id="ch4-1">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--pink)">04</div>
+      <div class="ps-num-line" style="background:var(--pink)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--pink)">Ch 4 · 어떻게 사람을 모으는가</p>
+      <h2 class="ps-title">질환별 유입 채널 전략과<br>UTM 설계</h2>
+      <div class="ps-core" style="border-color:var(--pink)">
+        Paid CAC 0원을 달성했지만 UTM이 없어 유입 경로를 소급 추적할 수 없었다. <strong>채널별 전환율 추적과 SEO 기반 유입이 Phase 2 마케팅의 핵심이다.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">질환별 유입 채널 전략이 완전히 달라야 한다</div>
+      <div class="ps-item-body">
+        <div class="mini-cards">
+          <div class="mini-card"><div class="mc-icon">🎗</div><div class="mc-title">유방암</div><div class="mc-desc">암투병 유튜버 채널 — 이미 검증됨</div></div>
+          <div class="mini-card"><div class="mc-icon">🏥</div><div class="mc-title">위암·대장암</div><div class="mc-desc">닥터앤서 3.0 PI 교수님 경유 가능</div></div>
+          <div class="mini-card"><div class="mc-icon">🧠</div><div class="mc-title">정신건강</div><div class="mc-desc">유튜버도 적고 PI 경유도 어렵다 — 채널 새로 매핑 필요</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">SEO 기반 유입이 Phase 2의 핵심 전략이다</div>
+      <div class="ps-item-body">
+        <p>오픈채팅은 검색에 노출되지 않지만, 웹 게시판은 구글·네이버에 노출된다. <strong>"유방암 2기 항암 부작용"을 검색한 환자가 온코케어 게시글을 발견하고 유입되는 구조</strong>를 만들면 유튜버 의존도를 낮출 수 있다. (Josh 파트너님 제안)</p>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">모든 채널에 고유 UTM, 병원·교수별 고유 QR을 부여해야 한다</div>
+      <div class="ps-item-body">
+        <p>"어느 채널에서 들어온 유저가 가장 높은 활성화율을 보이는가"를 처음부터 추적해야 한다. 닥터앤서 PI 교수님 경유 팜플렛에는 <strong>병원별·교수별 고유 QR/UTM</strong>을 각각 부여할 것.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 개발 -->
+<section class="ps c-green reveal" id="ch4-2">
+  <div class="ps-header">
+    <div class="ps-num-block">
+      <div class="ps-num-big" style="color:var(--green)">07</div>
+      <div class="ps-num-line" style="background:var(--green)"></div>
+    </div>
+    <div class="ps-title-block">
+      <p class="ps-category" style="color:var(--green)">Ch 4 · 어떻게 사람을 모으는가</p>
+      <h2 class="ps-title">4.2%의 의료진 답변을<br>기하급수적 가치로 만든다</h2>
+      <div class="ps-core" style="border-color:var(--green)">
+        의료진 참여(4.2%)가 활성도를 2~14배 만들었다. <strong>의료진 확보 3가지 경로 + 일회성 답변을 "검증된 콘텐츠"로 아카이빙하는 구조가 Phase 2 성장의 열쇠다.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-items reveal reveal-d1">
+    <div class="ps-item">
+      <div class="ps-item-title">의료진 유입 경로 3가지를 구조적으로 설계해야 한다</div>
+      <div class="ps-item-body">
+        <div class="mini-cards">
+          <div class="mini-card"><div class="mc-icon">🏥</div><div class="mc-title">닥터앤서 3.0 라인</div><div class="mc-desc">위암·대장암 PI 교수님 + 전공의·전임의 연결. 온코케어를 환자 모니터링 도구로 포지셔닝</div></div>
+          <div class="mini-card"><div class="mc-icon">🔬</div><div class="mc-title">학회·연구회 연계</div><div class="mc-desc">디지털 헬스케어에 관심 있는 의료진 발굴. 공동 연구·학회 발표 기회가 동기</div></div>
+          <div class="mini-card"><div class="mc-icon">👨‍⚕️</div><div class="mc-title">전공의·전임의</div><div class="mc-desc">교수급보다 시간 여유가 있고 디지털 헬스케어 관심도가 높다</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-item">
+      <div class="ps-item-title">LLM이 초안을 만들어 의료진의 시간 부담을 줄인다</div>
+      <div class="ps-item-body">
+        <p>AI가 답변 초안을 생성하면 의료진은 <strong>검토·수정·확정</strong>만 하면 된다. "의료진을 대체하는 것이 아니라 의료진의 도달 범위를 확장하는 것"이라는 프레이밍을 Phase 2 참여 의료진과 충분히 사전 소통해야 한다.</p>
+        <div class="stat-inline" style="margin-top:12px;">
+          <div class="si"><div class="si-val" style="color:var(--green)">4.2%</div><div class="si-label">의료진 발화 비율</div></div>
+          <div class="si"><div class="si-val" style="color:var(--green)">2~14×</div><div class="si-label">답변 직후 활성도 증가</div></div>
+          <div class="si"><div class="si-val" style="color:var(--green)">34건</div><div class="si-label">핑크케어 의료진 총 답변</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+
+<div style="max-width:900px;margin:0 auto 0;padding:0 48px 48px;"><div style="font-size:13.5px;color:var(--text-muted);line-height:1.9;padding:18px 22px;background:var(--surface2);border-radius:10px;border-left:2px solid var(--border);">마지막으로, 어떻게 측정하고 실행할 것인지 — Phase 2 첫 2주 체크리스트로 마무리한다.</div></div>
+<section class="closing reveal" id="closing">
+  <h2 class="closing-title">Prove or Pivot —<br>지금 결정하고, 빠르게 검증하라</h2>
+  <p class="closing-desc">
+    핑크케어 PoC의 가장 중요한 교훈은 <strong>"원래 가설은 틀렸지만 더 중요한 것을 발견했다"</strong>는 것이었다.<br><br>
+    각 Chapter에서 <strong>"Phase 2 첫 2주 안에 반드시 결정해야 하는 것"</strong>과 <strong>"운영하면서 점진적으로 개선할 것"</strong>을 나누는 것이 실행의 출발점이다.
+  </p>
+  <div class="closing-motto"><span>Prove</span> or Pivot.</div>
+</section>
+
+<footer>
+  <div class="footer-logo">aitrics · 신사업전략부서</div>
+  <div class="footer-meta">2026.03 · Confidential · Internal Use Only</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress').style.width = p + '%';
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
   </div><!-- /page-pinkcare-nextstep -->
 
   <!-- ===== VCARE FEATURES PAGE ===== -->

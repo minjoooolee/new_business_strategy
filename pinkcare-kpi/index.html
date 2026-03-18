@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinkcare PoC · KPI Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c14;
+    --surface: #111520;
+    --surface2: #181d2e;
+    --border: #232a40;
+    --accent: #4f7fff;
+    --accent2: #00e5b0;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --text: #e8ecf5;
+    --text-muted: #9daac8;
+    --text-dim: #6b7a9e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .kpi-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 48px 100px;
+  }
+  .kpi-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .kpi-page-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #ff6eb4;
+    margin-bottom: 10px;
+  }
+  .kpi-page-title {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .kpi-page-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 540px;
+  }
+  .kpi-page-meta { text-align: right; flex-shrink: 0; }
+  .kpi-page-meta-label {
+    font-size: 10px; color: var(--text-dim);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .kpi-page-meta-val {
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    font-family: 'Poppins', sans-serif;
+  }
+  .ksec-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ksec-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 8px;
+  }
+  .ksec-tag.primary {
+    background: rgba(61,127,255,0.12); color: var(--accent);
+    border: 1px solid rgba(61,127,255,0.25);
+  }
+  .ksec-tag.tertiary {
+    background: rgba(168,85,247,0.12); color: #c084fc; border: 1px solid rgba(168,85,247,0.25);
+  }
+  .ksec-tag.secondary {
+    background: rgba(240,165,0,0.1); color: var(--accent4);
+    border: 1px solid rgba(240,165,0,0.22);
+  }
+  .ksec-question {
+    font-size: 15px; font-weight: 700; color: var(--text);
+  }
+  .kprogress-pct.overachieved {
+    color: #00ffcc; font-size: 14px; font-weight: 600; letter-spacing: -0.5px;
+  }
+  .koverflow-chip {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 10px; font-weight: 500; font-family: 'Poppins', sans-serif;
+    padding: 2px 8px; border-radius: 20px;
+    background: rgba(255,60,80,0.15);
+    border: 1px solid rgba(255,60,80,0.5); color: #ff4d5e;
+    letter-spacing: 0;
+  }
+  .kprogress-track.overachieved {
+    box-shadow: 0 0 0 1px rgba(0,212,160,0.25);
+  }
+  .kprogress-fill.overachieved {
+    background: linear-gradient(90deg, var(--accent2), #00ffcc, #7fffef);
+    box-shadow: 0 0 10px rgba(0,212,160,0.45);
+  }
+  .kdelta {
+    display: inline-flex; align-items: center; gap: 2px;
+    font-size: 11px; font-weight: 500; font-family: 'Poppins', sans-serif;
+    margin-left: 8px; letter-spacing: -0.3px;
+  }
+  .kdelta.up { color: #00e5b0; }
+  .kdelta.down { color: #ff6b6b; }
+  .kdelta.flat { color: var(--text-dim); }
+  .kloop-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px; margin-bottom: 8px;
+  }
+  .kloop-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; letter-spacing: -0.3px; }
+  .kloop-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6; }
+  .kloop-def {
+    font-size: 11px; color: var(--text-dim);
+    background: var(--surface2); border-radius: 8px; padding: 8px 12px;
+    margin-bottom: 20px; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .kloop-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+  .kloop-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 20px; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .kloop-card.highlight {
+    background: rgba(168,85,247,0.07); border-color: rgba(168,85,247,0.25);
+  }
+  .kloop-card-label { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
+  .kloop-card-val {
+    font-size: 36px; font-weight: 600; font-family: 'Poppins', sans-serif; color: var(--text);
+    line-height: 1.1; letter-spacing: -1px;
+  }
+  .kloop-card.highlight .kloop-card-val { color: #c084fc; }
+  .kloop-card-unit { font-size: 13px; font-weight: 400; color: var(--text-muted); font-family: 'Noto Sans KR', sans-serif; margin-top: 2px; }
+  .kloop-insight {
+    background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.18);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .kloop-insight-title { font-size: 12px; font-weight: 700; color: #c084fc; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .kloop-insight-body { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+  .kloop-insight-body b { color: var(--text); }
+  .kloop-pct-row {
+    display: flex; align-items: center; gap: 10px; margin-top: 12px;
+  }
+  .kloop-pct-bar-wrap { flex: 1; }
+  .kloop-pct-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+  .kloop-pct-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #c084fc); border-radius: 3px; }
+  .kloop-pct-label { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+  .kloop-pct-val { font-size: 14px; font-weight: 500; font-family: 'Poppins', sans-serif; color: #c084fc; }
+  .kkpi-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px; margin-bottom: 16px;
+  }
+  .kkpi-card {
+    background: var(--surface); border-radius: 18px;
+    padding: 22px 20px; position: relative; overflow: hidden;
+    border: 1px solid var(--border); transition: transform 0.2s;
+    animation: fadeUp 0.6s ease both;
+  }
+  .kkpi-card:hover { transform: translateY(-3px); }
+  .kkpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .kkpi-card.achieved::before { background: var(--accent2); }
+  .kkpi-card.achieved { border-color: rgba(0,212,160,0.15); }
+  .kkpi-card.failed::before { background: var(--accent3); }
+  .kkpi-card.failed { border-color: rgba(255,107,107,0.12); }
+  .kkpi-card.measuring::before { background: var(--accent4); }
+  .kkpi-card.measuring { border-color: rgba(240,165,0,0.12); }
+  .kkpi-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .kkpi-category {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .kkpi-badge {
+    font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 6px;
+  }
+  .kkpi-badge.achieved { background: rgba(0,212,160,0.1); color: var(--accent2); }
+  .kkpi-badge.failed   { background: rgba(255,107,107,0.1); color: var(--accent3); }
+  .kkpi-badge.measuring{ background: rgba(240,165,0,0.1); color: var(--accent4); }
+  .kkpi-name {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    margin-bottom: 6px; line-height: 1.4;
+  }
+  .kkpi-note {
+    font-size: 11px; color: var(--text-dim); line-height: 1.65;
+    margin-bottom: 16px; min-height: 34px;
+  }
+  .kkpi-value {
+    font-size: 36px; font-weight: 600; font-family: 'Poppins', sans-serif;
+    letter-spacing: -1px; margin-bottom: 14px; color: var(--text);
+  }
+  .kkpi-value.achieved { color: var(--accent2); }
+  .kkpi-value.failed   { color: var(--accent3); }
+  .kkpi-unit {
+    font-size: 14px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text-muted); margin-left: 3px;
+  }
+  .kkpi-progress { margin-bottom: 14px; }
+  .kprogress-track {
+    height: 6px; background: var(--border); border-radius: 3px;
+    overflow: hidden; margin-bottom: 6px;
+  }
+  .kprogress-fill { height: 100%; border-radius: 3px; }
+  .kprogress-fill.achieved { background: linear-gradient(90deg, var(--accent2), #00ffcc); }
+  .kprogress-fill.failed   { background: var(--accent3); }
+  .kprogress-labels {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .kprogress-pct {
+    font-size: 12px; font-weight: 500; font-family: 'Poppins', sans-serif;
+  }
+  .kprogress-pct.achieved { color: var(--accent2); }
+  .kprogress-pct.failed   { color: var(--accent3); }
+  .kprogress-goal { font-size: 11px; color: var(--text-dim); }
+  .ksub-metrics {
+    border-top: 1px solid var(--border); padding-top: 12px;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .ksub-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
+  .ksub-row { display: flex; align-items: center; gap: 7px; }
+  .ksub-val {
+    font-size: 15px; font-weight: 500; font-family: 'Poppins', sans-serif;
+  }
+  .ksub-val.achieved { color: var(--accent2); }
+  .ksub-val.failed   { color: var(--accent3); }
+  .ksub-goal { font-size: 10px; color: var(--text-dim); flex: 1; }
+  .ksub-badge {
+    font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+  }
+  .ksub-badge.achieved { background: rgba(0,212,160,0.1); color: var(--accent2); }
+  .ksub-badge.failed   { background: rgba(255,107,107,0.1); color: var(--accent3); }
+  .kfunnel {
+    border-top: 1px solid var(--border); padding-top: 12px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .kfunnel-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+  .kfunnel-num {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: var(--text-muted); flex-shrink: 0;
+  }
+  .kfunnel-label { flex: 1; color: var(--text-muted); font-size: 11px; }
+  .kfunnel-val { color: var(--text); font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 11px; }
+  .kfunnel-rate { color: var(--text-dim); font-size: 10px; }
+  .kquality-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+  .kquality-item {
+    display: flex; gap: 10px; background: var(--surface2);
+    border-radius: 10px; padding: 12px;
+  }
+  .kquality-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .kquality-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .kquality-desc { font-size: 11px; color: var(--text-dim); line-height: 1.55; margin-bottom: 6px; }
+  .kquality-meta { display: flex; align-items: center; gap: 8px; }
+  .kquality-goal {
+    font-size: 10px; padding: 2px 8px; border-radius: 6px;
+    background: rgba(240,165,0,0.1); color: var(--accent4); font-weight: 600;
+  }
+  .kquality-val { font-size: 11px; color: var(--text-dim); font-family: 'Poppins', sans-serif; }
+  .kchannel-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px 22px; margin-bottom: 16px;
+  }
+  .kchannel-card-header { margin-bottom: 16px; }
+  .kchannel-card-title {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+  }
+  .knew-tag {
+    font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+    background: rgba(61,127,255,0.15); color: var(--accent); letter-spacing: 1px;
+  }
+  .kchannel-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  .kchannel-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  }
+  .kchannel-item {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px; text-align: center; transition: border-color 0.2s;
+  }
+  .kchannel-item:hover { border-color: rgba(61,127,255,0.2); }
+  .kchannel-icon { font-size: 22px; margin-bottom: 7px; }
+  .kchannel-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .kchannel-label { font-size: 10px; color: var(--text-dim); margin-bottom: 10px; }
+  .kchannel-val {
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px;
+    display: inline-block; background: rgba(240,165,0,0.1); color: var(--accent4);
+  }
+  .ksegment-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px; margin-bottom: 16px;
+  }
+  .ksegment-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; letter-spacing: -0.3px; }
+  .ksegment-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 22px; }
+  .ksegment-summary {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-bottom: 28px; align-items: center;
+  }
+  .kseg-label { font-size: 12px; font-weight: 600; }
+  .kseg-label.core { color: var(--accent2); }
+  .kseg-label.light { color: var(--accent); }
+  .kseg-pct { font-size: 11px; font-weight: 500; font-family: 'Poppins', sans-serif; }
+  .kseg-count { font-size: 13px; font-weight: 500; font-family: 'Poppins', sans-serif; }
+  .kseg-count.core { color: var(--accent2); }
+  .kseg-count.light { color: var(--accent); }
+  .ksegment-bar-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .ksegment-track {
+    height: 10px; border-radius: 5px; overflow: hidden;
+    display: flex; background: var(--border); margin: 6px 0;
+  }
+  .ksegment-fill { height: 100%; transition: width 1s ease; }
+  .ksegment-fill.core { background: var(--accent2); }
+  .ksegment-fill.light { background: var(--accent); }
+  .ksegment-cards { display: flex; flex-direction: column; gap: 8px; }
+  .ksegment-card {
+    border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .ksegment-card.total { background: var(--surface2); border: 1px solid var(--border); }
+  .ksegment-card.light { background: rgba(61,127,255,0.07); border: 1px solid rgba(61,127,255,0.18); }
+  .ksegment-card.core  { background: rgba(0,212,160,0.07); border: 1px solid rgba(0,212,160,0.18); }
+  .ksegment-card-label { font-size: 11px; color: var(--text-muted); font-weight: 600; width: 72px; flex-shrink: 0; }
+  .ksegment-card-val { font-size: 20px; font-weight: 600; font-family: 'Poppins', sans-serif; flex: 1; }
+  .ksegment-card.total .ksegment-card-val { color: var(--text); }
+  .ksegment-card.light .ksegment-card-val { color: var(--accent); }
+  .ksegment-card.core  .ksegment-card-val { color: var(--accent2); }
+  .ksegment-card-unit { font-size: 12px; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
+  .ksegment-card-crit { font-size: 10px; color: var(--text-dim); font-family: 'Poppins', sans-serif; }
+  .kcore-table-wrap { border-top: 1px solid var(--border); padding-top: 20px; }
+  .kcore-table-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+  .kcore-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .kcore-table thead tr { border-bottom: 1px solid var(--border); }
+  .kcore-table th {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-dim); padding: 8px 12px; text-align: left;
+  }
+  .kcore-table td {
+    padding: 10px 12px; border-bottom: 1px solid rgba(30,37,53,0.6);
+    color: var(--text-muted); vertical-align: middle;
+  }
+  .kcore-table tr:last-child td { border-bottom: none; }
+  .kcore-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .kcore-table tr.top1 td { background: rgba(0,212,160,0.04); }
+  .kcore-table tr.top1 .knickname { color: var(--accent2); font-weight: 700; }
+  .knickname { font-weight: 600; color: var(--text); }
+  .kstage-tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 6px;
+    background: var(--surface2); color: var(--text-muted); font-weight: 600; white-space: nowrap;
+  }
+  .kstage-tag.transfer { background: rgba(255,107,107,0.08); color: var(--accent3); }
+  .krole-tag { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
+  .krole-tag.patient  { background: rgba(61,127,255,0.1); color: var(--accent); }
+  .krole-tag.caregiver{ background: rgba(240,165,0,0.1); color: var(--accent4); }
+  .kmsg-val { font-family: 'Poppins', sans-serif; font-weight: 500; color: var(--text); font-size: 13px; }
+  .kalign-right { text-align: right; }
+  .ksec-divider { height: 1px; background: linear-gradient(90deg, var(--border), transparent); margin: 44px 0; }
+  .kdoc-footer {
+    border-top: 1px solid var(--border); padding-top: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    opacity: 0.45; margin-top: 60px;
+  }
+  .kdoc-footer-left,
+  .kdoc-footer-right { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .kdoc-footer-right { text-align: right; }
+
+  @media (max-width: 900px) {
+    .kpi-wrapper { padding: 40px 20px 80px; }
+    .kkpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kchannel-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-page-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .kpi-page-meta { text-align: left; }
+    .ksegment-summary { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .kkpi-grid { grid-template-columns: 1fr; }
+    .kchannel-grid { grid-template-columns: 1fr; }
+    .kloop-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="kpi-wrapper">
+  <!-- PAGE HEADER -->
+  <div class="kpi-page-header">
+    <div>
+      <div class="kpi-page-eyebrow">Pinkcare · PoC KPI Dashboard</div>
+      <h1 class="kpi-page-title">핑크케어 PoC 데일리 KPI 대시보드</h1>
+      <p class="kpi-page-sub">SEO 마케팅 의도적 미실시 — 자연 유입·환우 네트워크 중심으로 측정한 초기 커뮤니티 형성 지표입니다.</p>
+    </div>
+    <div class="kpi-page-meta">
+      <div class="kpi-page-meta-label">Last Updated</div>
+      <div class="kpi-page-meta-val">2026.03.17 19:07</div>
+      <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">3/16 전체 + 3/17 오후 6:29까지 통합</div>
+    </div>
+  </div>
+  <!-- PRIMARY KPI -->
+  <div class="ksec-header">
+    <span class="ksec-tag primary">Primary KPI</span>
+    <span class="ksec-question">핑크케어 PoC 데일리 KPI 대시보드</span>
+  </div>
+  <div class="kkpi-grid">
+    <!-- 유입 -->
+    <div class="kkpi-card achieved" style="animation-delay:0.05s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">유입</div>
+        <div class="kkpi-badge achieved">달성</div>
+      </div>
+      <div class="kkpi-name">핑크케어 유입</div>
+      <div class="kkpi-note">SEO 마케팅 의도적 미실시 — 자연 유입·환우 네트워크 중심<br>채널별 전환율 추적 필수 (UTM / 전용 링크 기반)</div>
+      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
+      <div class="kkpi-progress">
+        <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct overachieved">161%</span>
+          <span class="koverflow-chip">+61명 초과</span>
+          <span class="kprogress-goal">목표 100명</span>
+        </div>
+      </div>
+    </div>
+    <!-- 참여 -->
+    <div class="kkpi-card achieved" style="animation-delay:0.1s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">참여</div>
+        <div class="kkpi-badge achieved">달성</div>
+      </div>
+      <div class="kkpi-name">오픈채팅 참여자 수</div>
+      <div class="kkpi-note">액티브 사용자 기준 5배 규모 목표</div>
+      <div class="kkpi-value achieved">145<span class="kkpi-unit">명</span><span class="kdelta up">+13</span></div>
+      <div class="kkpi-progress">
+        <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct overachieved">725%</span>
+          <span class="koverflow-chip">+125명 초과</span>
+          <span class="kprogress-goal">목표 20명</span>
+        </div>
+      </div>
+    </div>
+    <!-- 대화 -->
+    <div class="kkpi-card achieved" style="animation-delay:0.15s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">대화</div>
+        <div class="kkpi-badge achieved">달성</div>
+      </div>
+      <div class="kkpi-name">오픈채팅 메시지 수</div>
+      <div class="kkpi-note">질문–경험 공유–답변 루프 형성 최소 규모<br>발신자 3명+ &amp; 질문-답변 쌍 10건+</div>
+      <div class="kkpi-value achieved">1,327<span class="kkpi-unit">건</span></div>
+      <div class="kkpi-progress">
+        <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct overachieved">2654%</span>
+          <span class="koverflow-chip">+1,277건 초과</span>
+          <span class="kprogress-goal">목표 50건</span>
+        </div>
+      </div>
+      <div class="ksub-metrics">
+        <div>
+          <div class="ksub-label">발신자 수</div>
+          <div class="ksub-row">
+            <div class="ksub-val achieved">333명</div>
+            <div class="ksub-goal">목표 3명 이상</div>
+            <div class="ksub-badge achieved">달성</div>
+          </div>
+        </div>
+        <div>
+          <div class="ksub-label">질문-답변 쌍 (3/16~17 기간)</div>
+          <div class="ksub-row">
+            <div class="ksub-val achieved">27건</div>
+            <div class="ksub-goal">목표 10건 이상</div>
+            <div class="ksub-badge achieved">달성</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 액티브 -->
+    <div class="kkpi-card achieved" style="animation-delay:0.2s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">액티브</div>
+        <div class="kkpi-badge achieved">달성</div>
+      </div>
+      <div class="kkpi-name">오픈채팅 액티브 사용자</div>
+      <div class="kkpi-note">초기 커뮤니티 대화 루프 형성: 3–5명 Active user 필요</div>
+      <div class="kkpi-value achieved">333<span class="kkpi-unit">명</span></div>
+      <div class="kkpi-progress">
+        <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct overachieved">8325%</span>
+          <span class="koverflow-chip">+329명 초과</span>
+          <span class="kprogress-goal">목표 4명</span>
+        </div>
+      </div>
+      <div class="ksub-metrics">
+        <div>
+          <div class="ksub-label">라이트 유저 — 메시지 1~4건</div>
+          <div class="ksub-row">
+            <div class="ksub-val achieved">306명</div>
+            <div class="ksub-goal">전체의 92%</div>
+            <div class="ksub-badge achieved">달성</div>
+          </div>
+        </div>
+        <div>
+          <div class="ksub-label">코어 유저 — 메시지 5건+</div>
+          <div class="ksub-row">
+            <div class="ksub-val achieved">27명</div>
+            <div class="ksub-goal">전체의 8%</div>
+            <div class="ksub-badge achieved">달성</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 유입경로 -->
+  <div class="kchannel-card">
+    <div class="kchannel-card-header">
+      <div class="kchannel-card-title">
+        유입경로
+        <span class="knew-tag">NEW</span>
+      </div>
+      <div class="kchannel-card-desc">채널별 유입 → 오픈채팅 전환율 · 유입 경로 데이터 없이는 "검사결과지 설명이 hooking 역할을 했는지" 알 수 없음 · UTM / 전용 링크 / QR코드별로 전환율을 채널마다 측정</div>
+    </div>
+    <div class="kchannel-grid">
+      <div class="kchannel-item">
+        <div class="kchannel-icon">📹</div>
+        <div class="kchannel-name">유튜버</div>
+        <div class="kchannel-label">암튜버 채널 유입</div>
+        <div class="kchannel-val">측정중</div>
+      </div>
+      <div class="kchannel-item">
+        <div class="kchannel-icon">📱</div>
+        <div class="kchannel-name">QR</div>
+        <div class="kchannel-label">QR 코드</div>
+        <div class="kchannel-val">측정중</div>
+      </div>
+      <div class="kchannel-item">
+        <div class="kchannel-icon">🔗</div>
+        <div class="kchannel-name">직접</div>
+        <div class="kchannel-label">직접 유입 / 기타</div>
+        <div class="kchannel-val">측정중</div>
+      </div>
+    </div>
+  </div>
+  <!-- 사용자 세그먼트 분석 -->
+  <div class="ksegment-wrap">
+    <div class="ksegment-title">👥 사용자 세그먼트 분석</div>
+    <div class="ksegment-desc">메시지 발신 횟수 기준 액티브 사용자 분류</div>
+    <div class="ksegment-summary">
+      <div>
+        <div class="ksegment-bar-label-row">
+          <span class="kseg-label core">코어 유저 <span class="kseg-pct">8%</span></span>
+          <span class="kseg-count core">27명</span>
+        </div>
+        <div class="ksegment-track">
+          <div class="ksegment-fill core" style="width:8%"></div>
+          <div class="ksegment-fill light" style="width:92%"></div>
+        </div>
+        <div class="ksegment-bar-label-row" style="margin-top:4px;">
+          <span class="kseg-label light">라이트 유저 <span class="kseg-pct">92%</span></span>
+          <span class="kseg-count light">306명</span>
+        </div>
+      </div>
+      <div class="ksegment-cards">
+        <div class="ksegment-card total">
+          <div class="ksegment-card-label">전체 액티브</div>
+          <div class="ksegment-card-val">333<span class="ksegment-card-unit">명</span></div>
+          <div class="ksegment-card-crit">메시지 1건 이상</div>
+        </div>
+        <div class="ksegment-card light">
+          <div class="ksegment-card-label">라이트 유저</div>
+          <div class="ksegment-card-val">306<span class="ksegment-card-unit">명</span></div>
+          <div class="ksegment-card-crit">메시지 1~4건 · 92%</div>
+        </div>
+        <div class="ksegment-card core">
+          <div class="ksegment-card-label">코어 유저</div>
+          <div class="ksegment-card-val">27<span class="ksegment-card-unit">명</span></div>
+          <div class="ksegment-card-crit">메시지 5건+ · 8%</div>
+        </div>
+      </div>
+    </div>
+    <!-- 누적 발신 수 TOP 10 -->
+    <div class="kcore-table-wrap">
+      <div class="kcore-table-title">🔥 누적 발신 수 TOP 10 (2/27~3/17)</div>
+      <table class="kcore-table">
+        <thead>
+          <tr>
+            <th>순위</th>
+            <th>닉네임</th>
+            <th>구분</th>
+            <th>역할</th>
+            <th class="kalign-right">누적 발신 수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="top1">
+            <td>1</td>
+            <td class="knickname">콩가</td>
+            <td><span class="kstage-tag">4기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">163건</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="knickname">귀하의채널</td>
+            <td><span class="kstage-tag">3기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">63건</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="knickname">말년복</td>
+            <td><span class="kstage-tag">수술준비중</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">59건</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="knickname">율</td>
+            <td><span class="kstage-tag">삼음2기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">37건</td>
+          </tr>
+          <tr>
+            <td>5 <span class="knew-tag">NEW</span></td>
+            <td class="knickname">찌니</td>
+            <td><span class="kstage-tag">4기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">28건</td>
+          </tr>
+          <tr>
+            <td>6 ▲</td>
+            <td class="knickname">아두리</td>
+            <td><span class="kstage-tag">4기</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">27건</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td class="knickname">사라. 제자리.</td>
+            <td><span class="kstage-tag">—</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">27건</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td class="knickname">에이아이트릭스 의료진</td>
+            <td><span class="kstage-tag">—</span></td>
+            <td><span class="krole-tag" style="background:rgba(168,85,247,0.1);color:#c084fc;">의료진</span></td>
+            <td class="kalign-right kmsg-val">26건</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td class="knickname">보리</td>
+            <td><span class="kstage-tag">양측제자리</span></td>
+            <td><span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">25건</td>
+          </tr>
+          <tr>
+            <td>10 <span class="knew-tag">NEW</span></td>
+            <td class="knickname">볼 찌르는 라이언</td>
+            <td><span class="kstage-tag transfer">전이4기</span></td>
+            <td><span class="krole-tag caregiver">보호자</span></td>
+            <td class="kalign-right kmsg-val">24건</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="ksec-divider"></div>
+  <!-- SECONDARY KPI -->
+  <div class="ksec-header">
+    <span class="ksec-tag secondary">Secondary KPI</span>
+    <span class="ksec-question">검사결과지 설명이 Hooking이 되는가?</span>
+  </div>
+  <div class="kkpi-grid">
+    <!-- 유입 (secondary) -->
+    <div class="kkpi-card achieved" style="animation-delay:0.05s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">유입</div>
+        <div class="kkpi-badge achieved">달성</div>
+      </div>
+      <div class="kkpi-name">핑크케어 유입</div>
+      <div class="kkpi-note">Secondary KPI 기준 유입 수</div>
+      <div class="kkpi-value achieved">161<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
+      <div class="kkpi-progress">
+        <div class="kprogress-track overachieved"><div class="kprogress-fill overachieved" style="width:100%"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct overachieved">161%</span>
+          <span class="koverflow-chip">+61명 초과</span>
+          <span class="kprogress-goal">목표 100명</span>
+        </div>
+      </div>
+    </div>
+    <!-- 전환 -->
+    <div class="kkpi-card measuring" style="animation-delay:0.1s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">전환</div>
+        <div class="kkpi-badge measuring">90%</div>
+      </div>
+      <div class="kkpi-name">검사기록 업로드</div>
+      <div class="kkpi-note">전체 유입 기준 10% 목표<br>오픈채팅 참여자 기준 전환율 별도 추적</div>
+      <div class="kkpi-value achieved">9<span class="kkpi-unit">명</span><span class="kdelta flat">— 유지</span></div>
+      <div class="kkpi-progress">
+        <div class="kprogress-track"><div class="kprogress-fill" style="width:90%;background:var(--accent4)"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct" style="color:var(--accent4);">90%</span>
+          <span class="kprogress-goal">목표 10명</span>
+        </div>
+      </div>
+      <div class="kfunnel">
+        <div class="kfunnel-row">
+          <div class="kfunnel-num">①</div>
+          <div class="kfunnel-label">핑크케어 유입</div>
+          <div class="kfunnel-val">161명</div>
+          <div class="kfunnel-rate">—</div>
+        </div>
+        <div class="kfunnel-row">
+          <div class="kfunnel-num">②</div>
+          <div class="kfunnel-label">결과지 업로드</div>
+          <div class="kfunnel-val">9명</div>
+          <div class="kfunnel-rate">5.6%</div>
+        </div>
+        <div class="kfunnel-row">
+          <div class="kfunnel-num">③</div>
+          <div class="kfunnel-label">오픈채팅 참여자 중 업로드</div>
+          <div class="kfunnel-val">–</div>
+          <div class="kfunnel-rate">측정중</div>
+        </div>
+      </div>
+    </div>
+    <!-- 연결 -->
+    <div class="kkpi-card measuring" style="animation-delay:0.15s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">연결</div>
+        <div class="kkpi-badge measuring">측정중</div>
+      </div>
+      <div class="kkpi-name">오픈채팅 유입 (결과지 경유)</div>
+      <div class="kkpi-note">검사결과지 설명 페이지 방문자 중 오픈채팅 유입 비율 · 검사결과지 → 커뮤니티 참여 인과관계 검증</div>
+      <div class="kkpi-value" style="color:var(--accent4); font-size:22px; padding-top:6px;">측정중</div>
+      <div class="kkpi-progress" style="margin-top:10px;">
+        <div class="kprogress-track"><div class="kprogress-fill" style="width:0%; background:var(--accent4)"></div></div>
+        <div class="kprogress-labels">
+          <span class="kprogress-pct" style="color:var(--accent4);">–</span>
+          <span class="kprogress-goal">목표 10명</span>
+        </div>
+      </div>
+    </div>
+    <!-- 퀄리티 -->
+    <div class="kkpi-card measuring" style="animation-delay:0.2s">
+      <div class="kkpi-top">
+        <div class="kkpi-category">퀄리티 <span class="knew-tag">NEW</span></div>
+        <div class="kkpi-badge measuring">측정중</div>
+      </div>
+      <div class="kkpi-name">콘텐츠 퀄리티 지표</div>
+      <div class="kkpi-note">유입 지표만으로는 검증 불가 — 답변 속도·만족도로 서비스 핵심 가치 측정</div>
+      <div class="kquality-list">
+        <div class="kquality-item">
+          <div class="kquality-icon">⏱</div>
+          <div>
+            <div class="kquality-title">답변 리드타임</div>
+            <div class="kquality-desc">검사기록 업로드 → 에이아이트릭스 전문가 답변 등록까지</div>
+            <div class="kquality-meta">
+              <span class="kquality-goal">목표 24h 이내</span>
+              <span class="kquality-val">–</span>
+            </div>
+          </div>
+        </div>
+        <div class="kquality-item">
+          <div class="kquality-icon">⭐</div>
+          <div>
+            <div class="kquality-title">답변 만족도</div>
+            <div class="kquality-desc">답변 후 사용자 이모지 반응 수 or 별점 (측정 기준 수립 필요)</div>
+            <div class="kquality-meta">
+              <span class="kquality-goal">기준 수립중</span>
+              <span class="kquality-val">–</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ksec-divider"></div>
+  <!-- TERTIARY KPI -->
+  <div class="ksec-header">
+    <span class="ksec-tag tertiary">Tertiary KPI</span>
+    <span class="ksec-question">대화 루프를 형성할 만한가?</span>
+  </div>
+  <div class="kloop-wrap">
+    <div class="kloop-title">KPI 3 — 대화 루프 형성 분석</div>
+    <div class="kloop-desc">대화 루프 = 동일한 두 사용자 간 <b>3회 이상 메시지를 교환</b>한 쌍. 단순 질문·답변을 넘어 관계 기반 지속 대화가 발생하는지 측정합니다.</div>
+    <div class="kloop-def">
+      <span>📌</span>
+      <span>루프 정의: 동일 2인 간 메시지 교환 3회 이상</span>
+    </div>
+    <div class="kloop-cards">
+      <div class="kloop-card">
+        <div class="kloop-card-label">전체 루프 형성 대화쌍</div>
+        <div class="kloop-card-val">83</div>
+        <div class="kloop-card-unit">쌍</div>
+      </div>
+      <div class="kloop-card highlight">
+        <div class="kloop-card-label">환우·보호자끼리만 루프</div>
+        <div class="kloop-card-val">55</div>
+        <div class="kloop-card-unit">쌍</div>
+      </div>
+    </div>
+    <!-- 3/16~3/17 발화량 분석 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+        <span>📊</span> 3/16~3/17 통합 발화량 분석
+      </div>
+      <div style="font-size:12px;color:var(--accent4);font-weight:700;margin-bottom:14px;">운영자 개입 지속 — 정보글 드라이브 구간 유지</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+        <div style="background:var(--surface);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">운영자</div>
+          <div style="font-size:22px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--text);">35<span style="font-size:11px;font-weight:400;font-family:'Noto Sans KR',sans-serif;color:var(--text-muted);margin-left:2px;">건</span></div>
+          <div style="font-size:11px;font-weight:500;font-family:'Poppins',sans-serif;color:var(--accent4);margin-top:2px;">18.0% → 유지</div>
+        </div>
+        <div style="background:rgba(0,212,160,0.07);border:1px solid rgba(0,212,160,0.18);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:10px;color:var(--accent2);margin-bottom:6px;font-weight:600;">환우·보호자</div>
+          <div style="font-size:22px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--accent2);">157<span style="font-size:11px;font-weight:400;font-family:'Noto Sans KR',sans-serif;color:var(--text-muted);margin-left:2px;">건</span></div>
+          <div style="font-size:11px;font-weight:500;font-family:'Poppins',sans-serif;color:var(--accent2);margin-top:2px;">80.9% ▼ 소폭</div>
+        </div>
+        <div style="background:var(--surface);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;font-weight:600;">의료진</div>
+          <div style="font-size:22px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--text);">2<span style="font-size:11px;font-weight:400;font-family:'Noto Sans KR',sans-serif;color:var(--text-muted);margin-left:2px;">건</span></div>
+          <div style="font-size:11px;font-weight:500;font-family:'Poppins',sans-serif;color:var(--text-dim);margin-top:2px;">1.0% →</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        이전 구간(3/15~16)과 마찬가지로 운영자가 <b style="color:var(--text);">평균 90자의 정보글을 35건 투하</b>하며 18% 비중을 유지하고 있습니다.
+        환우 발화 80.9%는 <b style="color:var(--accent2);">여전히 압도적</b>이나 PoC 최고치(89.9%) 대비 소폭 낮아진 상태입니다.
+      </div>
+    </div>
+    <!-- 시간대별 발화 분포 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+        <span>⏰</span> 시간대별 발화 분포
+      </div>
+      <!-- 테이블 형태 -->
+      <table class="kcore-table" style="margin-bottom:14px;">
+        <thead>
+          <tr>
+            <th>시간</th>
+            <th class="kalign-right">3/16</th>
+            <th class="kalign-right">3/17</th>
+            <th class="kalign-right">합계</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8시</td>
+            <td class="kalign-right kmsg-val">6</td>
+            <td class="kalign-right kmsg-val">4</td>
+            <td class="kalign-right kmsg-val">10건</td>
+          </tr>
+          <tr>
+            <td>11시</td>
+            <td class="kalign-right kmsg-val">24</td>
+            <td class="kalign-right kmsg-val">3</td>
+            <td class="kalign-right kmsg-val">27건</td>
+          </tr>
+          <tr>
+            <td>14시</td>
+            <td class="kalign-right kmsg-val">28</td>
+            <td class="kalign-right kmsg-val">2</td>
+            <td class="kalign-right kmsg-val">30건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 3/16 피크</td>
+          </tr>
+          <tr style="background:rgba(255,110,180,0.06);">
+            <td>15시</td>
+            <td class="kalign-right kmsg-val" style="color:#ff6eb4;">21</td>
+            <td class="kalign-right kmsg-val" style="color:#ff6eb4;">11</td>
+            <td class="kalign-right kmsg-val" style="color:#ff6eb4;">32건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 최고 피크</td>
+          </tr>
+          <tr>
+            <td>18시</td>
+            <td class="kalign-right kmsg-val">11</td>
+            <td class="kalign-right kmsg-val">0</td>
+            <td class="kalign-right kmsg-val">11건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 3/17 저녁 활동</td>
+          </tr>
+          <tr>
+            <td>21시</td>
+            <td class="kalign-right kmsg-val">20</td>
+            <td class="kalign-right kmsg-val">0</td>
+            <td class="kalign-right kmsg-val">20건</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:10px;color:var(--text-dim);padding:2px 12px;">← 3/16 야간 활동</td>
+          </tr>
+          <tr>
+            <td>22시</td>
+            <td class="kalign-right kmsg-val">10</td>
+            <td class="kalign-right kmsg-val">0</td>
+            <td class="kalign-right kmsg-val">10건</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        오후 3시(32건)가 이 구간 최고 피크로, <b style="color:var(--text);">오후 2~3시 집중 패턴이 3일 연속 반복</b>되고 있습니다.
+        3/16 오후 9시 야간 활동(20건)도 <b style="color:var(--accent2);">주목할 만</b>합니다.
+      </div>
+    </div>
+    <!-- 발신자별 질 vs 양 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+        <span>✍️</span> 발신자별 질 vs 양
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px;">콩가 23건·87자로 운영자 다음 최장 발화, 찌니 당일 코어 진입</div>
+      <table class="kcore-table" style="margin-bottom:14px;">
+        <thead>
+          <tr>
+            <th>발신자</th>
+            <th class="kalign-right">건수</th>
+            <th class="kalign-right">평균 글자수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="knickname">운영자</td>
+            <td class="kalign-right kmsg-val">35건</td>
+            <td class="kalign-right kmsg-val">90자</td>
+          </tr>
+          <tr>
+            <td class="knickname">콩가 <span class="kstage-tag">4기</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">23건</td>
+            <td class="kalign-right kmsg-val">87자</td>
+          </tr>
+          <tr>
+            <td class="knickname">율 <span class="kstage-tag">삼음2기</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">15건</td>
+            <td class="kalign-right kmsg-val">34자</td>
+          </tr>
+          <tr>
+            <td class="knickname">말년복 <span class="kstage-tag">수술준비중</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">10건</td>
+            <td class="kalign-right kmsg-val">49자</td>
+          </tr>
+          <tr>
+            <td class="knickname">보리 <span class="kstage-tag">양측제자리</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">10건</td>
+            <td class="kalign-right kmsg-val">74자</td>
+          </tr>
+          <tr>
+            <td class="knickname">찌니 <span class="kstage-tag">4기</span> <span class="krole-tag patient">환우</span> <span class="knew-tag">NEW</span></td>
+            <td class="kalign-right kmsg-val">8건</td>
+            <td class="kalign-right kmsg-val">8자</td>
+          </tr>
+          <tr>
+            <td class="knickname">Moonview <span class="kstage-tag">2기</span> <span class="krole-tag patient">환우</span> <span class="knew-tag">NEW</span></td>
+            <td class="kalign-right kmsg-val">6건</td>
+            <td class="kalign-right kmsg-val">18자</td>
+          </tr>
+          <tr>
+            <td class="knickname">KJH <span class="kstage-tag">삼중음성3기</span> <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">5건</td>
+            <td class="kalign-right kmsg-val">22자</td>
+          </tr>
+          <tr>
+            <td class="knickname">사라. 제자리. <span class="krole-tag patient">환우</span></td>
+            <td class="kalign-right kmsg-val">4건</td>
+            <td class="kalign-right kmsg-val">41자</td>
+          </tr>
+          <tr>
+            <td class="knickname">타이거 <span class="kstage-tag">홀몬2기</span> <span class="krole-tag patient">환우</span> <span class="knew-tag">NEW</span></td>
+            <td class="kalign-right kmsg-val">4건</td>
+            <td class="kalign-right kmsg-val">40자</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        콩가가 이 구간 23건·평균 87자로 <b style="color:var(--text);">운영자 다음으로 가장 긴 발화</b>를 기록했습니다.
+        찌니가 처음 등장해 8건으로 즉시 누적 5위에 진입하는 <b style="color:var(--accent2);">또 한 번의 당일 코어 패턴</b>이 나타났습니다.
+      </div>
+    </div>
+    <!-- 세션 유형 분포 -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;">
+      <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+        <span>📋</span> 세션 유형 분포 (3/16+3/17 통합)
+      </div>
+      <div style="font-size:12px;color:var(--accent2);font-weight:700;margin-bottom:14px;">환우 자생 세션 31% → 35% 소폭 회복</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:140px;font-size:12px;color:var(--text-muted);font-weight:600;">👤 운영자 포함</span>
+          <div style="flex:1;height:16px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:65%;height:100%;background:var(--accent);border-radius:4px;"></div></div>
+          <span style="width:70px;font-family:'Poppins',sans-serif;font-weight:700;color:var(--text-muted);text-align:right;font-size:13px;">11개 65%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:140px;font-size:12px;color:var(--text-muted);font-weight:600;">🌱 환우 자생</span>
+          <div style="flex:1;height:16px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:35%;height:100%;background:linear-gradient(90deg,var(--accent2),#00ffcc);border-radius:4px;"></div></div>
+          <span style="width:70px;font-family:'Poppins',sans-serif;font-weight:700;color:var(--accent2);text-align:right;font-size:13px;">6개 35%</span>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+        이전 구간 대비 환우 자생 세션이 31% → 35%로 <b style="color:var(--accent2);">소폭 회복</b>됐습니다.
+        운영자 개입이 많은 구간임에도 <b style="color:var(--text);">환우 자생 세션이 꾸준히 유지</b>되고 있다는 점이 긍정적입니다.
+      </div>
+    </div>
+  </div>
+  <div class="kdoc-footer">
+    <div class="kdoc-footer-left">
+      aitrics · 신사업전략부서<br>
+      Pinkcare PoC · KPI Dashboard
+    </div>
+    <div class="kdoc-footer-right">
+      Internal · 2026<br>
+      Last Updated 2026.03.17
+    </div>
+  </div>
+</div>
+</body>
+</html>
