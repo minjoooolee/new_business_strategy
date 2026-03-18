@@ -355,7 +355,7 @@
       <div class="post-detail-card post-detail-card--notice">
         <div class="post-detail-top">
           <div class="post-detail-top-left">
-            <span class="post-badge badge--notice">📌 공지</span>
+            <span class="post-badge badge--notice">공지</span>
             <span class="post-disease-badge">AITRICS 공식</span>
           </div>
         </div>
@@ -379,26 +379,42 @@
 
       <!-- 본문 -->
       <div class="post-detail-body">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-          <img src="../../assets/앰버서더 행사.jpg" alt="온코케어 앰버서더 행사"
-            style="width:100%;border-radius:10px;object-fit:cover;height:220px;">
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <img src="../../assets/앰버서더 예시.jpg" alt="온코케어 앰버서더 예시"
-              style="width:100%;border-radius:10px;object-fit:cover;flex:1;">
-            <img src="../../assets/Gemini_generated.jpg" alt="온코케어 AI 이미지"
-              style="width:100%;border-radius:10px;object-fit:cover;flex:1;">
-          </div>
-        </div>
-
         ${NOTICE_POST.body.map(p => `<p>${p}</p>`).join('')}
 
-        ${NOTICE_POST.sections.map(s => `
+        <div class="notice-img-block">
+          <img src="../../assets/앰버서더 행사.jpg" alt="온코케어 런칭 행사">
+          <p class="notice-img-caption">온코케어 런칭 행사 현장</p>
+        </div>
+
+        ${NOTICE_POST.sections.slice(0, 1).map(s => `
           <div class="notice-body-section">
             <h3>${s.icon} ${s.title}</h3>
             <p>${s.content}</p>
           </div>`).join('')}
 
-        <p style="margin-top:24px;font-weight:600;color:#374151">📲 지금 바로 온코케어의 따뜻한 품에 안기세요!</p>
+        <div class="notice-img-block">
+          <img src="../../assets/앰버서더 예시.jpg" alt="온코케어 앰버서더">
+          <p class="notice-img-caption">온코케어와 함께하는 앰버서더</p>
+        </div>
+
+        ${NOTICE_POST.sections.slice(1, 3).map(s => `
+          <div class="notice-body-section">
+            <h3>${s.icon} ${s.title}</h3>
+            <p>${s.content}</p>
+          </div>`).join('')}
+
+        <div class="notice-img-block">
+          <img src="../../assets/Gemini_Generated_Image_rnf38zrnf38zrnf3.png" alt="온코케어 AI 비전">
+          <p class="notice-img-caption">AITRICS × 온코케어 — AI로 연결되는 치유의 공동체</p>
+        </div>
+
+        ${NOTICE_POST.sections.slice(3).map(s => `
+          <div class="notice-body-section">
+            <h3>${s.icon} ${s.title}</h3>
+            <p>${s.content}</p>
+          </div>`).join('')}
+
+        <p style="margin-top:28px;font-weight:600;color:#374151">📲 지금 바로 온코케어의 따뜻한 품에 안기세요!</p>
         <p>${NOTICE_POST.outro}</p>
 
         <div class="notice-hashtags">
