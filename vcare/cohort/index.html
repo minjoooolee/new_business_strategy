@@ -59,6 +59,83 @@
   </div>
 </section>
 
+<!-- ── 의료진 전용 코호트 관리 뷰 ────────────────── -->
+<main class="cohort-main" id="doctorCohortView" style="display:none">
+  <div class="cohort-wrap" style="grid-template-columns:1fr">
+
+    <!-- 의료진 프로필 바 -->
+    <div class="cohort-profile" style="background:linear-gradient(135deg,#f3e8ff 0%,#ede9fe 100%);border-color:#d8b4fe">
+      <div class="cohort-profile-icon" style="background:linear-gradient(135deg,#7c3aed,#6E3FA3)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div class="cohort-profile-info">
+        <div class="cohort-profile-label">🩺 의료진 코호트 모니터링</div>
+        <div class="cohort-profile-detail">
+          <span class="cohort-tag" style="background:#7c3aed;color:#fff" id="drDeptTag">진료과</span>
+          <span class="cohort-tag" style="background:#10b981;color:#fff">면허 인증 완료</span>
+          <span class="cohort-tag">관리 코호트: <b id="drCohortCount">6</b>개</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 데스크톱 탭 -->
+    <div class="cohort-desktop-tabs" style="grid-column:1/-1;display:flex;gap:0;border-bottom:1.5px solid #f3f4f6;margin-bottom:4px">
+      <button class="cohort-dtab active" onclick="switchDrCohortTab('overview',this)">📊 코호트 현황</button>
+      <button class="cohort-dtab" onclick="switchDrCohortTab('alerts',this)">🔔 환자 알림</button>
+      <button class="cohort-dtab" onclick="switchDrCohortTab('chat',this)">💬 코호트 채팅 모니터링</button>
+    </div>
+
+    <!-- 탭 1: 코호트 현황 -->
+    <section id="drTab-overview" class="dr-cohort-tab active" style="grid-column:1/-1">
+      <!-- 통계 카드 -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px">
+        <div style="padding:20px;background:#fff;border:1px solid #e5e7eb;border-radius:14px">
+          <div style="font-size:.78rem;color:#9ca3af;margin-bottom:4px">총 관리 환자</div>
+          <div style="font-size:1.6rem;font-weight:800;color:#111827">847<span style="font-size:.85rem;color:#10b981;margin-left:6px">+12</span></div>
+        </div>
+        <div style="padding:20px;background:#fff;border:1px solid #e5e7eb;border-radius:14px">
+          <div style="font-size:.78rem;color:#9ca3af;margin-bottom:4px">활성 코호트</div>
+          <div style="font-size:1.6rem;font-weight:800;color:#111827">6</div>
+        </div>
+        <div style="padding:20px;background:#fff;border:1px solid #e5e7eb;border-radius:14px">
+          <div style="font-size:.78rem;color:#9ca3af;margin-bottom:4px">이번 주 신규 질문</div>
+          <div style="font-size:1.6rem;font-weight:800;color:#111827">34<span style="font-size:.85rem;color:#f59e0b;margin-left:6px">미답변 8</span></div>
+        </div>
+        <div style="padding:20px;background:#fff;border:1px solid #e5e7eb;border-radius:14px">
+          <div style="font-size:.78rem;color:#9ca3af;margin-bottom:4px">AI 답변 정확도</div>
+          <div style="font-size:1.6rem;font-weight:800;color:#10b981">94.2%</div>
+        </div>
+      </div>
+
+      <!-- 코호트 목록 -->
+      <div style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:14px">관리 중인 코호트</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" id="drCohortList">
+        <!-- JS로 렌더링 -->
+      </div>
+    </section>
+
+    <!-- 탭 2: 환자 알림 -->
+    <section id="drTab-alerts" class="dr-cohort-tab" style="grid-column:1/-1;display:none">
+      <div style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:14px">🔔 주의가 필요한 환자 알림</div>
+      <div id="drAlertsList">
+        <!-- JS로 렌더링 -->
+      </div>
+    </section>
+
+    <!-- 탭 3: 채팅 모니터링 -->
+    <section id="drTab-chat" class="dr-cohort-tab" style="grid-column:1/-1;display:none">
+      <div style="font-size:1rem;font-weight:700;color:#111827;margin-bottom:14px">💬 코호트 채팅 모니터링</div>
+      <div style="font-size:.88rem;color:#6b7280;margin-bottom:16px">AI가 답변한 내용 중 의료진 검토가 필요한 항목입니다.</div>
+      <div id="drChatMonitor">
+        <!-- JS로 렌더링 -->
+      </div>
+    </section>
+
+  </div>
+</main>
+
 <!-- ── 온보딩 (처음 진입 시) ────────────────────── -->
 <div class="cohort-onboarding" id="onboarding">
   <div class="onb-card">
@@ -228,7 +305,7 @@ const STEPS = [
     title: '병기(Stage)를 선택해 주세요',
     desc: '현재 진단받은 병기를 선택해 주세요.',
     cancerOnly: true,
-    options: ['1기','2기','3기','4기','잘 모르겠어요']
+    options: ['0기','1기','2기','3기','4기','잘 모르겠어요']
   },
   {
     key: 'surgery',
@@ -1210,8 +1287,143 @@ function selectDtOptMulti(btn) {
   }
 }
 
-// ── 초기화 ────────────────────────────────────
-renderOnboarding();
+// ── 의료진 코호트 뷰 ────────────────────────────
+function switchDrCohortTab(name, el) {
+  document.querySelectorAll('.cohort-dtab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.dr-cohort-tab').forEach(t => t.style.display = 'none');
+  const target = document.getElementById('drTab-' + name);
+  if (target) { target.style.display = ''; target.classList.add('active'); }
+}
+
+function renderDoctorCohortView(loginData) {
+  // 진료과 태그 업데이트
+  const deptTag = document.getElementById('drDeptTag');
+  if (deptTag && loginData.department) deptTag.textContent = loginData.department;
+
+  // 코호트 목록
+  const cohorts = [
+    { cancer:'유방암', subtype:'HER2+', stage:'2기', members:142, active:23, questions:8, trend:'up' },
+    { cancer:'유방암', subtype:'삼중음성(TNBC)', stage:'3기', members:89, active:14, questions:5, trend:'up' },
+    { cancer:'위암', subtype:'장형', stage:'3기', members:118, active:18, questions:6, trend:'stable' },
+    { cancer:'대장암', subtype:'선암', stage:'2기', members:203, active:31, questions:9, trend:'up' },
+    { cancer:'폐암', subtype:'비소세포(선암)', stage:'4기', members:167, active:28, questions:4, trend:'down' },
+    { cancer:'갑상선암', subtype:'유두암', stage:'1기', members:128, active:12, questions:2, trend:'stable' },
+  ];
+
+  document.getElementById('drCohortList').innerHTML = cohorts.map(c => `
+    <div style="padding:20px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;cursor:pointer" onmouseover="this.style.borderColor='#7c3aed'" onmouseout="this.style.borderColor='#e5e7eb'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="display:flex;gap:6px">
+          <span style="font-size:.72rem;padding:2px 8px;border-radius:8px;background:#f3e8ff;color:#6b21a8;font-weight:600">${c.cancer}</span>
+          <span style="font-size:.72rem;padding:2px 8px;border-radius:8px;background:#ecfdf5;color:#047857;font-weight:600">${c.subtype}</span>
+          <span style="font-size:.72rem;padding:2px 8px;border-radius:8px;background:#fef3c7;color:#92400e;font-weight:600">${c.stage}</span>
+        </div>
+        <span style="font-size:.75rem;color:${c.trend==='up'?'#10b981':c.trend==='down'?'#ef4444':'#9ca3af'}">${c.trend==='up'?'📈':'📉'}</span>
+      </div>
+      <div style="font-size:.88rem;font-weight:700;color:#111827;margin-bottom:8px">${c.cancer} ${c.subtype} ${c.stage} 코호트</div>
+      <div style="display:flex;gap:16px;font-size:.8rem;color:#6b7280">
+        <span>👥 ${c.members}명</span>
+        <span style="color:#10b981">🟢 ${c.active}명 활동</span>
+        <span style="color:${c.questions>5?'#f59e0b':'#9ca3af'}">❓ 미답변 ${c.questions}</span>
+      </div>
+    </div>
+  `).join('');
+
+  // 환자 알림
+  const alerts = [
+    { level:'urgent', icon:'🔴', patient:'환자_mj7', cohort:'유방암 HER2+ 2기', msg:'3차 항암 후 발열 38.5°C 이상 보고 — 호중구 감소 의심', time:'30분 전' },
+    { level:'urgent', icon:'🔴', patient:'환자_91z', cohort:'대장암 선암 2기', msg:'검사결과지에서 CEA 수치 급상승 (4.2 → 18.7) 감지', time:'1시간 전' },
+    { level:'warn', icon:'🟡', patient:'환자_th2', cohort:'폐암 비소세포 4기', msg:'채팅에서 극심한 우울감/무기력감 언급 — 심리 지원 필요', time:'2시간 전' },
+    { level:'warn', icon:'🟡', patient:'보호자_k3a', cohort:'위암 장형 3기', msg:'수술 후 식사량 급감 보고 — 영양 상담 권장', time:'3시간 전' },
+    { level:'info', icon:'🔵', patient:'환자_8a4', cohort:'유방암 TNBC 3기', msg:'AI 답변에 대해 추가 질문 — 의료진 직접 답변 요청', time:'4시간 전' },
+    { level:'info', icon:'🔵', patient:'환자_x2k', cohort:'갑상선암 유두암 1기', msg:'RAI 치료 후 격리 기간 문의 — AI 답변 검토 필요', time:'5시간 전' },
+  ];
+
+  document.getElementById('drAlertsList').innerHTML = alerts.map(a => `
+    <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px;background:${a.level==='urgent'?'#fef2f2':a.level==='warn'?'#fffbeb':'#f9fafb'};border:1px solid ${a.level==='urgent'?'#fecaca':a.level==='warn'?'#fde68a':'#e5e7eb'};border-radius:12px;margin-bottom:10px">
+      <div style="font-size:1.2rem;margin-top:2px">${a.icon}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:.88rem;font-weight:700;color:#111827">${a.patient}</span>
+          <span style="font-size:.72rem;padding:2px 8px;border-radius:8px;background:#f3f4f6;color:#6b7280">${a.cohort}</span>
+          <span style="font-size:.72rem;color:#9ca3af;margin-left:auto">${a.time}</span>
+        </div>
+        <div style="font-size:.85rem;color:#374151;line-height:1.5">${a.msg}</div>
+      </div>
+      <button style="padding:6px 14px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font-size:.78rem;font-weight:600;color:#374151;cursor:pointer;white-space:nowrap">확인하기</button>
+    </div>
+  `).join('');
+
+  // 채팅 모니터링 (AI 답변 검토 필요)
+  const chatReviews = [
+    { cohort:'유방암 HER2+ 2기', question:'키트루다랑 허셉틴 같이 쓸 수 있나요?', aiAnswer:'일반적으로 HER2+ 유방암에서 키트루다(펨브롤리주맙)와 허셉틴(트라스투주맙)의 병용은 임상시험 단계에 있습니다. 현재 표준 요법은 아니며, 담당 주치의와 상의가 필요합니다.', status:'review', reason:'약물 병용 관련 — 정확성 검토 필요' },
+    { cohort:'대장암 선암 2기', question:'항암 중에 코로나 백신 맞아도 되나요?', aiAnswer:'항암 치료 중 코로나 백신 접종은 일반적으로 권장되나, 항암 주기에 따라 접종 시기를 조정할 수 있습니다. 백혈구 수치가 안정적인 시기에 접종하는 것이 좋으며, 담당 의료진과 일정을 상의하세요.', status:'ok', reason:'' },
+    { cohort:'폐암 비소세포 4기', question:'태그리소 내성 생기면 다음 약은 뭐예요?', aiAnswer:'오시머티닙(태그리소) 내성 후 치료 옵션은 내성 기전에 따라 달라집니다. C797S 변이 등에 따라 화학항암제 병용, 새로운 표적치료제, 또는 임상시험 참여가 고려될 수 있습니다.', status:'review', reason:'내성 기전별 치료 옵션 — 최신 가이드라인 반영 확인' },
+  ];
+
+  document.getElementById('drChatMonitor').innerHTML = chatReviews.map(r => `
+    <div style="padding:20px;background:#fff;border:1px solid ${r.status==='review'?'#fde68a':'#d1fae5'};border-radius:14px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:.72rem;padding:2px 8px;border-radius:8px;background:${r.status==='review'?'#fef3c7':'#ecfdf5'};color:${r.status==='review'?'#92400e':'#047857'};font-weight:600">${r.status==='review'?'🟡 검토 필요':'✅ 검토 완료'}</span>
+        <span style="font-size:.78rem;color:#6b7280">${r.cohort}</span>
+        ${r.reason ? '<span style="font-size:.72rem;color:#dc2626;margin-left:auto">⚠️ ' + r.reason + '</span>' : ''}
+      </div>
+      <div style="font-size:.88rem;font-weight:700;color:#111827;margin-bottom:8px">Q. ${r.question}</div>
+      <div style="font-size:.85rem;color:#374151;line-height:1.6;padding:12px 16px;background:#f9fafb;border-radius:10px;border-left:3px solid ${r.status==='review'?'#f59e0b':'#10b981'};margin-bottom:10px">
+        <div style="font-size:.72rem;font-weight:700;color:#9ca3af;margin-bottom:4px">AI 답변</div>
+        ${r.aiAnswer}
+      </div>
+      ${r.status==='review' ? '<div style="display:flex;gap:8px"><button style="padding:6px 16px;border:none;border-radius:8px;background:#10b981;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer">✅ 승인</button><button style="padding:6px 16px;border:none;border-radius:8px;background:#f59e0b;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer">✏️ 수정 후 승인</button><button style="padding:6px 16px;border:1px solid #fecaca;border-radius:8px;background:#fff;color:#ef4444;font-size:.82rem;font-weight:600;cursor:pointer">❌ 반려</button></div>' : ''}
+    </div>
+  `).join('');
+}
+
+function switchToDoctor(loginData) {
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('cohortMain').style.display = 'none';
+  document.getElementById('doctorCohortView').style.display = '';
+  // 히어로 문구 변경
+  const heroDesc = document.querySelector('.hero-desc');
+  if (heroDesc) heroDesc.innerHTML = '담당 코호트의 환자 현황을 모니터링하고<br>AI 답변을 검토·관리합니다.';
+  renderDoctorCohortView(loginData);
+}
+
+function switchToPatient() {
+  document.getElementById('doctorCohortView').style.display = 'none';
+  document.getElementById('onboarding').style.display = '';
+  const heroDesc = document.querySelector('.hero-desc');
+  if (heroDesc) heroDesc.innerHTML = '나와 같은 암종, 같은 병기, 같은 치료 단계의<br>환우들과 실시간으로 정보를 나누세요.';
+  renderOnboarding();
+}
+
+// 로그인 이벤트 수신
+window.addEventListener('oncocare-login', function(e) {
+  if (e.detail && e.detail.role === '의료진') {
+    switchToDoctor(e.detail);
+  } else {
+    switchToPatient();
+  }
+});
+
+window.addEventListener('oncocare-logout', function() {
+  switchToPatient();
+});
+
+// 페이지 로드 시 localStorage 확인
+(function() {
+  try {
+    var saved = localStorage.getItem('oncocare_login');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (parsed && parsed.role === '의료진') {
+        switchToDoctor(parsed);
+        return;
+      }
+    }
+  } catch(e) {}
+  renderOnboarding();
+})();
 </script>
 <script src="../login.js"></script>
 </body>

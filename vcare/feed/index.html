@@ -104,7 +104,8 @@
         <div class="feed-meta">
           <div class="feed-author-row">
             <span class="feed-author">온코케어 메디컬팀</span>
-            <span class="badge badge--staff">운영진</span>
+            <span class="badge badge--staff">AI 생성</span>
+            <span class="badge--verified"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> 의료진 검증</span>
           </div>
           <span class="feed-date">2026. 3. 12. &bull; 오전 11:27</span>
         </div>
@@ -316,6 +317,35 @@
       }
     });
   });
+// ── 의료진 모드 전환 ──
+function applyFeedDoctorMode(isDoctor) {
+  var composeInput = document.querySelector('.compose-input');
+  var heroDesc = document.querySelector('.hero-desc');
+
+  if (isDoctor) {
+    if (composeInput) composeInput.placeholder = '의료진님, 환우들에게 도움이 될 건강 정보나 최신 의학 소식을 공유해 주세요.';
+    if (heroDesc) heroDesc.innerHTML = '환우들의 질문에 전문 답변을 남기고,<br>AI가 생성한 콘텐츠를 검증해 주세요.';
+  } else {
+    if (composeInput) composeInput.placeholder = '김환자님, 오늘 하루는 어떠신가요? 가벼운 안부나 사진을 남겨주세요.';
+    if (heroDesc) heroDesc.innerHTML = '의료진과 환우들이 나누는 건강 정보와<br>따뜻한 이야기를 만나보세요.';
+  }
+}
+
+window.addEventListener('oncocare-login', function(e) {
+  if (e.detail) applyFeedDoctorMode(e.detail.role === '의료진');
+});
+window.addEventListener('oncocare-logout', function() {
+  applyFeedDoctorMode(false);
+});
+(function() {
+  try {
+    var saved = localStorage.getItem('oncocare_login');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (parsed && parsed.role === '의료진') applyFeedDoctorMode(true);
+    }
+  } catch(e) {}
+})();
 </script>
 <script src="../login.js"></script>
 </body>

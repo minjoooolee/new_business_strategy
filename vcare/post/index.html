@@ -10,6 +10,127 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+/* ── AI 비서 모달 ── */
+.ai-assist-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);animation:fadeIn .2s ease;
+}
+.ai-assist-overlay.on { display:flex; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes slideUp { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+.ai-assist-modal {
+  background:#fff;border-radius:20px;width:480px;max-width:92vw;
+  max-height:85vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,.18);
+  animation:slideUp .3s ease;
+}
+.ai-assist-header {
+  padding:24px 28px 16px;border-bottom:1px solid #f3f4f6;
+  display:flex;align-items:center;gap:12px;
+}
+.ai-assist-avatar {
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,#3fbfbc,#6E3FA3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:#fff;font-weight:800;font-family:Poppins,sans-serif;
+  flex-shrink:0;
+}
+.ai-assist-header-text { flex:1; }
+.ai-assist-header-title { font-size:1rem;font-weight:700;color:#111827; }
+.ai-assist-header-sub { font-size:.78rem;color:#9ca3af;margin-top:2px; }
+.ai-assist-close {
+  width:32px;height:32px;border:none;background:#f3f4f6;border-radius:10px;
+  font-size:18px;cursor:pointer;color:#6b7280;display:flex;align-items:center;justify-content:center;
+}
+.ai-assist-close:hover { background:#e5e7eb; }
+
+.ai-assist-body { padding:24px 28px; }
+.ai-assist-step-label {
+  font-size:.72rem;font-weight:700;letter-spacing:.5px;color:#6E3FA3;
+  background:rgba(110,63,163,.06);padding:3px 10px;border-radius:12px;
+  display:inline-block;margin-bottom:14px;
+}
+.ai-assist-question {
+  font-size:1.05rem;font-weight:700;color:#111827;line-height:1.5;margin-bottom:18px;
+}
+.ai-assist-options { display:flex;flex-direction:column;gap:8px; }
+.ai-assist-opt {
+  padding:14px 18px;border:1.5px solid #e5e7eb;border-radius:12px;
+  background:#fff;text-align:left;cursor:pointer;
+  font-size:.9rem;color:#374151;font-weight:500;
+  transition:all .15s ease;display:flex;align-items:center;gap:10px;
+}
+.ai-assist-opt:hover { border-color:#7c3aed;background:#faf5ff; }
+.ai-assist-opt.selected { border-color:#7c3aed;background:#f3e8ff;color:#6b21a8;font-weight:600; }
+.ai-assist-opt-icon { font-size:1.2rem; }
+
+/* 자동 생성 영역 */
+.ai-assist-generated {
+  padding:16px 20px;background:#f9fafb;border:1px solid #e5e7eb;
+  border-radius:14px;margin-top:16px;font-size:.88rem;color:#374151;line-height:1.7;
+  position:relative;
+}
+.ai-assist-generated::before {
+  content:'AI 자동 생성';font-size:.68rem;font-weight:700;color:#6E3FA3;
+  background:#f3e8ff;padding:2px 8px;border-radius:6px;
+  position:absolute;top:-8px;left:14px;
+}
+.ai-assist-generated-typing { color:#9ca3af;font-style:italic; }
+
+/* 응원 메시지 */
+.ai-assist-cheer-example {
+  padding:14px 18px;background:linear-gradient(135deg,#fef3c7,#fdf2f8);
+  border:1px solid #fde68a;border-radius:12px;margin-top:12px;
+  font-size:.88rem;color:#92400e;line-height:1.6;
+}
+
+/* 법률 고지 */
+.ai-assist-legal {
+  padding:12px 16px;background:#f9fafb;border:1px solid #e5e7eb;
+  border-radius:10px;margin-top:12px;font-size:.75rem;color:#9ca3af;line-height:1.6;
+}
+
+/* 미리보기 */
+.ai-assist-preview {
+  padding:20px;background:#fff;border:1.5px solid #d8b4fe;border-radius:14px;
+  margin-top:16px;
+}
+.ai-assist-preview-label {
+  font-size:.72rem;font-weight:700;color:#7c3aed;margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.ai-assist-preview-content { font-size:.88rem;color:#374151;line-height:1.7; }
+.ai-assist-preview-legal {
+  margin-top:12px;padding-top:10px;border-top:1px solid #f3f4f6;
+  font-size:.72rem;color:#9ca3af;line-height:1.5;
+}
+
+.ai-assist-footer {
+  padding:16px 28px 24px;display:flex;gap:10px;justify-content:flex-end;
+}
+.ai-assist-btn {
+  padding:10px 22px;border-radius:10px;font-size:.88rem;font-weight:600;
+  cursor:pointer;border:none;transition:all .15s ease;
+}
+.ai-assist-btn--back { background:#f3f4f6;color:#6b7280; }
+.ai-assist-btn--back:hover { background:#e5e7eb; }
+.ai-assist-btn--next { background:#7c3aed;color:#fff; }
+.ai-assist-btn--next:hover { background:#6d28d9; }
+.ai-assist-btn--next:disabled { background:#d1d5db;cursor:not-allowed; }
+.ai-assist-btn--submit { background:linear-gradient(135deg,#10b981,#059669);color:#fff; }
+.ai-assist-btn--submit:hover { background:linear-gradient(135deg,#059669,#047857); }
+
+/* 프로그레스 바 */
+.ai-assist-progress {
+  height:3px;background:#f3f4f6;margin:0 28px;border-radius:2px;
+}
+.ai-assist-progress-bar {
+  height:100%;background:linear-gradient(90deg,#7c3aed,#3fbfbc);
+  border-radius:2px;transition:width .3s ease;
+}
+</style>
 </head>
 <body>
 
@@ -64,6 +185,23 @@
 
   </div>
 </main>
+
+<!-- AI 비서 모달 -->
+<div class="ai-assist-overlay" id="aiAssistOverlay">
+  <div class="ai-assist-modal">
+    <div class="ai-assist-header">
+      <div class="ai-assist-avatar">AI</div>
+      <div class="ai-assist-header-text">
+        <div class="ai-assist-header-title">onco.care AI 비서</div>
+        <div class="ai-assist-header-sub">의료진 답변 작성을 도와드립니다</div>
+      </div>
+      <button class="ai-assist-close" id="aiAssistClose">&times;</button>
+    </div>
+    <div class="ai-assist-progress"><div class="ai-assist-progress-bar" id="aiAssistProgressBar" style="width:25%"></div></div>
+    <div class="ai-assist-body" id="aiAssistBody"></div>
+    <div class="ai-assist-footer" id="aiAssistFooter"></div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
@@ -348,6 +486,9 @@
       </a>`;
   }
 
+  const VERIFIED_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>';
+  const verifiedBadgeHtml = `<span class="badge--verified">${VERIFIED_SVG} 의료진 검증</span>`;
+
   // ── 공지 게시글 렌더링 ──────────────────────
   if (isNotice) {
     document.getElementById('postArea').innerHTML = `
@@ -465,7 +606,7 @@
   } else {
 
   const authorHtml = post.medical
-    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span>`
+    ? `<span class="pd-author pd-author--medical">onco.care 메디컬팀 · 메디컬팀</span> ${verifiedBadgeHtml}`
     : `<span class="pd-author">${post.author} · ${post.role}</span>`;
 
   document.getElementById('postArea').innerHTML = `
@@ -578,7 +719,8 @@
   const similar = findSimilar(post);
   document.getElementById('aiSimilar').innerHTML = `
     <div class="ai-similar-intro">
-      이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.
+      ${verifiedBadgeHtml}
+      <p style="margin-top:6px">이 글과 비슷한 경험을 공유한 게시글을 찾았어요. 함께 읽어보시면 도움이 될 수 있습니다.</p>
     </div>
     ${similar.map(s => `
       <a href="../post?id=${s.id}" class="ai-similar-card">
@@ -619,31 +761,341 @@
   });
 
   // 댓글 작성
-  document.getElementById('commentBtn').addEventListener('click', () => {
-    const input = document.getElementById('commentInput');
-    const text = input.value.trim();
-    if (!text) return;
+  function getLoginRole() {
+    try {
+      var saved = localStorage.getItem('oncocare_login');
+      if (saved) { var p = JSON.parse(saved); return p && p.role ? p.role : '환자'; }
+    } catch(e) {}
+    return '환자';
+  }
+
+  function insertComment(text, isDoc) {
     const now = new Date();
     const ts = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+    const LEGAL_NOTICE = '<div style="margin-top:12px;padding:10px 14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;font-size:.72rem;color:#9ca3af;line-height:1.5">⚖️ 이 의료진의 답변은 개인의 의견이며, 의료적 진단이 아님을 고지합니다. 본 서비스는 의료법을 준수합니다.</div>';
     const html = `
-      <div class="comment-item comment-item--new">
-        <div class="comment-avatar">나</div>
+      <div class="comment-item comment-item--new${isDoc ? ' comment-item--doctor' : ''}">
+        <div class="comment-avatar${isDoc ? ' comment-avatar--doctor' : ''}">${isDoc ? '🩺' : '나'}</div>
         <div class="comment-body">
           <div class="comment-meta">
-            <span class="comment-author">나</span>
-            <span class="comment-role">환자</span>
+            <span class="comment-author ${isDoc ? 'comment-author--doctor' : ''}">${isDoc ? '의료진 답변' : '나'}</span>
+            <span class="comment-role ${isDoc ? 'comment-role--doctor' : ''}">${isDoc ? '의료진' : '환자'}</span>
             <span class="comment-date">${ts}</span>
           </div>
-          <p class="comment-text">${text}</p>
+          <div class="comment-text">${text}${isDoc ? LEGAL_NOTICE : ''}</div>
           <button class="comment-like">${HEART_SVG} <span>0</span></button>
         </div>
       </div>`;
     document.getElementById('commentList').insertAdjacentHTML('afterbegin', html);
-    input.value = '';
-    // 댓글 수 업데이트
     const titleEl = document.querySelector('.comments-title strong');
     titleEl.textContent = parseInt(titleEl.textContent) + 1;
+  }
+
+  document.getElementById('commentBtn').addEventListener('click', () => {
+    const role = getLoginRole();
+    if (role === '의료진') {
+      openAiAssist();
+      return;
+    }
+    const input = document.getElementById('commentInput');
+    const text = input.value.trim();
+    if (!text) return;
+    insertComment(text, false);
+    input.value = '';
   });
+
+  // ── AI 비서 모달 로직 ─────────────────────────
+  const AI_ASSIST_DATA = {
+    purposes: [
+      { id:'drug', icon:'💊', label:'항암제 설명', desc:'항암제의 작용 기전, 투여 방법 등을 안내합니다' },
+      { id:'sideeffect', icon:'⚠️', label:'부작용 설명', desc:'치료 중 나타날 수 있는 부작용을 안내합니다' },
+      { id:'cheer', icon:'💛', label:'응원의 글', desc:'환우에게 힘이 되는 응원 메시지를 전합니다' },
+      { id:'etc', icon:'📝', label:'기타', desc:'직접 답변을 작성합니다' },
+    ],
+    drugs: {
+      '유방암':  ['엔허투(T-DXd)','허셉틴(트라스투주맙)','키트루다(펨브롤리주맙)','카페시타빈(젤로다)','팔보시클립(입랜스)','독소루비신'],
+      '위암':    ['옵디보(니볼루맙)','허셉틴(트라스투주맙)','옥살리플라틴','카페시타빈','S-1(티에스원)','라무시루맙'],
+      '대장암':  ['아바스틴(베바시주맙)','세툭시맙(어비툭스)','옥살리플라틴','이리노테칸','카페시타빈','레고라페닙'],
+      '폐암':    ['태그리소(오시머티닙)','키트루다(펨브롤리주맙)','알렉티닙','페메트렉시드','시스플라틴','카보플라틴'],
+      '간암':    ['렌비마(렌바티닙)','넥사바(소라페닙)','아테졸리주맙+베바시주맙','카보잔티닙','라무시루맙','니볼루맙'],
+      _default: ['엔허투(T-DXd)','허셉틴(트라스투주맙)','키트루다(펨브롤리주맙)','옥살리플라틴','태그리소(오시머티닙)','카페시타빈'],
+    },
+    sideeffects: ['구역/구토','탈모','손발 저림(말초신경병증)','피로/무기력','피부 발진','호중구 감소','설사','식욕 부진','구내염','관절통/근육통'],
+    drugInfo: {
+      '엔허투(T-DXd)': {
+        mechanism: '엔허투(트라스투주맙 데룩스테칸, T-DXd)는 HER2를 표적으로 하는 항체-약물 접합체(ADC)입니다. 항HER2 항체에 토포이소머라제 I 억제제가 결합되어, HER2 양성 암세포에 선택적으로 약물을 전달하여 세포 사멸을 유도합니다.',
+        usage: '3주 간격으로 정맥 주사합니다. 체중에 따라 용량이 결정되며, 질병이 진행되거나 허용할 수 없는 부작용이 나타날 때까지 투여를 지속합니다.',
+        sideeffects: '주요 부작용으로는 구역/구토, 피로, 탈모, 호중구 감소, 빈혈 등이 있습니다. 드물지만 간질성 폐질환(ILD)이 발생할 수 있으므로, 호흡 곤란이나 기침이 새로 생기면 즉시 의료진에게 알려주세요.',
+        tip: '투여 전 구토 방지제를 미리 복용하면 구역감을 줄일 수 있습니다. 수분 섭취를 충분히 하고, 정기적인 혈액 검사를 꼭 받으세요.'
+      },
+      '허셉틴(트라스투주맙)': {
+        mechanism: '허셉틴(트라스투주맙)은 HER2 수용체에 결합하는 단클론 항체입니다. HER2 과발현 암세포의 성장 신호를 차단하고, 면역 세포가 암세포를 공격하도록 도와줍니다.',
+        usage: '초회 용량은 약 90분에 걸쳐 정맥 주사하며, 이후에는 30분으로 단축 가능합니다. 3주 간격으로 투여하며, 보통 1년간 치료합니다.',
+        sideeffects: '주입 관련 반응(발열, 오한)이 나타날 수 있습니다. 심장 기능에 영향을 줄 수 있으므로, 치료 전·중 심장 초음파 검사가 필요합니다.',
+        tip: '안트라사이클린 계열 항암제와 동시 사용 시 심장 독성이 증가할 수 있으니, 투여 순서를 주치의와 확인하세요.'
+      },
+      '키트루다(펨브롤리주맙)': {
+        mechanism: '키트루다(펨브롤리주맙)는 PD-1 면역관문억제제입니다. 암세포가 면역 체계를 회피하는 것을 차단하여, 환자의 T세포가 암세포를 다시 인식하고 공격하도록 합니다.',
+        usage: '3주 또는 6주 간격으로 정맥 주사합니다. 약 30분에 걸쳐 투여하며, 질병 진행 또는 최대 2년까지 치료합니다.',
+        sideeffects: '면역 관련 부작용(갑상선 기능 이상, 폐렴, 간염, 대장염, 피부 발진 등)이 나타날 수 있습니다. 새로운 증상이 발생하면 즉시 알려주세요.',
+        tip: '면역항암제는 기존 항암제와 부작용 양상이 다릅니다. 증상 일지를 기록하면 의료진이 빠르게 대응할 수 있어요.'
+      },
+    },
+    sideeffectInfo: {
+      '구역/구토': '항암 치료 중 흔히 나타나는 부작용입니다. 투여 전 구토 방지제(예: 온단세트론)를 복용하고, 소량씩 자주 식사하세요. 차갑거나 냄새가 적은 음식이 도움이 됩니다. 심한 경우 추가 약물 처방이 가능하니 의료진에게 말씀해 주세요.',
+      '탈모': '항암제에 따라 치료 시작 2~3주 후 발생할 수 있습니다. 치료 종료 후 대부분 다시 자랍니다. 두피 냉각 캡(스칼프 쿨링)을 고려해 볼 수 있으며, 부드러운 소재의 모자나 스카프를 준비해 두시면 좋습니다.',
+      '손발 저림(말초신경병증)': '탁산계, 백금계 항암제에서 흔히 나타납니다. 차가운 것을 만지거나 찬 음식을 피하고, 보온 장갑/양말을 착용하세요. 비타민 B6 보충을 주치의와 상의해 보시고, 증상이 심해지면 용량 조절이 필요할 수 있습니다.',
+      '피로/무기력': '항암 치료 중 가장 흔한 부작용 중 하나입니다. 무리하지 않는 선에서 가벼운 산책이 도움이 됩니다. 충분한 수면, 균형 잡힌 식사, 수분 섭취를 유지하세요. 빈혈이 동반된 경우 적혈구 생성 자극제가 도움될 수 있습니다.',
+      '피부 발진': '표적치료제나 면역항암제에서 나타날 수 있습니다. 순한 세정제와 보습제를 사용하고, 직사광선을 피하세요. 증상에 따라 스테로이드 연고나 항히스타민제가 처방될 수 있습니다.',
+      '호중구 감소': '백혈구 수가 떨어져 감염 위험이 높아진 상태입니다. 손 씻기를 철저히 하고, 사람 많은 곳을 피하세요. 38°C 이상 발열 시 즉시 응급실에 방문해야 합니다. 필요 시 G-CSF 주사로 회복을 도울 수 있습니다.',
+      '설사': '항암제 투여 후 장 점막이 손상되어 나타날 수 있습니다. 수분과 전해질 보충이 중요합니다. 로페라마이드 등 지사제를 의료진 처방에 따라 복용하고, 하루 6회 이상 지속되면 바로 연락해 주세요.',
+      '식욕 부진': '미각 변화와 구역감으로 식욕이 떨어질 수 있습니다. 좋아하는 음식 위주로 소량씩 자주 드시고, 고단백 간식(삶은 달걀, 두유, 견과류)을 곁에 두세요. 영양 보충 음료도 도움이 됩니다.',
+      '구내염': '구강 점막 손상으로 통증이 발생합니다. 부드러운 칫솔로 구강 위생을 유지하고, 자극적인 음식은 피하세요. 소금물 가글이나 처방된 구강 세척제를 사용하면 완화됩니다.',
+      '관절통/근육통': '면역항암제나 호르몬 치료 시 나타날 수 있습니다. 따뜻한 찜질과 가벼운 스트레칭이 도움이 됩니다. 증상이 지속되면 진통제 처방이 가능하니 말씀해 주세요.',
+    },
+    cheerMessages: [
+      '치료의 긴 여정 속에서도 한 걸음씩 나아가고 계신 환우님을 진심으로 응원합니다. 함께 이겨내실 수 있습니다. 💪',
+      '혼자가 아닙니다. 같은 길을 걷는 많은 분들이 함께하고 있고, 의료팀도 늘 곁에 있습니다. 오늘도 수고하셨습니다. 🌱',
+      '힘든 치료 과정을 잘 견뎌내고 계시네요. 환우님의 용기에 존경을 보냅니다. 좋은 날이 꼭 올 것입니다. ☀️',
+    ],
+  };
+
+  let aiAssistStep = 0;
+  let aiAssistState = { purpose: null, drug: null, sideeffect: null, cheer: false, generated: '' };
+
+  function openAiAssist() {
+    aiAssistStep = 0;
+    aiAssistState = { purpose: null, drug: null, sideeffect: null, cheer: false, generated: '' };
+    document.getElementById('aiAssistOverlay').classList.add('on');
+    document.body.style.overflow = 'hidden';
+    renderAiAssistStep();
+  }
+
+  function closeAiAssist() {
+    document.getElementById('aiAssistOverlay').classList.remove('on');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('aiAssistClose').addEventListener('click', closeAiAssist);
+  document.getElementById('aiAssistOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeAiAssist();
+  });
+
+  function renderAiAssistStep() {
+    const body = document.getElementById('aiAssistBody');
+    const footer = document.getElementById('aiAssistFooter');
+    const progressBar = document.getElementById('aiAssistProgressBar');
+
+    if (aiAssistStep === 0) {
+      // STEP 1: 답변 목적
+      progressBar.style.width = '25%';
+      body.innerHTML = `
+        <div class="ai-assist-step-label">STEP 1 / 4</div>
+        <div class="ai-assist-question">답변의 목적이 무엇인가요?</div>
+        <div class="ai-assist-options">
+          ${AI_ASSIST_DATA.purposes.map(p => `
+            <button class="ai-assist-opt${aiAssistState.purpose===p.id?' selected':''}" data-id="${p.id}">
+              <span class="ai-assist-opt-icon">${p.icon}</span>
+              <div><div style="font-weight:600">${p.label}</div><div style="font-size:.78rem;color:#9ca3af;margin-top:2px">${p.desc}</div></div>
+            </button>
+          `).join('')}
+        </div>
+      `;
+      body.querySelectorAll('.ai-assist-opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          body.querySelectorAll('.ai-assist-opt').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          aiAssistState.purpose = btn.dataset.id;
+          footer.querySelector('.ai-assist-btn--next').disabled = false;
+        });
+      });
+      footer.innerHTML = `
+        <button class="ai-assist-btn ai-assist-btn--back" id="aiAssistCancel">취소</button>
+        <button class="ai-assist-btn ai-assist-btn--next" ${!aiAssistState.purpose?'disabled':''} id="aiAssistNext">다음</button>
+      `;
+      document.getElementById('aiAssistCancel').addEventListener('click', closeAiAssist);
+      document.getElementById('aiAssistNext').addEventListener('click', () => {
+        if (!aiAssistState.purpose) return;
+        if (aiAssistState.purpose === 'etc') { aiAssistStep = 3; }
+        else if (aiAssistState.purpose === 'cheer') { aiAssistStep = 2; aiAssistState.generated = AI_ASSIST_DATA.cheerMessages[0]; }
+        else { aiAssistStep = 1; }
+        renderAiAssistStep();
+      });
+
+    } else if (aiAssistStep === 1) {
+      // STEP 2: 세부 선택 (항암제 or 부작용)
+      progressBar.style.width = '50%';
+      const isDrug = aiAssistState.purpose === 'drug';
+      const title = isDrug ? '어떤 항암제에 대해 설명하시겠어요?' : '어떤 부작용에 대해 설명하시겠어요?';
+      const disease = post.diseaseLabel || post.disease || '';
+      const options = isDrug
+        ? (AI_ASSIST_DATA.drugs[disease] || AI_ASSIST_DATA.drugs._default)
+        : AI_ASSIST_DATA.sideeffects;
+
+      body.innerHTML = `
+        <div class="ai-assist-step-label">STEP 2 / 4</div>
+        <div class="ai-assist-question">${title}</div>
+        <div class="ai-assist-options">
+          ${options.map(o => `
+            <button class="ai-assist-opt${(isDrug ? aiAssistState.drug : aiAssistState.sideeffect)===o?' selected':''}" data-val="${o}">
+              <span class="ai-assist-opt-icon">${isDrug ? '💊' : '⚠️'}</span>
+              <div style="font-weight:500">${o}</div>
+            </button>
+          `).join('')}
+        </div>
+      `;
+      body.querySelectorAll('.ai-assist-opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          body.querySelectorAll('.ai-assist-opt').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          if (isDrug) aiAssistState.drug = btn.dataset.val;
+          else aiAssistState.sideeffect = btn.dataset.val;
+          footer.querySelector('.ai-assist-btn--next').disabled = false;
+        });
+      });
+      footer.innerHTML = `
+        <button class="ai-assist-btn ai-assist-btn--back" id="aiAssistBack">이전</button>
+        <button class="ai-assist-btn ai-assist-btn--next" disabled id="aiAssistNext">다음 — AI 답변 생성</button>
+      `;
+      document.getElementById('aiAssistBack').addEventListener('click', () => { aiAssistStep = 0; renderAiAssistStep(); });
+      document.getElementById('aiAssistNext').addEventListener('click', () => {
+        generateAiContent();
+        aiAssistStep = 2;
+        renderAiAssistStep();
+      });
+
+    } else if (aiAssistStep === 2) {
+      // STEP 3: 응원 한 마디
+      progressBar.style.width = '75%';
+      body.innerHTML = `
+        <div class="ai-assist-step-label">STEP 3 / 4</div>
+        <div class="ai-assist-question">응원의 한 마디를 덧붙이시겠어요?</div>
+        <div class="ai-assist-generated">${aiAssistState.generated}</div>
+        <div style="display:flex;gap:10px;margin-top:18px">
+          <button class="ai-assist-opt${aiAssistState.cheer?' selected':''}" data-cheer="yes" style="flex:1;justify-content:center">
+            <span class="ai-assist-opt-icon">👍</span> 예, 덧붙일게요
+          </button>
+          <button class="ai-assist-opt${aiAssistState.cheer===false&&aiAssistState.purpose!=='cheer'?' selected':''}" data-cheer="no" style="flex:1;justify-content:center">
+            <span class="ai-assist-opt-icon">👎</span> 아니요, 괜찮아요
+          </button>
+        </div>
+        ${aiAssistState.cheer ? `
+          <div class="ai-assist-cheer-example">
+            💛 ${AI_ASSIST_DATA.cheerMessages[Math.floor(Math.random()*AI_ASSIST_DATA.cheerMessages.length)]}
+          </div>
+        ` : ''}
+      `;
+      body.querySelectorAll('[data-cheer]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          body.querySelectorAll('[data-cheer]').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          aiAssistState.cheer = btn.dataset.cheer === 'yes';
+          if (aiAssistState.cheer) {
+            const cheerMsg = AI_ASSIST_DATA.cheerMessages[Math.floor(Math.random()*AI_ASSIST_DATA.cheerMessages.length)];
+            aiAssistState.cheerText = cheerMsg;
+            let existing = body.querySelector('.ai-assist-cheer-example');
+            if (!existing) {
+              btn.closest('div').insertAdjacentHTML('afterend', '<div class="ai-assist-cheer-example">💛 ' + cheerMsg + '</div>');
+            } else {
+              existing.innerHTML = '💛 ' + cheerMsg;
+            }
+          } else {
+            aiAssistState.cheerText = '';
+            const ex = body.querySelector('.ai-assist-cheer-example');
+            if (ex) ex.remove();
+          }
+          footer.querySelector('.ai-assist-btn--next').disabled = false;
+        });
+      });
+      footer.innerHTML = `
+        <button class="ai-assist-btn ai-assist-btn--back" id="aiAssistBack">이전</button>
+        <button class="ai-assist-btn ai-assist-btn--next" disabled id="aiAssistNext">미리보기</button>
+      `;
+      document.getElementById('aiAssistBack').addEventListener('click', () => {
+        if (aiAssistState.purpose === 'cheer' || aiAssistState.purpose === 'etc') aiAssistStep = 0;
+        else aiAssistStep = 1;
+        renderAiAssistStep();
+      });
+      document.getElementById('aiAssistNext').addEventListener('click', () => {
+        aiAssistStep = 3;
+        renderAiAssistStep();
+      });
+
+    } else if (aiAssistStep === 3) {
+      // STEP 4: 미리보기 + 등록
+      progressBar.style.width = '100%';
+      const finalContent = buildFinalContent();
+      body.innerHTML = `
+        <div class="ai-assist-step-label">STEP 4 / 4</div>
+        <div class="ai-assist-question">답변 미리보기</div>
+        <div class="ai-assist-preview">
+          <div class="ai-assist-preview-label">🩺 의료진 답변</div>
+          <div class="ai-assist-preview-content">${finalContent}</div>
+          <div class="ai-assist-preview-legal">⚖️ 이 의료진의 답변은 개인의 의견이며, 의료적 진단이 아님을 고지합니다. 본 서비스는 의료법을 준수합니다.</div>
+        </div>
+        ${aiAssistState.purpose === 'etc' ? `
+          <div style="margin-top:16px">
+            <textarea class="comment-write-input" id="aiAssistCustomInput" rows="4" placeholder="답변 내용을 직접 작성해 주세요." style="width:100%;border:1.5px solid #d8b4fe;border-radius:12px;padding:14px;font-size:.9rem"></textarea>
+          </div>
+        ` : ''}
+      `;
+      if (aiAssistState.purpose === 'etc') {
+        document.getElementById('aiAssistCustomInput').addEventListener('input', function() {
+          aiAssistState.generated = this.value;
+          body.querySelector('.ai-assist-preview-content').innerHTML = this.value || '<em style="color:#9ca3af">내용을 입력해 주세요...</em>';
+        });
+      }
+      footer.innerHTML = `
+        <button class="ai-assist-btn ai-assist-btn--back" id="aiAssistBack">이전</button>
+        <button class="ai-assist-btn ai-assist-btn--submit" id="aiAssistSubmit">✅ 답변 등록하기</button>
+      `;
+      document.getElementById('aiAssistBack').addEventListener('click', () => {
+        if (aiAssistState.purpose === 'etc') aiAssistStep = 0;
+        else aiAssistStep = 2;
+        renderAiAssistStep();
+      });
+      document.getElementById('aiAssistSubmit').addEventListener('click', () => {
+        const content = buildFinalContent();
+        if (!content.trim()) return;
+        insertComment(content, true);
+        closeAiAssist();
+        document.getElementById('commentInput').value = '';
+      });
+    }
+  }
+
+  function generateAiContent() {
+    if (aiAssistState.purpose === 'drug') {
+      const drug = aiAssistState.drug;
+      const info = AI_ASSIST_DATA.drugInfo[drug];
+      if (info) {
+        aiAssistState.generated = `<b>💊 ${drug}</b><br><br>` +
+          `<b>작용 기전</b><br>${info.mechanism}<br><br>` +
+          `<b>투여 방법</b><br>${info.usage}<br><br>` +
+          `<b>주요 부작용</b><br>${info.sideeffects}<br><br>` +
+          `<b>💡 팁</b><br>${info.tip}`;
+      } else {
+        aiAssistState.generated = `<b>💊 ${drug}</b><br><br>` +
+          `${drug}은(는) 항암 치료에 사용되는 약물입니다. 투여 스케줄, 용량, 부작용 등은 개인의 상태에 따라 다를 수 있으므로, 구체적인 사항은 담당 주치의와 상의해 주세요.<br><br>` +
+          `일반적으로 정기적인 혈액 검사와 함께 모니터링하며, 새로운 증상이 나타나면 즉시 의료진에게 알려주시기 바랍니다.`;
+      }
+    } else if (aiAssistState.purpose === 'sideeffect') {
+      const se = aiAssistState.sideeffect;
+      const info = AI_ASSIST_DATA.sideeffectInfo[se];
+      aiAssistState.generated = `<b>⚠️ ${se} — 안내</b><br><br>` +
+        (info || `${se}은(는) 항암 치료 중 나타날 수 있는 부작용입니다. 증상의 정도에 따라 대처 방법이 달라지므로, 자세한 사항은 담당 의료진에게 문의해 주세요.`);
+    } else if (aiAssistState.purpose === 'cheer') {
+      aiAssistState.generated = AI_ASSIST_DATA.cheerMessages[Math.floor(Math.random() * AI_ASSIST_DATA.cheerMessages.length)];
+    }
+  }
+
+  function buildFinalContent() {
+    let content = aiAssistState.generated || '';
+    if (aiAssistState.cheer && aiAssistState.cheerText && aiAssistState.purpose !== 'cheer') {
+      content += '<br><br><div style="padding:10px 14px;background:linear-gradient(135deg,#fef3c7,#fdf2f8);border-radius:10px;font-size:.88rem;color:#92400e">💛 ' + aiAssistState.cheerText + '</div>';
+    }
+    return content;
+  }
 
   // 수정/삭제 (데모)
   document.querySelector('.pd-btn--edit')?.addEventListener('click', () => {
@@ -669,6 +1121,43 @@
   // 햄버거
   const hamBtn = document.getElementById('hamBtn');
   if(hamBtn) hamBtn.addEventListener('click',()=>document.body.classList.toggle('drawer-open'));
+
+  // 의료진 모드 — 댓글 입력 영역 전환
+  function applyPostDoctorMode(isDoctor) {
+    var ci = document.getElementById('commentInput');
+    var cb = document.getElementById('commentBtn');
+    if (isDoctor) {
+      if (ci) {
+        ci.placeholder = 'AI 비서가 답변 작성을 도와드립니다. 아래 버튼을 클릭하세요.';
+        ci.style.background = '#faf5ff';
+        ci.style.borderColor = '#d8b4fe';
+      }
+      if (cb) {
+        cb.innerHTML = '🤖 AI 비서와 답변 작성';
+        cb.style.background = 'linear-gradient(135deg,#7c3aed,#6E3FA3)';
+      }
+    } else {
+      if (ci) {
+        ci.placeholder = '경험이나 응원의 말씀을 남겨주세요.';
+        ci.style.background = '';
+        ci.style.borderColor = '';
+      }
+      if (cb) {
+        cb.textContent = '답변 남기기';
+        cb.style.background = '';
+      }
+    }
+  }
+  window.addEventListener('oncocare-login', function(e) {
+    if (e.detail) applyPostDoctorMode(e.detail.role === '의료진');
+  });
+  window.addEventListener('oncocare-logout', function() { applyPostDoctorMode(false); });
+  (function() {
+    try {
+      var s = localStorage.getItem('oncocare_login');
+      if (s) { var p = JSON.parse(s); if (p && p.role === '의료진') applyPostDoctorMode(true); }
+    } catch(e) {}
+  })();
 
   } // end else (isNotice)
 </script>
