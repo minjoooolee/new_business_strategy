@@ -623,19 +623,29 @@
   });
 
   // 댓글 작성
+  function getLoginRole() {
+    try {
+      var saved = localStorage.getItem('oncocare_login');
+      if (saved) { var p = JSON.parse(saved); return p && p.role ? p.role : '환자'; }
+    } catch(e) {}
+    return '환자';
+  }
+
   document.getElementById('commentBtn').addEventListener('click', () => {
     const input = document.getElementById('commentInput');
     const text = input.value.trim();
     if (!text) return;
     const now = new Date();
     const ts = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+    const role = getLoginRole();
+    const isDoc = role === '의료진';
     const html = `
-      <div class="comment-item comment-item--new">
-        <div class="comment-avatar">나</div>
+      <div class="comment-item comment-item--new${isDoc ? ' comment-item--doctor' : ''}">
+        <div class="comment-avatar${isDoc ? ' comment-avatar--doctor' : ''}">${isDoc ? '🩺' : '나'}</div>
         <div class="comment-body">
           <div class="comment-meta">
-            <span class="comment-author">나</span>
-            <span class="comment-role">환자</span>
+            <span class="comment-author ${isDoc ? 'comment-author--doctor' : ''}">${isDoc ? '의료진 답변' : '나'}</span>
+            <span class="comment-role ${isDoc ? 'comment-role--doctor' : ''}">${role}</span>
             <span class="comment-date">${ts}</span>
           </div>
           <p class="comment-text">${text}</p>
@@ -673,6 +683,22 @@
   // 햄버거
   const hamBtn = document.getElementById('hamBtn');
   if(hamBtn) hamBtn.addEventListener('click',()=>document.body.classList.toggle('drawer-open'));
+
+  // 의료진 모드 — 댓글 입력 placeholder 변경
+  function applyPostDoctorMode(isDoctor) {
+    var ci = document.getElementById('commentInput');
+    if (ci) ci.placeholder = isDoctor ? '전문 의료 지식을 바탕으로 답변해 주세요.' : '경험이나 응원의 말씀을 남겨주세요.';
+  }
+  window.addEventListener('oncocare-login', function(e) {
+    if (e.detail) applyPostDoctorMode(e.detail.role === '의료진');
+  });
+  window.addEventListener('oncocare-logout', function() { applyPostDoctorMode(false); });
+  (function() {
+    try {
+      var s = localStorage.getItem('oncocare_login');
+      if (s) { var p = JSON.parse(s); if (p && p.role === '의료진') applyPostDoctorMode(true); }
+    } catch(e) {}
+  })();
 
   } // end else (isNotice)
 </script>
