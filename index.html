@@ -2720,9 +2720,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
             KPI 달성 현황
           </a>
-          <a href="#" onclick="navigatePinkcare('matrix', event)" class="pinkcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-            운영 회고
+          <a href="#" onclick="navigatePinkcare('retrospective', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            온코케어 제안서
           </a>
           <div class="pinkcare-menu-divider"></div>
           <a href="#" onclick="navigatePinkcare('nextstep', event)" class="pinkcare-menu-item">
@@ -2753,6 +2753,19 @@
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/app/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
             모바일 앱
+          </a>
+          <div class="pinkcare-menu-divider"></div>
+          <a href="#" onclick="navigateVcare('bm', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            BM 모델
+          </a>
+          <a href="#" onclick="navigateVcare('proposal', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            온코케어 제안서
+          </a>
+          <a href="https://minjoooolee.github.io/new_business_strategy/#admin" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="19" cy="8" r="3"/></svg>
+            관리자 페이지
           </a>
         </div>
       </div>
@@ -10096,6 +10109,1141 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   </div><!-- /page-vcare-bm -->
 
 
+  <!-- ===== VCARE BM PAGE ===== -->
+  <div class="page-section" id="page-vcare-bm">
+  <style>
+  #page-vcare-bm {
+    background: #10141f;
+    min-height: 100vh;
+    padding: 60px 0 100px;
+    color: #f4f6ff;
+  }
+  #page-vcare-bm .bm-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  #page-vcare-bm .bm-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #5590ff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #page-vcare-bm .bm-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: #5590ff;
+  }
+  #page-vcare-bm .bm-title {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #f4f6ff;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  #page-vcare-bm .bm-title em {
+    font-style: normal;
+    background: linear-gradient(135deg, #5590ff, #00e8b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  #page-vcare-bm .bm-lead {
+    font-size: 15px;
+    color: #a0b0d0;
+    line-height: 1.8;
+    margin-bottom: 60px;
+    max-width: 640px;
+  }
+  #page-vcare-bm .bm-section {
+    margin-bottom: 56px;
+  }
+  #page-vcare-bm .bm-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #6070a0;
+    margin-bottom: 10px;
+  }
+  #page-vcare-bm .bm-section-title {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    color: #f4f6ff;
+    margin-bottom: 24px;
+  }
+  #page-vcare-bm .bm-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  #page-vcare-bm .bm-card {
+    background: #181e2e;
+    border: 1px solid #2a3450;
+    border-radius: 14px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  #page-vcare-bm .bm-card:hover {
+    border-color: #5590ff;
+    transform: translateY(-2px);
+  }
+  #page-vcare-bm .bm-card-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  #page-vcare-bm .bm-card-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #f4f6ff;
+    margin-bottom: 8px;
+  }
+  #page-vcare-bm .bm-card-desc {
+    font-size: 12.5px;
+    color: #a0b0d0;
+    line-height: 1.7;
+  }
+  #page-vcare-bm .bm-card-badge {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(85,144,255,0.12);
+    color: #5590ff;
+    border: 1px solid rgba(85,144,255,0.25);
+  }
+  #page-vcare-bm .bm-divider {
+    border: none;
+    border-top: 1px solid #1f2740;
+    margin: 48px 0;
+  }
+  #page-vcare-bm .bm-table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #2a3450;
+  }
+  #page-vcare-bm .bm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  #page-vcare-bm .bm-table thead th {
+    background: #1f2740;
+    color: #a0b0d0;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #2a3450;
+  }
+  #page-vcare-bm .bm-table tbody td {
+    padding: 14px 18px;
+    color: #c8d4f0;
+    border-bottom: 1px solid #1a2035;
+    vertical-align: top;
+  }
+  #page-vcare-bm .bm-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  #page-vcare-bm .bm-table tbody tr:hover td {
+    background: rgba(85,144,255,0.04);
+  }
+  #page-vcare-bm .bm-table .hi {
+    color: #00e8b0;
+    font-weight: 700;
+  }
+  #page-vcare-bm .bm-highlight-box {
+    background: linear-gradient(135deg, rgba(85,144,255,0.08), rgba(0,232,176,0.05));
+    border: 1px solid rgba(85,144,255,0.2);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-top: 32px;
+  }
+  #page-vcare-bm .bm-highlight-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #5590ff;
+    margin-bottom: 10px;
+  }
+  #page-vcare-bm .bm-highlight-text {
+    font-size: 14px;
+    color: #c8d4f0;
+    line-height: 1.8;
+  }
+  </style>
+
+  <div class="bm-container">
+    <!-- Hero -->
+    <div class="bm-eyebrow">OncoCare · Business Model</div>
+    <h1 class="bm-title">온코케어 <em>BM 모델</em></h1>
+    <p class="bm-lead">암 환우 커뮤니티 플랫폼 온코케어의 수익 구조와 비즈니스 모델입니다. 커뮤니티→데이터→AI의 선순환으로 지속 가능한 성장 엔진을 구축합니다.</p>
+
+    <!-- 핵심 수익 모델 -->
+    <div class="bm-section">
+      <div class="bm-section-label">01 · Core Revenue</div>
+      <h2 class="bm-section-title">핵심 수익 모델</h2>
+      <div class="bm-card-grid">
+        <div class="bm-card">
+          <div class="bm-card-icon">💊</div>
+          <div class="bm-card-title">제약사 임상시험 매칭</div>
+          <div class="bm-card-desc">정밀하게 축적된 환자 데이터를 기반으로 임상시험 적격 환자를 제약사에 연결합니다. 환자 모집 기간을 단축시키는 핵심 가치를 제공합니다.</div>
+          <span class="bm-card-badge">B2B · 핵심</span>
+        </div>
+        <div class="bm-card">
+          <div class="bm-card-icon">🏥</div>
+          <div class="bm-card-title">병원·의료기관 B2B</div>
+          <div class="bm-card-desc">의료기관이 환자 모니터링 및 사후관리 도구로 온코케어를 구독합니다. MOCA 엔진 기반 환자 PRO 데이터를 의료진에게 제공합니다.</div>
+          <span class="bm-card-badge">B2B · 구독</span>
+        </div>
+        <div class="bm-card">
+          <div class="bm-card-icon">🤖</div>
+          <div class="bm-card-title">AI 데이터 라이선싱</div>
+          <div class="bm-card-desc">커뮤니티에서 생성된 고품질 의료 데이터를 AI 신약 개발사·연구기관에 라이선스로 공급합니다. 데이터가 쌓일수록 수익 가치가 증가합니다.</div>
+          <span class="bm-card-badge">B2B · 데이터</span>
+        </div>
+        <div class="bm-card">
+          <div class="bm-card-icon">⭐</div>
+          <div class="bm-card-title">프리미엄 구독 (B2C)</div>
+          <div class="bm-card-desc">일반 환우 대상 프리미엄 플랜으로 MOCA AI 심층 분석, 전문의 Q&A 우선권, 맞춤 신약·임상 알림 서비스를 제공합니다.</div>
+          <span class="bm-card-badge">B2C · 구독</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="bm-divider">
+
+    <!-- 수익 구조 테이블 -->
+    <div class="bm-section">
+      <div class="bm-section-label">02 · Revenue Structure</div>
+      <h2 class="bm-section-title">수익 구조 상세</h2>
+      <div class="bm-table-wrap">
+        <table class="bm-table">
+          <thead>
+            <tr>
+              <th>수익 모델</th>
+              <th>대상</th>
+              <th>과금 방식</th>
+              <th>예상 단가</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>임상시험 환자 매칭</strong></td>
+              <td>제약사 / CRO</td>
+              <td>건당 수수료</td>
+              <td class="hi">100~500만 원 / 건</td>
+            </tr>
+            <tr>
+              <td><strong>병원 환자관리 SaaS</strong></td>
+              <td>병원·의료기관</td>
+              <td>월 구독</td>
+              <td class="hi">50~200만 원 / 월</td>
+            </tr>
+            <tr>
+              <td><strong>AI 데이터 라이선스</strong></td>
+              <td>제약·바이오·연구기관</td>
+              <td>연간 계약</td>
+              <td class="hi">협의 (수억 원 규모)</td>
+            </tr>
+            <tr>
+              <td><strong>프리미엄 구독</strong></td>
+              <td>환우 개인</td>
+              <td>월 구독</td>
+              <td class="hi">9,900~19,900원 / 월</td>
+            </tr>
+            <tr>
+              <td><strong>앰배서더 콘텐츠 연계</strong></td>
+              <td>제약사 / 브랜드</td>
+              <td>캠페인별</td>
+              <td class="hi">500~2,000만 원 / 캠페인</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="bm-divider">
+
+    <!-- 성장 단계별 BM -->
+    <div class="bm-section">
+      <div class="bm-section-label">03 · Growth Phase</div>
+      <h2 class="bm-section-title">단계별 BM 전환 전략</h2>
+      <div class="bm-card-grid">
+        <div class="bm-card">
+          <div class="bm-card-icon">🌱</div>
+          <div class="bm-card-title">Phase 1 · MVP (현재)</div>
+          <div class="bm-card-desc">유방암 커뮤니티 앰배서더 확보 → 유저 유입. 무료 서비스로 신뢰 구축 및 데이터 수집 시작. 프리미엄 전환율 검증.</div>
+          <span class="bm-card-badge">0~6개월</span>
+        </div>
+        <div class="bm-card">
+          <div class="bm-card-icon">🚀</div>
+          <div class="bm-card-title">Phase 2 · 수익화</div>
+          <div class="bm-card-desc">위암·대장암으로 암종 확장. B2B 병원 파이럿 계약 체결. 임상시험 매칭 첫 수익 발생. 프리미엄 구독 정식 출시.</div>
+          <span class="bm-card-badge">6~18개월</span>
+        </div>
+        <div class="bm-card">
+          <div class="bm-card-icon">💎</div>
+          <div class="bm-card-title">Phase 3 · 스케일업</div>
+          <div class="bm-card-desc">전 암종 커버리지 달성. 데이터 라이선싱 계약 체결. 글로벌 제약사 임상 매칭 플랫폼으로 포지셔닝. IRB 승인 데이터셋 구축.</div>
+          <span class="bm-card-badge">18개월 이후</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bm-highlight-box">
+      <div class="bm-highlight-label">핵심 명제</div>
+      <div class="bm-highlight-text">
+        온코케어의 진짜 자산은 플랫폼이 아닌 <strong style="color:#f4f6ff;">데이터</strong>입니다. 커뮤니티가 성장할수록 임상 매칭의 정밀도가 높아지고, 데이터 라이선스의 가치가 증가하며, AI 모델의 성능이 개선됩니다.
+        이 <strong style="color:#f4f6ff;">커뮤니티 → 데이터 → AI → 수익</strong>의 선순환이 온코케어 BM의 핵심입니다.
+      </div>
+    </div>
+
+    <hr class="bm-divider">
+
+    <!-- ===== GPU 비용 분석 섹션 ===== -->
+    <style>
+      /* GPU 섹션 전용 스타일 */
+      #page-vcare-bm .gpu-hero {
+        text-align: center;
+        padding: 60px 0 48px;
+      }
+      #page-vcare-bm .gpu-hero-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #5590ff;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .gpu-hero-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #f4f6ff;
+        line-height: 1.35;
+        letter-spacing: -0.5px;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gpu-hero-title em {
+        font-style: normal;
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gpu-hero-desc {
+        font-size: 15px;
+        color: #8892a4;
+        line-height: 1.8;
+        max-width: 620px;
+        margin: 0 auto;
+      }
+      #page-vcare-bm .gpu-step {
+        margin-bottom: 48px;
+      }
+      #page-vcare-bm .gpu-step-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gpu-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: rgba(85,144,255,0.15);
+        border: 1px solid rgba(85,144,255,0.3);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 800;
+        color: #5590ff;
+        flex-shrink: 0;
+      }
+      #page-vcare-bm .gpu-step-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f4f6ff;
+      }
+      #page-vcare-bm .gpu-step-sub {
+        font-size: 12px;
+        color: #8892a4;
+        margin-top: 2px;
+      }
+      #page-vcare-bm .gpu-table-wrap {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .gpu-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      #page-vcare-bm .gpu-table thead th {
+        background: rgba(85,144,255,0.08);
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        color: #8892a4;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gpu-table tbody td {
+        padding: 12px 16px;
+        color: #c8d4f0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      #page-vcare-bm .gpu-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      #page-vcare-bm .gpu-table tbody tr:hover td {
+        background: rgba(85,144,255,0.04);
+      }
+      #page-vcare-bm .gpu-table .gpu-hi {
+        color: #00e8b0;
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-table .gpu-total {
+        background: rgba(0,232,176,0.06);
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-table .gpu-total td {
+        color: #00e8b0;
+        border-top: 1px solid rgba(0,232,176,0.2);
+      }
+      #page-vcare-bm .gpu-table .gpu-model-tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: rgba(85,144,255,0.12);
+        color: #5590ff;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gpu-note {
+        font-size: 12px;
+        color: #5a6478;
+        line-height: 1.7;
+        padding: 12px 16px;
+        border-left: 2px solid rgba(85,144,255,0.3);
+        margin-top: 12px;
+      }
+      #page-vcare-bm .gpu-callout {
+        background: linear-gradient(135deg, rgba(0,232,176,0.08), rgba(85,144,255,0.05));
+        border: 1px solid rgba(0,232,176,0.2);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin: 14px 0;
+        font-size: 14px;
+        color: #c8d4f0;
+        line-height: 1.8;
+      }
+      #page-vcare-bm .gpu-callout strong {
+        color: #00e8b0;
+      }
+      /* API vs GPU 비교 카드 */
+      #page-vcare-bm .gpu-compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .gpu-compare-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      #page-vcare-bm .gpu-compare-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+      }
+      #page-vcare-bm .gpu-compare-card.recommended::before {
+        background: linear-gradient(90deg, #00e8b0, #5590ff);
+      }
+      #page-vcare-bm .gpu-compare-card.gpu-server::before {
+        background: rgba(255,255,255,0.15);
+      }
+      #page-vcare-bm .gpu-compare-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: #f4f6ff;
+        margin-bottom: 4px;
+      }
+      #page-vcare-bm .gpu-compare-price {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .gpu-compare-card.recommended .gpu-compare-price {
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gpu-compare-card.gpu-server .gpu-compare-price {
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-compare-badge {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-bottom: 14px;
+      }
+      #page-vcare-bm .gpu-compare-card.recommended .gpu-compare-badge {
+        background: rgba(0,232,176,0.15);
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gpu-compare-card.gpu-server .gpu-compare-badge {
+        background: rgba(255,255,255,0.07);
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-pros, #page-vcare-bm .gpu-cons {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      #page-vcare-bm .gpu-pros li::before {
+        content: '✓ ';
+        color: #00e8b0;
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-cons li::before {
+        content: '— ';
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-pros li, #page-vcare-bm .gpu-cons li {
+        color: #c8d4f0;
+        margin-bottom: 4px;
+      }
+      #page-vcare-bm .gpu-cons li {
+        color: #8892a4;
+      }
+      #page-vcare-bm .gpu-conclusion {
+        background: rgba(85,144,255,0.06);
+        border: 1px solid rgba(85,144,255,0.18);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-top: 14px;
+        font-size: 13.5px;
+        color: #c8d4f0;
+        line-height: 1.8;
+      }
+      #page-vcare-bm .gpu-conclusion strong {
+        color: #5590ff;
+      }
+      /* 수익 대비 테이블 강조 */
+      #page-vcare-bm .gpu-table .gpu-ratio {
+        color: #5590ff;
+        font-weight: 700;
+      }
+      #page-vcare-bm .gpu-final-note {
+        background: linear-gradient(135deg, rgba(85,144,255,0.06), rgba(0,232,176,0.04));
+        border: 1px solid rgba(85,144,255,0.15);
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin-top: 32px;
+        font-size: 14px;
+        color: #c8d4f0;
+        line-height: 1.8;
+        text-align: center;
+      }
+      #page-vcare-bm .gpu-final-note strong {
+        color: #f4f6ff;
+        font-size: 16px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      @media (max-width: 640px) {
+        #page-vcare-bm .gpu-compare-grid { grid-template-columns: 1fr; }
+        #page-vcare-bm .gpu-hero-title { font-size: 22px; }
+        #page-vcare-bm .gpu-table { font-size: 11px; }
+        #page-vcare-bm .gpu-table thead th,
+        #page-vcare-bm .gpu-table tbody td { padding: 9px 10px; }
+      }
+    </style>
+
+    <div class="bm-section">
+      <div class="bm-section-label">04 · GPU Cost Analysis</div>
+
+      <!-- Hero 제목 -->
+      <div class="gpu-hero">
+        <div class="gpu-hero-label">AI Infrastructure · Cost Feasibility</div>
+        <h2 class="gpu-hero-title">이 모든 기능을 구현할 때<br><em>GPU 사용 금액은 감당가능한가?</em></h2>
+        <p class="gpu-hero-desc">자체 GPU를 사서 모델을 돌리는 방식과, 외부 API를 쓰는 방식 두 가지를 비교합니다. 초기 스타트업 단계에서는 API가 압도적으로 유리합니다.</p>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">01</div>
+          <div>
+            <div class="gpu-step-title">AI 기능 목록과 토큰 사용량 추정</div>
+            <div class="gpu-step-sub">온코케어 AI 기능 9개의 월간 토큰 소비량</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>AI 기능</th>
+                <th>호출 빈도 (월)</th>
+                <th>건당 토큰</th>
+                <th>월간 토큰</th>
+                <th>적합 모델</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>AGENT 01</strong> 임상·신약 큐레이션</td>
+                <td>일 2회 스캔 = 월 60회</td>
+                <td>~5,000 (논문 요약)</td>
+                <td class="gpu-hi">300K</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 02</strong> 검사결과지 설명 생성</td>
+                <td>월 500건 (DAU 1,000 기준)</td>
+                <td>~8,000 (이미지OCR+설명)</td>
+                <td class="gpu-hi">4M</td>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 03</strong> 게시판 초안 답변</td>
+                <td>월 300건</td>
+                <td>~4,000</td>
+                <td class="gpu-hi">1.2M</td>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 04</strong> 개인화 피드 추천</td>
+                <td>DAU×일 3회 = 월 90,000회</td>
+                <td>~500 (임베딩+랭킹)</td>
+                <td class="gpu-hi">45M</td>
+                <td><span class="gpu-model-tag">Embedding</span></td>
+              </tr>
+              <tr>
+                <td><strong>AGENT 05</strong> 최신 정보 큐레이션</td>
+                <td>일 1회 스캔 = 월 30회</td>
+                <td>~10,000 (논문→카드뉴스)</td>
+                <td class="gpu-hi">300K</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td>개인정보 블러 OCR + PII 감지</td>
+                <td>월 500건</td>
+                <td>~2,000</td>
+                <td class="gpu-hi">1M</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini + Vision</span></td>
+              </tr>
+              <tr>
+                <td>위험 감지 채팅·게시글 모더레이션</td>
+                <td>월 30,000건 (메시지 전수)</td>
+                <td>~200</td>
+                <td class="gpu-hi">6M</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td>금지 표현 감지 AI 초안·수정 텍스트</td>
+                <td>월 800건</td>
+                <td>~1,000</td>
+                <td class="gpu-hi">800K</td>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+              </tr>
+              <tr>
+                <td>AI 심야 응답 케어+ 전용</td>
+                <td>월 200건</td>
+                <td>~3,000</td>
+                <td class="gpu-hi">600K</td>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+              </tr>
+              <tr class="gpu-total">
+                <td colspan="3"><strong>월간 총 토큰 사용량</strong></td>
+                <td colspan="2"><strong>~59M 토큰</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="gpu-note">전제: DAU 1,000명, 월간 게시글 300건, 채팅 메시지 30,000건, 검사결과지 500건 기준. DAU가 5,000명이 되면 토큰 사용량은 약 3~4배(180~240M) 수준으로 증가.</div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">02</div>
+          <div>
+            <div class="gpu-step-title">API 사용 시 월간 비용</div>
+            <div class="gpu-step-sub">모델별 비용 산출 (DAU 1,000 기준)</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>모델</th>
+                <th>사용 기능</th>
+                <th>월간 토큰</th>
+                <th>단가</th>
+                <th>월 비용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="gpu-model-tag">GPT-4o</span></td>
+                <td>검사결과지, 초안답변, 심야응답</td>
+                <td>~5.8M</td>
+                <td style="font-size:11px;color:#5a6478;">in $2.5 / out $10 /1M</td>
+                <td class="gpu-hi">~$40</td>
+              </tr>
+              <tr>
+                <td><span class="gpu-model-tag">GPT-4o-mini</span></td>
+                <td>큐레이션, 블러, 위험감지, 금지표현</td>
+                <td>~8.1M</td>
+                <td style="font-size:11px;color:#5a6478;">in $0.15 / out $0.60 /1M</td>
+                <td class="gpu-hi">~$3</td>
+              </tr>
+              <tr>
+                <td><span class="gpu-model-tag">Embedding</span></td>
+                <td>개인화 피드 추천</td>
+                <td>~45M</td>
+                <td style="font-size:11px;color:#5a6478;">$0.02/1M tokens</td>
+                <td class="gpu-hi">~$1</td>
+              </tr>
+              <tr class="gpu-total">
+                <td colspan="4"><strong>API 월간 총 비용 (DAU 1,000)</strong></td>
+                <td><strong>~$44 (약 ₩6만)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="gpu-callout">
+          네, 맞습니다. <strong>월 6만 원입니다.</strong> 생각보다 훨씬 쌉니다.<br>
+          이유: 의료 커뮤니티는 SNS와 달리 트래픽이 적고, 대부분의 기능이 경량 모델(4o-mini)로 처리 가능.
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">03</div>
+          <div>
+            <div class="gpu-step-title">DAU 규모별 월간 비용 추정</div>
+            <div class="gpu-step-sub">성장에 따른 비용 변화</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>시점</th>
+                <th>DAU</th>
+                <th>월간 토큰</th>
+                <th>API 월 비용</th>
+                <th>연간 비용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phase 1 (0~6개월)</td>
+                <td>300~500</td>
+                <td>~20M</td>
+                <td class="gpu-hi">~$15 (₩2만)</td>
+                <td>₩24만</td>
+              </tr>
+              <tr>
+                <td>Phase 2 (6~12개월)</td>
+                <td>1,000</td>
+                <td>~59M</td>
+                <td class="gpu-hi">~$44 (₩6만)</td>
+                <td>₩72만</td>
+              </tr>
+              <tr>
+                <td>Phase 3 (12~18개월)</td>
+                <td>3,000</td>
+                <td>~180M</td>
+                <td class="gpu-hi">~$130 (₩17만)</td>
+                <td>₩200만</td>
+              </tr>
+              <tr>
+                <td>Phase 4 (18~24개월)</td>
+                <td>5,000</td>
+                <td>~300M</td>
+                <td class="gpu-hi">~$220 (₩30만)</td>
+                <td>₩360만</td>
+              </tr>
+              <tr>
+                <td>대규모 (24개월+)</td>
+                <td>10,000+</td>
+                <td>~600M+</td>
+                <td class="gpu-hi">~$450 (₩60만)</td>
+                <td>₩720만</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">04</div>
+          <div>
+            <div class="gpu-step-title">API vs 자체 GPU 비교</div>
+            <div class="gpu-step-sub">자체 GPU를 사야 하는 시점은 언제인가</div>
+          </div>
+        </div>
+        <div class="gpu-compare-grid">
+          <!-- API -->
+          <div class="gpu-compare-card recommended">
+            <div class="gpu-compare-badge">추천 · API 사용</div>
+            <div class="gpu-compare-title">API 사용</div>
+            <div class="gpu-compare-price">월 ₩6~60만</div>
+            <div style="font-size:11px;color:#5a6478;margin-bottom:14px;">DAU 1,000~10,000 기준</div>
+            <ul class="gpu-pros">
+              <li>초기 투자 0원</li>
+              <li>사용한 만큼만 과금</li>
+              <li>모델 업그레이드 자동 반영</li>
+              <li>인프라 관리 인력 불필요</li>
+              <li>스케일 업/다운 즉시 가능</li>
+            </ul>
+            <ul class="gpu-cons">
+              <li>데이터가 외부 서버를 거침 (의료 데이터 민감)</li>
+              <li>API 제공사 정책 변경 리스크</li>
+            </ul>
+          </div>
+          <!-- GPU 서버 -->
+          <div class="gpu-compare-card gpu-server">
+            <div class="gpu-compare-badge">GPU 서버</div>
+            <div class="gpu-compare-title">자체 GPU 서버</div>
+            <div class="gpu-compare-price">월 ₩500~2,000만</div>
+            <div style="font-size:11px;color:#5a6478;margin-bottom:14px;">A100 80GB 기준 클라우드 렌탈</div>
+            <ul class="gpu-pros">
+              <li>데이터가 내부에만 존재 (HIPAA급)</li>
+              <li>모델 파인튜닝 자유도</li>
+              <li>API 의존도 제거</li>
+            </ul>
+            <ul class="gpu-cons">
+              <li>A100 80GB 1장 월 ~₩200만 (AWS/GCP)</li>
+              <li>최소 2~4장 필요 (추론+여유)</li>
+              <li>ML 엔지니어 인건비 별도</li>
+              <li>초기 세팅에 1~2개월 소요</li>
+            </ul>
+          </div>
+        </div>
+        <div class="gpu-conclusion">
+          <strong>결론:</strong> DAU 10,000 이하에서는 API가 압도적으로 유리합니다. 자체 GPU 전환은 <strong>DAU 50,000+</strong> 이상이거나, 의료 데이터 규제가 강화되어 데이터를 외부 서버에 보낼 수 없는 상황이 올 때 검토하면 됩니다.<br><br>
+          <strong>하이브리드 전략:</strong> 민감 데이터(검사결과지 OCR, 개인정보 블러)만 자체 서버에서 처리하고, 나머지(큐레이션, 위험감지, 임베딩)는 API로 처리하는 방식도 가능. 이 경우 자체 GPU 1장(₩200만/월) + API(₩30만/월) = <strong>₩230만/월</strong>.
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="gpu-step">
+        <div class="gpu-step-header">
+          <div class="gpu-step-num">05</div>
+          <div>
+            <div class="gpu-step-title">수익 대비 AI 비용 비율</div>
+            <div class="gpu-step-sub">AI 비용은 수익의 몇 %인가</div>
+          </div>
+        </div>
+        <div class="gpu-table-wrap">
+          <table class="gpu-table">
+            <thead>
+              <tr>
+                <th>시점</th>
+                <th>연간 수익 (보수적)</th>
+                <th>연간 AI 비용</th>
+                <th>비율</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12개월차</td>
+                <td>₩4,500만</td>
+                <td>₩72만</td>
+                <td class="gpu-ratio">1.6%</td>
+              </tr>
+              <tr>
+                <td>18개월차</td>
+                <td>₩7억</td>
+                <td>₩200만</td>
+                <td class="gpu-ratio">0.3%</td>
+              </tr>
+              <tr>
+                <td>24개월차</td>
+                <td>₩12.5억</td>
+                <td>₩360만</td>
+                <td class="gpu-ratio">0.3%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="gpu-final-note">
+          <strong>AI 추론 비용은 전체 운영 비용 중 가장 작은 항목입니다.</strong>
+          진짜 비용은 GPU가 아니라 <strong style="color:#f4f6ff;">사람</strong>입니다 — 의료진 컨펌 인건비, 앰배서더 계약금, 운영 PM 인건비, 콘텐츠 에디터가 GPU 비용의 수십~수백 배.
+        </div>
+      </div>
+
+    </div><!-- /GPU Cost Analysis -->
+
+    <hr class="bm-divider">
+
+    <!-- ===== Go/No-Go 섹션 ===== -->
+    <style>
+      #page-vcare-bm .gng-hero {
+        text-align: center;
+        padding: 60px 0 48px;
+      }
+      #page-vcare-bm .gng-hero-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #00e8b0;
+        margin-bottom: 16px;
+      }
+      #page-vcare-bm .gng-hero-title {
+        font-size: 40px;
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        line-height: 1.15;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gng-hero-title .go {
+        color: #00e8b0;
+        text-shadow: 0 0 40px rgba(0,232,176,0.3);
+      }
+      #page-vcare-bm .gng-hero-title .no {
+        color: #ff6b6b;
+        text-shadow: 0 0 40px rgba(255,107,107,0.3);
+      }
+      #page-vcare-bm .gng-hero-title .sep {
+        color: rgba(255,255,255,0.3);
+        font-weight: 300;
+        margin: 0 8px;
+      }
+      #page-vcare-bm .gng-hero-desc {
+        font-size: 15px;
+        color: #8892a4;
+        line-height: 1.8;
+        max-width: 580px;
+        margin: 0 auto;
+      }
+      #page-vcare-bm .gng-section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f4f6ff;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      #page-vcare-bm .gng-section-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 20px;
+        background: linear-gradient(180deg, #00e8b0, #5590ff);
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      #page-vcare-bm .gng-table-wrap {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      #page-vcare-bm .gng-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      #page-vcare-bm .gng-table thead th {
+        background: rgba(0,232,176,0.07);
+        padding: 12px 18px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        color: #8892a4;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gng-table tbody td {
+        padding: 14px 18px;
+        color: #c8d4f0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        vertical-align: top;
+        line-height: 1.6;
+      }
+      #page-vcare-bm .gng-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      #page-vcare-bm .gng-table tbody tr:hover td {
+        background: rgba(0,232,176,0.03);
+      }
+      #page-vcare-bm .gng-table .gng-metric {
+        font-weight: 700;
+        color: #f4f6ff;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gng-table .gng-target {
+        color: #00e8b0;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      #page-vcare-bm .gng-rule-box {
+        background: linear-gradient(135deg, rgba(0,232,176,0.07), rgba(85,144,255,0.05));
+        border: 1px solid rgba(0,232,176,0.2);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        color: #c8d4f0;
+        line-height: 1.8;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      #page-vcare-bm .gng-rule-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      #page-vcare-bm .gng-rule-box strong {
+        color: #00e8b0;
+      }
+      #page-vcare-bm .gng-rule-box em {
+        font-style: normal;
+        color: #ff9f43;
+      }
+      #page-vcare-bm .gng-rule-box .gng-nogo {
+        color: #ff6b6b;
+      }
+      #page-vcare-bm .gng-insight {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-left: 3px solid #00e8b0;
+        border-radius: 0 12px 12px 0;
+        padding: 20px 24px;
+        font-size: 14px;
+        color: #c8d4f0;
+        line-height: 1.8;
+      }
+      #page-vcare-bm .gng-insight strong {
+        color: #f4f6ff;
+      }
+      @media (max-width: 640px) {
+        #page-vcare-bm .gng-hero-title { font-size: 28px; }
+        #page-vcare-bm .gng-table { font-size: 11.5px; }
+        #page-vcare-bm .gng-table thead th,
+        #page-vcare-bm .gng-table tbody td { padding: 10px 12px; }
+      }
+    </style>
+
+    <div class="bm-section">
+      <div class="bm-section-label">05 · Decision Framework</div>
+
+      <!-- Hero -->
+      <div class="gng-hero">
+        <div class="gng-hero-label">6-Month Milestone · Decision Gate</div>
+        <h2 class="gng-hero-title">
+          <span class="go">GO</span>
+          <span class="sep">or</span>
+          <span class="no">NO GO</span>
+          <span style="color:#f4f6ff;">?</span>
+        </h2>
+        <p class="gng-hero-desc">6개월차 Go/No-Go 기준 — 온코케어가 계속 앞으로 나아갈 것인지 판단하는 데이터 기반 기준표입니다.</p>
+      </div>
+
+      <!-- 판단 기준 테이블 -->
+      <h3 class="gng-section-title">6개월차 Go/No-Go 판단 기준</h3>
+      <div class="gng-table-wrap">
+        <table class="gng-table">
+          <thead>
+            <tr>
+              <th>지표</th>
+              <th>Go 기준</th>
+              <th>산출 근거</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="gng-metric">MAU</td>
+              <td class="gng-target">300명 이상</td>
+              <td>월 1회 이상 접속. 유방암 단독 기준</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">DAU</td>
+              <td class="gng-target">50~80명</td>
+              <td>MAU의 15~25%. 암환우 커뮤니티 특성상 매일 오지 않아도 정상 — 항암 주기(3주)에 맞춰 들어오는 패턴</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">코어 유저</td>
+              <td class="gng-target">15명 이상</td>
+              <td>주간 발화 5건+. PoC에서 콩가님·귀하의채널 등 5~10명이 이 역할을 했으므로, 앰배서더 3명 + 자발적 코어 12명이면 충분</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">자생 세션</td>
+              <td class="gng-target">주 3회 이상</td>
+              <td>운영자·앰배서더 없이 환우끼리 대화가 시작된 횟수. 매일일 필요 없고 주 3회면 커뮤니티가 살아있다는 신호</td>
+            </tr>
+            <tr>
+              <td class="gng-metric">검사결과지 이용</td>
+              <td class="gng-target">월 30건 이상</td>
+              <td>MAU 300명 중 10%가 월 1회 이용</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 판정 규칙 -->
+      <div class="gng-rule-box">
+        <div class="gng-rule-icon">⚖️</div>
+        <div>
+          <strong>3개 중 2개 이상 충족 시 Go</strong> · <em>1개 이하면 3개월 연장 후 재판단</em> · <span class="gng-nogo">연장 후에도 미달이면 No-Go</span>
+        </div>
+      </div>
+
+      <!-- 핵심 인사이트 -->
+      <div class="gng-insight">
+        핵심은 암환우 커뮤니티에서 <strong>DAU보다 "코어 유저 수"와 "자생 세션"이 더 중요한 지표</strong>라는 점입니다.<br><br>
+        DAU 50명이어도 그중 15명이 매일 대화하고 신규 환우를 맞이하면 커뮤니티는 살아 있습니다.<br>
+        반대로 <strong>DAU 200명이어도 코어 유저가 0명이면 운영자가 떠나는 순간 죽습니다.</strong>
+      </div>
+
+    </div><!-- /Go No-Go -->
+
+  </div>
+
+  </div><!-- /page-vcare-bm -->
+
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
 
@@ -11454,6 +12602,8 @@ function navigateVcare(sub, e) {
   closeVcareDropdown();
   if (sub === 'features') {
     window.location.hash = 'vcare-features';
+  } else if (sub === 'proposal') {
+    window.location.hash = 'pinkcare-retrospective';
   } else if (sub === 'bm') {
     window.location.hash = 'vcare-bm';
   }
@@ -11503,7 +12653,7 @@ function applyHash(hash) {
 
 
   // GNB active 처리
-  const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep'];
+  const pinkcarePages = ['pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep', 'pinkcare-retrospective'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
