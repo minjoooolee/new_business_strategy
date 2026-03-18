@@ -9581,12 +9581,13 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   <div class="page-section" id="page-vcare-bm">
   <style>
   #page-vcare-bm {
-    --bg:#080a10; --surface:#0f1219; --surface2:#141824;
-    --border:#2a3550; --blue:#3d7fff; --green:#00d4a0;
+    --bg:#0e1626; --surface:#162033; --surface2:#1a2640;
+    --border:#2e3d58; --blue:#4a87ff; --green:#00d4a0;
     --pink:#ff6eb4; --yellow:#f0a500; --purple:#a78bfa; --red:#ff5c6a;
-    --text:#e8eaf2; --text-muted:#7a8aaa; --text-dim:#3a4a6a;
+    --text:#e8edf8; --text-muted:#8a9dc0; --text-dim:#4a5a7a;
     background:var(--bg); color:var(--text);
-    font-family:'Pretendard',sans-serif; min-height:100vh;
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    min-height:100vh;
   }
   #page-vcare-bm * { box-sizing:border-box; margin:0; padding:0; }
   #page-vcare-bm #bm-progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--green),var(--blue)); z-index:1000; transition:width .1s; }
@@ -9623,6 +9624,10 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   #page-vcare-bm .bm-sec-title { font-size:clamp(24px,3vw,36px); font-weight:900; line-height:1.15; letter-spacing:-.02em; margin-bottom:20px; }
   #page-vcare-bm .bm-sec-desc { font-size:14px; color:var(--text-muted); line-height:1.9; margin-bottom:32px; }
   #page-vcare-bm .bm-sec-desc strong { color:var(--text); }
+  /* GPU/GoNoGo 섹션에서 사용하는 bm-section-label */
+  #page-vcare-bm .bm-section-label { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); margin-bottom:16px; }
+  #page-vcare-bm .bm-section-title { font-size:clamp(22px,3vw,32px); font-weight:900; line-height:1.15; letter-spacing:-.02em; color:var(--text); margin-bottom:20px; }
+  #page-vcare-bm .bm-divider { border:none; border-top:1px solid var(--border); margin:48px 0; }
 
   /* 원칙 박스 */
   #page-vcare-bm .principle-box {
@@ -9876,7 +9881,14 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   <section class="bm-section bm-reveal" id="bm-b2b1">
     <p class="bm-sec-label" style="color:var(--green);">04 · B2B ①</p>
     <h2 class="bm-sec-title">제약사 임상시험 매칭 수수료</h2>
-    <p class="bm-sec-desc">제약사에게 "환자를 빨리 찾아주는 것"은 수천만~수억 원의 가치다. 온코케어의 AGENT 01(임상·신약 큐레이션)이 정확히 이 역할을 한다. 환우에게는 무료로 정보를 제공하고, 제약사가 수수료를 지불하는 win-win 구조.</p>
+    <!-- 핵심 수익 하이라이트 배너 -->
+    <div style="background:linear-gradient(135deg,rgba(0,212,160,.12),rgba(61,127,255,.08));border:1.5px solid rgba(0,212,160,.35);border-radius:16px;padding:22px 28px;margin-bottom:28px;display:flex;align-items:center;gap:18px;">
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(0,212,160,.18);border:1px solid rgba(0,212,160,.35);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">💊</div>
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:5px;">핵심 B2B 수익 · MAIN ENGINE</div>
+        <div style="font-size:14px;color:var(--text);line-height:1.75;">제약사에게 <strong style="color:var(--green);">"환자를 빨리 찾아주는 것"</strong>은 수천만~수억 원의 가치다. 온코케어의 AGENT 01(임상·신약 큐레이션)이 정확히 이 역할을 한다. 환우에게는 <strong>무료</strong>로 정보를 제공하고, 제약사가 수수료를 지불하는 win-win 구조.</div>
+      </div>
+    </div>
     <div class="stat-row">
       <div class="stat-card"><div class="stat-val" style="color:var(--red);">₩8,000만</div><div class="stat-label">항암 임상시험 환자 1명당 총 비용<br><span style="color:var(--text-dim);font-size:10px;">PhRMA 보고서 기준</span></div></div>
       <div class="stat-card"><div class="stat-val" style="color:var(--yellow);">₩1,600만</div><div class="stat-label">환자 1명 모집 비용 (총 비용의 20%)<br><span style="color:var(--text-dim);font-size:10px;">임상 비용 중 recruitment 비중</span></div></div>
@@ -9910,7 +9922,14 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   <section class="bm-section bm-reveal" id="bm-b2b2">
     <p class="bm-sec-label" style="color:var(--purple);">05 · B2B ②</p>
     <h2 class="bm-sec-title">비식별 PRO 데이터 라이선싱</h2>
-    <p class="bm-sec-desc">제약사가 신약 허가 후 시판 후 조사(PMS)와 Real-World Evidence(RWE) 수집에 매년 수십억 원을 쓴다. 온코케어 커뮤니티에서 환우들이 자발적으로 보고하는 부작용 패턴, 검사결과 추이, 삶의 질 변화 — 이것이 비식별화·구조화되면 <strong>별도로 임상을 설계하지 않아도 되는 RWE</strong>가 된다.</p>
+    <!-- 핵심 수익 하이라이트 배너 -->
+    <div style="background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(61,127,255,.07));border:1.5px solid rgba(167,139,250,.35);border-radius:16px;padding:22px 28px;margin-bottom:28px;display:flex;align-items:center;gap:18px;">
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🧬</div>
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);margin-bottom:5px;">핵심 B2B 수익 · DATA ASSET</div>
+        <div style="font-size:14px;color:var(--text);line-height:1.75;">제약사가 신약 허가 후 시판 후 조사(PMS)와 Real-World Evidence(RWE) 수집에 매년 수십억 원을 쓴다. 온코케어 환우들이 자발적으로 보고하는 부작용 패턴·검사결과 추이 — 이것이 비식별화·구조화되면 <strong style="color:var(--purple);">별도로 임상을 설계하지 않아도 되는 RWE</strong>가 된다.</div>
+      </div>
+    </div>
     <div class="tier-list">
       <div class="tier-item">
         <div class="tier-label">Tier A</div>
@@ -10106,313 +10125,6 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   })();
   </script>
 
-  </div><!-- /page-vcare-bm -->
-
-
-  <!-- ===== VCARE BM PAGE ===== -->
-  <div class="page-section" id="page-vcare-bm">
-  <style>
-  #page-vcare-bm {
-    background: #10141f;
-    min-height: 100vh;
-    padding: 60px 0 100px;
-    color: #f4f6ff;
-  }
-  #page-vcare-bm .bm-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  #page-vcare-bm .bm-eyebrow {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #5590ff;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  #page-vcare-bm .bm-eyebrow::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: #5590ff;
-  }
-  #page-vcare-bm .bm-title {
-    font-size: 36px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    color: #f4f6ff;
-    margin-bottom: 14px;
-    line-height: 1.2;
-  }
-  #page-vcare-bm .bm-title em {
-    font-style: normal;
-    background: linear-gradient(135deg, #5590ff, #00e8b0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  #page-vcare-bm .bm-lead {
-    font-size: 15px;
-    color: #a0b0d0;
-    line-height: 1.8;
-    margin-bottom: 60px;
-    max-width: 640px;
-  }
-  #page-vcare-bm .bm-section {
-    margin-bottom: 56px;
-  }
-  #page-vcare-bm .bm-section-label {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: #6070a0;
-    margin-bottom: 10px;
-  }
-  #page-vcare-bm .bm-section-title {
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: -0.4px;
-    color: #f4f6ff;
-    margin-bottom: 24px;
-  }
-  #page-vcare-bm .bm-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-  }
-  #page-vcare-bm .bm-card {
-    background: #181e2e;
-    border: 1px solid #2a3450;
-    border-radius: 14px;
-    padding: 24px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  #page-vcare-bm .bm-card:hover {
-    border-color: #5590ff;
-    transform: translateY(-2px);
-  }
-  #page-vcare-bm .bm-card-icon {
-    font-size: 24px;
-    margin-bottom: 12px;
-  }
-  #page-vcare-bm .bm-card-title {
-    font-size: 14px;
-    font-weight: 800;
-    color: #f4f6ff;
-    margin-bottom: 8px;
-  }
-  #page-vcare-bm .bm-card-desc {
-    font-size: 12.5px;
-    color: #a0b0d0;
-    line-height: 1.7;
-  }
-  #page-vcare-bm .bm-card-badge {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: 20px;
-    background: rgba(85,144,255,0.12);
-    color: #5590ff;
-    border: 1px solid rgba(85,144,255,0.25);
-  }
-  #page-vcare-bm .bm-divider {
-    border: none;
-    border-top: 1px solid #1f2740;
-    margin: 48px 0;
-  }
-  #page-vcare-bm .bm-table-wrap {
-    overflow-x: auto;
-    border-radius: 12px;
-    border: 1px solid #2a3450;
-  }
-  #page-vcare-bm .bm-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  #page-vcare-bm .bm-table thead th {
-    background: #1f2740;
-    color: #a0b0d0;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    padding: 14px 18px;
-    text-align: left;
-    border-bottom: 1px solid #2a3450;
-  }
-  #page-vcare-bm .bm-table tbody td {
-    padding: 14px 18px;
-    color: #c8d4f0;
-    border-bottom: 1px solid #1a2035;
-    vertical-align: top;
-  }
-  #page-vcare-bm .bm-table tbody tr:last-child td {
-    border-bottom: none;
-  }
-  #page-vcare-bm .bm-table tbody tr:hover td {
-    background: rgba(85,144,255,0.04);
-  }
-  #page-vcare-bm .bm-table .hi {
-    color: #00e8b0;
-    font-weight: 700;
-  }
-  #page-vcare-bm .bm-highlight-box {
-    background: linear-gradient(135deg, rgba(85,144,255,0.08), rgba(0,232,176,0.05));
-    border: 1px solid rgba(85,144,255,0.2);
-    border-radius: 14px;
-    padding: 28px 32px;
-    margin-top: 32px;
-  }
-  #page-vcare-bm .bm-highlight-label {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: #5590ff;
-    margin-bottom: 10px;
-  }
-  #page-vcare-bm .bm-highlight-text {
-    font-size: 14px;
-    color: #c8d4f0;
-    line-height: 1.8;
-  }
-  </style>
-
-  <div class="bm-container">
-    <!-- Hero -->
-    <div class="bm-eyebrow">OncoCare · Business Model</div>
-    <h1 class="bm-title">온코케어 <em>BM 모델</em></h1>
-    <p class="bm-lead">암 환우 커뮤니티 플랫폼 온코케어의 수익 구조와 비즈니스 모델입니다. 커뮤니티→데이터→AI의 선순환으로 지속 가능한 성장 엔진을 구축합니다.</p>
-
-    <!-- 핵심 수익 모델 -->
-    <div class="bm-section">
-      <div class="bm-section-label">01 · Core Revenue</div>
-      <h2 class="bm-section-title">핵심 수익 모델</h2>
-      <div class="bm-card-grid">
-        <div class="bm-card">
-          <div class="bm-card-icon">💊</div>
-          <div class="bm-card-title">제약사 임상시험 매칭</div>
-          <div class="bm-card-desc">정밀하게 축적된 환자 데이터를 기반으로 임상시험 적격 환자를 제약사에 연결합니다. 환자 모집 기간을 단축시키는 핵심 가치를 제공합니다.</div>
-          <span class="bm-card-badge">B2B · 핵심</span>
-        </div>
-        <div class="bm-card">
-          <div class="bm-card-icon">🏥</div>
-          <div class="bm-card-title">병원·의료기관 B2B</div>
-          <div class="bm-card-desc">의료기관이 환자 모니터링 및 사후관리 도구로 온코케어를 구독합니다. MOCA 엔진 기반 환자 PRO 데이터를 의료진에게 제공합니다.</div>
-          <span class="bm-card-badge">B2B · 구독</span>
-        </div>
-        <div class="bm-card">
-          <div class="bm-card-icon">🤖</div>
-          <div class="bm-card-title">AI 데이터 라이선싱</div>
-          <div class="bm-card-desc">커뮤니티에서 생성된 고품질 의료 데이터를 AI 신약 개발사·연구기관에 라이선스로 공급합니다. 데이터가 쌓일수록 수익 가치가 증가합니다.</div>
-          <span class="bm-card-badge">B2B · 데이터</span>
-        </div>
-        <div class="bm-card">
-          <div class="bm-card-icon">⭐</div>
-          <div class="bm-card-title">프리미엄 구독 (B2C)</div>
-          <div class="bm-card-desc">일반 환우 대상 프리미엄 플랜으로 MOCA AI 심층 분석, 전문의 Q&A 우선권, 맞춤 신약·임상 알림 서비스를 제공합니다.</div>
-          <span class="bm-card-badge">B2C · 구독</span>
-        </div>
-      </div>
-    </div>
-
-    <hr class="bm-divider">
-
-    <!-- 수익 구조 테이블 -->
-    <div class="bm-section">
-      <div class="bm-section-label">02 · Revenue Structure</div>
-      <h2 class="bm-section-title">수익 구조 상세</h2>
-      <div class="bm-table-wrap">
-        <table class="bm-table">
-          <thead>
-            <tr>
-              <th>수익 모델</th>
-              <th>대상</th>
-              <th>과금 방식</th>
-              <th>예상 단가</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>임상시험 환자 매칭</strong></td>
-              <td>제약사 / CRO</td>
-              <td>건당 수수료</td>
-              <td class="hi">100~500만 원 / 건</td>
-            </tr>
-            <tr>
-              <td><strong>병원 환자관리 SaaS</strong></td>
-              <td>병원·의료기관</td>
-              <td>월 구독</td>
-              <td class="hi">50~200만 원 / 월</td>
-            </tr>
-            <tr>
-              <td><strong>AI 데이터 라이선스</strong></td>
-              <td>제약·바이오·연구기관</td>
-              <td>연간 계약</td>
-              <td class="hi">협의 (수억 원 규모)</td>
-            </tr>
-            <tr>
-              <td><strong>프리미엄 구독</strong></td>
-              <td>환우 개인</td>
-              <td>월 구독</td>
-              <td class="hi">9,900~19,900원 / 월</td>
-            </tr>
-            <tr>
-              <td><strong>앰배서더 콘텐츠 연계</strong></td>
-              <td>제약사 / 브랜드</td>
-              <td>캠페인별</td>
-              <td class="hi">500~2,000만 원 / 캠페인</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <hr class="bm-divider">
-
-    <!-- 성장 단계별 BM -->
-    <div class="bm-section">
-      <div class="bm-section-label">03 · Growth Phase</div>
-      <h2 class="bm-section-title">단계별 BM 전환 전략</h2>
-      <div class="bm-card-grid">
-        <div class="bm-card">
-          <div class="bm-card-icon">🌱</div>
-          <div class="bm-card-title">Phase 1 · MVP (현재)</div>
-          <div class="bm-card-desc">유방암 커뮤니티 앰배서더 확보 → 유저 유입. 무료 서비스로 신뢰 구축 및 데이터 수집 시작. 프리미엄 전환율 검증.</div>
-          <span class="bm-card-badge">0~6개월</span>
-        </div>
-        <div class="bm-card">
-          <div class="bm-card-icon">🚀</div>
-          <div class="bm-card-title">Phase 2 · 수익화</div>
-          <div class="bm-card-desc">위암·대장암으로 암종 확장. B2B 병원 파이럿 계약 체결. 임상시험 매칭 첫 수익 발생. 프리미엄 구독 정식 출시.</div>
-          <span class="bm-card-badge">6~18개월</span>
-        </div>
-        <div class="bm-card">
-          <div class="bm-card-icon">💎</div>
-          <div class="bm-card-title">Phase 3 · 스케일업</div>
-          <div class="bm-card-desc">전 암종 커버리지 달성. 데이터 라이선싱 계약 체결. 글로벌 제약사 임상 매칭 플랫폼으로 포지셔닝. IRB 승인 데이터셋 구축.</div>
-          <span class="bm-card-badge">18개월 이후</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="bm-highlight-box">
-      <div class="bm-highlight-label">핵심 명제</div>
-      <div class="bm-highlight-text">
-        온코케어의 진짜 자산은 플랫폼이 아닌 <strong style="color:#f4f6ff;">데이터</strong>입니다. 커뮤니티가 성장할수록 임상 매칭의 정밀도가 높아지고, 데이터 라이선스의 가치가 증가하며, AI 모델의 성능이 개선됩니다.
-        이 <strong style="color:#f4f6ff;">커뮤니티 → 데이터 → AI → 수익</strong>의 선순환이 온코케어 BM의 핵심입니다.
-      </div>
-    </div>
-
-    <hr class="bm-divider">
 
     <!-- ===== GPU 비용 분석 섹션 ===== -->
     <style>
@@ -10689,8 +10401,8 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
       }
     </style>
 
-    <div class="bm-section">
-      <div class="bm-section-label">04 · GPU Cost Analysis</div>
+    <div class="bm-section bm-reveal">
+      <div class="bm-section-label" style="color:#4a87ff;">10 · GPU Cost Analysis</div>
 
       <!-- Hero 제목 -->
       <div class="gpu-hero">
@@ -11167,8 +10879,8 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
       }
     </style>
 
-    <div class="bm-section">
-      <div class="bm-section-label">05 · Decision Framework</div>
+    <div class="bm-section bm-reveal">
+      <div class="bm-section-label" style="color:#00d4a0;">11 · Decision Framework</div>
 
       <!-- Hero -->
       <div class="gng-hero">
@@ -11240,10 +10952,7 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
 
     </div><!-- /Go No-Go -->
 
-  </div>
-
   </div><!-- /page-vcare-bm -->
-
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
 
