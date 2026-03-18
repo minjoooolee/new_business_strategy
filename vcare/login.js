@@ -229,9 +229,41 @@
     document.body.style.overflow = '';
   }
 
+  // ── Logout ──
+  function doLogout() {
+    try { localStorage.removeItem('oncocare_login'); } catch(e) {}
+    loginData = { role: '', license: '', department: '' };
+    resetLoginUI();
+    window.dispatchEvent(new CustomEvent('oncocare-logout'));
+  }
+
+  // ── Reset header UI to logged-out state ──
+  function resetLoginUI() {
+    document.querySelectorAll('.btn-login').forEach(function(el) {
+      el.textContent = '로그인';
+      el.style.pointerEvents = '';
+      el.style.background = '';
+      el.style.borderColor = '';
+      el.style.color = '';
+      el.classList.remove('logged-in');
+    });
+    // Remove any existing logout buttons
+    document.querySelectorAll('.btn-logout').forEach(function(el) {
+      el.remove();
+    });
+    document.querySelectorAll('.drawer-login').forEach(function(el) {
+      el.textContent = '로그인';
+      el.style.background = 'var(--text)';
+      el.style.pointerEvents = '';
+    });
+    document.querySelectorAll('.drawer-logout').forEach(function(el) {
+      el.remove();
+    });
+  }
+
   // ── Update header UI after login ──
   function updateLoginUI() {
-    // Replace login button text
+    // Replace login button text and add logout button in GNB
     document.querySelectorAll('.btn-login').forEach(function(el) {
       el.textContent = loginData.role === '의료진'
         ? '🩺 의료진'
@@ -240,13 +272,48 @@
       el.style.background = 'rgba(110,63,163,0.06)';
       el.style.borderColor = 'rgba(110,63,163,0.2)';
       el.style.color = '#6E3FA3';
+      el.classList.add('logged-in');
+
+      // Add logout button next to login button if not already present
+      if (!el.parentElement.querySelector('.btn-logout')) {
+        var logoutBtn = document.createElement('a');
+        logoutBtn.href = '#';
+        logoutBtn.className = 'btn-logout';
+        logoutBtn.textContent = '로그아웃';
+        logoutBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          doLogout();
+        });
+        el.parentElement.insertBefore(logoutBtn, el.nextSibling);
+      }
     });
+
+    // Update drawer login button and add drawer logout
     document.querySelectorAll('.drawer-login').forEach(function(el) {
       el.textContent = loginData.role === '의료진'
         ? '🩺 의료진 로그인됨'
         : loginData.role === '보호자' ? '🤝 보호자 로그인됨' : '🙋 로그인됨';
       el.style.background = '#6E3FA3';
       el.style.pointerEvents = 'none';
+
+      // Add drawer logout button if not already present
+      if (!el.parentElement.querySelector('.drawer-logout')) {
+        var drawerLogout = document.createElement('a');
+        drawerLogout.href = '#';
+        drawerLogout.className = 'drawer-logout';
+        drawerLogout.textContent = '로그아웃';
+        drawerLogout.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Close drawer
+          var drawerEl = document.getElementById('drawer');
+          var dimEl = document.getElementById('dim');
+          if (drawerEl) drawerEl.classList.remove('on');
+          if (dimEl) dimEl.classList.remove('on');
+          document.body.style.overflow = '';
+          doLogout();
+        });
+        el.parentElement.appendChild(drawerLogout);
+      }
     });
   }
 
