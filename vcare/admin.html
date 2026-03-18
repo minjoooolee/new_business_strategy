@@ -1289,7 +1289,7 @@
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;">
     <div class="stat-card blue" style="position:relative;border-radius:12px;padding:14px;background:var(--bg2);border:1px solid var(--border);">
       <div class="stat-label">전체 코호트</div><div class="stat-value">31</div>
-      <div class="stat-sub">6개 암종</div>
+      <div class="stat-sub">6개 암종 · 5개 병기</div>
     </div>
     <div class="stat-card green" style="position:relative;border-radius:12px;padding:14px;background:var(--bg2);border:1px solid var(--border);">
       <div class="stat-label">활성</div><div class="stat-value">10</div>
@@ -1313,15 +1313,14 @@
     <button class="filter-btn">검색</button>
     <button class="filter-btn secondary" style="margin-left:auto">+ 신규 코호트 생성</button>
   </div>
-  <!-- 암종별 탭 -->
+  <!-- 병기별 탭 -->
   <div class="tabs" id="cohort-tabs" style="margin-top:0;">
     <div class="tab active" onclick="filterCohort('all',this)">전체 (31)</div>
-    <div class="tab" onclick="filterCohort('유방암',this)">🎗️ 유방암 (5)</div>
-    <div class="tab" onclick="filterCohort('위암',this)">위암 (5)</div>
-    <div class="tab" onclick="filterCohort('대장암',this)">대장암 (5)</div>
-    <div class="tab" onclick="filterCohort('폐암',this)">폐암 (5)</div>
-    <div class="tab" onclick="filterCohort('간암',this)">간암 (5)</div>
-    <div class="tab" onclick="filterCohort('췌장암',this)">췌장암 (5)</div>
+    <div class="tab" onclick="filterCohort('0기',this)">0기 (6)</div>
+    <div class="tab" onclick="filterCohort('1기',this)">1기 (6)</div>
+    <div class="tab" onclick="filterCohort('2기',this)">2기 (6)</div>
+    <div class="tab" onclick="filterCohort('3기',this)">3기 (6)</div>
+    <div class="tab" onclick="filterCohort('4기',this)">4기 (6)</div>
     <div class="tab" onclick="filterCohort('기타',this)">기타 (1)</div>
   </div>
   <div class="card" style="border-radius:0 12px 12px 12px;">
@@ -1329,7 +1328,7 @@
       <table>
         <thead><tr>
           <th>코호트명</th>
-          <th>병기</th>
+          <th>암종</th>
           <th>참여자</th>
           <th>7일 메시지</th>
           <th>자생 세션</th>
@@ -1338,15 +1337,16 @@
           <th>액션</th>
         </tr></thead>
         <tbody>
-          <tr data-cancer="유방암" class="cohort-group-header">
+          <!-- ── 0기 ── -->
+          <tr data-stage="0기" class="cohort-group-header">
             <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #2563eb22;">
-              <span style="font-weight:700;font-size:13px;color:#2563eb;">🎗️ 유방암</span>
-              <span style="font-size:11px;color:var(--text2);margin-left:10px;">5개 코호트 · 참여자 556명 · 활성 4 · 저조 1</span>
+              <span style="font-weight:700;font-size:13px;color:#2563eb;">📊 0기</span>
+              <span style="font-size:11px;color:var(--text2);margin-left:10px;">6개 코호트 · 참여자 170명 · 활성 3 · 준비중 3</span>
             </td>
           </tr>
-          <tr data-cancer="유방암">
+          <tr data-stage="0기">
             <td><b>유방암 0기</b></td>
-            <td>0기</td>
+            <td>🎗️ 유방암</td>
             <td>95명</td>
             <td><b>312</b></td>
             <td style="font-weight:700;color:var(--green);">67%</td>
@@ -1354,55 +1354,9 @@
             <td><span class="badge badge-green">활성</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="유방암">
-            <td><b>유방암 1기</b></td>
-            <td>1기</td>
-            <td>142명</td>
-            <td><b>548</b></td>
-            <td style="font-weight:700;color:var(--green);">74%</td>
-            <td>26명</td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="유방암">
-            <td><b>유방암 2기</b></td>
-            <td>2기</td>
-            <td>178명</td>
-            <td><b>631</b></td>
-            <td style="font-weight:700;color:var(--green);">71%</td>
-            <td>31명</td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="유방암">
-            <td><b>유방암 3기</b></td>
-            <td>3기</td>
-            <td>89명</td>
-            <td><b>344</b></td>
-            <td style="font-weight:700;color:var(--accent);">62%</td>
-            <td>16명</td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="유방암">
-            <td><b>유방암 4기</b></td>
-            <td>4기</td>
-            <td>52명</td>
-            <td><b>189</b></td>
-            <td style="font-weight:700;color:var(--yellow);">45% ⚠</td>
-            <td>8명</td>
-            <td><span class="badge badge-yellow">활성 저조</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="위암" class="cohort-group-header">
-            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #6d4ef522;">
-              <span style="font-weight:700;font-size:13px;color:#6d4ef5;">🟤 위암</span>
-              <span style="font-size:11px;color:var(--text2);margin-left:10px;">5개 코호트 · 참여자 219명 · 활성 3 · 저조 2</span>
-            </td>
-          </tr>
-          <tr data-cancer="위암">
+          <tr data-stage="0기">
             <td><b>위암 0기</b></td>
-            <td>0기</td>
+            <td>🟤 위암</td>
             <td>31명</td>
             <td><b>98</b></td>
             <td style="font-weight:700;color:var(--accent);">59%</td>
@@ -1410,55 +1364,9 @@
             <td><span class="badge badge-green">활성</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="위암">
-            <td><b>위암 1기</b></td>
-            <td>1기</td>
-            <td>58명</td>
-            <td><b>204</b></td>
-            <td style="font-weight:700;color:var(--accent);">57%</td>
-            <td>11명</td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="위암">
-            <td><b>위암 2기</b></td>
-            <td>2기</td>
-            <td>71명</td>
-            <td><b>258</b></td>
-            <td style="font-weight:700;color:var(--accent);">54%</td>
-            <td>13명</td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="위암">
-            <td><b>위암 3기</b></td>
-            <td>3기</td>
-            <td>35명</td>
-            <td><b>118</b></td>
-            <td style="font-weight:700;color:var(--yellow);">44% ⚠</td>
-            <td>5명</td>
-            <td><span class="badge badge-yellow">활성 저조</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="위암">
-            <td><b>위암 4기</b></td>
-            <td>4기</td>
-            <td>24명</td>
-            <td><b>84</b></td>
-            <td style="font-weight:700;color:var(--yellow);">41% ⚠</td>
-            <td>3명</td>
-            <td><span class="badge badge-yellow">활성 저조</span></td>
-            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
-          </tr>
-          <tr data-cancer="대장암" class="cohort-group-header">
-            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #16a34a22;">
-              <span style="font-weight:700;font-size:13px;color:#16a34a;">🟢 대장암</span>
-              <span style="font-size:11px;color:var(--text2);margin-left:10px;">5개 코호트 · 참여자 273명 · 활성 3 · 저조 2</span>
-            </td>
-          </tr>
-          <tr data-cancer="대장암">
+          <tr data-stage="0기">
             <td><b>대장암 0기</b></td>
-            <td>0기</td>
+            <td>🟢 대장암</td>
             <td>44명</td>
             <td><b>148</b></td>
             <td style="font-weight:700;color:var(--accent);">63%</td>
@@ -1466,9 +1374,63 @@
             <td><span class="badge badge-green">활성</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="대장암">
+          <tr data-stage="0기">
+            <td><b>폐암 0기</b></td>
+            <td>🫁 폐암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="0기">
+            <td><b>간암 0기</b></td>
+            <td>🟡 간암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="0기">
+            <td><b>췌장암 0기</b></td>
+            <td>🔴 췌장암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <!-- ── 1기 ── -->
+          <tr data-stage="1기" class="cohort-group-header">
+            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #16a34a22;">
+              <span style="font-weight:700;font-size:13px;color:#16a34a;">📊 1기</span>
+              <span style="font-size:11px;color:var(--text2);margin-left:10px;">6개 코호트 · 참여자 277명 · 활성 3 · 준비중 3</span>
+            </td>
+          </tr>
+          <tr data-stage="1기">
+            <td><b>유방암 1기</b></td>
+            <td>🎗️ 유방암</td>
+            <td>142명</td>
+            <td><b>548</b></td>
+            <td style="font-weight:700;color:var(--green);">74%</td>
+            <td>26명</td>
+            <td><span class="badge badge-green">활성</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="1기">
+            <td><b>위암 1기</b></td>
+            <td>🟤 위암</td>
+            <td>58명</td>
+            <td><b>204</b></td>
+            <td style="font-weight:700;color:var(--accent);">57%</td>
+            <td>11명</td>
+            <td><span class="badge badge-green">활성</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="1기">
             <td><b>대장암 1기</b></td>
-            <td>1기</td>
+            <td>🟢 대장암</td>
             <td>77명</td>
             <td><b>279</b></td>
             <td style="font-weight:700;color:var(--green);">65%</td>
@@ -1476,9 +1438,63 @@
             <td><span class="badge badge-green">활성</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="대장암">
+          <tr data-stage="1기">
+            <td><b>폐암 1기</b></td>
+            <td>🫁 폐암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="1기">
+            <td><b>간암 1기</b></td>
+            <td>🟡 간암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="1기">
+            <td><b>췌장암 1기</b></td>
+            <td>🔴 췌장암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <!-- ── 2기 ── -->
+          <tr data-stage="2기" class="cohort-group-header">
+            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #6d4ef522;">
+              <span style="font-weight:700;font-size:13px;color:#6d4ef5;">📊 2기</span>
+              <span style="font-size:11px;color:var(--text2);margin-left:10px;">6개 코호트 · 참여자 334명 · 활성 3 · 준비중 3</span>
+            </td>
+          </tr>
+          <tr data-stage="2기">
+            <td><b>유방암 2기</b></td>
+            <td>🎗️ 유방암</td>
+            <td>178명</td>
+            <td><b>631</b></td>
+            <td style="font-weight:700;color:var(--green);">71%</td>
+            <td>31명</td>
+            <td><span class="badge badge-green">활성</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="2기">
+            <td><b>위암 2기</b></td>
+            <td>🟤 위암</td>
+            <td>71명</td>
+            <td><b>258</b></td>
+            <td style="font-weight:700;color:var(--accent);">54%</td>
+            <td>13명</td>
+            <td><span class="badge badge-green">활성</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="2기">
             <td><b>대장암 2기</b></td>
-            <td>2기</td>
+            <td>🟢 대장암</td>
             <td>85명</td>
             <td><b>312</b></td>
             <td style="font-weight:700;color:var(--accent);">61%</td>
@@ -1486,9 +1502,63 @@
             <td><span class="badge badge-green">활성</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="대장암">
+          <tr data-stage="2기">
+            <td><b>폐암 2기</b></td>
+            <td>🫁 폐암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="2기">
+            <td><b>간암 2기</b></td>
+            <td>🟡 간암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="2기">
+            <td><b>췌장암 2기</b></td>
+            <td>🔴 췌장암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <!-- ── 3기 ── -->
+          <tr data-stage="3기" class="cohort-group-header">
+            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #d9770622;">
+              <span style="font-weight:700;font-size:13px;color:#d97706;">📊 3기</span>
+              <span style="font-size:11px;color:var(--text2);margin-left:10px;">6개 코호트 · 참여자 173명 · 활성 1 · 저조 2 · 준비중 3</span>
+            </td>
+          </tr>
+          <tr data-stage="3기">
+            <td><b>유방암 3기</b></td>
+            <td>🎗️ 유방암</td>
+            <td>89명</td>
+            <td><b>344</b></td>
+            <td style="font-weight:700;color:var(--accent);">62%</td>
+            <td>16명</td>
+            <td><span class="badge badge-green">활성</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="3기">
+            <td><b>위암 3기</b></td>
+            <td>🟤 위암</td>
+            <td>35명</td>
+            <td><b>118</b></td>
+            <td style="font-weight:700;color:var(--yellow);">44% ⚠</td>
+            <td>5명</td>
+            <td><span class="badge badge-yellow">활성 저조</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="3기">
             <td><b>대장암 3기</b></td>
-            <td>3기</td>
+            <td>🟢 대장암</td>
             <td>49명</td>
             <td><b>167</b></td>
             <td style="font-weight:700;color:var(--yellow);">47% ⚠</td>
@@ -1496,9 +1566,63 @@
             <td><span class="badge badge-yellow">활성 저조</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="대장암">
+          <tr data-stage="3기">
+            <td><b>폐암 3기</b></td>
+            <td>🫁 폐암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="3기">
+            <td><b>간암 3기</b></td>
+            <td>🟡 간암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <tr data-stage="3기">
+            <td><b>췌장암 3기</b></td>
+            <td>🔴 췌장암</td>
+            <td>—</td><td>—</td>
+            <td style="font-weight:700;color:var(--text2);">—</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">준비중</span></td>
+            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
+          </tr>
+          <!-- ── 4기 ── -->
+          <tr data-stage="4기" class="cohort-group-header">
+            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #dc262622;">
+              <span style="font-weight:700;font-size:13px;color:#dc2626;">📊 4기</span>
+              <span style="font-size:11px;color:var(--text2);margin-left:10px;">6개 코호트 · 참여자 94명 · 저조 3 · 준비중 3</span>
+            </td>
+          </tr>
+          <tr data-stage="4기">
+            <td><b>유방암 4기</b></td>
+            <td>🎗️ 유방암</td>
+            <td>52명</td>
+            <td><b>189</b></td>
+            <td style="font-weight:700;color:var(--yellow);">45% ⚠</td>
+            <td>8명</td>
+            <td><span class="badge badge-yellow">활성 저조</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="4기">
+            <td><b>위암 4기</b></td>
+            <td>🟤 위암</td>
+            <td>24명</td>
+            <td><b>84</b></td>
+            <td style="font-weight:700;color:var(--yellow);">41% ⚠</td>
+            <td>3명</td>
+            <td><span class="badge badge-yellow">활성 저조</span></td>
+            <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
+          </tr>
+          <tr data-stage="4기">
             <td><b>대장암 4기</b></td>
-            <td>4기</td>
+            <td>🟢 대장암</td>
             <td>18명</td>
             <td><b>61</b></td>
             <td style="font-weight:700;color:var(--yellow);">42% ⚠</td>
@@ -1506,166 +1630,41 @@
             <td><span class="badge badge-yellow">활성 저조</span></td>
             <td><div class="action-menu"><button class="action-btn">모니터링</button><button class="action-btn">수정</button><button class="action-btn">설정</button></div></td>
           </tr>
-          <tr data-cancer="폐암" class="cohort-group-header">
-            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #0891b222;">
-              <span style="font-weight:700;font-size:13px;color:#0891b2;">🫁 폐암</span>
-              <span style="font-size:11px;color:var(--text2);margin-left:10px;">5개 코호트 · 준비중 5</span>
-            </td>
-          </tr>
-          <tr data-cancer="폐암">
-            <td><b>폐암 0기</b></td>
-            <td>0기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="폐암">
-            <td><b>폐암 1기</b></td>
-            <td>1기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="폐암">
-            <td><b>폐암 2기</b></td>
-            <td>2기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="폐암">
-            <td><b>폐암 3기</b></td>
-            <td>3기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="폐암">
+          <tr data-stage="4기">
             <td><b>폐암 4기</b></td>
-            <td>4기</td>
+            <td>🫁 폐암</td>
             <td>—</td><td>—</td>
             <td style="font-weight:700;color:var(--text2);">—</td>
             <td>—</td>
             <td><span class="badge badge-gray">준비중</span></td>
             <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
           </tr>
-          <tr data-cancer="간암" class="cohort-group-header">
-            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #d9770622;">
-              <span style="font-weight:700;font-size:13px;color:#d97706;">🟡 간암</span>
-              <span style="font-size:11px;color:var(--text2);margin-left:10px;">5개 코호트 · 준비중 5</span>
-            </td>
-          </tr>
-          <tr data-cancer="간암">
-            <td><b>간암 0기</b></td>
-            <td>0기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="간암">
-            <td><b>간암 1기</b></td>
-            <td>1기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="간암">
-            <td><b>간암 2기</b></td>
-            <td>2기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="간암">
-            <td><b>간암 3기</b></td>
-            <td>3기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="간암">
+          <tr data-stage="4기">
             <td><b>간암 4기</b></td>
-            <td>4기</td>
+            <td>🟡 간암</td>
             <td>—</td><td>—</td>
             <td style="font-weight:700;color:var(--text2);">—</td>
             <td>—</td>
             <td><span class="badge badge-gray">준비중</span></td>
             <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
           </tr>
-          <tr data-cancer="췌장암" class="cohort-group-header">
-            <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #dc262622;">
-              <span style="font-weight:700;font-size:13px;color:#dc2626;">🔴 췌장암</span>
-              <span style="font-size:11px;color:var(--text2);margin-left:10px;">5개 코호트 · 준비중 5</span>
-            </td>
-          </tr>
-          <tr data-cancer="췌장암">
-            <td><b>췌장암 0기</b></td>
-            <td>0기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="췌장암">
-            <td><b>췌장암 1기</b></td>
-            <td>1기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="췌장암">
-            <td><b>췌장암 2기</b></td>
-            <td>2기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="췌장암">
-            <td><b>췌장암 3기</b></td>
-            <td>3기</td>
-            <td>—</td><td>—</td>
-            <td style="font-weight:700;color:var(--text2);">—</td>
-            <td>—</td>
-            <td><span class="badge badge-gray">준비중</span></td>
-            <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
-          </tr>
-          <tr data-cancer="췌장암">
+          <tr data-stage="4기">
             <td><b>췌장암 4기</b></td>
-            <td>4기</td>
+            <td>🔴 췌장암</td>
             <td>—</td><td>—</td>
             <td style="font-weight:700;color:var(--text2);">—</td>
             <td>—</td>
             <td><span class="badge badge-gray">준비중</span></td>
             <td><div class="action-menu"><button class="action-btn primary">활성화</button><button class="action-btn">수정</button></div></td>
           </tr>
-          <tr data-cancer="기타" class="cohort-group-header">
+          <!-- ── 기타 ── -->
+          <tr data-stage="기타" class="cohort-group-header">
             <td colspan="8" style="background:linear-gradient(90deg,rgba(0,0,0,0.03),transparent);padding:10px 14px;border-bottom:2px solid #6b7a9922;">
               <span style="font-weight:700;font-size:13px;color:#6b7a99;">⚪ 기타</span>
               <span style="font-size:11px;color:var(--text2);margin-left:10px;">1개 코호트 · 참여자 18명 · 저조 1</span>
             </td>
           </tr>
-          <tr data-cancer="기타">
+          <tr data-stage="기타">
             <td><b>기타 암종 · 통합</b></td>
             <td>—</td>
             <td>18명</td>
@@ -2247,8 +2246,8 @@
   function filterCohort(type, tabEl) {
     document.querySelectorAll('#cohort-tabs .tab').forEach(t => t.classList.remove('active'));
     tabEl.classList.add('active');
-    document.querySelectorAll('[data-cancer]').forEach(el => {
-      el.style.display = (type === 'all' || el.dataset.cancer === type) ? '' : 'none';
+    document.querySelectorAll('[data-stage]').forEach(el => {
+      el.style.display = (type === 'all' || el.dataset.stage === type) ? '' : 'none';
     });
   }
 
