@@ -456,137 +456,188 @@
 <!-- ===== 대시보드 ===== -->
 <div class="page active" id="page-dashboard">
   <div class="page-title">대시보드 <small>실시간 현황</small></div>
-  <div class="stat-grid">
-    <div class="stat-card blue">
-      <div class="stat-label">오늘 DAU</div>
-      <div class="stat-value">1,247</div>
-      <div class="stat-delta up">▲ 12% 어제 대비</div>
-    </div>
-    <div class="stat-card purple">
-      <div class="stat-label">오늘 신규 가입</div>
-      <div class="stat-value">38</div>
-      <div class="stat-sub">앰배서더 유입 61%</div>
-    </div>
-    <div class="stat-card green">
-      <div class="stat-label">게시글·댓글</div>
-      <div class="stat-value">204</div>
-      <div class="stat-sub">게시글 89 / 댓글 115</div>
-    </div>
-    <div class="stat-card cyan">
-      <div class="stat-label">활성 코호트</div>
-      <div class="stat-value">14</div>
-      <div class="stat-sub">전체 18개 중</div>
-    </div>
-    <div class="stat-card yellow">
-      <div class="stat-label">컨펌 대기</div>
-      <div class="stat-value">3</div>
-      <div class="stat-sub">최장 18h 경과</div>
-    </div>
-    <div class="stat-card red">
-      <div class="stat-label">미처리 신고·문의</div>
-      <div class="stat-value red-text">19</div>
-      <div class="stat-sub">신고 7 / 문의 12</div>
-    </div>
-  </div>
-  <div class="grid-3-1">
-    <div class="card">
-      <div class="card-title">주간 DAU / 게시글 추이</div>
-      <div style="display:flex;gap:6px;margin-bottom:8px;">
-        <span style="font-size:11px;color:var(--accent);">● DAU</span>
-        <span style="font-size:11px;color:var(--accent2);">● 게시글</span>
-        <span style="font-size:11px;color:var(--green);">● 신규가입</span>
+  <!-- ① 검사결과지 컨펌 대기 — 1순위 -->
+  <div class="card" style="margin-bottom:16px; border-left: 4px solid var(--accent);">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+      <div>
+        <div style="font-size:15px; font-weight:700; letter-spacing:-0.3px;">🔬 검사결과지 컨펌 대기</div>
+        <div style="font-size:12px; color:var(--text2); margin-top:3px;">SLA 기준 24h 이내 컨펌 완료 — 현재 대기 <b style="color:var(--red)">3건</b></div>
       </div>
-      <div class="chart-area" id="mainChart"></div>
+      <button class="filter-btn" onclick="showPage('test-results')">전체 보기</button>
     </div>
-    <div class="card">
-      <div class="card-title">⚡ 긴급 알림</div>
-      <div class="alert-list">
-        <div class="alert-item critical">
-          <div class="alert-dot"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div style="border:1.5px solid rgba(220,38,38,0.4); border-radius:12px; padding:16px; background:rgba(220,38,38,0.03);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
           <div>
-            <div class="alert-title">위험 키워드 감지</div>
-            <div class="alert-meta">유방암·전이4기 코호트 · 2분 전</div>
+            <div style="font-size:11px; color:var(--text2); margin-bottom:3px;">#1042 · 혈액검사 종합</div>
+            <div style="font-size:13px; font-weight:600;">하늘별빛님 · 유방암</div>
           </div>
-          <button class="alert-action">확인</button>
+          <span class="badge badge-red">의료진 미지정</span>
         </div>
-        <div class="alert-item warning">
-          <div class="alert-dot"></div>
-          <div>
-            <div class="alert-title">컨펌 대기 18h 초과</div>
-            <div class="alert-meta">검사결과지 #1042 · 의료진 미지정</div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text2); margin-bottom:5px;">
+            <span>경과 시간</span><span style="font-weight:700; color:var(--red); font-family:'Poppins',sans-serif;">18h 12m / 24h</span>
           </div>
-          <button class="alert-action">배정</button>
-        </div>
-        <div class="alert-item warning">
-          <div class="alert-dot"></div>
-          <div>
-            <div class="alert-title">신고 3건 누적</div>
-            <div class="alert-meta">사용자 닉네임_희망** · 민간요법 홍보</div>
-          </div>
-          <button class="alert-action">검토</button>
-        </div>
-        <div class="alert-item info">
-          <div class="alert-dot"></div>
-          <div>
-            <div class="alert-title">일일 가입 38명 달성</div>
-            <div class="alert-meta">목표 50명 대비 76%</div>
+          <div style="height:8px; background:var(--bg3); border-radius:4px; overflow:hidden;">
+            <div style="width:76%; height:100%; background:var(--red); border-radius:4px;"></div>
           </div>
         </div>
+        <button class="filter-btn" style="width:100%; padding:7px 0;">지금 의료진 배정</button>
+      </div>
+      <div style="border:1.5px solid rgba(217,119,6,0.3); border-radius:12px; padding:16px; background:rgba(217,119,6,0.03);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div>
+            <div style="font-size:11px; color:var(--text2); margin-bottom:3px;">#1041 · CT 판독 결과</div>
+            <div style="font-size:13px; font-weight:600;">용기내어 · 대장암</div>
+          </div>
+          <span class="badge badge-yellow">검토 중</span>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text2); margin-bottom:5px;">
+            <span>경과 시간</span><span style="font-weight:700; color:var(--yellow); font-family:'Poppins',sans-serif;">4h 30m / 24h</span>
+          </div>
+          <div style="height:8px; background:var(--bg3); border-radius:4px; overflow:hidden;">
+            <div style="width:19%; height:100%; background:var(--yellow); border-radius:4px;"></div>
+          </div>
+        </div>
+        <div style="font-size:11px; color:var(--text2);">담당: 이OO 선생님</div>
+      </div>
+      <div style="border:1px solid var(--border); border-radius:12px; padding:16px; background:var(--bg3);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div>
+            <div style="font-size:11px; color:var(--text2); margin-bottom:3px;">#1040 · 종양표지자 검사</div>
+            <div style="font-size:13px; font-weight:600;">강인한마음 · 유방암</div>
+          </div>
+          <span class="badge badge-gray">AI 초안 생성 중</span>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text2); margin-bottom:5px;">
+            <span>경과 시간</span><span style="font-weight:700; color:var(--green); font-family:'Poppins',sans-serif;">2h 40m / 24h</span>
+          </div>
+          <div style="height:8px; background:var(--border); border-radius:4px; overflow:hidden;">
+            <div style="width:11%; height:100%; background:var(--green); border-radius:4px;"></div>
+          </div>
+        </div>
+        <div style="font-size:11px; color:var(--text2);">담당: 김OO 선생님</div>
       </div>
     </div>
   </div>
+  <!-- ② + ③ 2순위·3순위 나란히 -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+    <!-- ② 커뮤니티 자생 세션 비율 -->
+    <div class="card" style="border-left: 4px solid var(--accent2);">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <div>
+          <div style="font-size:15px; font-weight:700; letter-spacing:-0.3px;">💬 커뮤니티 자생 세션</div>
+          <div style="font-size:12px; color:var(--text2); margin-top:3px;">운영자·앰배서더 없이 대화가 돌아가는 비율 — 목표 50%+</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:36px; font-weight:800; font-family:'Poppins',sans-serif; color:var(--accent2); letter-spacing:-2px;">54%</div>
+          <div style="font-size:11px; color:var(--green); font-weight:600;">▲ 3%p 지난주 대비</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+            <span>유방암 · 선항암 중</span><span style="font-weight:700; color:var(--green);">71%</span>
+          </div>
+          <div style="height:6px; background:var(--bg3); border-radius:3px; overflow:hidden;">
+            <div style="width:71%; height:100%; background:var(--green); border-radius:3px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+            <span>유방암 · 전이 4기</span><span style="font-weight:700; color:var(--accent2);">62%</span>
+          </div>
+          <div style="height:6px; background:var(--bg3); border-radius:3px; overflow:hidden;">
+            <div style="width:62%; height:100%; background:var(--accent2); border-radius:3px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+            <span>대장암 · 회복·관리</span><span style="font-weight:700; color:var(--accent);">58%</span>
+          </div>
+          <div style="height:6px; background:var(--bg3); border-radius:3px; overflow:hidden;">
+            <div style="width:58%; height:100%; background:var(--accent); border-radius:3px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+            <span>위암 · 수술 준비중</span><span style="font-weight:700; color:var(--yellow);">44% ⚠</span>
+          </div>
+          <div style="height:6px; background:var(--bg3); border-radius:3px; overflow:hidden;">
+            <div style="width:44%; height:100%; background:var(--yellow); border-radius:3px;"></div>
+          </div>
+          <div style="font-size:11px; color:var(--yellow); margin-top:3px;">목표 미달 — 시딩 콘텐츠 투입 검토 필요</div>
+        </div>
+      </div>
+    </div>
+    <!-- ③ 채널별 유입 → 코어 유저 전환율 -->
+    <div class="card" style="border-left: 4px solid var(--cyan);">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <div>
+          <div style="font-size:15px; font-weight:700; letter-spacing:-0.3px;">📣 채널별 코어 유저 전환율</div>
+          <div style="font-size:12px; color:var(--text2); margin-top:3px;">유입 → 코어 유저화 — 앰배서더 계약 판단 기준</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="padding:12px; background:var(--bg3); border-radius:10px; display:flex; align-items:center; gap:14px;">
+          <div style="width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,#2563eb,#6d4ef5); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;">🎥</div>
+          <div style="flex:1;">
+            <div style="font-size:12px; font-weight:600; margin-bottom:2px;">김OO · 유튜브 (유방암)</div>
+            <div style="font-size:11px; color:var(--text2);">유입 3,420명</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:22px; font-weight:800; font-family:'Poppins',sans-serif; color:var(--green);">9%</div>
+            <div style="font-size:10px; color:var(--text2);">코어 전환</div>
+          </div>
+        </div>
+        <div style="padding:12px; background:var(--bg3); border-radius:10px; display:flex; align-items:center; gap:14px;">
+          <div style="width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,#ec4899,#f97316); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;">📸</div>
+          <div style="flex:1;">
+            <div style="font-size:12px; font-weight:600; margin-bottom:2px;">박OO · 인스타 (위암)</div>
+            <div style="font-size:11px; color:var(--text2);">유입 2,180명</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:22px; font-weight:800; font-family:'Poppins',sans-serif; color:var(--accent);">7%</div>
+            <div style="font-size:10px; color:var(--text2);">코어 전환</div>
+          </div>
+        </div>
+        <div style="padding:12px; background:var(--bg3); border-radius:10px; display:flex; align-items:center; gap:14px;">
+          <div style="width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,#0891b2,#22c55e); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;">🏥</div>
+          <div style="flex:1;">
+            <div style="font-size:12px; font-weight:600; margin-bottom:2px;">병원 QR</div>
+            <div style="font-size:11px; color:var(--text2);">유입 480명</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:22px; font-weight:800; font-family:'Poppins',sans-serif; color:var(--green);">14%</div>
+            <div style="font-size:10px; color:var(--text2);">코어 전환</div>
+          </div>
+        </div>
+        <div style="padding:12px; background:rgba(220,38,38,0.04); border:1px solid rgba(220,38,38,0.2); border-radius:10px; display:flex; align-items:center; gap:14px;">
+          <div style="width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,#64748b,#94a3b8); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;">🔍</div>
+          <div style="flex:1;">
+            <div style="font-size:12px; font-weight:600; margin-bottom:2px;">SEO (구글·네이버)</div>
+            <div style="font-size:11px; color:var(--text2);">유입 4,040명</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:22px; font-weight:800; font-family:'Poppins',sans-serif; color:var(--red);">4%</div>
+            <div style="font-size:10px; color:var(--red);">가장 낮음</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 하단 보조 지표 -->
   <div class="grid-3">
     <div class="card">
-      <div class="card-title">커뮤니티 건강 지표</div>
-      <div class="kpi-grid">
-        <div class="kpi-item">
-          <div class="kpi-label">DAU/MAU</div>
-          <div class="kpi-val" style="color:var(--green)">23%</div>
-          <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:77%;background:var(--green)"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-label">자생 세션</div>
-          <div class="kpi-val" style="color:var(--accent)">54%</div>
-          <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:54%;background:var(--accent)"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-label">코어 유저</div>
-          <div class="kpi-val" style="color:var(--accent2)">18%</div>
-          <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:60%;background:var(--accent2)"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-label">댓글률</div>
-          <div class="kpi-val" style="color:var(--cyan)">34%</div>
-          <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:34%;background:var(--cyan)"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-label">30일 이탈</div>
-          <div class="kpi-val" style="color:var(--yellow)">38%</div>
-          <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:38%;background:var(--yellow)"></div></div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-label">의료진 효과</div>
-          <div class="kpi-val" style="color:var(--green)">2.4×</div>
-          <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:80%;background:var(--green)"></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">질환별 가입 분포</div>
-      <div class="donut-wrap">
-        <svg class="donut-svg" width="100" height="100" viewBox="0 0 36 36">
-          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1e2740" stroke-width="4"/>
-          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#4f8cff" stroke-width="4" stroke-dasharray="40 60" stroke-dashoffset="25"/>
-          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#7b6ef6" stroke-width="4" stroke-dasharray="25 75" stroke-dashoffset="-15"/>
-          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#22c55e" stroke-width="4" stroke-dasharray="20 80" stroke-dashoffset="-40"/>
-          <circle cx="18" cy="18" r="15.9" fill="none" stroke="#06b6d4" stroke-width="4" stroke-dasharray="15 85" stroke-dashoffset="-60"/>
-        </svg>
-        <div class="donut-legend">
-          <div class="legend-row"><div class="legend-dot" style="background:#4f8cff"></div>유방암 40%</div>
-          <div class="legend-row"><div class="legend-dot" style="background:#7b6ef6"></div>위암 25%</div>
-          <div class="legend-row"><div class="legend-dot" style="background:#22c55e"></div>대장암 20%</div>
-          <div class="legend-row"><div class="legend-dot" style="background:#06b6d4"></div>기타 15%</div>
-        </div>
+      <div class="card-title">오늘 운영 현황</div>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border);"><span style="color:var(--text2);">DAU</span><b>1,247명</b></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border);"><span style="color:var(--text2);">신규 가입</span><b>38명</b></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border);"><span style="color:var(--text2);">게시글·댓글</span><b>204건</b></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border);"><span style="color:var(--text2);">활성 코호트</span><b>14 / 18</b></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0;"><span style="color:var(--text2);">미처리 신고·문의</span><b style="color:var(--red);">19건</b></div>
       </div>
     </div>
     <div class="card">
@@ -594,60 +645,83 @@
       <div class="agent-grid">
         <div class="agent-row">
           <div class="agent-status on"></div>
-          <div>
-            <div class="agent-name">AGENT 01 임상·신약 큐레이션</div>
-            <div class="agent-label">오늘 알림 발송 142건</div>
-          </div>
-          <div style="text-align:right"><div class="agent-num">78%</div><div class="agent-label">클릭률</div></div>
+          <div style="flex:1"><div class="agent-name">AGENT 01 임상·신약</div><div class="agent-label">알림 142건 · 클릭률 78%</div></div>
         </div>
         <div class="agent-row">
           <div class="agent-status on"></div>
-          <div>
-            <div class="agent-name">AGENT 02 검사결과 해석</div>
-            <div class="agent-label">초안 생성 9건</div>
-          </div>
-          <div style="text-align:right"><div class="agent-num">12%</div><div class="agent-label">수정률</div></div>
+          <div style="flex:1"><div class="agent-name">AGENT 02 검사결과 해석</div><div class="agent-label">초안 9건 · 수정률 12%</div></div>
         </div>
         <div class="agent-row">
           <div class="agent-status warn"></div>
-          <div>
-            <div class="agent-name">AGENT 03 초안 답변</div>
-            <div class="agent-label">응답 지연 감지</div>
-          </div>
-          <div style="text-align:right"><div class="agent-num">24%</div><div class="agent-label">수정률</div></div>
+          <div style="flex:1"><div class="agent-name">AGENT 03 초안 답변</div><div class="agent-label" style="color:var(--yellow);">⚠ 응답 지연 (P95: 42s)</div></div>
         </div>
         <div class="agent-row">
           <div class="agent-status on"></div>
-          <div>
-            <div class="agent-name">AGENT 05 최신 정보</div>
-            <div class="agent-label">논문 스캔 38건</div>
-          </div>
-          <div style="text-align:right"><div class="agent-num">4</div><div class="agent-label">카드뉴스</div></div>
+          <div style="flex:1"><div class="agent-name">AGENT 05 최신 정보</div><div class="agent-label">논문 38건 · 카드뉴스 4건</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">처리 필요 항목</div>
+      <div class="alert-list">
+        <div class="alert-item warning">
+          <div class="alert-dot"></div>
+          <div><div class="alert-title">컨펌 대기 18h 초과</div><div class="alert-meta">#1042 · 의료진 미지정</div></div>
+          <button class="alert-action" onclick="showPage('test-results')">배정</button>
+        </div>
+        <div class="alert-item warning">
+          <div class="alert-dot"></div>
+          <div><div class="alert-title">위암 자생 세션 44%</div><div class="alert-meta">목표 50% 미달 · 시딩 검토</div></div>
+          <button class="alert-action" onclick="showPage('cohort-rooms')">확인</button>
+        </div>
+        <div class="alert-item warning">
+          <div class="alert-dot"></div>
+          <div><div class="alert-title">신고 3건 누적 사용자</div><div class="alert-meta">닉네임_희망** · 민간요법</div></div>
+          <button class="alert-action" onclick="showPage('content-mod')">검토</button>
+        </div>
+        <div class="alert-item info">
+          <div class="alert-dot"></div>
+          <div><div class="alert-title">정OO 앰배서더 R&R 31%</div><div class="alert-meta">계약 만료 D-14 · 갱신 검토</div></div>
+          <button class="alert-action" onclick="showPage('users-ambassador')">확인</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- ===== 환우·보호자 관리 ===== -->
-<div class="page" id="page-users-patient">
-  <div class="page-title">환우·보호자 관리 <small>전체 2,841명</small></div>
+<!-- ===== 질환별 게시판 ===== -->
+<div class="page" id="page-content-board">
+  <div class="page-title">질환별 게시판 <small>전체 6개 질환</small></div>
   <div class="filter-bar">
-    <input class="filter-input" type="text" placeholder="🔍 닉네임·이메일 검색...">
-    <select class="filter-select"><option>전체 역할</option><option>환우</option><option>보호자</option></select>
-    <select class="filter-select"><option>전체 질환</option><option>유방암</option><option>위암</option><option>대장암</option><option>간암</option><option>폐암</option></select>
-    <select class="filter-select"><option>전체 병기</option><option>수술 준비중</option><option>선항암 중</option><option>표적치료 중</option><option>전이 4기</option><option>회복·관리</option></select>
-    <select class="filter-select"><option>전체 상태</option><option>정상</option><option>경고</option><option>정지</option><option>탈퇴</option></select>
-    <select class="filter-select"><option>전체 등급</option><option>Lurker</option><option>라이트</option><option>코어</option></select>
+    <select class="filter-select"><option>전체 질환</option><option>유방암</option><option>위암</option><option>대장암</option><option>간암</option><option>폐암</option><option>기타</option></select>
+    <select class="filter-select"><option>전체 카테고리</option><option>공지</option><option>정보 공유</option><option>치료 후기</option><option>질문·답변</option><option>응원·일상</option></select>
+    <select class="filter-select"><option>전체 상태</option><option>게시 중</option><option>숨김</option><option>삭제</option></select>
+    <input class="filter-input" type="text" placeholder="🔍 제목·작성자 검색...">
     <button class="filter-btn">검색</button>
     <button class="filter-btn secondary">초기화</button>
-    <button class="filter-btn secondary" style="margin-left:auto">+ 세그먼트 저장</button>
+    <button class="filter-btn secondary" style="margin-left:auto">+ 공지 작성</button>
+  </div>
+  <div class="stat-grid" style="grid-template-columns:repeat(6,1fr);margin-bottom:16px;">
+    <div class="stat-card blue"><div class="stat-label">유방암</div><div class="stat-value" style="font-size:20px;">1,248</div><div class="stat-sub">오늘 +34건</div></div>
+    <div class="stat-card purple"><div class="stat-label">위암</div><div class="stat-value" style="font-size:20px;">874</div><div class="stat-sub">오늘 +18건</div></div>
+    <div class="stat-card green"><div class="stat-label">대장암</div><div class="stat-value" style="font-size:20px;">612</div><div class="stat-sub">오늘 +21건</div></div>
+    <div class="stat-card cyan"><div class="stat-label">간암</div><div class="stat-value" style="font-size:20px;">301</div><div class="stat-sub">오늘 +8건</div></div>
+    <div class="stat-card yellow"><div class="stat-label">폐암</div><div class="stat-value" style="font-size:20px;">198</div><div class="stat-sub">오늘 +5건</div></div>
+    <div class="stat-card red"><div class="stat-label">기타</div><div class="stat-value" style="font-size:20px;">143</div><div class="stat-sub">오늘 +3건</div></div>
   </div>
   <div class="card">
+    <div class="tabs">
+      <div class="tab active">유방암 (1,248)</div>
+      <div class="tab">위암 (874)</div>
+      <div class="tab">대장암 (612)</div>
+      <div class="tab">간암 (301)</div>
+      <div class="tab">폐암 (198)</div>
+      <div class="tab">기타 (143)</div>
+    </div>
     <div class="section-header">
       <div style="display:flex;gap:8px;align-items:center;">
-        <span class="badge badge-red">신고 누적</span>
-        <span class="badge badge-yellow">30일 미접속</span>
-        <span class="badge badge-green">코어 유저</span>
+        <span class="badge badge-red">📌 공지</span>
+        <span class="badge badge-purple">의료진 확인</span>
+        <span class="badge badge-blue">다수 공감</span>
       </div>
       <button class="action-btn primary">CSV 내보내기</button>
     </div>
@@ -656,61 +730,76 @@
         <thead>
           <tr>
             <th><input type="checkbox"></th>
-            <th>닉네임</th><th>역할</th><th>질환</th><th>병기·치료 단계</th>
-            <th>가입일</th><th>최근 활동</th><th>활동 등급</th><th>상태</th><th>액션</th>
+            <th>카테고리</th><th>제목</th><th>작성자</th><th>작성일</th>
+            <th>조회</th><th>공감</th><th>댓글</th><th>신고</th><th>뱃지</th><th>상태</th><th>액션</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><input type="checkbox"></td>
-            <td><b>하늘별빛님</b></td>
-            <td><span class="badge badge-blue">환우</span></td>
-            <td>유방암</td><td>선항암 중</td><td>2024.03.12</td><td>1시간 전</td>
-            <td><span class="badge badge-purple">코어</span></td>
-            <td><span class="badge badge-green">정상</span></td>
-            <td><div class="action-menu"><button class="action-btn">상세</button></div></td>
+            <td><span class="badge badge-red">📌 공지</span></td>
+            <td style="max-width:220px;"><b>[필독] 유방암 게시판 이용 안내 및 금지 사항</b></td>
+            <td>관리자 <span class="badge badge-gray" style="font-size:10px;">Admin</span></td>
+            <td>2024.01.01</td><td>4,821</td><td>—</td><td>—</td><td>0</td><td>—</td>
+            <td><span class="badge badge-green">게시 중</span></td>
+            <td><button class="action-btn">수정</button></td>
           </tr>
           <tr>
             <td><input type="checkbox"></td>
-            <td><b>봄바람2024</b></td>
-            <td><span class="badge badge-cyan">보호자</span></td>
-            <td>위암</td><td>수술 준비중</td><td>2024.05.20</td><td>3일 전</td>
-            <td><span class="badge badge-blue">라이트</span></td>
-            <td><span class="badge badge-green">정상</span></td>
-            <td><div class="action-menu"><button class="action-btn">상세</button></div></td>
+            <td><span class="badge badge-purple">치료 후기</span></td>
+            <td style="max-width:220px;"><b>HER2 양성 4기, 퍼제타 병용 후기 — 1년 경과 보고</b></td>
+            <td>하늘별빛님 <span class="badge badge-blue" style="font-size:10px;">환우</span></td>
+            <td>2시간 전</td><td>892</td><td>127</td><td>43</td><td>0</td>
+            <td><span class="badge badge-purple">의료진 확인</span> <span class="badge badge-blue">다수 공감</span></td>
+            <td><span class="badge badge-green">게시 중</span></td>
+            <td><button class="action-btn">보기</button><button class="action-btn">고정</button></td>
           </tr>
           <tr>
             <td><input type="checkbox"></td>
-            <td><b>닉네임_희망**</b></td>
-            <td><span class="badge badge-blue">환우</span></td>
-            <td>유방암</td><td>전이 4기</td><td>2023.11.08</td><td>30분 전</td>
-            <td><span class="badge badge-purple">코어</span></td>
-            <td><span class="badge badge-red">경고</span></td>
-            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn danger">조치</button></div></td>
+            <td><span class="badge badge-blue">질문·답변</span></td>
+            <td style="max-width:220px;"><b>항암 중 백혈구 수치가 너무 낮아요, 다음 항암 미뤄지나요?</b></td>
+            <td>봄빛희망 <span class="badge badge-blue" style="font-size:10px;">환우</span></td>
+            <td>5시간 전</td><td>341</td><td>28</td><td>12</td><td>0</td>
+            <td><span class="badge badge-purple">의료진 확인</span></td>
+            <td><span class="badge badge-green">게시 중</span></td>
+            <td><button class="action-btn">보기</button></td>
           </tr>
           <tr>
             <td><input type="checkbox"></td>
-            <td><b>용기내어</b></td>
-            <td><span class="badge badge-blue">환우</span></td>
-            <td>대장암</td><td>회복·관리</td><td>2024.01.15</td><td>42일 전</td>
-            <td><span class="badge badge-gray">Lurker</span></td>
-            <td><span class="badge badge-yellow">휴면</span></td>
-            <td><div class="action-menu"><button class="action-btn">상세</button><button class="action-btn">리텐션</button></div></td>
+            <td><span class="badge badge-cyan">정보 공유</span></td>
+            <td style="max-width:220px;"><b>2024 유방암 표준 치료 가이드라인 요약 (NCCN 기준)</b></td>
+            <td>이OO 선생님 <span class="badge badge-cyan" style="font-size:10px;">의료진</span></td>
+            <td>1일 전</td><td>2,104</td><td>318</td><td>67</td><td>0</td>
+            <td><span class="badge badge-purple">의료진 확인</span></td>
+            <td><span class="badge badge-green">게시 중</span></td>
+            <td><button class="action-btn">보기</button></td>
           </tr>
           <tr>
             <td><input type="checkbox"></td>
-            <td><b>강인한마음</b></td>
-            <td><span class="badge badge-cyan">보호자</span></td>
-            <td>유방암</td><td>표적치료 중</td><td>2024.06.02</td><td>2시간 전</td>
-            <td><span class="badge badge-blue">라이트</span></td>
-            <td><span class="badge badge-green">정상</span></td>
-            <td><div class="action-menu"><button class="action-btn">상세</button></div></td>
+            <td><span class="badge badge-green">응원·일상</span></td>
+            <td style="max-width:220px;"><b>수술 6개월 됐어요! 머리카락도 다시 나고 있어요</b></td>
+            <td>꽃피는봄날 <span class="badge badge-blue" style="font-size:10px;">환우</span></td>
+            <td>6시간 전</td><td>1,203</td><td>241</td><td>88</td><td>0</td>
+            <td><span class="badge badge-blue">다수 공감</span></td>
+            <td><span class="badge badge-green">게시 중</span></td>
+            <td><button class="action-btn">보기</button><button class="action-btn">고정</button></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><span class="badge badge-yellow">질문·답변</span></td>
+            <td style="max-width:220px;"><b>이 민간요법 실제로 효과 있다고 하던데 드셔보신 분?</b></td>
+            <td>ㅇㅇ_익명 <span class="badge badge-blue" style="font-size:10px;">환우</span></td>
+            <td>8시간 전</td><td>89</td><td>2</td><td>9</td>
+            <td style="color:var(--red);font-weight:700;">3</td>
+            <td>—</td>
+            <td><span class="badge badge-red">신고 접수</span></td>
+            <td><button class="action-btn danger">숨김</button><button class="action-btn">보기</button></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--text2);">
-      <span>전체 2,841명 중 1-20 표시</span>
+      <span>전체 1,248건 중 1-20 표시</span>
       <div style="display:flex;gap:4px;">
         <button class="action-btn">◀</button>
         <button class="action-btn primary">1</button>
@@ -718,136 +807,6 @@
         <button class="action-btn">3</button>
         <button class="action-btn">▶</button>
       </div>
-    </div>
-  </div>
-</div>
-<!-- ===== 앰배서더 관리 ===== -->
-<div class="page" id="page-users-ambassador">
-  <div class="page-title">앰배서더 관리 <small>현재 8명 계약 중</small></div>
-  <div class="grid-3" style="margin-bottom:16px;">
-    <div class="card" style="padding:14px;">
-      <div class="card-title">유입 기여 TOP 앰배서더</div>
-      <div class="prog-item"><div class="prog-header"><span>김OO (유방암 유튜브)</span><span style="color:var(--accent)">342명</span></div><div class="prog-bar-wrap"><div class="prog-bar" style="width:90%;background:var(--accent)"></div></div></div>
-      <div class="prog-item"><div class="prog-header"><span>박OO (위암 인스타)</span><span style="color:var(--accent2)">198명</span></div><div class="prog-bar-wrap"><div class="prog-bar" style="width:60%;background:var(--accent2)"></div></div></div>
-      <div class="prog-item"><div class="prog-header"><span>이OO (대장암 유튜브)</span><span style="color:var(--green)">121명</span></div><div class="prog-bar-wrap"><div class="prog-bar" style="width:40%;background:var(--green)"></div></div></div>
-    </div>
-    <div class="card" style="padding:14px;">
-      <div class="card-title">R&R 달성 현황</div>
-      <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>김OO</span><div style="flex:1;margin:0 10px;height:4px;background:var(--bg3);border-radius:2px;"><div style="width:92%;height:100%;background:var(--green);border-radius:2px;"></div></div><span style="color:var(--green);font-weight:600;">92%</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>박OO</span><div style="flex:1;margin:0 10px;height:4px;background:var(--bg3);border-radius:2px;"><div style="width:78%;height:100%;background:var(--accent);border-radius:2px;"></div></div><span style="color:var(--accent);font-weight:600;">78%</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>최OO</span><div style="flex:1;margin:0 10px;height:4px;background:var(--bg3);border-radius:2px;"><div style="width:45%;height:100%;background:var(--yellow);border-radius:2px;"></div></div><span style="color:var(--yellow);font-weight:600;">45%</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>정OO</span><div style="flex:1;margin:0 10px;height:4px;background:var(--bg3);border-radius:2px;"><div style="width:31%;height:100%;background:var(--red);border-radius:2px;"></div></div><span style="color:var(--red);font-weight:600;">31%</span></div>
-      </div>
-    </div>
-    <div class="card" style="padding:14px;">
-      <div class="card-title">질환별 충원 현황</div>
-      <div style="font-size:12px;display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>유방암</span><div style="display:flex;gap:4px;"><div style="width:16px;height:16px;border-radius:3px;background:var(--green)"></div><div style="width:16px;height:16px;border-radius:3px;background:var(--green)"></div><div style="width:16px;height:16px;border-radius:3px;background:var(--accent)"></div></div><span class="badge badge-green">3/3 충족</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>위암</span><div style="display:flex;gap:4px;"><div style="width:16px;height:16px;border-radius:3px;background:var(--green)"></div><div style="width:16px;height:16px;border-radius:3px;background:var(--border)"></div><div style="width:16px;height:16px;border-radius:3px;background:var(--border)"></div></div><span class="badge badge-yellow">1/3 미달</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;"><span>대장암</span><div style="display:flex;gap:4px;"><div style="width:16px;height:16px;border-radius:3px;background:var(--green)"></div><div style="width:16px;height:16px;border-radius:3px;background:var(--green)"></div><div style="width:16px;height:16px;border-radius:3px;background:var(--border)"></div></div><span class="badge badge-blue">2/3 진행중</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>앰배서더명</th><th>채널</th><th>담당 질환</th><th>구독자</th>
-          <th>계약 상태</th><th>계약 기간</th><th>이번 달 글</th><th>R&R 달성률</th><th>리스크</th><th>액션</th>
-        </tr></thead>
-        <tbody>
-          <tr>
-            <td><b>김OO</b></td><td>유튜브 · 희망의채널</td><td><span class="tag">유방암</span></td><td>52,400</td>
-            <td><span class="badge badge-green">활성</span></td><td>~2025.03.31</td><td>8건</td>
-            <td><span style="color:var(--green);font-weight:700;">92%</span></td>
-            <td><span class="badge badge-green">없음</span></td>
-            <td><button class="action-btn">상세</button></td>
-          </tr>
-          <tr>
-            <td><b>박OO</b></td><td>인스타 · @cancer_fight</td><td><span class="tag">위암</span></td><td>28,100</td>
-            <td><span class="badge badge-green">활성</span></td><td>~2025.06.30</td><td>5건</td>
-            <td><span style="color:var(--accent);font-weight:700;">78%</span></td>
-            <td><span class="badge badge-green">없음</span></td>
-            <td><button class="action-btn">상세</button></td>
-          </tr>
-          <tr>
-            <td><b>정OO</b></td><td>유튜브 · 암극복일기</td><td><span class="tag">대장암</span></td><td>14,200</td>
-            <td><span class="badge badge-yellow">만료 예정</span></td><td>~2025.01.31</td><td>2건</td>
-            <td><span style="color:var(--red);font-weight:700;">31%</span></td>
-            <td><span class="badge badge-yellow">민간요법 언급 1</span></td>
-            <td><button class="action-btn">상세</button><button class="action-btn danger">경고</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<!-- ===== 의료진 관리 ===== -->
-<div class="page" id="page-users-medical">
-  <div class="page-title">의료진 관리 <small>활성 21명</small></div>
-  <div class="grid-3" style="margin-bottom:16px;">
-    <div class="stat-card blue" style="position:relative;border-radius:12px;padding:16px;background:var(--bg2);border:1px solid var(--border);">
-      <div class="stat-label">이번 달 컨펌 총계</div>
-      <div class="stat-value">284</div>
-      <div class="stat-delta up">▲ 23% 전월 대비</div>
-    </div>
-    <div class="stat-card green" style="position:relative;border-radius:12px;padding:16px;background:var(--bg2);border:1px solid var(--border);">
-      <div class="stat-label">평균 리드타임</div>
-      <div class="stat-value">11.4h</div>
-      <div class="stat-sub">목표 24h 이내 ✓</div>
-    </div>
-    <div class="stat-card purple" style="position:relative;border-radius:12px;padding:16px;background:var(--bg2);border:1px solid var(--border);">
-      <div class="stat-label">AI 초안 수정률</div>
-      <div class="stat-value">18%</div>
-      <div class="stat-delta up">▼ 4%p 개선</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="filter-bar" style="margin-bottom:12px;">
-      <select class="filter-select"><option>전체 Tier</option><option>Tier 1 (사내 상시)</option><option>Tier 2 (PI 주간)</option><option>Tier 3 (전문의 월간)</option></select>
-      <select class="filter-select"><option>전체 상태</option><option>활성</option><option>휴식</option><option>비활성</option></select>
-      <button class="filter-btn">+ 의료진 등록</button>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>의료진명</th><th>소속</th><th>Tier</th><th>전문 분야</th><th>담당 질환</th>
-          <th>이번 달 컨펌</th><th>평균 리드타임</th><th>보상 달성</th><th>상태</th><th>액션</th>
-        </tr></thead>
-        <tbody>
-          <tr>
-            <td><b>김OO 선생님</b></td><td>서울대병원</td>
-            <td><span class="badge badge-red">Tier 1</span></td>
-            <td>혈액종양내과</td>
-            <td><span class="tag">유방암</span><span class="tag">위암</span></td>
-            <td><b>52건</b></td><td>8.2h</td>
-            <td><span class="badge badge-purple">공저자 달성</span></td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><button class="action-btn">상세</button></td>
-          </tr>
-          <tr>
-            <td><b>이OO 선생님</b></td><td>삼성서울병원</td>
-            <td><span class="badge badge-yellow">Tier 2</span></td>
-            <td>유방외과</td>
-            <td><span class="tag">유방암</span></td>
-            <td><b>34건</b></td><td>14.5h</td>
-            <td><span class="badge badge-blue">PRO 접근</span></td>
-            <td><span class="badge badge-green">활성</span></td>
-            <td><button class="action-btn">상세</button></td>
-          </tr>
-          <tr>
-            <td><b>박OO 선생님</b></td><td>서울아산병원</td>
-            <td><span class="badge badge-gray">Tier 3</span></td>
-            <td>가정의학과</td>
-            <td><span class="tag">대장암</span></td>
-            <td><b>11건</b></td><td>22.1h</td>
-            <td><span class="badge badge-gray">미달성</span></td>
-            <td><span class="badge badge-yellow">휴식</span></td>
-            <td><button class="action-btn">상세</button><button class="action-btn">복귀 요청</button></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 </div>
