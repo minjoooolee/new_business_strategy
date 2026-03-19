@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V.Doc Enterprise — 직원 건강관리 대시보드</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4F4F1;--surface:#FFF;--border:rgba(0,0,0,.07);--border-2:rgba(0,0,0,.13);
+  --t1:#181816;--t2:#484845;--t3:#909090;--sw:232px;
+  --ba:#2563EB;--bm:#3B82F6;--bl:#EFF6FF;--bb:#BFDBFE;
+  --ma:#7C3AED;--mm:#8B5CF6;--ml:#F5F3FF;--mb:#DDD6FE;
+  --green:#16A34A;--gl:#F0FDF4;--amber:#D97706;--al:#FFFBEB;--red:#DC2626;--rl:#FEF2F2;
+  --ai-bg:#F8F7FF;--ai-b:#E0DBFF;--ai-t:#5B21B6;
+}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.6;display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sb{width:var(--sw);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100}
+.sb-logo{padding:22px 18px 18px;border-bottom:1px solid var(--border)}
+.logo-w{display:flex;align-items:center;gap:10px}
+.logo-i{width:30px;height:30px;background:var(--t1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.logo-t{font-size:13.5px;font-weight:700;color:var(--t1)}
+.logo-s{font-size:10.5px;color:var(--t3);margin-top:1px}
+.nav-sec{padding:14px 10px 4px}
+.nav-lbl{font-size:9.5px;font-weight:700;color:var(--t3);letter-spacing:.9px;text-transform:uppercase;padding:0 8px;margin-bottom:3px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:7px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:400;border:none;background:none;width:100%;text-align:left;transition:background .12s}
+.ni:hover{background:var(--bg)}
+.ni.on{background:var(--t1);color:#fff;font-weight:500}
+.ni-ico{width:18px;text-align:center;font-size:14px;flex-shrink:0;opacity:.7}
+.ni.on .ni-ico{opacity:1}
+.ni-chip{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:600;padding:1px 6px;border-radius:100px}
+.ni.on .ni-chip{background:rgba(255,255,255,.22)}
+.sb-foot{margin-top:auto;padding:14px 10px;border-top:1px solid var(--border)}
+.u-row{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:var(--bg)}
+.u-ava{width:30px;height:30px;border-radius:50%;background:var(--ba);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.u-nm{font-size:12.5px;font-weight:600}
+.u-rl{font-size:11px;color:var(--t3)}
+
+/* TOPBAR */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-l{display:flex;align-items:center;gap:8px}
+.crumb{font-size:12.5px;color:var(--t3)}
+.crumb-sep{color:var(--t3);margin:0 4px}
+.crumb-cur{font-size:12.5px;font-weight:600;color:var(--t1)}
+.tb-r{display:flex;align-items:center;gap:10px}
+.seg{display:flex;background:var(--bg);border-radius:7px;padding:3px;gap:2px}
+.seg-btn{padding:4px 11px;border-radius:5px;font-size:11.5px;font-weight:500;color:var(--t3);cursor:pointer;border:none;background:none;transition:all .12s}
+.seg-btn.on{background:var(--surface);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pb{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;border:1px solid var(--border-2);background:var(--surface);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer}
+.pb:hover{background:var(--bg)}
+.ib{width:34px;height:34px;border-radius:7px;border:1px solid var(--border-2);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;position:relative}
+.ib:hover{background:var(--bg)}
+.ndot{position:absolute;top:6px;right:6px;width:6px;height:6px;background:var(--red);border-radius:50%;border:1.5px solid #fff}
+
+/* MAIN */
+.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.content{padding:24px 28px 40px;flex:1}
+
+/* WARN */
+.warn{display:flex;align-items:center;gap:10px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:9px;padding:10px 14px;margin-bottom:22px}
+.warn .ico{font-size:14px}
+.warn .msg{font-size:12.5px;color:#92400E;flex:1}
+.warn .msg strong{font-weight:700}
+.warn .cls{background:none;border:none;font-size:17px;color:#92400E;cursor:pointer;opacity:.5;padding:0 4px}
+
+/* STRIP */
+.strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:box-shadow .15s}
+.sc:hover{box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.sc-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sc-lbl{font-size:11px;color:var(--t3);font-weight:500}
+.sc-val{font-size:22px;font-weight:700;letter-spacing:-.8px;color:var(--t1);line-height:1}
+.sc-d{font-size:11px;font-weight:500;margin-top:3px}
+.sc-d.dg{color:var(--green)}
+.sc-d.st{color:var(--t3)}
+.sc-d.am{color:var(--amber)}
+
+/* HEALTH 2-COL */
+.hcols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+.ch{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:9px 9px 0 0}
+.ch.body{background:var(--bl);border:1px solid var(--bb);border-bottom:none}
+.ch.mind{background:var(--ml);border:1px solid var(--mb);border-bottom:none}
+.ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ch-dot.b{background:var(--ba)}
+.ch-dot.m{background:var(--ma)}
+.ch-ttl{font-size:12px;font-weight:700}
+.ch-ttl.b{color:var(--ba)}
+.ch-ttl.m{color:var(--ma)}
+.ch-sub{font-size:11px;margin-left:auto}
+.ch-sub.b{color:var(--bm)}
+.ch-sub.m{color:var(--mm)}
+.cstack{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:0 0 10px 10px;border:1px solid;border-top:none}
+.cstack.b{border-color:var(--bb);background:rgba(239,246,255,.35)}
+.cstack.m{border-color:var(--mb);background:rgba(245,243,255,.35)}
+
+/* METRIC CARD */
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px 0;cursor:pointer;transition:box-shadow .15s}
+.mc:hover{box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.mc-lbl{font-size:11.5px;font-weight:600;color:var(--t3)}
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px}
+.badge.ub{background:var(--rl);color:var(--red)}
+.badge.dg{background:var(--gl);color:var(--green)}
+.badge.st{background:var(--bg);color:var(--t3)}
+.badge.am{background:var(--al);color:var(--amber)}
+.mc-body{display:flex;align-items:flex-end;gap:10px;margin-bottom:10px}
+.mc-val{font-size:32px;font-weight:700;letter-spacing:-1.5px;line-height:1;color:var(--t1)}
+.mc-unit{font-size:15px;font-weight:400}
+.mc-prev{font-size:12px;color:var(--t3);padding-bottom:4px}
+.mc-bar{height:3px;border-radius:100px;margin-bottom:10px;overflow:hidden;background:var(--bg)}
+.mc-bf{height:100%;border-radius:100px}
+.bds{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.bd{font-size:11px;padding:3px 8px;border-radius:100px;font-weight:500}
+.bd.b{background:var(--bl);color:var(--ba)}
+.bd.m{background:var(--ml);color:var(--ma)}
+
+/* AI INSIGHT */
+.ai{display:flex;align-items:flex-start;gap:7px;background:var(--ai-bg);border-top:1px solid var(--ai-b);padding:9px 12px 10px;margin:0 -18px;border-radius:0 0 10px 10px}
+.ai-chip{display:inline-flex;align-items:center;background:var(--ml);border:1px solid var(--mb);padding:1px 7px;border-radius:100px;font-size:10px;font-weight:700;color:var(--ma);flex-shrink:0;margin-top:1px;white-space:nowrap}
+.ai-txt{font-size:11.5px;color:var(--ai-t);line-height:1.5}
+.ai-box{display:flex;align-items:flex-start;gap:7px;background:var(--ai-bg);border:1px solid var(--ai-b);border-radius:8px;padding:9px 12px;margin-top:12px}
+
+/* MID */
+.midrow{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:24px}
+.cc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.cc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.cc-ttl{font-size:13.5px;font-weight:700;color:var(--t1)}
+.cc-sub{font-size:11.5px;color:var(--t3);margin-top:2px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--t3)}
+.ld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cw{position:relative;height:200px}
+
+/* RESP */
+.rc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column}
+.rbig{font-size:38px;font-weight:700;letter-spacing:-2px;color:var(--t1);line-height:1}
+.rtrack{height:6px;background:var(--bg);border-radius:100px;margin:12px 0 16px;overflow:hidden}
+.rfill{height:100%;border-radius:100px}
+.rrow{display:flex;align-items:center;gap:8px;padding:5px 0}
+.rdname{font-size:12px;color:var(--t2);width:62px;flex-shrink:0}
+.rbar{flex:1;height:4px;background:var(--bg);border-radius:100px;overflow:hidden}
+.rbf{height:100%;border-radius:100px}
+.rpct{font-size:11.5px;font-weight:600;color:var(--t3);min-width:28px;text-align:right}
+
+/* HEATMAP */
+.hm-sec{margin-bottom:24px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-ttl{font-size:12.5px;font-weight:700;color:var(--t2)}
+.lk{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--t3)}
+.lk-i{display:flex;align-items:center;gap:4px}
+.lk-d{width:7px;height:7px;border-radius:50%}
+.twrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--bg);border-bottom:1px solid var(--border)}
+th{padding:9px 14px;font-size:10.5px;font-weight:700;color:var(--t3);letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;text-align:left}
+th:not(:first-child){text-align:center}
+td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:12.5px}
+td:not(:first-child){text-align:center}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{cursor:pointer;transition:background .12s}
+tbody tr:hover{background:var(--bg)}
+.dnm{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap}
+.pill.g{background:var(--gl);color:var(--green)}
+.pill.a{background:var(--al);color:var(--amber)}
+.pill.r{background:var(--rl);color:var(--red)}
+.scell{display:flex;align-items:center;justify-content:center;gap:6px}
+.half{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hlbl{font-size:9px;font-weight:700;letter-spacing:.3px}
+.hlbl.b{color:var(--bm)}
+.hlbl.m{color:var(--mm)}
+.hdiv{width:1px;height:28px;background:var(--border-2)}
+.dl{font-size:11px;font-weight:600}
+.dl.up{color:var(--red)}
+.dl.dn{color:var(--green)}
+.dl.st{color:var(--t3)}
+.rtag{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:100px;background:var(--rl);color:var(--red);margin-left:5px}
+
+/* BOTTOM */
+.botrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:24px}
+.aprc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.aprc-ttl{font-size:13.5px;font-weight:700;margin-bottom:4px}
+.aprc-no{font-size:11px;color:var(--t3);margin-bottom:14px}
+.astep{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.astep:last-of-type{border-bottom:none}
+.snum{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.s-done{background:var(--gl);color:var(--green)}
+.s-cur{background:var(--bl);color:var(--ba)}
+.s-wait{background:var(--bg);color:var(--t3)}
+.sinfo{flex:1}
+.snm{font-size:12.5px;font-weight:600}
+.swho{font-size:11px;color:var(--t3)}
+.swhen{font-size:10.5px;color:var(--t3);margin-top:1px}
+.stag{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:100px}
+.stag.done{background:var(--gl);color:var(--green)}
+.stag.cur{background:var(--bl);color:var(--ba)}
+.stag.wait{background:var(--bg);color:var(--t3)}
+.dlbox{margin-top:12px;padding:10px 12px;background:var(--bl);border-radius:7px}
+.dlbox .dl-ttl{color:var(--ba);font-weight:700;font-size:11px;margin-bottom:2px}
+.dlbox .dl-dt{font-size:12px;color:var(--t2)}
+.abtn{width:100%;margin-top:14px;padding:10px;background:var(--t1);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.abtn:hover{opacity:.82}
+
+.alc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.alitem{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.alitem:last-child{border-bottom:none}
+.aldot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.alnm{font-size:12.5px;font-weight:600}
+.alds{font-size:11.5px;color:var(--t3);margin-top:1px}
+.aldt{font-size:10.5px;color:var(--t3);margin-top:3px}
+
+/* MODAL */
+.bkdrop{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:200;display:none;align-items:center;justify-content:center}
+.bkdrop.open{display:flex}
+.modal{background:var(--surface);border-radius:14px;width:640px;max-width:94vw;max-height:88vh;overflow-y:auto;padding:26px;position:relative}
+.modal-cls{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:7px;border:1px solid var(--border-2);background:none;cursor:pointer;font-size:17px;color:var(--t3);display:flex;align-items:center;justify-content:center}
+.modal-h1{font-size:17px;font-weight:700;margin-bottom:3px}
+.modal-sub{font-size:12px;color:var(--t3);margin-bottom:20px}
+.modal-ks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.mk{background:var(--bg);border-radius:8px;padding:12px}
+.mk .l{font-size:10.5px;color:var(--t3);font-weight:600}
+.mk .v{font-size:21px;font-weight:700;letter-spacing:-.5px;margin-top:2px}
+.modal-desc{font-size:13px;color:var(--t2);line-height:1.8}
+.modal-ai{display:flex;align-items:flex-start;gap:7px;background:var(--ai-bg);border:1px solid var(--ai-b);border-radius:8px;padding:10px 12px;margin-top:16px}
+
+.pg-foot{font-size:11px;color:var(--t3);text-align:center;padding:14px 0;border-top:1px solid var(--border)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:100px}
+
+@media print{
+  .sb,.topbar,.abtn,.bkdrop,.warn{display:none !important}
+  .main{margin-left:0 !important}
+  .content{padding:12px !important}
+  body{background:white}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-logo">
+    <div class="logo-w">
+      <div class="logo-i">V</div>
+      <div><div class="logo-t">V.Doc Enterprise</div><div class="logo-s">aitrics · 건강관리 플랫폼</div></div>
+    </div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">메인</div>
+    <button class="ni on" onclick="setNav(this)"><span class="ni-ico">⊞</span>대시보드</button>
+    <button class="ni" onclick="setNav(this)"><span class="ni-ico">⊙</span>상세 분석</button>
+    <button class="ni" onclick="setNav(this)"><span class="ni-ico">⊟</span>부서별 현황</button>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">결재</div>
+    <button class="ni" onclick="setNav(this)"><span class="ni-ico">✎</span>전자결재<span class="ni-chip">1</span></button>
+    <button class="ni" onclick="setNav(this)"><span class="ni-ico">◷</span>보고서 아카이브</button>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-lbl">관리</div>
+    <button class="ni" onclick="setNav(this)"><span class="ni-ico">◈</span>알림 관리<span class="ni-chip">3</span></button>
+    <button class="ni" onclick="setNav(this)"><span class="ni-ico">⚙</span>시스템 설정</button>
+  </div>
+  <div class="sb-foot">
+    <div class="u-row">
+      <div class="u-ava">김</div>
+      <div><div class="u-nm">김민수</div><div class="u-rl">HR 관리자</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <header class="topbar">
+    <div class="tb-l">
+      <span class="crumb">대시보드</span><span class="crumb-sep">›</span><span class="crumb-cur">직원 건강관리 현황</span>
+    </div>
+    <div class="tb-r">
+      <div class="seg">
+        <button class="seg-btn" onclick="setSeg(this)">3개월</button>
+        <button class="seg-btn" onclick="setSeg(this)">6개월</button>
+        <button class="seg-btn on" onclick="setSeg(this)">12개월</button>
+      </div>
+      <button class="pb" onclick="window.print()">🖨 PDF 출력</button>
+      <div class="ib">🔔<div class="ndot"></div></div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- WARN -->
+    <div class="warn">
+      <span class="ico">🔴</span>
+      <span class="msg"><strong>긴급 주의 — 생산2팀 정신건강 지수 급감</strong> — 생산2팀의 3월 정신건강 종합지수가 전월 대비 <strong>12.4p 하락</strong>하여 '주의' 단계에 진입했습니다. 야간근무 확대(2월 대비 +38%)와 높은 상관관계가 확인되었으며, 고위험 직원 3명이 외부 EAP 전문상담사에게 연계되었습니다.</span>
+      <button class="cls" onclick="this.closest('.warn').style.display='none'">×</button>
+    </div>
+
+    <!-- HEADER -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px">
+      <div>
+        <div style="font-size:22px;font-weight:800;color:var(--t1);line-height:1.3">CEO <span style="color:var(--ba)">월간 건강경영</span> 레포트</div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1.5px solid var(--ba);color:var(--ba);background:var(--bl)">2026년 3월</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1.5px solid #1E3A5F;color:#1E3A5F;background:#EDF1F7">CONFIDENTIAL</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="pb">📤 PDF 다운로드</button>
+        <button style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;border:1.5px solid var(--ba);background:var(--ba);color:#fff;cursor:pointer">📧 이메일 발송</button>
+      </div>
+    </div>
+
+    <!-- MONTH BAR -->
+    <div style="display:flex;gap:4px;margin-bottom:20px">
+      <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--t3);cursor:pointer">10월</span>
+      <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--t3);cursor:pointer">11월</span>
+      <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--t3);cursor:pointer">12월</span>
+      <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--t3);cursor:pointer">1월</span>
+      <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--t3);cursor:pointer">2월</span>
+      <span style="font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;border:1px solid var(--t1);background:var(--t1);color:#fff;cursor:pointer">3월</span>
+    </div>
+
+    <!-- OVERALL SCORE -->
+    <div style="background:var(--surface);border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.06);padding:28px 32px;margin-bottom:24px;display:grid;grid-template-columns:280px 1fr;gap:32px;border:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:24px">
+        <div style="width:120px;height:120px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 120 120" style="position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg)">
+            <circle fill="none" stroke="var(--border)" stroke-width="8" cx="60" cy="60" r="50"/>
+            <circle fill="none" stroke="#2563EB" stroke-width="8" stroke-linecap="round" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="65"/>
+          </svg>
+          <span style="font-size:32px;font-weight:900;color:var(--ba);position:relative;z-index:1">79</span>
+          <span style="font-size:9px;font-weight:600;color:var(--t3);position:absolute;bottom:28px;text-transform:uppercase;letter-spacing:1px;z-index:1">종합지수</span>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px">전사 건강경영 종합지수</div>
+          <div style="font-size:12px;color:var(--t3);line-height:1.6">243명 전직원 기준, 정신건강·신체건강·참여율·법적 이행률 가중 합산</div>
+          <div style="display:flex;gap:4px;align-items:center;margin-top:6px;font-size:12px;font-weight:600;color:var(--green)">▲ +2.3p 전월 대비 개선</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-content:center">
+        <div style="background:var(--bg);border-radius:8px;padding:14px 16px;border:1px solid var(--border)">
+          <div style="font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">정신건강 평균</div>
+          <div style="font-size:22px;font-weight:800;color:var(--amber)">72</div>
+          <div style="font-size:10px;font-weight:600;color:var(--amber);margin-top:2px">— 전월 동일</div>
+        </div>
+        <div style="background:var(--bg);border-radius:8px;padding:14px 16px;border:1px solid var(--border)">
+          <div style="font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">신체건강 평균</div>
+          <div style="font-size:22px;font-weight:800;color:var(--green)">84</div>
+          <div style="font-size:10px;font-weight:600;color:var(--green);margin-top:2px">▲ +3.1p</div>
+        </div>
+        <div style="background:var(--bg);border-radius:8px;padding:14px 16px;border:1px solid var(--border)">
+          <div style="font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">문진 참여율</div>
+          <div style="font-size:22px;font-weight:800;color:var(--ba)">78%</div>
+          <div style="font-size:10px;font-weight:600;color:var(--green);margin-top:2px">▲ +5.2%p</div>
+        </div>
+        <div style="background:var(--bg);border-radius:8px;padding:14px 16px;border:1px solid var(--border)">
+          <div style="font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">법적 이행률</div>
+          <div style="font-size:22px;font-weight:800;color:var(--green)">96%</div>
+          <div style="font-size:10px;font-weight:600;color:var(--green);margin-top:2px">▲ +2.0%p</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: 위험도 분포 -->
+    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px">직원 건강 위험도 분포<span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+    <div class="hcols">
+
+      <!-- 정신건강 위험도 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">🧠 정신건강 위험도 분포</div>
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--amber-light);color:var(--amber)"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block"></span>주의</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:var(--gl);color:var(--green)"><div style="font-size:24px;font-weight:900">142</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">양호 (58%)</div></div>
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:var(--amber-light);color:var(--amber)"><div style="font-size:24px;font-weight:900">64</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">관심 (26%)</div></div>
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:#FFF7ED;color:#EA580C"><div style="font-size:24px;font-weight:900">28</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">주의 (12%)</div></div>
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:var(--rl);color:var(--red)"><div style="font-size:24px;font-weight:900">9</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">위험 (4%)</div></div>
+        </div>
+        <div class="ai-box">
+          <span class="ai-chip">✦ AI</span>
+          <span class="ai-txt">고위험군(주의+위험) 비율 <strong>16%</strong>로 전월(14%) 대비 소폭 상승. 생산2팀 집중도가 높으며, <strong>야간근무 확대</strong>와 높은 상관관계(r=0.72) 확인. 위험 9명 중 3명은 외부 EAP 연계 완료.</span>
+        </div>
+      </div>
+
+      <!-- 신체건강 위험도 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">💪 신체건강 위험도 분포</div>
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--gl);color:var(--green)"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>양호</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:var(--gl);color:var(--green)"><div style="font-size:24px;font-weight:900">168</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">양호 (69%)</div></div>
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:var(--amber-light);color:var(--amber)"><div style="font-size:24px;font-weight:900">49</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">관심 (20%)</div></div>
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:#FFF7ED;color:#EA580C"><div style="font-size:24px;font-weight:900">21</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">주의 (9%)</div></div>
+          <div style="text-align:center;padding:12px 8px;border-radius:6px;background:var(--rl);color:var(--red)"><div style="font-size:24px;font-weight:900">5</div><div style="font-size:9px;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.5px">위험 (2%)</div></div>
+        </div>
+        <div class="ai-box">
+          <span class="ai-chip">✦ AI</span>
+          <span class="ai-txt">전월 대비 양호 비율 +4%p 개선. <strong>근골격계 스트레칭 가이드</strong> 도입(2월) 이후 생산직 목·허리 통증 호소 건수 <strong>23% 감소</strong>. 심뇌혈관 고위험 5명 중 2명 산업보건의 상담 연계 완료.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION: 부서별 × 업무 효율 -->
+    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px">부서별 건강 지표 × 업무 효율성 연관 분석<span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+    <div class="hcols">
+
+      <!-- 부서별 테이블 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">🏢 부서별 건강지수 비교</div>
+          <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;background:#EDF1F7;color:#1E3A5F">익명 집계</span>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border)">
+              <th style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;text-align:left">부서</th>
+              <th style="font-size:10px;font-weight:700;color:var(--mm);text-transform:uppercase;padding:8px 10px;text-align:left">정신건강</th>
+              <th style="font-size:10px;font-weight:700;color:var(--bm);text-transform:uppercase;padding:8px 10px;text-align:left">신체건강</th>
+              <th style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;padding:8px 10px;text-align:left">종합</th>
+              <th style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;padding:8px 10px;text-align:left">상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px;font-size:12px"><span style="font-weight:600">경영지원</span><span style="font-size:10px;color:var(--t3);margin-left:4px">28명</span></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:82%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">82</span></div></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:88%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">88</span></div></td>
+              <td style="padding:10px;font-size:13px;font-weight:700">85</td>
+              <td style="padding:10px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--gl);color:var(--green)"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>양호</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px;font-size:12px"><span style="font-weight:600">개발팀</span><span style="font-size:10px;color:var(--t3);margin-left:4px">52명</span></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:68%;height:100%;background:var(--amber);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--amber);min-width:24px">68</span></div></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:78%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">78</span></div></td>
+              <td style="padding:10px;font-size:13px;font-weight:700">73</td>
+              <td style="padding:10px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber)"><span style="width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block"></span>관심</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px;font-size:12px"><span style="font-weight:600">영업팀</span><span style="font-size:10px;color:var(--t3);margin-left:4px">38명</span></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:75%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">75</span></div></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:82%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">82</span></div></td>
+              <td style="padding:10px;font-size:13px;font-weight:700">78</td>
+              <td style="padding:10px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--gl);color:var(--green)"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>양호</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px;font-size:12px"><span style="font-weight:600">생산1팀</span><span style="font-size:10px;color:var(--t3);margin-left:4px">62명</span></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:74%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">74</span></div></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:80%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">80</span></div></td>
+              <td style="padding:10px;font-size:13px;font-weight:700">77</td>
+              <td style="padding:10px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--gl);color:var(--green)"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>양호</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:#FFF5F5">
+              <td style="padding:10px;font-size:12px"><span style="font-weight:600">생산2팀</span><span style="font-size:10px;color:var(--t3);margin-left:4px">45명</span><span style="display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:100px;background:var(--rl);color:var(--red);margin-left:5px">위험</span></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:58%;height:100%;background:var(--red);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--red);min-width:24px">58</span></div></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:72%;height:100%;background:var(--amber);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--amber);min-width:24px">72</span></div></td>
+              <td style="padding:10px;font-size:13px;font-weight:700;color:var(--red)">65</td>
+              <td style="padding:10px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--rl);color:var(--red)"><span style="width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block"></span>위험</span></td>
+            </tr>
+            <tr>
+              <td style="padding:10px;font-size:12px"><span style="font-weight:600">품질관리</span><span style="font-size:10px;color:var(--t3);margin-left:4px">18명</span></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:80%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">80</span></div></td>
+              <td style="padding:10px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:86%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;font-weight:700;color:var(--green);min-width:24px">86</span></div></td>
+              <td style="padding:10px;font-size:13px;font-weight:700">83</td>
+              <td style="padding:10px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--gl);color:var(--green)"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>양호</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 상관관계 카드 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">🔗 건강지표 ↔ 업무효율 상관관계</div>
+          <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--ml);color:var(--ma)">KEY INSIGHT</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--rl);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📉</div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:600">정신건강 지수 ↔ 결근율</div>
+            <div style="font-size:11px;color:var(--t3);line-height:1.5;margin-top:2px">정신건강 지수 <strong>10p 하락</strong> 시 결근율 평균 <strong>1.8배 증가</strong>. 생산2팀 3월 결근율은 전사 평균의 2.4배.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0"><div style="font-size:16px;font-weight:800;color:var(--red)">r=0.81</div><div style="font-size:9px;color:var(--t3)">상관계수</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--amber-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🔄</div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:600">번아웃 지수 ↔ 이직 의향</div>
+            <div style="font-size:11px;color:var(--t3);line-height:1.5;margin-top:2px">번아웃 '고' 직원의 <strong>6개월 내 이직 의향</strong>이 양호군 대비 <strong>4.2배</strong>. 개발팀 번아웃 고위험 비율 18%로 이직 리스크 주의.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0"><div style="font-size:16px;font-weight:800;color:var(--amber)">r=0.74</div><div style="font-size:9px;color:var(--t3)">상관계수</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">⚡</div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:600">근골격계 지수 ↔ 작업 생산성</div>
+            <div style="font-size:11px;color:var(--t3);line-height:1.5;margin-top:2px">근골격계 양호군의 일일 생산량이 주의군 대비 <strong>+12% 높음</strong>. 스트레칭 프로그램 도입 후 생산1팀 불량률 <strong>8% 감소</strong>.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0"><div style="font-size:16px;font-weight:800;color:var(--green)">r=0.67</div><div style="font-size:9px;color:var(--t3)">상관계수</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--ml);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">💰</div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:600">종합 건강지수 ↔ 이직 비용 절감</div>
+            <div style="font-size:11px;color:var(--t3);line-height:1.5;margin-top:2px">V.Doc 도입 후 3개월간 이직률 <strong>15% → 12.2%</strong>로 감소 추세. 예상 연간 절감액 <strong>약 1,420만 원</strong>.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0"><div style="font-size:16px;font-weight:800;color:var(--ba)">2.6x</div><div style="font-size:9px;color:var(--t3)">ROI 배수</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: 법적 이행 -->
+    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px">법적 이행 현황 및 경영 영향<span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+    <div class="botrow">
+
+      <!-- 중대재해법 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">⚖️ 중대재해법 이행</div>
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--gl);color:var(--green)"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>이행 완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">✓</div>
+          <div style="font-size:12px;font-weight:500;flex:1">시행령 5조 1호 — 반기 점검 완료</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green)">100%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">✓</div>
+          <div style="font-size:12px;font-weight:500;flex:1">시행령 5조 2호 — 고위험 조치 완료</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green)">100%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--amber-light);color:var(--amber);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">!</div>
+          <div style="font-size:12px;font-weight:500;flex:1">시행령 5조 3호 — 교육 이수율</div>
+          <div style="font-size:10px;font-weight:700;color:var(--amber)">87%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">✓</div>
+          <div style="font-size:12px;font-weight:500;flex:1">5년 보관 전자문서 생성</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green)">자동</div>
+        </div>
+      </div>
+
+      <!-- 산업안전보건법 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">📋 산업안전보건법</div>
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--amber-light);color:var(--amber)"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block"></span>일부 미달</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">✓</div>
+          <div style="font-size:12px;font-weight:500;flex:1">건강진단 사후조치 (132조 4항)</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green)">완료</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">✓</div>
+          <div style="font-size:12px;font-weight:500;flex:1">보건조치 모니터링 (39조)</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green)">가동중</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--amber-light);color:var(--amber);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">!</div>
+          <div style="font-size:12px;font-weight:500;flex:1">위험성평가 근로자 참여 (26년 개정)</div>
+          <div style="font-size:10px;font-weight:700;color:var(--amber)">78%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700">✓</div>
+          <div style="font-size:12px;font-weight:500;flex:1">건강정보 보호 (132조 3항)</div>
+          <div style="font-size:10px;font-weight:700;color:var(--green)">준수</div>
+        </div>
+      </div>
+
+      <!-- 경영 영향 요약 -->
+      <div class="cc">
+        <div class="cc-head">
+          <div class="cc-ttl">💼 경영 영향 요약</div>
+          <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--bl);color:var(--ba)">이번 달</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📊</div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:600">결근율</div><div style="font-size:11px;color:var(--t3)">전월 대비 0.3%p 감소</div></div>
+          <div style="font-size:16px;font-weight:800;color:var(--green)">2.1%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--amber-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🚪</div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:600">이직률 (연환산)</div><div style="font-size:11px;color:var(--t3)">도입 전 15% → 현재</div></div>
+          <div style="font-size:16px;font-weight:800;color:var(--amber)">12.2%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🏭</div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:600">산재 신고 건수</div><div style="font-size:11px;color:var(--t3)">전년 동기 대비</div></div>
+          <div style="font-size:16px;font-weight:800;color:var(--ba)">0건</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0">
+          <div style="width:36px;height:36px;border-radius:6px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">💰</div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:600">예상 ROI</div><div style="font-size:11px;color:var(--t3)">이직 비용 절감 기준</div></div>
+          <div style="font-size:16px;font-weight:800;color:var(--green)">2.6x</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CEO 3줄 요약 -->
+    <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px">CEO 요약 — 핵심 3줄 리포트<span style="flex:1;height:1px;background:var(--border);display:block"></span></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--ba);border-radius:10px;padding:22px 24px;margin-bottom:24px">
+      <div style="font-size:13px;line-height:2.2;color:var(--t2)">
+        <strong style="color:var(--t1)">1.</strong> 전사 건강종합지수 <strong style="color:var(--ba)">79점</strong>(전월 대비 +2.3p)으로 '양호' 유지 중이나, <strong style="color:var(--red)">생산2팀이 65점</strong>으로 하락하여 집중 관리 필요.<br>
+        <strong style="color:var(--t1)">2.</strong> 정신건강 지수와 결근율의 상관관계가 <strong style="color:var(--red)">r=0.81</strong>로 강하게 확인됨 — 생산2팀 야간근무 확대가 직접 원인으로, <strong style="color:var(--t1)">야간근무 조정 검토 권고</strong>.<br>
+        <strong style="color:var(--t1)">3.</strong> 중대재해처벌법 시행령 제5조 의무 이행률 <strong style="color:var(--green)">96%</strong>, 산안법 6대 의무 대부분 충족. 교육 이수율(87%)과 위험성평가 참여율(78%) <strong style="color:var(--amber)">추가 개선 필요</strong>.
+      </div>
+    </div>
+
+    <div class="pg-foot">
+      V.Doc Enterprise Wellness AI Platform · CEO Monthly Report · AITRICS Corporation · 본 레포트는 익명 집계 데이터에 기반하며 개인 식별 정보를 포함하지 않습니다
+    </div>
+
+  </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="bkdrop" id="bkdrop" onclick="closeOuter(event)">
+  <div class="modal">
+    <button class="modal-cls" onclick="closeModal()">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+function setNav(el){document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));el.classList.add('on')}
+function setSeg(el){el.closest('.seg').querySelectorAll('.seg-btn').forEach(e=>e.classList.remove('on'));el.classList.add('on')}
+
+const MD={
+  index:{t:'종합 건강지수 상세',s:'2026년 3월 · 질병 30% + 육체 35% + 정신 35%',ks:[{l:'이번달',v:'73점'},{l:'전월 대비',v:'▼ 2.1p'},{l:'연간 최저',v:'70점'}],d:'정신건강 급등이 전체 점수를 끌어내린 주 원인입니다. 6개월 내 최저 수준에 근접하고 있어 적극적인 개입이 필요합니다.',ai:'6개월 추이를 보면 정신건강 지표가 전체 종합 지수 하락을 주도하고 있습니다. 신체 지표는 소폭 상승 후 안정화되는 반면 정신건강은 지속 악화 패턴입니다.'},
+  disease:{t:'질병 현황 상세',s:'2026년 3월 · 전사 · 응답 140명 중 34명',ks:[{l:'질병 응답자',v:'34명'},{l:'병원 방문',v:'18명'},{l:'전월 대비',v:'▲ 8%'}],d:'근골격계 이상 응답이 가장 많으며(41%), 목·어깨 부위 통증이 주를 이룹니다. 소화기계(22%), 호흡기계(18%) 순입니다.',ai:'근골격계 응답이 4개월 연속 상승 추세입니다. 계절적 요인보다는 업무 환경의 구조적 문제일 가능성이 높습니다.'},
+  physical:{t:'육체적 고됨 상세',s:'2026년 3월 · 전사 기준',ks:[{l:'육체적 고됨',v:'48%'},{l:'전월 대비',v:'▲ 12%p'},{l:'위험 부서',v:'2개'}],d:'수면 6시간 미만 응답(35%)이 가장 높고 업무과부하(28%), 운동부족(22%) 순입니다. 영업2팀(59%)과 마케팅팀(54%)이 임계치를 초과했습니다.',ai:'육체적 고됨과 정신적 힘듦 사이의 상관관계가 강하게 나타납니다. 수면 부족이 번아웃으로 이어지는 악순환 구조가 의심됩니다.'},
+  mental:{t:'정신건강 상세',s:'2026년 3월 · 전사 기준 · 위험 수준',ks:[{l:'정신적 힘듦',v:'42%'},{l:'전월 대비',v:'▲ 38%p'},{l:'심각 단계',v:'11%'}],d:'심각(4~5점) 응답자가 전체의 11%에 달합니다. 업무스트레스(44%)가 주요 원인이며, 전문 상담 의향은 18%로 전월(12%) 대비 증가했습니다.',ai:'정신건강 급등 타이밍이 2월 성과평가 시즌과 일치합니다. 연간 평가 구조의 개선 또는 평가 전후 심리 지원 프로그램 도입을 검토할 시점입니다.'},
+  severity:{t:'정신건강 심각도 분포',s:'경미·보통·심각 3단계 분류',ks:[{l:'경미 (1~2점)',v:'47%'},{l:'보통 (3점)',v:'42%'},{l:'심각 (4~5점)',v:'11%'}],d:'심각 단계 11%는 전사 평균 이상으로 영업2팀(23%)이 두드러집니다. EAP 연계 및 즉각적인 관리자 면담이 필요합니다.',ai:'\'보통\' 구간(42%)이 전월 대비 크게 증가했습니다. 이 구간이 \'심각\'으로 전환되지 않도록 선제 개입이 핵심입니다.'},
+  burnout:{t:'번아웃·만족도 상세',s:'2026년 3월 · 전사 기준',ks:[{l:'번아웃 자주+매일',v:'29%'},{l:'회사생활 만족도',v:'3.1/5'},{l:'상담 의향',v:'18%'}],d:'번아웃 응답이 전월(19%) 대비 10%p 급증했습니다. 만족도 3.1점은 연간 최저치이며, 상담 의향 18%는 EAP 안내 발송 기준(15%)을 초과합니다.',ai:'만족도 하락과 번아웃 증가가 동시에 나타나는 패턴은 조직 문화 또는 업무 부하 문제의 신호입니다. 리더십 대화 프로그램을 병행 검토하시기 바랍니다.'},
+  checkup:{t:'건강검진 연계 지표',s:'연 1회 갱신 · 2026년 정기검진 기준',ks:[{l:'BMI 위험군',v:'18%'},{l:'혈압 위험군',v:'23%'},{l:'혈당 위험군',v:'11%'}],d:'혈압 위험군 23%는 전국 직장인 평균(19%)을 초과합니다. 혈압 관리 프로그램 및 식단 개선 캠페인 도입을 검토하시기 바랍니다.',ai:'혈압 위험군 비율이 높은 부서와 육체적 고됨 점수가 높은 부서 간 상관관계 분석을 권고합니다. 구조적 과부하가 신체 지표에 영향을 미칠 수 있습니다.'},
+  'dept-sales2':{t:'영업2팀 — 위험 부서 상세',s:'2026년 3월 · 25명 · 응답률 68%',ks:[{l:'종합지수',v:'44점'},{l:'정신적 힘듦',v:'61%'},{l:'전월 대비',v:'▲ 12.4p'}],d:'3개월 연속 정신건강 지표가 악화되고 있습니다. 심각 단계 응답자 23%는 전사 평균의 2배 이상입니다. EAP 연계 및 관리자 면담을 즉시 시행하시기 바랍니다.',ai:'영업2팀의 악화 속도가 전사에서 가장 빠릅니다. 3개월 연속 악화는 중대재해처벌법 시행령 기준 즉각 조치 대상입니다. 이번 달 결재 보고서에 반드시 포함되어야 합니다.'},
+};
+
+function openModal(key){
+  const d=MD[key]||{t:'상세 분석',s:'해당 항목의 상세 데이터',ks:[{l:'데이터',v:'준비중'}],d:'상세 분석 데이터를 불러오는 중입니다.',ai:''};
+  document.getElementById('modalBody').innerHTML=`
+    <div class="modal-h1">${d.t}</div>
+    <div class="modal-sub">${d.s}</div>
+    <div class="modal-ks">${d.ks.map(k=>`<div class="mk"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('')}</div>
+    <div class="modal-desc">${d.d}</div>
+    ${d.ai?`<div class="modal-ai"><span class="ai-chip">✦ AI 인사이트</span><span class="ai-txt">${d.ai}</span></div>`:''}
+  `;
+  document.getElementById('bkdrop').classList.add('open');
+}
+function closeModal(){document.getElementById('bkdrop').classList.remove('open')}
+function closeOuter(e){if(e.target.id==='bkdrop')closeModal()}
+
+// Trend Chart
+const tCtx=document.getElementById('trendChart').getContext('2d');
+new Chart(tCtx,{
+  type:'line',
+  data:{
+    labels:['4월','5월','6월','7월','8월','9월','10월','11월','12월','1월','2월','3월'],
+    datasets:[
+      {label:'정신적 힘듦',data:[28,27,30,32,31,29,31,34,33,32,30,42],borderColor:'#7C3AED',backgroundColor:'rgba(124,58,237,0.07)',tension:0.4,fill:true,pointRadius:3,pointHoverRadius:5,borderWidth:2.5},
+      {label:'육체적 고됨', data:[33,35,36,38,37,35,38,40,39,38,36,48],borderColor:'#D97706',backgroundColor:'rgba(217,119,6,0.05)',tension:0.4,fill:true,pointRadius:3,pointHoverRadius:5,borderWidth:2},
+      {label:'질병 현황',   data:[18,19,22,21,20,19,21,23,22,21,20,24],borderColor:'#2563EB',backgroundColor:'rgba(37,99,235,0.05)',tension:0.4,fill:true,pointRadius:3,pointHoverRadius:5,borderWidth:2}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:11},color:'#909090'}},
+      y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#909090',callback:v=>v+'%'},min:0,max:55}
+    }
+  }
+});
+
+// Donut
+const dCtx=document.getElementById('donutChart').getContext('2d');
+new Chart(dCtx,{
+  type:'doughnut',
+  data:{
+    labels:['근골격계','소화기계','호흡기계','심혈관계','기타'],
+    datasets:[{data:[41,22,18,9,10],backgroundColor:['#3B82F6','#F59E0B','#10B981','#EF4444','#8B5CF6'],borderWidth:0,hoverOffset:4}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false}}}
+});
+</script>
+</body>
+</html>
