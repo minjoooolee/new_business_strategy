@@ -2763,6 +2763,10 @@
           <svg class="pinkcare-caret" id="vdocCaret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="pinkcare-dropdown" id="vdocDropdown">
+          <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_dashboard_v2.html" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeVdocDropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            웹 프로토타입
+          </a>
           <a href="#" onclick="navigateVdoc('proposal', event)" class="pinkcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
             제안서
@@ -2773,15 +2777,6 @@
             제안서(보고용)
           </a>
 
-          <a href="#" onclick="navigateVdoc('web-proto', event)" class="pinkcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            Web proto
-          </a>
-
-          <a href="#" onclick="navigateVdoc('app-proto', event)" class="pinkcare-menu-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            App proto
-          </a>
 
         </div>
       </div>
@@ -12266,6 +12261,7 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
 
 
 
+
 <!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
   <div class="modal">
@@ -12688,10 +12684,6 @@ function navigateVdoc(sub, e) {
     window.location.hash = 'vdoc-proposal';
   } else if (sub === 'report') {
     window.location.hash = 'vdoc-report';
-  } else if (sub === 'web-proto') {
-    window.location.hash = 'vdoc-web-proto';
-  } else if (sub === 'app-proto') {
-    window.location.hash = 'vdoc-app-proto';
   }
 }
 
