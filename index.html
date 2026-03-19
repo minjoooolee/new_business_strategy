@@ -9393,13 +9393,1794 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
 
   </div><!-- /page-vcare-features -->
   <!-- ===== ONCOCARE BM PAGE ===== -->
-  <div class="page-section" id="page-vcare-bm" style="padding:0;margin:0;">
-    <iframe
-      src="oncocare_bm.html"
-      style="width:100%;height:100vh;border:none;display:block;"
-      id="bm-iframe"
-      onload="this.style.height=this.contentWindow.document.body.scrollHeight+'px'"
-    ></iframe>
+  <div class="page-section" id="page-vcare-bm">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+
+#bm-wrap {
+  /* index.html 전역 변수 상속 차단 */
+  --text: var(--ink);
+  --text-muted: var(--muted);
+  --text-secondary: var(--steel);
+  --text-dim: var(--silver);
+  --surface: var(--paper);
+  --surface2: var(--cream);
+  --border: var(--rule);
+  --bg: #C8CCD4;
+  --paper:   #F8F8FA;
+  --cream:   #F0F1F4;
+  --ink:     #0B0F1A;
+  --ink2:    #1A2033;
+  --navy:    #0F1D3D;
+  --navy-m:  #1B2E52;
+  --navy-l:  #2A3F6A;
+  --steel:   #4A5568;
+  --muted:   #6B7280;
+  --silver:  #9CA3AF;
+  --rule:    #D1D5DB;
+  --light:   #E5E7EB;
+  --accent:  #374B7A;
+  --slate-t: #3D6B7E;
+  --slate-t-l:#5A8FA3;
+  --slate-t-bg:#EEF4F7;
+  --page-w:  880px;
+}
+
+
+#bm-wrap { margin:0; padding:0; box-sizing:border-box; }
+
+
+#bm-wrap {
+  background: var(--bg);
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--ink);
+  padding: 48px 20px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ── PAGE ── */
+#bm-wrap .page {
+  background: var(--paper);
+  max-width: var(--page-w);
+  margin: 0 auto 44px;
+  position: relative;
+  box-shadow: 0 2px 32px rgba(15,29,61,.12);
+  overflow: hidden;
+}
+
+#bm-wrap .page::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--navy-m) 50%, var(--slate-t) 100%);
+}
+
+#bm-wrap .page-inner { padding: 56px 64px; }
+
+
+/* ── META ── */
+#bm-wrap .doc-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+
+#bm-wrap .doc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+#bm-wrap .doc-label strong {
+  display: block;
+  color: var(--navy);
+  font-size: 10.5px;
+  letter-spacing: .1em;
+}
+
+#bm-wrap .doc-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--silver);
+  text-align: right;
+  line-height: 1.8;
+}
+
+
+/* ── HERO ── */
+#bm-wrap .hero { margin-bottom: 48px; }
+
+#bm-wrap .hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .2em;
+  color: var(--navy-l);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+#bm-wrap .hero h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.25;
+  color: var(--ink);
+  letter-spacing: -.02em;
+}
+
+#bm-wrap .hero h1 em {
+  font-style: normal;
+  color: var(--slate-t);
+}
+
+#bm-wrap .hero-sub {
+  font-size: 14px;
+  color: var(--steel);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+
+/* ── SECTIONS ── */
+#bm-wrap section { margin-bottom: 40px; }
+
+#bm-wrap .sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+#bm-wrap .sec-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--slate-t);
+  letter-spacing: .12em;
+  flex-shrink: 0;
+}
+
+#bm-wrap .sec-head h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+#bm-wrap .sec-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  align-self: center;
+}
+
+#bm-wrap section > p {
+  font-size: 13px;
+  color: var(--steel);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+
+/* ── CARDS ── */
+#bm-wrap .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+#bm-wrap .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 14px; }
+
+#bm-wrap .four-col { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 14px; border: 1px solid var(--rule); }
+
+
+#bm-wrap .card {
+  border: 1px solid var(--rule);
+  padding: 22px 20px;
+  background: var(--paper);
+}
+
+#bm-wrap .card.navy-bg {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+#bm-wrap .card.navy-bg * { color: rgba(255,255,255,.85); }
+
+#bm-wrap .card.navy-bg h3,
+#bm-wrap .card.navy-bg strong { color: #fff; }
+
+#bm-wrap .card.cream-bg {
+  background: var(--cream);
+}
+
+#bm-wrap .card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: .14em;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+#bm-wrap .card h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+#bm-wrap .card p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+
+/* ── KPI ROW ── */
+#bm-wrap .kpi-row {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--rule);
+  margin-top: 14px;
+}
+
+#bm-wrap .kpi-cell {
+  flex: 1;
+  padding: 20px 16px;
+  text-align: center;
+  border-right: 1px solid var(--rule);
+}
+
+#bm-wrap .kpi-cell:last-child { border-right: none; }
+
+#bm-wrap .kpi-val {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1;
+}
+
+#bm-wrap .kpi-val span { color: var(--slate-t); }
+
+#bm-wrap .kpi-desc {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+
+/* ── CALLOUT ── */
+#bm-wrap .callout {
+  background: var(--navy);
+  padding: 28px 32px;
+  margin-top: 20px;
+  position: relative;
+}
+
+#bm-wrap .callout p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,.8);
+  line-height: 1.85;
+}
+
+#bm-wrap .callout strong { color: #fff; font-weight: 700; }
+
+
+/* ── PULL QUOTE ── */
+#bm-wrap .pull {
+  border-left: 3px solid var(--navy-l);
+  padding: 14px 20px;
+  background: var(--cream);
+  margin: 16px 0;
+}
+
+#bm-wrap .pull p {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.8;
+  font-style: italic;
+}
+
+
+/* ── TABLE ── */
+#bm-wrap .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 12px;
+}
+
+#bm-wrap .data-table th {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 500;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: .03em;
+}
+
+#bm-wrap .data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--light);
+  color: var(--ink2);
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+#bm-wrap .data-table tr:nth-child(even) td { background: var(--cream); }
+
+#bm-wrap .data-table .label-col {
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  width: 160px;
+}
+
+
+/* ── FLOW ── */
+#bm-wrap .flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 14px;
+  border: 1px solid var(--rule);
+}
+
+#bm-wrap .flow-node {
+  flex: 1;
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+  border-right: 1px solid var(--rule);
+}
+
+#bm-wrap .flow-node:last-child { border-right: none; }
+
+#bm-wrap .flow-node.hl { background: var(--navy); }
+
+#bm-wrap .flow-node.hl * { color: rgba(255,255,255,.85); }
+
+#bm-wrap .flow-node.hl .flow-title { color: #fff; }
+
+#bm-wrap .flow-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .14em;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+#bm-wrap .flow-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+#bm-wrap .flow-sub {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+#bm-wrap .flow-arrow::after {
+  content: '→';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--navy);
+  z-index: 1;
+  background: var(--paper);
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+#bm-wrap .flow-node.hl .flow-arrow::after { background: var(--navy); color: rgba(255,255,255,.5); }
+
+
+/* ── AGENT GRID ── */
+#bm-wrap .agent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+#bm-wrap .agent-card {
+  border: 1px solid var(--rule);
+  padding: 18px 18px;
+}
+
+#bm-wrap .agent-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: .12em;
+  color: var(--navy-l);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+#bm-wrap .agent-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+#bm-wrap .agent-card p {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+
+/* ── BM GRID ── */
+#bm-wrap .bm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+#bm-wrap .bm-card {
+  border: 1px solid var(--rule);
+  padding: 18px 18px;
+}
+
+#bm-wrap .bm-card.primary {
+  border-color: var(--navy);
+  border-width: 2px;
+  background: var(--cream);
+  border-left: 4px solid var(--navy-l);
+}
+
+#bm-wrap .bm-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+#bm-wrap .bm-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: .14em;
+  color: var(--silver);
+  text-transform: uppercase;
+}
+
+#bm-wrap .bm-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  padding: 2px 8px;
+  background: var(--cream);
+  color: var(--navy);
+  letter-spacing: .06em;
+}
+
+#bm-wrap .bm-card h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+#bm-wrap .bm-card p {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+
+/* ── ROADMAP ── */
+#bm-wrap .roadmap {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+  border: 1px solid var(--rule);
+  margin-top: 14px;
+}
+
+#bm-wrap .rm-phase {
+  padding: 18px 14px;
+  border-right: 1px solid var(--rule);
+}
+
+#bm-wrap .rm-phase:last-child { border-right: none; }
+
+#bm-wrap .rm-phase-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 6px;
+}
+
+#bm-wrap .rm-phase h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+#bm-wrap .rm-items {
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+#bm-wrap .rm-items li::before {
+  content: '— ';
+  color: var(--rule);
+}
+
+
+/* ── LAYER STACK ── */
+#bm-wrap .layer-stack { margin-top: 14px; border: 1px solid var(--rule); }
+
+#bm-wrap .layer-row {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+}
+
+#bm-wrap .layer-row:last-child { border-bottom: none; }
+
+#bm-wrap .layer-row.hl { background: var(--navy); }
+
+#bm-wrap .layer-label {
+  width: 140px;
+  padding: 14px 16px;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#bm-wrap .layer-row.hl .layer-label { border-right-color: rgba(255,255,255,.1); }
+
+#bm-wrap .layer-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 2px;
+}
+
+#bm-wrap .layer-row.hl .layer-tag { color: rgba(255,255,255,.4); }
+
+#bm-wrap .layer-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+#bm-wrap .layer-row.hl .layer-name { color: #fff; }
+
+#bm-wrap .layer-content {
+  flex: 1;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#bm-wrap .chip {
+  font-size: 10.5px;
+  padding: 4px 10px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  color: var(--ink2);
+  white-space: nowrap;
+}
+
+#bm-wrap .chip.hl {
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.15);
+  color: rgba(255,255,255,.9);
+}
+
+
+/* ── FOOTER ── */
+#bm-wrap .page-footer {
+  padding: 14px 64px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  background: var(--cream);
+}
+
+#bm-wrap .page-footer span {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--silver);
+  letter-spacing: .1em;
+}
+
+
+#bm-wrap .hr { border:none; border-top:1px solid var(--rule); margin:36px 0; }
+
+
+/* ── CLOSING KV ── */
+#bm-wrap .closing-kv {
+  display: flex;
+  gap: 36px;
+  margin-top: 18px;
+}
+
+#bm-wrap .ckv-val {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+#bm-wrap .ckv-val span { color: rgba(255,255,255,.5); }
+
+#bm-wrap .ckv-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,.35);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+
+/* ── COMPARISON TABLE ── */
+#bm-wrap .cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 11.5px;
+}
+
+#bm-wrap .cmp-table th {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 500;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 10.5px;
+}
+
+#bm-wrap .cmp-table th:first-child { text-align: left; }
+
+#bm-wrap .cmp-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--light);
+  color: var(--ink2);
+  line-height: 1.55;
+  text-align: center;
+}
+
+#bm-wrap .cmp-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+#bm-wrap .cmp-table tr:nth-child(even) td { background: var(--cream); }
+
+#bm-wrap .cmp-table .aitrics-col { background: var(--navy); color: #fff; }
+
+#bm-wrap .cmp-table tr:nth-child(even) .aitrics-col { background: var(--navy-m); color: #fff; }
+
+#bm-wrap .cmp-table .aitrics-col strong { color: rgba(255,255,255,.5); }
+
+
+@media print {
+  body { background: white; padding: 0; }
+  .page { box-shadow: none; margin: 0; page-break-after: always; }
+}
+
+  </style>
+  <div id="bm-wrap">
+<!-- ═══════════════════════════════════════
+     PAGE 3 — AI AGENTS & BM
+═══════════════════════════════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <div class="doc-meta">
+    <div>
+      <div class="doc-label">
+        <strong>OncoCare · Business Proposal</strong>
+        AI 에이전트 설계 · 비즈니스 모델
+      </div>
+    </div>
+    <div class="doc-date">2026.03<br>Ver 2.0</div>
+  </div>
+
+  <!-- 06 · AI AGENTS -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>지능형 커뮤니티를 구현하는 4가지 AI 에이전트</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>AI 에이전트는 커뮤니티의 확장성·효율성·신뢰성을 동시에 확보하는 핵심 무기입니다. 인원이 늘어도 품질이 유지되는 구조로, 루닛케어가 실패한 '인력 비용 선형 증가' 문제를 근본적으로 해결합니다.</p>
+
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-num">Agent 01</div>
+        <div class="agent-title">검사결과 해석 에이전트</div>
+        <p>검사지 업로드 → AI가 서술형 해석 → 의료진 컨펌. Human-in-the-Loop 구조로 전문성은 유지하되 의료진 부담을 90% 이상 절감합니다.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">Agent 02</div>
+        <div class="agent-title">초안 답변 작성 에이전트</div>
+        <p>커뮤니티 질문글에 대한 Evidence 기반 답변 초안을 자동 생성. 의료진은 확인·수정·컨펌만 합니다. 참여 장벽을 극적으로 낮춥니다.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">Agent 03</div>
+        <div class="agent-title">대화 목록 관리 에이전트</div>
+        <p>유저의 체류 이력·관심 패턴을 분석해 관련 글을 상단 노출. 복잡해지는 멀티스레드 대화를 구조화하여 규모 확장에도 개인화된 피드를 유지합니다.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">Agent 04</div>
+        <div class="agent-title">최신 정보 큐레이션 에이전트</div>
+        <p>최신 논문·학회 자료·저널을 실시간 수집·요약해 커뮤니티에 공급. 전문가 컨펌을 받은 신뢰도 높은 정보를 자동으로 제공합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07 · BUSINESS MODEL -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>비즈니스 모델 — 5가지 수익 구조</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>커뮤니티 자체가 BM이 되어서는 안 됩니다. 커뮤니티는 유저를 모으는 채널이고, 수익은 수가·SaaS·파트너십·멤버십·Enterprise 파이프라인에서 나옵니다.</p>
+
+    <div class="bm-grid">
+      <div class="bm-card primary">
+        <div class="bm-top">
+          <div class="bm-tag">BM 1 · 최우선</div>
+          <span class="bm-badge" style="background:var(--navy); color:#fff;">B2G · B2B</span>
+        </div>
+        <h4>재택·홈케어 건강보험 수가</h4>
+        <p>웨어러블 디바이스 + AI 분석 기반 원격 모니터링 수가 청구. 병원이 수가를 받고, AITRICS는 플랫폼 이용료를 수취합니다. EX871 등 수가 코드 기반 구조적 수익.</p>
+      </div>
+      <div class="bm-card">
+        <div class="bm-top">
+          <div class="bm-tag">BM 2 · 중기 핵심</div>
+          <span class="bm-badge">B2B SaaS</span>
+        </div>
+        <h4>병원 AI 솔루션 라이선스</h4>
+        <p>닥터앤서 + OncoCare를 번들한 병원향 패키지. 퇴원 후 환자 관리 공백 해소, 환자 만족도 지표 상승. 연간 구독 SaaS 수익.</p>
+      </div>
+      <div class="bm-card">
+        <div class="bm-top">
+          <div class="bm-tag">BM 3 · 초기 현금화</div>
+          <span class="bm-badge">파트너십</span>
+        </div>
+        <h4>신뢰 기반 파트너십</h4>
+        <p>제약사·재단 콘텐츠 후원 + PRO 데이터 라이선싱 + 임상시험 매칭. PHR 연동 시 수익 3~4배 점프.</p>
+      </div>
+      <div class="bm-card">
+        <div class="bm-top">
+          <div class="bm-tag">BM 4 · 장기</div>
+          <span class="bm-badge">B2C</span>
+        </div>
+        <h4>OncoCare 유료 멤버십</h4>
+        <p>커뮤니티 무료 + 개인화 AI 서비스 유료. 독립 수익원보다는 BM 생태계의 연결 고리로 기능.</p>
+      </div>
+      <div class="bm-card" style="grid-column: 1 / -1;">
+        <div class="bm-top">
+          <div class="bm-tag">BM 5 · 성장 엔진</div>
+          <span class="bm-badge">Enterprise → 커뮤니티</span>
+        </div>
+        <h4>V.Doc Enterprise 유저 파이프라인</h4>
+        <p>기업 직원 건강관리 SaaS(ARR 50~100억)에서 V.Doc AI를 경험한 직원이 건강 이슈 발생 시 OncoCare 질병 커뮤니티로 자연 유입. CAC 제로의 대규모 유저 확보 채널이자, 암 → 만성질환 다질환 커뮤니티 확장의 핵심 경로.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BM1 DETAIL -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-1</span>
+      <h2>BM 1 심화 — 대표님 방향성과의 정렬</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="callout" style="margin-top:0;">
+      <p style="font-style:italic;">"스마트링을 비롯한 웨어러블 디바이스 + 바이오넷 등에서 만드는 생체신호 측정 기기와 연동해서 환자 상태 모니터링 사업모델을 구체화해야 합니다."</p>
+      <p style="margin-top:8px; font-size:10px; color:rgba(255,255,255,.4);">— AITRICS 대표이사</p>
+    </div>
+
+    <table class="data-table" style="margin-top:12px;">
+      <thead>
+        <tr>
+          <th style="width:130px">구분</th>
+          <th>수익 흐름 설계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label-col">디바이스 연동</td><td>스마트링 · 웨어러블 패치 · 바이오넷 생체신호 측정기 → 심전도, 산소포화도, 혈압, 체온, 호흡 실시간 수집</td></tr>
+        <tr><td class="label-col">AI 분석</td><td>MOCA 엔진 기반 이상징후 감지 · 예측 알림 → 비급여 AI 서비스(부정맥 예측, 패혈증 예측 등) 추가 수익</td></tr>
+        <tr><td class="label-col">수가 청구</td><td>병원이 EX871 등 원격 모니터링 수가 청구 → AITRICS에 플랫폼 구독료 지급</td></tr>
+        <tr><td class="label-col">커뮤니티 연결</td><td>퇴원/재택 환자 → OncoCare 커뮤니티 자동 유입 → PHR 축적 → AI 고도화 피드백 루프</td></tr>
+        <tr><td class="label-col">온코케어의 역할</td><td><strong>환자가 퇴원 후에도 떠나지 않는 구조</strong> — 커뮤니티가 리텐션 엔진으로 기능, 기존 RPM 사업자에게 없는 유일한 레이어</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+<div class="page-footer">
+  <span>OncoCare · AI 기반 재택의료 생태계 사업 제안서 · CONFIDENTIAL</span>
+  <span>3 / 8</span>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 4 — BM2 DEEP DIVE: 닥터앤서 × OncoCare 번들
+═══════════════════════════════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <div class="doc-meta">
+    <div>
+      <div class="doc-label">
+        <strong>OncoCare · Business Proposal</strong>
+        BM2 심화 — 닥터앤서 3.0 × OncoCare 병원향 번들 패키지
+      </div>
+    </div>
+    <div class="doc-date">2026.03<br>Ver 2.0</div>
+  </div>
+
+  <!-- 07-2 · BM2 DEEP DIVE -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-2</span>
+      <h2>BM 2 심화 — 닥터앤서 3.0, 퇴원 후 예후관리라는 새로운 시장</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>닥터앤서 3.0은 기존 1.0·2.0의 '진단 보조'를 넘어, 환자가 퇴원 후 일상에서 AI 기반으로 예후를 관리하는 서비스입니다. 과기정통부 주도로 10대 중점 질환별 맞춤형 AI 예후관리 서비스를 개발 중이며, AITRICS는 16개 참여 기업 중 하나로 사업에 직접 참여하고 있습니다.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:140px;">항목</th>
+          <th>닥터앤서 3.0 사업 개요</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label-col">사업 목표</td><td>퇴원 후 환자가 일상에서 AI 기반으로 예후를 관리하고, 의료진이 적시에 개입할 수 있는 서비스 개발·실증</td></tr>
+        <tr><td class="label-col">예산 규모</td><td>본예산 23억 + 추경 40억 = 총 63억원</td></tr>
+        <tr><td class="label-col">주관기관</td><td>서울성모병원(김대진 사업단장) · 세브란스병원(권자영 교수)</td></tr>
+        <tr><td class="label-col">참여기관</td><td>10개 의료기관(서울아산, 분당서울대, 가천대길병원 등) + 16개 기업(에이아이트릭스 포함)</td></tr>
+        <tr><td class="label-col">10대 중점 질환</td><td>유방암 · 신장암 · 심장질환 · 피부질환 · <strong>위암 · 대장암</strong> · 산모질환 · 수술후 재활 · 전립선 비대증 · 소아 만성호흡부전</td></tr>
+        <tr><td class="label-col">정식 오픈 목표</td><td>2026년 9월 (CaMEDIA 앱 실증 완료 후)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 07-2a · THE GAP -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-2a</span>
+      <h2>닥터앤서의 구조적 공백 — OncoCare가 메우는 것</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>닥터앤서 3.0이 만드는 위암·대장암 예후관리 AI 솔루션은 병원 안에서 완결되지 않습니다. 환자가 퇴원 후 이 솔루션을 <strong>지속적으로 사용할 접점</strong>이 필요합니다. 바로 이 접점이 OncoCare 커뮤니티입니다.</p>
+
+    <div class="two-col" style="margin-top:14px;">
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">문제 — 닥터앤서 단독의 한계</div>
+        <h3>퇴원 후 사용률 급감</h3>
+        <p>병원 AI 솔루션만 도입하면, 환자가 퇴원하는 순간 접점이 끊깁니다. PRO 데이터 수집이 중단되고, AI 모델의 지속적 학습이 불가능해집니다. 의료진도 환자 상태를 추적할 수 없습니다.</p>
+      </div>
+      <div class="card cream-bg">
+        <div class="card-label">해결 — OncoCare 커뮤니티 연결</div>
+        <h3>퇴원 후에도 떠나지 않는 구조</h3>
+        <p>OncoCare 커뮤니티가 환자의 일상 접점이 됩니다. 커뮤니티 내에서 닥터앤서 AI 에이전트(c-rehab, g-rehab)를 자연스럽게 사용하고, PRO·생체신호 데이터가 지속 수집됩니다. 소속감이 리텐션을 만듭니다.</p>
+      </div>
+    </div>
+
+    <div class="pull" style="margin-top:16px;">
+      <p>"병원 AI 솔루션의 가장 큰 맹점은 환자가 퇴원하면 접점이 사라진다는 것입니다. 커뮤니티는 이 접점을 유지하는 유일한 구조입니다. 닥터앤서에 OncoCare가 결합되면, 병원은 '퇴원 후 관리 공백'이라는 오래된 문제를 처음으로 해결할 수 있습니다."</p>
+    </div>
+  </section>
+
+  <!-- 07-2b · BUNDLE PACKAGE -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-2b</span>
+      <h2>BM2 번들 패키지 — 병원이 사는 이유</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:180px;">병원의 Pain Point</th>
+          <th>닥터앤서 단독</th>
+          <th>닥터앤서 + OncoCare 번들</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">퇴원 후 환자 관리</td>
+          <td>외래 방문 시에만 확인 가능, 관리 공백 발생</td>
+          <td>커뮤니티 기반 지속 모니터링, AI 에이전트가 상시 관리</td>
+        </tr>
+        <tr>
+          <td class="label-col">PRO 데이터 수집</td>
+          <td>환자 자발적 입력에 의존 → 수집률 저조</td>
+          <td>커뮤니티 활동 + 웨어러블 연동으로 자연스러운 데이터 축적</td>
+        </tr>
+        <tr>
+          <td class="label-col">재발·합병증 조기 감지</td>
+          <td>데이터 부족으로 예측 정확도 한계</td>
+          <td>지속적 데이터 유입 → AI 예측 모델 정확도 향상</td>
+        </tr>
+        <tr>
+          <td class="label-col">환자 만족도·충성도</td>
+          <td>솔루션 인지도 낮음, 사용 동기 약함</td>
+          <td>커뮤니티 소속감 + 동료 환자 경험 공유 → 높은 리텐션</td>
+        </tr>
+        <tr>
+          <td class="label-col">의료진 업무 부담</td>
+          <td>환자 문의 직접 대응 필요</td>
+          <td>AI 초안 답변 + 의료진 컨펌 구조로 업무량 90%+ 절감</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 07-2c · REVENUE STRUCTURE -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-2c</span>
+      <h2>BM2 수익 구조 — 연간 SaaS 구독 모델</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="flow" style="margin-top:14px;">
+      <div class="flow-node">
+        <div class="flow-tag">Step 1</div>
+        <div class="flow-title">닥터앤서<br>협력 병원</div>
+        <div class="flow-sub">세브란스 등<br>10개 의료기관</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node">
+        <div class="flow-tag">Step 2</div>
+        <div class="flow-title">번들 패키지<br>도입</div>
+        <div class="flow-sub">닥터앤서 AI +<br>OncoCare 커뮤니티</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node hl">
+        <div class="flow-tag">Step 3</div>
+        <div class="flow-title">퇴원 환자<br>자동 연결</div>
+        <div class="flow-sub">위암·대장암 환자 →<br>OncoCare 커뮤니티 유입</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node">
+        <div class="flow-tag">Step 4</div>
+        <div class="flow-title">데이터 축적<br>AI 고도화</div>
+        <div class="flow-sub">PRO + 생체신호 +<br>커뮤니티 활동 통합</div>
+      </div>
+    </div>
+
+    <div class="three-col" style="margin-top:16px;">
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">수익원 ①</div>
+        <h3>연간 SaaS 구독료</h3>
+        <p>병원당 연간 라이선스. 닥터앤서 AI + OncoCare 환자관리 플랫폼 번들. 암종별 에이전트(c-rehab, g-rehab) 포함.</p>
+      </div>
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">수익원 ②</div>
+        <h3>환자당 관리 수수료</h3>
+        <p>등록 환자 수 기반 종량제 과금. 병원은 수가 기반 수익을 확보하므로 비용 정당화 가능.</p>
+      </div>
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">수익원 ③</div>
+        <h3>AI 고도화 데이터 가치</h3>
+        <p>축적된 PRO + 모니터링 데이터로 AI 모델 고도화. 장기적으로 제약사·보험사 파트너십 수익.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <p><strong>BM2의 핵심 논리:</strong> 닥터앤서 3.0이 만드는 위암·대장암 AI 솔루션은 병원 안에서만 완결되지 않습니다. 환자가 퇴원 후에도 이 솔루션을 지속적으로 사용할 접점 — OncoCare 커뮤니티 — 이 결합될 때, 비로소 '병원에서 가정까지 연속적인 건강관리'라는 닥터앤서 3.0의 본래 목표가 실현됩니다.</p>
+    <p style="margin-top:10px;">AITRICS는 닥터앤서 사업의 참여 기업이자, 동시에 환자 접점 커뮤니티를 보유한 유일한 플레이어입니다. 이 포지션이 BM2의 구조적 경쟁우위입니다.</p>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>OncoCare · AI 기반 재택의료 생태계 사업 제안서 · CONFIDENTIAL</span>
+  <span>4 / 8</span>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 5 — BM3 DEEP DIVE: 신뢰 기반 파트너십 & 데이터 수익화
+═══════════════════════════════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <div class="doc-meta">
+    <div>
+      <div class="doc-label">
+        <strong>OncoCare · Business Proposal</strong>
+        BM3 심화 — 신뢰 기반 파트너십 · 데이터 수익화 전략
+      </div>
+    </div>
+    <div class="doc-date">2026.03<br>Ver 2.0</div>
+  </div>
+
+  <!-- 07-3 · BM3 OVERVIEW -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3</span>
+      <h2>BM 3 심화 — 신뢰 기반 파트너십, 왜 "초기 현금화"인가</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>OncoCare의 파트너십 모델은 광고를 파는 것이 아닙니다. 커뮤니티에 축적되는 데이터의 가치를 파는 것입니다. 핵심 원칙은 단순합니다: <strong>환자 신뢰를 훼손하지 않는 범위에서, 데이터와 접점의 가치를 수익화한다.</strong></p>
+
+    <div class="pull">
+      <p>"PHR 없이도 돌아가되, PHR이 오면 폭발한다 — 이것이 BM3의 설계 원칙입니다. Phase 1~2에서 자가 보고 데이터로 시작하되, PHR 연동 시점부터 수익 규모가 3~4배 점프합니다."</p>
+    </div>
+  </section>
+
+  <!-- 07-3a · TWO PHASE STRUCTURE -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3a</span>
+      <h2>2단계 수익 구조 — PHR 연동 전후로 차원이 바뀐다</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="two-col" style="margin-top:14px;">
+      <div class="card cream-bg">
+        <div class="card-label">Phase 1~2 · PHR 연동 전 (~2027)</div>
+        <h3>자가 보고 기반 수익화</h3>
+        <p>환자가 직접 입력한 데이터(프로필, 부작용 경험, 삶의 질 보고)로 시작합니다. 제약사 콘텐츠 후원, 공공기관 협력, 자가보고 기반 임상시험 매칭, PRO 데이터 라이선싱이 가능합니다. 커뮤니티 신뢰를 쌓으면서 초기 현금을 만드는 단계입니다.</p>
+      </div>
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">Phase 3 · PHR 연동 후 (2028~)</div>
+        <h3>병원 공식 데이터 기반 수익화</h3>
+        <p>V.Doc PHR / 마이헬스웨이 연동으로 병원 진단코드, 병리 리포트, 검사 수치 시계열, 처방 이력이 자동 연결됩니다. 자가 보고 + 병원 공식 데이터가 결합되면, 글로벌에도 없는 수준의 RWE 데이터 플랫폼이 됩니다. 수익 규모가 3~4배 점프합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07-3b · DATA QUALITY SHIFT -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3b</span>
+      <h2>PHR 연동이 바꾸는 것 — 데이터 질의 근본적 전환</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:140px;">데이터 항목</th>
+          <th>현재 (자가 보고)</th>
+          <th>PHR 연동 후</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label-col">진단명·병기</td><td>환자가 직접 입력</td><td>병원 진단코드(KCD) 자동 연동</td></tr>
+        <tr><td class="label-col">조직검사 결과</td><td>사진 촬영 → OCR</td><td>병원 병리 리포트 원본 (ER/PR/HER2/Ki-67 수치)</td></tr>
+        <tr><td class="label-col">혈액검사</td><td>사진 촬영 → OCR</td><td>병원 검체검사 결과 자동 연동 (시계열)</td></tr>
+        <tr><td class="label-col">처방 이력</td><td>환자 기억에 의존</td><td>처방전 전체 이력 자동 연동</td></tr>
+        <tr><td class="label-col">영상 검사</td><td>없음</td><td>CT·MRI·PET 판독문 연동 가능</td></tr>
+        <tr><td class="label-col">데이터 신뢰도</td><td>자가 보고 (오류 15%+)</td><td>병원 공식 데이터 (오류 ~0%)</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:8px; font-size:11px; color:var(--muted);">이 데이터 질의 차이가 각 수익원의 단가를 근본적으로 바꿉니다. "환자가 HER2 양성이라고 입력한 것"과 "서울대병원 병리과에서 나온 FHIR 표준 데이터"는 제약사 입장에서 격이 다릅니다.</p>
+  </section>
+
+
+  <hr class="hr">
+
+  <!-- 07-3c · REVENUE SOURCES DETAIL -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3c</span>
+      <h2>수익원별 구조 — 6가지 파트너십 수익 모델</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-num">수익원 01 · PHR 불필요</div>
+        <div class="agent-title">제약사·재단 콘텐츠 후원</div>
+        <p>암종별 커뮤니티에 제약사가 정보 콘텐츠를 후원합니다. 직접 광고가 아닌 "○○제약 제공 유방암 표준치료 가이드" 형태. 국립암센터·암 관련 재단과의 공공 콘텐츠 협력도 포함됩니다.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">수익원 02 · PHR 불필요</div>
+        <div class="agent-title">임상시험 매칭 (자가보고 기반)</div>
+        <p>환우 프로필 기반으로 적격 임상시험을 매칭합니다. 자가 보고 데이터이므로 스크리닝 탈락률 30~50%이나, 건당 수수료 모델로 초기 수익 가능합니다.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">수익원 03 · PHR 불필요</div>
+        <div class="agent-title">PRO 데이터 라이선싱</div>
+        <p>환자가 자발적으로 보고하는 부작용 패턴·삶의 질 변화 데이터. 제약사의 시판 후 조사(PMS) 보조 자료로 활용. 연간 계약 기반.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">수익원 04 · PHR 필수</div>
+        <div class="agent-title">PRO + 임상 통합 데이터 라이선싱</div>
+        <p>병원 검사 수치와 환자 경험이 매칭된 데이터. "호중구 1,200일 때 환자가 피곤·발열 호소" — 이 수준의 데이터는 제약사가 별도 RWE 연구 없이 확보 가능. 단가 3~6배 상승.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">수익원 05 · PHR 필수</div>
+        <div class="agent-title">RWE 연구 수탁</div>
+        <p>제약사가 특정 레지멘의 실제 부작용 프로파일을 원할 때, OncoCare DB에서 해당 환자군 추출 → 병원 수치 + 환자 보고 매칭 → 비식별 리포트 생성. 프로젝트 단위 계약.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-num">수익원 06 · PHR 필수 · 장기</div>
+        <div class="agent-title">보험사·동반진단 데이터</div>
+        <p>암 환자의 의료비 지출 패턴(보험 상품 설계), 바이오마커별 치료 반응 패턴(동반진단 지원). PHR 20만 유저 이상 확보 후 가능한 고부가가치 채널.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07-3d · REVENUE PROJECTION -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3d</span>
+      <h2>수익 프로젝션 — PHR 연동 전후 비교</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:180px;">수익원</th>
+          <th>PHR 연동 전<br>(~2027, 연환산)</th>
+          <th class="aitrics-col" style="background:var(--slate-t); font-weight:700;">PHR 연동 후<br>(2028~, 연환산)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">제약사·재단 콘텐츠 후원</td>
+          <td>₩2~5억</td>
+          <td class="aitrics-col">₩3~5억</td>
+        </tr>
+        <tr>
+          <td class="label-col">임상시험 매칭</td>
+          <td>₩1~5억</td>
+          <td class="aitrics-col">₩5~20억</td>
+        </tr>
+        <tr>
+          <td class="label-col">PRO 데이터 라이선싱</td>
+          <td>₩1~3억</td>
+          <td class="aitrics-col">₩8~25억 (임상 통합)</td>
+        </tr>
+        <tr>
+          <td class="label-col">공공기관 협력</td>
+          <td>₩1~3억</td>
+          <td class="aitrics-col">₩1~3억</td>
+        </tr>
+        <tr>
+          <td class="label-col">RWE 연구 수탁</td>
+          <td style="color:var(--silver);">— (불가)</td>
+          <td class="aitrics-col">₩3~15억 (신규)</td>
+        </tr>
+        <tr>
+          <td class="label-col">보험사·동반진단</td>
+          <td style="color:var(--silver);">— (불가)</td>
+          <td class="aitrics-col">₩1~5억 (신규)</td>
+        </tr>
+        <tr style="background:var(--cream);">
+          <td class="label-col" style="font-size:13px;"><strong>BM3 연간 합계</strong></td>
+          <td style="font-weight:700; font-size:13px;">₩5~16억</td>
+          <td class="aitrics-col" style="font-weight:700; font-size:13px;">₩20~70억+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10px; font-size:11.5px; color:var(--steel); line-height:1.75;">* 8개 암종 기준, PHR 유저 20만명 달성 시 추정. 임상시험 매칭 단가는 PHR 연동으로 스크리닝 탈락률이 30~50%에서 10% 미만으로 감소하여 건당 3배 이상 상승. PRO+임상 통합 데이터는 제약사의 PMS + RWE 연구 비용을 동시에 대체하므로 단가 3~6배 상승.</p>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07-3e · GLOBAL VALIDATION -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3e</span>
+      <h2>글로벌 시장 검증 — 이미 작동하는 모델</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>"환자 커뮤니티에서 데이터를 축적하고, 제약사에게 가치를 판매한다"는 모델은 아이디어가 아닙니다. PatientsLikeMe는 미국 최대 건강보험사에 인수되었고, Inspire는 1,000억원을 투자받았습니다. 시장은 이미 검증되었습니다.</p>
+
+    <table class="cmp-table" style="margin-top:14px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:130px;">비교 항목</th>
+          <th>PatientsLikeMe</th>
+          <th>Inspire</th>
+          <th class="aitrics-col" style="background:var(--slate-t); font-weight:700;">OncoCare</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">규모·투자</td>
+          <td>2019년 UnitedHealth Group에 인수 (미국 최대 건강보험사)</td>
+          <td>250만+ 회원, 1,000억원 투자 유치</td>
+          <td class="aitrics-col">8개 암종 특화, 닥터앤서 10개 병원 네트워크 보유</td>
+        </tr>
+        <tr>
+          <td class="label-col">수익 모델</td>
+          <td>제약사 연구 수탁, 임상시험 매칭 (Trial Access), PRO 개발</td>
+          <td>마켓 리서치, 프로모션, 임상시험 모집 (Inspire Recruit)</td>
+          <td class="aitrics-col">콘텐츠 후원 + 임상 매칭 + PRO 라이선싱 + RWE 수탁</td>
+        </tr>
+        <tr>
+          <td class="label-col">주요 파트너</td>
+          <td>노바티스, 사노피, 로슈, 아스트라제네카, UCB 등</td>
+          <td>Antidote, Trialbee + 다수 제약사</td>
+          <td class="aitrics-col">닥터앤서 사업 내 16개 기업 + CRO 파트너십 추진</td>
+        </tr>
+        <tr>
+          <td class="label-col">임상 매칭 성과</td>
+          <td>Duke ALS 임상: 예상 시간 절반 이내 모집 완료</td>
+          <td>의뢰-동의 전환율(referral-to-consent) 30% (업계 평균 5~10%의 3~6배)</td>
+          <td class="aitrics-col">병기·타입·치료이력 구조화 → PHR 연동 시 전환율 50%+ 목표</td>
+        </tr>
+        <tr>
+          <td class="label-col">데이터 수준</td>
+          <td>자가 보고 데이터</td>
+          <td>자가 보고 데이터</td>
+          <td class="aitrics-col"><strong>자가 보고 + AI 구조화 + 병원 공식 데이터(PHR)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull" style="margin-top:14px;">
+      <p>"PatientsLikeMe와 Inspire는 자가 보고 데이터만으로 이 수익을 만들었습니다. OncoCare는 여기에 AI 에이전트(데이터 구조화)와 PHR 연동(병원 공식 데이터)이 더해집니다. 동일한 비즈니스 모델이되, 데이터의 질이 한 차원 높습니다. Inspire의 전환율 30%가 벤치마크라면, OncoCare는 PHR 연동으로 50% 이상을 목표할 수 있습니다."</p>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+    <!-- CALLOUT -->
+  <div class="callout">
+    <p><strong>BM3의 핵심 논리:</strong> OncoCare는 Phase 1~2에서 자가 보고 데이터로 연 ₩5~16억의 파트너십 수익을 만들면서 트래픽과 신뢰 자산을 축적합니다. PHR 연동이 현실화되는 Phase 3부터, 동일한 파트너십 구조의 단가가 3~4배 점프하며 연 ₩20~70억+ 규모로 확장됩니다.</p>
+    <p style="margin-top:10px;">'병원 공식 데이터 + 환자 자가 보고'를 동시에 보유한 플랫폼은 글로벌에도 존재하지 않습니다. 이 데이터 자산이 BM3의 구조적 경쟁우위이자, 장기적 기업가치의 핵심 동인입니다.</p>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>OncoCare · AI 기반 재택의료 생태계 사업 제안서 · CONFIDENTIAL</span>
+  <span>5 / 8</span>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 6 — BM4 DEEP DIVE: B2C 유료 멤버십
+═══════════════════════════════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <div class="doc-meta">
+    <div>
+      <div class="doc-label">
+        <strong>OncoCare · Business Proposal</strong>
+        BM4 심화 — B2C 유료 멤버십 전략 · 루닛케어 교훈 · 생태계 연결 고리
+      </div>
+    </div>
+    <div class="doc-date">2026.03<br>Ver 2.0</div>
+  </div>
+
+  <!-- 07-4 · BM4 OVERVIEW -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-4</span>
+      <h2>BM 4 심화 — 왜 암환자 B2C 구독은 실패해왔는가</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>암환자 대상 B2C 유료 구독은 한국 헬스케어에서 가장 많이 시도되고, 가장 많이 실패한 모델입니다. 이 사실을 직시하는 것이 전략의 출발점입니다.</p>
+
+    <div class="three-col" style="margin-top:14px;">
+      <div class="card cream-bg">
+        <div class="card-label">구조적 장벽 ①</div>
+        <h3>극심한 치료비 부담</h3>
+        <p>암환자는 이미 수천만 원의 치료비를 지출 중입니다. 추가 구독에 대한 지불 저항이 구조적으로 높습니다.</p>
+      </div>
+      <div class="card cream-bg">
+        <div class="card-label">구조적 장벽 ②</div>
+        <h3>무료 정보의 범람</h3>
+        <p>네이버 카페, 유튜브, 카카오 오픈채팅 등 무료 채널이 넘쳐납니다. "왜 돈을 내야 하는가"를 설득하기 어렵습니다.</p>
+      </div>
+      <div class="card cream-bg">
+        <div class="card-label">구조적 장벽 ③</div>
+        <h3>인력 비용의 선형 증가</h3>
+        <p>의료진 직접 답변 모델은 유저가 늘면 비용이 비례 증가합니다. 수익보다 비용이 빠르게 커지는 구조입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07-4a · LUNITCARE LESSON -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-4a</span>
+      <h2>루닛케어의 교훈 — 무엇이 부족했는가</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:160px;">루닛케어의 한계</th>
+          <th>문제 구조</th>
+          <th>OncoCare의 대응</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">커뮤니티 부재</td>
+          <td>정보 + 1:1 상담 서비스였지, 환자들끼리 모이는 공간이 없었음. 소속감 없이는 리텐션이 만들어지지 않음</td>
+          <td>카카오 오픈채팅방 기반 커뮤니티로 소속감 이미 검증. 같은 병기·같은 치료를 받는 환우가 모이는 구조</td>
+        </tr>
+        <tr>
+          <td class="label-col">의료진 직접 답변</td>
+          <td>의료진 인력 비용이 유저 수에 비례 증가 → 스케일 불가. 유저 1,000명이면 의료진 10명 필요</td>
+          <td>AI 에이전트가 초안 작성·검사 해석 처리. 의료진은 컨펌만. 유저 10만 명이어도 한계비용 거의 동일</td>
+        </tr>
+        <tr>
+          <td class="label-col">데이터 축적 부재</td>
+          <td>"내 데이터가 여기에 있다"는 lock-in이 없음. 언제든 떠날 수 있는 구조</td>
+          <td>검사 결과 히스토리·치료 여정이 누적. PHR 연동 시 "내 의료 기록이 여기에 있다"는 전환 비용 발생</td>
+        </tr>
+        <tr>
+          <td class="label-col">B2C 단독 의존</td>
+          <td>구독료만으로 수익을 만들어야 했으므로 전환 압박이 강했고, 이것이 사용자 경험을 해침</td>
+          <td>BM1(수가) + BM2(SaaS) + BM3(파트너십)이 주 수익원. B2C는 보조 수익 + 생태계 연결 고리</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull" style="margin-top:14px;">
+      <p>"루닛케어에 없었고 OncoCare에 있는 것은 커뮤니티입니다. '같은 병기의 환우가 여기 있다'는 소속감이 리텐션을 만들고, 이 리텐션 위에 개인화 AI 서비스를 얹는 것이 OncoCare의 유료화 전략입니다. 커뮤니티 자체는 무료이므로 '쫓겨나는 느낌'이 없습니다."</p>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07-4b · FREE vs PRO -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-4b</span>
+      <h2>무료 / 유료 설계 — "커뮤니티는 무료, 개인화는 유료"</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:200px;">기능</th>
+          <th>무료 (전체 회원)</th>
+          <th class="aitrics-col" style="background:var(--slate-t); font-weight:700;">OncoCare Pro (유료)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">커뮤니티 참여</td>
+          <td>피드, 게시판, 환우 교류 전체 이용</td>
+          <td class="aitrics-col">동일 (제한 없음)</td>
+        </tr>
+        <tr>
+          <td class="label-col">AI 검사 해석</td>
+          <td>월 2회</td>
+          <td class="aitrics-col">무제한</td>
+        </tr>
+        <tr>
+          <td class="label-col">의료진 Q&A</td>
+          <td>AI 초안 답변 열람</td>
+          <td class="aitrics-col">의료진 우선 연결 (48시간 내 답변 보장)</td>
+        </tr>
+        <tr>
+          <td class="label-col">최신 정보</td>
+          <td>큐레이션 열람</td>
+          <td class="aitrics-col">내 암종 맞춤 알림 + 논문 요약 리포트</td>
+        </tr>
+        <tr>
+          <td class="label-col">치료 여정 관리</td>
+          <td>기본 기록</td>
+          <td class="aitrics-col">대시보드 (검사 추이 분석·부작용 예측·관리 알림)</td>
+        </tr>
+        <tr>
+          <td class="label-col">PHR 심화</td>
+          <td>—</td>
+          <td class="aitrics-col">PHR 연동 심화 리포트 · 개인화 예후 인사이트</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10px; font-size:11.5px; color:var(--steel); line-height:1.75;"><strong>전환 타깃:</strong> 전체 암환자가 아닌 3개 고지불의향 세그먼트 — ① 보호자 (환자 대신 정보 탐색·관리), ② 암 경험자/생존자 (재발 불안 관리), ③ 치료 중 적극적 정보 탐색자 (검사 해석 빈도 높음). 이 세그먼트가 전체 유저의 15~20%이며, 이 중 유료 전환율 20~30%를 목표합니다.</p>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07-4c · ECOSYSTEM LINK -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-4c</span>
+      <h2>BM4의 진짜 가치 — 전체 BM 생태계의 연결 고리</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>BM4 단독으로 회사를 먹여살리겠다는 전략이 아닙니다. BM4의 진짜 가치는 유료 전환 과정에서 확보되는 <strong>고관여 유저 코호트</strong>입니다. 이 코호트가 나머지 3개 BM 전체의 품질과 가치를 끌어올립니다.</p>
+
+    <table class="data-table" style="margin-top:14px;">
+      <thead>
+        <tr>
+          <th style="width:120px;">연결되는 BM</th>
+          <th>BM4 유료 유저가 만드는 가치</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">→ BM1 (수가)</td>
+          <td>유료 유저 = 가장 적극적인 모니터링 참여자. 웨어러블 데이터 제출율·PRO 입력율이 무료 유저 대비 3~5배 높아, 수가 청구의 근거 데이터 품질을 끌어올림</td>
+        </tr>
+        <tr>
+          <td class="label-col">→ BM2 (SaaS)</td>
+          <td>병원에 "퇴원 후 환자의 X%가 유료 구독으로 지속 관리 중"이라는 참여 지표를 제공. 번들 패키지 영업 시 가장 강력한 설득 근거</td>
+        </tr>
+        <tr>
+          <td class="label-col">→ BM3 (파트너십)</td>
+          <td>유료 유저의 데이터는 입력 빈도·정확도·연속성이 높아 PRO 라이선싱·임상시험 매칭의 데이터 품질 상위 코호트를 형성. 제약사 단가 프리미엄의 근거</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <p><strong>BM4의 핵심 논리:</strong> OncoCare의 B2C 유료 멤버십은 독립 수익원이 아닌, 전체 BM 생태계의 연결 고리입니다. 커뮤니티(소속감)가 리텐션을 만들고, AI(비용 효율)가 스케일을 가능하게 하며, 데이터 축적(lock-in)이 전환 동기를 만듭니다.</p>
+    <p style="margin-top:10px;">루닛케어에 없었던 이 세 가지 — 커뮤니티·AI·데이터 lock-in — 가 OncoCare가 B2C 유료 모델에서 다른 결과를 만들 수 있는 구조적 이유입니다. 그리고 BM4에서 확보된 고관여 코호트가 BM1·BM2·BM3 전체의 가치를 증폭시킵니다.</p>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>OncoCare · AI 기반 재택의료 생태계 사업 제안서 · CONFIDENTIAL</span>
+  <span>6 / 8</span>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 7 — BM5: V.Doc Enterprise → OncoCare 유입 파이프라인
+═══════════════════════════════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <div class="doc-meta">
+    <div>
+      <div class="doc-label">
+        <strong>OncoCare · Business Proposal</strong>
+        BM5 심화 — V.Doc Enterprise에서 OncoCare로의 유저 파이프라인
+      </div>
+    </div>
+    <div class="doc-date">2026.03<br>Ver 2.0</div>
+  </div>
+
+  <!-- 07-5 · BM5 OVERVIEW -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-5</span>
+      <h2>BM 5 — V.Doc Enterprise, 새로운 유저 파이프라인</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>V.Doc Enterprise는 기업 직원 건강관리 AI 솔루션(B2B SaaS)입니다. 100인 이상 기업에 정신건강·신체건강 모니터링을 제공하며, 2년 내 165~330개 기업 계약(ARR 50~100억원)을 목표하고 있습니다. 이 사업이 OncoCare에 만들어주는 것은 <strong>마케팅 비용 0원의 대규모 유저 유입 파이프라인</strong>입니다.</p>
+
+    <div class="flow" style="margin-top:14px;">
+      <div class="flow-node">
+        <div class="flow-tag">Step 1</div>
+        <div class="flow-title">V.Doc<br>Enterprise</div>
+        <div class="flow-sub">100~500인 기업<br>직원 건강관리 SaaS</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node">
+        <div class="flow-tag">Step 2</div>
+        <div class="flow-title">직원이<br>V.Doc 체험</div>
+        <div class="flow-sub">MOCA 기반 문진<br>정신·신체건강 모니터링</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node hl">
+        <div class="flow-tag">Step 3</div>
+        <div class="flow-title">건강 이슈 발생<br>→ 커뮤니티 연결</div>
+        <div class="flow-sub">당뇨·암·만성질환 진단<br>또는 가족 질병 발생</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node">
+        <div class="flow-tag">Step 4</div>
+        <div class="flow-title">OncoCare<br>커뮤니티 유입</div>
+        <div class="flow-sub">질병 중심 커뮤니티<br>소속감 · PHR 연동</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07-5a · WHY NOT INTERNAL -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-5a</span>
+      <h2>왜 Enterprise 내부 커뮤니티가 아닌가</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="two-col" style="margin-top:14px;">
+      <div class="card cream-bg">
+        <div class="card-label">Enterprise 내부 커뮤니티의 문제</div>
+        <h3>"회사 감시" 느낌</h3>
+        <p>기업 솔루션 안에 건강 커뮤니티를 넣으면, 직원들은 "내 건강 이야기가 회사에 보인다"고 느낍니다. 당뇨·우울증·암 같은 민감한 건강 이슈를 동료와 나누기 어렵습니다. 참여율이 구조적으로 낮을 수밖에 없습니다.</p>
+      </div>
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">외부 질병 커뮤니티로의 연결</div>
+        <h3>소속 회사가 아닌, 질병 중심으로 모인다</h3>
+        <p>OncoCare는 회사와 무관한 독립 커뮤니티입니다. "삼성 직원"이 아니라 "2기 당뇨 환자"로서 모입니다. 익명성이 보장되고, 같은 질병을 가진 사람들과의 교류에서 소속감이 생깁니다. Enterprise에서는 불가능한 리텐션이 여기서 만들어집니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07-5b · STRATEGIC VALUE -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-5b</span>
+      <h2>Enterprise → OncoCare 연결이 만드는 3가지 전략적 가치</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:170px;">전략적 가치</th>
+          <th>설명</th>
+          <th style="width:160px;">영향받는 BM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">CAC 제로 유입 채널</td>
+          <td>Enterprise 1개 계약 = 직원 수백 명이 V.Doc 생태계 진입. OncoCare 입장에서 마케팅 비용 없이 유저를 확보하는 구조. 2년차 330개 기업 계약 시 <strong>수만~십수만 명</strong>이 잠재 유입 풀</td>
+          <td>OncoCare 전체 유저 기반 확대</td>
+        </tr>
+        <tr>
+          <td class="label-col">AI 경험자 유입</td>
+          <td>Enterprise에서 MOCA 기반 AI 문진을 이미 사용해본 직원이 OncoCare에 들어오면, AI 검사 해석·초안 답변의 가치를 이미 이해. <strong>유료 전환 가능성이 일반 유입 대비 높음</strong></td>
+          <td>BM4 (유료 멤버십) 전환율 ↑</td>
+        </tr>
+        <tr>
+          <td class="label-col">데이터 플라이휠 가속</td>
+          <td>Enterprise 직원의 건강 데이터(정신건강 스크리닝, 신체건강 문진)가 V.Doc PHR에 축적. 이 PHR이 OncoCare와 연동되면 <strong>BM3 데이터 라이선싱의 모수가 급격히 확대</strong></td>
+          <td>BM3 (파트너십) 데이터 가치 ↑</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 07-5c · EXPANSION VISION -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-5c</span>
+      <h2>장기 비전 — 다질환 의료 커뮤니티로의 확장</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>OncoCare가 암 커뮤니티에서 시작하지만, Enterprise 연결이 가동되면 확장 방향이 달라집니다. Enterprise 직원들의 건강 이슈는 암만이 아닙니다. 당뇨, 고혈압, 우울증, 근골격계 질환 등 다양한 만성질환이 포함됩니다.</p>
+
+    <div class="flow" style="margin-top:14px;">
+      <div class="flow-node">
+        <div class="flow-tag">현재</div>
+        <div class="flow-title">OncoCare<br>암 커뮤니티</div>
+        <div class="flow-sub">유방암·대장암·위암<br>8개 암종</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node">
+        <div class="flow-tag">Enterprise 연결 후</div>
+        <div class="flow-title">만성질환<br>커뮤니티 확장</div>
+        <div class="flow-sub">당뇨·고혈압·심장질환<br>정신건강·근골격계</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node hl">
+        <div class="flow-tag">장기 비전</div>
+        <div class="flow-title">다질환<br>의료 커뮤니티</div>
+        <div class="flow-sub">질병 중심 커뮤니티<br>생태계 허브</div>
+        <div class="flow-arrow"></div>
+      </div>
+      <div class="flow-node">
+        <div class="flow-tag">생태계 완성</div>
+        <div class="flow-title">V.Doc PHR<br>통합 플랫폼</div>
+        <div class="flow-sub">개인 건강 데이터<br>평생 관리 플랫폼</div>
+      </div>
+    </div>
+
+    <p style="margin-top:10px; font-size:11.5px; color:var(--steel); line-height:1.75;">Enterprise 채널이 공급하는 다질환 유저풀이 OncoCare의 암종 확장 → 만성질환 확장을 자연스럽게 가속합니다. "암 커뮤니티에서 시작해 모든 질병의 커뮤니티가 된다"는 장기 비전의 가장 현실적인 경로입니다.</p>
+  </section>
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <p><strong>BM5의 핵심 논리:</strong> V.Doc Enterprise는 그 자체로 ARR 50~100억원 규모의 B2B SaaS 사업이면서, 동시에 OncoCare 커뮤니티의 대규모 유저 유입 파이프라인입니다. Enterprise에서 V.Doc AI를 경험한 직원이 건강 이슈 발생 시 OncoCare 질병 커뮤니티로 연결되면, CAC 제로의 고품질 유저가 유입됩니다.</p>
+    <p style="margin-top:10px;">이 연결은 단방향이 아닙니다. OncoCare 커뮤니티의 성장이 V.Doc 생태계의 가치를 높이고, 이것이 다시 Enterprise 영업의 설득 근거가 됩니다. Enterprise와 OncoCare는 서로를 강화하는 양방향 성장 엔진입니다.</p>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>OncoCare · AI 기반 재택의료 생태계 사업 제안서 · CONFIDENTIAL</span>
+  <span>7 / 8</span>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 8 — ROADMAP · CLOSING
+═══════════════════════════════════════ -->
+<div class="page">
+<div class="page-inner">
+
+  <div class="doc-meta">
+    <div>
+      <div class="doc-label">
+        <strong>OncoCare · Business Proposal</strong>
+        실행 로드맵 · 데이터 플라이휠 · 투자 제안
+      </div>
+    </div>
+    <div class="doc-date">2026.03<br>Ver 2.0</div>
+  </div>
+
+  <!-- 08 · ROADMAP -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2>실행 로드맵 — 2026 → 2028</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="roadmap">
+      <div class="rm-phase">
+        <div class="rm-phase-tag">Phase 0 · 현재~'26 Q2</div>
+        <h4>PoC 검증</h4>
+        <ul class="rm-items">
+          <li>핑크케어 100명+ 운영</li>
+          <li>4주 성과 지표 검증</li>
+          <li>웨어러블 파트너 MOU</li>
+          <li>수가 획득 전략 수립</li>
+          <li>파일럿 병원 2개소 확보</li>
+        </ul>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-phase-tag" style="color:var(--slate-t);">Phase 1 · '26 Q3~Q4</div>
+        <h4>MVP 정식 론칭</h4>
+        <ul class="rm-items">
+          <li>OncoCare 8개 암종 오픈</li>
+          <li>닥터앤서 병원 파일럿 3개</li>
+          <li>디바이스 데이터 연동 완성</li>
+          <li>V.Doc ↔ OncoCare 연동</li>
+          <li>PHR 유저 3만명 목표</li>
+        </ul>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-phase-tag" style="color:var(--navy-l);">Phase 2 · 2027</div>
+        <h4>생태계 연결</h4>
+        <ul class="rm-items">
+          <li>산학병원 10개 확장</li>
+          <li>재택수가 BM 공식 운영</li>
+          <li>B2C 크레딧 모델 테스트</li>
+          <li>PHR 유저 20만명 달성</li>
+          <li>데이터 플라이휠 가동</li>
+        </ul>
+      </div>
+      <div class="rm-phase">
+        <div class="rm-phase-tag" style="color:var(--steel);">Phase 3 · 2028</div>
+        <h4>수익화 & 확장</h4>
+        <ul class="rm-items">
+          <li>만성질환 확장</li>
+          <li>B2C 유료전환 5%</li>
+          <li>제약사 파트너십 본격화</li>
+          <li>해외 RPM 파트너십</li>
+          <li>연 매출 ₩200억 목표</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 09 · DATA FLYWHEEL -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">09</span>
+      <h2>데이터 플라이휠 — 선순환 성장 구조</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div style="background:var(--cream); padding:16px 18px; margin-top:10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      <span class="chip" style="background:var(--slate-t); color:#fff; border-color:var(--slate-t);">환자 유입 ↑</span>
+      <span style="color:var(--silver); font-size:13px;">→</span>
+      <span class="chip">모니터링 데이터 축적</span>
+      <span style="color:var(--silver); font-size:13px;">→</span>
+      <span class="chip">PHR 연동</span>
+      <span style="color:var(--silver); font-size:13px;">→</span>
+      <span class="chip">AI 정확도 ↑</span>
+      <span style="color:var(--silver); font-size:13px;">→</span>
+      <span class="chip">개인화 경험 ↑</span>
+      <span style="color:var(--silver); font-size:13px;">→</span>
+      <span class="chip">재방문 · 충성</span>
+      <span style="color:var(--silver); font-size:13px;">→</span>
+      <span class="chip" style="background:var(--navy); color:#fff; border-color:var(--navy);">신규 유입 가속</span>
+    </div>
+    <p style="margin-top:8px; font-size:11px; color:var(--muted);">이 순환 구조가 온코케어의 객관적 경쟁우위(Moat)를 형성합니다. 모니터링 데이터 + PHR + 커뮤니티 활동 데이터가 결합될수록 AI가 고도화되고, 환자 경험이 개선되어 더 많은 유입이 발생합니다.</p>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="callout">
+    <p><strong>OncoCare가 더 큰 생태계의 시작점입니다.</strong></p>
+    <p style="margin-top:8px;">의료 커뮤니티에는 이미 수십만 명의 검증된 수요가 존재합니다. 네이버 카페 '아름다운 동행' 하나에만 26만 명이 모입니다. 그러나 이들을 전문적으로 흡수할 AI 플랫폼이 없었습니다.</p>
+    <p style="margin-top:8px;">AITRICS는 <strong>MOCA 엔진 · 닥터앤서 병원 네트워크 · V.Doc PHR</strong>이라는 실제 자산을 이미 보유하고 있습니다. 여기에 웨어러블 디바이스 연동과 OncoCare 지능형 커뮤니티를 결합하면, 어느 하나만으로는 불가능한 재택 의료 생태계가 완성됩니다.</p>
+    <div class="closing-kv">
+      <div>
+        <div class="ckv-val">20<span>만명</span></div>
+        <div class="ckv-label">2027 PHR 유저 목표</div>
+      </div>
+      <div>
+        <div class="ckv-val">8<span>개 암종</span></div>
+        <div class="ckv-label">2026 Q3 오픈</div>
+      </div>
+      <div>
+        <div class="ckv-val">4<span>가지 AI</span></div>
+        <div class="ckv-label">전담 에이전트</div>
+      </div>
+      <div>
+        <div class="ckv-val">₩200<span>억</span></div>
+        <div class="ckv-label">2028 연 매출 목표</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>OncoCare · AI 기반 재택의료 생태계 사업 제안서 · CONFIDENTIAL</span>
+  <span>8 / 8</span>
+</div>
+</div>
+  </div>
   </div><!-- /page-vcare-bm -->
 
 
