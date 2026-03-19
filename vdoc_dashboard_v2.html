@@ -238,6 +238,7 @@ tbody tr:hover{background:var(--bg)}
   .content{padding:12px !important}
   body{background:white}
 }
+.ni{text-decoration:none}
 </style>
 </head>
 <body>
@@ -252,19 +253,21 @@ tbody tr:hover{background:var(--bg)}
   </div>
   <div class="nav-sec">
     <div class="nav-lbl">메인</div>
-    <button class="ni on" onclick="setNav(this)"><span class="ni-ico">⊞</span>대시보드</button>
-    <button class="ni" onclick="setNav(this)"><span class="ni-ico">⊙</span>상세 분석</button>
-    <button class="ni" onclick="setNav(this)"><span class="ni-ico">⊟</span>부서별 현황</button>
+    <a class="ni on" href="vdoc_dashboard_v2.html"><span class="ni-ico">⊞</span>대시보드</a>
   </div>
   <div class="nav-sec">
-    <div class="nav-lbl">결재</div>
-    <button class="ni" onclick="setNav(this)"><span class="ni-ico">✎</span>전자결재<span class="ni-chip">1</span></button>
-    <button class="ni" onclick="setNav(this)"><span class="ni-ico">◷</span>보고서 아카이브</button>
+    <div class="nav-lbl">상세 분석</div>
+    <a class="ni" href="detail_mental.html"><span class="ni-ico">🧠</span>정신건강 지수</a>
+    <a class="ni" href="detail_physical.html"><span class="ni-ico">💪</span>신체건강 지수</a>
+    <a class="ni" href="detail_trends.html"><span class="ni-ico">📈</span>트렌드 분석</a>
+    <a class="ni" href="detail_department.html"><span class="ni-ico">🏢</span>부서 상세 분석</a>
   </div>
   <div class="nav-sec">
     <div class="nav-lbl">관리</div>
-    <button class="ni" onclick="setNav(this)"><span class="ni-ico">◈</span>알림 관리<span class="ni-chip">3</span></button>
-    <button class="ni" onclick="setNav(this)"><span class="ni-ico">⚙</span>시스템 설정</button>
+    <a class="ni" href="detail_approval.html" style="text-decoration:none"><span class="ni-ico">✎</span>전자결재<span class="ni-chip">1</span></a>
+    <a class="ni" href="detail_alerts.html"><span class="ni-ico">⚠️</span>위험 알림 센터<span class="ni-chip">3</span></a>
+    <a class="ni" href="detail_compliance.html"><span class="ni-ico">📋</span>법적 증빙 로그<span class="ni-chip">1</span></a>
+    <a class="ni" href="detail_certification.html"><span class="ni-ico">🏆</span>건강친화 인증</a>
   </div>
   <div class="sb-foot">
     <div class="u-row">
