@@ -11820,13 +11820,84 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
             <div style="padding:14px;background:#F0F4FF;border-radius:8px;border-left:3px solid var(--brand);"><p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--brand)">→ 제품 반영:</strong> 건강 데이터를 대표에게 직접 보고하는 게 아니라, "법적 증빙 보고서"를 자동 생성. 고위험 직원 알림도 대표가 아닌 외부 EAP 기관으로 라우팅합니다.</p></div>
           </div>
         </div>
-        <div style="margin-top:28px;" class="reveal">
-          <h3 style="font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:16px;">구조적 문제 진단 — 현재 설계의 한계</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:16px 18px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--accent-red);color:#fff;border-radius:5px;font-size:10px;font-weight:700;margin-right:8px;vertical-align:middle;">①</span><strong style="font-size:13px;color:var(--text-primary);">구매자·사용자 이해관계 충돌</strong><p style="font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.65;">대표/CFO: 비용 | 직원: 감시 도구 | HR: 추가 업무. 세 이해관계자 중 누구도 적극적으로 원하지 않을 수 있습니다.</p></div>
-            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:16px 18px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--accent-red);color:#fff;border-radius:5px;font-size:10px;font-weight:700;margin-right:8px;vertical-align:middle;">②</span><strong style="font-size:13px;color:var(--text-primary);">"있으면 좋은 것" 포지셔닝의 한계</strong><p style="font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.65;">사무직 150인 기업에서 중대재해처벌법의 처벌 기준(사망 1명+, 요양 부상 동시 2명+)을 체감할 확률은 매우 낮습니다.</p></div>
-            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:16px 18px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--accent-red);color:#fff;border-radius:5px;font-size:10px;font-weight:700;margin-right:8px;vertical-align:middle;">③</span><strong style="font-size:13px;color:var(--text-primary);">Spring Health 모델 직접 대입 불가</strong><p style="font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.65;">미국: 기업이 직원 건강보험 직접 부담 → 정신건강 관리 = 보험료 절감. 한국: 국민건강보험 체계 → 재무적 인센티브 구조 근본적으로 다름.</p></div>
-            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:10px;padding:16px 18px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--accent-red);color:#fff;border-radius:5px;font-size:10px;font-weight:700;margin-right:8px;vertical-align:middle;">④</span><strong style="font-size:13px;color:var(--text-primary);">국내 헬스케어 B2B 시장의 현실</strong><p style="font-size:12.5px;color:var(--text-secondary);margin-top:6px;line-height:1.65;">롯데헬스케어 매출 8억/손실 229억, 올라케어 매각. 현재 설계 그대로는 시장 진입이 어렵습니다. → <strong style="color:var(--brand)">방향 전환(피벗)이 필요합니다.</strong></p></div>
+        <div style="margin-top:36px;" class="reveal">
+          <h3 style="font-size:17px;font-weight:800;color:var(--text-primary);margin-bottom:8px;">구조적 문제 진단 — 현재 설계의 한계</h3>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:20px;">현장 미팅에서 확인된 저항은 단순한 "예산 부족"이 아닙니다. 제품 구조와 시장 인센티브 사이의 근본적 불일치에서 비롯된 것으로, 아래 네 가지 구조적 문제를 직시해야 합니다.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <!-- ① -->
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:12px;padding:22px 22px 20px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;flex-shrink:0;">①</span>
+                <strong style="font-size:13.5px;color:var(--text-primary);line-height:1.4;">구매자 · 사용자 이해관계 충돌</strong>
+              </div>
+              <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;">B2B 헬스케어의 고질적 구조 문제입니다. 돈을 내는 사람(대표·CFO)과 실제로 쓰는 사람(직원)이 다르고, 관리하는 사람(HR)은 추가 업무가 생깁니다.</p>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 12px;background:#FFF0F0;border-radius:7px;">
+                  <span style="font-size:11px;font-weight:700;color:var(--accent-red);white-space:nowrap;margin-top:1px;">대표/CFO</span>
+                  <span style="font-size:12px;color:var(--text-secondary);line-height:1.6;">ROI 불명확한 비용 지출. "직원이 안 아프면 원래 안 아팠을 수도"라는 반증 불가 문제 발생.</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 12px;background:#FFF0F0;border-radius:7px;">
+                  <span style="font-size:11px;font-weight:700;color:var(--accent-red);white-space:nowrap;margin-top:1px;">직원</span>
+                  <span style="font-size:12px;color:var(--text-secondary);line-height:1.6;">건강 데이터가 인사 평가에 활용될 것이라는 불신. 자발적 참여율 저하로 이어짐.</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 12px;background:#FFF0F0;border-radius:7px;">
+                  <span style="font-size:11px;font-weight:700;color:var(--accent-red);white-space:nowrap;margin-top:1px;">HR</span>
+                  <span style="font-size:12px;color:var(--text-secondary);line-height:1.6;">1~2명 규모 HR팀에게 고위험 직원 후속 관리 역량이 없음. 알림을 받아도 대응 불가.</span>
+                </div>
+              </div>
+            </div>
+            <!-- ② -->
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:12px;padding:22px 22px 20px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;flex-shrink:0;">②</span>
+                <strong style="font-size:13.5px;color:var(--text-primary);line-height:1.4;">"있으면 좋은 것" 포지셔닝의 한계</strong>
+              </div>
+              <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;">중대재해처벌법의 처벌 기준은 <strong style="color:var(--text-primary)">사망 1명 이상, 요양 6개월 이상 부상 동시 2명 이상</strong>입니다. 사무직 150인 기업에서 이 기준에 해당할 확률은 현실적으로 매우 낮습니다.</p>
+              <div style="padding:12px 14px;background:#FFF8E1;border-radius:8px;border-left:3px solid #F59E0B;margin-bottom:10px;">
+                <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;"><strong style="color:#92400E;">결과:</strong> 법적 리스크 회피가 구매 동기가 되지 못합니다. "혹시 모르니까"는 월 수십만 원의 SaaS 구독을 정당화하기엔 너무 약한 논거입니다.</p>
+              </div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary)">진짜 "머스트 해브"</strong>가 되려면 법적 의무가 아닌 재무적·운영적 인센티브로 재설계가 필요합니다. 복리후생 비용 절감, 이직률 감소, 생산성 회복 등 측정 가능한 ROI를 전면에 세워야 합니다.</p>
+            </div>
+            <!-- ③ -->
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:12px;padding:22px 22px 20px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;flex-shrink:0;">③</span>
+                <strong style="font-size:13.5px;color:var(--text-primary);line-height:1.4;">Spring Health 모델 직접 대입 불가</strong>
+              </div>
+              <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;">Spring Health(기업가치 약 4조 원)의 성공은 미국 특유의 의료보험 구조에서 나왔습니다. 한국에 그대로 이식할 수 없습니다.</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                <div style="padding:10px 12px;background:#EFF6FF;border-radius:8px;">
+                  <p style="font-size:11px;font-weight:700;color:#1D4ED8;margin-bottom:4px;">🇺🇸 미국 모델</p>
+                  <p style="font-size:11.5px;color:var(--text-secondary);line-height:1.6;">기업이 직원 건강보험을 직접 부담 → 정신건강 치료 → 의료비 절감 → 명확한 ROI</p>
+                </div>
+                <div style="padding:10px 12px;background:#FFF5F5;border-radius:8px;">
+                  <p style="font-size:11px;font-weight:700;color:var(--accent-red);margin-bottom:4px;">🇰🇷 한국 구조</p>
+                  <p style="font-size:11.5px;color:var(--text-secondary);line-height:1.6;">국민건강보험 체계 → 기업이 의료비 절감 혜택을 직접 수취하는 구조 자체가 없음</p>
+                </div>
+              </div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary)">함의:</strong> 한국 시장에서는 의료비가 아닌 <em>생산성 손실 비용, 이직 비용, 채용 브랜딩 가치</em>로 ROI 논거를 완전히 새로 구성해야 합니다.</p>
+            </div>
+            <!-- ④ -->
+            <div style="background:#FAFAFA;border:1px solid var(--border-light);border-radius:12px;padding:22px 22px 20px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent-red);color:#fff;border-radius:6px;font-size:11px;font-weight:700;flex-shrink:0;">④</span>
+                <strong style="font-size:13.5px;color:var(--text-primary);line-height:1.4;">국내 헬스케어 B2B 시장의 냉혹한 현실</strong>
+              </div>
+              <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;">선행 플레이어들의 실패는 시장 부재가 아닌 <strong style="color:var(--text-primary)">가치 제안과 인센티브 구조의 불일치</strong>에서 비롯됐습니다.</p>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+                <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 12px;background:#FFF0F0;border-radius:7px;">
+                  <span style="font-size:11.5px;font-weight:700;color:var(--accent-red);white-space:nowrap;flex-shrink:0;">롯데헬스케어</span>
+                  <span style="font-size:12px;color:var(--text-secondary);line-height:1.6;">매출 8억 원 / 영업손실 229억 원. 대기업 계열사 자원에도 불구하고 지불 의사가 있는 시장 확보 실패.</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 12px;background:#FFF0F0;border-radius:7px;">
+                  <span style="font-size:11.5px;font-weight:700;color:var(--accent-red);white-space:nowrap;flex-shrink:0;">올라케어</span>
+                  <span style="font-size:12px;color:var(--text-secondary);line-height:1.6;">비대면 진료 플랫폼으로 주목받았으나 결국 매각. B2B 전환 전략 한계 노출.</span>
+                </div>
+              </div>
+              <div style="padding:12px 14px;background:linear-gradient(135deg,#FFF5F5,#FFF0F8);border-radius:8px;border-left:3px solid var(--accent-red);">
+                <p style="font-size:12.5px;line-height:1.7;"><strong style="color:var(--accent-red)">결론:</strong> <span style="color:var(--text-secondary)">현재 설계 그대로는 이들과 같은 경로를 밟을 가능성이 높습니다. </span><strong style="color:var(--brand)">구조적 피벗이 필요합니다.</strong></p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
