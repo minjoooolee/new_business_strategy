@@ -1313,10 +1313,110 @@ section > p {
 
   <hr class="hr">
 
-  <!-- 07-3d · REVENUE PROJECTION -->
+  <!-- 07-3d · PRO LICENSING MECHANISM -->
   <section>
     <div class="sec-head">
       <span class="sec-num">07-3d</span>
+      <h2>PRO 라이선싱 — 닥터앤서 × OncoCare가 만드는 RWE 데이터</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p>BM3의 수익 구조를 근본적으로 강화하는 메커니즘이 있습니다. 닥터앤서 3.0의 PRO 수집 모듈(증상 트래킹, 삶의 질 설문, 치료 일지)을 OncoCare 앱 안에 심어서, 환우가 커뮤니티 활동을 하면서 자연스럽게 PRO 데이터도 남기는 구조입니다.</p>
+
+    <div class="pull">
+      <p>"닥터앤서에서는 의사가 시켜서 하는 것이지만, OncoCare에서는 환우가 '내 건강 관리를 위해' 자발적으로 합니다. 자발적이니까 지속성이 높고, 지속성이 높으니까 시계열 데이터가 밀도 있게 쌓입니다. 이 밀도가 제약사에게 단가 프리미엄의 근거가 됩니다."</p>
+    </div>
+
+    <p style="margin-top:10px;">이 구조가 만드는 데이터는 세 가지가 하나의 환자 ID로 연결됩니다:</p>
+
+    <div class="three-col" style="margin-top:10px;">
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">데이터 ①</div>
+        <h3>병원 임상 데이터</h3>
+        <p>닥터앤서 경유 — 진단코드, 병리 리포트, 처방 이력, 검사 수치 시계열</p>
+      </div>
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">데이터 ②</div>
+        <h3>환자 자가 보고(PRO)</h3>
+        <p>OncoCare 커뮤니티 — 증상, 부작용, 삶의 질, 치료 일지. 커뮤니티 활동 중 자연스럽게 수집</p>
+      </div>
+      <div class="card navy-bg">
+        <div class="card-label" style="color:rgba(255,255,255,.4);">결합 결과</div>
+        <h3>RWE 등급 통합 데이터</h3>
+        <p>하나의 환자 ID로 연결된 임상+PRO 데이터. 제약사가 별도 RWE 연구 없이 확보 가능</p>
+      </div>
+    </div>
+
+    <!-- PRO comparison table -->
+    <table class="cmp-table" style="margin-top:16px;">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:140px;">비교 항목</th>
+          <th>기존 PRO 수집<br>(병원 주도)</th>
+          <th class="aitrics-col" style="background:var(--slate-t); font-weight:700;">OncoCare PRO<br>(커뮤니티 기반)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">수집 방식</td>
+          <td>의사 지시 → 환자가 의무적으로 작성</td>
+          <td class="aitrics-col">커뮤니티 활동 중 자발적 보고</td>
+        </tr>
+        <tr>
+          <td class="label-col">수집 빈도</td>
+          <td>외래 방문 시에만 (3~6개월 간격)</td>
+          <td class="aitrics-col">커뮤니티 접속 시마다 (주 수회)</td>
+        </tr>
+        <tr>
+          <td class="label-col">데이터 밀도</td>
+          <td>단발적, 시계열 부족</td>
+          <td class="aitrics-col">일상적 연속 데이터 (5~10배 밀도)</td>
+        </tr>
+        <tr>
+          <td class="label-col">수집 비용</td>
+          <td>건당 비용 발생 (간호사 인건비)</td>
+          <td class="aitrics-col">커뮤니티 운영 비용에 포함 (한계비용 ~0)</td>
+        </tr>
+        <tr>
+          <td class="label-col">환자 탈락률</td>
+          <td>높음 (의무감 → 피로 누적)</td>
+          <td class="aitrics-col">낮음 (소속감·개인 관리 동기로 지속)</td>
+        </tr>
+        <tr>
+          <td class="label-col">임상 데이터 연결</td>
+          <td>같은 병원 내에서만</td>
+          <td class="aitrics-col">닥터앤서 병원 네트워크 전체와 연결</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- HOW IT WORKS -->
+    <p style="margin-top:16px; font-size:12px; color:var(--steel); font-weight:700;">커뮤니티 활동 = PRO 수집이 되는 설계:</p>
+    <table class="data-table" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:200px;">커뮤니티 활동</th>
+          <th>뒤에서 수집되는 PRO 데이터</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label-col">검사 결과 해석 에이전트 사용</td><td>"최근 증상이 어떠셨어요?" 자연스럽게 질문 → 증상 PRO 수집</td></tr>
+        <tr><td class="label-col">커뮤니티 게시글 작성</td><td>"부작용이 있었어요" 자연어를 AI가 구조화 → PRO 코딩</td></tr>
+        <tr><td class="label-col">치료 일지 기능 (매일 3초)</td><td>"오늘의 컨디션" 이모지 입력 → 연속 PRO 시계열</td></tr>
+        <tr><td class="label-col">닥터앤서 c-rehab/g-rehab 체크인</td><td>표준 PRO 척도(FACT-G, EORTC QLQ) 자동 삽입</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top:16px;">
+      <p><strong>PRO 라이선싱의 핵심:</strong> 제약사에게 "병원에서 의사가 기록한 데이터 + 퇴원 후 환자가 직접 보고한 데이터가 하나의 환자 ID로 연결됩니다"라고 말할 수 있으면, 이것은 기존 PRO 라이선싱 단가를 근본적으로 바꾸는 차별점입니다. 글로벌 RWE 종양학 시장은 2025년 약 8.9억 달러에서 2035년 35억 달러로 성장 전망이며, OncoCare는 이 시장의 데이터 공급자 포지션을 노립니다.</p>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- 07-3e · REVENUE PROJECTION -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07-3e</span>
       <h2>수익 프로젝션 — PHR 연동 전후 비교</h2>
       <div class="sec-rule"></div>
     </div>
@@ -1373,10 +1473,10 @@ section > p {
 
   <hr class="hr">
 
-  <!-- 07-3e · GLOBAL VALIDATION -->
+  <!-- 07-3f · GLOBAL VALIDATION -->
   <section>
     <div class="sec-head">
-      <span class="sec-num">07-3e</span>
+      <span class="sec-num">07-3f</span>
       <h2>글로벌 시장 검증 — 이미 작동하는 모델</h2>
       <div class="sec-rule"></div>
     </div>
