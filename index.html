@@ -2746,6 +2746,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             BM&amp;결론
           </a>
+          <a href="#" onclick="navigateVcare('faq', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            예상질문
+          </a>
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             웹사이트
@@ -9697,6 +9701,277 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
       onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='6000px';}})(this)"
     ></iframe>
   </div><!-- /page-vcare-bm -->
+  <!-- ===== VCARE FAQ PAGE ===== -->
+  <div class="page-section" id="page-vcare-faq">
+  <style>
+  #page-vcare-faq {
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 0 0 80px;
+    font-family: 'Pretendard', sans-serif;
+  }
+  #page-vcare-faq .faq-header {
+    max-width: 860px; margin: 0 auto;
+    padding: 60px 40px 40px;
+  }
+  #page-vcare-faq .faq-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  #page-vcare-faq .faq-eyebrow::before {
+    content: ''; display: block; width: 20px; height: 1px; background: var(--accent);
+  }
+  #page-vcare-faq .faq-title {
+    font-size: 36px; font-weight: 900; letter-spacing: -1px;
+    line-height: 1.2; margin-bottom: 12px; color: var(--text);
+  }
+  #page-vcare-faq .faq-title em { font-style: normal; color: var(--accent2); }
+  #page-vcare-faq .faq-lead {
+    font-size: 14px; color: var(--text-muted); line-height: 1.8;
+  }
+  #page-vcare-faq .faq-body {
+    max-width: 860px; margin: 0 auto; padding: 0 40px;
+  }
+  #page-vcare-faq .faq-category {
+    margin-bottom: 40px;
+  }
+  #page-vcare-faq .faq-cat-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-dim);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  #page-vcare-faq .faq-cat-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  #page-vcare-faq .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  #page-vcare-faq .faq-item.open {
+    border-color: rgba(61,127,255,.35);
+  }
+  #page-vcare-faq .faq-q {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 22px; cursor: pointer;
+    user-select: none;
+  }
+  #page-vcare-faq .faq-q:hover { background: var(--surface2); }
+  #page-vcare-faq .faq-q-icon {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(61,127,255,.12); border: 1px solid rgba(61,127,255,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: var(--accent);
+  }
+  #page-vcare-faq .faq-q-text {
+    flex: 1; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.5;
+  }
+  #page-vcare-faq .faq-q-arrow {
+    width: 20px; height: 20px; flex-shrink: 0;
+    color: var(--text-dim); transition: transform .25s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #page-vcare-faq .faq-item.open .faq-q-arrow {
+    transform: rotate(180deg);
+  }
+  #page-vcare-faq .faq-a {
+    display: none;
+    padding: 0 22px 20px 60px;
+    font-size: 13.5px; color: var(--text-muted); line-height: 1.9;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  #page-vcare-faq .faq-item.open .faq-a { display: block; }
+  #page-vcare-faq .faq-a strong { color: var(--text); }
+  #page-vcare-faq .faq-a .faq-tag {
+    display: inline-flex; align-items: center;
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 5px;
+    margin-left: 6px; vertical-align: middle;
+  }
+  #page-vcare-faq .faq-a .tag-ok {
+    background: rgba(0,212,160,.1); color: var(--accent2);
+    border: 1px solid rgba(0,212,160,.2);
+  }
+  #page-vcare-faq .faq-a .tag-warn {
+    background: rgba(240,165,0,.1); color: var(--accent3);
+    border: 1px solid rgba(240,165,0,.2);
+  }
+  #page-vcare-faq .faq-a .tag-phase {
+    background: rgba(61,127,255,.1); color: var(--accent);
+    border: 1px solid rgba(61,127,255,.2);
+  }
+  </style>
+
+  <div class="faq-header">
+    <div class="faq-eyebrow">OncoCare · Expected Questions</div>
+    <h2 class="faq-title">예상 <em>질문 & 답변</em></h2>
+    <p class="faq-lead">발표 또는 내부 검토 시 제기될 수 있는 주요 질문과 준비된 답변입니다.</p>
+  </div>
+
+  <div class="faq-body">
+
+    <!-- 카테고리 1: 사업 모델 -->
+    <div class="faq-category">
+      <div class="faq-cat-label">사업 모델</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">커뮤니티가 수익이 되려면 얼마나 걸리나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          수익화는 3단계로 진행됩니다. <strong>Phase 1(0~12개월)</strong>은 커뮤니티 구축 및 데이터 축적 기간으로 매출 없음. <strong>Phase 2(12~24개월)</strong>부터 B2C 유료 멤버십 + 병원향 SaaS(BM2) 수익 발생. <strong>Phase 3(24개월+)</strong>에서 제약사 데이터 라이선싱(BM3)이 본격화됩니다. 커뮤니티는 수단이고 데이터가 목적이므로, 초기 투자 기간을 감수하는 구조입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">PatientsLikeMe, 카카오 헬스케어 등 기존 플레이어 대비 차별점이 무엇인가요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          세 가지 구조적 차별점이 있습니다. <strong>① 바이오마커 연계:</strong> PatientsLikeMe는 자가보고 기반이라 분자 프로파일이 없습니다. 온코케어는 검사결과지 업로드로 HER2, Ki-67 등 바이오마커와 PRO를 결합합니다. <strong>② 한국인 특화:</strong> 위암·대장암은 아시아 집중 암종으로, 미국 플랫폼에는 데이터가 거의 없습니다. <strong>③ 닥터앤서 3.0 연계:</strong> 웨어러블 생체신호 데이터와의 결합은 글로벌 어떤 플랫폼도 갖지 못한 구조입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">제약사가 실제로 돈을 낼 이유가 있나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          임상시험 환자 모집 비용은 건당 수백만 원 수준입니다. 온코케어가 "HER2 3+ 유방암 환우 200명의 바이오마커 + PRO 통합 프로파일"을 보유하면, 제약사 입장에서는 임상 모집 채널이자 RWE(실사용 근거) 데이터 공급원입니다. 특히 한국 위암 데이터는 <strong>글로벌 빅파마가 다른 곳에서는 살 수 없는</strong> 데이터입니다. 첫 계약은 성과 기반(매칭 성공 시 과금)으로 진입 장벽을 낮출 계획입니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 2: 운영 & 실행 -->
+    <div class="faq-category">
+      <div class="faq-cat-label">운영 & 실행</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">처음에 어떻게 사람을 모을 건가요? (콜드 스타트 문제)</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          핑크케어 PoC에서 확인한 방법을 그대로 적용합니다. <strong>① 귀하의채널 등 기존 암 커뮤니티 앰배서더 3~5명 선발</strong> — 이미 커뮤니티 안에서 신뢰를 가진 환우가 직접 초대하는 구조. <strong>② 세브란스·삼성서울병원 외래 QR코드 배포</strong>로 진단 직후 환우 유입. <strong>③ AI 에이전트가 24시간 답변</strong>하므로 초기 활성도를 인력 없이 유지 가능. PoC에서 "사람들을 모은 건 기능이 아니라 사람"이었다는 인사이트를 반영한 전략입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">의료진은 어떻게 확보하나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          단계적으로 접근합니다. <strong>1차(Phase 1):</strong> AI가 초안 답변을 작성하고 의료진이 검토·확인 배지를 부여하는 구조 — 의료진 시간 부담을 최소화. <strong>2차(Phase 2):</strong> aitrics의 VitalCare 100개 병원 네트워크 활용, 유방외과·종양내과 전공의·교수 대상 콘텐츠 기여 프로그램 운영. <strong>3차(Phase 3):</strong> 데이터 공동연구 제안으로 학회 발표 기회를 제공해 의료진 참여 동기 강화.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">운영 인력은 얼마나 필요한가요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          <strong>Phase 1 기준 5~7인 구성이 필요합니다.</strong> AI가 각 영역을 보조하지만 의료 커뮤니티 특성상 사람의 판단이 반드시 필요합니다.<br><br>
+          <strong>신규 채용:</strong> UX/UI 디자이너 1명, AI 엔지니어 1명<br>
+          <strong>전담 조직 배정:</strong> 프론트엔드 개발자, 백엔드 개발자<br>
+          <strong>겸직:</strong> 그로스 마케터 1명, PM이 콘텐츠 마케팅도 겸임<br><br>
+          단, <strong>PM의 콘텐츠 마케팅 겸임은 번아웃 리스크</strong>가 있으므로 Phase 2 전환 시 전담 콘텐츠 인력 충원이 필요합니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 3: 법률 & 데이터 -->
+    <div class="faq-category">
+      <div class="faq-cat-label">법률 & 데이터</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">환자 데이터를 수집해서 제약사에 파는 게 법적으로 문제없나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          개인정보보호법상 <strong>가명정보 처리 특례</strong>에 의해 "과학적 연구 목적"의 유상 제공이 가능한 경로가 있습니다. 단, <strong>가명처리 → DRB 심의 → 추가정보 분리 보관 → 재식별 금지</strong> 절차를 모두 갖춰야 합니다. 법적으로 불가능한 구조는 아니나, <strong>Phase 2 진입 전 법무 검토가 반드시 선행</strong>되어야 합니다. <span class="faq-tag tag-warn">법무 검토 필요</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">데이터를 팔아서 돈 버는 거라고 반발하지 않나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          커뮤니티 신뢰 붕괴가 가장 치명적인 리스크임을 인지하고 있습니다. 대응 원칙 세 가지: <strong>① 모든 데이터 활용은 선택 동의 기반</strong> (강제 없음), <strong>② 비식별화 과정 투명 공개</strong>, <strong>③ 수익의 일부를 암환우 지원 기금으로 환원</strong>하는 프로그램 운영. "당신의 데이터가 신약 개발에 기여합니다"라는 피드백을 지속적으로 제공해 데이터 제공 자체가 환우에게 의미있는 행위가 되도록 설계합니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">AI 답변의 의료 오류 책임은 누가 지나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          온코케어의 AI는 <strong>"진단"이 아닌 "정보 제공"</strong>으로 포지셔닝합니다. 의료진이 검토한 답변에만 "✓ 의료진 확인" 배지를 부여하고, 미검토 AI 답변에는 명확히 "참고용 정보이며 의료 판단을 대체하지 않습니다" 면책 고지를 표시합니다. 식약처 SaMD 분류에 해당하지 않도록 특정 질환명 진단 기능은 Phase 2 이후 규제 정리 후 추가합니다. <span class="faq-tag tag-phase">Phase 2 검토</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 4: aitrics 내부 -->
+    <div class="faq-category">
+      <div class="faq-cat-label">aitrics 내부</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">이게 aitrics의 기존 B2B 병원 사업과 충돌하지 않나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          충돌이 아닌 <strong>시너지</strong>입니다. 기존 사업(VitalCare, 닥터앤서)은 병원 안(In-hospital) 데이터를 다룹니다. 온코케어는 병원 밖(Out-of-hospital) 환자 경험 데이터를 수집합니다. 두 데이터가 결합될 때 "임상 데이터 + 환자 경험 데이터"라는 글로벌 어디에도 없는 멀티레이어 데이터셋이 완성됩니다. 닥터앤서 3.0의 목표인 "퇴원 후 연속적인 건강관리"를 온코케어 커뮤니티가 실현하는 구조입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">핑크케어 PoC에서 배운 가장 중요한 교훈은 무엇인가요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          세 가지입니다. <strong>① 사람이 사람을 모은다</strong> — 기능이 아니라 신뢰할 수 있는 앰배서더가 커뮤니티를 살린다. <strong>② 진단~수술 대기 구간이 가장 취약하다</strong> — 이 시점의 환우가 가장 절박하게 정보를 찾고, 가장 충성도가 높은 초기 유저가 된다. <strong>③ AI 신뢰도 문제는 의료진 검증으로 해결한다</strong> — "AI가 틀릴 수 있다"는 공포를 "의료진이 확인한 정보"라는 배지로 상쇄할 수 있다.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  function toggleFaq(el) {
+    var item = el.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    // 같은 카테고리 내 다른 항목은 닫지 않음 (여러 개 동시 열기 가능)
+    item.classList.toggle('open', !isOpen);
+  }
+  </script>
+
+  </div><!-- /page-vcare-faq -->
+
 
 
   <!-- ===== DASHBOARD PAGE ===== -->
@@ -11248,6 +11523,8 @@ function navigateVcare(sub, e) {
     window.location.hash = 'pinkcare-retrospective';
   } else if (sub === 'bm') {
     window.location.hash = 'vcare-bm';
+  } else if (sub === 'faq') {
+    window.location.hash = 'vcare-faq';
   }
 }
 
@@ -11301,7 +11578,7 @@ function applyHash(hash) {
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
-  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective') {
+  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective' || page === 'vcare-faq') {
     const vcareBtn = document.getElementById('vcareBtn');
     if (vcareBtn) vcareBtn.classList.add('active');
   } else {
