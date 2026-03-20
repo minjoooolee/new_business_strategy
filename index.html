@@ -9934,9 +9934,42 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
           온코케어의 AI는 <strong>"진단"이 아닌 "정보 제공"</strong>으로 포지셔닝합니다. 의료진이 검토한 답변에만 "✓ 의료진 확인" 배지를 부여하고, 미검토 AI 답변에는 명확히 "참고용 정보이며 의료 판단을 대체하지 않습니다" 면책 고지를 표시합니다. 식약처 SaMD 분류에 해당하지 않도록 특정 질환명 진단 기능은 Phase 2 이후 규제 정리 후 추가합니다. <span class="faq-tag tag-phase">Phase 2 검토</span>
         </div>
       </div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-icon">Q</div>
+          <div class="faq-q-text">가명화된 검사결과지 데이터와 PRO 데이터, 어떻게 매칭하나요?</div>
+          <div class="faq-q-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="faq-a">
+          <strong>매칭이 필요 없습니다.</strong> 두 데이터 모두 같은 사람이 같은 플랫폼에서 만들기 때문입니다.<br><br>
 
-    <!-- 카테고리 4: aitrics 내부 -->
+          환우 A가 온코케어에 가입하는 순간 내부에서 <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">user_4827</code> 같은 고유 ID가 생성됩니다. 이 ID가 모든 걸 연결하는 열쇠입니다.<br><br>
+
+          <strong>트랙 1 — 검사결과지:</strong> 조직검사 결과지 업로드 → AI OCR·파싱으로 ER+/PR+/HER2 3+/Ki-67 40% 추출 → <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">user_4827</code>에 연결 저장 → 원본 이미지 30일 후 파기<br><br>
+
+          <strong>트랙 2 — PRO:</strong> 같은 환우 A가 주간 증상 체크리스트 작성 → "구역감 3/5, 손발 저림 4/5, 수면 질 2/5" → 동일하게 <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">user_4827</code>에 연결 저장<br><br>
+
+          처음부터 하나의 ID 아래 쌓이므로 별도 매칭 로직이 없습니다. <strong>제약사에 넘길 때</strong>는 <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">user_4827</code>을 해시 처리해 <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">profile_anon_X92K</code>로 변환합니다. 이름·생년월일·병원명은 이미 없고, 나이도 "40대"로 범위화합니다.<br><br>
+
+          <strong>제약사가 받는 데이터:</strong><br>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px;line-height:1.9;font-family:monospace;color:var(--text-muted);">
+            profile_anon_X92K<br>
+            ├── 여성, 40대, 유방암 3기<br>
+            ├── ER+, PR+, HER2 3+, Ki-67 40%<br>
+            ├── 주간 증상 추이: 구역감 3→2→1, 저림 4→4→3<br>
+            ├── 삶의 질 추이: EORTC 62→68→71<br>
+            └── 치료 레지먼: 도세탁셀, 3주 간격
+          </div>
+
+          병원 EMR에는 진료 시점의 스냅샷만 있습니다. <strong>진료와 진료 사이 3주 동안 환자가 뭘 겪었는지는 없습니다.</strong> 그게 PRO의 가치이고, 바이오마커와 결합되어야 의미가 생기는 이유입니다.<br><br>
+
+          <strong>기술적으로 필요한 것:</strong> 복잡한 매칭 알고리즘이 아닙니다. 처음부터 <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">user_id</code>를 중심으로 검사결과지·PRO 데이터가 관계형으로 묶이는 DB 스키마 설계가 전부입니다. <strong>Phase 1 백엔드 개발 첫 2주에 이 스키마를 잡아놓으면 끝</strong>입니다.<br><br>
+
+          단, 매핑 테이블(<code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:12px;">user_4827</code> ↔ 실제 계정)은 반드시 분리 보관하고 접근 권한을 최소화해야 합니다. 이건 법무 검토에서 확인할 가명정보 요건입니다. <span class="faq-tag tag-warn">법무 검토 필요</span>
+        </div>
+      </div>
+
+    </div>
     <div class="faq-category">
       <div class="faq-cat-label">aitrics 내부</div>
 
