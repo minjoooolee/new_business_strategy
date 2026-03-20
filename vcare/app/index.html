@@ -4021,6 +4021,8 @@ function closeSignupOverlay() {
   // 프로필 아바타 업데이트
   const avatarEl = document.querySelector('.home-avatar');
   if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
+  // 가입 완료 상태 저장 (새로고침 시에도 로그인 화면 안 뜨게)
+  try { sessionStorage.setItem('oncocare_signed_up', JSON.stringify(signupData)); } catch(e) {}
 }
 
 function goHomeAfterSignup() {
@@ -4279,14 +4281,25 @@ function renderDrugCard(r, idx) {
   `;
 }
 
+// 매칭 폼 초기 HTML 저장
+let matchingFormOriginalHTML = '';
+document.addEventListener('DOMContentLoaded', () => {
+  const mt = document.getElementById('cohort-tab-matching');
+  if (mt) matchingFormOriginalHTML = mt.innerHTML;
+});
+// 페이지 로드 직후에도 저장 (DOMContentLoaded 이후 스크립트 실행 시)
+(function() {
+  const mt = document.getElementById('cohort-tab-matching');
+  if (mt && !matchingFormOriginalHTML) matchingFormOriginalHTML = mt.innerHTML;
+})();
+
 function resetMatchingForm() {
   const matchingTab = document.getElementById('cohort-tab-matching');
-  matchingTab.remove();
-  // 탭 콘텐츠를 다시 생성
-  const tabContainer = document.querySelector('#sub-cohort-main > div:last-of-type') || document.querySelector('.cohort-tab-content:last-of-type').parentElement;
-  // 간단히 페이지 전체를 다시 로드하는 대신, board 탭으로 전환
+  if (matchingTab && matchingFormOriginalHTML) {
+    matchingTab.innerHTML = matchingFormOriginalHTML;
+  }
+  // board 탭으로 전환
   switchCohortTab('board', document.querySelector('.cohort-inner-tab'));
-  location.reload();
 }
 
 function filterResults(btn, filter) {
@@ -4298,8 +4311,24 @@ function filterResults(btn, filter) {
   });
 }
 
-// 초기 렌더링
-renderSignup();
+// 초기 렌더링 — 가입 완료 상태면 로그인 화면 건너뜀
+(function initSignup() {
+  try {
+    const saved = sessionStorage.getItem('oncocare_signed_up');
+    if (saved) {
+      const data = JSON.parse(saved);
+      Object.assign(signupData, data);
+      const overlay = document.getElementById('signupOverlay');
+      overlay.style.display = 'none';
+      overlay.style.opacity = '0';
+      // 아바타 복원
+      const avatarEl = document.querySelector('.home-avatar');
+      if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
+      return;
+    }
+  } catch(e) {}
+  renderSignup();
+})();
 
 // Tab switching
 function switchTab(name, el) {
