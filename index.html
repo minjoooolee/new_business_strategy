@@ -13522,8 +13522,20 @@ applyHash(window.location.hash || '#goal');
 
   function initCdObserver() {
     document.querySelectorAll('.cd-section').forEach(function(s) {
+      var rect = s.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        s.classList.add('visible');
+      }
       cdObserver.observe(s);
     });
+    setTimeout(function() {
+      document.querySelectorAll('.cd-section').forEach(function(s) {
+        var rect = s.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          s.classList.add('visible');
+        }
+      });
+    }, 200);
   }
 
   // nav-pill 클릭 시 hash 라우터 간섭 방지 + 대상 섹션 즉시 visible 처리
@@ -13560,8 +13572,14 @@ applyHash(window.location.hash || '#goal');
   // 회고 페이지가 활성화될 때 옵저버 초기화
   const targetNode = document.getElementById('page-pinkcare-retrospective');
   if (targetNode) {
+    // 이미 active 상태면 즉시 실행
+    if (targetNode.classList.contains('active')) {
+      setTimeout(initCdObserver, 100);
+    }
     const mutObs = new MutationObserver(function() {
-      if (targetNode.classList.contains('active')) initCdObserver();
+      if (targetNode.classList.contains('active')) {
+        setTimeout(initCdObserver, 100);
+      }
     });
     mutObs.observe(targetNode, { attributes: true, attributeFilter: ['class'] });
   }
