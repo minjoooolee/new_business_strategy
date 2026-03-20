@@ -1512,6 +1512,386 @@ body {
 .upl-mask-actions { display:flex; gap:8px; }
 .upl-mask-auto { flex:1; display:flex; align-items:center; justify-content:center; gap:4px; padding:10px; font-size:12px; font-weight:600; border:1px solid var(--border); background:var(--bg-soft); border-radius:8px; cursor:pointer; color:var(--sub); font-family:var(--font); }
 .upl-mask-done { flex:1.5; padding:10px; font-size:12px; font-weight:600; border:none; background:linear-gradient(135deg,#8b5cf6,#a855f7); color:#fff; border-radius:8px; cursor:pointer; font-family:var(--font); }
+
+/* ===== REPORT (검사기록지) SCREEN ===== */
+.rpt-section {
+  padding: 0 20px 8px;
+}
+.rpt-step-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #6E3FA3;
+  background: rgba(110,63,163,0.08);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.rpt-intro-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+}
+.rpt-intro-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(110,63,163,0.08);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
+}
+.rpt-intro-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.rpt-intro-list {
+  text-align: left;
+  margin-bottom: 16px;
+}
+.rpt-intro-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.rpt-intro-row:last-child { border-bottom: none; }
+.rpt-intro-label {
+  color: var(--sub);
+  font-weight: 500;
+}
+.rpt-intro-value {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+}
+.rpt-legal-box {
+  background: var(--bg-soft);
+  border-radius: var(--radius-xs);
+  padding: 12px 14px;
+  font-size: 11px;
+  color: var(--sub);
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Consent card */
+.rpt-consent-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.rpt-consent-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.rpt-consent-item {
+  margin-bottom: 12px;
+}
+.rpt-consent-item:last-child { margin-bottom: 0; }
+.rpt-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.rpt-checkbox {
+  display: none;
+}
+.rpt-checkbox-custom {
+  width: 20px; height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 5px;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.15s;
+}
+.rpt-checkbox:checked + .rpt-checkbox-custom {
+  background: #6E3FA3;
+  border-color: #6E3FA3;
+}
+.rpt-checkbox:checked + .rpt-checkbox-custom::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 6px;
+  width: 5px; height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.rpt-checkbox-label {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+}
+.rpt-checkbox-label b {
+  color: #6E3FA3;
+  font-weight: 700;
+}
+.rpt-accordion-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  margin-left: 30px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: var(--font);
+}
+.rpt-accordion-btn svg {
+  transition: transform 0.2s;
+}
+.rpt-accordion-btn.open svg {
+  transform: rotate(180deg);
+}
+.rpt-accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-left: 30px;
+}
+.rpt-accordion-body.open {
+  max-height: 200px;
+}
+.rpt-accordion-content {
+  padding: 10px 14px;
+  margin-top: 8px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  color: var(--sub);
+  line-height: 1.7;
+}
+
+/* Upload card */
+.rpt-upload-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.rpt-upload-lock {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 5;
+  border-radius: var(--radius);
+}
+.rpt-upload-lock span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.rpt-upload-lock.hidden {
+  display: none;
+}
+.rpt-upload-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* Radio & field groups */
+.rpt-field-group {
+  margin-bottom: 18px;
+}
+.rpt-field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.rpt-required {
+  font-size: 10px;
+  font-weight: 600;
+  color: #ef4444;
+  margin-left: 4px;
+}
+.rpt-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rpt-radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.rpt-radio input[type="radio"] {
+  display: none;
+}
+.rpt-radio-custom {
+  width: 16px; height: 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.15s;
+}
+.rpt-radio input[type="radio"]:checked ~ .rpt-radio-custom {
+  border-color: #6E3FA3;
+}
+.rpt-radio input[type="radio"]:checked ~ .rpt-radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 6px; height: 6px;
+  background: #6E3FA3;
+  border-radius: 50%;
+}
+.rpt-radio:has(input:checked) {
+  border-color: #6E3FA3;
+  background: rgba(110,63,163,0.04);
+}
+
+/* Upload zone */
+.rpt-upload-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: var(--radius-sm);
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.rpt-upload-zone:hover {
+  border-color: #6E3FA3;
+}
+.rpt-upload-zone-text {
+  font-size: 13px;
+  color: var(--sub);
+  line-height: 1.5;
+}
+.rpt-upload-zone-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+.rpt-upload-previews {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.rpt-preview-item {
+  position: relative;
+  width: 72px; height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.rpt-preview-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.rpt-preview-remove {
+  position: absolute;
+  top: 2px; right: 2px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+}
+.rpt-upload-tip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #f59e0b;
+}
+
+/* Submit button */
+.rpt-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: #d1d5db;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+.rpt-submit-btn.enabled {
+  background: linear-gradient(135deg, #6E3FA3, #8b5cf6);
+  cursor: pointer;
+}
+.rpt-submit-btn.enabled:active {
+  transform: scale(0.98);
+}
+
+/* Toast */
+.rpt-toast {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  max-width: 320px;
+  z-index: 200;
+}
+.rpt-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
 </style>
 </head>
 <body>
@@ -1703,108 +2083,154 @@ body {
       </div>
     </div>
 
-    <!-- FEED SCREEN -->
+    <!-- REPORT SCREEN (검사기록지) -->
     <div class="screen" id="screen-feed">
       <div class="screen-header">
-        <h1>피드</h1>
+        <h1>검사기록지</h1>
       </div>
 
-      <div class="compose-card">
-        <div class="compose-avatar">😊</div>
-        <div class="compose-input">오늘 하루는 어떠신가요?</div>
-      </div>
-
-      <!-- Feed Card 1 -->
-      <div class="feed-card">
-        <div class="feed-card-header">
-          <div class="feed-avatar" style="background: linear-gradient(135deg, #3fbfbc, #6E3FA3);">v</div>
-          <div class="feed-author-info">
-            <div class="feed-author">onco.care 메디컬팀 <span class="feed-badge badge-official">Official</span></div>
-            <div class="feed-date">3시간 전</div>
+      <!-- ── 1단계: 서비스 안내 카드 ── -->
+      <div class="rpt-section">
+        <div class="rpt-step-badge">STEP 1</div>
+        <div class="rpt-intro-card">
+          <div class="rpt-intro-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6E3FA3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
           </div>
-        </div>
-        <div class="feed-title">이번 주 건강 트렌드</div>
-        <div class="feed-text">2026년 3월 둘째 주 주요 건강 이슈를 정리했습니다. 최근 면역 항암제 병용 요법의 효과에 대한 새로운 연구 결과가 발표되었으며, 개인 맞춤형 영양 관리의 중요성이 다시 한번 강조되고 있습니다.</div>
-        <div class="feed-actions">
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            42
+          <h2 class="rpt-intro-title">검사결과지, 쉽게 설명해 드려요</h2>
+          <div class="rpt-intro-list">
+            <div class="rpt-intro-row">
+              <span class="rpt-intro-label">대상 질환</span>
+              <span class="rpt-intro-value">유방암 · 위암 · 대장암</span>
+            </div>
+            <div class="rpt-intro-row">
+              <span class="rpt-intro-label">대상 검사</span>
+              <span class="rpt-intro-value">조직검사 결과지, 종양표지자 결과지</span>
+            </div>
+            <div class="rpt-intro-row">
+              <span class="rpt-intro-label">비용</span>
+              <span class="rpt-intro-value" style="color:#10b981;font-weight:700">무료</span>
+            </div>
           </div>
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            18
-          </div>
-        </div>
-      </div>
-
-      <!-- Feed Card 2 -->
-      <div class="feed-card">
-        <div class="feed-card-header">
-          <div class="feed-avatar" style="background: #e0e7ff; color: #6366f1;">환</div>
-          <div class="feed-author-info">
-            <div class="feed-author">@환우_m7n</div>
-            <div class="feed-date">5시간 전</div>
-          </div>
-        </div>
-        <div class="feed-title">항암 3차 완료 후기</div>
-        <div class="feed-text">드디어 3차 항암이 끝났습니다. 2차 때보다 부작용이 조금 덜했어요. 구역감은 여전했지만 피로감은 좀 나아진 것 같습니다. 같은 치료를 앞두고 계신 분들께 도움이 되었으면 합니다.</div>
-        <div class="feed-actions">
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            89
-          </div>
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            34
+          <div class="rpt-legal-box">
+            본 서비스는 검사결과지의 의학 용어와 수치를 쉬운 말로 설명해 드리는 서비스입니다. 의료적 해석, 진단, 상담, 치료 권고가 아니며, 의료진의 판단을 대체하지 않습니다. 정확한 상담은 반드시 담당 주치의와 진행해 주세요.
           </div>
         </div>
       </div>
 
-      <!-- Feed Card 3 -->
-      <div class="feed-card">
-        <div class="feed-card-header">
-          <div class="feed-avatar" style="background: rgba(63,191,188,0.15); color: #3fbfbc;">김</div>
-          <div class="feed-author-info">
-            <div class="feed-author">Dr. 김 <span class="feed-badge badge-doctor">의료전문가</span></div>
-            <div class="feed-date">어제</div>
+      <!-- ── 2단계: 동의 체크박스 ── -->
+      <div class="rpt-section">
+        <div class="rpt-step-badge">STEP 2</div>
+        <div class="rpt-consent-card">
+          <h3 class="rpt-consent-title">서비스 이용 동의</h3>
+
+          <!-- 동의 1 -->
+          <div class="rpt-consent-item">
+            <label class="rpt-checkbox-row" id="consent1Row">
+              <input type="checkbox" id="rptConsent1" class="rpt-checkbox">
+              <span class="rpt-checkbox-custom"></span>
+              <span class="rpt-checkbox-label"><b>[필수]</b> 개인정보 수집·이용에 동의합니다</span>
+            </label>
+            <button class="rpt-accordion-btn" id="rptAccordion1Btn">
+              <span>펼쳐보기</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="rpt-accordion-body" id="rptAccordion1">
+              <div class="rpt-accordion-content">
+                <b>수집 항목:</b> 검사결과지 이미지, 질환 종류, 검사 종류<br>
+                <b>수집 목적:</b> 검사결과지 설명 서비스 제공<br>
+                <b>보관 기간:</b> 설명 완료 후 30일 이내 원본 이미지 파기<br><br>
+                구조화된 수치 데이터(익명화)는 서비스 개선 목적으로 보관될 수 있습니다.
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="feed-title">유방암 HER2+ 최신 치료 가이드</div>
-        <div class="feed-text">HER2 양성 유방암의 최신 치료 가이드라인을 정리했습니다. T-DXd(엔허투) 기반의 2차 이후 치료 전략과 함께, 최근 주목받는 ADC 계열 약물의 임상 데이터를 공유합니다.</div>
-        <div class="feed-actions">
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            127
-          </div>
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            56
+
+          <!-- 동의 2 -->
+          <div class="rpt-consent-item">
+            <label class="rpt-checkbox-row" id="consent2Row">
+              <input type="checkbox" id="rptConsent2" class="rpt-checkbox">
+              <span class="rpt-checkbox-custom"></span>
+              <span class="rpt-checkbox-label"><b>[필수]</b> 서비스 이용 안내를 확인했습니다</span>
+            </label>
+            <button class="rpt-accordion-btn" id="rptAccordion2Btn">
+              <span>펼쳐보기</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="rpt-accordion-body" id="rptAccordion2">
+              <div class="rpt-accordion-content">
+                본 서비스는 AI가 생성한 설명을 의료진이 검토하는 구조입니다.
+                의료적 진단·해석·상담이 아닌 '설명' 서비스이며,
+                제공된 내용을 근거로 치료를 결정하지 마시고
+                반드시 담당 주치의와 상의해 주세요.
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Feed Card 4 -->
-      <div class="feed-card">
-        <div class="feed-card-header">
-          <div class="feed-avatar" style="background: #fce7f3; color: #ec4899;">정</div>
-          <div class="feed-author-info">
-            <div class="feed-author">@정원_sunshine</div>
-            <div class="feed-date">어제</div>
+      <!-- ── 3단계: 업로드 영역 ── -->
+      <div class="rpt-section">
+        <div class="rpt-step-badge">STEP 3</div>
+        <div class="rpt-upload-card" id="rptUploadCard">
+          <!-- 비활성 오버레이 (동의 전) -->
+          <div class="rpt-upload-lock" id="rptUploadLock">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>위의 동의 항목을 모두 체크해 주세요</span>
           </div>
-        </div>
-        <div class="feed-title">투병 일기 #24 - 봄이 오고 있어요</div>
-        <div class="feed-text">병원 창문 밖으로 벚꽃이 피기 시작했어요. 올해도 봄을 맞이할 수 있어서 정말 감사합니다. 모든 환우분들께 따뜻한 봄 기운 전해드려요 🌸</div>
-        <div class="feed-actions">
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            215
+
+          <h3 class="rpt-upload-title">검사결과지 업로드</h3>
+
+          <!-- 질환 선택 -->
+          <div class="rpt-field-group">
+            <div class="rpt-field-label">질환 선택 <span class="rpt-required">필수</span></div>
+            <div class="rpt-radio-group" id="rptDiseaseGroup">
+              <label class="rpt-radio"><input type="radio" name="rptDisease" value="유방암"><span class="rpt-radio-custom"></span>유방암</label>
+              <label class="rpt-radio"><input type="radio" name="rptDisease" value="위암"><span class="rpt-radio-custom"></span>위암</label>
+              <label class="rpt-radio"><input type="radio" name="rptDisease" value="대장암"><span class="rpt-radio-custom"></span>대장암</label>
+            </div>
           </div>
-          <div class="feed-action">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            78
+
+          <!-- 검사 종류 -->
+          <div class="rpt-field-group">
+            <div class="rpt-field-label">검사 종류 <span class="rpt-required">필수</span></div>
+            <div class="rpt-radio-group" id="rptTestGroup">
+              <label class="rpt-radio"><input type="radio" name="rptTest" value="조직검사"><span class="rpt-radio-custom"></span>조직검사 결과지</label>
+              <label class="rpt-radio"><input type="radio" name="rptTest" value="종양표지자"><span class="rpt-radio-custom"></span>종양표지자 결과지</label>
+            </div>
           </div>
+
+          <!-- 이미지 업로드 -->
+          <div class="rpt-field-group">
+            <div class="rpt-field-label">검사결과지 이미지 <span class="rpt-required">필수</span></div>
+            <div class="rpt-upload-zone" id="rptUploadZone">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <span class="rpt-upload-zone-text">검사결과지를 촬영하거나<br>갤러리에서 선택해 주세요</span>
+              <span class="rpt-upload-zone-sub">최대 3장까지</span>
+              <input type="file" accept="image/*" multiple id="rptFileInput" style="display:none">
+            </div>
+            <div class="rpt-upload-previews" id="rptPreviews"></div>
+            <div class="rpt-upload-tip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+              이름, 주민번호 등 개인정보가 보이면 가려주세요
+            </div>
+          </div>
+
+          <!-- 제출 버튼 -->
+          <button class="rpt-submit-btn" id="rptSubmitBtn" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            설명 요청하기
+          </button>
         </div>
       </div>
+
+      <!-- 제출 완료 토스트 (숨김) -->
+      <div class="rpt-toast" id="rptToast">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div>
+          <b>접수되었습니다.</b><br>
+          <span style="font-size:.82rem;color:var(--sub)">설명이 준비되면 알림으로 알려드릴게요. 보통 24시간 이내에 완료됩니다.</span>
+        </div>
+      </div>
+
       <div style="height:16px"></div>
     </div>
 
@@ -2812,8 +3238,8 @@ body {
       <span>홈</span>
     </button>
     <button class="tab-item" onclick="switchTab('feed', this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-      <span>피드</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>기록지</span>
     </button>
     <button class="tab-item" onclick="switchTab('community', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -3696,6 +4122,118 @@ function showUplOcr() {
     </table>
     <p style="font-size:10px;color:var(--muted);margin-top:4px">텍스트 인식 신뢰도: <strong style="color:#10b981">98.7%</strong></p>`;
 }
+
+// ===== 검사기록지 (Report) Logic =====
+(function() {
+  var consent1 = document.getElementById('rptConsent1');
+  var consent2 = document.getElementById('rptConsent2');
+  var lockOverlay = document.getElementById('rptUploadLock');
+  var fileInput = document.getElementById('rptFileInput');
+  var uploadZone = document.getElementById('rptUploadZone');
+  var previewsEl = document.getElementById('rptPreviews');
+  var submitBtn = document.getElementById('rptSubmitBtn');
+  var toast = document.getElementById('rptToast');
+  var acc1Btn = document.getElementById('rptAccordion1Btn');
+  var acc1Body = document.getElementById('rptAccordion1');
+  var acc2Btn = document.getElementById('rptAccordion2Btn');
+  var acc2Body = document.getElementById('rptAccordion2');
+
+  var rptImages = [];
+  var MAX_IMAGES = 3;
+
+  // Accordion toggle
+  function toggleAccordion(btn, body) {
+    btn.classList.toggle('open');
+    body.classList.toggle('open');
+    btn.querySelector('span').textContent = body.classList.contains('open') ? '접기' : '펼쳐보기';
+  }
+  acc1Btn.addEventListener('click', function() { toggleAccordion(acc1Btn, acc1Body); });
+  acc2Btn.addEventListener('click', function() { toggleAccordion(acc2Btn, acc2Body); });
+
+  // Consent check → unlock upload
+  function checkConsent() {
+    if (consent1.checked && consent2.checked) {
+      lockOverlay.classList.add('hidden');
+    } else {
+      lockOverlay.classList.remove('hidden');
+    }
+    validateForm();
+  }
+  consent1.addEventListener('change', checkConsent);
+  consent2.addEventListener('change', checkConsent);
+
+  // Upload zone click
+  uploadZone.addEventListener('click', function() {
+    if (rptImages.length >= MAX_IMAGES) return;
+    fileInput.click();
+  });
+
+  // File input change
+  fileInput.addEventListener('change', function() {
+    var files = Array.from(fileInput.files);
+    var remaining = MAX_IMAGES - rptImages.length;
+    files.slice(0, remaining).forEach(function(file) {
+      if (!file.type.startsWith('image/')) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        rptImages.push({ name: file.name, src: e.target.result });
+        renderPreviews();
+        validateForm();
+      };
+      reader.readAsDataURL(file);
+    });
+    fileInput.value = '';
+  });
+
+  function renderPreviews() {
+    previewsEl.innerHTML = rptImages.map(function(img, i) {
+      return '<div class="rpt-preview-item">' +
+        '<img src="' + img.src + '" alt="' + img.name + '">' +
+        '<button class="rpt-preview-remove" data-idx="' + i + '">&times;</button>' +
+        '</div>';
+    }).join('');
+    previewsEl.querySelectorAll('.rpt-preview-remove').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        rptImages.splice(parseInt(btn.dataset.idx), 1);
+        renderPreviews();
+        validateForm();
+      });
+    });
+  }
+
+  // Form validation
+  function validateForm() {
+    var disease = document.querySelector('input[name="rptDisease"]:checked');
+    var testType = document.querySelector('input[name="rptTest"]:checked');
+    var consented = consent1.checked && consent2.checked;
+    if (consented && disease && testType && rptImages.length > 0) {
+      submitBtn.classList.add('enabled');
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.classList.remove('enabled');
+      submitBtn.disabled = true;
+    }
+  }
+
+  // Radio change → validate
+  document.querySelectorAll('input[name="rptDisease"], input[name="rptTest"]').forEach(function(r) {
+    r.addEventListener('change', validateForm);
+  });
+
+  // Submit
+  submitBtn.addEventListener('click', function() {
+    if (submitBtn.disabled) return;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 4000);
+    // Reset form
+    rptImages = [];
+    renderPreviews();
+    document.querySelectorAll('input[name="rptDisease"], input[name="rptTest"]').forEach(function(r) { r.checked = false; });
+    submitBtn.classList.remove('enabled');
+    submitBtn.disabled = true;
+  });
+})();
 
 function showUplLaw() {
   document.getElementById('uplLaw').style.display='block';
