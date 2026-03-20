@@ -1892,6 +1892,421 @@ body {
   transform: translateY(0);
   pointer-events: auto;
 }
+
+/* ===== WRITE SCREEN (기록/응원 남기기) ===== */
+.write-category-bar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.write-category-bar::-webkit-scrollbar { display: none; }
+.write-cat {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--sub);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.write-cat.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+.write-form {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.write-title-input {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: var(--font);
+  border: none;
+  outline: none;
+  padding: 12px 0 8px;
+  color: var(--text);
+  background: transparent;
+}
+.write-title-input::placeholder { color: var(--muted); font-weight: 600; }
+.write-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 4px;
+}
+.write-body-area {
+  position: relative;
+}
+.write-body-input {
+  width: 100%;
+  min-height: 200px;
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: var(--font);
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  color: var(--text);
+  background: transparent;
+  resize: none;
+}
+.write-body-input::placeholder { color: var(--muted); }
+.write-char-count {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  padding: 0 0 8px;
+}
+
+/* Tag input */
+.write-tag-section {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+}
+.write-tag-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sub);
+  margin-bottom: 8px;
+}
+.write-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.write-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6366f1;
+  background: rgba(99,102,241,0.08);
+  padding: 4px 10px;
+  border-radius: 14px;
+}
+.write-tag-x {
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: #6366f1;
+  opacity: 0.5;
+}
+.write-tag-x:hover { opacity: 1; }
+.write-tag-input {
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-family: var(--font);
+  color: var(--text);
+  min-width: 80px;
+  flex: 1;
+}
+.write-tag-input::placeholder { color: var(--muted); }
+
+/* Submit bar */
+.write-bottom-bar {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  position: sticky;
+  bottom: 0;
+}
+.write-anon-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--sub);
+  cursor: pointer;
+}
+.write-anon-toggle input[type="checkbox"] {
+  accent-color: var(--text);
+}
+.write-submit-btn {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--text);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.write-submit-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ===== AI Writing Assistant ===== */
+.ai-assist-bubble {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.ai-assist-bubble.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.ai-assist-inner {
+  background: #fff;
+  border: 1px solid rgba(110,63,163,0.15);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 20px rgba(110,63,163,0.1);
+  padding: 12px 14px;
+  position: relative;
+}
+.ai-assist-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.ai-assist-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ai-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.ai-assist-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6E3FA3;
+}
+.ai-assist-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+.ai-assist-msg {
+  font-size: 12.5px;
+  color: var(--sub);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.ai-suggest-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ai-suggest-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text);
+  background: rgba(110,63,163,0.04);
+  border: 1px solid rgba(110,63,163,0.1);
+  border-radius: var(--radius-xs);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: left;
+  transition: background 0.15s;
+  line-height: 1.4;
+}
+.ai-suggest-chip:hover { background: rgba(110,63,163,0.08); }
+.ai-chip-icon {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+/* AI Guide toast at top */
+.ai-guide-toast {
+  position: absolute;
+  top: 52px;
+  left: 12px;
+  right: 12px;
+  z-index: 30;
+  background: linear-gradient(135deg, rgba(110,63,163,0.95), rgba(63,191,188,0.9));
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(110,63,163,0.25);
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+.ai-guide-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.ai-guide-toast .ai-assist-avatar {
+  background: rgba(255,255,255,0.25);
+  flex-shrink: 0;
+}
+.ai-guide-text {
+  font-size: 12px;
+  line-height: 1.6;
+  flex: 1;
+}
+.ai-guide-text strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.ai-guide-dismiss {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-family: var(--font);
+}
+
+/* Write success overlay */
+.write-success-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.97);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.write-success-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.write-success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(16,185,129,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+.write-success-overlay h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.write-success-overlay p {
+  font-size: 13px;
+  color: var(--sub);
+  text-align: center;
+  line-height: 1.6;
+}
+.write-success-btn {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--text);
+  border: none;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+/* ===== Community FAB ===== */
+.community-fab {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--text);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 40;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.community-fab:active {
+  transform: scale(0.92);
+}
+.community-fab svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== AI Recommended Post ===== */
+.post-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.ai-rec-badge {
+  background: linear-gradient(135deg, #6E3FA3, #3fbfbc) !important;
+  color: #fff !important;
+  font-size: 10px !important;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+.post-card-ai-rec {
+  border-left: 3px solid #6E3FA3 !important;
+  background: linear-gradient(135deg, rgba(110,63,163,0.02), rgba(63,191,188,0.02));
+}
+.ai-rec-reason {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #6E3FA3;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(110,63,163,0.15);
+}
 </style>
 </head>
 <body>
@@ -2230,7 +2645,6 @@ body {
       <div class="community-header">
         <div class="community-header-row">
           <h1>따뜻한 환우 광장</h1>
-          <button class="btn-write">기록/응원 남기기</button>
         </div>
 
         <div class="search-bar">
@@ -2277,6 +2691,35 @@ body {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               47
             </span>
+          </div>
+        </div>
+
+        <!-- AI Recommended Post -->
+        <div class="post-card border-green post-card-ai-rec">
+          <div class="post-badges-row">
+            <span class="post-badge green">희망 사례</span>
+            <span class="post-badge ai-rec-badge">AI 추천</span>
+          </div>
+          <div class="post-title">손발 저림, 이렇게 하니 괜찮아졌어요 — 6개월 관리 후기</div>
+          <div class="post-excerpt">항암 4차까지 손발 저림이 심해서 젓가락도 못 잡았었는데, 온열 찜질 + 가벼운 스트레칭 + 비타민 B 복합 보충을 꾸준히 하니 3개월 차부터 확실히 나아지기 시작했어요. 지금은 거의 정상으로 돌아왔습니다.</div>
+          <div class="post-tags">
+            <span class="post-tag">#손발저림</span>
+            <span class="post-tag">#말초신경병증</span>
+            <span class="post-tag">#회복후기</span>
+          </div>
+          <div class="post-meta">
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              892
+            </span>
+            <span class="post-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              156
+            </span>
+          </div>
+          <div class="ai-rec-reason">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6E3FA3" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            위 게시글과 유사한 주제의 희망 사례입니다
           </div>
         </div>
 
@@ -2365,8 +2808,16 @@ body {
             </span>
           </div>
         </div>
-        <div style="height:16px"></div>
+        <div style="height:80px"></div>
       </div>
+
+      <!-- Floating Write Button -->
+      <button class="community-fab" onclick="openWritePost()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+      </button>
     </div>
 
     <!-- COHORT SCREEN -->
@@ -2597,6 +3048,80 @@ body {
           <div class="pd-ai-card-title">말초신경병증 부작용 극복 후기</div>
           <div class="pd-ai-card-meta">@환우_g4h · 조회 203</div>
         </div>
+      </div>
+    </div>
+
+    <!-- ===== SUB: WRITE POST (기록/응원 남기기 + AI 비서) ===== -->
+    <div class="sub-screen" id="sub-write-post">
+      <div class="back-header" onclick="closeWritePost()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <span>기록/응원 남기기</span>
+      </div>
+
+      <!-- AI 가이드 환영 토스트 -->
+      <div class="ai-guide-toast" id="aiGuideToast">
+        <div class="ai-assist-avatar">AI</div>
+        <div class="ai-guide-text">
+          <strong>AI 글쓰기 비서가 도와드릴게요</strong>
+          글을 작성하시면 문장 완성, 유사 표현 추천, 전개 방식 안내를 실시간으로 제안해 드립니다.
+        </div>
+        <button class="ai-guide-dismiss" onclick="dismissAiGuide()">확인</button>
+      </div>
+
+      <!-- 카테고리 선택 -->
+      <div class="write-category-bar">
+        <button class="write-cat active" onclick="selectWriteCat(this)">증상 질문</button>
+        <button class="write-cat" onclick="selectWriteCat(this)">희망 사례</button>
+        <button class="write-cat" onclick="selectWriteCat(this)">따뜻한 응원</button>
+        <button class="write-cat" onclick="selectWriteCat(this)">치료 경험</button>
+        <button class="write-cat" onclick="selectWriteCat(this)">일상 공유</button>
+      </div>
+
+      <!-- 글쓰기 폼 -->
+      <div class="write-form">
+        <input class="write-title-input" id="writeTitle" type="text" placeholder="제목을 입력해 주세요" oninput="onWriteInput()">
+        <div class="write-divider"></div>
+        <div class="write-body-area">
+          <textarea class="write-body-input" id="writeBody" placeholder="여기에 내용을 작성해 주세요.&#10;&#10;경험, 증상, 응원의 말씀 등 자유롭게 적어주세요. AI 비서가 글쓰기를 도와드립니다." oninput="onWriteInput()"></textarea>
+
+          <!-- AI 비서 추천 버블 -->
+          <div class="ai-assist-bubble" id="aiAssistBubble">
+            <div class="ai-assist-inner">
+              <div class="ai-assist-header">
+                <div class="ai-assist-avatar">AI</div>
+                <div class="ai-assist-label">AI 글쓰기 비서</div>
+                <button class="ai-assist-close" onclick="hideAiAssist()">&times;</button>
+              </div>
+              <div class="ai-assist-msg" id="aiAssistMsg"></div>
+              <div class="ai-suggest-chips" id="aiSuggestChips"></div>
+            </div>
+          </div>
+        </div>
+        <div class="write-char-count"><span id="writeCharCount">0</span>자</div>
+      </div>
+
+      <!-- 태그 입력 -->
+      <div class="write-tag-section">
+        <div class="write-tag-label">태그 (최대 5개)</div>
+        <div class="write-tag-row" id="writeTagRow">
+          <input class="write-tag-input" id="writeTagInput" placeholder="#태그를 입력 후 Enter" onkeydown="onTagKeydown(event)">
+        </div>
+      </div>
+
+      <!-- 하단 바 -->
+      <div class="write-bottom-bar">
+        <label class="write-anon-toggle">
+          <input type="checkbox" id="writeAnon"> 익명으로 작성
+        </label>
+        <button class="write-submit-btn" id="writeSubmitBtn" disabled onclick="submitWritePost()">게시하기</button>
+      </div>
+
+      <!-- 성공 오버레이 -->
+      <div class="write-success-overlay" id="writeSuccessOverlay">
+        <div class="write-success-icon">&#10003;</div>
+        <h3>게시 완료!</h3>
+        <p>따뜻한 글이 환우광장에<br>등록되었습니다.</p>
+        <button class="write-success-btn" onclick="closeWritePost()">환우광장으로 돌아가기</button>
       </div>
     </div>
 
@@ -3496,6 +4021,8 @@ function closeSignupOverlay() {
   // 프로필 아바타 업데이트
   const avatarEl = document.querySelector('.home-avatar');
   if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
+  // 가입 완료 상태 저장 (새로고침 시에도 로그인 화면 안 뜨게)
+  try { sessionStorage.setItem('oncocare_signed_up', JSON.stringify(signupData)); } catch(e) {}
 }
 
 function goHomeAfterSignup() {
@@ -3754,14 +4281,25 @@ function renderDrugCard(r, idx) {
   `;
 }
 
+// 매칭 폼 초기 HTML 저장
+let matchingFormOriginalHTML = '';
+document.addEventListener('DOMContentLoaded', () => {
+  const mt = document.getElementById('cohort-tab-matching');
+  if (mt) matchingFormOriginalHTML = mt.innerHTML;
+});
+// 페이지 로드 직후에도 저장 (DOMContentLoaded 이후 스크립트 실행 시)
+(function() {
+  const mt = document.getElementById('cohort-tab-matching');
+  if (mt && !matchingFormOriginalHTML) matchingFormOriginalHTML = mt.innerHTML;
+})();
+
 function resetMatchingForm() {
   const matchingTab = document.getElementById('cohort-tab-matching');
-  matchingTab.remove();
-  // 탭 콘텐츠를 다시 생성
-  const tabContainer = document.querySelector('#sub-cohort-main > div:last-of-type') || document.querySelector('.cohort-tab-content:last-of-type').parentElement;
-  // 간단히 페이지 전체를 다시 로드하는 대신, board 탭으로 전환
+  if (matchingTab && matchingFormOriginalHTML) {
+    matchingTab.innerHTML = matchingFormOriginalHTML;
+  }
+  // board 탭으로 전환
   switchCohortTab('board', document.querySelector('.cohort-inner-tab'));
-  location.reload();
 }
 
 function filterResults(btn, filter) {
@@ -3773,8 +4311,24 @@ function filterResults(btn, filter) {
   });
 }
 
-// 초기 렌더링
-renderSignup();
+// 초기 렌더링 — 가입 완료 상태면 로그인 화면 건너뜀
+(function initSignup() {
+  try {
+    const saved = sessionStorage.getItem('oncocare_signed_up');
+    if (saved) {
+      const data = JSON.parse(saved);
+      Object.assign(signupData, data);
+      const overlay = document.getElementById('signupOverlay');
+      overlay.style.display = 'none';
+      overlay.style.opacity = '0';
+      // 아바타 복원
+      const avatarEl = document.querySelector('.home-avatar');
+      if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
+      return;
+    }
+  } catch(e) {}
+  renderSignup();
+})();
 
 // Tab switching
 function switchTab(name, el) {
@@ -4254,6 +4808,216 @@ function showUplLaw() {
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       <div><strong>참고 안내</strong><p>AI 분석은 참고용이며 최종 판단은 전문 의료진 소견을 따르세요 (의료법 제27조)</p></div>
     </div>`;
+}
+
+// ===== WRITE POST + AI WRITING ASSISTANT =====
+let writeTags = [];
+let aiAssistTimer = null;
+let aiDismissed = false;
+
+// AI 비서 추천 데이터 (카테고리별 + 키워드 매칭)
+const AI_SUGGESTIONS = {
+  triggers: [
+    {
+      keywords: ['항암','부작용','힘들','어렵','고통','통증','아프'],
+      msg: '부작용에 대한 경험을 나누고 계시네요. 이렇게 이어가 보시는 건 어떨까요?',
+      chips: [
+        { icon:'💡', text:'구체적인 증상과 시기를 적어주시면 비슷한 경험을 한 분들이 공감하기 쉬워요' },
+        { icon:'📝', text:'"~차 항암 이후부터 ~증상이 나타났습니다"로 시작해보세요' },
+        { icon:'🤝', text:'"같은 경험 있으신 분 계신가요?" 같은 질문을 추가하면 답변을 더 많이 받을 수 있어요' }
+      ]
+    },
+    {
+      keywords: ['완치','회복','나았','좋아','건강','극복','판정'],
+      msg: '희망적인 이야기를 공유해 주시는군요! 다른 분들에게 큰 힘이 됩니다.',
+      chips: [
+        { icon:'📋', text:'"진단 시기 → 치료 과정 → 현재 상태" 순으로 적으면 읽기 편해요' },
+        { icon:'💪', text:'치료 과정에서 특히 도움이 된 점을 구체적으로 남겨주세요' },
+        { icon:'❤️', text:'"포기하지 마세요"와 같은 응원 메시지로 마무리하면 감동적이에요' }
+      ]
+    },
+    {
+      keywords: ['응원','힘내','파이팅','화이팅','사랑','함께','고마','감사'],
+      msg: '따뜻한 응원의 마음이 느껴집니다. 더 풍성한 글을 위해 제안드려요.',
+      chips: [
+        { icon:'✨', text:'"오늘도 치료받으시는 모든 분들께"처럼 대상을 명시하면 더 와닿아요' },
+        { icon:'📖', text:'본인의 경험이나 에피소드를 곁들이면 진정성이 느껴져요' },
+        { icon:'🌸', text:'"당신은 혼자가 아닙니다"와 같은 공감 문장으로 마무리해보세요' }
+      ]
+    },
+    {
+      keywords: ['수술','입원','검사','병원','진료','주치의','치료'],
+      msg: '치료 경험을 공유해 주시는군요. 이런 내용을 포함하면 좋아요.',
+      chips: [
+        { icon:'🏥', text:'병원명 대신 "00병원"으로 적으면 개인정보를 보호할 수 있어요' },
+        { icon:'📝', text:'"입원 기간, 수술 방법, 회복 과정"을 순서대로 적어보세요' },
+        { icon:'💬', text:'"이 경험이 도움이 되셨으면 합니다"로 마무리하면 자연스러워요' }
+      ]
+    },
+    {
+      keywords: ['음식','식단','영양','먹','식사','레시피'],
+      msg: '식단 관련 내용이시군요! 다른 환우분들에게도 유익할 거예요.',
+      chips: [
+        { icon:'🥗', text:'실제 드셨던 메뉴와 효과를 구체적으로 적으면 도움이 돼요' },
+        { icon:'⚠️', text:'"개인적인 경험이며 전문 영양 상담을 권합니다" 문구를 추가해주세요' },
+        { icon:'📊', text:'치료 시기별(항암 중/후) 식단 변화를 정리하면 더 유용해요' }
+      ]
+    }
+  ],
+  defaultGuide: {
+    msg: '글쓰기를 도와드릴게요. 어떤 내용을 쓸지 막막하시다면 아래를 참고해 주세요.',
+    chips: [
+      { icon:'💭', text:'증상 질문: "~증상이 있는데, 혹시 같은 경험 있으신 분 계신가요?"' },
+      { icon:'🌟', text:'희망 사례: "진단 후 ~개월, ~한 경험을 나누고 싶습니다"' },
+      { icon:'💝', text:'따뜻한 응원: "오늘 치료받으시는 모든 분들께 ~"' }
+    ]
+  }
+};
+
+function openWritePost() {
+  writeTags = [];
+  aiDismissed = false;
+  const sub = document.getElementById('sub-write-post');
+  sub.style.display = 'block';
+  document.getElementById('writeTitle').value = '';
+  document.getElementById('writeBody').value = '';
+  document.getElementById('writeCharCount').textContent = '0';
+  document.getElementById('writeSubmitBtn').disabled = true;
+  document.getElementById('writeSuccessOverlay').classList.remove('show');
+  document.getElementById('aiAssistBubble').classList.remove('show');
+  renderWriteTags();
+  // AI 가이드 토스트 표시
+  setTimeout(() => {
+    document.getElementById('aiGuideToast').classList.add('show');
+  }, 500);
+}
+
+function closeWritePost() {
+  hideSubScreen('sub-write-post');
+  document.getElementById('aiGuideToast').classList.remove('show');
+  document.getElementById('aiAssistBubble').classList.remove('show');
+  document.getElementById('writeSuccessOverlay').classList.remove('show');
+}
+
+function dismissAiGuide() {
+  document.getElementById('aiGuideToast').classList.remove('show');
+  // 가이드 닫으면 기본 추천 보여줌
+  const body = document.getElementById('writeBody').value.trim();
+  if (!body) {
+    showAiSuggestion(AI_SUGGESTIONS.defaultGuide);
+  }
+}
+
+function selectWriteCat(el) {
+  el.parentElement.querySelectorAll('.write-cat').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function onWriteInput() {
+  const title = document.getElementById('writeTitle').value.trim();
+  const body = document.getElementById('writeBody').value;
+  document.getElementById('writeCharCount').textContent = body.length;
+  document.getElementById('writeSubmitBtn').disabled = !(title.length > 0 && body.trim().length > 0);
+
+  // AI 비서 트리거: 타이핑 멈추고 800ms 후
+  clearTimeout(aiAssistTimer);
+  if (body.trim().length >= 5 && !aiDismissed) {
+    aiAssistTimer = setTimeout(() => analyzeAndSuggest(body), 800);
+  } else if (body.trim().length < 5) {
+    document.getElementById('aiAssistBubble').classList.remove('show');
+  }
+}
+
+function analyzeAndSuggest(text) {
+  const lower = text.toLowerCase();
+  for (const trigger of AI_SUGGESTIONS.triggers) {
+    const matched = trigger.keywords.some(kw => lower.includes(kw));
+    if (matched) {
+      showAiSuggestion(trigger);
+      return;
+    }
+  }
+  // 5자 이상인데 매칭 키워드 없으면 기본 가이드
+  if (text.trim().length >= 10) {
+    showAiSuggestion({
+      msg: '잘 쓰고 계세요! 문장을 더 풍성하게 만들어 보세요.',
+      chips: [
+        { icon:'✏️', text:'구체적인 시기나 상황을 추가하면 공감을 더 얻을 수 있어요' },
+        { icon:'🔗', text:'관련 태그를 추가하면 같은 질환의 환우분들이 찾기 쉬워요' }
+      ]
+    });
+  }
+}
+
+function showAiSuggestion(data) {
+  document.getElementById('aiAssistMsg').textContent = data.msg;
+  document.getElementById('aiSuggestChips').innerHTML = data.chips.map(c =>
+    `<button class="ai-suggest-chip" onclick="applyAiChip(this, '${c.text.replace(/'/g, "\\'")}')">
+      <span class="ai-chip-icon">${c.icon}</span>${c.text}
+    </button>`
+  ).join('');
+  document.getElementById('aiAssistBubble').classList.add('show');
+}
+
+function applyAiChip(el, text) {
+  // 칩의 예시 문장에서 인용 부분만 추출해서 textarea에 추가
+  const body = document.getElementById('writeBody');
+  const match = text.match(/"([^"]+)"/);
+  if (match) {
+    const current = body.value;
+    const addition = (current && !current.endsWith('\n') && !current.endsWith(' ')) ? ' ' : '';
+    body.value = current + addition + match[1];
+    body.dispatchEvent(new Event('input'));
+  }
+  // 클릭된 칩 시각적 피드백
+  el.style.background = 'rgba(110,63,163,0.12)';
+  el.style.borderColor = 'rgba(110,63,163,0.3)';
+  setTimeout(() => {
+    el.style.background = '';
+    el.style.borderColor = '';
+  }, 600);
+}
+
+function hideAiAssist() {
+  document.getElementById('aiAssistBubble').classList.remove('show');
+  aiDismissed = true;
+}
+
+// 태그 관리
+function onTagKeydown(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const input = document.getElementById('writeTagInput');
+    let tag = input.value.trim().replace(/^#/, '');
+    if (tag && writeTags.length < 5 && !writeTags.includes(tag)) {
+      writeTags.push(tag);
+      renderWriteTags();
+    }
+    input.value = '';
+  }
+}
+
+function renderWriteTags() {
+  const row = document.getElementById('writeTagRow');
+  const input = document.getElementById('writeTagInput');
+  row.querySelectorAll('.write-tag').forEach(t => t.remove());
+  writeTags.forEach((tag, i) => {
+    const el = document.createElement('span');
+    el.className = 'write-tag';
+    el.innerHTML = `#${tag}<span class="write-tag-x" onclick="removeWriteTag(${i})">&times;</span>`;
+    row.insertBefore(el, input);
+  });
+  if (writeTags.length >= 5) input.style.display = 'none';
+  else input.style.display = '';
+}
+
+function removeWriteTag(i) {
+  writeTags.splice(i, 1);
+  renderWriteTags();
+}
+
+function submitWritePost() {
+  document.getElementById('writeSuccessOverlay').classList.add('show');
 }
 </script>
 
