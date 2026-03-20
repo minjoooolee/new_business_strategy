@@ -201,6 +201,28 @@
   </div>
 </div>
 
+<!-- 환자 알림 상세 오버레이 -->
+<div class="dr-overlay" id="alertDetailOverlay">
+  <div class="dr-overlay-panel">
+    <div class="dr-overlay-header">
+      <button class="dr-overlay-back" onclick="closeAlertDetail()">&larr;</button>
+      <span class="dr-overlay-title" id="alertDetailTitle">환자 알림 상세</span>
+    </div>
+    <div class="dr-overlay-body" id="alertDetailBody"></div>
+  </div>
+</div>
+
+<!-- AI 답변 검토 오버레이 (승인/수정/반려) -->
+<div class="dr-overlay" id="reviewOverlay">
+  <div class="dr-overlay-panel dr-overlay-panel--wide">
+    <div class="dr-overlay-header">
+      <button class="dr-overlay-back" onclick="closeReviewOverlay()">&larr;</button>
+      <span class="dr-overlay-title" id="reviewOverlayTitle">AI 답변 검토</span>
+    </div>
+    <div class="dr-overlay-body" id="reviewOverlayBody"></div>
+  </div>
+</div>
+
 <!-- 변경 알림 토스트 -->
 <div class="cohort-toast" id="cohortToast"></div>
 
@@ -1296,6 +1318,34 @@ function switchDrCohortTab(name, el) {
   if (target) { target.style.display = ''; target.classList.add('active'); }
 }
 
+// ── 의료진 데이터 (전역) ─────────────────────
+const DR_ALERTS = [
+  { level:'urgent', icon:'🔴', patient:'환자_mj7', cohort:'유방암 HER2+ 2기', msg:'3차 항암 후 발열 38.5°C 이상 보고 — 호중구 감소 의심', time:'30분 전',
+    detail: { age:'52세 · 여성', dx:'유방암 HER2+ 2기', regimen:'AC-T 3차 진행 중', lastVisit:'2026.03.18', vitals:{temp:'38.7°C',bp:'118/76',hr:'96bpm',wbc:'1,200/μL'}, history:'3차 항암 투여 5일 후 발열 시작. 오한·근육통 동반. 전일 WBC 1,200으로 호중구 감소증 의심.', recommend:['즉시 내원 권고 (호중구 감소성 발열 프로토콜)','혈액배양 + CBC/CRP 검사 시행','경험적 항생제(세펨계) 투여 고려','G-CSF 투여 필요성 평가'] }
+  },
+  { level:'urgent', icon:'🔴', patient:'환자_91z', cohort:'대장암 선암 2기', msg:'검사결과지에서 CEA 수치 급상승 (4.2 → 18.7) 감지', time:'1시간 전',
+    detail: { age:'61세 · 남성', dx:'대장암 선암 2기', regimen:'FOLFOX 완료, 추적관찰 중', lastVisit:'2026.03.10', vitals:{cea:'18.7 ng/mL (이전 4.2)',ct:'예정 없음',wbc:'5,800/μL'}, history:'수술 후 FOLFOX 8회 완료. 3개월 추적 혈액검사에서 CEA 4.2→18.7로 급상승. CT 미시행 상태.', recommend:['긴급 CT/PET 검사 예약','대장내시경 재검 고려','간전이 가능성 평가','외래 조기 방문 안내'] }
+  },
+  { level:'warn', icon:'🟡', patient:'환자_th2', cohort:'폐암 비소세포 4기', msg:'채팅에서 극심한 우울감/무기력감 언급 — 심리 지원 필요', time:'2시간 전',
+    detail: { age:'47세 · 남성', dx:'폐암 비소세포(선암) 4기', regimen:'키트루다+카보플라틴 2차', lastVisit:'2026.03.15', vitals:{temp:'36.8°C',bp:'124/82',mood:'PHQ-9 미시행'}, history:'코호트 채팅에서 "더 이상 의미가 없는 것 같다", "가족에게 짐이 되는 느낌" 등 발언 감지. AI가 심리 위기 신호로 분류.', recommend:['정신건강의학과 연계 상담 의뢰','PHQ-9/GAD-7 선별검사 시행','사회복지팀 연결 (경제적 지원 포함)','보호자 면담 예약'] }
+  },
+  { level:'warn', icon:'🟡', patient:'보호자_k3a', cohort:'위암 장형 3기', msg:'수술 후 식사량 급감 보고 — 영양 상담 권장', time:'3시간 전',
+    detail: { age:'58세 · 남성 (보호자 대리보고)', dx:'위암 장형 3기', regimen:'위아전절제술 후 XELOX 1차', lastVisit:'2026.03.12', vitals:{weight:'62kg→54kg (6주간 -8kg)',albumin:'3.1 g/dL',bmi:'19.2'}, history:'보호자가 "하루에 죽 반 그릇도 못 드신다", "점점 야위어가고 있다" 보고. 수술 후 덤핑증후군 의심.', recommend:['영양집중지원팀(NST) 의뢰','경구 영양보충제(ONS) 처방 고려','소량 다회 식사 + 덤핑증후군 식이교육','체중 추가 감소 시 TPN 고려'] }
+  },
+  { level:'info', icon:'🔵', patient:'환자_8a4', cohort:'유방암 TNBC 3기', msg:'AI 답변에 대해 추가 질문 — 의료진 직접 답변 요청', time:'4시간 전',
+    detail: { age:'39세 · 여성', dx:'유방암 삼중음성(TNBC) 3기', regimen:'AC-T + 키트루다 병용', lastVisit:'2026.03.16', vitals:{temp:'36.5°C',bp:'112/70',wbc:'4,100/μL'}, history:'"BRCA 검사 양성이면 예방적 난소절제가 꼭 필요한가요?" 질문에 AI가 답변했으나, "주치의님의 직접 답변을 듣고 싶다"고 요청.', recommend:['유전상담 외래 예약','BRCA 결과 확인 후 위험감소수술 상담','가족력 추가 확인','다음 외래 시 직접 설명'] }
+  },
+  { level:'info', icon:'🔵', patient:'환자_x2k', cohort:'갑상선암 유두암 1기', msg:'RAI 치료 후 격리 기간 문의 — AI 답변 검토 필요', time:'5시간 전',
+    detail: { age:'33세 · 여성', dx:'갑상선암 유두암 1기', regimen:'갑상선전절제술 후 RAI 예정', lastVisit:'2026.03.14', vitals:{tsh:'45 mIU/L (자극 상태)',tg:'<0.1',neck:'초음파 이상 없음'}, history:'"방사성요오드 치료 후 아이들과 며칠이나 떨어져 있어야 하나요?" 질문. AI가 일반적인 1~3일 답변을 했으나 투여 용량에 따라 다를 수 있어 검토 필요.', recommend:['투여 예정 용량(30 vs 100 mCi) 확인','용량별 격리 기간 안내 (저용량 1~2일 / 고용량 3~5일)','소아 접촉 제한 기준 별도 안내','저요오드 식이 기간 확인'] }
+  },
+];
+
+const DR_CHAT_REVIEWS = [
+  { cohort:'유방암 HER2+ 2기', question:'키트루다랑 허셉틴 같이 쓸 수 있나요?', aiAnswer:'일반적으로 HER2+ 유방암에서 키트루다(펨브롤리주맙)와 허셉틴(트라스투주맙)의 병용은 임상시험 단계에 있습니다. 현재 표준 요법은 아니며, 담당 주치의와 상의가 필요합니다.', status:'review', reason:'약물 병용 관련 — 정확성 검토 필요', patient:'환자_mj7' },
+  { cohort:'대장암 선암 2기', question:'항암 중에 코로나 백신 맞아도 되나요?', aiAnswer:'항암 치료 중 코로나 백신 접종은 일반적으로 권장되나, 항암 주기에 따라 접종 시기를 조정할 수 있습니다. 백혈구 수치가 안정적인 시기에 접종하는 것이 좋으며, 담당 의료진과 일정을 상의하세요.', status:'ok', reason:'', patient:'환자_91z' },
+  { cohort:'폐암 비소세포 4기', question:'태그리소 내성 생기면 다음 약은 뭐예요?', aiAnswer:'오시머티닙(태그리소) 내성 후 치료 옵션은 내성 기전에 따라 달라집니다. C797S 변이 등에 따라 화학항암제 병용, 새로운 표적치료제, 또는 임상시험 참여가 고려될 수 있습니다.', status:'review', reason:'내성 기전별 치료 옵션 — 최신 가이드라인 반영 확인', patient:'환자_th2' },
+];
+
 function renderDoctorCohortView(loginData) {
   // 진료과 태그 업데이트
   const deptTag = document.getElementById('drDeptTag');
@@ -1331,14 +1381,7 @@ function renderDoctorCohortView(loginData) {
   `).join('');
 
   // 환자 알림
-  const alerts = [
-    { level:'urgent', icon:'🔴', patient:'환자_mj7', cohort:'유방암 HER2+ 2기', msg:'3차 항암 후 발열 38.5°C 이상 보고 — 호중구 감소 의심', time:'30분 전' },
-    { level:'urgent', icon:'🔴', patient:'환자_91z', cohort:'대장암 선암 2기', msg:'검사결과지에서 CEA 수치 급상승 (4.2 → 18.7) 감지', time:'1시간 전' },
-    { level:'warn', icon:'🟡', patient:'환자_th2', cohort:'폐암 비소세포 4기', msg:'채팅에서 극심한 우울감/무기력감 언급 — 심리 지원 필요', time:'2시간 전' },
-    { level:'warn', icon:'🟡', patient:'보호자_k3a', cohort:'위암 장형 3기', msg:'수술 후 식사량 급감 보고 — 영양 상담 권장', time:'3시간 전' },
-    { level:'info', icon:'🔵', patient:'환자_8a4', cohort:'유방암 TNBC 3기', msg:'AI 답변에 대해 추가 질문 — 의료진 직접 답변 요청', time:'4시간 전' },
-    { level:'info', icon:'🔵', patient:'환자_x2k', cohort:'갑상선암 유두암 1기', msg:'RAI 치료 후 격리 기간 문의 — AI 답변 검토 필요', time:'5시간 전' },
-  ];
+  const alerts = DR_ALERTS;
 
   document.getElementById('drAlertsList').innerHTML = alerts.map(a => `
     <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px;background:${a.level==='urgent'?'#fef2f2':a.level==='warn'?'#fffbeb':'#f9fafb'};border:1px solid ${a.level==='urgent'?'#fecaca':a.level==='warn'?'#fde68a':'#e5e7eb'};border-radius:12px;margin-bottom:10px">
@@ -1351,16 +1394,12 @@ function renderDoctorCohortView(loginData) {
         </div>
         <div style="font-size:.85rem;color:#374151;line-height:1.5">${a.msg}</div>
       </div>
-      <button style="padding:6px 14px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font-size:.78rem;font-weight:600;color:#374151;cursor:pointer;white-space:nowrap">확인하기</button>
+      <button style="padding:6px 14px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font-size:.78rem;font-weight:600;color:#374151;cursor:pointer;white-space:nowrap" onclick="openAlertDetail(${alerts.indexOf(a)})">확인하기</button>
     </div>
   `).join('');
 
   // 채팅 모니터링 (AI 답변 검토 필요)
-  const chatReviews = [
-    { cohort:'유방암 HER2+ 2기', question:'키트루다랑 허셉틴 같이 쓸 수 있나요?', aiAnswer:'일반적으로 HER2+ 유방암에서 키트루다(펨브롤리주맙)와 허셉틴(트라스투주맙)의 병용은 임상시험 단계에 있습니다. 현재 표준 요법은 아니며, 담당 주치의와 상의가 필요합니다.', status:'review', reason:'약물 병용 관련 — 정확성 검토 필요' },
-    { cohort:'대장암 선암 2기', question:'항암 중에 코로나 백신 맞아도 되나요?', aiAnswer:'항암 치료 중 코로나 백신 접종은 일반적으로 권장되나, 항암 주기에 따라 접종 시기를 조정할 수 있습니다. 백혈구 수치가 안정적인 시기에 접종하는 것이 좋으며, 담당 의료진과 일정을 상의하세요.', status:'ok', reason:'' },
-    { cohort:'폐암 비소세포 4기', question:'태그리소 내성 생기면 다음 약은 뭐예요?', aiAnswer:'오시머티닙(태그리소) 내성 후 치료 옵션은 내성 기전에 따라 달라집니다. C797S 변이 등에 따라 화학항암제 병용, 새로운 표적치료제, 또는 임상시험 참여가 고려될 수 있습니다.', status:'review', reason:'내성 기전별 치료 옵션 — 최신 가이드라인 반영 확인' },
-  ];
+  const chatReviews = DR_CHAT_REVIEWS;
 
   document.getElementById('drChatMonitor').innerHTML = chatReviews.map(r => `
     <div style="padding:20px;background:#fff;border:1px solid ${r.status==='review'?'#fde68a':'#d1fae5'};border-radius:14px;margin-bottom:12px">
@@ -1374,9 +1413,234 @@ function renderDoctorCohortView(loginData) {
         <div style="font-size:.72rem;font-weight:700;color:#9ca3af;margin-bottom:4px">AI 답변</div>
         ${r.aiAnswer}
       </div>
-      ${r.status==='review' ? '<div style="display:flex;gap:8px"><button style="padding:6px 16px;border:none;border-radius:8px;background:#10b981;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer">✅ 승인</button><button style="padding:6px 16px;border:none;border-radius:8px;background:#f59e0b;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer">✏️ 수정 후 승인</button><button style="padding:6px 16px;border:1px solid #fecaca;border-radius:8px;background:#fff;color:#ef4444;font-size:.82rem;font-weight:600;cursor:pointer">❌ 반려</button></div>' : ''}
+      ${r.status==='review' ? `<div style="display:flex;gap:8px"><button style="padding:6px 16px;border:none;border-radius:8px;background:#10b981;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer" onclick="openReview('approve',${chatReviews.indexOf(r)})">✅ 승인</button><button style="padding:6px 16px;border:none;border-radius:8px;background:#f59e0b;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer" onclick="openReview('edit',${chatReviews.indexOf(r)})">✏️ 수정 후 승인</button><button style="padding:6px 16px;border:1px solid #fecaca;border-radius:8px;background:#fff;color:#ef4444;font-size:.82rem;font-weight:600;cursor:pointer" onclick="openReview('reject',${chatReviews.indexOf(r)})">❌ 반려</button></div>` : ''}
     </div>
   `).join('');
+}
+
+// ── 환자 알림 상세 화면 ────────────────────────
+function openAlertDetail(idx) {
+  const a = DR_ALERTS[idx];
+  if (!a || !a.detail) return;
+  const d = a.detail;
+  const levelClass = a.level === 'urgent' ? 'urgent' : a.level === 'warn' ? 'warn' : 'info';
+  const levelLabel = a.level === 'urgent' ? '긴급' : a.level === 'warn' ? '주의' : '정보';
+
+  // vitals grid
+  const vitalsHtml = Object.entries(d.vitals).map(([k, v]) => {
+    const labels = { temp:'체온', bp:'혈압', hr:'심박수', wbc:'WBC', cea:'CEA', ct:'CT', mood:'기분선별', weight:'체중변화', albumin:'알부민', bmi:'BMI', tsh:'TSH', tg:'Tg', neck:'경부초음파' };
+    return `<div class="alert-detail-field"><div class="alert-detail-field-label">${labels[k]||k}</div><div class="alert-detail-field-value">${v}</div></div>`;
+  }).join('');
+
+  document.getElementById('alertDetailTitle').textContent = `${a.icon} ${a.patient} 알림 상세`;
+  document.getElementById('alertDetailBody').innerHTML = `
+    <div class="alert-detail-level alert-detail-level--${levelClass}">${a.icon} ${levelLabel}</div>
+
+    <div class="alert-detail-section">
+      <div class="alert-detail-section-title">환자 정보</div>
+      <div class="alert-detail-grid">
+        <div class="alert-detail-field"><div class="alert-detail-field-label">환자</div><div class="alert-detail-field-value">${a.patient} · ${d.age}</div></div>
+        <div class="alert-detail-field"><div class="alert-detail-field-label">진단</div><div class="alert-detail-field-value">${d.dx}</div></div>
+        <div class="alert-detail-field"><div class="alert-detail-field-label">치료</div><div class="alert-detail-field-value">${d.regimen}</div></div>
+        <div class="alert-detail-field"><div class="alert-detail-field-label">최근 방문</div><div class="alert-detail-field-value">${d.lastVisit}</div></div>
+      </div>
+    </div>
+
+    <div class="alert-detail-section">
+      <div class="alert-detail-section-title">관련 수치</div>
+      <div class="alert-detail-grid">${vitalsHtml}</div>
+    </div>
+
+    <div class="alert-detail-msg alert-detail-msg--${levelClass}">
+      <strong>상황 요약</strong><br>${d.history}
+    </div>
+
+    <div class="alert-detail-section">
+      <div class="alert-detail-section-title">AI 권장 조치</div>
+      ${d.recommend.map((r, i) => `<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:.88rem;color:#374151;line-height:1.5"><span style="color:#7c3aed;font-weight:700;flex-shrink:0">${i+1}.</span>${r}</div>`).join('')}
+    </div>
+
+    <div class="alert-action-row">
+      <button class="alert-action-btn alert-action-btn--primary" onclick="handleAlertAction(${idx},'contact')">
+        <span class="alert-action-icon">📞</span>
+        <div>
+          <div>환자에게 즉시 연락</div>
+          <div class="alert-action-desc">전화 또는 메시지로 연락합니다</div>
+        </div>
+      </button>
+      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'schedule')">
+        <span class="alert-action-icon">📅</span>
+        <div>
+          <div>긴급 외래 예약</div>
+          <div class="alert-action-desc">가능한 빠른 시간으로 외래를 잡습니다</div>
+        </div>
+      </button>
+      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'order')">
+        <span class="alert-action-icon">🧪</span>
+        <div>
+          <div>검사 오더</div>
+          <div class="alert-action-desc">필요한 검사를 미리 오더합니다</div>
+        </div>
+      </button>
+      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'note')">
+        <span class="alert-action-icon">📝</span>
+        <div>
+          <div>메모 남기기</div>
+          <div class="alert-action-desc">차트에 메모를 기록합니다</div>
+        </div>
+      </button>
+    </div>
+  `;
+
+  document.getElementById('alertDetailOverlay').classList.add('on');
+}
+
+function closeAlertDetail() {
+  document.getElementById('alertDetailOverlay').classList.remove('on');
+}
+document.getElementById('alertDetailOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeAlertDetail();
+});
+
+function handleAlertAction(idx, action) {
+  const a = DR_ALERTS[idx];
+  const actionLabels = { contact:'연락 완료', schedule:'외래 예약 완료', order:'검사 오더 완료', note:'메모 저장 완료' };
+  const actionIcons = { contact:'📞', schedule:'📅', order:'🧪', note:'📝' };
+
+  document.getElementById('alertDetailBody').innerHTML = `
+    <div class="review-success">
+      <div class="review-success-icon review-success-icon--approve">${actionIcons[action]}</div>
+      <div class="review-success-title">${actionLabels[action]}</div>
+      <div class="review-success-desc">
+        <strong>${a.patient}</strong>에 대한 조치가 기록되었습니다.<br>
+        ${action==='contact' ? '환자/보호자에게 연락이 전달됩니다.' : action==='schedule' ? '외래 예약이 접수되었습니다.' : action==='order' ? '검사 오더가 전송되었습니다.' : '차트 메모가 저장되었습니다.'}
+      </div>
+      <button class="review-success-btn" onclick="completeAlertAction(${idx})">확인</button>
+    </div>
+  `;
+}
+
+function completeAlertAction(idx) {
+  closeAlertDetail();
+  // 알림 카드를 완료 상태로 표시
+  const alertCards = document.getElementById('drAlertsList').children;
+  if (alertCards[idx]) {
+    alertCards[idx].classList.add('dr-card-done');
+    alertCards[idx].setAttribute('data-done-label', '조치 완료');
+  }
+  showToast('환자 알림에 대한 조치가 완료되었습니다.');
+}
+
+// ── AI 답변 검토 화면 (승인/수정/반려) ────────────
+function openReview(mode, idx) {
+  const r = DR_CHAT_REVIEWS[idx];
+  if (!r) return;
+
+  const modeLabels = { approve:'AI 답변 승인', edit:'AI 답변 수정 후 승인', reject:'AI 답변 반려' };
+  document.getElementById('reviewOverlayTitle').textContent = modeLabels[mode];
+
+  let bodyHtml = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <span style="font-size:.72rem;padding:2px 8px;border-radius:8px;background:#f3e8ff;color:#6b21a8;font-weight:600">${r.cohort}</span>
+      ${r.patient ? `<span style="font-size:.78rem;color:#6b7280">${r.patient}</span>` : ''}
+    </div>
+    <div class="review-question-box">
+      <div class="review-question-label">환자 질문</div>
+      <div class="review-question-text">Q. ${r.question}</div>
+    </div>
+  `;
+
+  if (mode === 'approve') {
+    bodyHtml += `
+      <div class="review-ai-label">🤖 AI 답변 (원문)</div>
+      <div class="review-ai-box review-ai-box--readonly">${r.aiAnswer}</div>
+      <div style="padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;margin-bottom:20px;font-size:.85rem;color:#047857;line-height:1.6">
+        ✅ 이 AI 답변을 검토 완료 처리하고 환자에게 공개합니다.
+      </div>
+      <div class="review-action-row">
+        <button class="review-btn review-btn--cancel" onclick="closeReviewOverlay()">취소</button>
+        <button class="review-btn review-btn--approve" onclick="confirmReview('approve',${idx})">승인하기</button>
+      </div>
+    `;
+  } else if (mode === 'edit') {
+    bodyHtml += `
+      <div class="review-ai-label">🤖 AI 답변 원문</div>
+      <div class="review-ai-box review-ai-box--readonly" style="margin-bottom:12px;font-size:.82rem;opacity:.7">${r.aiAnswer}</div>
+      <div class="review-ai-label">✏️ 수정된 답변 (아래 내용이 환자에게 공개됩니다)</div>
+      <textarea class="review-textarea" id="reviewEditText">${r.aiAnswer}</textarea>
+      ${r.reason ? `<div style="font-size:.78rem;color:#dc2626;margin-bottom:12px">⚠️ 검토 사유: ${r.reason}</div>` : ''}
+      <div class="review-action-row">
+        <button class="review-btn review-btn--cancel" onclick="closeReviewOverlay()">취소</button>
+        <button class="review-btn review-btn--approve" onclick="confirmReview('edit',${idx})">수정 후 승인</button>
+      </div>
+    `;
+  } else if (mode === 'reject') {
+    bodyHtml += `
+      <div class="review-ai-label">🤖 AI 답변 (반려 대상)</div>
+      <div class="review-ai-box" style="background:#fef2f2;border:1px solid #fecaca">${r.aiAnswer}</div>
+      <div class="review-ai-label" style="color:#dc2626">❌ 반려 사유를 입력해 주세요</div>
+      <input class="review-reason-input" id="reviewRejectReason" placeholder="예: 최신 가이드라인과 다른 내용이 포함되어 있음">
+      <div style="padding:10px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;margin-bottom:16px;font-size:.82rem;color:#92400e;line-height:1.5">
+        ⚠️ 반려 시 AI 답변이 환자에게 비공개 처리되며, AI 학습 데이터에 피드백됩니다.
+      </div>
+      <div class="review-action-row">
+        <button class="review-btn review-btn--cancel" onclick="closeReviewOverlay()">취소</button>
+        <button class="review-btn review-btn--reject" onclick="confirmReview('reject',${idx})">반려하기</button>
+      </div>
+    `;
+  }
+
+  document.getElementById('reviewOverlayBody').innerHTML = bodyHtml;
+  document.getElementById('reviewOverlay').classList.add('on');
+}
+
+function closeReviewOverlay() {
+  document.getElementById('reviewOverlay').classList.remove('on');
+}
+document.getElementById('reviewOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeReviewOverlay();
+});
+
+function confirmReview(mode, idx) {
+  const r = DR_CHAT_REVIEWS[idx];
+  let icon, title, desc;
+
+  if (mode === 'approve') {
+    icon = '✅'; title = 'AI 답변이 승인되었습니다';
+    desc = `"${r.question}"에 대한 AI 답변이 검토 완료 처리되었습니다.<br>환자에게 답변이 공개됩니다.`;
+  } else if (mode === 'edit') {
+    const edited = document.getElementById('reviewEditText')?.value || '';
+    icon = '✏️'; title = '수정된 답변이 승인되었습니다';
+    desc = `의료진이 수정한 답변이 환자에게 공개됩니다.<br>AI 학습 데이터에 수정 내용이 반영됩니다.`;
+    DR_CHAT_REVIEWS[idx].aiAnswer = edited;
+  } else {
+    const reason = document.getElementById('reviewRejectReason')?.value || '사유 미입력';
+    icon = '❌'; title = 'AI 답변이 반려되었습니다';
+    desc = `반려 사유: "${reason}"<br>환자에게 답변이 비공개 처리되며, AI가 재학습합니다.`;
+  }
+
+  const iconClass = mode === 'approve' ? 'approve' : mode === 'edit' ? 'edit' : 'reject';
+  document.getElementById('reviewOverlayBody').innerHTML = `
+    <div class="review-success">
+      <div class="review-success-icon review-success-icon--${iconClass}">${icon}</div>
+      <div class="review-success-title">${title}</div>
+      <div class="review-success-desc">${desc}</div>
+      <button class="review-success-btn" onclick="completeReview('${mode}',${idx})">확인</button>
+    </div>
+  `;
+}
+
+function completeReview(mode, idx) {
+  closeReviewOverlay();
+  // 카드 상태 업데이트
+  const cards = document.getElementById('drChatMonitor').children;
+  if (cards[idx]) {
+    cards[idx].classList.add('dr-card-done');
+    const labels = { approve:'승인 완료', edit:'수정 승인', reject:'반려 완료' };
+    cards[idx].setAttribute('data-done-label', labels[mode]);
+  }
+  DR_CHAT_REVIEWS[idx].status = mode === 'reject' ? 'rejected' : 'ok';
+  showToast(mode === 'approve' ? 'AI 답변이 승인되었습니다.' : mode === 'edit' ? '수정된 답변이 승인되었습니다.' : 'AI 답변이 반려되었습니다.');
 }
 
 function switchToDoctor(loginData) {
