@@ -2300,6 +2300,137 @@
     #hww-wrap .cycle-arrow { display: none; }
     #hww-wrap .fail-grid { grid-template-columns: 1fr; }
   }
+
+  /* ===== 직원용 APP 페이지 ===== */
+  #page-vdoc-employee-app { padding: 60px 0 100px; min-height: 100vh; position: relative; }
+
+  .empapp-hero { text-align: center; margin-bottom: 72px; }
+  .empapp-hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: 'Pretendard', sans-serif; font-size: 11px; font-weight: 700;
+    color: var(--accent2); letter-spacing: 2px; text-transform: uppercase;
+    background: rgba(0,229,176,0.08); border: 1px solid rgba(0,229,176,0.2);
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .empapp-hero-title {
+    font-family: 'Pretendard', sans-serif; font-size: 48px; font-weight: 900;
+    letter-spacing: -2px; line-height: 1.1; color: var(--text); margin-bottom: 16px;
+  }
+  .empapp-hero-title em { font-style: normal; color: var(--accent2); }
+  .empapp-hero-sub { font-size: 16px; color: var(--text-muted); max-width: 560px; margin: 0 auto 28px; line-height: 1.75; }
+  .empapp-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .empapp-chip { font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); color: var(--text-muted); background: var(--surface); font-family: 'Pretendard', sans-serif; }
+  .empapp-chip.green { border-color: rgba(0,229,176,0.3); color: var(--accent2); background: rgba(0,229,176,0.07); }
+  .empapp-chip.blue  { border-color: rgba(79,127,255,0.3); color: var(--accent);  background: rgba(79,127,255,0.07); }
+
+  .empapp-main { display: flex; align-items: flex-start; gap: 60px; justify-content: center; flex-wrap: wrap; }
+
+  /* 아이폰 목업 */
+  .phone-mockup-wrap { flex-shrink: 0; position: relative; width: 300px; }
+  .phone-mockup {
+    position: relative; width: 300px;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.18);
+    box-shadow: 0 0 0 8px rgba(255,255,255,0.03), 0 40px 100px rgba(0,0,0,0.7),
+      inset 0 1px 0 rgba(255,255,255,0.2), 0 0 80px rgba(0,229,176,0.06);
+    padding: 16px; overflow: hidden;
+  }
+  .phone-mockup::before {
+    content: ''; position: absolute; left: -3px; top: 110px;
+    width: 3px; height: 32px; background: rgba(255,255,255,0.14);
+    border-radius: 2px 0 0 2px;
+    box-shadow: 0 44px 0 rgba(255,255,255,0.14), 0 84px 0 rgba(255,255,255,0.14);
+  }
+  .phone-mockup::after {
+    content: ''; position: absolute; right: -3px; top: 150px;
+    width: 3px; height: 56px; background: rgba(255,255,255,0.14);
+    border-radius: 0 2px 2px 0;
+  }
+  .phone-island {
+    width: 100px; height: 28px; background: #000; border-radius: 18px;
+    margin: 0 auto 10px; position: relative; z-index: 10;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.05);
+  }
+  .phone-screen {
+    border-radius: 36px; overflow: hidden; background: #F7F6F2;
+    height: 637px; position: relative;
+  }
+  /* 인라인 앱 스케일 */
+  .phone-screen #empapp-root-bg { display: none; }
+  .phone-screen #empapp-root {
+    width: 390px; height: 844px;
+    transform: scale(0.692);
+    transform-origin: top left;
+    overflow: hidden;
+    position: relative;
+    pointer-events: auto;
+    font-family: 'Pretendard', sans-serif;
+  }
+  /* 앱 내부 .app 래퍼 */
+  .phone-screen #empapp-root .app {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  .phone-glare {
+    position: absolute; top: 16px; left: 16px; right: 16px; height: 180px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 100%);
+    border-radius: 36px 36px 0 0; pointer-events: none; z-index: 5;
+  }
+  .phone-glow {
+    position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+    width: 240px; height: 80px;
+    background: radial-gradient(ellipse, rgba(0,229,176,0.2) 0%, transparent 70%);
+    filter: blur(20px); pointer-events: none;
+  }
+
+  /* 우측 설명 패널 */
+  .empapp-info { flex: 1; min-width: 320px; max-width: 460px; padding-top: 4px; }
+  .empapp-section-label {
+    font-family: 'Pretendard', sans-serif; font-size: 11px; font-weight: 700;
+    color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .empapp-feature-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 28px; }
+  .empapp-feature {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px; border-radius: 12px; border: 1px solid transparent;
+    cursor: default; transition: all 0.2s;
+  }
+  .empapp-feature:hover { background: var(--surface); border-color: var(--border); }
+  .empapp-feature-icon {
+    width: 38px; height: 38px; border-radius: 10px; background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0; border: 1px solid var(--border);
+  }
+  .empapp-feature-title { font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .empapp-feature-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+
+  .empapp-privacy-card {
+    background: linear-gradient(135deg, rgba(0,229,176,0.05) 0%, rgba(79,127,255,0.05) 100%);
+    border: 1px solid rgba(0,229,176,0.15); border-radius: 14px;
+    padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 20px;
+  }
+  .empapp-privacy-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .empapp-privacy-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.65; }
+  .empapp-privacy-text strong { color: var(--accent2); font-weight: 700; display: block; font-size: 13px; margin-bottom: 3px; }
+
+  .empapp-cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px;
+    background: linear-gradient(135deg, var(--accent2), #00b88a);
+    border: none; border-radius: 11px; color: #0a1a14;
+    font-family: 'Pretendard', sans-serif; font-size: 13.5px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,229,176,0.2); text-decoration: none;
+  }
+  .empapp-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,176,0.32); }
+  .empapp-glow-bg {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(0,229,176,0.04) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+
 </style>
 <style>
 /* ====== V.Doc Enterprise Proposal Page (scoped) ====== */
@@ -2784,7 +2915,12 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             Web Prototype
           </a>
-
+          <div class="pinkcare-menu-divider"></div>
+          <a href="#" onclick="navigateVdoc('employee-app', event)" class="pinkcare-menu-item" style="color:var(--accent2);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+            직원용 APP
+            <span style="margin-left:auto;font-size:10px;background:rgba(0,229,176,0.15);color:var(--accent2);padding:2px 7px;border-radius:10px;font-weight:700;letter-spacing:0.5px;">NEW</span>
+          </a>
 
         </div>
       </div>
@@ -10104,6 +10240,1683 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
 
   </div><!-- /page-dashboard -->
 
+
+  <!-- 직원용 APP PAGE -->
+  <div class="page-section" id="page-vdoc-employee-app">
+    <div class="empapp-glow-bg"></div>
+    <div style="position:relative;z-index:1;">
+
+      <!-- HERO -->
+      <div class="empapp-hero">
+        <div class="empapp-hero-eyebrow">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+          V.Doc Enterprise · Employee App
+        </div>
+        <h1 class="empapp-hero-title">직원용<br><em>건강 스크리닝 앱</em></h1>
+        <p class="empapp-hero-sub">PHQ-9 · GAD-7 · 신체 간이 체크 분기 1회 스크리닝.<br>개인 결과는 본인만 확인 — 인사팀에 절대 공유되지 않습니다.</p>
+        <div class="empapp-chips">
+          <span class="empapp-chip green">✓ 개인정보 보호</span>
+          <span class="empapp-chip blue">PHQ-9 · GAD-7</span>
+          <span class="empapp-chip">분기 1회 스크리닝</span>
+          <span class="empapp-chip">교육 이수 자동저장</span>
+          <span class="empapp-chip">산업안전보건법 준수</span>
+        </div>
+      </div>
+
+      <!-- 메인: 아이폰 목업 + 설명 -->
+      <div class="empapp-main">
+
+        <!-- 아이폰 목업 -->
+        <div class="phone-mockup-wrap">
+          <div class="phone-mockup">
+            <div class="phone-island"></div>
+            <div class="phone-screen">
+
+          <!-- 인라인 앱 (iframe 대체) -->
+          <div id="empapp-root-bg"></div>
+          <div id="empapp-root">
+            <style id="empapp-styles">
+
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --surface2: #F0EEE8;
+    --border: #E2DED5;
+    --text: #1A1916;
+    --text-muted: #7A7568;
+    --accent: #2C6E49;
+    --accent-light: #E8F5EE;
+    --accent2: #D4622A;
+    --accent2-light: #FDF0EA;
+    --warn: #B45309;
+    --warn-light: #FEF3C7;
+    --danger: #991B1B;
+    --danger-light: #FEE2E2;
+    --blue: #1E40AF;
+    --blue-light: #EFF6FF;
+    --radius: 16px;
+    --shadow: 0 2px 16px rgba(26,25,22,0.08);
+    --shadow-lg: 0 8px 40px rgba(26,25,22,0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  #empapp-root {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── 앱 컨테이너 ── */
+  .app {
+    width: 390px;
+    min-height: 844px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+    border-radius: 40px;
+  }
+
+  /* ── 화면 전환 ── */
+  .screen {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    animation: fadeSlide 0.3s ease;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── 모달 오버레이 ── */
+  .modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(26,25,22,0.55);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: flex-end;
+    z-index: 100;
+    animation: fadeIn 0.25s ease;
+  }
+  .modal-overlay.hidden { display: none; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal-sheet {
+    background: var(--surface);
+    border-radius: 28px 28px 0 0;
+    padding: 28px 28px 40px;
+    width: 100%;
+    animation: sheetUp 0.3s cubic-bezier(0.22,1,0.36,1);
+  }
+  @keyframes sheetUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 24px;
+  }
+
+  .modal-icon {
+    width: 52px; height: 52px;
+    background: var(--accent-light);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .modal-#empapp-root {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .modal-notice {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 12px 14px;
+    border-radius: 0 10px 10px 0;
+    font-size: 13px;
+    color: var(--accent);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .btn-row {
+    display: flex; gap: 10px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 15px;
+    border-radius: 14px;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text);
+  }
+  .btn-danger {
+    background: var(--danger);
+    color: white;
+  }
+  .btn-full {
+    width: 100%;
+    flex: none;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+  }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    padding: 56px 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .topbar-action {
+    font-size: 13px;
+    color: var(--text-muted);
+    background: none; border: none;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+  .topbar-action:hover { background: var(--surface2); }
+
+  /* ── 프라이버시 배너 ── */
+  .privacy-banner {
+    margin: 0 20px;
+    background: linear-gradient(135deg, #1A3A2A 0%, #2C6E49 100%);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .privacy-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+
+  .privacy-text {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.6;
+  }
+
+  .privacy-text strong {
+    color: #7FFFC4;
+    font-weight: 600;
+    display: block;
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  /* ── 홈 화면 ── */
+  .home-content {
+    padding: 24px 20px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .greeting {
+    margin-bottom: 24px;
+  }
+  .greeting-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .greeting-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* 메인 카드 */
+  .main-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .main-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .card-meta { flex: 1; }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .card-subtitle {
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  .card-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .badge-due { background: var(--warn-light); color: var(--warn); }
+  .badge-done { background: var(--accent-light); color: var(--accent); }
+  .badge-new { background: var(--blue-light); color: var(--blue); }
+
+  .card-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .card-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* 미니 카드 그리드 */
+  .mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .mini-card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mini-card:hover { transform: translateY(-2px); }
+  .mini-card-icon { font-size: 22px; margin-bottom: 8px; }
+  .mini-card-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .mini-card-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── 진행 바 ── */
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 4px;
+    height: 4px;
+    margin: 0 0 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  /* ── 스크리닝 화면 ── */
+  .screening-header {
+    padding: 56px 24px 20px;
+    background: linear-gradient(180deg, #1A3A2A 0%, #2C6E49 100%);
+  }
+
+  .back-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .step-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .step-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .step-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+  }
+
+  .step-progress {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .step-dot {
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+    transition: background 0.3s;
+  }
+  .step-dot.done { background: white; }
+  .step-dot.active { background: #7FFFC4; }
+
+  .question-area {
+    flex: 1;
+    padding: 24px 20px;
+    overflow-y: auto;
+  }
+
+  .question-block {
+    display: none;
+  }
+  .question-block.active { display: block; }
+
+  .q-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .q-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .q-sub {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* 선택지 */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .option {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .option:hover { border-color: var(--accent); background: var(--accent-light); }
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .option-check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-size: 11px;
+  }
+  .option.selected .option-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* 리커트 척도 */
+  .likert {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .likert-btn {
+    flex: 1;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+    font-family: inherit;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .likert-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+  .likert-btn.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .likert-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  /* 다음 버튼 */
+  .nav-area {
+    padding: 16px 20px 36px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  /* ── 결과 화면 ── */
+  .result-header {
+    padding: 56px 24px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .result-date {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .result-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .result-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .result-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .score-label { font-size: 14px; font-weight: 500; flex: 1; }
+  .score-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .score-level {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .level-low { background: var(--accent-light); color: var(--accent); }
+  .level-mild { background: var(--warn-light); color: var(--warn); }
+  .level-high { background: var(--danger-light); color: var(--danger); }
+
+  .result-bar-wrap {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .result-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+  .bar-green { background: var(--accent); }
+  .bar-yellow { background: #F59E0B; }
+  .bar-red { background: var(--danger); }
+
+  .bar-range {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .alert-box {
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .alert-warn { background: var(--warn-light); color: var(--warn); }
+  .alert-danger { background: var(--danger-light); color: var(--danger); }
+  .alert-ok { background: var(--accent-light); color: var(--accent); }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* 고위험 연결 카드 */
+  .connect-card {
+    background: linear-gradient(135deg, #991B1B 0%, #B91C1C 100%);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 10px;
+    color: white;
+  }
+  .connect-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .connect-card-#empapp-root {
+    font-size: 13.5px;
+    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .btn-white {
+    background: white;
+    color: #991B1B;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  /* ── 교육 콘텐츠 화면 ── */
+  .edu-header {
+    padding: 56px 24px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .edu-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .edu-sub { font-size: 14px; color: var(--text-muted); }
+
+  .edu-content {
+    flex: 1;
+    padding: 16px 20px;
+    overflow-y: auto;
+  }
+
+  .edu-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .edu-item:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+
+  .edu-thumb {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .edu-meta { flex: 1; }
+  .edu-item-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .edu-item-sub {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .edu-tags {
+    display: flex;
+    gap: 5px;
+  }
+  .edu-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--surface2);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .edu-tag.done { background: var(--accent-light); color: var(--accent); }
+
+  .edu-check {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ── 하단 탭 바 ── */
+  .tab-bar {
+    display: flex;
+    padding: 10px 20px 28px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    gap: 4px;
+  }
+
+  .tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+  .tab:hover { background: var(--surface2); }
+  .tab.active { background: var(--accent-light); }
+
+  .tab-icon { font-size: 20px; }
+  .tab-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .tab.active .tab-label { color: var(--accent); font-weight: 600; }
+
+  /* ── 튜토리얼 배너 (고정) ── */
+  .tutorial-strip {
+    background: #1A3A2A;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .tutorial-strip-icon { font-size: 14px; }
+  .tutorial-strip-text {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .tutorial-strip-text strong { color: #7FFFC4; }
+
+  /* 동의 모달 */
+  .consent-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .consent-item:last-child { border-bottom: none; }
+  .consent-check {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    transition: all 0.15s;
+    margin-top: 2px;
+  }
+  .consent-check.checked { background: var(--accent); border-color: var(--accent); color: white; }
+  .consent-text { font-size: 13.5px; color: var(--text); line-height: 1.55; }
+  .consent-text em { font-style: normal; color: var(--text-muted); font-size: 12.5px; display: block; margin-top: 2px; }
+
+  /* 완료 화면 */
+  .complete-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 28px;
+    text-align: center;
+  }
+  .complete-emoji { font-size: 64px; margin-bottom: 20px; }
+  .complete-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+  .complete-#empapp-root { font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 32px; }
+
+  /* 반응 없음 처리 화면 */
+  .ok-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 28px;
+    text-align: center;
+  }
+
+            </style>
+            
+
+<div class="app" id="app">
+
+  <!-- ══════════════════════════════════
+       모달: 건강이상 확인 (첫 로그인)
+  ══════════════════════════════════ -->
+  <div class="modal-overlay" id="checkModal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-icon">🩺</div>
+      <div class="modal-title">지난 로그인 이후<br>건강에 이상이 있으셨나요?</div>
+      <div class="modal-body">
+        신체적 또는 정신적 건강에 불편함이 있었다면 알려주세요. 이 정보는 <strong>본인만 확인</strong>하며, 인사팀에 공유되지 않습니다.
+      </div>
+      <div class="modal-notice">
+        🔒 개인 건강기록은 인사팀에 절대 공유되지 않으며, 회사 산업안전보건법 준수를 위한 통계자료로만 보고됩니다.
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="handleCheckNo()">아니오, 괜찮았어요</button>
+        <button class="btn btn-primary" onclick="handleCheckYes()">예, 이상이 있었어요</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       모달: 동의 (스크리닝 시작)
+  ══════════════════════════════════ -->
+  <div class="modal-overlay hidden" id="consentModal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-icon">📋</div>
+      <div class="modal-title">스크리닝 시작 전<br>동의가 필요합니다</div>
+      <div id="consentItems">
+        <div class="consent-item">
+          <div class="consent-check" id="c1" onclick="toggleConsent('c1')"></div>
+          <div class="consent-text">민감정보(건강) 수집·이용 동의 <em>결과는 본인만 확인 가능 · 5년 보관 후 파기</em></div>
+        </div>
+        <div class="consent-item">
+          <div class="consent-check" id="c2" onclick="toggleConsent('c2')"></div>
+          <div class="consent-text">고위험 판정 시 외부 상담 연결 안내 수신 동의 <em>(동의하지 않아도 스크리닝 가능)</em></div>
+        </div>
+        <div class="consent-item">
+          <div class="consent-check" id="c3" onclick="toggleConsent('c3')"></div>
+          <div class="consent-text">익명 통계 집계 활용 동의 <em>개인 식별 불가 수준으로 산업안전보건 보고에만 사용</em></div>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+      <button class="btn btn-primary btn-full" id="startScreeningBtn" onclick="startScreening()" disabled style="opacity:0.4">필수 항목 동의 후 시작</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 1: 홈
+  ══════════════════════════════════ -->
+  <div class="screen active" id="homeScreen">
+    <div class="topbar">
+      <div class="logo">V·Doc</div>
+      <button class="topbar-action">김지수 님 ▾</button>
+    </div>
+
+    <div style="padding: 0 20px 12px;">
+      <div class="privacy-banner">
+        <div class="privacy-icon">🔒</div>
+        <div class="privacy-text">
+          <strong>개인정보 보호 안내</strong>
+          개인 건강기록은 인사팀에 절대 공유되지 않으며, 회사 산업안전보건법 준수를 위한 <strong>통계자료로만</strong> 보고됩니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="home-content">
+      <div class="greeting">
+        <div class="greeting-sub">2026년 1분기</div>
+        <div class="greeting-name">안녕하세요,<br>김지수 님 👋</div>
+      </div>
+
+      <div class="section-label">이번 분기 스크리닝</div>
+
+      <!-- 스크리닝 카드 -->
+      <div class="main-card" onclick="openConsent()">
+        <div class="card-header">
+          <div class="card-icon" style="background:#E8F5EE;">🩺</div>
+          <div class="card-meta">
+            <div class="card-title">분기 건강 스크리닝</div>
+            <div class="card-subtitle">PHQ-9 · GAD-7 · 신체 체크</div>
+          </div>
+          <div class="card-badge badge-due">진행 필요</div>
+        </div>
+        <div class="card-desc">정신건강(우울·불안)과 신체 건강을 종합적으로 체크합니다. 소요시간 약 5~7분.</div>
+        <div class="card-action">스크리닝 시작하기 →</div>
+      </div>
+
+      <div class="section-label" style="margin-top:4px;">내 건강 기록 · 교육</div>
+
+      <div class="mini-grid">
+        <div class="mini-card" onclick="showScreen('resultScreen')">
+          <div class="mini-card-icon">📊</div>
+          <div class="mini-card-title">지난 결과 보기</div>
+          <div class="mini-card-sub">2025 4분기</div>
+        </div>
+        <div class="mini-card" onclick="showScreen('eduScreen')">
+          <div class="mini-card-icon">📚</div>
+          <div class="mini-card-title">교육 콘텐츠</div>
+          <div class="mini-card-sub">이수 2 / 5</div>
+        </div>
+      </div>
+
+      <!-- 교육 이수 현황 -->
+      <div class="main-card" onclick="showScreen('eduScreen')" style="cursor:pointer;">
+        <div class="card-header">
+          <div class="card-icon" style="background:#EFF6FF;">📚</div>
+          <div class="card-meta">
+            <div class="card-title">교육 이수 현황</div>
+            <div class="card-subtitle">2025년도 누적</div>
+          </div>
+          <div class="card-badge badge-new">2/5 완료</div>
+        </div>
+        <div class="progress-bar-wrap" style="margin-bottom:4px;">
+          <div class="progress-bar-fill" style="width:40%"></div>
+        </div>
+        <div class="progress-label">40% 완료 · 남은 콘텐츠 3개</div>
+        <div class="card-action">콘텐츠 열람하기 →</div>
+      </div>
+    </div>
+
+    <!-- 하단 튜토리얼 배너 -->
+    <div class="tutorial-strip">
+      <div class="tutorial-strip-icon">🛡️</div>
+      <div class="tutorial-strip-text">
+        <strong>내 기록은 나만 봅니다.</strong> 회사는 익명 통계만 확인합니다. 개인 건강기록은 인사팀에 절대 공유되지 않습니다.
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab active" onclick="showScreen('homeScreen')">
+        <span class="tab-icon">🏠</span>
+        <span class="tab-label">홈</span>
+      </button>
+      <button class="tab" onclick="showScreen('eduScreen')">
+        <span class="tab-icon">📚</span>
+        <span class="tab-label">교육</span>
+      </button>
+      <button class="tab" onclick="showScreen('resultScreen')">
+        <span class="tab-icon">📊</span>
+        <span class="tab-label">내 결과</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 2: 건강이상 없음 처리
+  ══════════════════════════════════ -->
+  <div class="screen" id="okScreen">
+    <div class="topbar">
+      <div class="logo">V·Doc</div>
+    </div>
+    <div class="ok-inner">
+      <div class="complete-emoji">✅</div>
+      <div class="complete-title">확인되었습니다</div>
+      <div class="complete-body">
+        건강상 문제없음으로 처리되었습니다.<br><br>
+        분기 스크리닝 일정이 되면 알림을 보내드립니다. 다음 스크리닝 예정일은 <strong>2026년 4월 1일</strong>입니다.
+      </div>
+      <div class="modal-notice" style="text-align:left; width:100%;">
+        🔒 개인 건강기록은 인사팀에 절대 공유되지 않으며, 회사 산업안전보건법 준수를 위한 통계자료로만 보고됩니다.
+      </div>
+      <button class="btn btn-primary btn-full" onclick="showScreen('homeScreen')">홈으로 돌아가기</button>
+    </div>
+    <div class="tutorial-strip">
+      <div class="tutorial-strip-icon">🛡️</div>
+      <div class="tutorial-strip-text"><strong>내 기록은 나만 봅니다.</strong> 회사는 익명 통계만 확인합니다.</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 3: 스크리닝 진행
+  ══════════════════════════════════ -->
+  <div class="screen" id="screeningScreen">
+    <div class="screening-header">
+      <button class="back-btn" onclick="showScreen('homeScreen')">← 뒤로</button>
+      <div class="step-info">
+        <div class="step-label" id="sectionLabel">섹션 A · 우울 체크</div>
+        <div class="step-count" id="stepCount">1 / 7</div>
+      </div>
+      <div class="step-title" id="stepTitle">최근 2주간, 우울하거나 희망이 없다고 느끼셨나요?</div>
+      <div class="step-progress" id="stepProgress">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+    </div>
+
+    <div class="question-area">
+
+      <!-- Q1: PHQ-9 대표 문항 -->
+      <div class="question-block active" id="q1">
+        <div class="q-label">PHQ-9 · 우울 척도</div>
+        <div class="q-text">기분이 가라앉거나, 우울하거나,<br>희망이 없다고 느끼셨나요?</div>
+        <div class="q-sub">지난 2주간을 기준으로 응답해 주세요.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q1','0')"><div class="option-check"></div>전혀 없었다</div>
+          <div class="option" onclick="selectOption(this,'q1','1')"><div class="option-check"></div>며칠 동안</div>
+          <div class="option" onclick="selectOption(this,'q1','2')"><div class="option-check"></div>7일 이상</div>
+          <div class="option" onclick="selectOption(this,'q1','3')"><div class="option-check"></div>거의 매일</div>
+        </div>
+      </div>
+
+      <!-- Q2: PHQ-9 -->
+      <div class="question-block" id="q2">
+        <div class="q-label">PHQ-9 · 우울 척도</div>
+        <div class="q-text">일상적인 활동에 흥미나 즐거움을<br>거의 느끼지 못하셨나요?</div>
+        <div class="q-sub">지난 2주간을 기준으로 응답해 주세요.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q2','0')"><div class="option-check"></div>전혀 없었다</div>
+          <div class="option" onclick="selectOption(this,'q2','1')"><div class="option-check"></div>며칠 동안</div>
+          <div class="option" onclick="selectOption(this,'q2','2')"><div class="option-check"></div>7일 이상</div>
+          <div class="option" onclick="selectOption(this,'q2','3')"><div class="option-check"></div>거의 매일</div>
+        </div>
+      </div>
+
+      <!-- Q3: GAD-7 -->
+      <div class="question-block" id="q3">
+        <div class="q-label">GAD-7 · 불안 척도</div>
+        <div class="q-text">불안하거나 초조하거나<br>긴장되는 느낌이 있으셨나요?</div>
+        <div class="q-sub">지난 2주간을 기준으로 응답해 주세요.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q3','0')"><div class="option-check"></div>전혀 없었다</div>
+          <div class="option" onclick="selectOption(this,'q3','1')"><div class="option-check"></div>며칠 동안</div>
+          <div class="option" onclick="selectOption(this,'q3','2')"><div class="option-check"></div>7일 이상</div>
+          <div class="option" onclick="selectOption(this,'q3','3')"><div class="option-check"></div>거의 매일</div>
+        </div>
+      </div>
+
+      <!-- Q4: GAD-7 -->
+      <div class="question-block" id="q4">
+        <div class="q-label">GAD-7 · 불안 척도</div>
+        <div class="q-text">걱정을 멈추거나 조절하기 어려웠나요?</div>
+        <div class="q-sub">지난 2주간을 기준으로 응답해 주세요.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q4','0')"><div class="option-check"></div>전혀 없었다</div>
+          <div class="option" onclick="selectOption(this,'q4','1')"><div class="option-check"></div>며칠 동안</div>
+          <div class="option" onclick="selectOption(this,'q4','2')"><div class="option-check"></div>7일 이상</div>
+          <div class="option" onclick="selectOption(this,'q4','3')"><div class="option-check"></div>거의 매일</div>
+        </div>
+      </div>
+
+      <!-- Q5: 신체 불편함 여부 -->
+      <div class="question-block" id="q5">
+        <div class="q-label">신체 간이 체크</div>
+        <div class="q-text">최근 한 달간 신체적 불편함이<br>있으셨나요?</div>
+        <div class="q-sub">통증, 불편감, 증상 등이 있었는지 확인합니다.</div>
+        <div class="options">
+          <div class="option" onclick="selectOption(this,'q5','yes')"><div class="option-check"></div>예, 있었습니다</div>
+          <div class="option" onclick="selectOption(this,'q5','no')"><div class="option-check"></div>아니오, 없었습니다</div>
+        </div>
+      </div>
+
+      <!-- Q6: 신체 부위 (조건부) -->
+      <div class="question-block" id="q6">
+        <div class="q-label">신체 간이 체크</div>
+        <div class="q-text">불편함이 있었던 부위를<br>선택해 주세요.</div>
+        <div class="q-sub">해당하는 항목 모두 선택 가능합니다.</div>
+        <div class="options" id="bodyOptions">
+          <div class="option" onclick="toggleMulti(this)"><div class="option-check"></div>목·어깨</div>
+          <div class="option" onclick="toggleMulti(this)"><div class="option-check"></div>허리</div>
+          <div class="option" onclick="toggleMulti(this)"><div class="option-check"></div>눈 피로</div>
+          <div class="option" onclick="toggleMulti(this)"><div class="option-check"></div>두통</div>
+          <div class="option" onclick="toggleMulti(this)"><div class="option-check"></div>위장·소화</div>
+          <div class="option" onclick="toggleMulti(this)"><div class="option-check"></div>기타</div>
+        </div>
+      </div>
+
+      <!-- Q7: 주관적 건강 상태 -->
+      <div class="question-block" id="q7">
+        <div class="q-label">종합 건강 상태</div>
+        <div class="q-text">현재 전반적인 건강 상태가<br>어떻다고 느끼시나요?</div>
+        <div class="q-sub">1 = 매우 나쁨 &nbsp;·&nbsp; 5 = 매우 좋음</div>
+        <div class="likert">
+          <button class="likert-btn" onclick="selectLikert(this,'q7','1')">1</button>
+          <button class="likert-btn" onclick="selectLikert(this,'q7','2')">2</button>
+          <button class="likert-btn" onclick="selectLikert(this,'q7','3')">3</button>
+          <button class="likert-btn" onclick="selectLikert(this,'q7','4')">4</button>
+          <button class="likert-btn" onclick="selectLikert(this,'q7','5')">5</button>
+        </div>
+        <div class="likert-labels">
+          <span>매우 나쁨</span>
+          <span>보통</span>
+          <span>매우 좋음</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="nav-area">
+      <button class="btn btn-primary btn-full" id="nextBtn" onclick="nextQuestion()">다음</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 4: 스크리닝 결과
+  ══════════════════════════════════ -->
+  <div class="screen" id="resultScreen">
+    <div class="result-header">
+      <button class="back-btn" style="background:var(--surface2); color:var(--text); margin-bottom:12px;" onclick="showScreen('homeScreen')">← 홈</button>
+      <div class="result-title">내 건강 결과</div>
+      <div class="result-date">2025년 4분기 · 본인만 열람 가능</div>
+    </div>
+
+    <div class="result-content">
+
+      <div class="alert-box alert-ok">
+        <div class="alert-icon">🔒</div>
+        <div>이 결과는 <strong>본인만</strong> 확인할 수 있습니다. 인사팀 및 회사에 개인 결과는 절대 공유되지 않습니다.</div>
+      </div>
+
+      <!-- 정신 건강 결과 -->
+      <div class="result-card">
+        <div class="result-section-title">🧠 정신건강</div>
+
+        <div class="score-row">
+          <div class="score-label">PHQ-9 (우울)</div>
+          <div class="score-value">4</div>
+          <div class="score-level level-low">정상</div>
+        </div>
+        <div class="result-bar-wrap">
+          <div class="result-bar bar-green" style="width:18%"></div>
+        </div>
+        <div class="bar-range"><span>0</span><span>27</span></div>
+
+        <div class="score-row">
+          <div class="score-label">GAD-7 (불안)</div>
+          <div class="score-value">6</div>
+          <div class="score-level level-mild">경증</div>
+        </div>
+        <div class="result-bar-wrap">
+          <div class="result-bar bar-yellow" style="width:28%"></div>
+        </div>
+        <div class="bar-range"><span>0</span><span>21</span></div>
+
+        <div class="alert-box alert-warn" style="margin-top:4px; margin-bottom:0;">
+          <div class="alert-icon">💡</div>
+          <div>불안 점수가 경증 범위입니다. 스트레스 관리 콘텐츠를 확인해 보세요.</div>
+        </div>
+      </div>
+
+      <!-- 신체 건강 결과 -->
+      <div class="result-card">
+        <div class="result-section-title">💪 신체건강</div>
+        <div class="score-row">
+          <div class="score-label">주관적 건강 상태</div>
+          <div class="score-value">3/5</div>
+          <div class="score-level level-mild">보통</div>
+        </div>
+        <div style="font-size:13.5px; color:var(--text-muted); margin-top:6px; line-height:1.6;">
+          응답하신 부위: <strong>목·어깨, 눈 피로</strong><br>
+          장시간 화면 작업 시 20-20-20 규칙을 권고합니다.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tutorial-strip">
+      <div class="tutorial-strip-icon">🛡️</div>
+      <div class="tutorial-strip-text"><strong>개인 결과는 나만 봅니다.</strong> 회사에는 익명 통계만 보고됩니다.</div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab" onclick="showScreen('homeScreen')">
+        <span class="tab-icon">🏠</span><span class="tab-label">홈</span>
+      </button>
+      <button class="tab" onclick="showScreen('eduScreen')">
+        <span class="tab-icon">📚</span><span class="tab-label">교육</span>
+      </button>
+      <button class="tab active">
+        <span class="tab-icon">📊</span><span class="tab-label">내 결과</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 5: 고위험 상담 연결
+  ══════════════════════════════════ -->
+  <div class="screen" id="highRiskScreen">
+    <div class="result-header" style="background: linear-gradient(135deg,#7F1D1D,#991B1B);">
+      <div style="padding-bottom:8px;">
+        <div class="result-title" style="color:white;">관심이 필요한 결과입니다</div>
+        <div class="result-date" style="color:rgba(255,255,255,0.8);">스크리닝 결과 · 본인만 열람</div>
+      </div>
+    </div>
+
+    <div class="result-content">
+      <div class="alert-box alert-danger">
+        <div class="alert-icon">⚠️</div>
+        <div>PHQ-9 또는 GAD-7 점수가 <strong>중증 범위</strong>에 해당합니다. 전문가의 도움을 받아보시기를 권고합니다.</div>
+      </div>
+
+      <div class="connect-card">
+        <div class="connect-card-title">외부 전문 상담 연결</div>
+        <div class="connect-card-body">
+          회사와 완전히 독립된 외부 상담사와 연결해 드립니다. 상담 내용은 본인과 상담사 사이에만 존재하며, 어떠한 경우에도 회사에 전달되지 않습니다.
+        </div>
+        <button class="btn-white" onclick="alert('상담 연결 안내 화면으로 이동합니다.\n(본인 동의 하에 진행됩니다)')">상담 연결 안내 보기 →</button>
+      </div>
+
+      <div class="result-card">
+        <div class="result-section-title">🔒 개인정보 보호 원칙</div>
+        <div style="font-size:13.5px; color:var(--text-muted); line-height:1.7;">
+          · 개인 결과 — 본인만 열람<br>
+          · 외부 상담 연결 — 본인 동의 하에만<br>
+          · 회사 보고 — 익명 통계만, 개인 식별 불가<br>
+          · 인사 활용 — 절대 불가 (시스템적 차단)
+        </div>
+      </div>
+
+      <button class="btn btn-outline btn-full" onclick="showScreen('homeScreen')" style="margin-top:4px;">나중에 결정하기</button>
+    </div>
+
+    <div class="tutorial-strip">
+      <div class="tutorial-strip-icon">🛡️</div>
+      <div class="tutorial-strip-text"><strong>이 정보는 회사에 공유되지 않습니다.</strong> 산업안전보건법 통계자료로만 사용됩니다.</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 6: 스크리닝 완료
+  ══════════════════════════════════ -->
+  <div class="screen" id="doneScreen">
+    <div class="topbar">
+      <div class="logo">V·Doc</div>
+    </div>
+    <div class="complete-inner">
+      <div class="complete-emoji">🎉</div>
+      <div class="complete-title">스크리닝 완료!</div>
+      <div class="complete-body">
+        2026년 1분기 건강 스크리닝이 완료되었습니다.<br><br>
+        이수 기록이 자동으로 저장되었습니다.<br>결과는 <strong>내 결과</strong> 탭에서 언제든지 확인하실 수 있습니다.
+      </div>
+      <div class="modal-notice" style="text-align:left; width:100%;">
+        🔒 개인 건강기록은 인사팀에 절대 공유되지 않으며, 회사 산업안전보건법 준수를 위한 통계자료로만 보고됩니다.
+      </div>
+      <div style="display:flex; gap:10px; width:100%;">
+        <button class="btn btn-secondary" style="flex:1;" onclick="showScreen('resultScreen')">결과 확인</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="showScreen('homeScreen')">홈으로</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       화면 7: 교육 콘텐츠
+  ══════════════════════════════════ -->
+  <div class="screen" id="eduScreen">
+    <div class="edu-header">
+      <div class="edu-title">교육 콘텐츠</div>
+      <div class="edu-sub">이수 기록이 자동으로 저장됩니다</div>
+    </div>
+
+    <div class="edu-content">
+      <div class="section-label">필수 교육</div>
+
+      <div class="edu-item" onclick="markDone(this, 'edu1')">
+        <div class="edu-thumb" style="background:#E8F5EE;">🧘</div>
+        <div class="edu-meta">
+          <div class="edu-item-title">직장 스트레스 관리 기초</div>
+          <div class="edu-item-sub">15분 · 산업안전보건교육</div>
+          <div class="edu-tags">
+            <span class="edu-tag done" id="tag_edu1">✓ 이수완료</span>
+          </div>
+        </div>
+        <div class="edu-check" id="check_edu1">✅</div>
+      </div>
+
+      <div class="edu-item" onclick="markDone(this, 'edu2')">
+        <div class="edu-thumb" style="background:#EFF6FF;">💼</div>
+        <div class="edu-meta">
+          <div class="edu-item-title">번아웃 예방과 회복</div>
+          <div class="edu-item-sub">12분 · 정신건강 교육</div>
+          <div class="edu-tags">
+            <span class="edu-tag done" id="tag_edu2">✓ 이수완료</span>
+          </div>
+        </div>
+        <div class="edu-check" id="check_edu2">✅</div>
+      </div>
+
+      <div class="section-label" style="margin-top:16px;">권장 교육</div>
+
+      <div class="edu-item" onclick="markDone(this, 'edu3')">
+        <div class="edu-thumb" style="background:#FDF0EA;">🏃</div>
+        <div class="edu-meta">
+          <div class="edu-item-title">근골격계 질환 예방 스트레칭</div>
+          <div class="edu-item-sub">10분 · 신체건강</div>
+          <div class="edu-tags">
+            <span class="edu-tag" id="tag_edu3">미이수</span>
+          </div>
+        </div>
+        <div class="edu-check" id="check_edu3">○</div>
+      </div>
+
+      <div class="edu-item" onclick="markDone(this, 'edu4')">
+        <div class="edu-thumb" style="background:#FEF3C7;">😴</div>
+        <div class="edu-meta">
+          <div class="edu-item-title">수면 건강과 업무 집중력</div>
+          <div class="edu-item-sub">8분 · 생활습관 개선</div>
+          <div class="edu-tags">
+            <span class="edu-tag" id="tag_edu4">미이수</span>
+          </div>
+        </div>
+        <div class="edu-check" id="check_edu4">○</div>
+      </div>
+
+      <div class="edu-item" onclick="markDone(this, 'edu5')">
+        <div class="edu-thumb" style="background:#FEE2E2;">🤝</div>
+        <div class="edu-meta">
+          <div class="edu-item-title">직장 내 관계 갈등 해소</div>
+          <div class="edu-item-sub">20분 · 커뮤니케이션</div>
+          <div class="edu-tags">
+            <span class="edu-tag" id="tag_edu5">미이수</span>
+          </div>
+        </div>
+        <div class="edu-check" id="check_edu5">○</div>
+      </div>
+    </div>
+
+    <div class="tutorial-strip">
+      <div class="tutorial-strip-icon">🛡️</div>
+      <div class="tutorial-strip-text"><strong>교육 이수 기록은 자동 저장됩니다.</strong> 개인 건강기록은 인사팀에 공유되지 않습니다.</div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab" onclick="showScreen('homeScreen')">
+        <span class="tab-icon">🏠</span><span class="tab-label">홈</span>
+      </button>
+      <button class="tab active">
+        <span class="tab-icon">📚</span><span class="tab-label">교육</span>
+      </button>
+      <button class="tab" onclick="showScreen('resultScreen')">
+        <span class="tab-icon">📊</span><span class="tab-label">내 결과</span>
+      </button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+// ── 상태 ──
+let currentStep = 1;
+const totalSteps = 7;
+const answers = {};
+const sectionLabels = [
+  'PHQ-9 · 우울 척도','PHQ-9 · 우울 척도',
+  'GAD-7 · 불안 척도','GAD-7 · 불안 척도',
+  '신체 간이 체크','신체 간이 체크','종합 건강 상태'
+];
+const stepTitles = [
+  '기분이 가라앉거나 우울하거나 희망이 없다고 느끼셨나요?',
+  '일상적인 활동에 흥미나 즐거움을 거의 느끼지 못하셨나요?',
+  '불안하거나 초조하거나 긴장되는 느낌이 있으셨나요?',
+  '걱정을 멈추거나 조절하기 어려웠나요?',
+  '최근 한 달간 신체적 불편함이 있으셨나요?',
+  '불편함이 있었던 부위를 선택해 주세요.',
+  '현재 전반적인 건강 상태가 어떻다고 느끼시나요?'
+];
+
+// ── 화면 전환 ──
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ── 모달: 건강이상 확인 ──
+function handleCheckNo() {
+  document.getElementById('checkModal').classList.add('hidden');
+  showScreen('okScreen');
+}
+
+function handleCheckYes() {
+  document.getElementById('checkModal').classList.add('hidden');
+  // 스크리닝 가이드라인 따라 진행
+  openConsent();
+}
+
+// ── 동의 모달 ──
+function openConsent() {
+  document.getElementById('consentModal').classList.remove('hidden');
+  checkConsents();
+}
+
+function toggleConsent(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('checked');
+  if (el.classList.contains('checked')) el.textContent = '✓';
+  else el.textContent = '';
+  checkConsents();
+}
+
+function checkConsents() {
+  const c1 = document.getElementById('c1').classList.contains('checked');
+  const c3 = document.getElementById('c3').classList.contains('checked');
+  const btn = document.getElementById('startScreeningBtn');
+  if (c1 && c3) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.textContent = '스크리닝 시작하기';
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = '0.4';
+    btn.textContent = '필수 항목 동의 후 시작';
+  }
+}
+
+function startScreening() {
+  document.getElementById('consentModal').classList.add('hidden');
+  currentStep = 1;
+  resetScreening();
+  showScreen('screeningScreen');
+}
+
+// ── 스크리닝 로직 ──
+function resetScreening() {
+  document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
+  document.getElementById('q' + currentStep).classList.add('active');
+  updateHeader();
+}
+
+function updateHeader() {
+  document.getElementById('sectionLabel').textContent = sectionLabels[currentStep - 1];
+  document.getElementById('stepCount').textContent = currentStep + ' / ' + totalSteps;
+  document.getElementById('stepTitle').textContent = stepTitles[currentStep - 1];
+
+  // 진행 도트
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((d, i) => {
+    d.className = 'step-dot';
+    if (i < currentStep - 1) d.classList.add('done');
+    else if (i === currentStep - 1) d.classList.add('active');
+  });
+}
+
+function selectOption(el, qId, val) {
+  el.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('.option-check').textContent = '✓';
+  el.closest('.options').querySelectorAll('.option').forEach(o => {
+    if (!o.classList.contains('selected')) o.querySelector('.option-check').textContent = '';
+  });
+  answers[qId] = val;
+}
+
+function toggleMulti(el) {
+  el.classList.toggle('selected');
+  el.querySelector('.option-check').textContent = el.classList.contains('selected') ? '✓' : '';
+}
+
+function selectLikert(el, qId, val) {
+  el.closest('.likert').querySelectorAll('.likert-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[qId] = val;
+}
+
+function nextQuestion() {
+  // Q5 = 아니오면 Q6 건너뜀
+  if (currentStep === 5 && answers['q5'] === 'no') {
+    currentStep = 7;
+  } else if (currentStep < totalSteps) {
+    currentStep++;
+  } else {
+    finishScreening();
+    return;
+  }
+
+  document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
+  document.getElementById('q' + currentStep).classList.add('active');
+  updateHeader();
+
+  // 마지막 문항이면 버튼 텍스트 변경
+  if (currentStep === totalSteps) {
+    document.getElementById('nextBtn').textContent = '완료';
+  } else {
+    document.getElementById('nextBtn').textContent = '다음';
+  }
+}
+
+function finishScreening() {
+  // 고위험 판정 시뮬레이션: PHQ 점수 합산
+  const phq = (parseInt(answers.q1 || 0) + parseInt(answers.q2 || 0));
+  const gad = (parseInt(answers.q3 || 0) + parseInt(answers.q4 || 0));
+
+  if (phq >= 4 || gad >= 4) {
+    showScreen('highRiskScreen');
+  } else {
+    showScreen('doneScreen');
+  }
+}
+
+// ── 교육 이수 처리 ──
+function markDone(el, id) {
+  const tag = document.getElementById('tag_' + id);
+  const check = document.getElementById('check_' + id);
+  if (tag.classList.contains('done')) return; // 이미 완료
+  tag.classList.add('done');
+  tag.textContent = '✓ 이수완료';
+  check.textContent = '✅';
+  // 완료 피드백
+  el.style.background = 'var(--accent-light)';
+  setTimeout(() => { el.style.background = ''; }, 600);
+}
+
+// ── 초기 실행: 첫 로그인 모달 ──
+window.onload = function() {
+  // 모달 자동 표시
+  document.getElementById('checkModal').classList.remove('hidden');
+};
+</script>
+
+          </div>
+
+            </div>
+            <div class="phone-glare"></div>
+          </div>
+          <div class="phone-glow"></div>
+        </div>
+
+        <!-- 우측 설명 -->
+        <div class="empapp-info">
+          <div class="empapp-section-label">주요 기능</div>
+          <div class="empapp-feature-list">
+            <div class="empapp-feature">
+              <div class="empapp-feature-icon">🩺</div>
+              <div class="empapp-feature-text">
+                <div class="empapp-feature-title">분기 1회 건강 스크리닝</div>
+                <div class="empapp-feature-desc">PHQ-9(우울) + GAD-7(불안) + 신체 간이 체크. 5~7분 소요. 고위험 판정 시 외부 상담 연결 안내(본인 동의 하에).</div>
+              </div>
+            </div>
+            <div class="empapp-feature">
+              <div class="empapp-feature-icon">🔔</div>
+              <div class="empapp-feature-text">
+                <div class="empapp-feature-title">로그인 시 건강이상 확인 모달</div>
+                <div class="empapp-feature-desc">매 로그인마다 "지난 로그인 이후 건강에 이상이 있었나요?" 확인. 예 → 스크리닝 진행 / 아니오 → 건강상 문제없음 처리.</div>
+              </div>
+            </div>
+            <div class="empapp-feature">
+              <div class="empapp-feature-icon">📊</div>
+              <div class="empapp-feature-text">
+                <div class="empapp-feature-title">개인 결과 확인 (본인만 열람)</div>
+                <div class="empapp-feature-desc">스크리닝 완료 후 PHQ-9 · GAD-7 점수와 신체 체크 결과를 본인만 확인. 회사에는 익명 통계만 전달.</div>
+              </div>
+            </div>
+            <div class="empapp-feature">
+              <div class="empapp-feature-icon">📚</div>
+              <div class="empapp-feature-text">
+                <div class="empapp-feature-title">교육 콘텐츠 열람 · 이수 자동저장</div>
+                <div class="empapp-feature-desc">직무 스트레스, 번아웃 예방, 근골격계 예방 등 교육 콘텐츠. 열람 시 이수 기록 자동 저장.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="empapp-privacy-card">
+            <div class="empapp-privacy-icon">🔒</div>
+            <div class="empapp-privacy-text">
+              <strong>개인정보 보호 원칙</strong>
+              개인 건강기록은 인사팀에 절대 공유되지 않으며, 회사 산업안전보건법 준수를 위한 <strong style="color:var(--accent2);font-weight:700;">통계자료로만</strong> 보고됩니다. 개인 식별이 불가능한 수준으로 익명화됩니다.
+            </div>
+          </div>
+
+          <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_employee_app.html" target="_blank" class="empapp-cta-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+            앱 전체화면으로 보기
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /page-vdoc-employee-app -->
+
   <!-- V.DOC ENTERPRISE PROPOSAL PAGE -->
   <div class="page-section" id="page-vdoc-proposal">
     <!-- HERO -->
@@ -11207,6 +13020,8 @@ function navigateVdoc(sub, e) {
     window.location.hash = 'vdoc-proposal';
   } else if (sub === 'report') {
     window.location.hash = 'vdoc-report';
+  } else if (sub === 'employee-app') {
+    window.location.hash = 'vdoc-employee-app';
   }
 }
 
@@ -11314,7 +13129,7 @@ function applyHash(hash) {
   const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
-  } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report') {
+  } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report' || page === 'vdoc-employee-app') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
   } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective' || page === 'vcare-faq') {
