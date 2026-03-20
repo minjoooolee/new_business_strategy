@@ -2043,36 +2043,6 @@ body {
 }
 
 /* ===== AI Writing Assistant ===== */
-.ai-assist-bubble {
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-.ai-assist-bubble.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.ai-assist-inner {
-  background: #fff;
-  border: 1px solid rgba(110,63,163,0.15);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 4px 20px rgba(110,63,163,0.1);
-  padding: 12px 14px;
-  position: relative;
-}
-.ai-assist-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
 .ai-assist-avatar {
   width: 22px;
   height: 22px;
@@ -2086,52 +2056,98 @@ body {
   color: #fff;
   flex-shrink: 0;
 }
-.ai-assist-label {
-  font-size: 11px;
+
+/* AI Writer Bar — textarea 아래 고정 */
+.ai-writer-bar {
+  margin: 0 20px;
+  border: 1px solid rgba(110,63,163,0.15);
+  border-radius: var(--radius-sm);
+  background: #faf8ff;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.ai-writer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ai-writer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-writer-title {
+  font-size: 12.5px;
   font-weight: 600;
   color: #6E3FA3;
 }
-.ai-assist-close {
-  margin-left: auto;
-  background: none;
-  border: none;
-  font-size: 16px;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 0 2px;
-  line-height: 1;
+.ai-writer-chevron {
+  color: #6E3FA3;
+  transition: transform 0.25s;
+  flex-shrink: 0;
 }
-.ai-assist-msg {
-  font-size: 12.5px;
-  color: var(--sub);
-  line-height: 1.6;
-  margin-bottom: 10px;
+.ai-writer-bar.collapsed .ai-writer-chevron {
+  transform: rotate(180deg);
 }
-.ai-suggest-chips {
+.ai-writer-body {
+  padding: 0 14px 12px;
+  transition: all 0.25s ease;
+}
+.ai-writer-bar.collapsed .ai-writer-body {
+  display: none;
+}
+.ai-writer-chips {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.ai-suggest-chip {
+.ai-writer-chip {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--text);
-  background: rgba(110,63,163,0.04);
-  border: 1px solid rgba(110,63,163,0.1);
+  background: #fff;
+  border: 1px solid rgba(110,63,163,0.12);
   border-radius: var(--radius-xs);
-  padding: 8px 12px;
+  padding: 10px 12px;
   cursor: pointer;
   font-family: var(--font);
   text-align: left;
-  transition: background 0.15s;
-  line-height: 1.4;
+  transition: all 0.15s;
+  line-height: 1.5;
 }
-.ai-suggest-chip:hover { background: rgba(110,63,163,0.08); }
-.ai-chip-icon {
+.ai-writer-chip:active {
+  background: rgba(110,63,163,0.08);
+  border-color: rgba(110,63,163,0.25);
+}
+.ai-writer-chip-icon {
   flex-shrink: 0;
   font-size: 14px;
+}
+.ai-writer-chip-text {
+  flex: 1;
+}
+.ai-writer-chip-insert {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6E3FA3;
+  background: rgba(110,63,163,0.08);
+  padding: 3px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.ai-writer-chip.inserted {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.ai-writer-chip.inserted .ai-writer-chip-insert {
+  background: #dcfce7;
+  color: #10b981;
 }
 
 /* AI Guide toast at top */
@@ -3071,22 +3087,23 @@ body {
         <input class="write-title-input" id="writeTitle" type="text" placeholder="제목을 입력해 주세요" oninput="onWriteInput()">
         <div class="write-divider"></div>
         <div class="write-body-area">
-          <textarea class="write-body-input" id="writeBody" placeholder="여기에 내용을 작성해 주세요.&#10;&#10;경험, 증상, 응원의 말씀 등 자유롭게 적어주세요. AI 비서가 글쓰기를 도와드립니다." oninput="onWriteInput()"></textarea>
-
-          <!-- AI 비서 추천 버블 -->
-          <div class="ai-assist-bubble" id="aiAssistBubble">
-            <div class="ai-assist-inner">
-              <div class="ai-assist-header">
-                <div class="ai-assist-avatar">AI</div>
-                <div class="ai-assist-label">AI 글쓰기 비서</div>
-                <button class="ai-assist-close" onclick="hideAiAssist()">&times;</button>
-              </div>
-              <div class="ai-assist-msg" id="aiAssistMsg"></div>
-              <div class="ai-suggest-chips" id="aiSuggestChips"></div>
-            </div>
-          </div>
+          <textarea class="write-body-input" id="writeBody" placeholder="여기에 내용을 작성해 주세요.&#10;&#10;경험, 증상, 응원의 말씀 등 자유롭게 적어주세요." oninput="onWriteInput()"></textarea>
         </div>
         <div class="write-char-count"><span id="writeCharCount">0</span>자</div>
+      </div>
+
+      <!-- AI 글쓰기 비서 (폼 아래 고정) -->
+      <div class="ai-writer-bar" id="aiWriterBar">
+        <div class="ai-writer-header" onclick="toggleAiWriter()">
+          <div class="ai-writer-left">
+            <div class="ai-assist-avatar">AI</div>
+            <span class="ai-writer-title">AI가 이어서 써드릴게요</span>
+          </div>
+          <svg class="ai-writer-chevron" id="aiWriterChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
+        </div>
+        <div class="ai-writer-body" id="aiWriterBody">
+          <div class="ai-writer-chips" id="aiWriterChips"></div>
+        </div>
       </div>
 
       <!-- 태그 입력 -->
@@ -4784,65 +4801,6 @@ function showUplLaw() {
 let writeTags = [];
 let aiAssistTimer = null;
 
-// AI 비서 추천 데이터 (카테고리별 + 키워드 매칭)
-const AI_SUGGESTIONS = {
-  triggers: [
-    {
-      keywords: ['항암','부작용','힘들','어렵','고통','통증','아프'],
-      msg: '부작용에 대한 경험을 나누고 계시네요. 이렇게 이어가 보시는 건 어떨까요?',
-      chips: [
-        { icon:'💡', text:'구체적인 증상과 시기를 적어주시면 비슷한 경험을 한 분들이 공감하기 쉬워요' },
-        { icon:'📝', text:'"~차 항암 이후부터 ~증상이 나타났습니다"로 시작해보세요' },
-        { icon:'🤝', text:'"같은 경험 있으신 분 계신가요?" 같은 질문을 추가하면 답변을 더 많이 받을 수 있어요' }
-      ]
-    },
-    {
-      keywords: ['완치','회복','나았','좋아','건강','극복','판정'],
-      msg: '희망적인 이야기를 공유해 주시는군요! 다른 분들에게 큰 힘이 됩니다.',
-      chips: [
-        { icon:'📋', text:'"진단 시기 → 치료 과정 → 현재 상태" 순으로 적으면 읽기 편해요' },
-        { icon:'💪', text:'치료 과정에서 특히 도움이 된 점을 구체적으로 남겨주세요' },
-        { icon:'❤️', text:'"포기하지 마세요"와 같은 응원 메시지로 마무리하면 감동적이에요' }
-      ]
-    },
-    {
-      keywords: ['응원','힘내','파이팅','화이팅','사랑','함께','고마','감사'],
-      msg: '따뜻한 응원의 마음이 느껴집니다. 더 풍성한 글을 위해 제안드려요.',
-      chips: [
-        { icon:'✨', text:'"오늘도 치료받으시는 모든 분들께"처럼 대상을 명시하면 더 와닿아요' },
-        { icon:'📖', text:'본인의 경험이나 에피소드를 곁들이면 진정성이 느껴져요' },
-        { icon:'🌸', text:'"당신은 혼자가 아닙니다"와 같은 공감 문장으로 마무리해보세요' }
-      ]
-    },
-    {
-      keywords: ['수술','입원','검사','병원','진료','주치의','치료'],
-      msg: '치료 경험을 공유해 주시는군요. 이런 내용을 포함하면 좋아요.',
-      chips: [
-        { icon:'🏥', text:'병원명 대신 "00병원"으로 적으면 개인정보를 보호할 수 있어요' },
-        { icon:'📝', text:'"입원 기간, 수술 방법, 회복 과정"을 순서대로 적어보세요' },
-        { icon:'💬', text:'"이 경험이 도움이 되셨으면 합니다"로 마무리하면 자연스러워요' }
-      ]
-    },
-    {
-      keywords: ['음식','식단','영양','먹','식사','레시피'],
-      msg: '식단 관련 내용이시군요! 다른 환우분들에게도 유익할 거예요.',
-      chips: [
-        { icon:'🥗', text:'실제 드셨던 메뉴와 효과를 구체적으로 적으면 도움이 돼요' },
-        { icon:'⚠️', text:'"개인적인 경험이며 전문 영양 상담을 권합니다" 문구를 추가해주세요' },
-        { icon:'📊', text:'치료 시기별(항암 중/후) 식단 변화를 정리하면 더 유용해요' }
-      ]
-    }
-  ],
-  defaultGuide: {
-    msg: '글쓰기를 도와드릴게요. 어떤 내용을 쓸지 막막하시다면 아래를 참고해 주세요.',
-    chips: [
-      { icon:'💭', text:'증상 질문: "~증상이 있는데, 혹시 같은 경험 있으신 분 계신가요?"' },
-      { icon:'🌟', text:'희망 사례: "진단 후 ~개월, ~한 경험을 나누고 싶습니다"' },
-      { icon:'💝', text:'따뜻한 응원: "오늘 치료받으시는 모든 분들께 ~"' }
-    ]
-  }
-};
-
 function openWritePost() {
   writeTags = [];
   const sub = document.getElementById('sub-write-post');
@@ -4852,91 +4810,114 @@ function openWritePost() {
   document.getElementById('writeCharCount').textContent = '0';
   document.getElementById('writeSubmitBtn').disabled = true;
   document.getElementById('writeSuccessOverlay').classList.remove('show');
-  document.getElementById('aiAssistBubble').classList.remove('show');
+  document.getElementById('aiWriterBar').classList.remove('collapsed');
+  aiWriterOpen = true;
   renderWriteTags();
   // AI 가이드 토스트 표시
   setTimeout(() => {
     document.getElementById('aiGuideToast').classList.add('show');
   }, 500);
+  // 초기 AI 추천 로드
+  updateAiWriter();
 }
 
 function closeWritePost() {
   hideSubScreen('sub-write-post');
   document.getElementById('aiGuideToast').classList.remove('show');
-  document.getElementById('aiAssistBubble').classList.remove('show');
   document.getElementById('writeSuccessOverlay').classList.remove('show');
 }
 
 function dismissAiGuide() {
   document.getElementById('aiGuideToast').classList.remove('show');
-  // 가이드 닫으면 현재 선택된 카테고리의 추천 보여줌
-  const body = document.getElementById('writeBody').value.trim();
-  if (!body) {
-    const activeCat = document.querySelector('.write-cat.active');
-    const catName = activeCat ? activeCat.textContent.trim() : '';
-    const guide = AI_CAT_GUIDES[catName];
-    if (guide) {
-      showAiSuggestion(guide);
-    } else {
-      showAiSuggestion(AI_SUGGESTIONS.defaultGuide);
-    }
-  }
 }
 
-// 카테고리별 AI 비서 가이드
-const AI_CAT_GUIDES = {
-  '증상 질문': {
-    msg: '\'증상 질문\'을 선택하셨어요. 구체적인 증상, 발생 시기, 현재 치료 상황을 함께 적으면 더 정확한 답변을 받을 수 있습니다.',
-    chips: [
-      { icon:'🩺', text:'"~증상이 있는데, 혹시 같은 경험 있으신 분 계신가요?"' },
-      { icon:'📅', text:'증상 시작 시기와 빈도를 구체적으로 적어주세요' },
-      { icon:'💊', text:'현재 복용 중인 약이나 받고 있는 치료를 함께 적으면 도움이 돼요' }
+// ===== AI 글쓰기 비서 (문장 삽입형) =====
+
+// 카테고리별 + 글 길이별 AI 대필 문장
+const AI_WRITER = {
+  // 카테고리 선택 시 (빈 본문)
+  start: {
+    '증상 질문': [
+      { text: '안녕하세요. 현재 치료를 받고 있는 환자입니다.' },
+      { text: '최근 이런 증상이 나타나서 걱정이 되어 글을 남깁니다.' },
+      { text: '혹시 비슷한 증상을 경험하신 분이 계실까요?' },
+    ],
+    '희망 사례': [
+      { text: '진단받았을 때는 막막했지만, 지금은 많이 나아져서 경험을 나누고 싶습니다.' },
+      { text: '저도 처음에는 두려웠지만 치료를 시작하면서 조금씩 희망이 보였습니다.' },
+      { text: '같은 진단을 받으신 분들께 제 이야기가 도움이 되길 바랍니다.' },
+    ],
+    '따뜻한 응원': [
+      { text: '오늘도 치료를 받고 계신 모든 분들께 진심으로 응원을 보냅니다.' },
+      { text: '저도 같은 길을 걸어온 사람으로서, 꼭 좋은 날이 올 거라 믿습니다.' },
+      { text: '힘든 시간을 보내고 계시겠지만, 당신은 혼자가 아닙니다.' },
+    ],
+    '치료 경험': [
+      { text: '치료를 받으면서 느낀 점들을 기록으로 남겨봅니다.' },
+      { text: '같은 치료를 앞두고 계신 분들께 도움이 될까 해서 후기를 남깁니다.' },
+      { text: '치료 전에 이런 정보를 알았으면 좋았겠다 싶어서 공유합니다.' },
+    ],
+    '일상 공유': [
+      { text: '치료 중이지만 소소한 일상의 기쁨을 나누고 싶어 글을 씁니다.' },
+      { text: '요즘 이런 것들을 하면서 기분 전환을 하고 있어요.' },
+      { text: '투병 중에도 작은 행복을 찾으려 노력하고 있습니다.' },
     ]
   },
-  '희망 사례': {
-    msg: '\'희망 사례\'를 선택하셨어요. 진단부터 현재까지의 과정, 도움이 된 것들, 다른 분들께 전하고 싶은 메시지를 담아주세요.',
-    chips: [
-      { icon:'🌟', text:'"진단 후 ~개월, ~한 경험을 나누고 싶습니다"' },
-      { icon:'💪', text:'치료 과정에서 도움이 됐던 것들을 구체적으로 적어주세요' },
-      { icon:'🤝', text:'같은 상황의 환우분들께 전하고 싶은 조언을 담아주세요' }
+  // 본문 전개 중 (~100자)
+  develop: {
+    '증상 질문': [
+      { text: '\n\n증상이 시작된 건 약 2주 전부터였습니다.' },
+      { text: ' 현재 주치의 선생님께 말씀드렸지만, 다른 분들의 경험도 듣고 싶습니다.' },
+      { text: '\n\n혹시 이런 증상에 도움이 되었던 방법이 있으시면 알려주세요.' },
+    ],
+    '희망 사례': [
+      { text: '\n\n치료 과정에서 특히 도움이 되었던 것은 주변의 응원이었습니다.' },
+      { text: ' 힘든 순간도 있었지만, 포기하지 않고 한 걸음씩 나아갔습니다.' },
+      { text: '\n\n지금 돌아보면, 그때의 선택이 옳았다고 생각합니다.' },
+    ],
+    '따뜻한 응원': [
+      { text: '\n\n저도 그 시간을 지나왔기에, 지금 얼마나 힘드실지 알고 있습니다.' },
+      { text: ' 치료가 끝나면 분명 더 강해진 자신을 만나게 될 거예요.' },
+      { text: '\n\n하루하루 버텨내고 계신 것만으로도 정말 대단하십니다.' },
+    ],
+    '치료 경험': [
+      { text: '\n\n부작용으로 힘든 시기도 있었지만, 시간이 지나면서 점차 나아졌습니다.' },
+      { text: ' 치료 중에는 충분한 휴식과 영양 섭취가 중요하다고 느꼈습니다.' },
+      { text: '\n\n의료진분들의 안내에 따라 꾸준히 관리한 것이 도움이 되었습니다.' },
+    ],
+    '일상 공유': [
+      { text: '\n\n이런 작은 일이 큰 위로가 되더라고요.' },
+      { text: ' 가족과 함께하는 시간이 치료만큼이나 중요한 것 같습니다.' },
+      { text: '\n\n앞으로도 하루하루를 소중히 보내려고 합니다.' },
     ]
   },
-  '따뜻한 응원': {
-    msg: '\'따뜻한 응원\'을 선택하셨어요. 진심 어린 응원과 위로의 말씀을 자유롭게 적어주세요. 짧은 한마디도 큰 힘이 됩니다.',
-    chips: [
-      { icon:'💝', text:'"오늘 치료받으시는 모든 분들께 힘내세요!"' },
-      { icon:'☀️', text:'"같은 길을 걸어온 사람으로서 꼭 좋아질 거예요"' },
-      { icon:'🌈', text:'응원하고 싶은 분이나 상황을 구체적으로 언급해 주세요' }
-    ]
-  },
-  '치료 경험': {
-    msg: '\'치료 경험\'을 선택하셨어요. 어떤 치료를 받았는지, 부작용은 어땠는지, 도움이 된 팁을 공유해 주세요.',
-    chips: [
-      { icon:'🏥', text:'"~치료를 ~개월간 받았고, 경험을 공유합니다"' },
-      { icon:'📝', text:'부작용 대처법이나 생활 팁을 포함하면 큰 도움이 돼요' },
-      { icon:'⚕️', text:'치료 전후 변화를 구체적으로 적어주시면 좋아요' }
-    ]
-  },
-  '일상 공유': {
-    msg: '\'일상 공유\'를 선택하셨어요. 투병 중 일상의 소소한 이야기, 기분 전환법, 취미 활동 등을 자유롭게 나눠주세요.',
-    chips: [
-      { icon:'🌿', text:'"치료 중에 ~하면서 기분 전환을 하고 있어요"' },
-      { icon:'😊', text:'일상에서 작은 행복을 찾은 경험을 공유해 주세요' },
-      { icon:'📸', text:'사진과 함께 올리면 더 따뜻한 글이 됩니다' }
+  // 마무리 (~200자+)
+  closing: {
+    default: [
+      { text: '\n\n이 글이 비슷한 상황에 계신 분들께 조금이나마 도움이 되었으면 합니다.' },
+      { text: '\n\n궁금한 점이 있으시면 댓글로 남겨주세요. 아는 범위 내에서 답변 드리겠습니다.' },
+      { text: '\n\n함께 이겨내요. 우리 모두 파이팅입니다.' },
     ]
   }
 };
 
+let aiWriterOpen = true;
+
+function getActiveCatName() {
+  const el = document.querySelector('.write-cat.active');
+  return el ? el.textContent.trim() : '증상 질문';
+}
+
+function toggleAiWriter() {
+  const bar = document.getElementById('aiWriterBar');
+  bar.classList.toggle('collapsed');
+  aiWriterOpen = !bar.classList.contains('collapsed');
+}
+
 function selectWriteCat(el) {
   el.parentElement.querySelectorAll('.write-cat').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
-
-  // 선택된 카테고리에 맞는 AI 비서 가이드 표시
-  const catName = el.textContent.trim();
-  const guide = AI_CAT_GUIDES[catName];
-  if (guide) {
-    showAiSuggestion(guide);
-  }
+  updateAiWriter();
 }
 
 function onWriteInput() {
@@ -4945,176 +4926,70 @@ function onWriteInput() {
   document.getElementById('writeCharCount').textContent = body.length;
   document.getElementById('writeSubmitBtn').disabled = !(title.length > 0 && body.trim().length > 0);
 
-  // AI 비서 트리거: 타이핑 멈추고 800ms 후
+  // AI 비서 업데이트: 타이핑 멈추고 600ms 후
   clearTimeout(aiAssistTimer);
-  if (body.trim().length >= 5) {
-    aiAssistTimer = setTimeout(() => analyzeAndSuggest(body), 800);
-  } else if (body.trim().length < 5) {
-    document.getElementById('aiAssistBubble').classList.remove('show');
-  }
+  aiAssistTimer = setTimeout(() => updateAiWriter(), 600);
 }
 
-// 글 길이별 전개 도우미 (카테고리 반영)
-const AI_FLOW_GUIDES = {
-  short: { // ~50자: 도입부 작성 중
-    '증상 질문': {
-      msg: '좋은 시작이에요! 증상을 더 구체적으로 적어볼까요?',
-      chips: [
-        { icon:'📅', text:'"~부터 이런 증상이 시작됐습니다"로 시기를 추가해보세요' },
-        { icon:'🩺', text:'"현재 ~치료를 받고 있는데"처럼 치료 상황을 적어주세요' },
-        { icon:'❓', text:'"혹시 비슷한 경험 있으신 분 계신가요?"로 질문을 던져보세요' }
-      ]
-    },
-    '희망 사례': {
-      msg: '좋은 시작이에요! 진단 시기와 배경을 먼저 적어보세요.',
-      chips: [
-        { icon:'📋', text:'"~년 ~월에 진단을 받았습니다"로 시작해보세요' },
-        { icon:'🏥', text:'"처음에는 ~한 상태였습니다"로 당시 상황을 적어주세요' },
-        { icon:'💭', text:'"그때 느낀 감정은 ~이었습니다"로 마음을 표현해보세요' }
-      ]
-    },
-    '따뜻한 응원': {
-      msg: '따뜻한 마음이 느껴져요! 응원하고 싶은 대상을 더 구체적으로 적어보세요.',
-      chips: [
-        { icon:'💝', text:'"오늘도 치료를 받고 계신 모든 분들께"로 대상을 밝혀보세요' },
-        { icon:'🌟', text:'"저도 같은 길을 걸어왔기에"처럼 본인의 경험을 곁들여보세요' },
-        { icon:'☀️', text:'"당신은 혼자가 아닙니다"같은 공감 문장을 넣어보세요' }
-      ]
-    },
-    '치료 경험': {
-      msg: '좋은 시작이에요! 어떤 치료를 받으셨는지 적어볼까요?',
-      chips: [
-        { icon:'🏥', text:'"~치료를 ~개월간 받았습니다"로 구체적으로 시작해보세요' },
-        { icon:'📅', text:'"치료 시작 전 상태는 ~이었습니다"로 배경을 적어주세요' },
-        { icon:'💊', text:'치료 방법(항암/수술/방사선 등)을 명시하면 도움이 돼요' }
-      ]
-    },
-    '일상 공유': {
-      msg: '좋은 시작이에요! 일상의 소소한 이야기를 편하게 이어가 보세요.',
-      chips: [
-        { icon:'🌿', text:'"요즘 ~하면서 시간을 보내고 있어요"로 이어가보세요' },
-        { icon:'😊', text:'"오늘은 ~한 일이 있었는데"로 에피소드를 나눠보세요' },
-        { icon:'💭', text:'"치료 중이지만 ~할 때 행복해요"로 긍정 순간을 적어보세요' }
-      ]
-    }
-  },
-  mid: { // 50~150자: 본문 전개 중
-    '증상 질문': {
-      msg: '잘 쓰고 계세요! 이제 핵심 질문으로 이어가볼까요?',
-      chips: [
-        { icon:'🔍', text:'"이런 경우 어떻게 대처하셨나요?"로 구체적 질문을 해보세요' },
-        { icon:'💊', text:'"현재 복용 중인 약은 ~입니다"로 치료 정보를 추가해보세요' },
-        { icon:'📊', text:'"검사 결과 ~수치가 나왔는데"처럼 객관적 정보를 넣으면 좋아요' }
-      ]
-    },
-    '희망 사례': {
-      msg: '이야기가 잘 전개되고 있어요! 치료 과정을 이어서 적어보세요.',
-      chips: [
-        { icon:'💪', text:'"치료 과정에서 특히 도움이 된 것은 ~이었습니다"' },
-        { icon:'🔄', text:'"힘들었지만 ~덕분에 버틸 수 있었습니다"로 전환점을 적어보세요' },
-        { icon:'📈', text:'"~개월 후 ~한 변화가 나타났습니다"로 호전 과정을 적어보세요' }
-      ]
-    },
-    '따뜻한 응원': {
-      msg: '진심이 담긴 글이에요! 마무리를 향해 이어가볼까요?',
-      chips: [
-        { icon:'📖', text:'본인의 경험이나 에피소드를 하나 곁들이면 더 진정성이 느껴져요' },
-        { icon:'🤝', text:'"함께라서 이겨낼 수 있었습니다"처럼 연대의 메시지를 담아보세요' },
-        { icon:'🌈', text:'"반드시 좋은 날이 올 거예요"같은 희망 메시지로 이어가보세요' }
-      ]
-    },
-    '치료 경험': {
-      msg: '잘 쓰고 계세요! 부작용이나 대처 경험을 이어서 적어보세요.',
-      chips: [
-        { icon:'⚠️', text:'"부작용으로 ~이 있었는데, ~으로 대처했습니다"' },
-        { icon:'💡', text:'"미리 알았으면 좋았을 것은 ~입니다"로 팁을 공유해보세요' },
-        { icon:'🍽️', text:'"치료 중 식단은 ~으로 관리했습니다"로 생활 팁을 추가해보세요' }
-      ]
-    },
-    '일상 공유': {
-      msg: '재미있는 이야기네요! 느낀 점이나 감정도 담아보세요.',
-      chips: [
-        { icon:'💭', text:'"이런 작은 일이 큰 위로가 되더라고요"로 감정을 표현해보세요' },
-        { icon:'👥', text:'"가족/친구와 함께해서 더 좋았어요"로 주변 이야기를 넣어보세요' },
-        { icon:'🎯', text:'"앞으로 ~를 해보고 싶어요"로 계획을 적어보세요' }
-      ]
-    }
-  },
-  long: { // 150자+: 마무리 단계
-    default: {
-      msg: '거의 다 됐어요! 마무리를 잘 지어볼까요?',
-      chips: [
-        { icon:'🎯', text:'"이 글이 ~하시는 분들께 도움이 되었으면 합니다"로 마무리해보세요' },
-        { icon:'🏷️', text:'태그를 추가하면 같은 고민을 가진 분들이 찾기 쉬워요' },
-        { icon:'✅', text:'내용이 충분합니다. 게시하기 버튼을 눌러주세요!' }
-      ]
-    }
-  }
-};
-
-function getActiveCatName() {
-  const el = document.querySelector('.write-cat.active');
-  return el ? el.textContent.trim() : '증상 질문';
-}
-
-function analyzeAndSuggest(text) {
-  const lower = text.toLowerCase();
-  const len = text.trim().length;
-
-  // 1) 키워드 매칭 우선
-  for (const trigger of AI_SUGGESTIONS.triggers) {
-    const matched = trigger.keywords.some(kw => lower.includes(kw));
-    if (matched) {
-      showAiSuggestion(trigger);
-      return;
-    }
-  }
-
-  // 2) 키워드 매칭 없으면 글 길이 + 카테고리 기반 전개 가이드
+function updateAiWriter() {
+  const body = document.getElementById('writeBody').value;
+  const len = body.trim().length;
   const catName = getActiveCatName();
+  let sentences;
+
   if (len >= 150) {
-    showAiSuggestion(AI_FLOW_GUIDES.long.default);
+    sentences = AI_WRITER.closing.default;
   } else if (len >= 50) {
-    const guide = AI_FLOW_GUIDES.mid[catName] || AI_FLOW_GUIDES.mid['증상 질문'];
-    showAiSuggestion(guide);
-  } else if (len >= 5) {
-    const guide = AI_FLOW_GUIDES.short[catName] || AI_FLOW_GUIDES.short['증상 질문'];
-    showAiSuggestion(guide);
+    sentences = AI_WRITER.develop[catName] || AI_WRITER.develop['증상 질문'];
+  } else {
+    sentences = AI_WRITER.start[catName] || AI_WRITER.start['증상 질문'];
   }
+
+  renderAiChips(sentences);
 }
 
-function showAiSuggestion(data) {
-  document.getElementById('aiAssistMsg').textContent = data.msg;
-  document.getElementById('aiSuggestChips').innerHTML = data.chips.map(c =>
-    `<button class="ai-suggest-chip" onclick="applyAiChip(this, '${c.text.replace(/'/g, "\\'")}')">
-      <span class="ai-chip-icon">${c.icon}</span>${c.text}
+function renderAiChips(sentences) {
+  const container = document.getElementById('aiWriterChips');
+  container.innerHTML = sentences.map((s, i) =>
+    `<button class="ai-writer-chip" onclick="insertAiSentence(this, ${i})">
+      <span class="ai-writer-chip-icon">✏️</span>
+      <span class="ai-writer-chip-text">${s.text.replace(/\n/g, ' ').trim()}</span>
+      <span class="ai-writer-chip-insert">삽입</span>
     </button>`
   ).join('');
-  document.getElementById('aiAssistBubble').classList.add('show');
+  // 데이터 저장
+  container._sentences = sentences;
 }
 
-function applyAiChip(el, text) {
-  // 칩의 예시 문장에서 인용 부분만 추출해서 textarea에 추가
+function insertAiSentence(el, idx) {
+  const container = document.getElementById('aiWriterChips');
+  const sentences = container._sentences;
+  if (!sentences || !sentences[idx]) return;
+
   const body = document.getElementById('writeBody');
-  const match = text.match(/"([^"]+)"/);
-  if (match) {
-    const current = body.value;
-    const addition = (current && !current.endsWith('\n') && !current.endsWith(' ')) ? ' ' : '';
-    body.value = current + addition + match[1];
-    body.dispatchEvent(new Event('input'));
-  }
-  // 클릭된 칩 시각적 피드백
-  el.style.background = 'rgba(110,63,163,0.12)';
-  el.style.borderColor = 'rgba(110,63,163,0.3)';
-  setTimeout(() => {
-    el.style.background = '';
-    el.style.borderColor = '';
-  }, 600);
-}
+  const current = body.value;
+  const sentence = sentences[idx].text;
 
-function hideAiAssist() {
-  document.getElementById('aiAssistBubble').classList.remove('show');
-  // 닫아도 다음 입력 시 다시 추천할 수 있도록 dismissed 하지 않음
+  // 줄바꿈으로 시작하는 문장이면 그대로, 아니면 자연스럽게 이어붙임
+  if (sentence.startsWith('\n')) {
+    body.value = current + sentence;
+  } else {
+    const spacer = (current && !current.endsWith('\n') && !current.endsWith(' ')) ? ' ' : '';
+    body.value = current + spacer + sentence;
+  }
+
+  body.dispatchEvent(new Event('input'));
+
+  // 삽입 완료 피드백
+  el.classList.add('inserted');
+  el.querySelector('.ai-writer-chip-insert').textContent = '완료';
+
+  // 커서를 맨 끝으로
+  body.focus();
+  body.selectionStart = body.selectionEnd = body.value.length;
+
+  // 잠시 후 새 추천으로 업데이트
+  setTimeout(() => updateAiWriter(), 800);
 }
 
 // 태그 관리
