@@ -4007,8 +4007,6 @@ function closeSignupOverlay() {
   // 프로필 아바타 업데이트
   const avatarEl = document.querySelector('.home-avatar');
   if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
-  // 가입 완료 상태 저장 (새로고침 시에도 로그인 화면 안 뜨게)
-  try { sessionStorage.setItem('oncocare_signed_up', JSON.stringify(signupData)); } catch(e) {}
 }
 
 function goHomeAfterSignup() {
@@ -4297,22 +4295,8 @@ function filterResults(btn, filter) {
   });
 }
 
-// 초기 렌더링 — 가입 완료 상태면 로그인 화면 건너뜀
+// 초기 렌더링 — 항상 로그인 화면 표시 (프로토타입)
 (function initSignup() {
-  try {
-    const saved = sessionStorage.getItem('oncocare_signed_up');
-    if (saved) {
-      const data = JSON.parse(saved);
-      Object.assign(signupData, data);
-      const overlay = document.getElementById('signupOverlay');
-      overlay.style.display = 'none';
-      overlay.style.opacity = '0';
-      // 아바타 복원
-      const avatarEl = document.querySelector('.home-avatar');
-      if (avatarEl && signupData.nickname) avatarEl.textContent = signupData.nickname[0];
-      return;
-    }
-  } catch(e) {}
   renderSignup();
 })();
 
