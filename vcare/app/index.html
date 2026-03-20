@@ -4901,16 +4901,74 @@ function closeWritePost() {
 
 function dismissAiGuide() {
   document.getElementById('aiGuideToast').classList.remove('show');
-  // 가이드 닫으면 기본 추천 보여줌
+  // 가이드 닫으면 현재 선택된 카테고리의 추천 보여줌
   const body = document.getElementById('writeBody').value.trim();
   if (!body) {
-    showAiSuggestion(AI_SUGGESTIONS.defaultGuide);
+    const activeCat = document.querySelector('.write-cat.active');
+    const catName = activeCat ? activeCat.textContent.trim() : '';
+    const guide = AI_CAT_GUIDES[catName];
+    if (guide) {
+      showAiSuggestion(guide);
+    } else {
+      showAiSuggestion(AI_SUGGESTIONS.defaultGuide);
+    }
   }
 }
+
+// 카테고리별 AI 비서 가이드
+const AI_CAT_GUIDES = {
+  '증상 질문': {
+    msg: '\'증상 질문\'을 선택하셨어요. 구체적인 증상, 발생 시기, 현재 치료 상황을 함께 적으면 더 정확한 답변을 받을 수 있습니다.',
+    chips: [
+      { icon:'🩺', text:'"~증상이 있는데, 혹시 같은 경험 있으신 분 계신가요?"' },
+      { icon:'📅', text:'증상 시작 시기와 빈도를 구체적으로 적어주세요' },
+      { icon:'💊', text:'현재 복용 중인 약이나 받고 있는 치료를 함께 적으면 도움이 돼요' }
+    ]
+  },
+  '희망 사례': {
+    msg: '\'희망 사례\'를 선택하셨어요. 진단부터 현재까지의 과정, 도움이 된 것들, 다른 분들께 전하고 싶은 메시지를 담아주세요.',
+    chips: [
+      { icon:'🌟', text:'"진단 후 ~개월, ~한 경험을 나누고 싶습니다"' },
+      { icon:'💪', text:'치료 과정에서 도움이 됐던 것들을 구체적으로 적어주세요' },
+      { icon:'🤝', text:'같은 상황의 환우분들께 전하고 싶은 조언을 담아주세요' }
+    ]
+  },
+  '따뜻한 응원': {
+    msg: '\'따뜻한 응원\'을 선택하셨어요. 진심 어린 응원과 위로의 말씀을 자유롭게 적어주세요. 짧은 한마디도 큰 힘이 됩니다.',
+    chips: [
+      { icon:'💝', text:'"오늘 치료받으시는 모든 분들께 힘내세요!"' },
+      { icon:'☀️', text:'"같은 길을 걸어온 사람으로서 꼭 좋아질 거예요"' },
+      { icon:'🌈', text:'응원하고 싶은 분이나 상황을 구체적으로 언급해 주세요' }
+    ]
+  },
+  '치료 경험': {
+    msg: '\'치료 경험\'을 선택하셨어요. 어떤 치료를 받았는지, 부작용은 어땠는지, 도움이 된 팁을 공유해 주세요.',
+    chips: [
+      { icon:'🏥', text:'"~치료를 ~개월간 받았고, 경험을 공유합니다"' },
+      { icon:'📝', text:'부작용 대처법이나 생활 팁을 포함하면 큰 도움이 돼요' },
+      { icon:'⚕️', text:'치료 전후 변화를 구체적으로 적어주시면 좋아요' }
+    ]
+  },
+  '일상 공유': {
+    msg: '\'일상 공유\'를 선택하셨어요. 투병 중 일상의 소소한 이야기, 기분 전환법, 취미 활동 등을 자유롭게 나눠주세요.',
+    chips: [
+      { icon:'🌿', text:'"치료 중에 ~하면서 기분 전환을 하고 있어요"' },
+      { icon:'😊', text:'일상에서 작은 행복을 찾은 경험을 공유해 주세요' },
+      { icon:'📸', text:'사진과 함께 올리면 더 따뜻한 글이 됩니다' }
+    ]
+  }
+};
 
 function selectWriteCat(el) {
   el.parentElement.querySelectorAll('.write-cat').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
+
+  // 선택된 카테고리에 맞는 AI 비서 가이드 표시
+  const catName = el.textContent.trim();
+  const guide = AI_CAT_GUIDES[catName];
+  if (guide) {
+    showAiSuggestion(guide);
+  }
 }
 
 function onWriteInput() {
