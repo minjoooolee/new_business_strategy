@@ -501,21 +501,145 @@ tbody tr:hover{background:var(--bg)}
       </div>
     </div>
 
-    <!-- 전자서명 모달 -->
+    <!-- 전자서명 모달 (모두사인 스타일) -->
     <div class="bkdrop" id="signModal">
-      <div class="modal" style="width:480px">
-        <button class="modal-cls" onclick="closeSign()">×</button>
-        <div class="modal-h1">전자서명 확인</div>
-        <div class="modal-sub">아래 내용을 확인하고 서명하면 결재가 진행됩니다.</div>
-        <div style="background:var(--bg);border-radius:8px;padding:14px;margin-bottom:16px;font-size:13px">
-          <div style="margin-bottom:6px"><span style="color:var(--t3)">문서:</span> <strong>VD-2026-004 · 2026년 3월 점검 보고서</strong></div>
-          <div style="margin-bottom:6px"><span style="color:var(--t3)">서명자:</span> <strong>김민수 (HR 관리자)</strong></div>
-          <div><span style="color:var(--t3)">서명 일시:</span> <strong id="signTime"></strong></div>
+      <div class="modal" style="width:820px;padding:0;overflow:hidden;border-radius:14px">
+        <!-- 헤더 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);background:var(--surface)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:28px;height:28px;background:var(--ba);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff">✍</div>
+            <div>
+              <div style="font-size:15px;font-weight:700;color:var(--t1)">전자결재 서명</div>
+              <div style="font-size:11px;color:var(--t3)">VD-2026-004 · 2026년 3월 안전보건 점검 보고서</div>
+            </div>
+          </div>
+          <button onclick="closeSign()" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border-2);background:none;cursor:pointer;font-size:17px;color:var(--t3);display:flex;align-items:center;justify-content:center">×</button>
         </div>
-        <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:7px;padding:10px 12px;margin-bottom:16px;font-size:12px;color:#854D0E">
-          ⚠️ 미확인 알림 1건이 있습니다. 이 상태로 결재하면 보고서에 "일부 미조치 사항 있음"으로 기록됩니다.
+
+        <div style="display:flex;max-height:80vh">
+          <!-- 왼쪽: 문서 미리보기 -->
+          <div style="flex:1;overflow-y:auto;padding:18px;background:#f7f7f5;border-right:1px solid var(--border)">
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;padding:30px 32px;font-size:12.5px;line-height:1.8;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative">
+              <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--ba),var(--ma))"></div>
+              <div style="text-align:center;margin-bottom:24px">
+                <div style="font-size:10px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">안전보건 이행 보고서</div>
+                <div style="font-size:17px;font-weight:800;color:var(--t1)">2026년 3월 안전보건 점검 보고서</div>
+                <div style="margin-top:6px;font-size:11px;color:var(--t3)">문서번호: VD-2026-004 &nbsp;|&nbsp; 작성일: 2026.03.31</div>
+              </div>
+              <div style="border-top:2px solid var(--t1);border-bottom:1px solid var(--border);padding:9px 0;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+                <div><div style="font-size:10px;color:var(--t3)">점검 인원</div><div style="font-weight:700">243명 (82%)</div></div>
+                <div><div style="font-size:10px;color:var(--t3)">점검기간</div><div style="font-weight:700">2026.03.01~31</div></div>
+                <div><div style="font-size:10px;color:var(--t3)">보관기한</div><div style="font-weight:700">5년 (KISA)</div></div>
+              </div>
+              <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">시행령 제5조 이행 현황</div>
+              <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:20px">
+                <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 11px;background:#F0FDF4;border-radius:6px;font-size:12px">
+                  <span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>
+                  <div><strong>제1호</strong> 반기 점검 실시 및 경영자 보고 — 완료 (243명 82%)</div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 11px;background:#FFFBEB;border-radius:6px;font-size:12px">
+                  <span style="color:var(--amber);font-weight:700;flex-shrink:0">!</span>
+                  <div><strong>제2호</strong> 고위험자 발견 시 조치 — 탐지 4건 / 연계 3건 / <span style="color:var(--red)">미확인 1건</span></div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 11px;background:#F0FDF4;border-radius:6px;font-size:12px">
+                  <span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>
+                  <div><strong>제3호</strong> 교육 콘텐츠 제공 — 이수율 73% (177명)</div>
+                </div>
+              </div>
+              <!-- 결재란 -->
+              <div style="border-top:1px solid var(--border);padding-top:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">결재란</div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #ccc;border-radius:4px;overflow:hidden">
+                  <div style="border-right:1px solid #ccc">
+                    <div style="background:#f5f5f5;padding:5px;text-align:center;font-size:10.5px;font-weight:600;border-bottom:1px solid #ccc">담당</div>
+                    <div style="height:68px;display:flex;align-items:center;justify-content:center;overflow:hidden" id="docSignCell">
+                      <span id="docSignPlaceholder" style="font-size:11px;color:#bbb">서명란</span>
+                      <img id="docSignPreview" src="" alt="" style="display:none;max-width:76px;max-height:58px;object-fit:contain">
+                    </div>
+                    <div style="background:#f5f5f5;padding:4px;text-align:center;font-size:10px;border-top:1px solid #ccc;color:var(--t3)">김민수</div>
+                  </div>
+                  <div style="border-right:1px solid #ccc">
+                    <div style="background:#f5f5f5;padding:5px;text-align:center;font-size:10.5px;font-weight:600;border-bottom:1px solid #ccc">검토</div>
+                    <div style="height:68px;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;color:#bbb">—</span></div>
+                    <div style="background:#f5f5f5;padding:4px;text-align:center;font-size:10px;border-top:1px solid #ccc;color:var(--t3)">이안전</div>
+                  </div>
+                  <div style="border-right:1px solid #ccc">
+                    <div style="background:#f5f5f5;padding:5px;text-align:center;font-size:10.5px;font-weight:600;border-bottom:1px solid #ccc">최종승인</div>
+                    <div style="height:68px;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;color:#bbb">—</span></div>
+                    <div style="background:#f5f5f5;padding:4px;text-align:center;font-size:10px;border-top:1px solid #ccc;color:var(--t3)">박대표</div>
+                  </div>
+                  <div>
+                    <div style="background:#f5f5f5;padding:5px;text-align:center;font-size:10.5px;font-weight:600;border-bottom:1px solid #ccc">일자</div>
+                    <div style="height:68px;display:flex;align-items:center;justify-content:center">
+                      <span id="docSignDate" style="font-size:10.5px;color:var(--t2);text-align:center;line-height:1.6"></span>
+                    </div>
+                    <div style="background:#f5f5f5;padding:4px;text-align:center;font-size:10px;border-top:1px solid #ccc;color:var(--t3)">서명일시</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 서명 패널 -->
+          <div style="width:300px;display:flex;flex-direction:column;background:var(--surface)">
+            <div style="padding:16px 18px;flex:1;overflow-y:auto">
+              <!-- 서명자 -->
+              <div style="background:var(--bg);border-radius:8px;padding:11px 13px;margin-bottom:14px">
+                <div style="font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">서명자</div>
+                <div style="font-size:13px;font-weight:700">김민수</div>
+                <div style="font-size:11.5px;color:var(--t3)">HR 관리자 · 담당 서명</div>
+                <div style="font-size:11px;color:var(--t3);margin-top:3px" id="signTime"></div>
+              </div>
+              <!-- 경고 -->
+              <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:7px;padding:8px 11px;margin-bottom:14px;font-size:11.5px;color:#854D0E">
+                ⚠️ 미확인 알림 1건 포함 상태로 서명 시 보고서에 기록됩니다.
+              </div>
+              <!-- 탭 -->
+              <div style="margin-bottom:12px">
+                <div style="font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:7px">서명 방식</div>
+                <div style="display:flex;background:var(--bg);border-radius:8px;padding:3px;gap:2px">
+                  <button id="tabDraw" onclick="switchTab('draw')" style="flex:1;padding:6px 4px;border-radius:6px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:var(--surface);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.08)">✏️ 마우스 서명</button>
+                  <button id="tabUpload" onclick="switchTab('upload')" style="flex:1;padding:6px 4px;border-radius:6px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:none;color:var(--t3)">🖼 직인 업로드</button>
+                </div>
+              </div>
+              <!-- 마우스 서명 -->
+              <div id="panelDraw">
+                <div style="font-size:11px;color:var(--t3);margin-bottom:6px">아래 영역에 마우스 또는 터치로 서명하세요</div>
+                <div style="position:relative;border:2px dashed var(--border-2);border-radius:8px;background:#fafafa;overflow:hidden">
+                  <canvas id="sigCanvas" width="260" height="120" style="display:block;width:100%;cursor:crosshair;touch-action:none"></canvas>
+                  <div id="canvasHint" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;color:#ccc;font-size:12px">서명을 그려주세요</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap">
+                  <span style="font-size:11px;color:var(--t2)">색상</span>
+                  <input type="color" id="penColor" value="#1a1816" style="width:22px;height:22px;border:none;background:none;cursor:pointer;padding:0">
+                  <span style="font-size:11px;color:var(--t2)">굵기</span>
+                  <input type="range" id="penSize" min="1" max="8" value="2" style="width:56px">
+                  <button onclick="clearCanvas()" style="margin-left:auto;padding:3px 10px;background:var(--bg);border:1px solid var(--border-2);border-radius:5px;font-size:11px;cursor:pointer;color:var(--t2)">지우기</button>
+                </div>
+              </div>
+              <!-- 직인 업로드 -->
+              <div id="panelUpload" style="display:none">
+                <div style="font-size:11px;color:var(--t3);margin-bottom:7px">직인 이미지를 업로드하세요 (PNG 투명배경 권장)</div>
+                <label id="uploadLabel" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:2px dashed var(--border-2);border-radius:8px;padding:20px 12px;cursor:pointer;background:#fafafa">
+                  <span style="font-size:26px">🖼</span>
+                  <span style="font-size:12px;font-weight:600;color:var(--t2)">클릭하여 파일 선택</span>
+                  <span style="font-size:10.5px;color:var(--t3)">PNG, JPG · 최대 2MB</span>
+                  <input type="file" id="stampInput" accept="image/*" style="display:none" onchange="handleStampUpload(event)">
+                </label>
+                <div id="stampPreviewWrap" style="display:none;margin-top:10px;text-align:center">
+                  <img id="stampPreview" src="" alt="직인 미리보기" style="max-width:100%;max-height:90px;object-fit:contain;border:1px solid var(--border);border-radius:6px;padding:6px;background:#fff">
+                  <button onclick="removeStamp()" style="display:block;margin:8px auto 0;padding:4px 12px;background:var(--rl);border:1px solid var(--red);border-radius:5px;font-size:11px;cursor:pointer;color:var(--red)">삭제</button>
+                </div>
+              </div>
+            </div>
+            <!-- 하단 버튼 -->
+            <div style="padding:12px 18px;border-top:1px solid var(--border);background:var(--surface)">
+              <div id="signReadyMsg" style="display:none;background:var(--gl);border-radius:6px;padding:6px 10px;font-size:11.5px;color:var(--green);font-weight:600;margin-bottom:9px;text-align:center">서명 준비 완료 ✓</div>
+              <button id="btnConfirmSign" onclick="doSign()" style="width:100%;padding:11px;background:#aaa;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:not-allowed;transition:all .15s" disabled>✍️ 서명 및 결재 진행</button>
+              <button onclick="closeSign()" style="width:100%;margin-top:7px;padding:8px;background:none;border:1px solid var(--border-2);border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t2)">취소</button>
+            </div>
+          </div>
         </div>
-        <button onclick="doSign()" style="width:100%;padding:12px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:700;cursor:pointer">✍️ 서명 및 다음 결재자에게 전달</button>
       </div>
     </div>
 
@@ -530,26 +654,178 @@ tbody tr:hover{background:var(--bg)}
     </div>
 
 <script>
+/* ── 미리보기/문서 모달 ── */
 function openPreview(){document.getElementById('previewModal').classList.add('open');}
 function closePreview(){document.getElementById('previewModal').classList.remove('open');}
 function openDoc(id){openPreview();}
 function openNewDoc(){alert('새 보고서는 다음 점검 주기(2026.04.30) 이후 자동 생성됩니다.');}
+
+/* ── 전자서명 모달 열기 ── */
 function signDoc(){
   closePreview();
   const now=new Date();
-  document.getElementById('signTime').textContent=now.toLocaleString('ko-KR');
+  const dateStr=now.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
+  const timeStr=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('signTime').textContent=dateStr+' '+timeStr;
+  document.getElementById('docSignDate').innerHTML=dateStr+'<br>'+timeStr;
   document.getElementById('signModal').classList.add('open');
+  initCanvas();
 }
-function closeSign(){document.getElementById('signModal').classList.remove('open');}
+function closeSign(){
+  document.getElementById('signModal').classList.remove('open');
+  clearCanvas();
+  removeStamp();
+}
+
+/* ── 탭 전환 ── */
+function switchTab(tab){
+  const isDraw=(tab==='draw');
+  document.getElementById('panelDraw').style.display=isDraw?'block':'none';
+  document.getElementById('panelUpload').style.display=isDraw?'none':'block';
+  const tDraw=document.getElementById('tabDraw');
+  const tUp=document.getElementById('tabUpload');
+  if(isDraw){
+    tDraw.style.background='var(--surface)';tDraw.style.color='var(--t1)';tDraw.style.boxShadow='0 1px 3px rgba(0,0,0,.08)';
+    tUp.style.background='none';tUp.style.color='var(--t3)';tUp.style.boxShadow='none';
+  } else {
+    tUp.style.background='var(--surface)';tUp.style.color='var(--t1)';tUp.style.boxShadow='0 1px 3px rgba(0,0,0,.08)';
+    tDraw.style.background='none';tDraw.style.color='var(--t3)';tDraw.style.boxShadow='none';
+  }
+  checkSignReady();
+}
+
+/* ── 캔버스 드로잉 ── */
+let isDrawing=false, lastX=0, lastY=0, canvasHasContent=false;
+function initCanvas(){
+  const canvas=document.getElementById('sigCanvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  canvasHasContent=false;
+  document.getElementById('canvasHint').style.display='flex';
+  checkSignReady();
+
+  function getPos(e){
+    const r=canvas.getBoundingClientRect();
+    const scaleX=canvas.width/r.width;
+    const scaleY=canvas.height/r.height;
+    if(e.touches){
+      return{x:(e.touches[0].clientX-r.left)*scaleX,y:(e.touches[0].clientY-r.top)*scaleY};
+    }
+    return{x:(e.clientX-r.left)*scaleX,y:(e.clientY-r.top)*scaleY};
+  }
+  function startDraw(e){
+    e.preventDefault();
+    isDrawing=true;
+    const p=getPos(e);
+    lastX=p.x;lastY=p.y;
+    document.getElementById('canvasHint').style.display='none';
+  }
+  function draw(e){
+    e.preventDefault();
+    if(!isDrawing)return;
+    const p=getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(p.x,p.y);
+    ctx.strokeStyle=document.getElementById('penColor').value;
+    ctx.lineWidth=parseInt(document.getElementById('penSize').value);
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+    ctx.stroke();
+    lastX=p.x;lastY=p.y;
+    canvasHasContent=true;
+    checkSignReady();
+  }
+  function stopDraw(){isDrawing=false;}
+  canvas.removeEventListener('mousedown',canvas._md);
+  canvas.removeEventListener('mousemove',canvas._mm);
+  canvas.removeEventListener('mouseup',canvas._mu);
+  canvas.removeEventListener('touchstart',canvas._ts);
+  canvas.removeEventListener('touchmove',canvas._tm);
+  canvas.removeEventListener('touchend',canvas._te);
+  canvas._md=startDraw;canvas._mm=draw;canvas._mu=stopDraw;
+  canvas._ts=startDraw;canvas._tm=draw;canvas._te=stopDraw;
+  canvas.addEventListener('mousedown',canvas._md);
+  canvas.addEventListener('mousemove',canvas._mm);
+  canvas.addEventListener('mouseup',canvas._mu);
+  canvas.addEventListener('touchstart',canvas._ts);
+  canvas.addEventListener('touchmove',canvas._tm);
+  canvas.addEventListener('touchend',canvas._te);
+}
+function clearCanvas(){
+  const canvas=document.getElementById('sigCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  canvasHasContent=false;
+  document.getElementById('canvasHint').style.display='flex';
+  checkSignReady();
+}
+
+/* ── 직인 업로드 ── */
+let stampDataUrl=null;
+function handleStampUpload(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){alert('파일 크기는 2MB 이하로 업로드해주세요.');return;}
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    stampDataUrl=ev.target.result;
+    document.getElementById('stampPreview').src=stampDataUrl;
+    document.getElementById('stampPreviewWrap').style.display='block';
+    document.getElementById('uploadLabel').style.display='none';
+    checkSignReady();
+  };
+  reader.readAsDataURL(file);
+}
+function removeStamp(){
+  stampDataUrl=null;
+  const inp=document.getElementById('stampInput');
+  if(inp)inp.value='';
+  const wrap=document.getElementById('stampPreviewWrap');
+  const lbl=document.getElementById('uploadLabel');
+  if(wrap)wrap.style.display='none';
+  if(lbl)lbl.style.display='flex';
+  checkSignReady();
+}
+
+/* ── 서명 준비 상태 확인 ── */
+function checkSignReady(){
+  const drawActive=document.getElementById('panelDraw').style.display!=='none';
+  const ready=drawActive?canvasHasContent:(stampDataUrl!==null);
+  const btn=document.getElementById('btnConfirmSign');
+  const msg=document.getElementById('signReadyMsg');
+  if(ready){
+    btn.disabled=false;btn.style.background='var(--ba)';btn.style.cursor='pointer';
+    msg.style.display='block';
+  } else {
+    btn.disabled=true;btn.style.background='#aaa';btn.style.cursor='not-allowed';
+    msg.style.display='none';
+  }
+}
+
+/* ── 서명 실행 ── */
 function doSign(){
+  // 서명 이미지를 문서 결재란에 반영
+  const drawActive=document.getElementById('panelDraw').style.display!=='none';
+  let imgSrc='';
+  if(drawActive){
+    imgSrc=document.getElementById('sigCanvas').toDataURL('image/png');
+  } else {
+    imgSrc=stampDataUrl;
+  }
+  const placeholder=document.getElementById('docSignPlaceholder');
+  const preview=document.getElementById('docSignPreview');
+  if(placeholder)placeholder.style.display='none';
+  if(preview){preview.src=imgSrc;preview.style.display='block';}
   document.getElementById('signModal').classList.remove('open');
   document.getElementById('doneModal').classList.add('open');
 }
 function closeDone(){
   document.getElementById('doneModal').classList.remove('open');
-  // 미결재 배너 상태 업데이트
   document.querySelector('.kpi-val[style*="red"]').textContent='0건';
 }
+
 document.querySelectorAll('.bkdrop').forEach(b=>{
   b.addEventListener('click',e=>{if(e.target===b){b.classList.remove('open');}});
 });
