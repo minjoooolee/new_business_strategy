@@ -3819,6 +3819,7 @@
       <a class="cd-nav-pill" href="#cd-s4">데이터 가치</a>
       <a class="cd-nav-pill" href="#cd-s5">최종 목표</a>
       <a class="cd-nav-pill" href="#trust-s1">신뢰 전략</a>
+      <a class="cd-nav-pill" href="#trust-s5">법무 검토</a>
     </div>
   </nav>
 
@@ -6463,6 +6464,115 @@
         </div>
       </div>
     </div>
+
+    <!-- 법무 검토 섹션 -->
+    <div class="section" id="trust-s5">
+      <style>
+        #trust-s5 .lgl-header {
+          display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+        }
+        #trust-s5 .lgl-badge {
+          font-size: 9px; font-weight: 700; letter-spacing: 2px;
+          text-transform: uppercase; padding: 4px 12px; border-radius: 6px;
+          background: rgba(255,185,0,0.12); color: #f0a500;
+          border: 1px solid rgba(255,185,0,0.25); flex-shrink: 0;
+        }
+        #trust-s5 .lgl-title {
+          font-size: 13px; font-weight: 700; color: var(--text-muted);
+        }
+        #trust-s5 .lgl-items {
+          display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;
+        }
+        #trust-s5 .lgl-item {
+          display: flex; align-items: flex-start; gap: 14px;
+          background: var(--surface); border: 1px solid rgba(255,185,0,0.18);
+          border-radius: 12px; padding: 16px 20px;
+        }
+        #trust-s5 .lgl-num {
+          width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+          background: rgba(255,185,0,0.12); border: 1px solid rgba(255,185,0,0.3);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 11px; font-weight: 700; color: #f0a500; margin-top: 1px;
+        }
+        #trust-s5 .lgl-body { flex: 1; }
+        #trust-s5 .lgl-q {
+          font-size: 13px; font-weight: 700; color: var(--text);
+          margin-bottom: 5px; line-height: 1.5;
+        }
+        #trust-s5 .lgl-desc {
+          font-size: 12px; color: var(--text-muted); line-height: 1.75;
+        }
+        #trust-s5 .lgl-conclusion {
+          background: linear-gradient(135deg, rgba(0,212,160,.07), rgba(61,127,255,.04));
+          border: 1px solid rgba(0,212,160,.25); border-radius: 14px;
+          padding: 22px 24px; margin-bottom: 16px;
+        }
+        #trust-s5 .lgl-conclusion-label {
+          font-size: 9px; font-weight: 700; letter-spacing: 2px;
+          text-transform: uppercase; color: var(--accent2); margin-bottom: 10px;
+        }
+        #trust-s5 .lgl-conclusion-text {
+          font-size: 13px; color: var(--text-muted); line-height: 1.85;
+        }
+        #trust-s5 .lgl-conclusion-text strong { color: var(--text); }
+        #trust-s5 .lgl-quote {
+          background: var(--surface); border-left: 3px solid var(--accent2);
+          border-radius: 0 10px 10px 0; padding: 16px 20px;
+        }
+        #trust-s5 .lgl-quote-label {
+          font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+          text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px;
+        }
+        #trust-s5 .lgl-quote-text {
+          font-size: 13px; color: var(--text-muted); line-height: 1.85;
+          font-style: italic;
+        }
+        #trust-s5 .lgl-quote-text strong { color: var(--text); font-style: normal; }
+      </style>
+
+      <div class="sec-label">Legal Review</div>
+      <h2 class="sec-title">법무 검토가<br><em>반드시 필요한 부분</em></h2>
+      <p class="sec-lead" style="max-width:680px;">법적으로 불가능한 구조가 아닙니다. 다만 아래 세 가지는 법무팀 또는 외부 법률 자문 없이 진행할 수 없습니다. <strong style="color:var(--text);">법무 검토 결과는 Phase 2 진입 선행 조건입니다.</strong></p>
+
+      <div class="lgl-items">
+        <div class="lgl-item">
+          <div class="lgl-num">1</div>
+          <div class="lgl-body">
+            <div class="lgl-q">검사결과지 바이오마커 추출 + 원본 파기 — "가명처리"인가, 별도 프로세스인가</div>
+            <div class="lgl-desc">온코케어가 검사결과지 이미지에서 바이오마커를 추출하고 원본을 파기하는 행위가 개인정보보호법상 "가명처리"에 해당하는지, 아니면 "수집 → 가공 → 파기"의 별도 프로세스로 봐야 하는지 판단이 필요합니다.</div>
+          </div>
+        </div>
+        <div class="lgl-item">
+          <div class="lgl-num">2</div>
+          <div class="lgl-body">
+            <div class="lgl-q">제약사 유상 데이터 제공 — "과학적 연구 목적"의 범위</div>
+            <div class="lgl-desc">가명정보를 제약사에 유상 제공할 때 적용되는 "과학적 연구 목적"의 범위 확인이 필요합니다. 제약사의 마케팅 리서치는 "과학적 연구"에 포함되지 않을 수 있으므로, 허용 범위를 명확히 해야 합니다.</div>
+          </div>
+        </div>
+        <div class="lgl-item">
+          <div class="lgl-num">3</div>
+          <div class="lgl-body">
+            <div class="lgl-q">의료법 제21조(진료기록 열람) — 환자 자발적 업로드 적법성</div>
+            <div class="lgl-desc">환우가 자발적으로 자기 검사결과지를 플랫폼에 올리는 행위는, 의료기관이 제3자에게 제공하는 게 아닌 환자 본인이 자기 정보를 제공하는 것이므로 의료법 위반이 아닐 가능성이 높습니다. 다만 법적 확인이 필요합니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lgl-conclusion">
+        <div class="lgl-conclusion-label">정리</div>
+        <div class="lgl-conclusion-text">
+          <strong>"가명정보 + 과학적 연구 목적 + IRB 심의 + 추가정보 분리 보관 + 재식별 금지"</strong> 절차를 밟으면 유상 제공까지 가능한 경로가 있습니다. 다만 "검사결과지라는 민감정보를 수집해서 가명처리 후 제약사에 판다"는 구조이므로, <strong>대표 발표 전 법무 검토 의뢰가 필수</strong>입니다.
+        </div>
+      </div>
+
+      <div class="lgl-quote">
+        <div class="lgl-quote-label">대표에게는 이렇게</div>
+        <div class="lgl-quote-text">
+          "법적으로 가명정보 처리 특례에 의해 과학적 연구 목적의 유상 제공이 가능한 경로가 있습니다. 다만 <strong>IRB 설치, 가명처리 적정성 심의 등 절차가 필요</strong>하므로, Phase 2 선행 조건으로 법무 검토를 잡아두겠습니다."
+        </div>
+      </div>
+    </div>
+
   </div>
   <script>
     (function() {
