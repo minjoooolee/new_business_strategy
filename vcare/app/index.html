@@ -2509,128 +2509,108 @@ body {
         <h1>검사기록지</h1>
       </div>
 
-      <!-- ── 1단계: 서비스 안내 카드 ── -->
+      <!-- ── 서비스 요약 배너 ── -->
       <div class="rpt-section">
-        <div class="rpt-step-badge">STEP 1</div>
-        <div class="rpt-intro-card">
-          <div class="rpt-intro-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6E3FA3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+        <div class="rpt-intro-card" style="text-align:center;padding:20px 16px 18px">
+          <div class="rpt-intro-icon" style="margin:0 auto 8px">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6E3FA3" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
           </div>
-          <h2 class="rpt-intro-title">검사결과지, 쉽게 설명해 드려요</h2>
-          <div class="rpt-intro-list">
-            <div class="rpt-intro-row">
-              <span class="rpt-intro-label">대상 질환</span>
-              <span class="rpt-intro-value">유방암 · 위암 · 대장암</span>
-            </div>
-            <div class="rpt-intro-row">
-              <span class="rpt-intro-label">대상 검사</span>
-              <span class="rpt-intro-value">조직검사 결과지, 종양표지자 결과지</span>
-            </div>
-            <div class="rpt-intro-row">
-              <span class="rpt-intro-label">비용</span>
-              <span class="rpt-intro-value" style="color:#10b981;font-weight:700">무료</span>
-            </div>
+          <h2 class="rpt-intro-title" style="font-size:1.05rem;margin-bottom:12px">검사결과지, 쉽게 설명해 드려요</h2>
+          <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+            <span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(110,63,163,.06);border-radius:20px;font-size:.72rem;font-weight:600;color:#6E3FA3">유방암</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(110,63,163,.06);border-radius:20px;font-size:.72rem;font-weight:600;color:#6E3FA3">위암</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(110,63,163,.06);border-radius:20px;font-size:.72rem;font-weight:600;color:#6E3FA3">대장암</span>
           </div>
-          <div class="rpt-legal-box">
-            본 서비스는 검사결과지의 의학 용어와 수치를 쉬운 말로 설명해 드리는 서비스입니다. 의료적 해석, 진단, 상담, 치료 권고가 아니며, 의료진의 판단을 대체하지 않습니다. 정확한 상담은 반드시 담당 주치의와 진행해 주세요.
+          <div style="display:flex;justify-content:center;gap:10px;font-size:.78rem;color:var(--sub);margin-bottom:10px">
+            <span>조직검사 · 종양표지자</span>
+            <span style="color:#10b981;font-weight:700">무료</span>
+          </div>
+          <div class="rpt-legal-box" style="font-size:.72rem;line-height:1.5;padding:10px 12px">
+            의학 용어를 쉬운 말로 설명하는 서비스입니다. 진단·상담·치료 권고가 아닙니다.
           </div>
         </div>
       </div>
 
-      <!-- ── 2단계: 동의 체크박스 ── -->
+      <!-- ── 동의 + 업로드 통합 카드 ── -->
       <div class="rpt-section">
-        <div class="rpt-step-badge">STEP 2</div>
-        <div class="rpt-consent-card">
-          <h3 class="rpt-consent-title">서비스 이용 동의</h3>
-
-          <!-- 동의 1 -->
-          <div class="rpt-consent-item">
-            <label class="rpt-checkbox-row" id="consent1Row">
-              <input type="checkbox" id="rptConsent1" class="rpt-checkbox">
-              <span class="rpt-checkbox-custom"></span>
-              <span class="rpt-checkbox-label"><b>[필수]</b> 개인정보 수집·이용에 동의합니다</span>
-            </label>
-            <button class="rpt-accordion-btn" id="rptAccordion1Btn">
-              <span>펼쳐보기</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-            </button>
-            <div class="rpt-accordion-body" id="rptAccordion1">
-              <div class="rpt-accordion-content">
-                <b>수집 항목:</b> 검사결과지 이미지, 질환 종류, 검사 종류<br>
-                <b>수집 목적:</b> 검사결과지 설명 서비스 제공<br>
-                <b>보관 기간:</b> 설명 완료 후 30일 이내 원본 이미지 파기<br><br>
-                구조화된 수치 데이터(익명화)는 서비스 개선 목적으로 보관될 수 있습니다.
-              </div>
-            </div>
-          </div>
-
-          <!-- 동의 2 -->
-          <div class="rpt-consent-item">
-            <label class="rpt-checkbox-row" id="consent2Row">
-              <input type="checkbox" id="rptConsent2" class="rpt-checkbox">
-              <span class="rpt-checkbox-custom"></span>
-              <span class="rpt-checkbox-label"><b>[필수]</b> 서비스 이용 안내를 확인했습니다</span>
-            </label>
-            <button class="rpt-accordion-btn" id="rptAccordion2Btn">
-              <span>펼쳐보기</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-            </button>
-            <div class="rpt-accordion-body" id="rptAccordion2">
-              <div class="rpt-accordion-content">
-                본 서비스는 AI가 생성한 설명을 의료진이 검토하는 구조입니다.
-                의료적 진단·해석·상담이 아닌 '설명' 서비스이며,
-                제공된 내용을 근거로 치료를 결정하지 마시고
-                반드시 담당 주치의와 상의해 주세요.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── 3단계: 업로드 영역 ── -->
-      <div class="rpt-section">
-        <div class="rpt-step-badge">STEP 3</div>
-        <div class="rpt-upload-card" id="rptUploadCard">
+        <div class="rpt-upload-card" id="rptUploadCard" style="position:relative">
           <!-- 비활성 오버레이 (동의 전) -->
           <div class="rpt-upload-lock" id="rptUploadLock">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>위의 동의 항목을 모두 체크해 주세요</span>
+            <span>아래 동의 항목을 모두 체크해 주세요</span>
           </div>
 
-          <h3 class="rpt-upload-title">검사결과지 업로드</h3>
-
-          <!-- 질환 선택 -->
-          <div class="rpt-field-group">
-            <div class="rpt-field-label">질환 선택 <span class="rpt-required">필수</span></div>
-            <div class="rpt-radio-group" id="rptDiseaseGroup">
-              <label class="rpt-radio"><input type="radio" name="rptDisease" value="유방암"><span class="rpt-radio-custom"></span>유방암</label>
-              <label class="rpt-radio"><input type="radio" name="rptDisease" value="위암"><span class="rpt-radio-custom"></span>위암</label>
-              <label class="rpt-radio"><input type="radio" name="rptDisease" value="대장암"><span class="rpt-radio-custom"></span>대장암</label>
+          <!-- 동의 체크박스 (인라인) -->
+          <div style="margin-bottom:16px">
+            <div class="rpt-consent-item" style="margin-bottom:6px">
+              <label class="rpt-checkbox-row" id="consent1Row">
+                <input type="checkbox" id="rptConsent1" class="rpt-checkbox">
+                <span class="rpt-checkbox-custom"></span>
+                <span class="rpt-checkbox-label"><b>[필수]</b> 개인정보 수집·이용 동의</span>
+              </label>
+              <button class="rpt-accordion-btn" id="rptAccordion1Btn">
+                <span>상세</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="rpt-accordion-body" id="rptAccordion1">
+                <div class="rpt-accordion-content">
+                  <b>수집 항목:</b> 검사결과지 이미지, 질환·검사 종류<br>
+                  <b>보관 기간:</b> 설명 완료 후 30일 이내 파기
+                </div>
+              </div>
+            </div>
+            <div class="rpt-consent-item">
+              <label class="rpt-checkbox-row" id="consent2Row">
+                <input type="checkbox" id="rptConsent2" class="rpt-checkbox">
+                <span class="rpt-checkbox-custom"></span>
+                <span class="rpt-checkbox-label"><b>[필수]</b> 서비스 이용 안내 확인</span>
+              </label>
+              <button class="rpt-accordion-btn" id="rptAccordion2Btn">
+                <span>상세</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="rpt-accordion-body" id="rptAccordion2">
+                <div class="rpt-accordion-content">
+                  AI 설명 + 의료진 검토 구조입니다. 진단·상담이 아닌 '설명' 서비스이며, 반드시 담당 주치의와 상의해 주세요.
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 검사 종류 -->
-          <div class="rpt-field-group">
-            <div class="rpt-field-label">검사 종류 <span class="rpt-required">필수</span></div>
-            <div class="rpt-radio-group" id="rptTestGroup">
-              <label class="rpt-radio"><input type="radio" name="rptTest" value="조직검사"><span class="rpt-radio-custom"></span>조직검사 결과지</label>
-              <label class="rpt-radio"><input type="radio" name="rptTest" value="종양표지자"><span class="rpt-radio-custom"></span>종양표지자 결과지</label>
+          <div style="height:1px;background:var(--border,#e5e7eb);margin:0 -16px 16px"></div>
+
+          <!-- 질환 · 검사 종류 (가로 2열) -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+            <div class="rpt-field-group" style="margin:0">
+              <div class="rpt-field-label">질환 <span class="rpt-required">필수</span></div>
+              <div class="rpt-radio-group" id="rptDiseaseGroup" style="flex-direction:column;gap:6px">
+                <label class="rpt-radio"><input type="radio" name="rptDisease" value="유방암"><span class="rpt-radio-custom"></span>유방암</label>
+                <label class="rpt-radio"><input type="radio" name="rptDisease" value="위암"><span class="rpt-radio-custom"></span>위암</label>
+                <label class="rpt-radio"><input type="radio" name="rptDisease" value="대장암"><span class="rpt-radio-custom"></span>대장암</label>
+              </div>
+            </div>
+            <div class="rpt-field-group" style="margin:0">
+              <div class="rpt-field-label">검사 종류 <span class="rpt-required">필수</span></div>
+              <div class="rpt-radio-group" id="rptTestGroup" style="flex-direction:column;gap:6px">
+                <label class="rpt-radio"><input type="radio" name="rptTest" value="조직검사"><span class="rpt-radio-custom"></span>조직검사</label>
+                <label class="rpt-radio"><input type="radio" name="rptTest" value="종양표지자"><span class="rpt-radio-custom"></span>종양표지자</label>
+              </div>
             </div>
           </div>
 
           <!-- 이미지 업로드 -->
-          <div class="rpt-field-group">
-            <div class="rpt-field-label">검사결과지 이미지 <span class="rpt-required">필수</span></div>
+          <div class="rpt-field-group" style="margin-bottom:14px">
+            <div class="rpt-field-label">결과지 이미지 <span class="rpt-required">필수</span></div>
             <div class="rpt-upload-zone" id="rptUploadZone">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <span class="rpt-upload-zone-text">검사결과지를 촬영하거나<br>갤러리에서 선택해 주세요</span>
-              <span class="rpt-upload-zone-sub">최대 3장까지</span>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <span class="rpt-upload-zone-text">촬영하거나 갤러리에서 선택</span>
+              <span class="rpt-upload-zone-sub">최대 3장</span>
               <input type="file" accept="image/*" multiple id="rptFileInput" style="display:none">
             </div>
             <div class="rpt-upload-previews" id="rptPreviews"></div>
             <div class="rpt-upload-tip">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
-              이름, 주민번호 등 개인정보가 보이면 가려주세요
+              이름·주민번호 등 개인정보가 보이면 가려주세요
             </div>
           </div>
 
