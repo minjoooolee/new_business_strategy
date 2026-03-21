@@ -1313,22 +1313,22 @@ function switchDrCohortTab(name, el) {
 // ── 의료진 데이터 (전역) ─────────────────────
 const DR_ALERTS = [
   { level:'urgent', icon:'🔴', patient:'환자_mj7', cohort:'유방암 HER2+ 2기', msg:'3차 항암 후 발열 38.5°C 이상 보고 — 호중구 감소 의심', time:'30분 전',
-    detail: { age:'52세 · 여성', dx:'유방암 HER2+ 2기', regimen:'AC-T 3차 진행 중', lastVisit:'2026.03.18', vitals:{temp:'38.7°C',bp:'118/76',hr:'96bpm',wbc:'1,200/μL'}, history:'3차 항암 투여 5일 후 발열 시작. 오한·근육통 동반. 전일 WBC 1,200으로 호중구 감소증 의심.', recommend:['즉시 내원 권고 (호중구 감소성 발열 프로토콜)','혈액배양 + CBC/CRP 검사 시행','경험적 항생제(세펨계) 투여 고려','G-CSF 투여 필요성 평가'] }
+    detail: { age:'52세 · 여성', dx:'유방암 HER2+ 2기', regimen:'AC-T 3차 진행 중', lastVisit:'2026.03.18', vitals:{temp:'38.7°C',bp:'118/76',hr:'96bpm',wbc:'1,200/μL'}, history:'3차 항암 투여 5일 후 발열 시작. 오한·근육통 동반. 전일 WBC 1,200으로 호중구 감소증 의심.', recommend:['호중구 감소성 발열 시 일반적으로 즉시 내원이 권고됩니다 — 주치의 상담을 안내해 주세요','혈액배양 + CBC/CRP 검사가 표준 프로토콜에 포함됩니다','경험적 항생제(세펨계) 투여가 일반적으로 권고됩니다','G-CSF 투여 필요성은 주치의 판단 사항입니다 — 조기 상담을 안내해 주세요'] }
   },
   { level:'urgent', icon:'🔴', patient:'환자_91z', cohort:'대장암 선암 2기', msg:'검사결과지에서 CEA 수치 급상승 (4.2 → 18.7) 감지', time:'1시간 전',
-    detail: { age:'61세 · 남성', dx:'대장암 선암 2기', regimen:'FOLFOX 완료, 추적관찰 중', lastVisit:'2026.03.10', vitals:{cea:'18.7 ng/mL (이전 4.2)',ct:'예정 없음',wbc:'5,800/μL'}, history:'수술 후 FOLFOX 8회 완료. 3개월 추적 혈액검사에서 CEA 4.2→18.7로 급상승. CT 미시행 상태.', recommend:['긴급 CT/PET 검사 예약','대장내시경 재검 고려','간전이 가능성 평가','외래 조기 방문 안내'] }
+    detail: { age:'61세 · 남성', dx:'대장암 선암 2기', regimen:'FOLFOX 완료, 추적관찰 중', lastVisit:'2026.03.10', vitals:{cea:'18.7 ng/mL (이전 4.2)',ct:'예정 없음',wbc:'5,800/μL'}, history:'수술 후 FOLFOX 8회 완료. 3개월 추적 혈액검사에서 CEA 4.2→18.7로 급상승. CT 미시행 상태.', recommend:['CEA 급상승 시 일반적으로 CT/PET 추적 검사가 권고됩니다','수술 후 추적 시점에 대장내시경 재검이 일반적입니다','CEA 상승 시 간·폐 전이 여부 확인이 표준 프로토콜입니다','다음 외래 전 주치의에게 조기 상담 요청을 안내해 주세요'] }
   },
   { level:'warn', icon:'🟡', patient:'환자_th2', cohort:'폐암 비소세포 4기', msg:'채팅에서 극심한 우울감/무기력감 언급 — 심리 지원 필요', time:'2시간 전',
-    detail: { age:'47세 · 남성', dx:'폐암 비소세포(선암) 4기', regimen:'키트루다+카보플라틴 2차', lastVisit:'2026.03.15', vitals:{temp:'36.8°C',bp:'124/82',mood:'PHQ-9 미시행'}, history:'코호트 채팅에서 "더 이상 의미가 없는 것 같다", "가족에게 짐이 되는 느낌" 등 발언 감지. AI가 심리 위기 신호로 분류.', recommend:['정신건강의학과 연계 상담 의뢰','PHQ-9/GAD-7 선별검사 시행','사회복지팀 연결 (경제적 지원 포함)','보호자 면담 예약'] }
+    detail: { age:'47세 · 남성', dx:'폐암 비소세포(선암) 4기', regimen:'키트루다+카보플라틴 2차', lastVisit:'2026.03.15', vitals:{temp:'36.8°C',bp:'124/82',mood:'PHQ-9 미시행'}, history:'코호트 채팅에서 "더 이상 의미가 없는 것 같다", "가족에게 짐이 되는 느낌" 등 발언 감지. AI가 심리 위기 신호로 분류.', recommend:['정신건강의학과 연계 상담이 일반적으로 권고됩니다 — 주치의 상담을 안내해 주세요','PHQ-9/GAD-7 선별검사가 표준 선별 도구로 활용됩니다','사회복지팀 연결(경제적 지원 포함)이 도움이 될 수 있습니다','보호자 면담을 통한 추가 정보 확인이 일반적입니다 — 주치의 상담을 안내해 주세요'] }
   },
   { level:'warn', icon:'🟡', patient:'보호자_k3a', cohort:'위암 장형 3기', msg:'수술 후 식사량 급감 보고 — 영양 상담 권장', time:'3시간 전',
-    detail: { age:'58세 · 남성 (보호자 대리보고)', dx:'위암 장형 3기', regimen:'위아전절제술 후 XELOX 1차', lastVisit:'2026.03.12', vitals:{weight:'62kg→54kg (6주간 -8kg)',albumin:'3.1 g/dL',bmi:'19.2'}, history:'보호자가 "하루에 죽 반 그릇도 못 드신다", "점점 야위어가고 있다" 보고. 수술 후 덤핑증후군 의심.', recommend:['영양집중지원팀(NST) 의뢰','경구 영양보충제(ONS) 처방 고려','소량 다회 식사 + 덤핑증후군 식이교육','체중 추가 감소 시 TPN 고려'] }
+    detail: { age:'58세 · 남성 (보호자 대리보고)', dx:'위암 장형 3기', regimen:'위아전절제술 후 XELOX 1차', lastVisit:'2026.03.12', vitals:{weight:'62kg→54kg (6주간 -8kg)',albumin:'3.1 g/dL',bmi:'19.2'}, history:'보호자가 "하루에 죽 반 그릇도 못 드신다", "점점 야위어가고 있다" 보고. 수술 후 덤핑증후군 의심.', recommend:['영양집중지원팀(NST) 연계가 일반적으로 권고됩니다 — 주치의 상담을 안내해 주세요','경구 영양보충제(ONS)가 일반적으로 도움이 됩니다','소량 다회 식사 및 덤핑증후군 식이교육이 표준 관리에 포함됩니다','체중 추가 감소 시 영양 지원 강화가 권고됩니다 — 주치의 상담을 안내해 주세요'] }
   },
   { level:'info', icon:'🔵', patient:'환자_8a4', cohort:'유방암 TNBC 3기', msg:'AI 답변에 대해 추가 질문 — 의료진 직접 답변 요청', time:'4시간 전',
-    detail: { age:'39세 · 여성', dx:'유방암 삼중음성(TNBC) 3기', regimen:'AC-T + 키트루다 병용', lastVisit:'2026.03.16', vitals:{temp:'36.5°C',bp:'112/70',wbc:'4,100/μL'}, history:'"BRCA 검사 양성이면 예방적 난소절제가 꼭 필요한가요?" 질문에 AI가 답변했으나, "주치의님의 직접 답변을 듣고 싶다"고 요청.', recommend:['유전상담 외래 예약','BRCA 결과 확인 후 위험감소수술 상담','가족력 추가 확인','다음 외래 시 직접 설명'] }
+    detail: { age:'39세 · 여성', dx:'유방암 삼중음성(TNBC) 3기', regimen:'AC-T + 키트루다 병용', lastVisit:'2026.03.16', vitals:{temp:'36.5°C',bp:'112/70',wbc:'4,100/μL'}, history:'"BRCA 검사 양성이면 예방적 난소절제가 꼭 필요한가요?" 질문에 AI가 답변했으나, "주치의님의 직접 답변을 듣고 싶다"고 요청.', recommend:['유전상담 외래가 일반적으로 권고됩니다 — 주치의 상담을 안내해 주세요','BRCA 양성 시 위험감소수술 상담이 표준 권고사항입니다','가족력 추가 확인이 유전상담에 도움이 됩니다','다음 외래 시 주치의 직접 설명을 안내해 주세요'] }
   },
   { level:'info', icon:'🔵', patient:'환자_x2k', cohort:'갑상선암 유두암 1기', msg:'RAI 치료 후 격리 기간 문의 — AI 답변 검토 필요', time:'5시간 전',
-    detail: { age:'33세 · 여성', dx:'갑상선암 유두암 1기', regimen:'갑상선전절제술 후 RAI 예정', lastVisit:'2026.03.14', vitals:{tsh:'45 mIU/L (자극 상태)',tg:'<0.1',neck:'초음파 이상 없음'}, history:'"방사성요오드 치료 후 아이들과 며칠이나 떨어져 있어야 하나요?" 질문. AI가 일반적인 1~3일 답변을 했으나 투여 용량에 따라 다를 수 있어 검토 필요.', recommend:['투여 예정 용량(30 vs 100 mCi) 확인','용량별 격리 기간 안내 (저용량 1~2일 / 고용량 3~5일)','소아 접촉 제한 기준 별도 안내','저요오드 식이 기간 확인'] }
+    detail: { age:'33세 · 여성', dx:'갑상선암 유두암 1기', regimen:'갑상선전절제술 후 RAI 예정', lastVisit:'2026.03.14', vitals:{tsh:'45 mIU/L (자극 상태)',tg:'<0.1',neck:'초음파 이상 없음'}, history:'"방사성요오드 치료 후 아이들과 며칠이나 떨어져 있어야 하나요?" 질문. AI가 일반적인 1~3일 답변을 했으나 투여 용량에 따라 다를 수 있어 검토 필요.', recommend:['투여 예정 용량(30 vs 100 mCi)에 따라 격리 기간이 달라집니다','용량별 격리 기간은 일반적으로 저용량 1~2일, 고용량 3~5일입니다','소아 접촉 제한 기준은 별도 안내가 필요합니다 — 주치의 상담을 안내해 주세요','저요오드 식이 기간은 주치의 지시에 따릅니다'] }
   },
 ];
 
@@ -1448,40 +1448,41 @@ function openAlertDetail(idx) {
     </div>
 
     <div class="alert-detail-section">
-      <div class="alert-detail-section-title">AI 권장 조치</div>
+      <div class="alert-detail-section-title">AI 참고 정보</div>
       ${d.recommend.map((r, i) => `<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:.88rem;color:#374151;line-height:1.5"><span style="color:#7c3aed;font-weight:700;flex-shrink:0">${i+1}.</span>${r}</div>`).join('')}
     </div>
 
     <div class="alert-action-row">
-      <button class="alert-action-btn alert-action-btn--primary" onclick="handleAlertAction(${idx},'contact')">
-        <span class="alert-action-icon">📞</span>
+      <button class="alert-action-btn alert-action-btn--primary" onclick="handleAlertAction(${idx},'reply')">
+        <span class="alert-action-icon">💬</span>
         <div>
-          <div>환자에게 즉시 연락</div>
-          <div class="alert-action-desc">전화 또는 메시지로 연락합니다</div>
+          <div>커뮤니티 답변 작성</div>
+          <div class="alert-action-desc">환우의 게시글에 의료진 설명을 작성합니다</div>
         </div>
       </button>
-      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'schedule')">
-        <span class="alert-action-icon">📅</span>
+      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'consult')">
+        <span class="alert-action-icon">🏥</span>
         <div>
-          <div>긴급 외래 예약</div>
-          <div class="alert-action-desc">가능한 빠른 시간으로 외래를 잡습니다</div>
+          <div>주치의 상담 권고</div>
+          <div class="alert-action-desc">담당 주치의 상담을 안내하는 메시지를 보냅니다</div>
         </div>
       </button>
-      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'order')">
-        <span class="alert-action-icon">🧪</span>
+      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'content')">
+        <span class="alert-action-icon">📚</span>
         <div>
-          <div>검사 오더</div>
-          <div class="alert-action-desc">필요한 검사를 미리 오더합니다</div>
+          <div>관련 콘텐츠 공유</div>
+          <div class="alert-action-desc">환우 상황에 맞는 설명 콘텐츠를 연결합니다</div>
         </div>
       </button>
-      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'note')">
+      <button class="alert-action-btn" onclick="handleAlertAction(${idx},'memo')">
         <span class="alert-action-icon">📝</span>
         <div>
-          <div>메모 남기기</div>
-          <div class="alert-action-desc">차트에 메모를 기록합니다</div>
+          <div>내부 메모</div>
+          <div class="alert-action-desc">운영팀 내부 참고용 메모를 남깁니다</div>
         </div>
       </button>
     </div>
+    <div style="margin-top:12px;padding:0 4px;font-size:.75rem;color:#9ca3af;text-align:center;line-height:1.5">본 정보는 의료진 참고용이며, 진단·처방·치료 결정을 대체하지 않습니다.</div>
   `;
 
   document.getElementById('alertDetailOverlay').classList.add('on');
@@ -1496,8 +1497,8 @@ document.getElementById('alertDetailOverlay').addEventListener('click', function
 
 function handleAlertAction(idx, action) {
   const a = DR_ALERTS[idx];
-  const actionLabels = { contact:'연락 완료', schedule:'외래 예약 완료', order:'검사 오더 완료', note:'메모 저장 완료' };
-  const actionIcons = { contact:'📞', schedule:'📅', order:'🧪', note:'📝' };
+  const actionLabels = { reply:'답변 작성 완료', consult:'상담 권고 전송 완료', content:'콘텐츠 공유 완료', memo:'내부 메모 저장 완료' };
+  const actionIcons = { reply:'💬', consult:'🏥', content:'📚', memo:'📝' };
 
   document.getElementById('alertDetailBody').innerHTML = `
     <div class="review-success">
@@ -1505,7 +1506,7 @@ function handleAlertAction(idx, action) {
       <div class="review-success-title">${actionLabels[action]}</div>
       <div class="review-success-desc">
         <strong>${a.patient}</strong>에 대한 조치가 기록되었습니다.<br>
-        ${action==='contact' ? '환자/보호자에게 연락이 전달됩니다.' : action==='schedule' ? '외래 예약이 접수되었습니다.' : action==='order' ? '검사 오더가 전송되었습니다.' : '차트 메모가 저장되었습니다.'}
+        ${action==='reply' ? '커뮤니티에 의료진 답변이 등록됩니다.' : action==='consult' ? '주치의 상담 안내 메시지가 전송됩니다.' : action==='content' ? '관련 콘텐츠가 공유됩니다.' : '운영팀 내부 메모가 저장되었습니다.'}
       </div>
       <button class="review-success-btn" onclick="completeAlertAction(${idx})">확인</button>
     </div>
