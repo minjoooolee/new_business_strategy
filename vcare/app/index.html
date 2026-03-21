@@ -4230,10 +4230,6 @@ function renderClinicalCard(r, idx) {
           <div class="mrc-detail-label">참여 혜택</div>
           <div class="mrc-detail-value" style="color:#10b981;font-weight:600">${r.benefit}</div>
         </div>
-        <div class="mrc-actions">
-          <button class="mrc-btn mrc-btn--primary" onclick="event.stopPropagation();alert('담당 코디네이터에게 연결합니다.')">참여 문의하기</button>
-          <button class="mrc-btn mrc-btn--secondary" onclick="event.stopPropagation();alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
-        </div>
       </div>
       <div class="mrc-expand-hint">탭하여 상세 보기</div>
     </div>
@@ -4271,10 +4267,6 @@ function renderDrugCard(r, idx) {
         <div class="mrc-detail-section">
           <div class="mrc-detail-label">보험 적용</div>
           <div class="mrc-detail-value" style="font-weight:600">${r.coverage}</div>
-        </div>
-        <div class="mrc-actions">
-          <button class="mrc-btn mrc-btn--primary" onclick="event.stopPropagation();alert('담당 의료진에게 문의를 전달합니다.')">처방 문의하기</button>
-          <button class="mrc-btn mrc-btn--secondary" onclick="event.stopPropagation();alert('주치의에게 공유할 PDF가 준비됩니다.')">주치의에게 공유</button>
         </div>
       </div>
       <div class="mrc-expand-hint">탭하여 상세 보기</div>
