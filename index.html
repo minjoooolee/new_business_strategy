@@ -2744,11 +2744,15 @@
           </a>
           <a href="#" onclick="navigateVcare('bm', event)" class="vcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            BM&amp;결론
+            제안서(보고용)
           </a>
           <a href="#" onclick="navigateVcare('faq', event)" class="vcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             예상질문
+          </a>
+          <a href="#" onclick="navigateVcare('kpi', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            KPI 설정
           </a>
           <a href="https://minjoooolee.github.io/new_business_strategy/vcare/admin" target="_blank" rel="noopener" class="vcare-menu-item" onclick="closeVcareDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -9636,9 +9640,8 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
     <iframe
       src="OncoCare_사업제안서_v2.html"
       id="bm-iframe"
-      style="width:100%;border:none;display:block;min-height:100vh;"
-      scrolling="no"
-      onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='6000px';}})(this)"
+      style="width:100%;border:none;display:block;height:8000px;"
+      scrolling="yes"
     ></iframe>
   </div><!-- /page-vcare-bm -->
   <!-- ===== VCARE FAQ PAGE ===== -->
@@ -9944,6 +9947,514 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
   </script>
 
   </div><!-- /page-vcare-faq -->
+  <!-- ===== VCARE KPI PAGE ===== -->
+  <div class="page-section" id="page-vcare-kpi">
+  
+  <style>
+#kpi-wrap @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }#kpi-wrap {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    padding: 60px 40px;
+    line-height: 1.7;
+  }#kpi-wrap .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }#kpi-wrap .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }#kpi-wrap .header .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }#kpi-wrap .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }#kpi-wrap .header h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #34d399, #6cb4ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }#kpi-wrap .header p {
+    font-size: 14px;
+    color: #888;
+    max-width: 700px;
+    margin: 0 auto;
+  }#kpi-wrap /* Track Section */
+  .track {
+    margin-bottom: 48px;
+  }#kpi-wrap .track-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 16px 24px;
+    border-radius: 12px;
+  }#kpi-wrap .track-header.track1 {
+    background: rgba(251, 191, 36, 0.06);
+    border: 1px solid rgba(251, 191, 36, 0.15);
+  }#kpi-wrap .track-header.track2 {
+    background: rgba(52, 211, 153, 0.06);
+    border: 1px solid rgba(52, 211, 153, 0.15);
+  }#kpi-wrap .track-header.handover {
+    background: rgba(167, 139, 250, 0.06);
+    border: 1px solid rgba(167, 139, 250, 0.15);
+  }#kpi-wrap .track-icon {
+    font-size: 28px;
+  }#kpi-wrap .track-title-group {
+    flex: 1;
+  }#kpi-wrap .track-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }#kpi-wrap .track-header.track1 .track-label { color: #fbbf24; }#kpi-wrap .track-header.track2 .track-label { color: #34d399; }#kpi-wrap .track-header.handover .track-label { color: #a78bfa; }#kpi-wrap .track-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+  }#kpi-wrap .track-goal {
+    font-size: 12px;
+    color: #999;
+    background: rgba(255,255,255,0.04);
+    padding: 4px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }#kpi-wrap /* Scope Section */
+  .scope-section {
+    margin-bottom: 20px;
+  }#kpi-wrap .scope-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }#kpi-wrap .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    margin-bottom: 28px;
+  }#kpi-wrap .scope-item {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #ccc;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }#kpi-wrap .scope-item .icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }#kpi-wrap /* KPI Table */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 8px;
+  }#kpi-wrap thead th {
+    padding: 14px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    color: #999;
+  }#kpi-wrap thead th:nth-child(1) { width: 22%; }#kpi-wrap thead th:nth-child(2) { width: 35%; }#kpi-wrap thead th:nth-child(3) { width: 18%; }#kpi-wrap thead th:nth-child(4) { width: 25%; }#kpi-wrap tbody td {
+    padding: 16px 18px;
+    font-size: 13px;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.7;
+  }#kpi-wrap tbody tr:last-child td {
+    border-bottom: none;
+  }#kpi-wrap tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+  }#kpi-wrap .kpi-category {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }#kpi-wrap .cat-community { background: rgba(108, 180, 238, 0.12); color: #6cb4ee; }#kpi-wrap .cat-quality { background: rgba(52, 211, 153, 0.12); color: #34d399; }#kpi-wrap .cat-medical { background: rgba(244, 114, 182, 0.12); color: #f472b6; }#kpi-wrap .cat-data { background: rgba(251, 191, 36, 0.12); color: #fbbf24; }#kpi-wrap .cat-infra { background: rgba(129, 140, 248, 0.12); color: #818cf8; }#kpi-wrap .target-num {
+    font-size: 18px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }#kpi-wrap .target-num.blue { color: #6cb4ee; }#kpi-wrap .target-num.green { color: #34d399; }#kpi-wrap .target-num.pink { color: #f472b6; }#kpi-wrap .target-num.yellow { color: #fbbf24; }#kpi-wrap .target-num.purple { color: #a78bfa; }#kpi-wrap .target-sub {
+    font-size: 11px;
+    color: #777;
+  }#kpi-wrap .rationale {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+  }#kpi-wrap .rationale strong {
+    color: #bbb;
+  }#kpi-wrap .category-divider td {
+    padding: 10px 18px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }#kpi-wrap .category-divider-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }#kpi-wrap /* Handover Criteria */
+  .handover-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }#kpi-wrap .handover-item {
+    padding: 18px 22px;
+    background: rgba(167, 139, 250, 0.04);
+    border: 1px solid rgba(167, 139, 250, 0.12);
+    border-radius: 10px;
+  }#kpi-wrap .handover-item .check {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }#kpi-wrap .handover-item .condition {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ddd;
+    margin-bottom: 4px;
+  }#kpi-wrap .handover-item .detail {
+    font-size: 12px;
+    color: #888;
+  }#kpi-wrap /* Footer */
+  .footer-note {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: rgba(52, 211, 153, 0.05);
+    border: 1px solid rgba(52, 211, 153, 0.1);
+    border-radius: 10px;
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+  }#kpi-wrap .footer-note strong {
+    color: #34d399;
+  }#kpi-wrap .credit {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 1px;
+  }#kpi-wrap .note-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }#kpi-wrap .note-poc { background: rgba(108, 180, 238, 0.15); color: #6cb4ee; }#kpi-wrap .note-new { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+
+  </style>
+  <div id="kpi-wrap" style="">
+<div class="container">
+
+  <div class="header">
+    <div class="tag">OncoCare Phase 2 · Scope & KPI Framework</div>
+    <h1>Phase 2 — <em>범위와 KPI</em></h1>
+    <p>핑크케어 PoC에서 배운 것을 처음부터 반영합니다. 절대값만이 아닌 전환율과 분포까지, KPI의 후행성을 반복하지 않습니다.</p>
+  </div>
+
+  <!-- ==================== TRACK 1 ==================== -->
+  <div class="track">
+    <div class="track-header track1">
+      <span class="track-icon">🔨</span>
+      <div class="track-title-group">
+        <div class="track-label">Track 1 · 앱 개발 기간</div>
+        <div class="track-title">오픈채팅에서 웜스타트 기반 만들기</div>
+      </div>
+      <div class="track-goal">앱 출시 시 콜드스타트 방지</div>
+    </div>
+
+    <div class="scope-title">범위 (Scope)</div>
+    <div class="scope-grid">
+      <div class="scope-item"><span class="icon">💬</span> 위암·대장암 오픈채팅방 개설 및 운영</div>
+      <div class="scope-item"><span class="icon">🏥</span> 가천대길병원·세브란스 의료진 파트너십 확보</div>
+      <div class="scope-item"><span class="icon">🎗️</span> 암종별 앰배서더 후보 발굴</div>
+      <div class="scope-item"><span class="icon">📈</span> 그로스 마케터 합류 · SEO 기반 구조 세팅</div>
+      <div class="scope-item"><span class="icon">📱</span> 네이티브 앱 + 웹 + 관리자 페이지 개발</div>
+      <div class="scope-item"><span class="icon">🤖</span> AI 에이전트 핵심 2종 개발 (검사결과 해석 · 모더레이션)</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>KPI 항목</th>
+          <th>지표 설명</th>
+          <th>목표</th>
+          <th>근거</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="kpi-category cat-community">커뮤니티</span><br>위암 오픈채팅 참여자</td>
+          <td>위암 오픈채팅방 입장자 수<br>(핑크케어와 동일 기준 · 마케팅 최소화 상태)</td>
+          <td><span class="target-num blue">50명+</span><span class="target-sub">핑크케어 초기 참여자 50명 기준</span></td>
+          <td class="rationale"><strong>핑크케어 PoC:</strong> SEO 0원 상태에서 오픈채팅 참여자 50명 달성 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td><span class="kpi-category cat-community">커뮤니티</span><br>대장암 오픈채팅 참여자</td>
+          <td>대장암 오픈채팅방 입장자 수</td>
+          <td><span class="target-num blue">50명+</span><span class="target-sub">동일 기준 적용</span></td>
+          <td class="rationale">위암과 동일. 단, 병원 QR 유입 채널 추가 활용 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td><span class="kpi-category cat-quality">자생률</span><br>채팅방별 자생 세션 비율</td>
+          <td>운영자 없이 3인 이상 · 5건 이상 대화가 이어지는 세션 비율</td>
+          <td><span class="target-num green">30%+</span><span class="target-sub">핑크케어 초기 기준 (최종 48%)</span></td>
+          <td class="rationale"><strong>핑크케어 PoC:</strong> 초기 자생 세션 → 최종 48% 도달. 새 암종은 30%에서 시작 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td><span class="kpi-category cat-medical">의료진</span><br>의료진 파트너 확보</td>
+          <td>검사결과지 컨펌 및 커뮤니티 답변 가능한 의료진 수</td>
+          <td><span class="target-num pink">3명+</span><span class="target-sub">Tier 1 사내 + Tier 2 PI 1명+</span></td>
+          <td class="rationale"><strong>핑크케어 PoC:</strong> 의료진 1명(김성일)의 참여만으로 활성도 14배. 최소 3명으로 안정성 확보 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td><span class="kpi-category cat-infra">인프라</span><br>앰배서더 후보 발굴</td>
+          <td>위암·대장암 각 1명 이상 코어 유저 또는 외부 채널 후보</td>
+          <td><span class="target-num purple">2명+</span><span class="target-sub">암종별 각 1명 이상</span></td>
+          <td class="rationale"><strong>핑크케어 PoC:</strong> 콩가님 의존도 리스크 → 암종별 다중 구심점 필요 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td><span class="kpi-category cat-infra">인프라</span><br>앱 개발 완료</td>
+          <td>네이티브 앱 · 웹 · 관리자 페이지 내부 QA 통과</td>
+          <td><span class="target-num purple">완료</span><span class="target-sub">내부 QA 통과 기준</span></td>
+          <td class="rationale">프로토타입 → 구현. 화면설계서 대체 가능한 프로토타입 이미 완성 <span class="note-tag note-new">신규</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== TRACK 2 ==================== -->
+  <div class="track">
+    <div class="track-header track2">
+      <span class="track-icon">🚀</span>
+      <div class="track-title-group">
+        <div class="track-label">Track 2 · 앱 출시 후</div>
+        <div class="track-title">시스템이 돌아간다는 것을 증명하기</div>
+      </div>
+      <div class="track-goal">운영 조직 이관 가능 상태 달성</div>
+    </div>
+
+    <div class="scope-title">범위 (Scope)</div>
+    <div class="scope-grid">
+      <div class="scope-item"><span class="icon">🔄</span> 오픈채팅 사용자 → 앱 전환</div>
+      <div class="scope-item"><span class="icon">🎀</span> 앰배서더 공식 위촉 · 런칭 마케팅</div>
+      <div class="scope-item"><span class="icon">👥</span> 코호트 운영 시작 (암종 × 병기)</div>
+      <div class="scope-item"><span class="icon">🔬</span> 검사결과지 AI + 의료진 컨펌 파이프라인 가동</div>
+      <div class="scope-item"><span class="icon">📊</span> KPI 대시보드 기반 운영 안정화</div>
+      <div class="scope-item"><span class="icon">📋</span> 운영 조직 이관 준비 및 실행</div>
+    </div>
+
+    <!-- 커뮤니티 형성 -->
+    <table>
+      <thead>
+        <tr>
+          <th>KPI 항목</th>
+          <th>지표 설명</th>
+          <th>목표</th>
+          <th>근거</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" class="category-divider">
+            <span class="kpi-category cat-community">커뮤니티 형성</span>
+            <span class="category-divider-label" style="color:#6cb4ee; margin-left:8px;">— 사람이 모이는가</span>
+          </td>
+        </tr>
+        <tr>
+          <td>앱 전환율</td>
+          <td>오픈채팅 참여자 중 앱 이동 비율</td>
+          <td><span class="target-num blue">60%+</span><span class="target-sub">이탈 최소화 목표</span></td>
+          <td class="rationale">어설픈 웹 전환 대신 네이티브 앱으로 한 번에 이동. 오픈채팅에서 충분히 안착한 상태 전제 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td>앱 MAU</td>
+          <td>월간 활성 사용자 (3개 암종 합산)</td>
+          <td><span class="target-num blue">1,000명+</span><span class="target-sub">암종별 분포 편중 모니터링</span></td>
+          <td class="rationale"><strong>핑크케어:</strong> 단일 암종 186명 유입. 3개 암종 + 마케팅 채널 확대 기준 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td>채널별 전환율</td>
+          <td>UTM 기반 유입→가입→첫 발화→코어화</td>
+          <td><span class="target-num blue">전수 추적</span><span class="target-sub">채널별 비교 가능 상태</span></td>
+          <td class="rationale"><strong>핑크케어 회고:</strong> UTM 부재 → 인과관계 파악 불가. 이번엔 처음부터 세팅 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td>코어 유저 비율</td>
+          <td>전체 활성 사용자 중 코어 유저(주 5건+ 활동)</td>
+          <td><span class="target-num blue">15%+</span><span class="target-sub">핑크케어 24% 대비 보수적</span></td>
+          <td class="rationale"><strong>핑크케어:</strong> 코어 유저 24%(9명/37명). 스케일업 시 비율 하락 감안 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+
+        <!-- 커뮤니티 품질 -->
+        <tr>
+          <td colspan="4" class="category-divider">
+            <span class="kpi-category cat-quality">커뮤니티 품질</span>
+            <span class="category-divider-label" style="color:#34d399; margin-left:8px;">— 사람이 머무는가</span>
+          </td>
+        </tr>
+        <tr>
+          <td>코호트별 자생 세션</td>
+          <td>운영자·앰배서더 없이 대화가 이어지는 세션 비율</td>
+          <td><span class="target-num green">50%+</span><span class="target-sub">코호트별 개별 추적</span></td>
+          <td class="rationale"><strong>핑크케어:</strong> 최종 자생 48% 도달. 앱에서는 코호트 단위로 세분화 추적 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td>주간 리텐션 (D7)</td>
+          <td>가입 후 7일 내 재방문 비율</td>
+          <td><span class="target-num green">40%+</span><span class="target-sub">헬스케어 커뮤니티 벤치마크</span></td>
+          <td class="rationale">핑크케어에서 미측정. 앱 전환 후 처음 추적하는 핵심 지표 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td>월간 리텐션 (D30)</td>
+          <td>가입 후 30일 내 재방문 비율</td>
+          <td><span class="target-num green">25%+</span><span class="target-sub">장기 잔존 기반</span></td>
+          <td class="rationale">AI 에이전트(유사글 매칭 · 임상시험 알림)가 리텐션에 미치는 효과 측정 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td>평균 세션 체류 시간</td>
+          <td>1회 방문 시 평균 체류 시간</td>
+          <td><span class="target-num green">추적 개시</span><span class="target-sub">AI 에이전트 효과 측정용</span></td>
+          <td class="rationale">AI 유사글 추천 · 코호트 대화 요약이 체류 시간에 미치는 영향 확인 <span class="note-tag note-new">신규</span></td>
+        </tr>
+
+        <!-- 의료진 파이프라인 -->
+        <tr>
+          <td colspan="4" class="category-divider">
+            <span class="kpi-category cat-medical">의료진 파이프라인</span>
+            <span class="category-divider-label" style="color:#f472b6; margin-left:8px;">— 신뢰 구조가 작동하는가</span>
+          </td>
+        </tr>
+        <tr>
+          <td>컨펌 리드타임</td>
+          <td>검사결과지 업로드 → 의료진 컨펌 완료까지</td>
+          <td><span class="target-num pink">24h 이내</span><span class="target-sub">SLA 기준</span></td>
+          <td class="rationale"><strong>핑크케어:</strong> 답변 리드타임 목표 24h로 설정했으나 미측정. 이번엔 관리자 대시보드에서 실시간 추적 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td>AI 무수정 컨펌률</td>
+          <td>AI 초안을 의료진이 수정 없이 컨펌한 비율</td>
+          <td><span class="target-num pink">70%+</span><span class="target-sub">AI 품질 지표</span></td>
+          <td class="rationale">검사결과지를 종양표지자·조직검사 2종으로 한정하여 AI 정확도 극대화 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td>의료진 월 활성률</td>
+          <td>등록 의료진 중 월 1건 이상 컨펌 참여 비율</td>
+          <td><span class="target-num pink">80%+</span><span class="target-sub">참여 이탈 방지</span></td>
+          <td class="rationale">컨펌 버튼 구조로 한 건당 2~3분. 보상 체계(PRO 접근권·공저자)로 동기 부여 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td>의료진 답변 후 활성도</td>
+          <td>의료진 컨펌/답변 후 60분 내 커뮤니티 활성도 변화</td>
+          <td><span class="target-num pink">재검증</span><span class="target-sub">핑크케어 14배의 재현 여부</span></td>
+          <td class="rationale"><strong>핑크케어:</strong> 의료진 답변 후 활성도 2~14배 증가 확인. 앱 환경에서 재검증 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+
+        <!-- 데이터 자산 -->
+        <tr>
+          <td colspan="4" class="category-divider">
+            <span class="kpi-category cat-data">데이터 자산</span>
+            <span class="category-divider-label" style="color:#fbbf24; margin-left:8px;">— PRO 파이프라인이 작동하는가</span>
+          </td>
+        </tr>
+        <tr>
+          <td>검사결과지 업로드 수</td>
+          <td>월간 검사결과지 업로드 건수 (종양표지자 + 조직검사)</td>
+          <td><span class="target-num yellow">50건+/월</span><span class="target-sub">핑크케어 9건 대비 ×5</span></td>
+          <td class="rationale"><strong>핑크케어:</strong> 17일간 9건. 3개 암종 + 앱 UX 개선 + 커뮤니티 안착 후 업로드 패턴 감안 <span class="note-tag note-poc">PoC 근거</span></td>
+        </tr>
+        <tr>
+          <td>PRO 설문 참여율</td>
+          <td>활성 사용자 중 PRO 설문 1회 이상 참여 비율</td>
+          <td><span class="target-num yellow">추적 개시</span><span class="target-sub">닥터앤서 3.0 연동 준비 지표</span></td>
+          <td class="rationale">닥터앤서 3.0 위암·대장암 PRO 앱과의 연동 기반 마련. 데이터 결합 로드맵의 첫 단추 <span class="note-tag note-new">신규</span></td>
+        </tr>
+        <tr>
+          <td>익명화 프로파일 생성 수</td>
+          <td>기초 메타 + 행동 데이터 + 검사결과가 결합된 프로파일 수</td>
+          <td><span class="target-num yellow">추적 개시</span><span class="target-sub">데이터 자산화 시작점</span></td>
+          <td class="rationale">STEP 1(온코케어 3종 데이터) → STEP 2(닥터앤서 결합)로 가는 파이프라인 시작 <span class="note-tag note-new">신규</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== HANDOVER ==================== -->
+  <div class="track">
+    <div class="track-header handover">
+      <span class="track-icon">🔑</span>
+      <div class="track-title-group">
+        <div class="track-label">운영 이관 기준</div>
+        <div class="track-title">이 조건을 충족하면 넘긴다</div>
+      </div>
+      <div class="track-goal">신사업전략팀 → 운영 조직</div>
+    </div>
+
+    <div class="handover-grid">
+      <div class="handover-item">
+        <div class="check">☑️</div>
+        <div class="condition">자생 세션 50%+ · 4주 연속</div>
+        <div class="detail">운영자 없이도 커뮤니티가 돌아간다는 것을 4주간 증명</div>
+      </div>
+      <div class="handover-item">
+        <div class="check">☑️</div>
+        <div class="condition">컨펌 리드타임 24h 이내 · 4주 연속</div>
+        <div class="detail">의료진 파이프라인이 SLA 기준으로 안정적 작동</div>
+      </div>
+      <div class="handover-item">
+        <div class="check">☑️</div>
+        <div class="condition">관리자 콘솔 기반 운영 매뉴얼 완료</div>
+        <div class="detail">대시보드에 판단 기준이 내장되어 별도 매뉴얼 최소화</div>
+      </div>
+      <div class="handover-item">
+        <div class="check">☑️</div>
+        <div class="condition">운영 조직 2주 동행 → 단독 전환</div>
+        <div class="detail">신사업전략팀과 2주 동행 운영 후 단독 운영 확인</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Prove or Pivot — 증명하거나, 방향을 바꿔라.</strong><br>
+    PoC에서 KPI가 후행했던 실수를 반복하지 않습니다. 처음부터 전환율과 분포까지, 인과관계를 설명할 수 있는 KPI를 설계합니다.
+  </div>
+
+  <div class="credit">
+    aitrics · 신사업전략부서 · 2026
+  </div>
+
+</div>
+  </div>
+  </div><!-- /page-vcare-kpi -->
+
 
 
 
@@ -10780,12 +11291,9 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
 
 
   <div class="page-section" id="page-vdoc-report" style="padding:0;margin:0;background:#f4f4f4;">
-    <iframe src="vdoc_proposal.html" id="vdoc-iframe-1" style="width:100%;border:none;display:block;" scrolling="no"
-      onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='4000px';}})(this)"></iframe>
-    <iframe src="vdoc_market.html" id="vdoc-iframe-2" style="width:100%;border:none;display:block;" scrolling="no"
-      onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='2000px';}})(this)"></iframe>
-    <iframe src="vdoc_competition.html" id="vdoc-iframe-3" style="width:100%;border:none;display:block;" scrolling="no"
-      onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='2000px';}})(this)"></iframe>
+    <iframe src="vdoc_proposal.html" id="vdoc-iframe-1" style="width:100%;border:none;display:block;height:5000px;" scrolling="yes"></iframe>
+    <iframe src="vdoc_market.html" id="vdoc-iframe-2" style="width:100%;border:none;display:block;height:3000px;" scrolling="yes"></iframe>
+    <iframe src="vdoc_competition.html" id="vdoc-iframe-3" style="width:100%;border:none;display:block;height:3000px;" scrolling="yes"></iframe>
   </div><!-- /page-vdoc-report -->
 
 
@@ -11269,6 +11777,8 @@ function navigateVcare(sub, e) {
     window.location.hash = 'vcare-bm';
   } else if (sub === 'faq') {
     window.location.hash = 'vcare-faq';
+  } else if (sub === 'kpi') {
+    window.location.hash = 'vcare-kpi';
   }
 }
 
@@ -11322,7 +11832,7 @@ function applyHash(hash) {
   } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
-  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective' || page === 'vcare-faq') {
+  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective' || page === 'vcare-faq' || page === 'vcare-kpi') {
     const vcareBtn = document.getElementById('vcareBtn');
     if (vcareBtn) vcareBtn.classList.add('active');
   } else {
