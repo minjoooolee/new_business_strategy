@@ -2771,9 +2771,17 @@
             제안서
           </a>
 
+          <a href="#" onclick="navigateVdoc('resources', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            리소스 및 종합
+          </a>
           <a href="#" onclick="navigateVdoc('report', event)" class="pinkcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             제안서(보고용)
+          </a>
+          <a href="#" onclick="navigateVdoc('appendix', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+            Appendix
           </a>
           <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_dashboard_v2.html" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeVdocDropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -10947,11 +10955,477 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
   </div><!-- /page-vdoc-proposal -->
 
 
-  <div class="page-section" id="page-vdoc-report" style="padding:0;margin:0;background:#f4f4f4;">
-    <iframe src="vdoc_proposal.html" id="vdoc-iframe-1" style="width:100%;border:none;display:block;height:5000px;" scrolling="yes"></iframe>
-    <iframe src="vdoc_market.html" id="vdoc-iframe-2" style="width:100%;border:none;display:block;height:3000px;" scrolling="yes"></iframe>
-    <iframe src="vdoc_competition.html" id="vdoc-iframe-3" style="width:100%;border:none;display:block;height:3000px;" scrolling="yes"></iframe>
+  <div class="page-section" id="page-vdoc-report" style="padding:0;margin:0;">
+    <iframe src="vdoc_report_final.html" style="width:100%;border:none;display:block;height:9000px;" scrolling="yes"></iframe>
   </div><!-- /page-vdoc-report -->
+  <!-- ===== VDOC APPENDIX PAGE ===== -->
+  <div class="page-section" id="page-vdoc-appendix">
+  <style>
+  #page-vdoc-appendix {
+    --bg: #F7F6F3; --paper: #FFF; --navy: #0F1D3D; --navy-m: #1B2E52;
+    --blue: #2563EB; --blue-light: #EFF6FF; --border: #E5E7EB;
+    --muted: #6B7280; --steel: #374151;
+    background: var(--bg); font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--navy); min-height: 100vh;
+  }
+  #page-vdoc-appendix * { box-sizing: border-box; margin: 0; padding: 0; }
+  #page-vdoc-appendix .apx-hero {
+    background: var(--navy); padding: 64px 40px 52px;
+    border-bottom: 3px solid var(--blue);
+  }
+  #page-vdoc-appendix .apx-hero-inner { max-width: 1080px; margin: 0 auto; }
+  #page-vdoc-appendix .apx-overline {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 14px;
+  }
+  #page-vdoc-appendix .apx-title {
+    font-size: clamp(28px, 3vw, 42px); font-weight: 900;
+    letter-spacing: -1px; color: #fff; margin-bottom: 12px; line-height: 1.2;
+  }
+  #page-vdoc-appendix .apx-title span { color: #93C5FD; }
+  #page-vdoc-appendix .apx-sub {
+    font-size: 14px; color: rgba(255,255,255,.5); max-width: 600px;
+  }
+  #page-vdoc-appendix .apx-wrap {
+    max-width: 1080px; margin: 0 auto; padding: 48px 40px 100px;
+  }
+  #page-vdoc-appendix .apx-notice {
+    background: var(--blue-light); border: 1px solid rgba(37,99,235,.2);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+    font-size: 13.5px; color: var(--navy-m); line-height: 1.75;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  #page-vdoc-appendix .apx-notice-ico { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  #page-vdoc-appendix .apx-section { margin-bottom: 48px; }
+  #page-vdoc-appendix .apx-sec-header {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-bottom: 14px; border-bottom: 2px solid var(--navy); margin-bottom: 20px;
+  }
+  #page-vdoc-appendix .apx-sec-num {
+    font-size: 11px; font-weight: 800; letter-spacing: 2px;
+    color: var(--blue); font-family: 'Space Mono', monospace;
+  }
+  #page-vdoc-appendix .apx-sec-title {
+    font-size: 18px; font-weight: 800; color: var(--navy); letter-spacing: -.3px;
+  }
+  #page-vdoc-appendix .apx-placeholder {
+    background: var(--paper); border: 2px dashed var(--border);
+    border-radius: 14px; padding: 40px;
+    text-align: center; color: var(--muted);
+  }
+  #page-vdoc-appendix .apx-placeholder-ico { font-size: 32px; margin-bottom: 12px; }
+  #page-vdoc-appendix .apx-placeholder-title {
+    font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px;
+  }
+  #page-vdoc-appendix .apx-placeholder-desc {
+    font-size: 13px; color: var(--muted); line-height: 1.7;
+  }
+  #page-vdoc-appendix .apx-footer {
+    border-top: 1px solid var(--border); padding-top: 28px; margin-top: 60px;
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace;
+  }
+  </style>
+  <div class="apx-hero">
+    <div class="apx-hero-inner">
+      <div class="apx-overline">V.Doc Enterprise · Appendix</div>
+      <h1 class="apx-title">V.Doc Enterprise<br><span>Appendix</span></h1>
+      <p class="apx-sub">보충 자료 및 참고 문서 모음입니다. 필요한 섹션을 추가해주세요.</p>
+    </div>
+  </div>
+  <div class="apx-wrap">
+    <div class="apx-notice">
+      <div class="apx-notice-ico">📌</div>
+      <div>이 페이지는 Appendix 템플릿입니다. <strong>추가할 내용을 말씀해주시면 바로 반영</strong>하겠습니다. 섹션 추가·내용 입력·파일 첨부 등 원하시는 구성을 알려주세요.</div>
+    </div>
+    <div class="apx-section">
+      <div class="apx-sec-header">
+        <div class="apx-sec-num">A1</div>
+        <div class="apx-sec-title">추가 예정 섹션</div>
+      </div>
+      <div class="apx-placeholder">
+        <div class="apx-placeholder-ico">📄</div>
+        <div class="apx-placeholder-title">내용을 입력해주세요</div>
+        <div class="apx-placeholder-desc">추가할 Appendix 내용을 알려주시면 바로 반영합니다.</div>
+      </div>
+    </div>
+    <div class="apx-footer">
+      <span>aitrics · V.Doc Enterprise · Appendix</span>
+      <span>Internal · 2026</span>
+    </div>
+  </div>
+  </div><!-- /page-vdoc-appendix -->
+
+  <!-- ===== VDOC RESOURCES PAGE ===== -->
+  <div class="page-section" id="page-vdoc-resources">
+  <style>
+  #page-vdoc-resources {
+    --bg: #F7F6F3;
+    --paper: #FFFFFF;
+    --navy: #0F1D3D;
+    --navy-m: #1B2E52;
+    --blue: #2563EB;
+    --blue-light: #EFF6FF;
+    --red: #DC2626;
+    --red-light: #FEF2F2;
+    --amber: #D97706;
+    --amber-light: #FFFBEB;
+    --green: #059669;
+    --green-light: #ECFDF5;
+    --purple: #7C3AED;
+    --purple-light: #F5F3FF;
+    --steel: #374151;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+    background: var(--bg);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--navy);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  #page-vdoc-resources * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── 히어로 배너 ── */
+  #page-vdoc-resources .vdr-hero {
+    background: linear-gradient(135deg, #0a1628 0%, #0F1D3D 50%, #1a1035 100%);
+    padding: 80px 40px 72px;
+    position: relative; overflow: hidden;
+  }
+  #page-vdoc-resources .vdr-hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(220,38,38,.15), transparent 65%);
+    pointer-events: none;
+  }
+  #page-vdoc-resources .vdr-hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(220,38,38,.5), transparent);
+  }
+  #page-vdoc-resources .vdr-hero-inner {
+    max-width: 1080px; margin: 0 auto; position: relative; z-index: 1;
+  }
+  #page-vdoc-resources .vdr-hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(220,38,38,.15); border: 1px solid rgba(220,38,38,.35);
+    border-radius: 99px; padding: 6px 16px; margin-bottom: 28px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #FCA5A5;
+  }
+  #page-vdoc-resources .vdr-hero-badge::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: #EF4444; box-shadow: 0 0 8px rgba(239,68,68,.8);
+    animation: vdr-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes vdr-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(.8); }
+  }
+  #page-vdoc-resources .vdr-hero-title {
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 900; letter-spacing: -1.5px; line-height: 1.2;
+    color: #fff; margin-bottom: 24px;
+  }
+  #page-vdoc-resources .vdr-hero-title em {
+    font-style: normal; color: #FCA5A5;
+  }
+  #page-vdoc-resources .vdr-hero-sub {
+    font-size: 15px; color: rgba(255,255,255,.55); line-height: 1.8;
+    max-width: 680px;
+  }
+  #page-vdoc-resources .vdr-hero-sub strong { color: rgba(255,255,255,.85); }
+
+  /* ── 콘텐츠 래퍼 ── */
+  #page-vdoc-resources .vdr-wrap {
+    max-width: 1080px; margin: 0 auto; padding: 0 40px 100px;
+  }
+
+  /* ── 문제 카드 ── */
+  #page-vdoc-resources .vdr-issues {
+    display: flex; flex-direction: column; gap: 20px;
+    padding: 52px 0 0;
+  }
+  #page-vdoc-resources .vdr-issue {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    transition: box-shadow .2s;
+  }
+  #page-vdoc-resources .vdr-issue:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,.09);
+  }
+  #page-vdoc-resources .vdr-issue-header {
+    display: flex; align-items: center; gap: 18px;
+    padding: 22px 28px; border-bottom: 1px solid var(--border);
+  }
+  #page-vdoc-resources .vdr-issue-num {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 900;
+    font-family: 'Space Mono', monospace;
+    background: var(--red-light); color: var(--red);
+  }
+  #page-vdoc-resources .vdr-issue-title {
+    font-size: 16px; font-weight: 800; color: var(--navy);
+    letter-spacing: -.3px; line-height: 1.4;
+  }
+  #page-vdoc-resources .vdr-issue-tag {
+    margin-left: auto; font-size: 10px; font-weight: 700;
+    padding: 4px 12px; border-radius: 99px; flex-shrink: 0;
+    background: var(--red-light); color: var(--red);
+    border: 1px solid rgba(220,38,38,.2);
+  }
+  #page-vdoc-resources .vdr-issue-body {
+    padding: 22px 28px;
+    font-size: 14px; color: var(--steel); line-height: 1.9;
+  }
+  #page-vdoc-resources .vdr-issue-body strong { color: var(--navy); font-weight: 700; }
+  #page-vdoc-resources .vdr-issue-body p + p { margin-top: 14px; }
+
+  /* ── 인라인 하이라이트 박스 ── */
+  #page-vdoc-resources .vdr-callout {
+    background: var(--blue-light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px; margin: 16px 0;
+    font-size: 13.5px; color: var(--navy-m); line-height: 1.8;
+  }
+  #page-vdoc-resources .vdr-callout strong { color: var(--blue); }
+
+  #page-vdoc-resources .vdr-callout.warn {
+    background: var(--amber-light); border-left-color: var(--amber);
+    color: #78350F;
+  }
+  #page-vdoc-resources .vdr-callout.warn strong { color: var(--amber); }
+
+  /* ── 도구 테이블 ── */
+  #page-vdoc-resources .vdr-tool-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px; margin: 16px 0; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  #page-vdoc-resources .vdr-tool-table th {
+    background: var(--navy); color: #fff;
+    padding: 11px 16px; font-size: 11px; font-weight: 700;
+    text-align: left; letter-spacing: .3px;
+  }
+  #page-vdoc-resources .vdr-tool-table td {
+    padding: 11px 16px; border-bottom: 1px solid var(--border);
+    color: var(--steel); line-height: 1.55;
+  }
+  #page-vdoc-resources .vdr-tool-table td:first-child {
+    font-weight: 700; color: var(--navy); background: #F9FAFB; white-space: nowrap;
+  }
+  #page-vdoc-resources .vdr-tool-table tr:last-child td { border-bottom: none; }
+  #page-vdoc-resources .vdr-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+  }
+  #page-vdoc-resources .tag-free { background: var(--green-light); color: var(--green); }
+  #page-vdoc-resources .tag-paid { background: var(--red-light); color: var(--red); }
+
+  /* ── 결론 배너 ── */
+  #page-vdoc-resources .vdr-conclusion {
+    background: var(--navy);
+    border-radius: 18px; padding: 40px 48px;
+    margin-top: 52px; position: relative; overflow: hidden;
+  }
+  #page-vdoc-resources .vdr-conclusion::before {
+    content: '';
+    position: absolute; top: -60px; right: -40px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(37,99,235,.2), transparent 65%);
+  }
+  #page-vdoc-resources .vdr-conclusion-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 14px;
+  }
+  #page-vdoc-resources .vdr-conclusion-title {
+    font-size: clamp(20px, 2.2vw, 28px); font-weight: 900;
+    color: #fff; letter-spacing: -.5px; line-height: 1.35; margin-bottom: 18px;
+  }
+  #page-vdoc-resources .vdr-conclusion-title em {
+    font-style: normal; color: #93C5FD;
+  }
+  #page-vdoc-resources .vdr-conclusion-body {
+    font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.9; max-width: 780px;
+  }
+  #page-vdoc-resources .vdr-conclusion-body strong { color: #fff; }
+
+  /* ── 푸터 ── */
+  #page-vdoc-resources .vdr-footer {
+    border-top: 1px solid var(--border); padding-top: 28px; margin-top: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace;
+  }
+  </style>
+
+  <!-- 히어로 배너 -->
+  <div class="vdr-hero">
+    <div class="vdr-hero-inner">
+      <div class="vdr-hero-badge">MOCA · Critical Blockers</div>
+      <h1 class="vdr-hero-title">MOCA가 아래 내용을 해결하지 못하면,<br><em>브이닥 엔터프라이즈 사업은 진행할 수 없다.</em></h1>
+      <p class="vdr-hero-sub">
+        지금 MOCA는 <strong>"1명이 1번 쓰는 사전문진 챗봇"</strong>입니다.<br>
+        Enterprise가 필요로 하는 건 <strong>"180명이 매달 쓰는 조직 건강관리 시스템의 문진 엔진"</strong>입니다.<br>
+        이 간극을 VD팀이 메워야 Enterprise 사업이 가능합니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="vdr-wrap">
+    <div class="vdr-issues">
+
+      <!-- 1. 시계열 추적 -->
+      <div class="vdr-issue">
+        <div class="vdr-issue-header">
+          <div class="vdr-issue-num">01</div>
+          <div class="vdr-issue-title">반복 문진을 시계열로 추적하지 못한다</div>
+          <div class="vdr-issue-tag">미해결</div>
+        </div>
+        <div class="vdr-issue-body">
+          <p>180명 사업장이면 매월 180명이 문진을 합니다. 같은 사람이 1월에 <strong>"허리 통증 3/5"</strong>라고 했는데 3월에 <strong>"허리 통증 5/5"</strong>로 올라갔으면 악화 신호입니다. 이걸 자동으로 감지해야 합니다.</p>
+          <div class="vdr-callout">
+            <strong>현재 MOCA의 문제:</strong> 이전 문진 기록을 참조하는 구조가 아닙니다. 매 문진이 독립적으로 실행되어 시계열 비교가 불가능합니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 조직 단위 분석 -->
+      <div class="vdr-issue">
+        <div class="vdr-issue-header">
+          <div class="vdr-issue-num">02</div>
+          <div class="vdr-issue-title">개인이 아닌 조직 단위 분석 레이어가 없다</div>
+          <div class="vdr-issue-tag">미해결</div>
+        </div>
+        <div class="vdr-issue-body">
+          <p><strong>"개발팀에서 근골격계 통증 호소가 3개월 연속 증가 중"</strong> 같은 부서별 패턴 분석, 히트맵, 위험도 알림 — 이건 문진 모델이 아니라 문진 위에 얹히는 통계·분석 레이어입니다.</p>
+          <div class="vdr-callout">
+            <strong>현재 MOCA의 문제:</strong> 이 분석 레이어가 없습니다. 개인 1명의 문진 결과만 출력되고, 조직 집계·부서 비교가 불가능합니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 표준 검증 도구 -->
+      <div class="vdr-issue">
+        <div class="vdr-issue-header">
+          <div class="vdr-issue-num">03</div>
+          <div class="vdr-issue-title">정신건강 문진이 표준 검증 도구 기반이 아니다</div>
+          <div class="vdr-issue-tag">가장 중요</div>
+        </div>
+        <div class="vdr-issue-body">
+          <p>Enterprise에서 가장 중요한 건 중대재해처벌법 대응입니다. 이 법이 요구하는 건 신체적 건강만이 아니라 <strong>정신적 건강관리도 포함</strong>합니다.</p>
+          <p>현재 MOCA는 대화 맥락에서 "우울증으로 추정됩니다" 정도의 결론은 내릴 수 있지만, 그 판단 과정이 임상에서 검증된 표준 도구가 아닙니다. Enterprise 고객 인사팀이 <strong>"이 수치 근거가 뭐예요?"</strong>라고 물었을 때 <strong>"AI가 대화하면서 판단했습니다"는 답이 안 됩니다.</strong></p>
+          <div class="vdr-callout">
+            <strong>"PHQ-9 기준 10점 이상입니다"</strong>라고 해야 답이 됩니다. MOCA 문진 흐름 안에 표준 도구들을 정식으로 내장해서, 대화형으로 자연스럽게 문항을 물어보고, 점수를 자동 합산하고, 구조화 출력해야 합니다.
+          </div>
+          <table class="vdr-tool-table">
+            <thead>
+              <tr>
+                <th>도구</th>
+                <th>측정 영역</th>
+                <th>문항 수</th>
+                <th>컷오프 기준</th>
+                <th>라이선스</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PHQ-9</td>
+                <td>우울</td>
+                <td>9문항</td>
+                <td>10점↑ 중등도, 20점↑ 중증</td>
+                <td><span class="vdr-tag tag-free">무료 (Public Domain)</span></td>
+              </tr>
+              <tr>
+                <td>GAD-7</td>
+                <td>불안</td>
+                <td>7문항</td>
+                <td>10점↑ 중등도, 15점↑ 중증</td>
+                <td><span class="vdr-tag tag-free">무료 (Public Domain)</span></td>
+              </tr>
+              <tr>
+                <td>PSS-10</td>
+                <td>스트레스</td>
+                <td>10문항</td>
+                <td>14점↑ 고스트레스</td>
+                <td><span class="vdr-tag tag-free">무료</span></td>
+              </tr>
+              <tr>
+                <td>MBI</td>
+                <td>번아웃</td>
+                <td>22문항</td>
+                <td>영역별 컷오프</td>
+                <td><span class="vdr-tag tag-paid">유료 라이선스 필요</span></td>
+              </tr>
+              <tr>
+                <td>ISI</td>
+                <td>수면</td>
+                <td>7문항</td>
+                <td>15점↑ 중등도 불면</td>
+                <td><span class="vdr-tag tag-free">무료</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="vdr-callout warn">
+            <strong>⚠ 라이선스 주의:</strong> PHQ-9·GAD-7은 무료(public domain)이지만, MBI 같은 도구는 유료 라이선스가 필요합니다. 사전에 확인하고 라이선싱을 처리해야 합니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 구조화 출력 -->
+      <div class="vdr-issue">
+        <div class="vdr-issue-header">
+          <div class="vdr-issue-num">04</div>
+          <div class="vdr-issue-title">문진 결과의 구조화 출력이 안 된다</div>
+          <div class="vdr-issue-tag">미해결</div>
+        </div>
+        <div class="vdr-issue-body">
+          <p>Enterprise 고객(인사팀·안전보건 담당자)에게 넘기려면 문진 결과가 <strong>정해진 JSON 스키마</strong>로 나와야 합니다. 그래야 대시보드에 꽂히고, 전자결재 보고서에 자동으로 들어가고, 5년 아카이브가 됩니다.</p>
+          <div class="vdr-callout">
+            <strong>현재 MOCA의 문제:</strong> 출력이 자연어 텍스트일 가능성이 높고, 이걸 구조화하는 파싱·스키마 정의 작업이 추가로 필요합니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 사전문진 외 답변 -->
+      <div class="vdr-issue">
+        <div class="vdr-issue-header">
+          <div class="vdr-issue-num">05</div>
+          <div class="vdr-issue-title">사전문진 범위 밖 질문에 대응하지 못한다</div>
+          <div class="vdr-issue-tag">서비스 품질</div>
+        </div>
+        <div class="vdr-issue-body">
+          <p>임직원이 문진 중에 <strong>"요즘 두통약을 매일 먹는데 괜찮나요?"</strong> 같은 질문을 하면 <strong>"해당 질문에 답변할 수 없습니다"</strong>가 뜨는 건 서비스 품질로서 치명적입니다.</p>
+          <div class="vdr-callout">
+            <strong>현재 MOCA의 문제:</strong> 환자가 문진 범위 밖 질문을 하면 MOCA가 대응하지 못합니다. 이 문제는 제안서에도 이미 명시되어 있었습니다.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /vdr-issues -->
+
+    <!-- 결론 -->
+    <div class="vdr-conclusion">
+      <div class="vdr-conclusion-label">Summary · What Needs to Happen</div>
+      <h2 class="vdr-conclusion-title">지금 MOCA는 <em>"1명이 1번 쓰는 사전문진 챗봇"</em>입니다.<br>Enterprise는 <em>"180명이 매달 쓰는 조직 건강관리 엔진"</em>이 필요합니다.</h2>
+      <p class="vdr-conclusion-body">
+        시계열 추적 · 조직 단위 분석 · 표준 검증 도구 내장 · 구조화 출력 · 문진 외 질문 대응 — 이 다섯 가지가 해결되어야 V.Doc Enterprise 대시보드에 데이터가 꽂히고, 중대재해처벌법 대응 근거가 생기고, Enterprise 고객이 실제로 쓸 수 있는 서비스가 됩니다. <strong>이 간극을 VD팀이 메워야 Enterprise 사업이 가능합니다.</strong>
+      </p>
+    </div>
+
+    <div class="vdr-footer">
+      <span>aitrics · V.Doc Enterprise · MOCA Critical Blockers</span>
+      <span>Internal · 2026</span>
+    </div>
+  </div>
+
+  </div><!-- /page-vdoc-resources -->
+
 
 
 
@@ -11375,6 +11849,10 @@ function navigateVdoc(sub, e) {
 
   if (sub === 'proposal') {
     window.location.hash = 'vdoc-proposal';
+  } else if (sub === 'resources') {
+    window.location.hash = 'vdoc-resources';
+  } else if (sub === 'appendix') {
+    window.location.hash = 'vdoc-appendix';
   } else if (sub === 'report') {
     window.location.hash = 'vdoc-report';
   }
@@ -11484,7 +11962,7 @@ function applyHash(hash) {
   const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
-  } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report') {
+  } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report' || page === 'vdoc-resources' || page === 'vdoc-appendix' || page === 'vdoc-resources') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
   } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective' || page === 'vcare-faq' || page === 'vcare-kpi') {
