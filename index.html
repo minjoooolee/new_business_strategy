@@ -2766,6 +2766,10 @@
           <svg class="pinkcare-caret" id="vdocCaret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="pinkcare-dropdown" id="vdocDropdown">
+          <a href="#" onclick="navigateVdoc('resources', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            리소스 및 종합
+          </a>
           <a href="#" onclick="navigateVdoc('report', event)" class="pinkcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             제안서(보고용)
@@ -11396,6 +11400,369 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
   }
   </style>
 
+  <!-- 로드맵 섹션 -->
+  <div id="roadmap-section" style="
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    padding: 60px 40px;
+    line-height: 1.7;
+  ">
+  <style>
+  #roadmap-section * { box-sizing: border-box; }
+  #roadmap-section .rm-container { max-width: 1200px; margin: 0 auto; }
+  #roadmap-section .rm-header { text-align: center; margin-bottom: 56px; }
+  #roadmap-section .rm-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; color: #6cb4ee;
+    background: rgba(108,180,238,0.1); border: 1px solid rgba(108,180,238,0.2);
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+  }
+  #roadmap-section .rm-header h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  #roadmap-section .rm-header h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #6cb4ee, #34d399);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  #roadmap-section .rm-header p { font-size: 14px; color: #888; max-width: 700px; margin: 0 auto; }
+  #roadmap-section .rm-section { margin-bottom: 56px; }
+  #roadmap-section .rm-section-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  #roadmap-section .rm-section-num {
+    font-size: 12px; font-weight: 700; color: #6cb4ee;
+    background: rgba(108,180,238,0.1); padding: 4px 10px;
+    border-radius: 6px; letter-spacing: 1px;
+  }
+  #roadmap-section .rm-section-title { font-size: 20px; font-weight: 700; color: #fff; }
+  #roadmap-section .rm-team-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;
+  }
+  #roadmap-section .rm-team-card {
+    padding: 20px; border-radius: 10px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  }
+  #roadmap-section .rm-role { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  #roadmap-section .rm-name { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+  #roadmap-section .rm-desc { font-size: 12.5px; color: #999; line-height: 1.7; }
+  #roadmap-section .rm-projects { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  #roadmap-section .rm-proj-tag { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
+  #roadmap-section .tag-onco { background: rgba(52,211,153,0.12); color: #34d399; }
+  #roadmap-section .tag-vdoc { background: rgba(251,191,36,0.12); color: #fbbf24; }
+  #roadmap-section .tag-both { background: rgba(108,180,238,0.12); color: #6cb4ee; }
+  #roadmap-section .role-pm { color: #6cb4ee; }
+  #roadmap-section .role-design { color: #a78bfa; }
+  #roadmap-section .role-ai { color: #f472b6; }
+  #roadmap-section .role-front-app { color: #34d399; }
+  #roadmap-section .role-front-web { color: #fbbf24; }
+  #roadmap-section .role-back { color: #fb923c; }
+  #roadmap-section table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    border-radius: 12px; overflow: hidden;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 16px;
+  }
+  #roadmap-section thead th {
+    padding: 14px 16px; font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03); color: #999;
+  }
+  #roadmap-section tbody td {
+    padding: 14px 16px; font-size: 13px; vertical-align: top;
+    border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.7;
+  }
+  #roadmap-section tbody tr:last-child td { border-bottom: none; }
+  #roadmap-section tbody tr:hover { background: rgba(255,255,255,0.02); }
+  #roadmap-section .rm-quarter-block {
+    margin-bottom: 32px; padding: 24px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  #roadmap-section .rm-quarter-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  #roadmap-section .rm-quarter-badge { font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 8px; color: #fff; }
+  #roadmap-section .q2 { background: linear-gradient(135deg, #6cb4ee, #818cf8); }
+  #roadmap-section .q3 { background: linear-gradient(135deg, #34d399, #6cb4ee); }
+  #roadmap-section .q4 { background: linear-gradient(135deg, #fbbf24, #fb923c); }
+  #roadmap-section .rm-quarter-title { font-size: 17px; font-weight: 600; color: #fff; }
+  #roadmap-section .rm-quarter-sub { font-size: 12px; color: #888; }
+  #roadmap-section .rm-track-row {
+    display: grid; grid-template-columns: 140px 1fr 1fr; gap: 12px; margin-bottom: 12px;
+  }
+  #roadmap-section .rm-track-label {
+    font-size: 12px; font-weight: 600; padding: 10px 14px;
+    border-radius: 8px; display: flex; align-items: center; gap: 6px;
+  }
+  #roadmap-section .track-onco { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.12); color: #34d399; }
+  #roadmap-section .track-vdoc { background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.12); color: #fbbf24; }
+  #roadmap-section .track-common { background: rgba(108,180,238,0.06); border: 1px solid rgba(108,180,238,0.12); color: #6cb4ee; }
+  #roadmap-section .rm-task-card {
+    padding: 12px 16px; border-radius: 8px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    font-size: 12.5px; color: #ccc; line-height: 1.7;
+  }
+  #roadmap-section .rm-task-card strong { color: #fff; }
+  #roadmap-section .rm-assignee { margin-top: 6px; font-size: 11px; color: #777; }
+  #roadmap-section .rm-risk-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
+  }
+  #roadmap-section .rm-risk-card { padding: 18px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+  #roadmap-section .rm-risk-card.high { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.15); }
+  #roadmap-section .rm-risk-card.medium { background: rgba(251,191,36,0.05); border-color: rgba(251,191,36,0.15); }
+  #roadmap-section .rm-risk-level { font-size: 11px; font-weight: 600; letter-spacing: 1px; margin-bottom: 6px; }
+  #roadmap-section .rm-risk-card.high .rm-risk-level { color: #ef4444; }
+  #roadmap-section .rm-risk-card.medium .rm-risk-level { color: #fbbf24; }
+  #roadmap-section .rm-risk-title { font-size: 14px; font-weight: 600; color: #ddd; margin-bottom: 6px; }
+  #roadmap-section .rm-risk-desc { font-size: 12px; color: #888; margin-bottom: 8px; }
+  #roadmap-section .rm-risk-mitigation { font-size: 12px; color: #aaa; }
+  #roadmap-section .rm-risk-mitigation strong { color: #ccc; }
+  #roadmap-section .rm-assessment { padding: 24px; border-radius: 12px; margin-bottom: 24px; }
+  #roadmap-section .rm-assessment.green { background: rgba(52,211,153,0.05); border: 1px solid rgba(52,211,153,0.12); }
+  #roadmap-section .rm-assessment.yellow { background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.12); }
+  #roadmap-section .rm-assessment .rm-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  #roadmap-section .rm-assessment.green .rm-label { color: #34d399; }
+  #roadmap-section .rm-assessment.yellow .rm-label { color: #fbbf24; }
+  #roadmap-section .rm-assessment .rm-content { font-size: 14px; color: #ddd; line-height: 1.8; }
+  #roadmap-section .rm-assessment .rm-content strong { color: #fff; }
+  #roadmap-section .rm-highlight-box {
+    padding: 16px 20px; border-radius: 10px; margin: 16px 0;
+    background: rgba(255,255,255,0.03); border-left: 3px solid #6cb4ee;
+    font-size: 13px; color: #bbb; line-height: 1.8;
+  }
+  #roadmap-section .rm-highlight-box strong { color: #fff; }
+  #roadmap-section .rm-footer-note {
+    margin-top: 32px; padding: 20px 24px;
+    background: rgba(108,180,238,0.05); border: 1px solid rgba(108,180,238,0.1);
+    border-radius: 10px; font-size: 13px; color: #999; text-align: center;
+  }
+  #roadmap-section .rm-footer-note strong { color: #6cb4ee; }
+  #roadmap-section .rm-credit { text-align: center; margin-top: 40px; font-size: 11px; color: #444; letter-spacing: 1px; }
+  </style>
+
+  <div class="rm-container">
+    <div class="rm-header">
+      <div class="rm-tag">Execution Roadmap 2026 · Resource Plan</div>
+      <h1>온코케어 + V.Doc Enterprise — <em>2026 실행 로드맵</em></h1>
+      <p>6명의 정예팀이 두 개의 신사업을 병행 개발합니다. 리소스 배분, 실행 순서, 리스크 관리까지.</p>
+    </div>
+
+    <!-- 01. 팀 구성 -->
+    <div class="rm-section">
+      <div class="rm-section-header">
+        <span class="rm-section-num">01</span>
+        <span class="rm-section-title">팀 구성 — 6인 정예</span>
+      </div>
+      <div class="rm-team-grid">
+        <div class="rm-team-card">
+          <div class="rm-role role-pm">PM · 0→1 빌더</div>
+          <div class="rm-name">민주님</div>
+          <div class="rm-desc">두 사업의 방향 설정, 가설 검증, 현장 인사이트, 프로토타입 → 구현 브릿지. 실행 디테일은 팀에 위임하고 방향과 검증에 집중.</div>
+          <div class="rm-projects">
+            <span class="rm-proj-tag tag-onco">온코케어</span>
+            <span class="rm-proj-tag tag-vdoc">V.Doc E</span>
+          </div>
+        </div>
+        <div class="rm-team-card">
+          <div class="rm-role role-design">UX/UI 디자이너</div>
+          <div class="rm-name">충원 예정</div>
+          <div class="rm-desc">민주님 프로토타입 기반 화면 설계 → 개발팀 전달. 온코케어 앱·웹·관리자 페이지, V.Doc Enterprise 대시보드·직원 앱 디자인.</div>
+          <div class="rm-projects">
+            <span class="rm-proj-tag tag-onco">온코케어 70%</span>
+            <span class="rm-proj-tag tag-vdoc">V.Doc E 30%</span>
+          </div>
+        </div>
+        <div class="rm-team-card">
+          <div class="rm-role role-ai">AI 엔지니어</div>
+          <div class="rm-name">충원 예정</div>
+          <div class="rm-desc">MOCA 엔진 연동, 검사결과지 OCR 파이프라인, 콘텐츠 모더레이션 AI, 유사글 매칭, 위험 발화 감지. 두 사업 공통 AI 인프라.</div>
+          <div class="rm-projects">
+            <span class="rm-proj-tag tag-onco">온코케어 60%</span>
+            <span class="rm-proj-tag tag-vdoc">V.Doc E 40%</span>
+          </div>
+        </div>
+        <div class="rm-team-card">
+          <div class="rm-role role-front-app">프론트엔드 (앱)</div>
+          <div class="rm-name">충원 또는 기존 개발팀</div>
+          <div class="rm-desc">온코케어 네이티브 앱 개발 (React Native 또는 Flutter). V.Doc Enterprise 직원 앱. 크로스 플랫폼으로 iOS/Android 동시 대응.</div>
+          <div class="rm-projects">
+            <span class="rm-proj-tag tag-onco">온코케어 70%</span>
+            <span class="rm-proj-tag tag-vdoc">V.Doc E 30%</span>
+          </div>
+        </div>
+        <div class="rm-team-card">
+          <div class="rm-role role-front-web">프론트엔드 (웹)</div>
+          <div class="rm-name">충원 또는 기존 개발팀</div>
+          <div class="rm-desc">온코케어 웹 플랫폼 + 의료진 대시보드 + 관리자 콘솔. V.Doc Enterprise HR 대시보드. 반응형 웹.</div>
+          <div class="rm-projects">
+            <span class="rm-proj-tag tag-onco">온코케어 60%</span>
+            <span class="rm-proj-tag tag-vdoc">V.Doc E 40%</span>
+          </div>
+        </div>
+        <div class="rm-team-card">
+          <div class="rm-role role-back">백엔드</div>
+          <div class="rm-name">충원 또는 기존 개발팀</div>
+          <div class="rm-desc">두 사업 공통 백엔드 인프라. 사용자 인증, DB 설계, API, 알림 시스템, 검사결과지 파이프라인, 코호트 매칭 로직.</div>
+          <div class="rm-projects">
+            <span class="rm-proj-tag tag-both">공통 인프라 40%</span>
+            <span class="rm-proj-tag tag-onco">온코케어 35%</span>
+            <span class="rm-proj-tag tag-vdoc">V.Doc E 25%</span>
+          </div>
+        </div>
+      </div>
+      <div class="rm-highlight-box">
+        <strong>+ 성일님 (부문장)</strong> — 전략 방향, 의료진 파트너십, 대표·VC 커뮤니케이션, 의료법 리스크 관리. 개발 실행에는 직접 참여하지 않으나 주간 방향 점검.<br>
+        <strong>+ 그로스 마케터 (추가 충원 권장)</strong> — SEO 세팅, UTM 기반 채널 분석, 앰배서더 관리, 콘텐츠 시딩. 앱 출시 시점에 합류 필수.
+      </div>
+    </div>
+
+    <!-- 02. 리소스 적정성 -->
+    <div class="rm-section">
+      <div class="rm-section-header">
+        <span class="rm-section-num">02</span>
+        <span class="rm-section-title">리소스 적정성 평가</span>
+      </div>
+      <div class="rm-assessment green">
+        <div class="rm-label">✅ 적정 — 조건부</div>
+        <div class="rm-content">
+          6명으로 두 개 사업 병행 개발은 <strong>가능하지만 타이트</strong>합니다. 핵심 조건은 두 가지입니다.<br><br>
+          <strong>첫째, 프로토타입 레버리지.</strong> 민주님의 프로토타입이 화면설계서를 대체하기 때문에 기획→디자인→개발의 핑퐁이 최소화됩니다. 일반 프로젝트 대비 30~40% 시간 절약이 가능합니다.<br><br>
+          <strong>둘째, 그로스 마케터 적시 합류.</strong> 앱 출시 시점에 마케터가 없으면 콜드스타트가 발생합니다. Q3 시작 전까지 합류해야 합니다.
+        </div>
+      </div>
+      <div class="rm-assessment yellow">
+        <div class="rm-label">⚠️ 구조적 주의 포인트</div>
+        <div class="rm-content">
+          <strong>PM Single Point of Failure 리스크.</strong> 두 사업의 핵심 의사결정이 PM 한 포지션에 집중되면, 사업 연속성에 구조적 취약점이 생깁니다. 이는 개인의 역량 문제가 아니라 조직 설계의 문제이며, <strong>추가 인력 없이 기존 6명 내에서 해결</strong>합니다 — 디자이너 합류 시 화면 기획 이관, 그로스 마케터 합류 시 운영·채널 관리 이관, AI 자동화로 PM 개입 빈도 감소.
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>역할</th><th>온코케어 배분</th><th>V.Doc Enterprise 배분</th><th>부하 평가</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="color:#6cb4ee;font-weight:600;">PM (민주님)</td><td>60% — 방향 설정, 커뮤니티 운영, 의료진 관리</td><td>40% — GTM 전략, 협회 영업, MVP 방향</td><td style="color:#fbbf24;">⚠ SPOF — 팀 합류 시 순차 분산</td></tr>
+          <tr><td style="color:#a78bfa;font-weight:600;">UX/UI 디자이너</td><td>70% — 앱·웹·의료진뷰·관리자 디자인</td><td>30% — HR 대시보드·직원 앱 디자인</td><td style="color:#34d399;">✅ 적정</td></tr>
+          <tr><td style="color:#f472b6;font-weight:600;">AI 엔지니어</td><td>60% — OCR, 모더레이션, 유사글, 위험감지</td><td>40% — MOCA 문진 AI, PHQ-9/GAD-7 분석</td><td style="color:#34d399;">✅ 적정</td></tr>
+          <tr><td style="color:#34d399;font-weight:600;">프론트엔드 (앱)</td><td>70% — 네이티브 앱 (환자용)</td><td>30% — 직원 앱</td><td style="color:#34d399;">✅ 적정</td></tr>
+          <tr><td style="color:#fbbf24;font-weight:600;">프론트엔드 (웹)</td><td>60% — 웹 플랫폼, 의료진 대시보드, 관리자 콘솔</td><td>40% — HR 대시보드, 법적 증빙 페이지</td><td style="color:#fbbf24;">⚠ 다소 높음</td></tr>
+          <tr><td style="color:#fb923c;font-weight:600;">백엔드</td><td>35% — 온코케어 전용 API, 코호트 로직</td><td>25% — V.Doc 전용 API, 스크리닝 로직</td><td style="color:#fbbf24;">⚠ 공통 인프라(40%) 포함 시 높음</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 03. 로드맵 -->
+    <div class="rm-section">
+      <div class="rm-section-header">
+        <span class="rm-section-num">03</span>
+        <span class="rm-section-title">2026 실행 로드맵</span>
+      </div>
+
+      <div class="rm-quarter-block">
+        <div class="rm-quarter-header">
+          <span class="rm-quarter-badge q2">Q2</span>
+          <div>
+            <div class="rm-quarter-title">4월 — 6월 · 인큐베이팅 + 인프라 준비 + 병렬 개발</div>
+            <div class="rm-quarter-sub">4월: 오픈채팅 인큐베이팅 집중 + 개발 인프라 세팅 · 5월: 디자이너 합류 → MVP 개발 본격 착수</div>
+          </div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-onco">🩺 온코케어</div>
+          <div class="rm-task-card"><strong>4월 — 인프라 준비</strong><br>백엔드 DB·API 설계 · AI OCR PoC · 프론트 기술스택 확정 · 민주님 프로토타입 기반 스펙 정리<div class="rm-assignee">백엔드 · AI · 프론트(앱) · 프론트(웹) · 민주님</div></div>
+          <div class="rm-task-card"><strong>5~6월 — MVP 개발</strong><br>디자이너 온보딩 · 앱 핵심기능(게시판+코호트+검사기록지) · 웹 의료진 대시보드 · AI 검사결과 해석<div class="rm-assignee">전원 온코케어 60% + V.Doc 40%</div></div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-vdoc">🏢 V.Doc E</div>
+          <div class="rm-task-card"><strong>4월 — 영업 PoC</strong><br>대한건설협회 미팅 · 탄원서 배포 대행 제안 · 회원사 리스트 확보 가능성 검증<div class="rm-assignee">민주님 · 성일님</div></div>
+          <div class="rm-task-card"><strong>5~6월 — MVP 착수</strong><br>PoC 결과 기반 피봇 or 확장 · 직원 앱·HR 대시보드 화면 확정 · MOCA 문진 연동 시작<div class="rm-assignee">디자이너(30%) · AI(40%) · 프론트(앱·웹)</div></div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-common">💬 커뮤니티</div>
+          <div class="rm-task-card"><strong>4월 — 인큐베이팅</strong><br>유방암 오픈채팅 지속 · 위암/대장암 채팅 개설 · 의료진 파트너십 확보<div class="rm-assignee">민주님 + 성일님 — 4월 최우선 과업</div></div>
+          <div class="rm-task-card"><strong>5~6월 — 자생 세션 30% 목표</strong><br>코어 유저 육성 · 앰배서더 후보 확정 · 앱 출시 시 웜스타트 가능 규모 확보<div class="rm-assignee">민주님</div></div>
+        </div>
+      </div>
+
+      <div class="rm-quarter-block">
+        <div class="rm-quarter-header">
+          <span class="rm-quarter-badge q3">Q3</span>
+          <div>
+            <div class="rm-quarter-title">7월 — 9월 · 온코케어 출시 + V.Doc E MVP 완성</div>
+            <div class="rm-quarter-sub">온코케어 앱 런칭 · 그로스 마케터 합류 · V.Doc Enterprise MVP 마무리 + 파일럿 준비</div>
+          </div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-onco">🩺 온코케어</div>
+          <div class="rm-task-card"><strong>7월 — QA & 런칭 준비</strong><br>앱 내부 테스트 · 앰배서더 위촉 준비 · 그로스 마케터 합류 · SEO 세팅<div class="rm-assignee">전원 + 그로스 마케터</div></div>
+          <div class="rm-task-card"><strong>8~9월 — 런칭 & 안정화</strong><br>앱 출시 · 오픈채팅 → 앱 전환 · 앰배서더 위촉 · KPI 대시보드 운영 시작<div class="rm-assignee">민주님 · 디자이너 · 그로스 마케터</div></div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-vdoc">🏢 V.Doc E</div>
+          <div class="rm-task-card"><strong>7월 — MVP 마무리</strong><br>직원 앱 핵심기능 완성 · HR 대시보드 CEO 레포트 완성 · 법적 이행 현황 구현<div class="rm-assignee">프론트(앱·웹) · 백엔드</div></div>
+          <div class="rm-task-card"><strong>8~9월 — 파일럿 도입</strong><br>파일럿 기업 1~2곳 실도입 · 직원 앱 실사용 · CEO 월간 레포트 첫 발행<div class="rm-assignee">민주님 · 성일님 · 개발팀</div></div>
+        </div>
+      </div>
+
+      <div class="rm-quarter-block">
+        <div class="rm-quarter-header">
+          <span class="rm-quarter-badge q4">Q4</span>
+          <div>
+            <div class="rm-quarter-title">10월 — 12월 · 양쪽 안정화 + 2027 준비</div>
+            <div class="rm-quarter-sub">온코케어 운영 조직 이관 · V.Doc Enterprise 확장 · 2027 스케일업 계획</div>
+          </div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-onco">🩺 온코케어</div>
+          <div class="rm-task-card"><strong>10~11월 — 운영 이관</strong><br>이관 기준 충족 확인 · 운영 조직 2주 동행 · 민주님 팀 → 운영 조직 단독 전환<div class="rm-assignee">민주님 · 운영 조직</div></div>
+          <div class="rm-task-card"><strong>12월 — 고도화 로드맵</strong><br>AI 에이전트 추가 · 닥터앤서 3.0 연동 준비 · 2027 확장 계획 수립<div class="rm-assignee">AI 엔지니어 · 민주님</div></div>
+        </div>
+        <div class="rm-track-row">
+          <div class="rm-track-label track-vdoc">🏢 V.Doc E</div>
+          <div class="rm-task-card"><strong>10월 — MVP 런칭</strong><br>파일럿 기업 도입 · 직원 앱 + HR 대시보드 실사용 시작<div class="rm-assignee">전원</div></div>
+          <div class="rm-task-card"><strong>11~12월 — 검증 & 확장</strong><br>파일럿 KPI 수집 · 협회 확장 검토 · 유료화 전환 검증 · 2027 스케일업<div class="rm-assignee">민주님 · 성일님</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04. 리스크 -->
+    <div class="rm-section">
+      <div class="rm-section-header">
+        <span class="rm-section-num">04</span>
+        <span class="rm-section-title">리스크 &amp; 대응</span>
+      </div>
+      <div class="rm-risk-grid">
+        <div class="rm-risk-card high"><div class="rm-risk-level">HIGH RISK</div><div class="rm-risk-title">PM Single Point of Failure</div><div class="rm-risk-desc">두 사업의 방향 설정·검증·영업이 PM에 집중되면 병목 발생</div><div class="rm-risk-mitigation"><strong>대응:</strong> 디자이너 합류 시 화면 기획 이관 → 그로스 마케터 합류 시 운영 이관 → AI 자동화로 PM 개입 감소 → Q4 온코케어 운영 이관으로 V.Doc 집중 가능</div></div>
+        <div class="rm-risk-card high"><div class="rm-risk-level">HIGH RISK</div><div class="rm-risk-title">병렬 개발 일정 지연</div><div class="rm-risk-desc">한쪽이 밀리면 다른 쪽에 연쇄 영향</div><div class="rm-risk-mitigation"><strong>대응:</strong> 백엔드 공통 인프라 처음부터 두 사업 고려해 설계. 2주 단위 스프린트. 병목 발생 시 스콥 축소 — 기능을 줄이되 일정은 안 민다.</div></div>
+        <div class="rm-risk-card medium"><div class="rm-risk-level">MEDIUM RISK</div><div class="rm-risk-title">그로스 마케터 미충원 시 콜드스타트</div><div class="rm-risk-desc">앱 출시 시점에 마케터 없으면 유입이 오픈채팅 전환에만 의존</div><div class="rm-risk-mitigation"><strong>대응:</strong> Q3 시작 전(6월)까지 합류 목표. 미충원 시 민주님이 SEO 기본 세팅 + 앰배서더 직접 관리.</div></div>
+        <div class="rm-risk-card medium"><div class="rm-risk-level">MEDIUM RISK</div><div class="rm-risk-title">위암·대장암 앰배서더 부재</div><div class="rm-risk-desc">유방암은 콩가님이 있지만 다른 암종은 구심점 없음</div><div class="rm-risk-mitigation"><strong>대응:</strong> Q2 인큐베이팅 중 자연 발생 리더 발굴. "콩가님을 찾는 게 아니라 나타날 환경을 만든다."</div></div>
+        <div class="rm-risk-card medium"><div class="rm-risk-level">MEDIUM RISK</div><div class="rm-risk-title">건설협회 PoC 실패</div><div class="rm-risk-desc">탄원서 배포 대행 제안 거절 또는 회원사 리스트 미확보</div><div class="rm-risk-mitigation"><strong>대응:</strong> Pivot 준비. 건설사 HR 직접 영업, 산업안전 컨퍼런스 부스, 중대재해법 세미나 공동 개최 등 대안 채널 사전 리스트업.</div></div>
+      </div>
+    </div>
+
+    <!-- 05. 요약 -->
+    <div class="rm-section">
+      <div class="rm-section-header">
+        <span class="rm-section-num">05</span>
+        <span class="rm-section-title">요약 — 2026 마일스톤</span>
+      </div>
+      <table>
+        <thead><tr><th>시점</th><th>온코케어</th><th>V.Doc Enterprise</th><th>핵심 마일스톤</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:#818cf8;">Q2 · 4~6월</td><td>4월 인프라 준비 · 5~6월 MVP 개발</td><td>4월 협회 영업 PoC · 5~6월 MVP 개발 착수</td><td>커뮤니티 인큐베이팅 · 디자이너 5월 합류 · 양쪽 개발 진행</td></tr>
+          <tr><td style="font-weight:600;color:#34d399;">Q3 · 7~9월</td><td>앱 출시 · 운영 안정화</td><td>MVP 완성 · 파일럿 기업 도입</td><td>온코케어 MAU 1,000명 · V.Doc E 첫 파일럿 실도입</td></tr>
+          <tr><td style="font-weight:600;color:#fbbf24;">Q4 · 10~12월</td><td>운영 조직 이관</td><td>파일럿 검증 · 확장</td><td>온코케어 이관 완료 · V.Doc E 첫 유료 고객</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rm-footer-note">
+      <strong>6명의 정예팀으로, 두 개의 사업을, 병렬로, 9개월 안에.</strong><br>
+      프로토타입 레버리지, 공통 인프라 설계, Prove or Pivot. 핑크케어에서 배운 것을 그대로 적용합니다.
+    </div>
+    <div class="rm-credit">aitrics · 신사업전략부서 · 2026</div>
+  </div>
+  </div>
+
   <!-- 히어로 배너 -->
   <div class="vdr-hero">
     <div class="vdr-hero-inner">
@@ -11981,6 +12348,8 @@ function navigateVdoc(sub, e) {
 
   if (sub === 'proposal') {
     window.location.hash = 'vdoc-proposal';
+  } else if (sub === 'resources') {
+    window.location.hash = 'vdoc-resources';
   } else if (sub === 'resources') {
     window.location.hash = 'vdoc-resources';
   } else if (sub === 'appendix') {
