@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoCare 보조자료 #5 — 임상시험 매칭 BM 전략</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--coral:#E8524A;--coral-light:#F4857E;--pink:#F9B4AE;--pink-pale:#FDE8E4;--cream:#FFF8F0;--navy:#1A2744;--slate:#3D4F6F;--ink:#1E1E2A;--body:#3A3A4A;--muted:#7A7A8E;--rule:#E4D9D0;--paper:#FEFCFA;--grad-start:#F9B4AE;--grad-mid:#E8524A;--grad-end:#C73B5D;--green:#2D8F6F;--green-pale:#E8F5F0;--purple:#6B4FA0;--purple-pale:#F0ECF7;--amber:#D4890E;--amber-pale:#FFF5E0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:A4;margin:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#F0EBE5;color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .page{width:210mm;min-height:297mm;background:var(--paper);margin:20px auto;padding:0;box-shadow:0 4px 30px rgba(0,0,0,.08);overflow:hidden;position:relative;}
+  .cover-header{background:linear-gradient(135deg,var(--navy) 0%,var(--slate) 50%,var(--purple) 100%);padding:50px 50px 40px;color:#fff;position:relative;}
+  .cover-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:30px;background:var(--paper);border-radius:30px 30px 0 0;}
+  .cover-header .badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:16px;}
+  .cover-header h1{font-family:'Noto Serif KR',serif;font-size:30px;font-weight:700;line-height:1.3;margin-bottom:10px;}
+  .cover-header .subtitle{font-size:13px;font-weight:300;opacity:.85;line-height:1.7;}
+  .cover-meta{display:flex;gap:20px;margin-top:20px;}
+  .cover-meta-item{background:rgba(255,255,255,.12);border-radius:10px;padding:10px 16px;font-size:11px;}
+  .cover-meta-item .label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:3px;}
+  .pb{padding:20px 50px 50px;}
+  .sb{display:flex;align-items:center;gap:12px;margin-top:24px;margin-bottom:14px;}
+  .sn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--purple);background:var(--purple-pale);padding:3px 10px;border-radius:20px;}
+  .sb h2{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;color:var(--ink);}
+  .sr{flex:1;height:1px;background:var(--rule);}
+  p.bt{font-size:12px;color:var(--body);line-height:1.85;margin-bottom:12px;}
+  .cn{background:var(--navy);color:#fff;padding:16px 20px;border-radius:12px;margin:12px 0;font-size:12px;line-height:1.75;}
+  .cn .cl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:6px;}
+  .cc{background:linear-gradient(135deg,var(--coral) 0%,var(--grad-end) 100%);color:#fff;padding:16px 20px;border-radius:12px;margin:12px 0;font-size:12px;line-height:1.75;}
+  .cc .cl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:6px;}
+  .cm{background:var(--cream);border:1px solid var(--pink);border-radius:12px;padding:16px 20px;margin:12px 0;}
+  .cm .cl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+  .ca{background:var(--amber-pale);border:1px solid var(--amber);border-radius:12px;padding:16px 20px;margin:12px 0;}
+  .ca .cl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+  table.dt{width:100%;border-collapse:collapse;font-size:10.5px;margin:12px 0;}
+  table.dt thead th{background:var(--purple-pale);color:var(--ink);font-weight:700;padding:8px 10px;text-align:left;font-size:9.5px;border-bottom:2px solid var(--purple);}
+  table.dt tbody td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.6;}
+  table.dt tbody td.lc{font-weight:700;color:var(--ink);font-size:10px;}
+  table.dt tbody tr:last-child td{border-bottom:none;}
+  .cg{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:12px 0;}
+  .cg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;}
+  .ic{border:1px solid var(--rule);border-radius:12px;padding:14px 16px;background:var(--paper);}
+  .ic.hl{border-color:var(--coral-light);background:var(--pink-pale);}
+  .ic.nv{background:var(--navy);color:#fff;border:none;}
+  .ic.pp{border-color:var(--purple);background:var(--purple-pale);}
+  .ic.am{border-color:var(--amber);background:var(--amber-pale);}
+  .ic .ct{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+  .ic.nv .ct{color:var(--pink);}
+  .ic.am .ct{color:var(--amber);}
+  .ic h4{font-family:'Noto Serif KR',serif;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+  .ic.nv h4{color:#fff;}
+  .ic p{font-size:10px;color:var(--muted);line-height:1.6;}
+  .ic.nv p{color:rgba(255,255,255,.7);}
+  .kpi-row{display:flex;gap:10px;margin:12px 0;}
+  .kb{flex:1;text-align:center;padding:14px 8px;background:var(--navy);border-radius:12px;color:#fff;}
+  .kb .kv{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;line-height:1.2;}
+  .kb .ku{font-size:10px;font-weight:500;opacity:.8;}
+  .kb .kl{font-size:8.5px;opacity:.5;margin-top:2px;}
+  .pf{position:absolute;bottom:0;left:0;right:0;padding:12px 50px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.08em;color:var(--muted);border-top:1px solid var(--rule);}
+  @media print{body{background:white;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE 1 — 시장 규모 + 비용 구조 ═══ -->
+<div class="page">
+  <div class="cover-header">
+    <div class="badge">OncoCare · Supplementary Document #5 · Data BM Series</div>
+    <h1>임상시험 매칭<br>— 환자 모집 시장과 온코케어의 기회</h1>
+    <p class="subtitle">글로벌 $110억 시장 · 종양학 최대 치료 영역 · 환자당 비용 수천만원 · 커뮤니티 기반 매칭의 구조적 우위</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="label">Series</div>Data BM #2 of 4</div>
+      <div class="cover-meta-item"><div class="label">Date</div>2026.03</div>
+      <div class="cover-meta-item"><div class="label">Source</div>MA팀 자문 포함</div>
+    </div>
+  </div>
+
+  <div class="pb">
+    <div class="sb"><span class="sn">01</span><h2>왜 이 시장이 중요한가 — 임상시험의 가장 비싼 병목</h2><div class="sr"></div></div>
+    <p class="bt">임상시험 전체 비용 중 환자 모집(patient recruitment)이 차지하는 비중은 약 20%이며, 모집 지연으로 인한 간접 손실까지 포함하면 전체 R&D 비용의 핵심 병목입니다. 특히 종양학은 프로토콜이 복잡하고, 적격 환자풀이 좁아 모집 난이도가 가장 높은 치료 영역입니다.</p>
+
+    <div class="kpi-row">
+      <div class="kb"><div class="kv">$110억</div><div class="ku">환자 모집 서비스 시장 (2024)</div><div class="kl">→ 2033 $228억 (CAGR 8.7%)</div></div>
+      <div class="kb" style="background:var(--coral);"><div class="kv">종양학 #1</div><div class="ku">치료 영역별 최대 비중</div><div class="kl">~19,000건 종양학 임상 진행 중</div></div>
+      <div class="kb" style="background:var(--purple);"><div class="kv">20%</div><div class="ku">전체 임상 비용 중 모집 비중</div><div class="kl">$4M(Phase I)~$100M+(Phase III)</div></div>
+    </div>
+
+    <div class="ca">
+      <div class="cl">AITRICS MA팀 내부 자문</div>
+      <p class="bt" style="margin:0;"><strong>유방암 임상의 per patient cost:</strong> 국가별·질환별·디자인별로 천차만별이지만, 유방암의 경우 생존율을 보는 디자인이라 비싼 축에 해당. CRO·lab 비용을 빼고 <strong>병원 비용만 따졌을 때 러프하게 환자당 약 2,000만원 수준에서 시작</strong>. 적게는 백만원대, 많게는 억 단위를 넘기도 함. 사이클 수에 따라 크게 달라짐.</p>
+    </div>
+
+    <div class="sb"><span class="sn">02</span><h2>비용 구조 상세 — 환자 1명을 모집하는 데 드는 비용</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:130px">항목</th><th>내용</th><th style="width:80px">비중</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">Per Patient Cost<br>(병원 비용)</td><td>Phase III 종양학 기준 평균 약 $113,000(≈1.5억원). 유방암 생존율 endpoint 기준 약 2,000만원~(국내 MA팀 기준). 사이클 수, 디자인 복잡도에 따라 편차 큼.</td><td>30%<br>(사이트 비용)</td></tr>
+        <tr><td class="lc">환자 모집 비용</td><td>광고, 프리스크리닝, 환자 보상금, 리텐션 비용. 종양학은 일반 대비 30~40% 높음.</td><td style="color:var(--coral);font-weight:700;">20%</td></tr>
+        <tr><td class="lc">데이터 관리</td><td>EDC 시스템, 데이터 클리닝, 모니터링, 통계 분석.</td><td>15%</td></tr>
+        <tr><td class="lc">규제 비용</td><td>IRB/윤리위 심사, 규제 제출, 컴플라이언스 모니터링.</td><td>10%</td></tr>
+        <tr><td class="lc">기타</td><td>제조, 오버헤드, CRO 관리 수수료 등.</td><td>25%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cc">
+      <div class="cl">Core Insight</div>
+      <strong>환자 모집이 '가장 비싼 병목'인 이유:</strong> 종양학 임상은 모집 기간이 예상보다 평균 6~12개월 지연됩니다. 모집 지연 1일당 수백만~수천만원의 기회비용이 발생하며, 이는 약물 출시 지연으로 직결됩니다. 제약사가 환자 모집에 거금을 투자하는 이유가 바로 이 '시간 가치' 때문입니다.
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 임상시험 매칭 BM 전략 · CONFIDENTIAL</span><span>1 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 2 — 전문 회사 생태계 ═══ -->
+<div class="page">
+  <div class="pb" style="padding-top:40px;">
+    <div class="sb"><span class="sn">03</span><h2>전문 회사 생태계 — 누가 이 시장에서 돈을 벌고 있는가</h2><div class="sr"></div></div>
+    <p class="bt">임상시험 환자 모집 전문 회사는 크게 세 가지 유형으로 분류됩니다. 현재 155개 이상의 전문 회사가 활동 중이며, 최근 AI·커뮤니티 기반 매칭 플랫폼이 급부상하고 있습니다.</p>
+
+    <table class="dt">
+      <thead><tr><th style="width:110px">회사</th><th style="width:60px">유형</th><th>핵심 모델</th><th style="width:80px">수익 구조</th><th style="width:100px">온코케어 시사점</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">Antidote</td><td>커뮤니티<br>매칭</td><td>환자 커뮤니티·옹호단체 네트워크를 통해 임상시험 매칭. 1,000개+ 질환 커버. 환자 교육 → 동의율 향상.</td><td>건당 수수료<br>(referral fee)</td><td style="color:var(--purple);font-weight:700;">★ 직접 벤치마크</td></tr>
+        <tr><td class="lc">SubjectWell</td><td>디지털<br>마켓플레이스</td><td>일일 3,000명+ 프리스크리닝. 175개 치료 영역. Pay-per-randomized 모델 (등록 환자 기준 과금).</td><td style="color:var(--coral);font-weight:700;">Pay-per-<br>randomized</td><td>수익 모델 참고</td></tr>
+        <tr><td class="lc">Massive Bio</td><td>종양학<br>특화 AI</td><td>AI 기반 종양학 임상시험 매칭. 환자 프로필·바이오마커 기반 정밀 매칭.</td><td>프로젝트 +<br>구독</td><td style="color:var(--purple);font-weight:700;">★ 종양학 특화</td></tr>
+        <tr><td class="lc">TrialSpark</td><td>DCT<br>플랫폼</td><td>지역 의원을 임상시험 사이트로 전환. 환자 중심 디지털 모집 → 등록률 가속.</td><td>사이트 운영<br>+ 모집비</td><td>DCT 모델 참고</td></tr>
+        <tr><td class="lc">Inspire</td><td>환자<br>커뮤니티</td><td>250만+ 환자 커뮤니티. Inspire Recruit로 임상시험 모집. 의뢰-동의 전환율 30% (업계 평균의 3~6배).</td><td>모집 수수료<br>+ 데이터</td><td style="color:var(--purple);font-weight:700;">★ 전환율 벤치마크</td></tr>
+        <tr><td class="lc">PatientsLikeMe</td><td>환자<br>커뮤니티</td><td>Trial Access 서비스 — 프로토콜 최적화 + 환자 교육 + 모집. Duke ALS 임상: 예상 기간 절반 이내 모집.</td><td>연구 수탁<br>+ 데이터</td><td>프로토콜 최적화 참고</td></tr>
+        <tr><td class="lc">Deep 6 AI</td><td>EHR<br>마이닝</td><td>AI가 병원 EMR을 분석하여 적격 환자를 자동 식별. 수동 차트 리뷰 대비 속도 5~10배 향상.</td><td>구독 + <br>프로젝트</td><td>AI 매칭 기술 참고</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cm">
+      <div class="cl">수익 모델 분류</div>
+      <p class="bt" style="margin:0;">임상시험 매칭 회사의 수익 모델은 크게 세 가지입니다. ① <strong>Pay-per-referral</strong> — 적격 환자를 의뢰(referral)할 때마다 수수료. ② <strong>Pay-per-randomized</strong> — 환자가 실제 무작위 배정(randomization)까지 완료되면 과금. 이 모델이 제약사에 가장 매력적 (리스크 최소화). ③ <strong>연간 플랫폼 구독</strong> — 제약사/CRO가 매칭 플랫폼에 연간 접근료 지급.</p>
+    </div>
+
+    <div class="sb"><span class="sn">04</span><h2>시장의 핵심 트렌드 — AI·커뮤니티 기반 매칭이 대세</h2><div class="sr"></div></div>
+
+    <div class="cg">
+      <div class="ic pp">
+        <div class="ct">트렌드 ①</div>
+        <h4>AI 매칭 플랫폼 부상</h4>
+        <p>EHR 마이닝 + NLP + AI 알고리즘으로 적격 환자 자동 식별. 수동 차트 리뷰 대비 속도 5~10배, 스크린 실패율 대폭 감소. Reify Health 기업가치 $4.8B.</p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">트렌드 ②</div>
+        <h4>환자 커뮤니티 채널 활용</h4>
+        <p>Antidote·Inspire·PatientsLikeMe 등이 환자 커뮤니티를 모집 채널로 활용. 신뢰 기반 접근으로 전환율이 기존 방식의 3~6배. 옹호단체 파트너십 핵심.</p>
+      </div>
+      <div class="ic">
+        <div class="ct">트렌드 ③</div>
+        <h4>DCT(분산 임상시험) 확대</h4>
+        <p>원격의료·eConsent·홈 방문으로 환자 접근성 향상. 지리적 제약 제거. COVID-19 이후 가속화.</p>
+      </div>
+      <div class="ic">
+        <div class="ct">트렌드 ④</div>
+        <h4>제약사-디지털 플랫폼 동맹</h4>
+        <p>사노피 AI 도구 'Muse', Flourish-Valkyrie 종양학 파트너십 등. 제약사가 자체 모집 역량 대신 전문 플랫폼과 제휴하는 추세.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 임상시험 매칭 BM 전략 · CONFIDENTIAL</span><span>2 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 3 — 온코케어 진입 전략 ═══ -->
+<div class="page">
+  <div class="pb" style="padding-top:40px;">
+    <div class="sb"><span class="sn">05</span><h2>온코케어의 진입 가능성 — 왜 유리한가</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:120px">비교 항목</th><th>기존 디지털 모집 업체</th><th>환자 커뮤니티 (Inspire 등)</th><th style="font-weight:700;background:var(--purple-pale);">온코케어</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">환자 접근</td><td>광고·소셜 미디어 캠페인</td><td>커뮤니티 내 공지</td><td style="color:var(--purple);font-weight:700;">커뮤니티 + AI 에이전트가 능동적 매칭</td></tr>
+        <tr><td class="lc">환자 데이터 수준</td><td>자가보고 (기본 프로필)</td><td>자가보고 (증상·치료 이력)</td><td style="color:var(--purple);font-weight:700;">자가보고 + AI 구조화 + PHR(병원 공식 데이터)</td></tr>
+        <tr><td class="lc">종양학 전문성</td><td>범용 (전 치료 영역)</td><td>범용 (전 치료 영역)</td><td style="color:var(--purple);font-weight:700;">종양학 특화 (8개 암종)</td></tr>
+        <tr><td class="lc">프리스크리닝 정확도</td><td>낮음 (탈락률 50~70%)</td><td>중간 (탈락률 30~50%)</td><td style="color:var(--purple);font-weight:700;">높음 (PHR 연동 시 탈락률 20% 이하 목표)</td></tr>
+        <tr><td class="lc">의료진 연결</td><td>없음</td><td>없음</td><td style="color:var(--purple);font-weight:700;">닥터앤서 병원 네트워크 → 임상시험 사이트 연결</td></tr>
+        <tr><td class="lc">환자 동기</td><td>보상금 중심</td><td>정보 접근 + 기여감</td><td style="color:var(--purple);font-weight:700;">커뮤니티 신뢰 + AI 맞춤 추천 + 의료진 검증</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cn">
+      <div class="cl">온코케어의 구조적 우위</div>
+      온코케어가 임상시험 매칭에서 기존 업체보다 유리한 이유는 세 가지입니다. ① <strong>종양학 특화 커뮤니티</strong> — 8개 암종별 환자가 모여 있어 타겟팅이 정밀. ② <strong>데이터 구조화</strong> — AI 에이전트가 암종·병기·치료이력·바이오마커를 구조화하여 적격성 판단 정확도가 높음. ③ <strong>닥터앤서 병원 연결</strong> — 매칭된 환자가 바로 닥터앤서 네트워크 내 임상시험 사이트로 연결되는 end-to-end 구조.
+    </div>
+
+    <div class="sb"><span class="sn">06</span><h2>온코케어 임상시험 매칭 BM 설계</h2><div class="sr"></div></div>
+
+    <div class="cg">
+      <div class="ic nv">
+        <div class="ct">수익 모델 A · 즉시 가능</div>
+        <h4>자가보고 기반 매칭<br>(Pay-per-referral)</h4>
+        <p>커뮤니티 환자 프로필(자가보고) 기반으로 적격 임상시험 매칭. 환자를 CRO/제약사에 의뢰 시 건당 수수료. 자가보고 기반이라 스크리닝 탈락률 30~50%. 온코케어 사업제안서의 '수익원 02'.</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">수익 모델 B · PHR 연동 후</div>
+        <h4>PHR 기반 정밀 매칭<br>(Pay-per-randomized)</h4>
+        <p>병원 공식 데이터(진단코드, 병리, 검사수치)와 커뮤니티 PRO를 결합한 정밀 매칭. 탈락률 20% 이하 목표. Pay-per-randomized 모델로 건당 단가 3~5배 상승. 닥터앤서 사이트 직접 연결.</p>
+      </div>
+    </div>
+
+    <div class="sb"><span class="sn">07</span><h2>수익 시뮬레이션 — MA팀 기준</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:120px">시나리오</th><th>가정</th><th style="width:80px">건당 수수료</th><th style="width:90px">연간 예상 수익</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">Phase 1<br>(자가보고 매칭)</td><td>연 100건 매칭 × 탈락률 40% = 60건 유효 referral. 유방암 기준 referral fee 건당 약 100~200만원.</td><td>100~200만원<br>/referral</td><td>6,000만~<br>1.2억원</td></tr>
+        <tr><td class="lc" style="color:var(--purple);">Phase 2<br>(PHR 정밀 매칭)</td><td>연 200건 매칭 × 탈락률 15% = 170건 유효 randomization. Pay-per-randomized 건당 약 500~1,000만원.</td><td style="color:var(--purple);font-weight:700;">500~1,000만원<br>/randomized</td><td style="color:var(--purple);font-weight:700;">8.5억~<br>17억원</td></tr>
+        <tr><td class="lc" style="color:var(--coral);">Phase 3<br>(통합 플랫폼)</td><td>다암종 확장 + 닥터앤서 사이트 번들 + RWE 외부대조군 서비스. 제약사 연간 구독 + 프로젝트 수익.</td><td>연간 구독<br>+ 프로젝트</td><td style="color:var(--coral);font-weight:700;">30억원+</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cm">
+      <div class="cl">단가의 핵심 근거</div>
+      <p class="bt" style="margin:0;">MA팀 기준 유방암 per patient cost가 약 2,000만원(병원 비용만)이라면, 환자 모집 비용(전체의 20%)은 약 400만원에 해당합니다. 이 중 referral fee는 통상 모집 비용의 25~50% 수준이므로, 건당 100~200만원(자가보고 기준)에서 시작하여 PHR 기반 정밀 매칭 시 프리미엄이 적용됩니다. Pay-per-randomized 모델은 리스크를 제약사가 아닌 플랫폼이 부담하는 대신 단가가 3~5배 높습니다.</p>
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 임상시험 매칭 BM 전략 · CONFIDENTIAL</span><span>3 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 4 — 준비 사항 + 결론 ═══ -->
+<div class="page">
+  <div class="pb" style="padding-top:40px;">
+    <div class="sb"><span class="sn">08</span><h2>온코케어가 준비해야 할 것 — 단계별 체크리스트</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:80px">단계</th><th style="width:120px">준비 항목</th><th>상세 내용</th><th style="width:80px">시기</th></tr></thead>
+      <tbody>
+        <tr><td class="lc" rowspan="4">Phase 1<br>즉시~<br>2027</td>
+          <td class="lc">환자 프로필 구조화</td><td>커뮤니티 가입 시 암종·병기·치료이력·바이오마커 정보를 구조화된 형태로 수집. AI 에이전트가 자연어를 코드로 변환.</td><td>즉시</td></tr>
+        <tr><td class="lc">IRB/윤리 프레임워크</td><td>환자 데이터를 임상시험 매칭에 활용하기 위한 동의 체계 설계. 개인정보 비식별화 프로세스 구축. IRB 사전 승인 템플릿 준비.</td><td>2026 Q2</td></tr>
+        <tr><td class="lc">CRO 파트너십 1~2곳</td><td>국내 CRO(또는 닥터앤서 사업 내 CRO)와 파일럿 계약. 소규모(10~20건) 매칭 PoC 수행. referral-to-consent 전환율 측정.</td><td>2026 Q3</td></tr>
+        <tr><td class="lc">임상시험 DB 연동</td><td>ClinicalTrials.gov + CRIS(한국 임상연구정보서비스) API 연동. 종양학 임상시험 자동 수집 + 적격 기준 파싱.</td><td>2026 Q3~Q4</td></tr>
+        <tr><td class="lc" rowspan="3" style="color:var(--purple);">Phase 2<br>2027~<br>2028</td>
+          <td class="lc">PHR 연동 + 정밀 매칭</td><td>V.Doc PHR 연동 완료 시 병원 공식 데이터 기반 적격성 자동 판단. 스크리닝 탈락률 20% 이하 달성 목표.</td><td>2027~</td></tr>
+        <tr><td class="lc">닥터앤서 사이트 연결</td><td>닥터앤서 네트워크 내 병원을 임상시험 사이트로 연결. 환자 매칭 → 사이트 배정 → 등록까지 end-to-end 자동화.</td><td>2027~2028</td></tr>
+        <tr><td class="lc">Pay-per-randomized 전환</td><td>충분한 PoC 데이터 축적 후, referral fee → pay-per-randomized 모델로 전환. 단가 3~5배 상승.</td><td>2028</td></tr>
+        <tr><td class="lc" rowspan="2" style="color:var(--coral);">Phase 3<br>2028~</td>
+          <td class="lc">외부대조군(ECA) 서비스</td><td>온코케어 DB의 RWE 데이터를 활용한 외부대조군 구축 서비스. 제약사가 대조군 없이 단일군 임상을 설계할 때 활용.</td><td>2028~</td></tr>
+        <tr><td class="lc">글로벌 CRO 파트너십</td><td>IQVIA, Parexel 등 글로벌 CRO와 아시아-태평양 종양학 매칭 파트너십. 해외 임상시험 매칭으로 확장.</td><td>2029~</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sb"><span class="sn">09</span><h2>핵심 결론</h2><div class="sr"></div></div>
+
+    <div class="cg3">
+      <div class="ic hl">
+        <div class="ct">결론 ①</div>
+        <h4>시장은 크고, 단가는 높다</h4>
+        <p>$110억 시장, 종양학 최대. 환자당 수천만원 단위의 비용 구조. 소수의 성공적 매칭만으로도 유의미한 수익 가능.</p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">결론 ②</div>
+        <h4>커뮤니티가 곧 경쟁력</h4>
+        <p>Inspire 전환율 30%(업계 3~6배). 온코케어는 종양학 특화 + AI 구조화 + 병원 데이터까지 보유. 50%+ 전환율 목표 가능.</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">결론 ③</div>
+        <h4>즉시 시작, 점진 확장</h4>
+        <p>자가보고 기반 referral fee로 즉시 시작. PHR 연동 시 정밀 매칭으로 전환. 닥터앤서 사이트 연결로 end-to-end 완성.</p>
+      </div>
+    </div>
+
+    <div class="cn">
+      <div class="cl">Bottom Line</div>
+      <strong>임상시험 매칭은 온코케어의 Medical Data Platform 전략에서 PRO 라이선싱 다음으로 중요한 수익 엔진입니다.</strong> PRO 라이선싱이 '축적된 데이터를 판매'하는 모델이라면, 임상시험 매칭은 '살아있는 환자를 연결'하는 모델입니다. 두 수익 엔진 모두 커뮤니티 규모가 커질수록 수익이 비선형적으로 성장하며, 플라이휠 효과를 공유합니다. 한쪽에서 플랫폼을 개발하고, 다른 한쪽에서 데이터와 환자풀을 구축하는 — AITRICS의 Medical Data Platform 비전이 이 BM에서도 동일하게 작동합니다.
+    </div>
+
+    <div style="margin-top:12px;padding:11px 14px;background:var(--cream);border-radius:10px;font-size:9px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--ink);">출처:</strong> Grand View Research 임상시험 환자 모집 시장(2024~2033), Roots Analysis 임상시험 모집 시장(2025~2035), Abacum Clinical Trial Costing Guide(2025), MarketsandMarkets 임상시험 서비스 시장, AITRICS MA팀 내부 자문(2026.03), PatientsLikeMe Trial Access/Wikipedia, Inspire Recruit, Antidote·SubjectWell·TrialSpark·Massive Bio 공식 자료, Reify Health $4.8B valuation(MobiHealthNews), OncoCare 사업제안서 BM3 섹션
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 임상시험 매칭 BM 전략 · CONFIDENTIAL</span><span>4 / 4</span></div>
+</div>
+
+</body>
+</html>

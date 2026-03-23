@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoCare 보조자료 #4 — PRO 라이선싱 및 데이터 BM 전략</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--coral:#E8524A;--coral-light:#F4857E;--pink:#F9B4AE;--pink-pale:#FDE8E4;--cream:#FFF8F0;--navy:#1A2744;--slate:#3D4F6F;--ink:#1E1E2A;--body:#3A3A4A;--muted:#7A7A8E;--rule:#E4D9D0;--paper:#FEFCFA;--grad-start:#F9B4AE;--grad-mid:#E8524A;--grad-end:#C73B5D;--green:#2D8F6F;--green-pale:#E8F5F0;--purple:#6B4FA0;--purple-pale:#F0ECF7;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:A4;margin:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#F0EBE5;color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .page{width:210mm;min-height:297mm;background:var(--paper);margin:20px auto;padding:0;box-shadow:0 4px 30px rgba(0,0,0,.08);overflow:hidden;position:relative;}
+  .cover-header{background:linear-gradient(135deg,var(--navy) 0%,var(--slate) 50%,var(--purple) 100%);padding:50px 50px 40px;color:#fff;position:relative;}
+  .cover-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:30px;background:var(--paper);border-radius:30px 30px 0 0;}
+  .cover-header .badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:16px;}
+  .cover-header h1{font-family:'Noto Serif KR',serif;font-size:32px;font-weight:700;line-height:1.3;margin-bottom:10px;}
+  .cover-header .subtitle{font-size:13px;font-weight:300;opacity:.85;line-height:1.7;}
+  .cover-meta{display:flex;gap:24px;margin-top:20px;}
+  .cover-meta-item{background:rgba(255,255,255,.12);border-radius:10px;padding:10px 18px;font-size:11px;}
+  .cover-meta-item .label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:3px;}
+  .page-body{padding:20px 50px 50px;}
+  .section-bar{display:flex;align-items:center;gap:12px;margin-top:26px;margin-bottom:14px;}
+  .section-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--coral);background:var(--pink-pale);padding:3px 10px;border-radius:20px;}
+  .section-num.purple{color:var(--purple);background:var(--purple-pale);}
+  .section-bar h2{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-rule{flex:1;height:1px;background:var(--rule);}
+  p.body-text{font-size:12px;color:var(--body);line-height:1.85;margin-bottom:12px;}
+  .callout-navy{background:var(--navy);color:#fff;padding:18px 22px;border-radius:12px;margin:14px 0;font-size:12px;line-height:1.75;}
+  .callout-navy .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:6px;}
+  .callout-coral{background:linear-gradient(135deg,var(--coral) 0%,var(--grad-end) 100%);color:#fff;padding:18px 22px;border-radius:12px;margin:14px 0;font-size:12px;line-height:1.75;}
+  .callout-coral .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:6px;}
+  .callout-cream{background:var(--cream);border:1px solid var(--pink);border-radius:12px;padding:16px 20px;margin:14px 0;}
+  .callout-cream .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+  table.dt{width:100%;border-collapse:collapse;font-size:10.5px;margin:12px 0;}
+  table.dt thead th{background:var(--pink-pale);color:var(--ink);font-weight:700;padding:8px 11px;text-align:left;font-size:9.5px;border-bottom:2px solid var(--coral-light);}
+  table.dt tbody td{padding:8px 11px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.6;}
+  table.dt tbody td.lc{font-weight:700;color:var(--ink);font-size:10px;}
+  table.dt tbody tr:last-child td{border-bottom:none;}
+  table.dt tbody tr:hover{background:var(--cream);}
+  .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+  .card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;}
+  .ic{border:1px solid var(--rule);border-radius:12px;padding:14px 16px;background:var(--paper);}
+  .ic.hl{border-color:var(--coral-light);background:var(--pink-pale);}
+  .ic.nv{background:var(--navy);color:#fff;border:none;}
+  .ic.pp{border-color:var(--purple);background:var(--purple-pale);}
+  .ic .ct{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:4px;}
+  .ic.nv .ct{color:var(--pink);}
+  .ic.pp .ct{color:var(--purple);}
+  .ic h4{font-family:'Noto Serif KR',serif;font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+  .ic.nv h4{color:#fff;}
+  .ic p{font-size:10.5px;color:var(--muted);line-height:1.6;}
+  .ic.nv p{color:rgba(255,255,255,.7);}
+  .kpi-row{display:flex;gap:12px;margin:12px 0;}
+  .kpi-box{flex:1;text-align:center;padding:14px 10px;background:var(--navy);border-radius:12px;color:#fff;}
+  .kpi-box .kv{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;line-height:1.2;}
+  .kpi-box .ku{font-size:11px;font-weight:500;opacity:.8;}
+  .kpi-box .kl{font-size:9px;opacity:.5;margin-top:3px;}
+  .bm-box{background:var(--navy);color:#fff;border-radius:12px;padding:20px 22px;margin:14px 0;}
+  .bm-box .bl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:6px;}
+  .bm-box h3{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.4;}
+  .bm-box p{font-size:11px;line-height:1.75;opacity:.8;}
+  .bm-box .bf{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .bm-box .fs{font-size:9px;padding:4px 10px;background:rgba(255,255,255,.1);border-radius:20px;white-space:nowrap;}
+  .bm-box .fa{color:var(--pink);font-size:10px;}
+  .page-footer{position:absolute;bottom:0;left:0;right:0;padding:12px 50px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.08em;color:var(--muted);border-top:1px solid var(--rule);}
+  @media print{body{background:white;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE 1 — COVER + 시장 규모 + 패러다임 전환 ═══ -->
+<div class="page">
+  <div class="cover-header">
+    <div class="badge">OncoCare · Supplementary Document #4 · Data BM Series</div>
+    <h1>PRO 라이선싱<br>— Medical Data Platform의 첫 번째 수익 엔진</h1>
+    <p class="subtitle">커뮤니티에서 축적된 환자 자가보고 데이터를 제약사·CRO·보험사에 라이선싱하는 B2B 데이터 비즈니스 모델.<br>수가에 의존하지 않는, 데이터 자체의 가치로 수익을 만드는 구조.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="label">Series</div>Data BM #1 of 4</div>
+      <div class="cover-meta-item"><div class="label">Date</div>2026.03</div>
+      <div class="cover-meta-item"><div class="label">Classification</div>Confidential</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-bar">
+      <span class="section-num purple">01</span>
+      <h2>패러다임 전환 — 수가에서 데이터로</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="body-text">보조자료 #1~3은 정부 수가(B2G) 기반의 수익 모델을 다루었습니다. 보조자료 #4부터는 관점이 전환됩니다. 온코케어가 축적하는 <strong>데이터 자체가 상품</strong>이 되어, 제약사·CRO·보험사에 직접 판매하는 B2B 데이터 비즈니스 모델입니다. 이것이 AITRICS가 지향하는 <strong>Medical Data Platform</strong>의 핵심입니다.</p>
+
+    <div class="callout-navy">
+      <div class="callout-label">The Shift</div>
+      <strong>한쪽에서는 플랫폼을 개발하고, 다른 한쪽에서는 데이터를 구축합니다.</strong> 커뮤니티가 유저를 모으는 동안, AI 에이전트가 그 활동을 구조화된 의료 데이터로 전환합니다. 이 데이터가 충분히 쌓이면, 정부 수가 없이도 — 데이터 라이선싱만으로 — 독립적 수익이 발생합니다.
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num purple">02</span>
+      <h2>시장 규모 — RWE 종양학 시장은 폭발적으로 성장 중</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-box">
+        <div class="kv">$5.4B</div>
+        <div class="ku">글로벌 RWE 시장 (2025)</div>
+        <div class="kl">CAGR 14.8% → 2030 $10.8B</div>
+      </div>
+      <div class="kpi-box" style="background:var(--coral);">
+        <div class="kv">$893M</div>
+        <div class="ku">RWE 종양학 시장 (2025)</div>
+        <div class="kl">CAGR 14.7% → 2035 $3.5B</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kv">23%</div>
+        <div class="ku">종양학 비중</div>
+        <div class="kl">RWE 시장 내 최대 치료 영역</div>
+      </div>
+      <div class="kpi-box" style="background:var(--purple);">
+        <div class="kv">35%</div>
+        <div class="ku">데이터셋 점유율</div>
+        <div class="kl">종양학 RWE 중 데이터 판매 비중</div>
+      </div>
+    </div>
+
+    <p class="body-text">글로벌 RWE 시장은 2025년 약 54억 달러에서 2030년 108억 달러로 성장 전망이며, 그 중 종양학이 최대 치료 영역(23%)을 차지합니다. 특히 RWE 종양학 시장은 2025년 약 8.9억 달러에서 2035년 35억 달러로 연평균 14.7% 성장이 예상됩니다. 이 시장에서 데이터셋 판매가 가장 큰 비중(35%)을 차지합니다.</p>
+
+    <div class="section-bar">
+      <span class="section-num purple">03</span>
+      <h2>글로벌 검증 — 이미 작동하는 환자 데이터 플랫폼 BM</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="dt">
+      <thead>
+        <tr>
+          <th style="width:110px">플랫폼</th>
+          <th style="width:100px">규모</th>
+          <th>수익 모델</th>
+          <th style="width:100px">주요 파트너</th>
+          <th style="width:100px">Exit/투자</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lc">PatientsLikeMe</td>
+          <td>110만+ 회원<br>2,900+ 질환<br>4,300만+ 데이터포인트</td>
+          <td>비식별 환자 데이터 라이선싱, 임상시험 프로토콜 최적화, PRO 개발 연구 수탁. 광고 없는 순수 데이터 BM.</td>
+          <td>노바티스, 사노피, 로슈, AZ, 젠텍</td>
+          <td style="color:var(--coral);font-weight:700;">2019년 UnitedHealth Group 인수</td>
+        </tr>
+        <tr>
+          <td class="lc">Inspire</td>
+          <td>250만+ 회원</td>
+          <td>마켓 리서치, 프로모션, 임상시험 모집(Inspire Recruit). 의뢰-동의 전환율 30%.</td>
+          <td>다수 제약사<br>Antidote, Trialbee</td>
+          <td style="color:var(--coral);font-weight:700;">약 1,000억원 투자 유치</td>
+        </tr>
+        <tr>
+          <td class="lc">Flatiron Health</td>
+          <td>280개+ 종양센터<br>350만+ 환자 레코드</td>
+          <td>종양학 특화 EHR + RWE 플랫폼. 비식별 종양학 데이터를 제약사·FDA에 판매.</td>
+          <td>FDA, 다수 제약사</td>
+          <td style="color:var(--coral);font-weight:700;">2018년 로슈 $1.9B 인수</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-cream">
+      <div class="callout-label">온코케어의 차별점</div>
+      <p class="body-text" style="margin:0;">PatientsLikeMe와 Inspire는 <strong>자가 보고 데이터만</strong>으로 이 수익을 만들었습니다. Flatiron은 <strong>병원 임상 데이터만</strong>으로 $1.9B에 인수되었습니다. 온코케어는 <strong>둘 다 가집니다</strong> — 커뮤니티 PRO + 닥터앤서 경유 병원 임상 데이터가 하나의 환자 ID로 연결. 이것이 데이터 단가를 근본적으로 바꾸는 구조적 차이입니다.</p>
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · PRO 라이선싱 및 데이터 BM 전략 · CONFIDENTIAL</span><span>1 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 2 — PRO 라이선싱 메커니즘 ═══ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+    <div class="section-bar">
+      <span class="section-num purple">04</span>
+      <h2>PRO 라이선싱 메커니즘 — 커뮤니티 활동이 곧 데이터 생산</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="body-text">PRO 라이선싱의 핵심은 '환자가 의무감으로 설문을 작성하는 것'이 아니라, '커뮤니티에서 자연스럽게 활동하면서 데이터가 축적되는 구조'를 설계하는 것입니다. 이 설계가 수집 비용을 제로에 가깝게 만들고, 데이터 밀도를 기존 대비 5~10배 높입니다.</p>
+
+    <table class="dt">
+      <thead>
+        <tr><th style="width:110px">비교 항목</th><th>기존 PRO 수집 (병원 주도)</th><th style="font-weight:700;background:var(--purple-pale);">온코케어 PRO (커뮤니티 기반)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="lc">수집 방식</td><td>의사 지시 → 환자 의무적 작성</td><td style="color:var(--purple);font-weight:700;">커뮤니티 활동 중 자발적 보고</td></tr>
+        <tr><td class="lc">수집 빈도</td><td>외래 방문 시에만 (3~6개월 간격)</td><td style="color:var(--purple);font-weight:700;">커뮤니티 접속 시마다 (주 수회)</td></tr>
+        <tr><td class="lc">데이터 밀도</td><td>단발적, 시계열 부족</td><td style="color:var(--purple);font-weight:700;">연속 데이터 (5~10배 밀도)</td></tr>
+        <tr><td class="lc">수집 비용</td><td>건당 비용 (간호사 인건비)</td><td style="color:var(--purple);font-weight:700;">한계비용 ≈ 0 (커뮤니티 운영비에 포함)</td></tr>
+        <tr><td class="lc">환자 탈락률</td><td>높음 (피로 누적)</td><td style="color:var(--purple);font-weight:700;">낮음 (소속감·관리 동기로 지속)</td></tr>
+        <tr><td class="lc">임상 데이터 연결</td><td>같은 병원 내에서만</td><td style="color:var(--purple);font-weight:700;">닥터앤서 병원 네트워크 전체와 연결</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-bar">
+      <span class="section-num purple">05</span>
+      <h2>데이터 수집 설계 — 커뮤니티 활동 = PRO 수집</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="dt">
+      <thead>
+        <tr><th style="width:170px">커뮤니티 활동</th><th>수집되는 PRO 데이터</th><th style="width:110px">매핑 표준 척도</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="lc">검사결과 해석 에이전트 사용</td><td>"최근 증상이 어떠셨어요?" 자연스럽게 질문 → 증상 PRO 수집</td><td>EORTC QLQ-C30<br>FACT-G</td></tr>
+        <tr><td class="lc">커뮤니티 게시글 작성</td><td>"부작용이 있었어요" 자연어를 AI가 구조화 → PRO 코딩</td><td>PRO-CTCAE</td></tr>
+        <tr><td class="lc">치료 일지 (매일 3초)</td><td>"오늘의 컨디션" 이모지 입력 → 연속 PRO 시계열</td><td>PROMIS Global-10<br>EQ-5D-5L</td></tr>
+        <tr><td class="lc">닥터앤서 rehab 체크인</td><td>표준 PRO 척도 자동 삽입 → 구조화된 임상급 데이터</td><td>EORTC QLQ-CR29<br>QLQ-STO22</td></tr>
+        <tr><td class="lc">V.Doc PHR 연동</td><td>검사결과+투약이력+PRO → 하나의 환자 ID로 통합</td><td>통합 PHR / RWE 등급</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-bar">
+      <span class="section-num purple">06</span>
+      <h2>2단계 수익 구조 — PHR 연동 전후로 차원이 바뀐다</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="ic">
+        <div class="ct">Phase 1~2 · PHR 연동 전 (~2027)</div>
+        <h4>자가 보고 기반 수익화</h4>
+        <p>환자가 직접 입력한 프로필, 부작용 경험, 삶의 질 보고. 제약사 콘텐츠 후원, 자가보고 기반 임상시험 매칭, <strong>PRO 데이터 라이선싱</strong>(연간 계약). 데이터 신뢰도는 중간이지만 시계열 밀도와 커뮤니티 규모로 가치 보상.</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">Phase 3 · PHR 연동 후 (2028~)</div>
+        <h4>병원 공식 데이터 기반 수익화</h4>
+        <p>V.Doc PHR / 마이헬스웨이 연동 → 진단코드, 병리 리포트, 검사 수치 시계열, 처방 이력 자동 연결. <strong>자가 보고 + 병원 공식 데이터가 결합</strong>되면 수익 규모 3~4배 점프. 글로벌에도 없는 수준의 RWE 데이터 플랫폼.</p>
+      </div>
+    </div>
+
+    <table class="dt">
+      <thead>
+        <tr><th style="width:120px">데이터 항목</th><th>현재 (자가 보고)</th><th style="font-weight:700;background:var(--purple-pale);">PHR 연동 후</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="lc">진단명·병기</td><td>환자가 직접 입력</td><td style="color:var(--purple);font-weight:700;">병원 진단코드(KCD) 자동 연동</td></tr>
+        <tr><td class="lc">조직검사 결과</td><td>사진 촬영 → OCR</td><td style="color:var(--purple);font-weight:700;">병원 병리 리포트 원본 (ER/PR/HER2/Ki-67)</td></tr>
+        <tr><td class="lc">혈액검사</td><td>사진 촬영 → OCR</td><td style="color:var(--purple);font-weight:700;">병원 검체검사 결과 자동 연동 (시계열)</td></tr>
+        <tr><td class="lc">처방 이력</td><td>환자 기억에 의존</td><td style="color:var(--purple);font-weight:700;">처방전 전체 이력 자동 연동</td></tr>
+        <tr><td class="lc">데이터 신뢰도</td><td>자가 보고 (오류 15%+)</td><td style="color:var(--purple);font-weight:700;">병원 공식 데이터 (오류 ≈ 0%)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-coral">
+      <div class="callout-label">데이터 가치의 핵심</div>
+      제약사에게 <strong>"병원에서 의사가 기록한 데이터 + 퇴원 후 환자가 직접 보고한 데이터가 하나의 환자 ID로 연결됩니다"</strong>라고 말할 수 있으면, 이것은 기존 PRO 라이선싱 단가를 근본적으로 바꾸는 차별점입니다. "호중구 1,200일 때 환자가 피곤·발열을 호소했다" — 이 수준의 데이터는 제약사가 별도 RWE 연구 없이 확보 가능합니다.
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · PRO 라이선싱 및 데이터 BM 전략 · CONFIDENTIAL</span><span>2 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 3 — 6가지 수익원 상세 ═══ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+    <div class="section-bar">
+      <span class="section-num purple">07</span>
+      <h2>데이터 BM 6가지 수익원 — 단계적 확장 구조</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="card-grid-3">
+      <div class="ic">
+        <div class="ct">수익원 01 · PHR 불필요</div>
+        <h4>제약사·재단 콘텐츠 후원</h4>
+        <p>암종별 커뮤니티에 제약사가 정보 콘텐츠를 후원. "○○제약 제공 유방암 표준치료 가이드" 형태. 광고가 아닌 신뢰 기반 스폰서십.</p>
+      </div>
+      <div class="ic">
+        <div class="ct">수익원 02 · PHR 불필요</div>
+        <h4>임상시험 매칭 (자가보고)</h4>
+        <p>환우 프로필 기반 적격 임상시험 매칭. 자가 보고 기반이므로 스크리닝 탈락률 30~50%. 건당 수수료 모델로 초기 수익.</p>
+      </div>
+      <div class="ic hl">
+        <div class="ct">수익원 03 · PHR 불필요 · 핵심</div>
+        <h4>PRO 데이터 라이선싱</h4>
+        <p>부작용 패턴·삶의 질 변화 데이터를 비식별화하여 제약사에 라이선싱. <strong>시판 후 조사(PMS)</strong> 보조 자료. 연간 계약 기반.</p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">수익원 04 · PHR 필수 · 고가치</div>
+        <h4>PRO + 임상 통합 데이터</h4>
+        <p>병원 검사 수치와 환자 경험이 매칭. 제약사가 별도 RWE 연구 없이 확보 가능. <strong>단가 3~6배 상승.</strong></p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">수익원 05 · PHR 필수</div>
+        <h4>RWE 연구 수탁</h4>
+        <p>제약사 요청으로 특정 레지멘의 실제 부작용 프로파일 추출. 병원 수치 + 환자 보고 매칭 → 비식별 리포트. 프로젝트 단위 계약.</p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">수익원 06 · PHR 필수 · 장기</div>
+        <h4>보험사·동반진단 데이터</h4>
+        <p>암환자 의료비 지출 패턴(보험 상품 설계), 바이오마커별 치료 반응 패턴(동반진단). PHR 20만 유저 이상 확보 후 가능.</p>
+      </div>
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num purple">08</span>
+      <h2>PRO 라이선싱 구매자 — 누가 이 데이터를 사는가</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="dt">
+      <thead>
+        <tr><th style="width:100px">구매자</th><th>용도</th><th style="width:100px">계약 형태</th><th style="width:80px">단가 수준</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="lc">글로벌 제약사<br><span style="font-size:8px;color:var(--muted);">노바티스, 로슈, AZ 등</span></td><td>시판 후 조사(PMS), 약물 부작용 프로파일 연구, 신약 적응증 확대를 위한 환자 경험 데이터, 임상시험 프로토콜 최적화</td><td>연간 구독<br>+ 프로젝트 단위</td><td style="color:var(--coral);font-weight:700;">높음</td></tr>
+        <tr><td class="lc">CRO<br><span style="font-size:8px;color:var(--muted);">IQVIA, Parexel 등</span></td><td>임상시험 환자 모집, 외부 대조군(External Control Arm) 구축, RWE 연구 수탁 시 데이터 소싱</td><td>프로젝트 단위</td><td>중~높음</td></tr>
+        <tr><td class="lc">HTA/보험사<br><span style="font-size:8px;color:var(--muted);">심평원, 보험사</span></td><td>약가 결정·급여 기준 설정을 위한 실제 치료 결과 데이터, 보험 상품 설계를 위한 의료비 패턴</td><td>연간 구독</td><td>중간</td></tr>
+        <tr><td class="lc">학술기관</td><td>종양학 연구, 역학 연구, PRO 척도 개발 및 검증</td><td>연구 협약</td><td>낮~중간</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-navy">
+      <div class="callout-label">PatientsLikeMe의 실제 수익 모델 레퍼런스</div>
+      PatientsLikeMe는 광고를 거부하고, <strong>비식별 환자 데이터 판매와 연구 서비스만으로 수익</strong>을 창출합니다. 제약사 파트너로 노바티스·사노피·로슈·AstraZeneca·젠텍 등 글로벌 대형 제약사가 참여하며, 2014년 젠텍(로슈)과 5년간 전체 데이터베이스 접근 계약을 체결했습니다. 2019년 미국 최대 건강보험사 UnitedHealth Group에 인수되며 데이터 가치가 검증되었습니다.
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · PRO 라이선싱 및 데이터 BM 전략 · CONFIDENTIAL</span><span>3 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 4 — 온코케어 데이터 플랫폼 로드맵 + 결론 ═══ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+    <div class="section-bar">
+      <span class="section-num purple">09</span>
+      <h2>Medical Data Platform 로드맵 — 데이터 자산 구축 단계</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="card-grid-3">
+      <div class="ic">
+        <div class="ct">Layer 1 · Now → 2027</div>
+        <h4>환자 접점 + PRO 축적</h4>
+        <p>커뮤니티로 유저를 모으고, AI가 활동을 PRO로 구조화. 자가보고 데이터 축적. 수가 불필요, 즉시 실행. 제약사 콘텐츠 후원 + PRO 라이선싱으로 초기 현금 확보.</p>
+      </div>
+      <div class="ic hl">
+        <div class="ct">Layer 2 · 2027 → 2028</div>
+        <h4>PHR 연동 + 데이터 통합</h4>
+        <p>V.Doc PHR / 마이헬스웨이 연동. 자가보고 + 병원 공식 데이터 결합. RWE 등급 통합 데이터 플랫폼 완성. 수익 규모 3~4배 점프. 글로벌에도 없는 데이터 자산.</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">Layer 3 · 2028~</div>
+        <h4>데이터 인프라 완성</h4>
+        <p>커뮤니티 + PRO + 모니터링 + PHR 통합. 글로벌 수준 RWE 데이터 플랫폼. 제약사 파트너십·데이터 라이선싱 본격화. 만성질환 확장·해외 진출.</p>
+      </div>
+    </div>
+
+    <div class="bm-box" style="background:var(--purple);">
+      <div class="bl" style="color:rgba(255,255,255,.5);">Data Flywheel</div>
+      <h3>데이터 플라이휠 — 선순환 성장 구조</h3>
+      <p>환자가 커뮤니티에서 활동할수록 PRO 데이터가 축적됩니다. 데이터가 쌓일수록 AI 에이전트의 정확도가 올라갑니다. AI가 정확해질수록 환자 경험이 개선되어 더 많은 환자가 유입됩니다. 이 플라이휠이 돌기 시작하면 — 경쟁자가 따라올 수 없는 데이터 해자(Data Moat)가 형성됩니다.</p>
+      <div class="bf">
+        <span class="fs">환자 유입↑</span><span class="fa">→</span>
+        <span class="fs">PRO 데이터 축적</span><span class="fa">→</span>
+        <span class="fs">AI 정확도↑</span><span class="fa">→</span>
+        <span class="fs">개인화 경험↑</span><span class="fa">→</span>
+        <span class="fs">재방문·충성</span><span class="fa">→</span>
+        <span class="fs" style="background:rgba(255,255,255,.25);">데이터 라이선싱 수익↑</span><span class="fa">→</span>
+        <span class="fs" style="background:rgba(255,255,255,.25);">플랫폼 투자↑</span><span class="fa">→</span>
+        <span class="fs">신규 유입 가속</span>
+      </div>
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num purple">10</span>
+      <h2>핵심 결론 — PRO 라이선싱은 Data Platform의 첫 번째 증명</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="ic hl">
+        <div class="ct">결론 ①</div>
+        <h4>즉시 시작 가능</h4>
+        <p>PRO 라이선싱은 PHR 연동 전에도, 수가 없이도 시작할 수 있는 유일한 데이터 BM. 커뮤니티가 모이는 순간부터 데이터 자산이 축적되기 시작합니다.</p>
+      </div>
+      <div class="ic hl">
+        <div class="ct">결론 ②</div>
+        <h4>시장은 이미 검증됨</h4>
+        <p>PatientsLikeMe(UnitedHealth 인수), Inspire(1,000억 투자), Flatiron($1.9B 로슈 인수). 환자 커뮤니티 데이터 플랫폼의 가치는 글로벌에서 증명 완료.</p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">결론 ③</div>
+        <h4>PHR 연동 시 폭발</h4>
+        <p>자가보고 + 병원 데이터 결합 = 글로벌에도 없는 수준의 RWE 자산. 수익 3~4배 점프. 이것이 AITRICS의 Medical Data Platform 비전의 핵심.</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">결론 ④</div>
+        <h4>경쟁 해자(Data Moat)</h4>
+        <p>커뮤니티 + AI 구조화 + 병원 네트워크를 동시에 보유한 플레이어는 국내에 없음. 데이터 플라이휠이 가동되면 후발 진입 불가능한 구조적 해자 형성.</p>
+      </div>
+    </div>
+
+    <div class="callout-navy">
+      <div class="callout-label">Bottom Line — Medical Data Platform으로서의 온코케어</div>
+      <strong>온코케어는 커뮤니티 서비스가 아닙니다. Medical Data Platform입니다.</strong> 커뮤니티는 데이터를 모으는 인터페이스이고, AI 에이전트는 데이터를 구조화하는 엔진이며, PRO 라이선싱은 데이터를 수익으로 전환하는 첫 번째 파이프라인입니다. 한쪽에서 플랫폼을 개발하고, 다른 한쪽에서 데이터를 구축하는 — 이 양쪽의 작업이 하나의 비즈니스 모델로 수렴합니다.
+    </div>
+
+    <div style="margin-top:12px;padding:12px 16px;background:var(--cream);border-radius:10px;font-size:9.5px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--ink);">출처:</strong> Grand View Research RWE 시장 보고서(2025), Meticulous Research RWE 종양학 시장(2025), MarketsandMarkets RWE 시장(2025), Mordor Intelligence RWE 시장(2025), PwC 'Value of RWD in Pharma', PatientsLikeMe Wikipedia·JMIR 논문(2018)·Harvard Digital Innovation 분석, Flatiron Health-Roche 인수 사례, Inspire IR 자료, OncoCare 사업제안서 BM3 PRO 라이선싱 섹션, 데일리팜 RPM 시장 동향(2026.3.20)
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · PRO 라이선싱 및 데이터 BM 전략 · CONFIDENTIAL</span><span>4 / 4</span></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoCare 보조자료 #7 — 보험사 데이터 BM · 한국 시장 특수성과 현실적 파트너십</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1A2744;--navy-d:#0F1A2E;--slate:#3D4F6F;--ink:#1E1E2A;--body:#3A3A4A;--muted:#7A7A8E;--rule:#E4D9D0;--paper:#FEFCFA;--cream:#FFF8F0;--purple:#6B4FA0;--purple-pale:#F0ECF7;--teal:#0E7C6B;--teal-pale:#E6F5F2;--coral:#E8524A;--coral-light:#F4857E;--pink-pale:#FDE8E4;--amber:#D4890E;--amber-pale:#FFF5E0;--red:#C94040;--red-pale:#FCEAEA;--green:#2D8F6F;--green-pale:#E8F5F0;--gold:#B8860B;--gold-pale:#FFF8E7;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:A4;margin:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#F0EBE5;color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .page{width:210mm;min-height:297mm;background:var(--paper);margin:20px auto;padding:0;box-shadow:0 4px 30px rgba(0,0,0,.08);overflow:hidden;position:relative;}
+  .cover{background:linear-gradient(135deg,var(--navy-d) 0%,var(--navy) 40%,var(--purple) 100%);padding:48px 50px 38px;color:#fff;position:relative;}
+  .cover::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:28px;background:var(--paper);border-radius:28px 28px 0 0;}
+  .cover .badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.6;margin-bottom:14px;}
+  .cover h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;line-height:1.35;margin-bottom:8px;}
+  .cover .sub{font-size:12.5px;font-weight:300;opacity:.8;line-height:1.7;}
+  .cmeta{display:flex;gap:16px;margin-top:18px;}
+  .cmeta .m{background:rgba(255,255,255,.1);border-radius:8px;padding:8px 14px;font-size:10px;}
+  .cmeta .m .l{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.55;margin-bottom:2px;}
+  .pb{padding:18px 50px 50px;}
+  .sb{display:flex;align-items:center;gap:10px;margin-top:22px;margin-bottom:10px;}
+  .sn{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--purple);background:var(--purple-pale);padding:2px 9px;border-radius:16px;}
+  .sb h2{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;color:var(--ink);}
+  .sr{flex:1;height:1px;background:var(--rule);}
+  p.t{font-size:11px;color:var(--body);line-height:1.85;margin-bottom:10px;}
+  .bx{border-radius:11px;padding:14px 17px;margin:10px 0;font-size:10.5px;line-height:1.75;}
+  .bx-navy{background:var(--navy);color:#fff;}
+  .bx-red{background:var(--red-pale);border:1.5px solid var(--red);}
+  .bx-green{background:var(--green-pale);border:1px solid var(--green);}
+  .bx-purple{background:var(--purple-pale);border:1px solid var(--purple);}
+  .bx-cream{background:var(--cream);border:1px solid var(--coral-light);}
+  .bx-gold{background:var(--gold-pale);border:1px solid var(--gold);}
+  .bx-teal{background:var(--teal-pale);border:1px solid var(--teal);}
+  .bx .bl{font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px;}
+  .bx-navy .bl{color:var(--coral-light);}
+  .bx-red .bl{color:var(--red);}
+  .bx-green .bl{color:var(--green);}
+  .bx-purple .bl{color:var(--purple);}
+  .bx-cream .bl{color:var(--coral);}
+  .bx-gold .bl{color:var(--gold);}
+  .bx-teal .bl{color:var(--teal);}
+  table.dt{width:100%;border-collapse:collapse;font-size:9.5px;margin:9px 0;}
+  table.dt thead th{background:var(--navy);color:#fff;font-weight:500;padding:6px 9px;text-align:left;font-size:8.5px;letter-spacing:.03em;}
+  table.dt tbody td{padding:6px 9px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.6;}
+  table.dt tbody td.lc{font-weight:700;color:var(--ink);font-size:9px;}
+  table.dt tbody tr:last-child td{border-bottom:none;}
+  table.dt tbody tr:nth-child(even){background:#FAFAFA;}
+  .gc{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0;}
+  .gc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:9px 0;}
+  .ic{border:1px solid var(--rule);border-radius:10px;padding:11px 13px;background:var(--paper);}
+  .ic.nv{background:var(--navy);color:#fff;border:none;}
+  .ic.pp{border-color:var(--purple);background:var(--purple-pale);}
+  .ic.gn{border-color:var(--green);background:var(--green-pale);}
+  .ic.rd{border-color:var(--red);background:var(--red-pale);}
+  .ic.gd{border-color:var(--gold);background:var(--gold-pale);}
+  .ic.tl{border-color:var(--teal);background:var(--teal-pale);}
+  .ic .ct{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:3px;}
+  .ic.nv .ct{color:var(--coral-light);}
+  .ic.pp .ct{color:var(--purple);}
+  .ic.gn .ct{color:var(--green);}
+  .ic.rd .ct{color:var(--red);}
+  .ic.gd .ct{color:var(--gold);}
+  .ic.tl .ct{color:var(--teal);}
+  .ic h4{font-family:'Noto Serif KR',serif;font-size:11px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+  .ic.nv h4{color:#fff;}
+  .ic p{font-size:9px;color:var(--muted);line-height:1.6;}
+  .ic.nv p{color:rgba(255,255,255,.7);}
+  .pf{position:absolute;bottom:0;left:0;right:0;padding:10px 50px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:.08em;color:var(--muted);border-top:1px solid var(--rule);}
+  .arrow-flow{display:flex;align-items:center;gap:4px;margin:10px 0;flex-wrap:wrap;}
+  .af-step{background:var(--navy);color:#fff;padding:6px 10px;border-radius:8px;font-size:8.5px;text-align:center;min-width:80px;}
+  .af-step.hl{background:var(--purple);}
+  .af-arrow{color:var(--muted);font-size:14px;}
+  @media print{body{background:white;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ═══ PAGE 1 — 한국 보험시장 특수성 진단 ═══ -->
+<div class="page">
+  <div class="cover">
+    <div class="badge">OncoCare · Supplementary Document #7 · Data BM Series</div>
+    <h1>보험사 데이터 BM<br>— 한국 국민건강보험 체계에서의<br>현실적 파트너십 전략</h1>
+    <p class="sub">미국식 사보험 BM을 그대로 적용할 수 없는 한국 시장의 구조적 특수성을 분석하고,<br>IFRS17 전환기에 보험사가 실제로 필요로 하는 것과 온코케어가 제공할 수 있는 가치를 연결합니다.</p>
+    <div class="cmeta">
+      <div class="m"><div class="l">Series</div>Data BM #4 of 4</div>
+      <div class="m"><div class="l">Date</div>2026.03</div>
+      <div class="m"><div class="l">Focus</div>한국 보험사 파트너십</div>
+    </div>
+  </div>
+
+  <div class="pb">
+    <div class="sb"><span class="sn">01</span><h2>왜 한국에서 보험사 BM이 어려운가 — 구조적 차이 진단</h2><div class="sr"></div></div>
+
+    <p class="t">미국에서 PatientsLikeMe가 UnitedHealth Group(미국 최대 건강보험사)에 인수된 것은, 미국 사보험 체계에서 환자 데이터가 보험 상품 설계·언더라이팅·비용 관리에 직접적 가치를 가지기 때문입니다. 한국은 이 구조가 근본적으로 다릅니다.</p>
+
+    <table class="dt">
+      <thead><tr><th style="width:120px">차원</th><th>미국 (사보험 중심)</th><th>한국 (국민건강보험 중심)</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">의료비 보장 구조</td><td>사보험이 주 보장. 보험사가 치료비 직접 지불 → 비용 관리 인센티브 극대</td><td>국민건강보험이 주 보장(보장률 약 65%). 사보험은 '보충적' 역할 (실손·암보험)</td></tr>
+        <tr><td class="lc">보험사의 환자 데이터 니즈</td><td style="color:var(--green);font-weight:700;">극대 — 개인별 위험도 산정, 네트워크 관리, 비용 예측이 수익에 직결</td><td style="color:var(--red);">제한적 — 국민건강보험이 커버하므로 사보험사의 데이터 활용 범위 좁음</td></tr>
+        <tr><td class="lc">암 환자 관련 보험</td><td>사보험 보장 범위에 따라 치료 접근성 결정 → 환자 데이터 = 보험 가격 결정의 핵심</td><td>암환자 국민건강보험 보장률 높음(약 80%). 사보험 암보험 = 진단금 일시 지급 중심</td></tr>
+        <tr><td class="lc">데이터 기반 상품 설계</td><td>실시간 건강 데이터 → 보험료 동적 조정 (Vitality 모델)</td><td>건강증진형 보험 가이드라인 존재하나, 의료법 규제로 헬스케어 서비스 연계에 한계</td></tr>
+      </tbody>
+    </table>
+
+    <div class="bx bx-red">
+      <div class="bl">솔직한 진단</div>
+      <strong>한국에서 미국식 '환자 데이터 → 보험 상품 설계' BM은 구조적으로 작동하기 어렵습니다.</strong> 국민건강보험이 주 보장을 담당하므로, 사보험사가 개인 건강 데이터에 기반한 위험도 산정·보험료 차등화에 투자할 경제적 인센티브가 미국만큼 크지 않습니다. 이것이 현실입니다.
+    </div>
+
+    <div class="sb"><span class="sn">02</span><h2>그러나 — IFRS17이 모든 것을 바꾸고 있다</h2><div class="sr"></div></div>
+
+    <p class="t">2023년 IFRS17(국제보험회계기준) 도입은 한국 보험 산업의 게임 체인저입니다. 이 변화가 온코케어와 보험사 사이에 새로운 BM 접점을 만들어줍니다.</p>
+
+    <div class="gc">
+      <div class="ic gd">
+        <div class="ct">IFRS17 핵심 변화</div>
+        <h4>CSM(계약서비스마진)이 핵심 지표가 되었다</h4>
+        <p>미래 예상 이익을 부채로 인식 후 보험 기간에 걸쳐 상각. CSM이 높은 보장성보험(암보험·건강보험)이 보험사 가치 평가의 핵심. 삼성생명 CSM 12.2조원, 한화생명 9.2조원, 교보생명 6.2조원.</p>
+      </div>
+      <div class="ic gd">
+        <div class="ct">보험사의 전략 전환</div>
+        <h4>암보험·건강보험에 사활을 건다</h4>
+        <p>보장성보험 비중 2020년 56% → 2024년 69%로 급등. 삼성생명 건강보험 신계약 CSM 비중 78%까지 확대. 암보험은 CSM이 가장 높은 상품군 중 하나.</p>
+      </div>
+    </div>
+
+    <div class="bx bx-green">
+      <div class="bl">전환점 — 보험사가 절실히 필요로 하는 것</div>
+      IFRS17 하에서 보험사의 핵심 과제는 세 가지입니다: <strong>①손해율 관리</strong> (보험금 지급 예측 정확도), <strong>②유지율 개선</strong> (25회차 유지율 60%대, 글로벌 최하위), <strong>③데이터 기반 언더라이팅 고도화</strong>. 온코케어의 암 환자 데이터는 이 세 가지 과제 모두에 직접적 가치를 제공할 수 있습니다.
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 보험사 데이터 BM · 한국 시장 현실적 파트너십 · CONFIDENTIAL</span><span>1 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 2 — 5가지 현실적 BM 모델 ═══ -->
+<div class="page">
+  <div class="pb" style="padding-top:38px;">
+    <div class="sb"><span class="sn">03</span><h2>한국 보험사와 온코케어의 5가지 현실적 BM 모델</h2><div class="sr"></div></div>
+
+    <p class="t">미국식 모델이 아닌, <strong>한국 보험 시장의 구조와 규제 환경에 맞는</strong> 5가지 파트너십 모델을 제시합니다. 각 모델은 보험사의 실제 pain point에 대응합니다.</p>
+
+    <!-- BM 1 -->
+    <div class="bx bx-navy">
+      <div class="bl">BM ① · 즉시 가능 · 보험사 Pain: 손해율 관리</div>
+      <strong style="font-size:12px;">암보험 손해율 예측 모델링 데이터 공급</strong>
+      <p class="t" style="margin:6px 0 0;color:rgba(255,255,255,.85);">
+        <strong>보험사의 문제:</strong> 암보험 손해율 예측이 부정확합니다. 암 환자의 실제 치료 비용 패턴, 재발률, 합병증 발생률에 대한 세분화된 데이터가 부족합니다. 특히 고연령층 암보험 손해율 상승이 CSM을 갉아먹고 있습니다.<br>
+        <strong>온코케어가 제공하는 가치:</strong> 암종별·병기별·치료 레지멘별로 구조화된 환자 경험 데이터. "유방암 2기, HER2 양성, 표적치료 시행 환자가 진단 후 1~5년 사이에 실제로 어떤 의료 서비스를 이용하는가" — 이 수준의 세분화된 패턴 데이터가 손해율 예측 정확도를 높입니다.<br>
+        <strong>수익 모델:</strong> 비식별 통계 데이터 연간 라이선싱. 암종별 보고서 + 분기 업데이트.
+      </p>
+    </div>
+
+    <!-- BM 2 -->
+    <div class="bx bx-purple">
+      <div class="bl">BM ② · 즉시 가능 · 보험사 Pain: 유지율 개선</div>
+      <strong style="font-size:12px;">암 진단 후 고객 관리 서비스 — 보험사의 '유지율 엔진'</strong>
+      <p class="t" style="margin:6px 0 0;">
+        <strong>보험사의 문제:</strong> 한국 보험 유지율은 25회차 기준 60%대로 글로벌 최하위(싱가포르 96%, 일본 89%). 암 진단 후 보험금을 받고 해지하는 고객이 많습니다. IFRS17 하에서 해지는 CSM 감소로 직결됩니다.<br>
+        <strong>온코케어가 제공하는 가치:</strong> 암 진단 고객에게 온코케어 커뮤니티 접근권을 보험사 혜택으로 제공. 검사 결과 해석, 동료 환자 경험 공유, 최신 치료 정보 — 이 서비스가 보험사 고객의 '보험 유지 이유'를 만듭니다. 보험사 입장에서 온코케어는 해지 방지 서비스.<br>
+        <strong>수익 모델:</strong> 보험사가 온코케어에 회원당 월정 서비스 수수료 지급. 보험사는 유지율 개선으로 CSM을 지키고, 온코케어는 안정적 B2B 매출 확보.
+      </p>
+    </div>
+
+    <!-- BM 3 -->
+    <div class="bx bx-teal">
+      <div class="bl">BM ③ · 단기 가능 · 보험사 Pain: 건강증진형 상품 개발</div>
+      <strong style="font-size:12px;">암 생존자 건강관리 프로그램 — 건강증진형 보험 연계</strong>
+      <p class="t" style="margin:6px 0 0;">
+        <strong>보험사의 문제:</strong> 금융위원회 가이드라인에 따라 건강증진형 보험상품 개발이 허용되었으나, 의료법 규제로 비의료 건강관리 서비스와 의료행위의 경계가 불명확하여 실질적 상품 개발이 더딥니다. 특히 암 생존자 대상 건강관리 프로그램은 전무합니다.<br>
+        <strong>온코케어가 제공하는 가치:</strong> 암 생존자의 건강 관리 활동(커뮤니티 참여, 정기 체크인, AI 건강 모니터링)을 데이터로 추적 → 보험사가 이 데이터를 기반으로 '암 생존자 건강증진형 보험'을 설계. 건강관리 활동 수행 시 보험료 할인 또는 보너스 제공.<br>
+        <strong>수익 모델:</strong> 온코케어가 건강관리 프로그램 운영 + 데이터 공급. 보험사가 플랫폼 이용료 + 데이터 라이선싱 비용 지급.
+      </p>
+    </div>
+
+    <!-- BM 4 -->
+    <div class="bx bx-cream">
+      <div class="bl">BM ④ · 중기 · 보험사 Pain: 유병자 보험 시장 확대</div>
+      <strong style="font-size:12px;">암 유병자·생존자 특화 보험 상품 설계 데이터</strong>
+      <p class="t" style="margin:6px 0 0;">
+        <strong>보험사의 문제:</strong> 암 생존율 향상(5년 생존율 72%+)으로 유병자 보험 시장이 확대되고 있으나, 암 유병자의 실제 재발률·합병증·의료비 패턴에 대한 데이터가 부족하여 보험료 산정이 보수적(=비싸게) → 가입률 저조.<br>
+        <strong>온코케어가 제공하는 가치:</strong> 수천~수만 명 암 생존자의 실제 건강 궤적 데이터. "유방암 완치 후 5년 이내 재발률이 실제로 얼마인가, 어떤 조건의 환자가 더 안전한가" — 이 데이터가 보험사의 유병자 보험 언더라이팅을 정교하게 만들어 합리적 보험료 산정 가능.<br>
+        <strong>수익 모델:</strong> 프로젝트 단위 데이터 분석 계약 + 상품 출시 후 로열티.
+      </p>
+    </div>
+
+    <!-- BM 5 -->
+    <div class="bx bx-gold">
+      <div class="bl">BM ⑤ · 중장기 · 보험사 Pain: 디지털 헬스케어 생태계 구축</div>
+      <strong style="font-size:12px;">보험사 헬스케어 플랫폼의 암 특화 모듈</strong>
+      <p class="t" style="margin:6px 0 0;">
+        <strong>보험사의 문제:</strong> 삼성생명 '더헬스', 교보생명 '라플365플래닛' 등 자체 헬스케어 플랫폼을 운영하지만, 암 환자 특화 콘텐츠·서비스는 부재. 수면 분석, 걸음 수 등 일반 웰니스에 머물러 있어 실질적 차별화 부족.<br>
+        <strong>온코케어가 제공하는 가치:</strong> 온코케어의 암 전문 AI 에이전트(검사 결과 해석, 최신 치료 정보, 커뮤니티)를 보험사 헬스케어 플랫폼에 모듈로 탑재. 보험사는 즉시 '암 환자 전문 건강관리 서비스'를 보유하게 됨.<br>
+        <strong>수익 모델:</strong> 화이트라벨 SaaS. 보험사 플랫폼에 온코케어 엔진 탑재 → 월정 라이선스 + 이용자 수 기반 종량제.
+      </p>
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 보험사 데이터 BM · 한국 시장 현실적 파트너십 · CONFIDENTIAL</span><span>2 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 3 — BM 모델별 상세 + 수익 시뮬레이션 ═══ -->
+<div class="page">
+  <div class="pb" style="padding-top:38px;">
+    <div class="sb"><span class="sn">04</span><h2>보험사별 전략적 접근 — 누구에게, 무엇을 먼저 제안하는가</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:90px">보험사</th><th style="width:130px">현재 전략</th><th>온코케어 제안 포인트</th><th style="width:90px">우선 BM</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">삼성생명</td><td>건강보험 CSM 비중 78%. '더헬스' 플랫폼. 시니어Biz팀 신설. 데이터 기반 언더라이팅 선도.</td><td style="color:var(--purple);font-weight:500;">'더헬스' 내 암 전문 모듈 탑재(BM⑤) + 암보험 손해율 데이터(BM①). 이미 헬스케어 데이터 기반 전략을 추진 중이므로 온코케어와 가장 자연스러운 파트너.</td><td>⑤ → ① → ②</td></tr>
+        <tr><td class="lc">교보생명</td><td>전속 설계사 중심. '라플365플래닛' 건강관리. 보유 CSM 6.4조원. GA 미활용.</td><td style="color:var(--purple);font-weight:500;">암 진단 고객 유지율 프로그램(BM②). 전속 설계사가 암 진단 고객에게 온코케어 커뮤니티를 안내하는 구조. 설계사-고객 관계 강화에 기여.</td><td>② → ③ → ④</td></tr>
+        <tr><td class="lc">한화생명</td><td>CSM 효율 악화 우려. 유병자·고령층 맞춤 상품 확대. 간편심사 보험 강화.</td><td style="color:var(--purple);font-weight:500;">유병자 보험 언더라이팅 데이터(BM④). 암 생존자 재발률·건강 궤적 데이터로 유병자 암보험 가격 경쟁력 확보.</td><td>④ → ① → ③</td></tr>
+        <tr><td class="lc">신한라이프</td><td>보장성 APE 97%. CSM 7.2조원(빅3 위협). 시니어케어 자회사 설립.</td><td style="color:var(--purple);font-weight:500;">시니어케어 + 온코케어 연계(BM③). 암 생존자 건강증진형 보험 공동 개발로 시니어 특화 차별화.</td><td>③ → ② → ⑤</td></tr>
+        <tr><td class="lc">손보사<br>(삼성화재 등)</td><td>실손보험 손해율 관리가 최대 과제. 암 환자 면역증강제 비급여 과잉청구 문제.</td><td style="color:var(--purple);font-weight:500;">암 환자 비급여 지출 패턴 데이터(BM①). 과잉청구 감지 모델 + 적정 치료비 벤치마크 데이터 제공.</td><td>① → ④</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sb"><span class="sn">05</span><h2>BM② 상세 설계 — 가장 빠르게 실행 가능한 모델</h2><div class="sr"></div></div>
+
+    <p class="t">5가지 BM 중 <strong>BM② (암 진단 후 고객 관리 서비스)</strong>가 가장 빠르게 실행 가능하고, 보험사의 즉각적 pain point(유지율)에 대응하며, 온코케어의 현재 역량으로 제공할 수 있는 모델입니다.</p>
+
+    <div class="arrow-flow">
+      <div class="af-step">보험사 고객<br>암 진단</div>
+      <div class="af-arrow">→</div>
+      <div class="af-step">보험금 지급<br>+ 온코케어 안내</div>
+      <div class="af-arrow">→</div>
+      <div class="af-step hl">온코케어<br>커뮤니티 접근</div>
+      <div class="af-arrow">→</div>
+      <div class="af-step">검사해석·정보<br>·동료환자 연결</div>
+      <div class="af-arrow">→</div>
+      <div class="af-step">보험 유지<br>+ 추가 가입</div>
+    </div>
+
+    <div class="gc">
+      <div class="ic">
+        <div class="ct">보험사 측 가치</div>
+        <h4>CSM 방어 + 교차판매 기회</h4>
+        <p>① 암 진단 후 해지율 감소 → CSM 유지<br>② 커뮤니티 참여 고객의 보험 유지율 데이터 확보<br>③ 가족 보험, 재가입 등 교차판매 접점<br>④ '암 환자 케어 보험사' 브랜드 차별화</p>
+      </div>
+      <div class="ic">
+        <div class="ct">온코케어 측 가치</div>
+        <h4>안정적 B2B 매출 + 유저 유입</h4>
+        <p>① 보험사 채널을 통한 암 환자 자동 유입<br>② 회원당 월정 서비스 수수료 = 예측 가능한 매출<br>③ 보험사 브랜드가 온코케어 신뢰도 보증<br>④ 규모 확보 → PRO 데이터 가치 상승</p>
+      </div>
+    </div>
+
+    <div class="sb"><span class="sn">06</span><h2>수익 시뮬레이션</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:70px">BM</th><th style="width:120px">수익 구조</th><th style="width:80px">단가</th><th style="width:70px">규모 가정</th><th style="width:75px">연간 수익</th><th>실현 시점</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">①손해율</td><td>연간 데이터 라이선싱</td><td>2~5억/사</td><td>3~5개 사</td><td style="color:var(--purple);font-weight:700;">6~25억</td><td>2027~</td></tr>
+        <tr><td class="lc" style="color:var(--purple);">②유지율</td><td>회원당 월정 수수료</td><td>월 3~5만/명</td><td>5,000~20,000명</td><td style="color:var(--purple);font-weight:700;">18~120억</td><td>2027~</td></tr>
+        <tr><td class="lc">③건강증진</td><td>프로그램 운영 + 데이터</td><td>5~10억/프로젝트</td><td>1~2건</td><td style="color:var(--purple);font-weight:700;">5~20억</td><td>2028~</td></tr>
+        <tr><td class="lc">④유병자</td><td>프로젝트 + 로열티</td><td>3~8억/프로젝트</td><td>2~3건</td><td style="color:var(--purple);font-weight:700;">6~24억</td><td>2028~</td></tr>
+        <tr><td class="lc">⑤플랫폼</td><td>화이트라벨 SaaS</td><td>월 1~3억/사</td><td>2~3개 사</td><td style="color:var(--purple);font-weight:700;">24~108억</td><td>2029~</td></tr>
+      </tbody>
+    </table>
+
+    <div class="bx bx-navy">
+      <div class="bl">총 수익 전망</div>
+      <strong>2027~2028년(초기):</strong> BM①+②+③ 중심 → 연 29~165억원<br>
+      <strong>2029년~(성숙기):</strong> 전 BM 가동 → 연 59~297억원<br>
+      <em style="opacity:.7;font-size:10px;">BM②(유지율 엔진)가 단독으로도 연 18~120억원 규모로, 가장 빠르고 확실한 매출원입니다.</em>
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 보험사 데이터 BM · 한국 시장 현실적 파트너십 · CONFIDENTIAL</span><span>3 / 4</span></div>
+</div>
+
+<!-- ═══ PAGE 4 — 실행 전략 + 결론 ═══ -->
+<div class="page">
+  <div class="pb" style="padding-top:38px;">
+    <div class="sb"><span class="sn">07</span><h2>왜 보험사가 온코케어에 비용을 지불하는가 — IFRS17 경제학</h2><div class="sr"></div></div>
+
+    <p class="t">보험사가 온코케어에 투자하는 것이 합리적인 이유를 IFRS17 경제학으로 증명합니다.</p>
+
+    <div class="gc">
+      <div class="ic nv">
+        <div class="ct">시나리오 — 삼성생명 암보험 기준</div>
+        <h4>유지율 1%p 개선의 CSM 효과</h4>
+        <p>삼성생명 보유 CSM 12.2조원. 건강보험 비중 78% → 암보험 CSM 약 3~4조원 추정. 해지율 1%p 감소 시 CSM 유지 효과 약 300~400억원. 온코케어 연간 비용 10~30억원 대비 10배+ ROI.</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">보험사 CFO의 관점</div>
+        <h4>온코케어 = CSM 방어 비용</h4>
+        <p>IFRS17 하에서 CSM 감소는 주가에 직접 영향. 보험사 입장에서 온코케어 서비스 비용은 '마케팅 비용'이 아니라 <strong>'CSM 방어를 위한 리스크 관리 비용'</strong>으로 정당화됩니다.</p>
+      </div>
+    </div>
+
+    <div class="sb"><span class="sn">08</span><h2>규제 리스크 관리 — 의료법·개인정보보호법 대응</h2><div class="sr"></div></div>
+
+    <table class="dt">
+      <thead><tr><th style="width:120px">규제 이슈</th><th>리스크</th><th style="width:170px">온코케어 대응</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">의료법 — 비의료 건강관리 경계</td><td>보험사 헬스케어 서비스가 '의료행위'로 해석될 경우 위법</td><td style="color:var(--teal);">온코케어 서비스 = '정보 제공 + 커뮤니티 연결'로 명확히 구분. 의료 행위는 의료진 레이어에서만 수행. 금융위 가이드라인 준수 설계.</td></tr>
+        <tr><td class="lc">개인정보보호법 — 건강정보 민감성</td><td>암 환자 데이터 = 민감정보. 보험사 공유 시 동의 절차 엄격</td><td style="color:var(--teal);">보험사에는 비식별 통계 데이터만 제공. 개인 수준 데이터는 환자 동의 + 가명처리 후에만. 보험사에 원본 데이터 직접 이전 없음.</td></tr>
+        <tr><td class="lc">보험업법 — 부당 차별 금지</td><td>건강 데이터 기반 보험료 차등이 '부당 차별'로 해석될 리스크</td><td style="color:var(--teal);">차별이 아닌 '할인' 방향으로 설계. 건강관리 활동 수행 시 혜택 제공 = 긍정적 인센티브. 금감원 건강증진형 보험 가이드라인 범위 내 운영.</td></tr>
+        <tr><td class="lc">마이데이터 — 전송요구권</td><td>환자가 건강 데이터 이동을 직접 통제</td><td style="color:var(--teal);">온코케어가 '마이데이터 수신자'로 등록. 환자가 자발적으로 건강보험공단·병원 데이터를 온코케어로 이관 → 보험사에는 통계만 제공.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sb"><span class="sn">09</span><h2>실행 로드맵</h2><div class="sr"></div></div>
+
+    <div class="gc3">
+      <div class="ic">
+        <div class="ct">Phase 1 · 2026~2027</div>
+        <h4>파일럿 파트너십 1곳</h4>
+        <p>① 보험사 1곳과 BM② 파일럿<br>② 암 진단 고객 500~1,000명 대상<br>③ 유지율·만족도·커뮤니티 참여율 측정<br>④ 결과 기반 본계약 협상</p>
+      </div>
+      <div class="ic pp">
+        <div class="ct">Phase 2 · 2027~2028</div>
+        <h4>확장 + 데이터 BM 추가</h4>
+        <p>① BM② 2~3개 보험사 확대<br>② BM① 손해율 데이터 라이선싱 시작<br>③ BM③ 건강증진형 보험 공동 개발<br>④ PHR 연동으로 데이터 신뢰도 상승</p>
+      </div>
+      <div class="ic nv">
+        <div class="ct">Phase 3 · 2029~</div>
+        <h4>플랫폼 BM 가동</h4>
+        <p>① BM⑤ 화이트라벨 SaaS 출시<br>② BM④ 유병자 보험 데이터 프로젝트<br>③ 보험사 3~5곳 포트폴리오 구축<br>④ 연 59~297억원 수익 구간 진입</p>
+      </div>
+    </div>
+
+    <div class="sb"><span class="sn">10</span><h2>결론</h2><div class="sr"></div></div>
+
+    <div class="bx bx-navy">
+      <div class="bl">Bottom Line</div>
+      <strong>한국의 국민건강보험 체계에서 미국식 보험사 데이터 BM은 작동하지 않습니다. 그러나 IFRS17이 만든 새로운 게임의 룰 — CSM 중심 경영, 손해율 관리, 유지율 개선 — 이 온코케어와 보험사 사이에 전혀 다른 종류의 BM 접점을 만들어주고 있습니다.</strong><br><br>
+      핵심은 '데이터를 파는 것'이 아니라 <strong>'보험사의 CSM을 지키는 서비스를 파는 것'</strong>입니다. 온코케어 커뮤니티가 보험사 고객의 해지를 방지하고, 건강 관리를 지원하고, 보험 상품 설계를 정교하게 만드는 — 이 모든 것이 보험사의 IFRS17 시대 생존 전략과 정확히 맞물립니다.<br><br>
+      <em style="opacity:.8;">BM②(유지율 엔진)로 시작하여, 데이터 라이선싱(BM①), 건강증진형 보험(BM③), 유병자 보험(BM④), 플랫폼 SaaS(BM⑤)로 확장하는 것이 한국 시장에 최적화된 현실적 경로입니다.</em>
+    </div>
+
+    <div style="margin-top:8px;padding:8px 14px;background:var(--cream);border-radius:8px;font-size:8px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--ink);">출처:</strong> 보험연구원 2025 KIRI 세미나·CEO Report, 삼성생명 KIS 신용평가 보고서(2025.11), IFRS17 보험산업 분석(다자비 2026.3.22, 투데이신문 2025.5.25), 비즈한국 보험산업 심층분석, 보험연구원 '보험회사 헬스케어 사업 활성화를 위한 의료법 규제 개선 방안'(2025), 금융위원회 건강증진형 보험상품 가이드라인, 보험소비자 행태조사 2024, IMARC Group 한국 보험분석 시장 보고서
+    </div>
+  </div>
+  <div class="pf"><span>OncoCare · 보험사 데이터 BM · 한국 시장 현실적 파트너십 · CONFIDENTIAL</span><span>4 / 4</span></div>
+</div>
+
+</body>
+</html>

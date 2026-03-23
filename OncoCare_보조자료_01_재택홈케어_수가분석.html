@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoCare 보조자료 #1 — 재택·홈케어 건강보험 수가 분석</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral: #E8524A;
+    --coral-light: #F4857E;
+    --pink: #F9B4AE;
+    --pink-pale: #FDE8E4;
+    --cream: #FFF8F0;
+    --peach: #FFE8D6;
+    --gold: #E8A838;
+    --navy: #1A2744;
+    --slate: #3D4F6F;
+    --ink: #1E1E2A;
+    --body: #3A3A4A;
+    --muted: #7A7A8E;
+    --rule: #E4D9D0;
+    --paper: #FEFCFA;
+    --grad-start: #F9B4AE;
+    --grad-mid: #E8524A;
+    --grad-end: #C73B5D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #F0EBE5;
+    color: var(--body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--paper);
+    margin: 20px auto;
+    padding: 0;
+    box-shadow: 0 4px 30px rgba(0,0,0,.08);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ─── COVER ─── */
+  .cover-header {
+    background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-mid) 50%, var(--grad-end) 100%);
+    padding: 50px 50px 40px;
+    color: #fff;
+    position: relative;
+  }
+  .cover-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 30px;
+    background: var(--paper);
+    border-radius: 30px 30px 0 0;
+  }
+  .cover-header .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: 16px;
+  }
+  .cover-header h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .cover-header .subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    opacity: .85;
+    line-height: 1.6;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .cover-meta-item {
+    background: rgba(255,255,255,.15);
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 11px;
+  }
+  .cover-meta-item .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-bottom: 3px;
+  }
+
+  /* ─── BODY ─── */
+  .page-body {
+    padding: 20px 50px 50px;
+  }
+
+  .section-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    margin-bottom: 16px;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: var(--coral);
+    background: var(--pink-pale);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .section-bar h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  p.body-text {
+    font-size: 12.5px;
+    color: var(--body);
+    line-height: 1.85;
+    margin-bottom: 14px;
+  }
+
+  /* ─── CALLOUT ─── */
+  .callout-coral {
+    background: linear-gradient(135deg, var(--coral) 0%, var(--grad-end) 100%);
+    color: #fff;
+    padding: 18px 22px;
+    border-radius: 12px;
+    margin: 16px 0;
+    font-size: 12.5px;
+    line-height: 1.75;
+  }
+  .callout-coral .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .55;
+    margin-bottom: 6px;
+  }
+  .callout-coral strong { font-weight: 700; }
+
+  .callout-cream {
+    background: var(--cream);
+    border: 1px solid var(--pink);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .callout-cream .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 6px;
+  }
+
+  /* ─── TABLE ─── */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin: 14px 0;
+  }
+  table.data-table thead th {
+    background: var(--pink-pale);
+    color: var(--ink);
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 10.5px;
+    border-bottom: 2px solid var(--coral-light);
+  }
+  table.data-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.65;
+  }
+  table.data-table tbody td.label-col {
+    font-weight: 700;
+    color: var(--ink);
+    width: 140px;
+    font-size: 11px;
+  }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr:hover { background: var(--cream); }
+
+  /* ─── CARD GRID ─── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .info-card {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 18px 20px;
+    background: var(--paper);
+  }
+  .info-card.highlight {
+    border-color: var(--coral-light);
+    background: var(--pink-pale);
+  }
+  .info-card .card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 6px;
+  }
+  .info-card h4 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .info-card p {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline-row {
+    display: flex;
+    gap: 16px;
+    margin: 14px 0;
+  }
+  .timeline-item {
+    flex: 1;
+    border-left: 3px solid var(--coral);
+    padding: 10px 14px;
+    background: var(--cream);
+    border-radius: 0 10px 10px 0;
+  }
+  .timeline-item .tl-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--coral);
+    letter-spacing: .08em;
+    margin-bottom: 4px;
+  }
+  .timeline-item h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .timeline-item p {
+    font-size: 10.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── BM LINK ─── */
+  .bm-link-box {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 18px 0;
+  }
+  .bm-link-box .bm-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 8px;
+  }
+  .bm-link-box h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .bm-link-box p {
+    font-size: 12px;
+    line-height: 1.75;
+    opacity: .8;
+  }
+  .bm-link-box .bm-flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .bm-link-box .flow-step {
+    font-size: 10px;
+    padding: 5px 12px;
+    background: rgba(255,255,255,.1);
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .bm-link-box .flow-arrow {
+    color: var(--pink);
+    font-size: 12px;
+  }
+
+  /* ─── PAGE FOOTER ─── */
+  .page-footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 50px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .08em;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ─── SOURCE TAG ─── */
+  .source-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     PAGE 1 — COVER + 정책 환경 개관
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="cover-header">
+    <div class="badge">OncoCare · Supplementary Document #1</div>
+    <h1>재택·홈케어<br>건강보험 수가 분석</h1>
+    <p class="subtitle">현행 수가 체계 · 시범사업 현황 · 온코케어 BM 연계 기회</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="label">Prepared for</div>
+        AITRICS OncoCare 사업제안서
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Date</div>
+        2026.03
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Classification</div>
+        Confidential
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-bar">
+      <span class="section-num">01</span>
+      <h2>정책 환경 개관 — 세 가지 수가 흐름이 동시에 열린다</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">2026년은 재택·홈케어 분야에서 건강보험 수가 구조가 근본적으로 재편되는 원년입니다. 세 가지 정책 흐름이 동시에 수렴하면서, 병원 밖 환자 관리에 대한 제도적 보상 기반이 처음으로 갖춰지고 있습니다.</p>
+
+    <div class="card-grid">
+      <div class="info-card highlight">
+        <div class="card-tag">정책 흐름 ①</div>
+        <h4>원격 모니터링 수가 확대</h4>
+        <p>원격 심박기술 감시(EX871) 수가가 웨어러블 디바이스에 적용되면서, RPM(원격 환자 모니터링)의 수익화가 검증됨. 2025년 국내 의료 AI 기업 최초 연간 흑자 달성.</p>
+      </div>
+      <div class="info-card highlight">
+        <div class="card-tag">정책 흐름 ②</div>
+        <h4>한국형 주치의제 통합수가 도입</h4>
+        <p>2026년 7월부터 '지역사회 일차의료 혁신 시범사업' 개시. 환자 등록 기반 정액관리료(연 8.8만~26.4만원)가 최초 도입되며, 재택진료까지 포괄.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">정책 흐름 ③</div>
+        <h4>통합돌봄지원법 전면 시행</h4>
+        <p>2026년 3월 27일부터 전국 229개 시·군·구에서 시행. AI·IoT 안전·건강 확인 서비스가 법률에 명시적으로 포함되어 디지털 헬스케어의 제도적 근거가 마련됨.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">정책 흐름 ④</div>
+        <h4>일차의료 방문진료 수가 시범사업</h4>
+        <p>장기요양 재택의료센터 3차 사업이 전국 195개 시·군·구로 확대. 의원-보건소 협업형 모델 신규 도입. 방문진료료 + 재택의료기본료 이중 수가 구조.</p>
+      </div>
+    </div>
+
+    <div class="callout-coral">
+      <div class="callout-label">Core Insight</div>
+      <strong>핵심은 '수가의 전환'입니다.</strong> 기존의 행위별 수가(내원할 때마다 과금)에서, 환자를 등록·관리하는 행위 자체를 보상하는 통합수가·정액관리료 구조로 전환이 시작되었습니다. 이는 AI 기반 원격 모니터링·커뮤니티 관리 플랫폼에 구조적으로 유리한 방향입니다.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 재택·홈케어 건강보험 수가 분석 · CONFIDENTIAL</span>
+    <span>1 / 4</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 2 — 현행 수가 상세 분석
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+
+    <div class="section-bar">
+      <span class="section-num">02</span>
+      <h2>현행 수가 상세 분석 — 이미 적용 중인 수가 코드</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:150px">수가 코드/항목</th>
+          <th>내용</th>
+          <th style="width:100px">적용 현황</th>
+          <th style="width:130px">온코케어 연계 가능성</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">EX871<br><span class="source-tag">원격 심박기술 감시</span></td>
+          <td>부정맥 고위험 환자 대상 웨어러블 기반 실시간 심전도 모니터링. 입원·외래 중 이동 상황에서도 적용 가능. 침상감시(E6544)의 확장형.</td>
+          <td>요양급여<br>적용 중</td>
+          <td style="color:var(--coral); font-weight:700;">★★★★★<br>즉시 연계 가능</td>
+        </tr>
+        <tr>
+          <td class="label-col">E6544<br><span class="source-tag">심전도 침상감시</span></td>
+          <td>침대에 누워있는 환자 대상 심전도 실시간 감시. 2020년부터 웨어러블 기기에 최초 적용.</td>
+          <td>요양급여<br>적용 중</td>
+          <td>★★★☆☆<br>병동 내 한정</td>
+        </tr>
+        <tr>
+          <td class="label-col">방문진료료<br><span class="source-tag">일차의료 방문진료 수가</span></td>
+          <td>의사가 환자 가정을 방문하여 진료 시 청구. 일차의료 방문진료 수가 시범사업 참여 기관 대상.</td>
+          <td>시범사업<br>운영 중</td>
+          <td>★★★★☆<br>커뮤니티 연계 가능</td>
+        </tr>
+        <tr>
+          <td class="label-col">재택의료기본료<br><span class="source-tag">장기요양 재택의료센터</span></td>
+          <td>재택의료센터가 장기요양 수급자에게 포괄적 사례관리를 제공할 때 청구. 보건소에 지급.</td>
+          <td>3차 사업<br>195개 지역 확대</td>
+          <td>★★★☆☆<br>장기요양 대상 한정</td>
+        </tr>
+        <tr>
+          <td class="label-col">협업 인센티브<br><span class="source-tag">의원-보건소 협업형</span></td>
+          <td>의원이 방문진료 외 추가 사례관리 수행 시 수급자당 월 2만원 지급. 2025년 신설.</td>
+          <td>신설<br>공모 진행 중</td>
+          <td>★★☆☆☆<br>간접 연계</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-bar" style="margin-top:30px;">
+      <span class="section-num">03</span>
+      <h2>신규 도입 예정 수가 — 2026~2028년 시범사업</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:150px">수가 항목</th>
+          <th>내용</th>
+          <th style="width:90px">시행 시기</th>
+          <th style="width:130px">온코케어 연계 가능성</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">일차의료 기능강화<br>통합수가<br><span class="source-tag">한국형 주치의제</span></td>
+          <td>환자 등록 기반 정액관리료. 건강위험도별 차등: 1군 연 8.8만원 → 4군(재택진료 중심) 연 26.4만원. 매월 초 사전 지급. 환자 본인부담률 20%.</td>
+          <td>2026.07~<br>2028</td>
+          <td style="color:var(--coral); font-weight:700;">★★★★★<br>핵심 BM 연계</td>
+        </tr>
+        <tr>
+          <td class="label-col">성과평가 인센티브<br><span class="source-tag">주치의제 성과보상</span></td>
+          <td>운영지원 보상액의 최대 20% 범위 내 성과 기반 추가 수가. AI 기반 관리 품질 개선 시 직접 수익 연결 가능.</td>
+          <td>2026.07~</td>
+          <td style="color:var(--coral); font-weight:700;">★★★★★<br>AI 성과 연동 가능</td>
+        </tr>
+        <tr>
+          <td class="label-col">다직종·다학제팀<br>운영지원 보상<br><span class="source-tag">주치의제</span></td>
+          <td>거점 지원기관 1.5억원, 단독 참여기관 1,500만원 사전 지급. 간호사·사회복지사 등 다학제팀 운영 비용.</td>
+          <td>2026.07~</td>
+          <td>★★★☆☆<br>플랫폼 운영비 보전</td>
+        </tr>
+        <tr>
+          <td class="label-col">통합돌봄 서비스 예산<br><span class="source-tag">돌봄통합지원법</span></td>
+          <td>2026년 통합돌봄 예산 914억원 편성(전년 대비 10배 이상 증액). AI·IoT 안전·건강 확인 서비스 포함.</td>
+          <td>2026.03.27~</td>
+          <td>★★★★☆<br>B2G 직접 진입 가능</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-cream">
+      <div class="callout-label">Data Point</div>
+      <p class="body-text" style="margin:0;"><strong>한국형 주치의제 수가 시뮬레이션:</strong> 의원 1곳당 등록환자 최대 1,000명 기준, 연간 보상금액 약 1억 8,000만원 예상. 복지부는 환자군을 4개 군으로 분류하며, 암환자·복합만성질환 환자는 3~4군(집중관리/전문관리)에 해당하여 가장 높은 정액관리료 적용 대상.</p>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 재택·홈케어 건강보험 수가 분석 · CONFIDENTIAL</span>
+    <span>2 / 4</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 3 — 시장 검증 + 미래 수가
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+
+    <div class="section-bar">
+      <span class="section-num">04</span>
+      <h2>시장 검증 — RPM 수가 기반 수익화는 이미 증명되었다</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">원격 환자 모니터링(RPM) 시장은 이론이 아닙니다. 국내에서 이미 수가 기반 수익화에 성공한 기업들이 시장을 증명하고 있습니다.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:140px">지표</th>
+          <th>씨어스테크놀로지 '씽크' (국내 RPM 1위)</th>
+          <th>메쥬/동아ST '하이카디'</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">2025년 매출</td>
+          <td>481.7억원 (전년 대비 +495%)</td>
+          <td>비공개 (전국 350여개 의료기관 운영)</td>
+        </tr>
+        <tr>
+          <td class="label-col">영업이익</td>
+          <td>163.3억원 — 국내 의료 AI 최초 연간 흑자</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="label-col">누적 도입</td>
+          <td>128개 병원, 12,000+ 병상<br>(2026년 목표: 30,000 병상)</td>
+          <td>상급종합 47곳 중 25곳 이상 포함<br>350여개 의료기관</td>
+        </tr>
+        <tr>
+          <td class="label-col">수가 기반</td>
+          <td>EX871 + E6544 수가 기반 구독형 서비스</td>
+          <td>EX871 요양급여 인정 (2025.12)</td>
+        </tr>
+        <tr>
+          <td class="label-col">핵심 수익 구조</td>
+          <td>초기 설치 + 병상당 구독형 리커링 매출</td>
+          <td>웨어러블 패치 + 모니터링 서비스</td>
+        </tr>
+        <tr>
+          <td class="label-col">확장 방향</td>
+          <td>입원 → 외래 → 재택 통합 모니터링<br>UAE 등 글로벌 진출</td>
+          <td>다채널 심전도(M300)로 병원 전반 모니터링</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-bar" style="margin-top:28px;">
+      <span class="section-num">05</span>
+      <h2>미래 수가 전망 — 논의 중·준비 중인 수가</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">현재 확정된 수가 외에, 중장기적으로 온코케어 BM과 직접 연결될 수 있는 수가 신설·확대 논의가 진행되고 있습니다.</p>
+
+    <div class="timeline-row">
+      <div class="timeline-item">
+        <div class="tl-date">2026 ~ 2027</div>
+        <h5>재택 원격 모니터링 수가</h5>
+        <p>현재 EX871은 병원 내 적용. 휴이노 등 업계에서 '자택 관리 사용에 대한 보험수가 마련'을 과제로 제시. 미국·일본형 재택 RPM 수가 도입 논의 진행 중.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">2026.07 ~ 2029</div>
+        <h5>주치의제 확대 및 암환자 적용</h5>
+        <p>첫해 50세 이상 시작, 단계적 대상 확대 예정. 2029년부터 참여 지역 확대 계획. 암환자·복합질환 환자의 4군(전문관리) 분류 시 최고 수가 적용.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">2027 ~ 2028</div>
+        <h5>AI 분석 서비스 별도 수가</h5>
+        <p>2026년 상반기 '복지·돌봄 AI 혁신계획' 발표 예정. AI 기반 이상징후 감지·예측 알림에 대한 비급여/급여 전환 논의 기대.</p>
+      </div>
+    </div>
+
+    <div class="callout-cream">
+      <div class="callout-label">Key Trend</div>
+      <p class="body-text" style="margin:0;"><strong>수가 전환의 핵심 흐름:</strong> ① 병원 내부 모니터링 → 재택·외래 확장, ② 행위별 수가 → 등록 기반 정액수가, ③ 기기 중심 → AI 분석 서비스 중심. 이 세 가지 방향 모두 온코케어의 'AI 플랫폼 + 커뮤니티' 구조에 유리합니다.</p>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 재택·홈케어 건강보험 수가 분석 · CONFIDENTIAL</span>
+    <span>3 / 4</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 4 — 온코케어 BM 연계 전략
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+
+    <div class="section-bar">
+      <span class="section-num">06</span>
+      <h2>온코케어 BM 연계 전략 — 수가를 수익으로 전환하는 구조</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">기존 RPM 사업자들은 병원 내부 모니터링에 머물고 있으며, 퇴원 후 환자와의 지속적 접점을 유지하는 커뮤니티 레이어가 없습니다. 온코케어는 이 빈 공간을 채우면서 수가 기반 수익 구조를 완성합니다.</p>
+
+    <div class="bm-link-box">
+      <div class="bm-label">BM 1 · 최우선 수익 모델</div>
+      <h3>재택·홈케어 건강보험 수가 ↔ 온코케어 수익 흐름</h3>
+      <p>병원이 수가를 청구하고, AITRICS는 플랫폼 이용료를 수취하는 구조. 온코케어 커뮤니티가 퇴원 환자의 리텐션 엔진으로 기능하여, 기존 RPM 사업자에게 없는 유일한 레이어를 제공합니다.</p>
+      <div class="bm-flow">
+        <span class="flow-step">웨어러블 디바이스</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">생체신호 수집</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">MOCA AI 분석</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">이상징후 알림</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">병원 EX871 수가 청구</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step" style="background:var(--coral);">AITRICS 플랫폼 구독료</span>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-tag">수가 연계 ①</div>
+        <h4>주치의제 통합수가 × 온코케어</h4>
+        <p>암환자는 3~4군(집중관리/전문관리)에 해당. 연간 정액관리료 20.7~26.4만원 적용. 온코케어가 AI 기반 관리 도구를 제공하면, 참여 의원의 관리 효율이 극대화되어 성과평가 인센티브까지 연결.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">수가 연계 ②</div>
+        <h4>통합돌봄 AI·IoT 서비스 수탁</h4>
+        <p>돌봄통합지원법에 AI·IoT 안전·건강 확인 서비스가 명시. 온코케어의 AI 에이전트를 지자체 B2G 사업으로 공급 가능. 2026년 예산 914억원 중 디지털 서비스 예산 확보 기회.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">수가 연계 ③</div>
+        <h4>재택 RPM 수가 미래 선점</h4>
+        <p>현재 EX871은 병원 내 적용이지만, 재택 원격 모니터링 수가 신설 논의 진행 중. 온코케어 커뮤니티에서 축적된 PHR + 모니터링 데이터는 향후 재택 RPM 수가 확보 시 즉시 수익화 가능한 자산.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">수가 연계 ④</div>
+        <h4>닥터앤서 rehab 에이전트 연동</h4>
+        <p>닥터앤서 3.0의 c-rehab(대장암), g-rehab(위암) 에이전트가 온코케어 커뮤니티에 통합. 예후관리 AI 서비스의 수가 청구 근거 확보 시 직접 수익원으로 전환.</p>
+      </div>
+    </div>
+
+    <div class="callout-coral">
+      <div class="callout-label">Competitive Advantage</div>
+      <strong>온코케어만의 차별점:</strong> 기존 RPM 사업자(씨어스, 메쥬 등)는 병원 내 모니터링 시스템에 머물러 있습니다. 퇴원 후 환자와의 지속적 접점을 유지하는 <strong>커뮤니티 레이어</strong>가 없습니다. 온코케어는 커뮤니티를 통해 환자가 자발적으로 머무는 구조를 만들고, 그 위에 RPM·AI 분석·의료진 연결을 올리는 <strong>유일한 통합 플랫폼</strong>입니다.
+    </div>
+
+    <div style="margin-top:16px; padding:14px 18px; background:var(--cream); border-radius:10px; font-size:10.5px; color:var(--muted); line-height:1.7;">
+      <strong style="color:var(--ink);">출처 및 참고자료:</strong> 보건복지부 보도자료(2025.12.23 건정심 일차의료 혁신 시범사업), 보건복지부 장기요양 재택의료센터 시범사업 공모(2025.10.28), 돌봄통합지원법 시행령·시행규칙(2025.12.9 공포), 건강보험심사평가원 EX871 요양급여 인정 관련 기업 공시(동아ST 2025.12.23, 휴이노 2025.03.10), 씨어스테크놀로지 2025년 실적 공시 및 IR 자료(2026.02.04), 한국재택의료협회 2025년 방문의료 수가표, 의협신문·메디게이트뉴스·데일리팜 등 의료 전문 매체 보도
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 재택·홈케어 건강보험 수가 분석 · CONFIDENTIAL</span>
+    <span>4 / 4</span>
+  </div>
+</div>
+
+</body>
+</html>

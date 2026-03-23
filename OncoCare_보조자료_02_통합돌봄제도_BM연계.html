@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoCare 보조자료 #2 — 통합돌봄 제도 분석 및 BM 연계 전략</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral:#E8524A;--coral-light:#F4857E;--pink:#F9B4AE;--pink-pale:#FDE8E4;
+    --cream:#FFF8F0;--peach:#FFE8D6;--gold:#E8A838;--navy:#1A2744;--slate:#3D4F6F;
+    --ink:#1E1E2A;--body:#3A3A4A;--muted:#7A7A8E;--rule:#E4D9D0;--paper:#FEFCFA;
+    --grad-start:#F9B4AE;--grad-mid:#E8524A;--grad-end:#C73B5D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:A4;margin:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#F0EBE5;color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .page{width:210mm;min-height:297mm;background:var(--paper);margin:20px auto;padding:0;box-shadow:0 4px 30px rgba(0,0,0,.08);overflow:hidden;position:relative;}
+  .cover-header{background:linear-gradient(135deg,var(--grad-start) 0%,var(--grad-mid) 50%,var(--grad-end) 100%);padding:50px 50px 40px;color:#fff;position:relative;}
+  .cover-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:30px;background:var(--paper);border-radius:30px 30px 0 0;}
+  .cover-header .badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:16px;}
+  .cover-header h1{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;line-height:1.3;margin-bottom:10px;}
+  .cover-header .subtitle{font-size:14px;font-weight:300;opacity:.85;line-height:1.6;}
+  .cover-meta{display:flex;gap:24px;margin-top:20px;}
+  .cover-meta-item{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 18px;font-size:11px;}
+  .cover-meta-item .label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:3px;}
+  .page-body{padding:20px 50px 50px;}
+  .section-bar{display:flex;align-items:center;gap:12px;margin-top:28px;margin-bottom:16px;}
+  .section-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--coral);background:var(--pink-pale);padding:3px 10px;border-radius:20px;}
+  .section-bar h2{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;color:var(--ink);}
+  .section-rule{flex:1;height:1px;background:var(--rule);}
+  p.body-text{font-size:12.5px;color:var(--body);line-height:1.85;margin-bottom:14px;}
+  .callout-coral{background:linear-gradient(135deg,var(--coral) 0%,var(--grad-end) 100%);color:#fff;padding:18px 22px;border-radius:12px;margin:16px 0;font-size:12.5px;line-height:1.75;}
+  .callout-coral .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:6px;}
+  .callout-cream{background:var(--cream);border:1px solid var(--pink);border-radius:12px;padding:18px 22px;margin:16px 0;}
+  .callout-cream .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+  table.data-table{width:100%;border-collapse:collapse;font-size:11.5px;margin:14px 0;}
+  table.data-table thead th{background:var(--pink-pale);color:var(--ink);font-weight:700;padding:10px 14px;text-align:left;font-size:10.5px;border-bottom:2px solid var(--coral-light);}
+  table.data-table tbody td{padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.65;}
+  table.data-table tbody td.label-col{font-weight:700;color:var(--ink);width:130px;font-size:11px;}
+  table.data-table tbody tr:last-child td{border-bottom:none;}
+  table.data-table tbody tr:hover{background:var(--cream);}
+  .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+  .info-card{border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper);}
+  .info-card.highlight{border-color:var(--coral-light);background:var(--pink-pale);}
+  .info-card .card-tag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+  .info-card h4{font-family:'Noto Serif KR',serif;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+  .info-card p{font-size:11.5px;color:var(--muted);line-height:1.7;}
+  .timeline-row{display:flex;gap:14px;margin:14px 0;}
+  .timeline-item{flex:1;border-left:3px solid var(--coral);padding:10px 14px;background:var(--cream);border-radius:0 10px 10px 0;}
+  .timeline-item .tl-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--coral);letter-spacing:.08em;margin-bottom:4px;}
+  .timeline-item h5{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+  .timeline-item p{font-size:10.5px;color:var(--muted);line-height:1.6;}
+  .bm-link-box{background:var(--navy);color:#fff;border-radius:12px;padding:22px 24px;margin:18px 0;}
+  .bm-link-box .bm-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:8px;}
+  .bm-link-box h3{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700;margin-bottom:10px;line-height:1.4;}
+  .bm-link-box p{font-size:12px;line-height:1.75;opacity:.8;}
+  .bm-link-box .bm-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .bm-link-box .flow-step{font-size:10px;padding:5px 12px;background:rgba(255,255,255,.1);border-radius:20px;white-space:nowrap;}
+  .bm-link-box .flow-arrow{color:var(--pink);font-size:12px;}
+  .page-footer{position:absolute;bottom:0;left:0;right:0;padding:12px 50px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.08em;color:var(--muted);border-top:1px solid var(--rule);}
+  .source-tag{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);margin-top:4px;}
+  .kpi-row{display:flex;gap:14px;margin:14px 0;}
+  .kpi-box{flex:1;text-align:center;padding:16px 12px;background:var(--pink-pale);border-radius:12px;}
+  .kpi-box .kpi-val{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;color:var(--coral);line-height:1.2;}
+  .kpi-box .kpi-unit{font-size:12px;color:var(--coral);font-weight:500;}
+  .kpi-box .kpi-label{font-size:10px;color:var(--muted);margin-top:4px;}
+  .card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0;}
+  @media print{body{background:white;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     PAGE 1 — COVER + 제도 개요
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="cover-header">
+    <div class="badge">OncoCare · Supplementary Document #2</div>
+    <h1>통합돌봄 제도 분석<br>및 BM 연계 전략</h1>
+    <p class="subtitle">돌봄통합지원법 전면 시행 · 30종→60종 서비스 확대 · 온코케어 B2G 진입 기회</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="label">Prepared for</div>
+        AITRICS OncoCare 사업제안서
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Date</div>
+        2026.03
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Classification</div>
+        Confidential
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-bar">
+      <span class="section-num">01</span>
+      <h2>제도 개요 — 통합돌봄이란 무엇인가</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">「의료·요양 등 지역 돌봄의 통합지원에 관한 법률(돌봄통합지원법)」이 2026년 3월 27일부터 전국 229개 시·군·구에서 전면 시행됩니다. 기존에 분절적으로 제공되던 의료·요양·돌봄 서비스를 지자체 중심으로 통합·연계하는 제도로, 한 번 신청으로 개인별 맞춤형 돌봄 서비스를 받게 됩니다.</p>
+
+    <div class="kpi-row">
+      <div class="kpi-box">
+        <div class="kpi-val">229</div>
+        <div class="kpi-unit">개 시·군·구</div>
+        <div class="kpi-label">전국 전면 시행</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-val">30<span style="font-size:14px;">→</span>60</div>
+        <div class="kpi-unit">종 서비스</div>
+        <div class="kpi-label">2030년까지 확대</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-val">914</div>
+        <div class="kpi-unit">억원 예산</div>
+        <div class="kpi-label">전년 대비 10배 이상</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-val">5,394</div>
+        <div class="kpi-unit">명 전담인력</div>
+        <div class="kpi-label">지자체 신규 배치</div>
+      </div>
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num">02</span>
+      <h2>3단계 추진 로드맵</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-item">
+        <div class="tl-date">1단계 · 2026~2027 · 도입기</div>
+        <h5>30종 서비스 우선 연계</h5>
+        <p>보건의료·건강관리·장기요양·일상생활돌봄 4개 분야. 방문진료, 치매관리, 만성질환관리, 퇴원환자 지원, <strong>AI·IoT 안전·건강 확인</strong>, 긴급돌봄, 응급안전관리 등.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">2단계 · 2028~2029 · 안정기</div>
+        <h5>신규 서비스 제도화</h5>
+        <p>방문재활, 방문영양, 병원동행, 통합재택간호, 임종케어 시범사업 추진. 서비스별 별도 신청 없이 <strong>자동 연계</strong> 체계 도입. 중증 정신질환자 확대.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">3단계 · 2030~ · 고도화기</div>
+        <h5>전주기 돌봄 · 60종</h5>
+        <p>노쇠 예방→임종케어 전주기 체계 구축. 60종 서비스 확대. 건강보험·장기요양보험·예산 <strong>돌봄 재정 구조 개편</strong> 검토.</p>
+      </div>
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num">03</span>
+      <h2>대상자 및 서비스 구조</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:120px">구분</th>
+          <th>내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label-col">대상자 (1단계)</td><td>65세 이상 노인, 고령 장애인, 65세 미만 의료필요도 높은 심한 장애인(지체·뇌병변 등). 소득 기준 없이 '돌봄 필요도'로 선정.</td></tr>
+        <tr><td class="label-col">신청 방법</td><td>주소지 읍·면·동 행정복지센터 또는 국민건강보험공단 지사 방문. 직권 신청도 가능.</td></tr>
+        <tr><td class="label-col">운영 구조</td><td>시·군·구가 컨트롤 타워. 돌봄 필요도 통합 조사 → 개인별 지원계획 수립 → 맞춤형 서비스 연계. 주기적 모니터링.</td></tr>
+        <tr><td class="label-col">전문기관</td><td>국민건강보험공단(노인 대상), 국민연금공단(장애인), 중앙·시도 사회서비스원, 한국장애인개발원.</td></tr>
+        <tr><td class="label-col">시범사업 성과</td><td>요양병원 입원 가능성 61% 감소, 요양시설 입소 가능성 87% 감소 (2023.7~2024.4 분석 결과).</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-coral">
+      <div class="callout-label">온코케어 관점의 핵심 포인트</div>
+      통합돌봄 30종 서비스에 <strong>AI·IoT 안전·건강 확인 서비스</strong>가 법률에 명시적으로 포함되었습니다. 이는 AI 기반 건강관리 플랫폼이 정부 예산으로 직접 사업화될 수 있는 <strong>법적 근거</strong>가 마련되었음을 의미합니다. 또한 퇴원환자 복귀지원 서비스는 온코케어의 '병원→커뮤니티 전환' 모델과 정확히 일치합니다.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 통합돌봄 제도 분석 및 BM 연계 전략 · CONFIDENTIAL</span>
+    <span>1 / 4</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 2 — 4대 분야 30종 서비스 상세
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+
+    <div class="section-bar">
+      <span class="section-num">04</span>
+      <h2>4대 분야 30종 서비스 — 온코케어 연계 가능 영역 매핑</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">1단계(2026~2027)에서 제공되는 30종 서비스 중, 온코케어가 직접 또는 간접적으로 연계할 수 있는 서비스를 영역별로 분석합니다.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:100px">분야</th>
+          <th>주요 서비스</th>
+          <th style="width:130px">온코케어 연계 방식</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col" rowspan="4" style="background:var(--pink-pale);">보건의료<br>(재가 의료)</td>
+          <td>방문진료 · 재택의료센터</td>
+          <td style="color:var(--coral);font-weight:700;">AI 진료보조 도구 공급</td>
+        </tr>
+        <tr>
+          <td>만성질환 관리 · 정신건강관리</td>
+          <td style="color:var(--coral);font-weight:700;">AI 에이전트 직접 연동</td>
+        </tr>
+        <tr>
+          <td>치매관리 서비스</td>
+          <td>간접 연계 가능</td>
+        </tr>
+        <tr>
+          <td><strong>퇴원환자 복귀지원</strong></td>
+          <td style="color:var(--coral);font-weight:700;">★ 핵심 연계 포인트</td>
+        </tr>
+        <tr>
+          <td class="label-col" rowspan="3" style="background:var(--cream);">건강관리</td>
+          <td><strong>스마트기기 활용 방문건강</strong></td>
+          <td style="color:var(--coral);font-weight:700;">웨어러블+AI 플랫폼</td>
+        </tr>
+        <tr>
+          <td>노인·장애인 체육활동 지원</td>
+          <td>간접 연계</td>
+        </tr>
+        <tr>
+          <td>장애인 지역사회 중심 재활</td>
+          <td>rehab 에이전트 연동</td>
+        </tr>
+        <tr>
+          <td class="label-col" rowspan="3" style="background:var(--pink-pale);">장기요양</td>
+          <td>방문간호 · 방문요양 · 방문목욕 (한도 확대)</td>
+          <td>AI 케어플랜 보조 도구</td>
+        </tr>
+        <tr>
+          <td>주야간 보호 · 단기보호</td>
+          <td>간접 연계</td>
+        </tr>
+        <tr>
+          <td>통합재택간호 (2단계 제도화 예정)</td>
+          <td style="color:var(--coral);font-weight:700;">원격 모니터링 연동</td>
+        </tr>
+        <tr>
+          <td class="label-col" rowspan="3" style="background:var(--cream);">일상생활<br>돌봄</td>
+          <td><strong>AI·IoT 안전·건강 확인 서비스</strong></td>
+          <td style="color:var(--coral);font-weight:700;">★ B2G 직접 진입 가능</td>
+        </tr>
+        <tr>
+          <td>긴급돌봄 · 응급안전관리</td>
+          <td>이상징후 감지 AI 연동</td>
+        </tr>
+        <tr>
+          <td>주거지원 · 가사지원 · 이동지원</td>
+          <td>간접 연계</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-cream">
+      <div class="callout-label">Service Mapping Summary</div>
+      <p class="body-text" style="margin:0;">30종 서비스 중 <strong>최소 8개 서비스</strong>에서 온코케어의 AI 에이전트·원격 모니터링·커뮤니티 플랫폼이 직접 연계 가능합니다. 특히 ① AI·IoT 안전·건강 확인, ② 퇴원환자 복귀지원, ③ 스마트기기 활용 방문건강, ④ 만성질환 관리 — 이 네 가지가 가장 높은 BM 연계 잠재력을 보유합니다.</p>
+    </div>
+
+    <div class="section-bar" style="margin-top:28px;">
+      <span class="section-num">05</span>
+      <h2>2단계 신규 서비스 — 선제적 준비 영역</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">2단계(2028~2029)에서 제도화 예정인 신규 서비스는 온코케어의 중기 확장 전략과 직접 맞닿아 있습니다.</p>
+
+    <div class="card-grid">
+      <div class="info-card highlight">
+        <div class="card-tag">2단계 신규</div>
+        <h4>방문재활 서비스</h4>
+        <p>닥터앤서 3.0의 c-rehab(대장암)·g-rehab(위암) AI 에이전트가 방문재활 서비스의 AI 보조 도구로 직접 활용 가능. 제도화 시점에 맞춘 PoC 준비 필요.</p>
+      </div>
+      <div class="info-card highlight">
+        <div class="card-tag">2단계 신규</div>
+        <h4>통합재택간호</h4>
+        <p>재택에서 간호사가 포괄적 간호를 제공하는 서비스. 온코케어의 원격 모니터링 + AI 이상징후 감지가 간호사의 방문 판단을 보조하는 의사결정 지원 도구로 기능.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">2단계 신규</div>
+        <h4>방문영양 서비스</h4>
+        <p>암환자의 영양 관리는 예후에 핵심적 영향. 온코케어 커뮤니티의 PHR 데이터 + AI 영양 분석 에이전트가 맞춤형 영양 관리 도구로 확장 가능.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">2단계 신규</div>
+        <h4>임종케어 시범사업</h4>
+        <p>말기 암환자 대상 임종케어. 온코케어 커뮤니티가 환자·보호자의 심리적 지원 + 정보 제공 채널로 기능하며, 호스피스 연계 서비스 제공 가능.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 통합돌봄 제도 분석 및 BM 연계 전략 · CONFIDENTIAL</span>
+    <span>2 / 4</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 3 — 온코케어 BM 연계 전략
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+
+    <div class="section-bar">
+      <span class="section-num">06</span>
+      <h2>온코케어 BM 연계 전략 — 통합돌봄 × OncoCare</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">통합돌봄 제도는 온코케어에게 세 가지 차원의 BM 기회를 제공합니다. B2G(정부 사업 수탁), B2B(지자체·의료기관 플랫폼 공급), B2C(대상자 유입)가 동시에 작동하는 구조입니다.</p>
+
+    <div class="bm-link-box">
+      <div class="bm-label">BM 기회 ① · B2G 직접 진입</div>
+      <h3>AI·IoT 안전·건강 확인 서비스 수탁</h3>
+      <p>통합돌봄 30종 서비스에 AI·IoT 건강 확인이 포함. 지자체가 발주하는 AI 기반 건강관리 서비스 사업에 AITRICS가 직접 참여할 수 있는 법적 근거가 마련되었습니다. 2026년 예산 914억원 중 디지털 서비스 예산 확보가 가능합니다.</p>
+      <div class="bm-flow">
+        <span class="flow-step">지자체 사업 공고</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">AITRICS AI 플랫폼 제안</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">대상자 건강 모니터링</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">이상징후 AI 분석</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step" style="background:var(--coral);">온코케어 커뮤니티 유입</span>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="info-card highlight">
+        <div class="card-tag">BM 기회 ② · 퇴원 연계</div>
+        <h4>퇴원환자 복귀지원 × 온코케어 커뮤니티</h4>
+        <p>통합돌봄의 퇴원환자 복귀지원 서비스는 온코케어의 '병원→커뮤니티 전환' 모델과 정확히 일치합니다. 암환자가 퇴원 후 온코케어 커뮤니티에 자동 연결되면, 지자체의 통합돌봄 서비스와 온코케어의 AI 관리가 동시에 작동하는 구조가 됩니다.</p>
+      </div>
+      <div class="info-card highlight">
+        <div class="card-tag">BM 기회 ③ · 유저 유입 채널</div>
+        <h4>통합돌봄 대상자 → 온코케어 유입</h4>
+        <p>복합 돌봄 필요 대상자 약 242만명이 통합돌봄 잠재 대상. 이 중 암환자·만성질환 보유 고령자가 온코케어 커뮤니티의 자연 유입 대상이 됩니다. 지자체의 서비스 연계 과정에서 온코케어가 연계 서비스로 등록되면 CAC 제로 유입이 가능합니다.</p>
+      </div>
+    </div>
+
+    <div class="section-bar" style="margin-top:24px;">
+      <span class="section-num">07</span>
+      <h2>구체적 진입 시나리오</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:100px">시기</th>
+          <th>액션</th>
+          <th style="width:140px">기대 효과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">2026 Q2</td>
+          <td>통합돌봄 전담조직 대상 AI·IoT 건강확인 서비스 제안서 작성. 서울·경기 선도 지자체 타겟팅.</td>
+          <td>B2G 파이프라인 구축</td>
+        </tr>
+        <tr>
+          <td class="label-col">2026 Q3~Q4</td>
+          <td>핑크케어 PoC 데이터를 활용한 '암환자 특화 통합돌봄 AI 서비스' 시범 제안. 퇴원환자 복귀지원 + AI 건강확인 번들.</td>
+          <td>시범사업 참여<br>레퍼런스 확보</td>
+        </tr>
+        <tr>
+          <td class="label-col">2027</td>
+          <td>복수 지자체 확장. 통합돌봄 정보연계시스템과의 API 연동 추진. 2단계 방문재활 서비스에 rehab 에이전트 연계 PoC.</td>
+          <td>플랫폼 표준화<br>확장 기반 마련</td>
+        </tr>
+        <tr>
+          <td class="label-col">2028~2029</td>
+          <td>2단계 신규 서비스(통합재택간호, 방문재활, 방문영양)에 온코케어 AI 에이전트 정식 연동. 자동연계 체계에 온코케어 등록.</td>
+          <td>안정적 B2G 매출<br>유저 파이프라인 확보</td>
+        </tr>
+        <tr>
+          <td class="label-col">2030~</td>
+          <td>돌봄 재정 구조 개편 시 AI 플랫폼 수가 반영 논의 참여. 전주기 돌봄 체계에서 온코케어를 '디지털 돌봄 인프라'로 포지셔닝.</td>
+          <td>구조적 수익 모델 확보</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 통합돌봄 제도 분석 및 BM 연계 전략 · CONFIDENTIAL</span>
+    <span>3 / 4</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 4 — 경쟁 우위 + 결론
+═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+
+    <div class="section-bar">
+      <span class="section-num">08</span>
+      <h2>경쟁 우위 — 왜 온코케어가 통합돌봄에서 유리한가</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:130px">비교 항목</th>
+          <th>일반 ICT 돌봄 사업자</th>
+          <th>기존 RPM 사업자</th>
+          <th style="font-weight:700;background:var(--pink-pale);">AITRICS 온코케어</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">AI 역량</td>
+          <td>센서 알림 수준<br>(rule-based)</td>
+          <td>심전도 특화 AI</td>
+          <td style="font-weight:700;color:var(--coral);">MOCA 엔진 + 4종 전담 에이전트 + Dr.Answer rehab</td>
+        </tr>
+        <tr>
+          <td class="label-col">환자 접점</td>
+          <td>기기 설치 후 소극적 모니터링</td>
+          <td>병원 내 시스템</td>
+          <td style="font-weight:700;color:var(--coral);">커뮤니티 기반 지속적 관계 유지</td>
+        </tr>
+        <tr>
+          <td class="label-col">퇴원 후 연결</td>
+          <td>없음</td>
+          <td>없음</td>
+          <td style="font-weight:700;color:var(--coral);">커뮤니티가 리텐션 엔진</td>
+        </tr>
+        <tr>
+          <td class="label-col">데이터 축적</td>
+          <td>센서 데이터 단독</td>
+          <td>심전도 데이터</td>
+          <td style="font-weight:700;color:var(--coral);">모니터링+PHR+커뮤니티 통합 → 플라이휠</td>
+        </tr>
+        <tr>
+          <td class="label-col">질환 전문성</td>
+          <td>범용</td>
+          <td>심혈관 특화</td>
+          <td style="font-weight:700;color:var(--coral);">암환자 특화 + 만성질환 확장 로드맵</td>
+        </tr>
+        <tr>
+          <td class="label-col">의료진 연결</td>
+          <td>없음</td>
+          <td>병원 의료진 한정</td>
+          <td style="font-weight:700;color:var(--coral);">Human-in-the-Loop 의료진 검증 구조</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-coral">
+      <div class="callout-label">Strategic Positioning</div>
+      통합돌봄 시장에서 대부분의 ICT 사업자는 센서 기반 응급알림(독거노인 낙상감지 등) 수준에 머물고 있습니다. 온코케어는 <strong>'AI 분석 + 의료진 검증 + 커뮤니티 리텐션'</strong>이라는 3중 구조를 갖춘 유일한 플레이어입니다. 이는 통합돌봄 2단계·3단계에서 서비스가 고도화될수록 더 큰 경쟁우위로 작동합니다.
+    </div>
+
+    <div class="section-bar" style="margin-top:24px;">
+      <span class="section-num">09</span>
+      <h2>핵심 결론 — 통합돌봄은 온코케어의 B2G 관문이다</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="card-grid-3">
+      <div class="info-card highlight">
+        <div class="card-tag">결론 ①</div>
+        <h4>법적 근거 확보</h4>
+        <p>AI·IoT 건강확인이 법률에 명시. 더 이상 '시범사업'이 아닌 '정규 제도'로서 안정적 사업 기반.</p>
+      </div>
+      <div class="info-card highlight">
+        <div class="card-tag">결론 ②</div>
+        <h4>예산 규모 확대</h4>
+        <p>914억원(전년 대비 10배). 5,394명 전담인력 신규 배치. 시장이 지금 열리고 있음.</p>
+      </div>
+      <div class="info-card highlight">
+        <div class="card-tag">결론 ③</div>
+        <h4>온코케어 차별화</h4>
+        <p>센서→AI→커뮤니티→의료진의 4단계 가치사슬을 보유한 유일한 플레이어. 고도화 단계에서 독점적 포지션 가능.</p>
+      </div>
+    </div>
+
+    <div class="bm-link-box">
+      <div class="bm-label">Bottom Line</div>
+      <h3>통합돌봄 제도는 온코케어에게 '병원 밖 환자'에 접근하는 정부 인증 채널입니다</h3>
+      <p>지자체의 통합돌봄 서비스 연계망에 온코케어가 등록되면, 퇴원 암환자가 지자체를 통해 자동으로 온코케어 커뮤니티에 연결됩니다. 이는 B2G 매출 확보와 유저 유입을 동시에 달성하는 구조이며, 기존 어떤 의료 AI 기업도 가지지 못한 경로입니다.</p>
+    </div>
+
+    <div style="margin-top:16px;padding:14px 18px;background:var(--cream);border-radius:10px;font-size:10.5px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--ink);">출처 및 참고자료:</strong> 보건복지부 보도자료(2026.3.5 제3차 통합돌봄정책위원회 추진 로드맵), 돌봄통합지원법 시행령·시행규칙(2025.12.9 공포), 보건복지부 통합돌봄 전용 누리집, 보건복지부 보도자료(2025.12.16 지방정부 통합돌봄 전담인력 보강), 보건복지부 보도자료(2025.10.14 의료요양 통합돌봄 추진본부), 정책브리핑(2026.3.5 통합돌봄 30종 서비스 연계), 헬스경향·메디게이트뉴스·이로운넷·더인디고 등 전문매체 보도, 중앙사회서비스원 시범사업 효과분석(2024), 보건복지부 2026년 예산안
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>OncoCare · 통합돌봄 제도 분석 및 BM 연계 전략 · CONFIDENTIAL</span>
+    <span>4 / 4</span>
+  </div>
+</div>
+
+</body>
+</html>

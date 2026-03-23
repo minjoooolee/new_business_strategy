@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoCare 보조자료 #3 — 의료 모니터링 수가 종합 분석</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--coral:#E8524A;--coral-light:#F4857E;--pink:#F9B4AE;--pink-pale:#FDE8E4;--cream:#FFF8F0;--navy:#1A2744;--slate:#3D4F6F;--ink:#1E1E2A;--body:#3A3A4A;--muted:#7A7A8E;--rule:#E4D9D0;--paper:#FEFCFA;--grad-start:#F9B4AE;--grad-mid:#E8524A;--grad-end:#C73B5D;--green:#2D8F6F;--green-pale:#E8F5F0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{size:A4;margin:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:#F0EBE5;color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .page{width:210mm;min-height:297mm;background:var(--paper);margin:20px auto;padding:0;box-shadow:0 4px 30px rgba(0,0,0,.08);overflow:hidden;position:relative;}
+  .cover-header{background:linear-gradient(135deg,var(--grad-start) 0%,var(--grad-mid) 50%,var(--grad-end) 100%);padding:50px 50px 40px;color:#fff;position:relative;}
+  .cover-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:30px;background:var(--paper);border-radius:30px 30px 0 0;}
+  .cover-header .badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:16px;}
+  .cover-header h1{font-family:'Noto Serif KR',serif;font-size:32px;font-weight:700;line-height:1.3;margin-bottom:10px;}
+  .cover-header .subtitle{font-size:14px;font-weight:300;opacity:.85;line-height:1.6;}
+  .cover-meta{display:flex;gap:24px;margin-top:20px;}
+  .cover-meta-item{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 18px;font-size:11px;}
+  .cover-meta-item .label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:3px;}
+  .page-body{padding:20px 50px 50px;}
+  .section-bar{display:flex;align-items:center;gap:12px;margin-top:28px;margin-bottom:16px;}
+  .section-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--coral);background:var(--pink-pale);padding:3px 10px;border-radius:20px;}
+  .section-bar h2{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:var(--ink);}
+  .section-rule{flex:1;height:1px;background:var(--rule);}
+  p.body-text{font-size:12.5px;color:var(--body);line-height:1.85;margin-bottom:14px;}
+  .callout-coral{background:linear-gradient(135deg,var(--coral) 0%,var(--grad-end) 100%);color:#fff;padding:18px 22px;border-radius:12px;margin:16px 0;font-size:12.5px;line-height:1.75;}
+  .callout-coral .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:6px;}
+  .callout-cream{background:var(--cream);border:1px solid var(--pink);border-radius:12px;padding:18px 22px;margin:16px 0;}
+  .callout-cream .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+  .callout-green{background:var(--green-pale);border:1px solid var(--green);border-radius:12px;padding:18px 22px;margin:16px 0;}
+  .callout-green .callout-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+  table.data-table{width:100%;border-collapse:collapse;font-size:11px;margin:14px 0;}
+  table.data-table thead th{background:var(--pink-pale);color:var(--ink);font-weight:700;padding:9px 12px;text-align:left;font-size:10px;border-bottom:2px solid var(--coral-light);}
+  table.data-table tbody td{padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.6;}
+  table.data-table tbody td.label-col{font-weight:700;color:var(--ink);font-size:10.5px;}
+  table.data-table tbody tr:last-child td{border-bottom:none;}
+  table.data-table tbody tr:hover{background:var(--cream);}
+  .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+  .card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0;}
+  .info-card{border:1px solid var(--rule);border-radius:12px;padding:16px 18px;background:var(--paper);}
+  .info-card.highlight{border-color:var(--coral-light);background:var(--pink-pale);}
+  .info-card.green{border-color:var(--green);background:var(--green-pale);}
+  .info-card .card-tag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:5px;}
+  .info-card.green .card-tag{color:var(--green);}
+  .info-card h4{font-family:'Noto Serif KR',serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+  .info-card p{font-size:11px;color:var(--muted);line-height:1.65;}
+  .bm-link-box{background:var(--navy);color:#fff;border-radius:12px;padding:20px 22px;margin:16px 0;}
+  .bm-link-box .bm-label{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:8px;}
+  .bm-link-box h3{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.4;}
+  .bm-link-box p{font-size:11.5px;line-height:1.75;opacity:.8;}
+  .bm-link-box .bm-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;}
+  .bm-link-box .flow-step{font-size:9.5px;padding:4px 10px;background:rgba(255,255,255,.1);border-radius:20px;white-space:nowrap;}
+  .bm-link-box .flow-arrow{color:var(--pink);font-size:11px;}
+  .page-footer{position:absolute;bottom:0;left:0;right:0;padding:12px 50px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.08em;color:var(--muted);border-top:1px solid var(--rule);}
+  .source-tag{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-top:3px;}
+  @media print{body{background:white;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER + 모니터링 유형 분류 -->
+<div class="page">
+  <div class="cover-header">
+    <div class="badge">OncoCare · Supplementary Document #3</div>
+    <h1>의료 모니터링 수가<br>종합 분석</h1>
+    <p class="subtitle">웨어러블 RPM · PRO 자가보고 · 재택 모니터링 수가 현황 및 전망</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="label">Prepared for</div>AITRICS OncoCare 사업제안서</div>
+      <div class="cover-meta-item"><div class="label">Date</div>2026.03</div>
+      <div class="cover-meta-item"><div class="label">Classification</div>Confidential</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-bar">
+      <span class="section-num">01</span>
+      <h2>모니터링의 세 가지 유형 — 무엇을 모니터링하는가</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="body-text">의료 모니터링은 수집하는 데이터의 성격에 따라 세 가지로 분류됩니다. 각 유형별로 수가 적용 현황과 온코케어 연계 가능성이 다릅니다.</p>
+
+    <div class="card-grid-3">
+      <div class="info-card highlight">
+        <div class="card-tag">Type A · 생리학적 데이터</div>
+        <h4>웨어러블 RPM<br>(Remote Physiologic Monitoring)</h4>
+        <p>심전도, 심박수, 호흡수, 산소포화도, 혈압, 체온, 혈당 등 <strong>기기가 자동 측정</strong>하는 생체신호. 현재 수가 적용의 핵심 대상.</p>
+        <p style="margin-top:8px;color:var(--coral);font-weight:700;font-size:10px;">한국: EX871, E6544 수가 적용 중<br>미국: CPT 99453/99454/99457/99458</p>
+      </div>
+      <div class="info-card green">
+        <div class="card-tag">Type B · 비생리학적 데이터</div>
+        <h4>PRO 모니터링<br>(Patient-Reported Outcomes)</h4>
+        <p>환자가 <strong>직접 보고</strong>하는 증상, 부작용, 삶의 질, 기능 상태. ePRO(전자적 자가보고) 형태로 수집. 암환자 예후관리의 핵심 데이터.</p>
+        <p style="margin-top:8px;color:var(--green);font-weight:700;font-size:10px;">한국: 직접 수가 없음 (간접 경로 존재)<br>미국: RTM 코드로 확장 논의 중</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">Type C · 복합 데이터</div>
+        <h4>통합 모니터링<br>(Integrated Monitoring)</h4>
+        <p>생리학적 + 비생리학적 데이터를 <strong>AI가 통합 분석</strong>. 웨어러블 데이터 + PRO + 커뮤니티 활동 데이터를 결합한 차세대 모니터링.</p>
+        <p style="margin-top:8px;color:var(--ink);font-weight:700;font-size:10px;">한국: 미래 수가 영역<br>미국: RPM+RTM 복합 청구 가능</p>
+      </div>
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num">02</span>
+      <h2>국내 모니터링 수가 현행 체계</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:120px">수가 코드</th>
+          <th>모니터링 대상</th>
+          <th style="width:80px">적용 범위</th>
+          <th style="width:80px">재택 적용</th>
+          <th style="width:90px">온코케어 연관</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">EX871<br><span class="source-tag">원격 심박기술 감시</span></td>
+          <td>부정맥 고위험 환자 대상 웨어러블 심전도·생체신호 실시간 모니터링. 이동 중에도 적용 가능.</td>
+          <td>입원+외래<br>(병원 내)</td>
+          <td style="color:var(--coral);">미적용<br>(논의 중)</td>
+          <td style="color:var(--coral);font-weight:700;">★★★★★</td>
+        </tr>
+        <tr>
+          <td class="label-col">E6544<br><span class="source-tag">심전도 침상감시</span></td>
+          <td>침대에 누워있는 환자 대상 실시간 심전도 감시. 2020년부터 웨어러블 최초 적용.</td>
+          <td>입원<br>(침상 한정)</td>
+          <td>미적용</td>
+          <td>★★★☆☆</td>
+        </tr>
+        <tr>
+          <td class="label-col">일차의료 만성질환<br>관리료<br><span class="source-tag">시범사업</span></td>
+          <td>고혈압·당뇨 등 만성질환자 등록·관리. 환자 교육, 생활습관 관리 포함.</td>
+          <td>외래<br>(의원급)</td>
+          <td>간접 적용<br>(전화 상담)</td>
+          <td>★★★★☆</td>
+        </tr>
+        <tr>
+          <td class="label-col">일차의료 기능강화<br>통합수가<br><span class="source-tag">2026.07 시범사업</span></td>
+          <td>환자 등록 기반 정액관리. 4군 전문관리군은 방문·재택진료 포함. 암환자 = 3~4군 해당.</td>
+          <td>외래+재택<br>(의원급)</td>
+          <td style="color:var(--green);font-weight:700;">적용<br>(4군 재택진료)</td>
+          <td style="color:var(--coral);font-weight:700;">★★★★★</td>
+        </tr>
+        <tr>
+          <td class="label-col">통합돌봄 AI·IoT<br>건강확인<br><span class="source-tag">2026.03 전면 시행</span></td>
+          <td>AI·IoT 기반 안전·건강 확인 서비스. 통합돌봄 30종 서비스 중 일상생활돌봄 분야.</td>
+          <td>재택<br>(지자체)</td>
+          <td style="color:var(--green);font-weight:700;">적용<br>(B2G 예산)</td>
+          <td style="color:var(--coral);font-weight:700;">★★★★★</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-coral">
+      <div class="callout-label">핵심 Gap 분석</div>
+      현재 국내 모니터링 수가의 핵심 한계: <strong>① 병원 내 모니터링에 편중</strong>(EX871, E6544 모두 병원 내 적용), <strong>② 생리학적 데이터 중심</strong>(심전도 특화, PRO는 수가 대상 아님), <strong>③ 재택 모니터링 수가 부재</strong>(업계에서 공통적으로 지적). 그러나 2026년 주치의제 통합수가와 통합돌봄법으로 재택 모니터링의 제도적 근거가 처음 마련되고 있습니다.
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · 의료 모니터링 수가 종합 분석 · CONFIDENTIAL</span><span>1 / 4</span></div>
+</div>
+
+<!-- PAGE 2 — 미국 RPM 수가 벤치마크 + PRO 모니터링 -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+    <div class="section-bar">
+      <span class="section-num">03</span>
+      <h2>미국 RPM 수가 벤치마크 — 한국의 미래 방향</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="body-text">미국 Medicare는 2018년부터 RPM 수가 코드를 단계적으로 도입해왔으며, 현재 환자 1인당 월 최대 $200 이상의 RPM 수익이 가능한 구조입니다. 한국의 수가 정책이 향후 따라갈 가능성이 높은 레퍼런스 모델입니다.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:80px">CPT 코드</th>
+          <th>내용</th>
+          <th style="width:70px">월 수가</th>
+          <th style="width:120px">온코케어 시사점</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">99453</td>
+          <td>초기 디바이스 셋업 및 환자 교육 (1회성)</td>
+          <td>~$22</td>
+          <td>온보딩 수가 모델</td>
+        </tr>
+        <tr>
+          <td class="label-col">99454</td>
+          <td>디바이스 공급 + 30일간 일일 기록/전송. 16일 이상 데이터 수집 필수.</td>
+          <td>~$55</td>
+          <td>웨어러블 연동 수가</td>
+        </tr>
+        <tr>
+          <td class="label-col">99457</td>
+          <td>원격 모니터링 치료관리 서비스 — 첫 20분. 환자와의 실시간 상호작용(전화/영상) 필수.</td>
+          <td>~$51</td>
+          <td style="color:var(--coral);font-weight:700;">AI 분석+상담 수가 모델</td>
+        </tr>
+        <tr>
+          <td class="label-col">99458</td>
+          <td>추가 20분 단위 (99457 add-on). 월 최대 2~3회 추가 청구 가능.</td>
+          <td>~$41/회</td>
+          <td>복합관리 환자 추가 수익</td>
+        </tr>
+        <tr>
+          <td class="label-col">99091</td>
+          <td>생리학적 데이터 수집·해석. 월 30분 이상 의사/QHCP 시간 소요 시.</td>
+          <td>~$56</td>
+          <td>데이터 분석 서비스 수가</td>
+        </tr>
+        <tr>
+          <td class="label-col" style="color:var(--green);">99445/99470<br><span class="source-tag">2026 신설</span></td>
+          <td>2026년 CMS 신설 코드. 16일 미만 데이터 전송 시에도 청구 가능. 더 유연한 모니터링 구조.</td>
+          <td>미정</td>
+          <td style="color:var(--green);font-weight:700;">PRO 포함 가능성↑</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-cream">
+      <div class="callout-label">미국 RPM의 핵심 특징 — 한국과의 차이</div>
+      <p class="body-text" style="margin:0;">미국 CMS는 <strong>생리학적 데이터뿐 아니라 비생리학적 데이터(PRO 등) 분석 행위에도 수가를 적용</strong>합니다. 또한 RTM(Remote Therapeutic Monitoring) 코드를 통해 약물 복용 순응도, 증상 자가보고 등 환자 보고 데이터에 대한 별도 수가도 존재합니다. 한국은 아직 생리학적 데이터(심전도) 중심이지만, 미국 모델을 따라 PRO 기반 모니터링 수가가 도입될 가능성이 높습니다.</p>
+    </div>
+
+    <div class="section-bar">
+      <span class="section-num">04</span>
+      <h2>PRO 모니터링 수가 가능성 — 암환자 자가보고의 수익화 경로</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="body-text">현재 한국에서 PRO에 직접적인 건강보험 수가는 존재하지 않습니다. 그러나 PRO를 수익화할 수 있는 간접 경로는 이미 열려 있으며, 직접 수가 도입을 위한 제도적 토대가 마련되고 있습니다.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:130px">수익화 경로</th>
+          <th>내용</th>
+          <th style="width:80px">시기</th>
+          <th style="width:80px">확실성</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col" style="color:var(--green);">① 주치의제 통합수가<br>내 PRO 포함</td>
+          <td>4군(전문관리) 환자의 정액관리료(연 26.4만원)에 PRO 수집·분석 활동이 포함. PRO 자체가 아닌 '환자 관리 행위'로 보상받는 구조. 성과평가 인센티브에서 PRO 품질이 반영될 가능성.</td>
+          <td>2026.07~</td>
+          <td style="color:var(--green);font-weight:700;">높음</td>
+        </tr>
+        <tr>
+          <td class="label-col" style="color:var(--green);">② 제약사 PRO<br>데이터 라이선싱</td>
+          <td>커뮤니티에서 수집된 PRO 데이터를 비식별화하여 제약사에 라이선싱. RWE 연구 목적. 수가가 아닌 B2B 직접 수익.</td>
+          <td>즉시 가능</td>
+          <td style="color:var(--green);font-weight:700;">높음</td>
+        </tr>
+        <tr>
+          <td class="label-col">③ 심평원 평가지표<br>반영</td>
+          <td>PRO를 병원 인증·급여기준 평가에 활용하는 방안이 심평원에서 논의 중. 미국·영국·캐나다·호주는 이미 PROMs와 지불보상제도를 연결.</td>
+          <td>2027~2028</td>
+          <td>중간</td>
+        </tr>
+        <tr>
+          <td class="label-col">④ RTM형 별도 수가<br>신설</td>
+          <td>미국 RTM(Remote Therapeutic Monitoring) 모델을 참고한 환자 자가보고 데이터 모니터링 수가. 약물 순응도, 증상 보고 등.</td>
+          <td>2028~2030</td>
+          <td>낮음~중간</td>
+        </tr>
+        <tr>
+          <td class="label-col">⑤ 디지털 치료제<br>수가 연동</td>
+          <td>인허가된 디지털 치료제(DTx)에 PRO 수집이 필수 요건으로 포함될 경우, PRO 수집 행위가 DTx 수가에 번들링.</td>
+          <td>2028~</td>
+          <td>낮음</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-footer"><span>OncoCare · 의료 모니터링 수가 종합 분석 · CONFIDENTIAL</span><span>2 / 4</span></div>
+</div>
+
+<!-- PAGE 3 — 재택 모니터링 수가 전망 + 온코케어 PRO 전략 -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+    <div class="section-bar">
+      <span class="section-num">05</span>
+      <h2>재택 모니터링 수가 — 현황과 전망</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="body-text">재택 모니터링에 직접적인 건강보험 수가는 현재 존재하지 않으나, 업계 전체가 '재택 RPM 수가 신설'을 최우선 과제로 요구하고 있으며, 제도적 환경이 빠르게 변화하고 있습니다.</p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-tag">현재 상황</div>
+        <h4>재택 RPM 수가 부재</h4>
+        <p>EX871은 병원 내(입원+외래) 한정. 업계(휴이노 등)는 '재택 관리에 대한 보험수가가 없는 실정'이라고 공식 언급. 미국·일본형 재택 RPM 수가 도입이 업계 공통 요구사항.</p>
+      </div>
+      <div class="info-card highlight">
+        <div class="card-tag">변화의 신호</div>
+        <h4>제도적 토대 마련 중</h4>
+        <p>① 주치의제 4군 '방문·재택진료' 수가 신설<br>② 통합돌봄법 AI·IoT 건강확인 서비스 포함<br>③ 의료 마이데이터 서비스 시행(2025.03)<br>④ 복지·돌봄 AI 혁신계획 상반기 발표 예정</p>
+      </div>
+      <div class="info-card">
+        <div class="card-tag">RPM 시장 동향</div>
+        <h4>시장은 이미 '병원→재택' 확장 중</h4>
+        <p>씨어스는 '입원→외래→재택 통합 모니터링'을 공식 전략으로 발표. 메쥬/동아ST도 병원 전반 → 재택 확장 계획. 제약사-디지털 헬스케어 동맹이 본격화되며 시장 경쟁 가속.</p>
+      </div>
+      <div class="info-card green">
+        <div class="card-tag">온코케어의 기회</div>
+        <h4>커뮤니티 = 재택 모니터링 채널</h4>
+        <p>기존 RPM 사업자는 디바이스 기반이라 '환자가 기기를 착용해야' 모니터링 시작. 온코케어는 커뮤니티 활동 자체가 PRO 수집이 되는 구조. 디바이스 없이도 모니터링 가능.</p>
+      </div>
+    </div>
+
+    <div class="section-bar" style="margin-top:24px;">
+      <span class="section-num">06</span>
+      <h2>온코케어 PRO 모니터링 전략 — 커뮤니티 활동 = 데이터 수집</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="body-text">온코케어의 가장 강력한 차별점은 '커뮤니티 활동이 곧 PRO 데이터 수집이 되는 설계'입니다. 환자가 의무감으로 설문을 작성하는 것이 아니라, 커뮤니티에서 자연스럽게 활동하면서 PRO 데이터가 축적됩니다.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:170px">커뮤니티 활동</th>
+          <th>수집되는 PRO 데이터</th>
+          <th style="width:110px">표준 PRO 척도 매핑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">검사결과 해석 에이전트 사용</td>
+          <td>"최근 증상이 어떠셨어요?" 자연스럽게 질문 → 증상 PRO 수집</td>
+          <td>EORTC QLQ-C30<br>FACT-G</td>
+        </tr>
+        <tr>
+          <td class="label-col">커뮤니티 게시글 작성</td>
+          <td>"부작용이 있었어요" 자연어를 AI가 구조화 → PRO 코딩</td>
+          <td>PRO-CTCAE<br>(부작용 자가보고)</td>
+        </tr>
+        <tr>
+          <td class="label-col">치료 일지 기능 (매일 3초)</td>
+          <td>"오늘의 컨디션" 이모지 입력 → 연속 PRO 시계열</td>
+          <td>PROMIS Global-10<br>EQ-5D-5L</td>
+        </tr>
+        <tr>
+          <td class="label-col">닥터앤서 c-rehab/g-rehab<br>체크인</td>
+          <td>표준 PRO 척도 자동 삽입 → 구조화된 임상급 데이터</td>
+          <td>EORTC QLQ-CR29<br>(대장암 특화)</td>
+        </tr>
+        <tr>
+          <td class="label-col">V.Doc PHR 연동</td>
+          <td>검사 결과 + 투약 이력 + PRO를 하나의 환자 ID로 통합</td>
+          <td>통합 PHR<br>RWE 등급 데이터</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-green">
+      <div class="callout-label">PRO 모니터링의 수가 연결 시나리오</div>
+      <p class="body-text" style="margin:0;"><strong>단기(2026~2027):</strong> 주치의제 통합수가 내 환자관리 행위로 PRO 수집 비용 포함. 제약사 PRO 라이선싱으로 즉시 B2B 수익 확보.<br><strong>중기(2028~2029):</strong> 심평원 평가지표에 PRO 반영 시 PRO 수집 플랫폼 제공 B2B SaaS 모델. 통합돌봄 2단계 서비스에 PRO 기반 건강관리 서비스 제도화.<br><strong>장기(2030~):</strong> RTM형 별도 수가 신설 시 PRO 수집·분석·관리 행위에 직접 건강보험 수가 적용.</p>
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · 의료 모니터링 수가 종합 분석 · CONFIDENTIAL</span><span>3 / 4</span></div>
+</div>
+
+<!-- PAGE 4 — 온코케어 BM 종합 연계 -->
+<div class="page">
+  <div class="page-body" style="padding-top:40px;">
+    <div class="section-bar">
+      <span class="section-num">07</span>
+      <h2>온코케어 모니터링 BM — 3계층 수익 구조</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="bm-link-box">
+      <div class="bm-label">Layer 1 · 웨어러블 RPM 수가 (생리학적 데이터)</div>
+      <h3>디바이스 연동 → AI 분석 → 병원 수가 청구 → 플랫폼 이용료</h3>
+      <p>스마트링·웨어러블 패치·바이오넷 등과 연동. MOCA AI 엔진이 이상징후 감지·예측. 병원이 EX871 등 수가를 청구하고, AITRICS에 플랫폼 구독료 지급.</p>
+      <div class="bm-flow">
+        <span class="flow-step">웨어러블 디바이스</span><span class="flow-arrow">→</span>
+        <span class="flow-step">MOCA AI 분석</span><span class="flow-arrow">→</span>
+        <span class="flow-step">이상징후 알림</span><span class="flow-arrow">→</span>
+        <span class="flow-step">병원 수가 청구</span><span class="flow-arrow">→</span>
+        <span class="flow-step" style="background:var(--coral);">AITRICS 구독료</span>
+      </div>
+    </div>
+
+    <div class="bm-link-box" style="background:var(--green);">
+      <div class="bm-label" style="color:rgba(255,255,255,.6);">Layer 2 · PRO 모니터링 (비생리학적 데이터)</div>
+      <h3>커뮤니티 활동 → PRO 수집 → 데이터 라이선싱 + 수가 간접 연계</h3>
+      <p>온코케어 커뮤니티에서 자발적으로 축적된 PRO 데이터. 비식별화 후 제약사 RWE 연구에 라이선싱. 동시에 주치의제 통합수가·성과 인센티브와 연계하여 간접 수가 수익 확보.</p>
+      <div class="bm-flow">
+        <span class="flow-step">커뮤니티 활동</span><span class="flow-arrow">→</span>
+        <span class="flow-step">AI PRO 구조화</span><span class="flow-arrow">→</span>
+        <span class="flow-step">표준 척도 매핑</span><span class="flow-arrow">→</span>
+        <span class="flow-step" style="background:rgba(255,255,255,.2);">제약사 라이선싱</span>
+        <span class="flow-step" style="background:rgba(255,255,255,.2);">+ 수가 간접 연계</span>
+      </div>
+    </div>
+
+    <div class="bm-link-box">
+      <div class="bm-label">Layer 3 · 통합 모니터링 (복합 데이터 — 차세대)</div>
+      <h3>RPM + PRO + 커뮤니티 = 통합 재택 모니터링 플랫폼</h3>
+      <p>웨어러블 데이터 + PRO + 커뮤니티 활동 + PHR이 하나의 환자 ID로 통합. 재택 RPM 수가가 신설되면 이 통합 데이터 플랫폼이 즉시 수익화 가능한 자산이 됩니다. 기존 RPM 사업자에게 없는 유일한 레이어.</p>
+      <div class="bm-flow">
+        <span class="flow-step">웨어러블</span><span class="flow-arrow">+</span>
+        <span class="flow-step">PRO</span><span class="flow-arrow">+</span>
+        <span class="flow-step">커뮤니티</span><span class="flow-arrow">+</span>
+        <span class="flow-step">PHR</span><span class="flow-arrow">→</span>
+        <span class="flow-step" style="background:var(--coral);">통합 재택 모니터링 플랫폼</span>
+      </div>
+    </div>
+
+    <div class="callout-coral">
+      <div class="callout-label">Bottom Line</div>
+      <strong>온코케어의 모니터링 수가 전략은 '기다리기'가 아니라 '미리 쌓기'입니다.</strong> 재택 RPM 수가가 없는 현재에도, 커뮤니티에서 PRO 데이터를 축적하고, 주치의제 통합수가로 간접 수익을 확보하며, 제약사 라이선싱으로 즉시 현금화합니다. 재택 수가가 신설되는 순간, 이미 축적된 데이터와 플랫폼이 곧바로 수익으로 전환됩니다.
+    </div>
+
+    <div style="margin-top:14px;padding:12px 16px;background:var(--cream);border-radius:10px;font-size:10px;color:var(--muted);line-height:1.7;">
+      <strong style="color:var(--ink);">출처 및 참고자료:</strong> 건강보험심사평가원 EX871/E6544 수가 자료, 보건복지부 지역사회 일차의료 혁신 시범사업(2025.12.23), 미국 CMS 2026 Physician Fee Schedule(CPT 99453/99454/99457/99458/99091/99445/99470), 한국원격의료학회 2025 춘계학술대회(전자신문 2025.4.13), 데일리팜 'RPM 시장 의료기기-제약 동맹 본격화'(2026.3.20), 메디칼업저버 'PRO가 펼쳐 보일 세상'(2022.9.27), 휴이노 IR 자료(2025.3.10), 씨어스테크놀로지 IR 자료(2026.2.4), OncoCare 사업제안서 PRO 라이선싱 섹션
+    </div>
+  </div>
+  <div class="page-footer"><span>OncoCare · 의료 모니터링 수가 종합 분석 · CONFIDENTIAL</span><span>4 / 4</span></div>
+</div>
+
+</body>
+</html>
