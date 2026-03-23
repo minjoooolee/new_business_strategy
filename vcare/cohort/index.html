@@ -1495,16 +1495,237 @@ document.getElementById('alertDetailOverlay').addEventListener('click', function
 
 function handleAlertAction(idx, action) {
   const a = DR_ALERTS[idx];
-  const actionLabels = { reply:'답변 작성 완료', consult:'상담 권고 전송 완료', content:'콘텐츠 공유 완료', memo:'내부 메모 저장 완료' };
-  const actionIcons = { reply:'💬', consult:'🏥', content:'📚', memo:'📝' };
+  const d = a.detail;
 
+  if (action === 'reply') {
+    // ── 커뮤니티 답변 작성 플로우 ──
+    const aiDraft = generateAiDraft(a);
+    document.getElementById('alertDetailBody').innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:1.2rem">💬</span>
+        <span style="font-size:1rem;font-weight:700;color:#111827">커뮤니티 답변 작성</span>
+      </div>
+      <div class="review-question-box">
+        <div class="review-question-label">환자 상황</div>
+        <div class="review-question-text">${a.patient} · ${d.dx} — ${a.msg}</div>
+      </div>
+      <div class="review-ai-label">🤖 AI 초안</div>
+      <div class="review-ai-box review-ai-box--readonly" style="margin-bottom:12px;font-size:.84rem">${aiDraft}</div>
+      <div class="review-ai-label">✏️ 의료진 답변 (아래 내용이 커뮤니티에 게시됩니다)</div>
+      <textarea class="review-textarea" id="alertReplyText" style="min-height:140px">${aiDraft}</textarea>
+      <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+        <button onclick="insertReplyTag(this,'용어 설명')" style="padding:4px 10px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-size:.75rem;color:#374151;cursor:pointer">+ 용어 설명</button>
+        <button onclick="insertReplyTag(this,'주치의 상담 권고')" style="padding:4px 10px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-size:.75rem;color:#374151;cursor:pointer">+ 주치의 상담 권고</button>
+        <button onclick="insertReplyTag(this,'일반 정보 안내')" style="padding:4px 10px;border:1px solid #d1d5db;border-radius:6px;background:#fff;font-size:.75rem;color:#374151;cursor:pointer">+ 일반 정보 안내</button>
+      </div>
+      <div style="padding:10px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;margin-top:12px;font-size:.78rem;color:#92400e;line-height:1.5">
+        ⚠️ 진단·처방·치료 결정 표현은 사용할 수 없습니다. "~로 알려져 있습니다", "담당 주치의와 상의하세요" 형태로 작성해 주세요.
+      </div>
+      <div class="review-action-row" style="margin-top:16px">
+        <button class="review-btn review-btn--cancel" onclick="openAlertDetail(${idx})">뒤로</button>
+        <button class="review-btn review-btn--approve" onclick="submitAlertReply(${idx})">답변 게시</button>
+      </div>
+    `;
+  } else if (action === 'consult') {
+    // ── 주치의 상담 권고 플로우 ──
+    const consultMsg = generateConsultMsg(a);
+    document.getElementById('alertDetailBody').innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:1.2rem">🏥</span>
+        <span style="font-size:1rem;font-weight:700;color:#111827">주치의 상담 권고</span>
+      </div>
+      <div class="review-question-box">
+        <div class="review-question-label">대상 환자</div>
+        <div class="review-question-text">${a.patient} · ${d.dx} · ${d.regimen}</div>
+      </div>
+      <div class="review-ai-label">📋 전송 메시지 미리보기</div>
+      <textarea class="review-textarea" id="alertConsultText" style="min-height:120px">${consultMsg}</textarea>
+      <div style="margin-top:12px">
+        <div style="font-size:.82rem;font-weight:600;color:#374151;margin-bottom:8px">전송 방법</div>
+        <div style="display:flex;gap:8px">
+          <label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;font-size:.82rem;color:#374151">
+            <input type="radio" name="consultMethod" value="push" checked style="accent-color:#7c3aed"> 앱 푸시 알림
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1.5px solid #d1d5db;border-radius:8px;cursor:pointer;font-size:.82rem;color:#374151">
+            <input type="radio" name="consultMethod" value="kakao" style="accent-color:#7c3aed"> 카카오 알림톡
+          </label>
+        </div>
+      </div>
+      <div class="review-action-row" style="margin-top:16px">
+        <button class="review-btn review-btn--cancel" onclick="openAlertDetail(${idx})">뒤로</button>
+        <button class="review-btn review-btn--approve" onclick="submitAlertConsult(${idx})">전송하기</button>
+      </div>
+    `;
+  } else if (action === 'content') {
+    // ── 관련 콘텐츠 공유 플로우 ──
+    const contents = getRelatedContents(a);
+    document.getElementById('alertDetailBody').innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:1.2rem">📚</span>
+        <span style="font-size:1rem;font-weight:700;color:#111827">관련 콘텐츠 공유</span>
+      </div>
+      <div class="review-question-box">
+        <div class="review-question-label">환자 상황</div>
+        <div class="review-question-text">${a.patient} · ${d.dx} — ${a.msg}</div>
+      </div>
+      <div class="review-ai-label">🔍 AI 추천 콘텐츠 (공유할 항목을 선택하세요)</div>
+      <div id="contentSelectList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        ${contents.map((c, i) => `
+          <label style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid #e5e7eb;border-radius:10px;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='#c4b5fd'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'#7c3aed':'#e5e7eb'" onclick="setTimeout(()=>{this.style.borderColor=this.querySelector('input').checked?'#7c3aed':'#e5e7eb'},0)">
+            <input type="checkbox" value="${i}" style="accent-color:#7c3aed;margin-top:2px;flex-shrink:0">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                <span style="font-size:.68rem;padding:2px 6px;border-radius:4px;font-weight:600;color:#fff;background:${c.type==='논문'?'#3b82f6':c.type==='가이드라인'?'#10b981':'#f59e0b'}">${c.type}</span>
+                <span style="font-size:.72rem;color:#9ca3af">${c.source}</span>
+              </div>
+              <div style="font-size:.85rem;font-weight:600;color:#111827;margin-bottom:3px;line-height:1.4">${c.title}</div>
+              <div style="font-size:.78rem;color:#6b7280;line-height:1.4">${c.desc}</div>
+            </div>
+          </label>
+        `).join('')}
+      </div>
+      <div>
+        <div style="font-size:.82rem;font-weight:600;color:#374151;margin-bottom:6px">의료진 코멘트 (선택)</div>
+        <input type="text" id="contentComment" placeholder="예: 현재 상황에 참고하시면 좋은 자료입니다" style="width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:.84rem;font-family:inherit;color:#111827;outline:none;box-sizing:border-box" onfocus="this.style.borderColor='#7c3aed'" onblur="this.style.borderColor='#e5e7eb'">
+      </div>
+      <div class="review-action-row" style="margin-top:16px">
+        <button class="review-btn review-btn--cancel" onclick="openAlertDetail(${idx})">뒤로</button>
+        <button class="review-btn review-btn--approve" onclick="submitAlertContent(${idx})">공유하기</button>
+      </div>
+    `;
+  } else if (action === 'memo') {
+    // ── 내부 메모 플로우 ──
+    document.getElementById('alertDetailBody').innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:1.2rem">📝</span>
+        <span style="font-size:1rem;font-weight:700;color:#111827">내부 메모</span>
+      </div>
+      <div class="review-question-box">
+        <div class="review-question-label">대상</div>
+        <div class="review-question-text">${a.patient} · ${d.dx} — ${a.msg}</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:.82rem;font-weight:600;color:#374151;margin-bottom:6px">메모 분류</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="memo-tag-btn memo-tag-btn--active" onclick="selectMemoTag(this)">추적 관찰 필요</button>
+          <button class="memo-tag-btn" onclick="selectMemoTag(this)">주치의 보고</button>
+          <button class="memo-tag-btn" onclick="selectMemoTag(this)">팀 공유</button>
+          <button class="memo-tag-btn" onclick="selectMemoTag(this)">긴급</button>
+          <button class="memo-tag-btn" onclick="selectMemoTag(this)">기타</button>
+        </div>
+      </div>
+      <div style="font-size:.82rem;font-weight:600;color:#374151;margin-bottom:6px">메모 내용</div>
+      <textarea class="review-textarea" id="alertMemoText" placeholder="운영팀 내부 참고용 메모를 작성해 주세요" style="min-height:120px"></textarea>
+      <div style="padding:10px 14px;background:#f3f4f6;border-radius:10px;margin-top:8px;font-size:.78rem;color:#6b7280;line-height:1.5">
+        이 메모는 환자에게 공개되지 않으며, 운영팀 내부에서만 조회됩니다.
+      </div>
+      <div class="review-action-row" style="margin-top:16px">
+        <button class="review-btn review-btn--cancel" onclick="openAlertDetail(${idx})">뒤로</button>
+        <button class="review-btn review-btn--approve" onclick="submitAlertMemo(${idx})">저장</button>
+      </div>
+    `;
+  }
+}
+
+// ── 액션별 AI 초안/데이터 생성 헬퍼 ──
+function generateAiDraft(a) {
+  const d = a.detail;
+  const drafts = {
+    'urgent': `안녕하세요, ${a.patient.replace('환자_','')}님. 말씀하신 상황에 대해 안내드립니다.\n\n${d.recommend[0]}\n\n${d.recommend.length > 1 ? d.recommend[1] + '\n\n' : ''}현재 상태에 대한 정확한 판단은 담당 주치의의 진료를 통해 이루어지므로, 가능한 빨리 담당 주치의와 상의하시는 것이 권장됩니다.\n\n본 내용은 일반적인 의학 정보 안내이며, 개인 진단·처방이 아닙니다.`,
+    'warn': `안녕하세요, ${a.patient.replace('환자_','').replace('보호자_','')}님. 말씀해 주신 내용 확인했습니다.\n\n${d.recommend[0]}\n\n${d.recommend.length > 2 ? d.recommend[2] + '\n\n' : ''}담당 주치의와의 상담을 통해 현재 상황에 맞는 안내를 받으시는 것이 가장 정확합니다.\n\n본 내용은 일반적인 의학 정보 안내이며, 개인 진단·처방이 아닙니다.`,
+    'info': `안녕하세요, ${a.patient.replace('환자_','')}님. 문의 주신 내용에 대해 안내드립니다.\n\n${d.recommend[0]}\n\n${d.recommend.length > 1 ? d.recommend[1] + '\n\n' : ''}보다 구체적인 사항은 담당 주치의와 상의하시는 것이 권장됩니다.\n\n본 내용은 일반적인 의학 정보 안내이며, 개인 진단·처방이 아닙니다.`
+  };
+  return drafts[a.level] || drafts['info'];
+}
+
+function generateConsultMsg(a) {
+  const d = a.detail;
+  return `[onco.care 주치의 상담 안내]\n\n${a.patient.replace('환자_','').replace('보호자_','')}님, 안녕하세요.\n\n최근 보고해 주신 내용을 검토한 결과, 담당 주치의와의 조기 상담을 안내드립니다.\n\n상담 사유: ${a.msg}\n\n빠른 시일 내 담당 병원 외래 예약 또는 전화 상담을 진행해 주시기 바랍니다.\n\n※ 긴급한 상황(고열, 심한 출혈, 호흡곤란 등)에는 즉시 응급실을 방문해 주세요.`;
+}
+
+function getRelatedContents(a) {
+  const d = a.detail;
+  const cancer = d.dx;
+  const contentDB = {
+    '유방암': [
+      { type:'가이드라인', source:'NCCN 2026', title:'유방암 환자를 위한 항암 부작용 관리 안내', desc:'호중구 감소, 발열, 감염 예방에 대한 환자용 가이드' },
+      { type:'논문', source:'J Clin Oncol 2025', title:'항암 유발 호중구 감소증의 관리와 G-CSF 사용', desc:'호중구 감소성 발열의 위험 인자와 예방적 G-CSF 투여 기준' },
+      { type:'콘텐츠', source:'onco.care', title:'항암 치료 중 발열이 생겼을 때 — 환자 행동 가이드', desc:'발열 시 즉시 해야 할 일, 응급실 방문 기준, 준비물 안내' },
+    ],
+    '대장암': [
+      { type:'가이드라인', source:'NCCN 2026', title:'대장암 수술 후 추적 검사 일정과 CEA 모니터링', desc:'수술 후 CEA 추적 주기, CT 촬영 시기, 대장내시경 재검 기준' },
+      { type:'논문', source:'Ann Oncol 2025', title:'대장암 수술 후 CEA 상승의 임상적 의미와 대응', desc:'CEA 상승이 반드시 재발을 의미하지 않으며, 추가 검사가 필요한 기준' },
+      { type:'콘텐츠', source:'onco.care', title:'CEA 수치가 올랐다는데 — 환자가 알아야 할 것들', desc:'CEA란 무엇인지, 수치 변동의 다양한 원인, 주치의에게 물어볼 질문' },
+    ],
+    '폐암': [
+      { type:'가이드라인', source:'ESMO 2025', title:'진행성 폐암 환자의 심리사회적 지원 가이드라인', desc:'정신건강 선별, 심리상담 연계, 사회복지 지원 체계' },
+      { type:'논문', source:'Lancet Oncol 2025', title:'4기 암 환자의 우울 선별과 조기 개입의 효과', desc:'PHQ-9 기반 선별검사의 임상적 유용성과 조기 개입 근거' },
+      { type:'콘텐츠', source:'onco.care', title:'암 치료 중 마음이 힘들 때 — 도움받을 수 있는 곳', desc:'정신건강의학과 상담, 암 환자 심리지원 프로그램, 긴급 연락처' },
+    ],
+    '위암': [
+      { type:'가이드라인', source:'NCCN 2026', title:'위절제술 후 영양 관리 가이드라인', desc:'덤핑증후군 관리, 소량 다회 식사, 영양보충제 활용' },
+      { type:'논문', source:'Nutrients 2025', title:'위암 수술 후 영양불량 예방을 위한 근거 기반 식이 전략', desc:'수술 후 체중 감소 예방, 단백질 보충, NST 연계 효과' },
+      { type:'콘텐츠', source:'onco.care', title:'위 수술 후 잘 먹는 법 — 환자·보호자 식사 가이드', desc:'소량 다회 식사 방법, 피해야 할 음식, 체중 관리 팁' },
+    ],
+    '갑상선암': [
+      { type:'가이드라인', source:'ATA 2025', title:'방사성요오드(RAI) 치료 환자 안내 가이드라인', desc:'격리 기간, 소아 접촉 제한, 저요오드 식이 기간' },
+      { type:'논문', source:'Thyroid 2025', title:'RAI 치료 용량별 격리 기간과 안전 가이드', desc:'30mCi vs 100mCi 격리 기준, 가족 접촉 안전 거리' },
+      { type:'콘텐츠', source:'onco.care', title:'방사성요오드 치료 준비부터 퇴원까지 — 환자 안내서', desc:'입원 전 준비, 격리 생활, 퇴원 후 주의사항 총정리' },
+    ],
+  };
+  // cancer에서 키 매칭
+  for (const key of Object.keys(contentDB)) {
+    if (cancer.includes(key)) return contentDB[key];
+  }
+  return contentDB['유방암'];
+}
+
+function insertReplyTag(btn, tag) {
+  const ta = document.getElementById('alertReplyText');
+  if (!ta) return;
+  ta.value += `\n\n[${tag}] `;
+  ta.focus();
+  ta.scrollTop = ta.scrollHeight;
+}
+
+function selectMemoTag(btn) {
+  btn.parentElement.querySelectorAll('.memo-tag-btn').forEach(b => b.classList.remove('memo-tag-btn--active'));
+  btn.classList.add('memo-tag-btn--active');
+}
+
+// ── 각 액션 제출 → 완료 화면 ──
+function submitAlertReply(idx) {
+  const text = document.getElementById('alertReplyText')?.value;
+  if (!text || text.trim().length < 10) { showToast('답변 내용을 10자 이상 작성해 주세요.'); return; }
+  showAlertSuccess(idx, '💬', '커뮤니티 답변 게시 완료', '의료진 답변이 커뮤니티에 등록되었습니다.<br>"✅ 의료진 검증됨" 뱃지가 자동 부여됩니다.');
+}
+
+function submitAlertConsult(idx) {
+  const method = document.querySelector('input[name="consultMethod"]:checked')?.value;
+  const methodLabel = method === 'kakao' ? '카카오 알림톡' : '앱 푸시 알림';
+  showAlertSuccess(idx, '🏥', '주치의 상담 권고 전송 완료', `${methodLabel}으로 환자에게 주치의 상담 안내가 전송되었습니다.`);
+}
+
+function submitAlertContent(idx) {
+  const checked = document.querySelectorAll('#contentSelectList input[type="checkbox"]:checked');
+  if (checked.length === 0) { showToast('공유할 콘텐츠를 1개 이상 선택해 주세요.'); return; }
+  showAlertSuccess(idx, '📚', '관련 콘텐츠 공유 완료', `선택한 ${checked.length}건의 콘텐츠가 환자에게 공유되었습니다.`);
+}
+
+function submitAlertMemo(idx) {
+  const text = document.getElementById('alertMemoText')?.value;
+  if (!text || text.trim().length < 2) { showToast('메모 내용을 입력해 주세요.'); return; }
+  showAlertSuccess(idx, '📝', '내부 메모 저장 완료', '운영팀 내부 메모가 저장되었습니다.');
+}
+
+function showAlertSuccess(idx, icon, title, desc) {
+  const a = DR_ALERTS[idx];
   document.getElementById('alertDetailBody').innerHTML = `
     <div class="review-success">
-      <div class="review-success-icon review-success-icon--approve">${actionIcons[action]}</div>
-      <div class="review-success-title">${actionLabels[action]}</div>
+      <div class="review-success-icon review-success-icon--approve">${icon}</div>
+      <div class="review-success-title">${title}</div>
       <div class="review-success-desc">
-        <strong>${a.patient}</strong>에 대한 조치가 기록되었습니다.<br>
-        ${action==='reply' ? '커뮤니티에 의료진 답변이 등록됩니다.' : action==='consult' ? '주치의 상담 안내 메시지가 전송됩니다.' : action==='content' ? '관련 콘텐츠가 공유됩니다.' : '운영팀 내부 메모가 저장되었습니다.'}
+        <strong>${a.patient}</strong>에 대한 조치가 기록되었습니다.<br>${desc}
       </div>
       <button class="review-success-btn" onclick="completeAlertAction(${idx})">확인</button>
     </div>
