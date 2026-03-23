@@ -1332,6 +1332,27 @@
 }
 .review-success-btn:hover { background: #6d28d9; }
 
+/* ── 내부 메모 태그 버튼 ── */
+.memo-tag-btn {
+  padding: 5px 12px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: .78rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: .15s;
+  font-family: inherit;
+}
+.memo-tag-btn:hover { border-color: #a78bfa; color: #7c3aed; }
+.memo-tag-btn--active {
+  background: #7c3aed;
+  color: #fff;
+  border-color: #7c3aed;
+}
+.memo-tag-btn--active:hover { background: #6d28d9; border-color: #6d28d9; color: #fff; }
+
 /* 완료된 알림/검토 카드 상태 */
 .dr-card-done {
   opacity: .55;
