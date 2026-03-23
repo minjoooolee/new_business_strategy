@@ -10955,8 +10955,10 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
   </div><!-- /page-vdoc-proposal -->
 
 
-  <div class="page-section" id="page-vdoc-report" style="padding:0;margin:0;">
-    <iframe src="vdoc_report_final.html" style="width:100%;border:none;display:block;height:9000px;" scrolling="yes"></iframe>
+  <div class="page-section" id="page-vdoc-report" style="padding:0;margin:0;background:#f4f4f4;">
+    <iframe src="vdoc_proposal.html" style="width:100%;border:none;display:block;height:5000px;" scrolling="yes"></iframe>
+    <iframe src="vdoc_market.html" style="width:100%;border:none;display:block;height:3000px;" scrolling="yes"></iframe>
+    <iframe src="vdoc_competition.html" style="width:100%;border:none;display:block;height:3000px;" scrolling="yes"></iframe>
   </div><!-- /page-vdoc-report -->
   <!-- ===== VDOC APPENDIX PAGE ===== -->
   <div class="page-section" id="page-vdoc-appendix">
@@ -11103,12 +11105,12 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
       <ul class="apx-toc-list">
         <li class="apx-toc-item">
           <div class="apx-toc-num">A1</div>
-          <a class="apx-toc-link" href="#apx-doc-1">시장기회 및 규제환경 분석</a>
+          <a class="apx-toc-link" href="javascript:void(0)" onclick="document.getElementById('apx-doc-1').scrollIntoView({behavior:'smooth',block:'start'})">시장기회 및 규제환경 분석</a>
           <span class="apx-toc-arrow">↓</span>
         </li>
         <li class="apx-toc-item">
           <div class="apx-toc-num">A2</div>
-          <a class="apx-toc-link" href="#apx-doc-2">경쟁환경 분석</a>
+          <a class="apx-toc-link" href="javascript:void(0)" onclick="document.getElementById('apx-doc-2').scrollIntoView({behavior:'smooth',block:'start'})">경쟁환경 분석</a>
           <span class="apx-toc-arrow">↓</span>
         </li>
       </ul>
@@ -11120,7 +11122,8 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
         <div class="apx-doc-num">A1</div>
         <div class="apx-doc-title">시장기회 및 규제환경 분석</div>
       </div>
-      <iframe src="vdoc_market.html" class="apx-doc-frame" height="2800" scrolling="yes"></iframe>
+      <iframe src="vdoc_market.html" class="apx-doc-frame" id="apx-iframe-1" height="2800" scrolling="yes"
+        onload="try{this.style.height=this.contentWindow.document.body.scrollHeight+40+'px';}catch(e){}"></iframe>
     </div>
 
     <!-- A2 -->
@@ -11129,7 +11132,8 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
         <div class="apx-doc-num">A2</div>
         <div class="apx-doc-title">경쟁환경 분석</div>
       </div>
-      <iframe src="vdoc_competition.html" class="apx-doc-frame" height="3200" scrolling="yes"></iframe>
+      <iframe src="vdoc_competition.html" class="apx-doc-frame" id="apx-iframe-2" height="3200" scrolling="yes"
+        onload="try{this.style.height=this.contentWindow.document.body.scrollHeight+40+'px';}catch(e){}"></iframe>
     </div>
 
     <div class="apx-footer">
