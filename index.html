@@ -5296,6 +5296,227 @@
       </div>
     </div>
 
+
+    <div class="cd-divider"></div>
+
+    <!-- S5: 핵심 목표 -->
+    <div class="cd-section" id="cd-s5">
+      <div class="cd-sec-label">05 · Final Goal</div>
+      <h2 class="cd-sec-title">우리가 궁극적으로<br><em>얻고자 하는 것</em></h2>
+      <p class="cd-sec-lead">커뮤니티 구축의 최종 목적은 단순한 플랫폼 성장이 아닙니다. 익명화된 검사기록지를 구조화된 데이터로 만들어, 전 세계 어디에도 없는 데이터셋을 완성하는 것입니다.</p>
+
+      <style>
+        #cd-s5 .fg-flow {
+          display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;
+        }
+        #cd-s5 .fg-step {
+          display: flex; align-items: stretch; gap: 0;
+        }
+        #cd-s5 .fg-step-num {
+          width: 36px; flex-shrink: 0; display: flex; flex-direction: column;
+          align-items: center;
+        }
+        #cd-s5 .fg-step-circle {
+          width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 11px; font-weight: 800; color: #fff;
+          background: var(--cd-accent2);
+        }
+        #cd-s5 .fg-step-line {
+          flex: 1; width: 1.5px; background: var(--cd-border);
+          margin: 4px auto 0;
+        }
+        #cd-s5 .fg-step-body {
+          flex: 1; background: var(--cd-surface);
+          border: 1px solid var(--cd-border); border-radius: 12px;
+          padding: 16px 20px; margin-left: 12px; margin-bottom: 0;
+        }
+        #cd-s5 .fg-step-title {
+          font-size: 13.5px; font-weight: 800; color: var(--cd-text);
+          margin-bottom: 6px;
+        }
+        #cd-s5 .fg-step-desc {
+          font-size: 12.5px; color: var(--cd-text-muted); line-height: 1.75;
+        }
+        #cd-s5 .fg-step-desc strong { color: var(--cd-text); }
+        #cd-s5 .fg-limit-box {
+          background: rgba(240,165,0,.06); border: 1px solid rgba(240,165,0,.25);
+          border-left: 3px solid #f0a500; border-radius: 0 12px 12px 0;
+          padding: 16px 20px; margin: 16px 0 0;
+          font-size: 12.5px; color: var(--cd-text-muted); line-height: 1.8;
+        }
+        #cd-s5 .fg-limit-box strong { color: var(--cd-text); }
+        #cd-s5 .fg-limit-label {
+          font-size: 9px; font-weight: 800; letter-spacing: 2px;
+          text-transform: uppercase; color: #f0a500; margin-bottom: 6px;
+        }
+        #cd-s5 .fg-doc-grid {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+          margin: 12px 0 0;
+        }
+        #cd-s5 .fg-doc-card {
+          background: rgba(0,212,160,.06); border: 1px solid rgba(0,212,160,.2);
+          border-radius: 10px; padding: 14px 16px;
+        }
+        #cd-s5 .fg-doc-name {
+          font-size: 12.5px; font-weight: 700; color: var(--cd-text);
+          margin-bottom: 6px;
+        }
+        #cd-s5 .fg-doc-items {
+          display: flex; flex-direction: column; gap: 3px;
+        }
+        #cd-s5 .fg-doc-item {
+          font-size: 11.5px; color: var(--cd-text-muted);
+          display: flex; align-items: center; gap: 6px;
+        }
+        #cd-s5 .fg-doc-item::before {
+          content: '·'; color: var(--cd-accent2); font-weight: 700; flex-shrink: 0;
+        }
+      </style>
+
+      <!-- 3단계 플로우 -->
+      <div class="fg-flow">
+        <div class="fg-step">
+          <div class="fg-step-num">
+            <div class="fg-step-circle">1</div>
+            <div class="fg-step-line"></div>
+          </div>
+          <div class="fg-step-body">
+            <div class="fg-step-title">환우가 검사기록지를 업로드한다</div>
+            <div class="fg-step-desc">
+              환우가 자발적으로 본인의 검사결과지 이미지를 업로드합니다. 원본 이미지는 30일 후 파기됩니다.
+              <div class="fg-limit-box">
+                <div class="fg-limit-label">수집 범위 — 2종으로 한정하는 이유</div>
+                제약사가 돈을 내는 바이오마커는 전부 아래 2종에 들어 있습니다. CBC(일반혈액검사) 같은 건 제약사한테 팔 수 있는 정보가 아닙니다.
+                <div class="fg-doc-grid">
+                  <div class="fg-doc-card">
+                    <div class="fg-doc-name">📋 조직검사 결과지</div>
+                    <div class="fg-doc-items">
+                      <div class="fg-doc-item">ER / PR / HER2 / Ki-67</div>
+                      <div class="fg-doc-item">PD-L1 / MSI</div>
+                      <div class="fg-doc-item">분자 프로파일 전체</div>
+                    </div>
+                  </div>
+                  <div class="fg-doc-card">
+                    <div class="fg-doc-name">📈 종양표지자 결과지</div>
+                    <div class="fg-doc-items">
+                      <div class="fg-doc-item">CEA · CA15-3 시계열</div>
+                      <div class="fg-doc-item">CA19-9 · AFP 등</div>
+                      <div class="fg-doc-item">치료 경과 추적 지표</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fg-step">
+          <div class="fg-step-num">
+            <div class="fg-step-circle">2</div>
+            <div class="fg-step-line"></div>
+          </div>
+          <div class="fg-step-body">
+            <div class="fg-step-title">AI OCR + 파싱으로 구조화된 데이터로 변환한다</div>
+            <div class="fg-step-desc">
+              이미지에서 바이오마커 수치를 자동 추출해 <strong>정형화된 JSON 스키마</strong>로 저장합니다.
+              익명 ID에 연결되어 PRO 데이터와 결합됩니다.
+            </div>
+          </div>
+        </div>
+
+        <div class="fg-step">
+          <div class="fg-step-num">
+            <div class="fg-step-circle">3</div>
+          </div>
+          <div class="fg-step-body">
+            <div class="fg-step-title">바이오마커 + PRO = 전 세계 유일의 데이터셋</div>
+            <div class="fg-step-desc">
+              병원은 바이오마커는 있지만 PRO가 없고, 해외 커뮤니티는 PRO는 있지만 바이오마커가 없습니다.
+              <strong>두 가지를 동시에 가진 플랫폼이 온코케어의 핵심 경쟁력</strong>입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기존 cd-s5 컨텐츠 (글로벌 경쟁자 비교 등) -->
+      <div class="fg-dataset-box">
+        <div class="fg-dataset-label">Step 1 · 데이터 결합 결과물</div>
+        <div class="fg-equation">
+          <div class="fg-eq-item"><strong>바이오마커</strong><br>HER2 3+, Ki-67 40%<br>등 분자 프로파일</div>
+          <div class="fg-eq-op">+</div>
+          <div class="fg-eq-item"><strong>PRO 데이터</strong><br>엔허투 치료 중<br>부작용·삶의 질 변화</div>
+          <div class="fg-eq-op">+</div>
+          <div class="fg-eq-item"><strong>종양표지자</strong><br>치료 경과에 따른<br>수치 변화 추이</div>
+          <div class="fg-eq-op">=</div>
+        </div>
+        <div class="fg-result-quote">
+          <span>"HER2 3+, Ki-67 40% 환우 200명이 엔허투 치료 중 겪은<br>부작용 패턴 + 종양표지자 변화 추이 + 삶의 질 변화"</span><br>
+          <span style="font-size:12px;font-weight:400;color:var(--text-muted);font-style:normal;">→ 이런 구조의 데이터셋은 전 세계 어느 플랫폼도 만들어본 적이 없습니다.</span>
+        </div>
+      </div>
+
+      <!-- BLOCK 2: 글로벌 경쟁자 비교 -->
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;">Step 2 · 글로벌 경쟁자와의 차이</div>
+      <div class="fg-vs-grid">
+        <div class="fg-vs-card us">
+          <div class="fg-vs-label">경쟁자</div>
+          <div class="fg-vs-name">PatientsLikeMe &amp; Inspire</div>
+          <div class="fg-vs-row"><span class="fg-tag-no">✗ 없음</span>바이오마커 데이터 — 분자 프로파일 없이 증상만 수집</div>
+          <div class="fg-vs-row"><span class="fg-tag-no">✗ 미달</span>PRO 표준화 부재 — Inspire는 PRO가 체계화되어 있지 않음</div>
+          <div class="fg-vs-row"><span class="fg-tag-no">✗ 편향</span>미국·유럽 백인 환자 중심 — 아시아 환자 데이터 극소</div>
+          <div class="fg-vs-row"><span class="fg-tag-no">✗ 공백</span>위암 데이터 거의 없음 — 미국에서 위암은 희귀암 수준</div>
+        </div>
+        <div class="fg-vs-card oc">
+          <div class="fg-vs-label">온코케어</div>
+          <div class="fg-vs-name">OncoCare + 닥터앤서 3.0</div>
+          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 확보</span>바이오마커 연계 — 치료 이력 + 분자 프로파일 통합</div>
+          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 표준화</span>PRO 표준 수집 — 닥터앤서 3.0 앱으로 체계적 수집</div>
+          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 유일</span>한국인 암환자 특화 — 유방암·위암·대장암 집중</div>
+          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 독점</span>아시아 위암 데이터 — 전 세계 유일 구조적 공급원</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 3: 위암 킬러 데이터 -->
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;margin-top:24px;">Step 3 · 킬러 데이터셋 — 한국 위암</div>
+      <div class="fg-korea-box">
+        <div class="fg-korea-header">
+          <div class="fg-korea-ico">🗺️</div>
+          <div>
+            <div class="fg-korea-ttl">위암은 <span>아시아에서 압도적으로 많이 발생</span>하는 암<br>미국 플랫폼에는 위암 데이터가 거의 없습니다</div>
+          </div>
+        </div>
+        <div class="fg-korea-body">
+          <div>
+            <div class="fg-korea-col-ttl">왜 위암인가</div>
+            <div class="fg-korea-item"><div class="fg-korea-item-dot"></div>한국·일본·중국이 전 세계 위암 발생의 <strong>60% 이상</strong> 차지</div>
+            <div class="fg-korea-item"><div class="fg-korea-item-dot"></div>미국의 위암 연간 발생자 수 ≈ 한국의 <strong>1/5 수준</strong></div>
+            <div class="fg-korea-item"><div class="fg-korea-item-dot"></div>PatientsLikeMe·Inspire에서 위암 환자 커뮤니티는 <strong>사실상 부재</strong></div>
+          </div>
+          <div>
+            <div class="fg-korea-col-ttl">온코케어가 가지면</div>
+            <div class="fg-korea-item"><div class="fg-korea-item-dot" style="background:#00d4a0;"></div>한국 위암 환자 <strong>500명의 바이오마커 + PRO 통합 데이터</strong></div>
+            <div class="fg-korea-item"><div class="fg-korea-item-dot" style="background:#00d4a0;"></div>글로벌 빅파마가 <strong>다른 곳에서는 살 수 없는</strong> 데이터</div>
+            <div class="fg-korea-item"><div class="fg-korea-item-dot" style="background:#00d4a0;"></div>아시아 임상 확장 노리는 제약사에게 <strong>구조적 독점 공급원</strong></div>
+          </div>
+        </div>
+        <div class="fg-korea-footer">
+          <div class="fg-korea-cta">
+            온코케어가 한국 위암 환자 500명의 바이오마커+PRO 통합 데이터를 가지면,<br>
+            이건 <strong>글로벌 빅파마가 다른 곳에서는 살 수 없는 데이터</strong>입니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 결론 -->
+      <div class="cd-insight-box" style="border-color:rgba(0,212,160,0.25); background: linear-gradient(135deg, rgba(0,212,160,0.07), rgba(61,127,255,0.04)); margin-top: 24px;">
+        <div class="cd-insight-box-label" style="color:var(--cd-accent2);">결론</div>
+        <div class="cd-insight-box-text">
+          커뮤니티는 수단입니다. 목적은 <strong>전 세계 어디에도 없는 한국인 암환자의 바이오마커 + PRO 통합 데이터셋</strong>을 만드는 것입니다. 이 데이터가 쌓이는 순간, aitrics는 플랫폼 기업이 아니라 <strong>글로벌 빅파마가 반드시 찾아오는 데이터 공급 게임체인저</strong>가 됩니다.
+        </div>
+      </div>
+    </div>
+
     <div class="cd-divider"></div>
 
     <!-- ===== 유저가 커뮤니티를 찾는 이유 ===== -->
@@ -5691,251 +5912,6 @@
       })();
     </script>
 
-    <div class="cd-divider"></div>
-
-    <!-- S5: 핵심 목표 -->
-    <div class="cd-section" id="cd-s5">
-      <div class="cd-sec-label">05 · Final Goal</div>
-      <h2 class="cd-sec-title">우리가 궁극적으로<br>얻고자 하는 것</h2>
-      <p class="cd-sec-lead">커뮤니티 구축의 최종 목적은 단순한 플랫폼 성장이 아닙니다. 바이오마커 + PRO 데이터의 결합이 만들어내는 전 세계 유일의 데이터셋 — 이것이 종착점입니다.</p>
-
-      <style>
-        /* cd-s5 전용 */
-        #cd-s5 .fg-dataset-box {
-          background: linear-gradient(135deg, rgba(61,127,255,.07), rgba(0,212,160,.05));
-          border: 1.5px solid rgba(0,212,160,.4);
-          border-radius: 18px;
-          padding: 28px 32px;
-          margin-bottom: 24px;
-          position: relative;
-          overflow: hidden;
-        }
-        #cd-s5 .fg-dataset-box::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #3d7fff, #00d4a0, #f0a500);
-        }
-        #cd-s5 .fg-dataset-label {
-          font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
-          text-transform: uppercase; color: #00d4a0; margin-bottom: 14px;
-          display: flex; align-items: center; gap: 8px;
-        }
-        #cd-s5 .fg-dataset-label::before {
-          content: ''; display: block;
-          width: 20px; height: 1px; background: #00d4a0;
-        }
-        #cd-s5 .fg-equation {
-          display: flex; align-items: center; gap: 10px;
-          flex-wrap: wrap; margin-bottom: 20px;
-        }
-        #cd-s5 .fg-eq-item {
-          background: rgba(255,255,255,.04);
-          border: 1px solid rgba(255,255,255,.1);
-          border-radius: 10px; padding: 10px 16px;
-          font-size: 12px; color: var(--text-muted); line-height: 1.6;
-        }
-        #cd-s5 .fg-eq-item strong { color: var(--text); }
-        #cd-s5 .fg-eq-op {
-          font-size: 20px; font-weight: 300; color: var(--text-dim); flex-shrink: 0;
-        }
-        #cd-s5 .fg-result-quote {
-          background: rgba(0,212,160,.06);
-          border-left: 3px solid #00d4a0;
-          border-radius: 0 10px 10px 0;
-          padding: 16px 20px;
-          font-size: 13.5px; font-weight: 700; color: var(--text);
-          line-height: 1.75; margin-bottom: 14px;
-          font-style: italic;
-        }
-        #cd-s5 .fg-result-quote span { color: #00d4a0; font-style: normal; }
-        #cd-s5 .fg-vs-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 14px; margin-bottom: 24px;
-        }
-        #cd-s5 .fg-vs-card {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 14px; padding: 20px 22px;
-        }
-        #cd-s5 .fg-vs-card.us {
-          border-color: rgba(255,92,106,.25);
-        }
-        #cd-s5 .fg-vs-label {
-          font-size: 9px; font-weight: 700;
-          letter-spacing: 1.5px; text-transform: uppercase;
-          margin-bottom: 10px;
-        }
-        #cd-s5 .fg-vs-card.us .fg-vs-label { color: #ff5c6a; }
-        #cd-s5 .fg-vs-card.oc .fg-vs-label { color: #00d4a0; }
-        #cd-s5 .fg-vs-name {
-          font-size: 15px; font-weight: 800;
-          color: var(--text); margin-bottom: 12px;
-          letter-spacing: -.3px;
-        }
-        #cd-s5 .fg-vs-row {
-          display: flex; align-items: flex-start; gap: 8px;
-          font-size: 12px; color: var(--text-muted);
-          padding: 6px 0; border-bottom: 1px solid var(--border);
-          line-height: 1.6;
-        }
-        #cd-s5 .fg-vs-row:last-child { border-bottom: none; }
-        #cd-s5 .fg-tag-no {
-          display: inline-flex; align-items: center;
-          font-size: 10px; font-weight: 700;
-          padding: 1px 7px; border-radius: 5px;
-          background: rgba(255,92,106,.1); color: #ff5c6a;
-          border: 1px solid rgba(255,92,106,.2);
-          flex-shrink: 0; margin-top: 2px;
-        }
-        #cd-s5 .fg-tag-yes {
-          display: inline-flex; align-items: center;
-          font-size: 10px; font-weight: 700;
-          padding: 1px 7px; border-radius: 5px;
-          background: rgba(0,212,160,.1); color: #00d4a0;
-          border: 1px solid rgba(0,212,160,.2);
-          flex-shrink: 0; margin-top: 2px;
-        }
-        #cd-s5 .fg-korea-box {
-          background: linear-gradient(135deg, #0a0e1a, #0c1628);
-          border: 1.5px solid rgba(61,127,255,.4);
-          border-radius: 18px; overflow: hidden;
-          margin-bottom: 24px;
-        }
-        #cd-s5 .fg-korea-header {
-          padding: 22px 28px; border-bottom: 1px solid rgba(255,255,255,.06);
-          display: flex; align-items: center; gap: 14px;
-        }
-        #cd-s5 .fg-korea-ico {
-          width: 44px; height: 44px; border-radius: 12px;
-          background: rgba(61,127,255,.15);
-          border: 1px solid rgba(61,127,255,.3);
-          display: flex; align-items: center;
-          justify-content: center; font-size: 20px; flex-shrink: 0;
-        }
-        #cd-s5 .fg-korea-ttl {
-          font-size: 16px; font-weight: 800;
-          color: #fff; letter-spacing: -.3px;
-          line-height: 1.4;
-        }
-        #cd-s5 .fg-korea-ttl span {
-          background: linear-gradient(90deg, #3d7fff, #00d4a0);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        #cd-s5 .fg-korea-body {
-          padding: 22px 28px;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 18px;
-        }
-        #cd-s5 .fg-korea-col-ttl {
-          font-size: 9px; font-weight: 700;
-          letter-spacing: 1.5px; text-transform: uppercase;
-          color: rgba(255,255,255,.3); margin-bottom: 10px;
-        }
-        #cd-s5 .fg-korea-item {
-          display: flex; align-items: flex-start; gap: 8px;
-          font-size: 12.5px; color: rgba(255,255,255,.6);
-          padding: 5px 0; line-height: 1.6;
-        }
-        #cd-s5 .fg-korea-item-dot {
-          width: 5px; height: 5px; border-radius: 50%;
-          background: #3d7fff; flex-shrink: 0; margin-top: 6px;
-        }
-        #cd-s5 .fg-korea-item strong { color: rgba(255,255,255,.9); }
-        #cd-s5 .fg-korea-footer {
-          padding: 18px 28px;
-          background: rgba(0,212,160,.06);
-          border-top: 1px solid rgba(0,212,160,.15);
-        }
-        #cd-s5 .fg-korea-cta {
-          font-size: 13px; font-weight: 700;
-          color: #00d4a0; line-height: 1.8;
-        }
-        #cd-s5 .fg-korea-cta strong { color: #fff; }
-      </style>
-
-      <!-- BLOCK 1: 데이터 결합 방정식 -->
-      <div class="fg-dataset-box">
-        <div class="fg-dataset-label">Step 1 · 데이터 결합 결과물</div>
-        <div class="fg-equation">
-          <div class="fg-eq-item"><strong>바이오마커</strong><br>HER2 3+, Ki-67 40%<br>등 분자 프로파일</div>
-          <div class="fg-eq-op">+</div>
-          <div class="fg-eq-item"><strong>PRO 데이터</strong><br>엔허투 치료 중<br>부작용·삶의 질 변화</div>
-          <div class="fg-eq-op">+</div>
-          <div class="fg-eq-item"><strong>종양표지자</strong><br>치료 경과에 따른<br>수치 변화 추이</div>
-          <div class="fg-eq-op">=</div>
-        </div>
-        <div class="fg-result-quote">
-          <span>"HER2 3+, Ki-67 40% 환우 200명이 엔허투 치료 중 겪은<br>부작용 패턴 + 종양표지자 변화 추이 + 삶의 질 변화"</span><br>
-          <span style="font-size:12px;font-weight:400;color:var(--text-muted);font-style:normal;">→ 이런 구조의 데이터셋은 전 세계 어느 플랫폼도 만들어본 적이 없습니다.</span>
-        </div>
-      </div>
-
-      <!-- BLOCK 2: 글로벌 경쟁자 비교 -->
-      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;">Step 2 · 글로벌 경쟁자와의 차이</div>
-      <div class="fg-vs-grid">
-        <div class="fg-vs-card us">
-          <div class="fg-vs-label">경쟁자</div>
-          <div class="fg-vs-name">PatientsLikeMe &amp; Inspire</div>
-          <div class="fg-vs-row"><span class="fg-tag-no">✗ 없음</span>바이오마커 데이터 — 분자 프로파일 없이 증상만 수집</div>
-          <div class="fg-vs-row"><span class="fg-tag-no">✗ 미달</span>PRO 표준화 부재 — Inspire는 PRO가 체계화되어 있지 않음</div>
-          <div class="fg-vs-row"><span class="fg-tag-no">✗ 편향</span>미국·유럽 백인 환자 중심 — 아시아 환자 데이터 극소</div>
-          <div class="fg-vs-row"><span class="fg-tag-no">✗ 공백</span>위암 데이터 거의 없음 — 미국에서 위암은 희귀암 수준</div>
-        </div>
-        <div class="fg-vs-card oc">
-          <div class="fg-vs-label">온코케어</div>
-          <div class="fg-vs-name">OncoCare + 닥터앤서 3.0</div>
-          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 확보</span>바이오마커 연계 — 치료 이력 + 분자 프로파일 통합</div>
-          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 표준화</span>PRO 표준 수집 — 닥터앤서 3.0 앱으로 체계적 수집</div>
-          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 유일</span>한국인 암환자 특화 — 유방암·위암·대장암 집중</div>
-          <div class="fg-vs-row"><span class="fg-tag-yes">✓ 독점</span>아시아 위암 데이터 — 전 세계 유일 구조적 공급원</div>
-        </div>
-      </div>
-
-      <!-- BLOCK 3: 위암 = 킬러 데이터 -->
-      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;">Step 3 · 킬러 데이터셋 — 한국 위암</div>
-      <div class="fg-korea-box">
-        <div class="fg-korea-header">
-          <div class="fg-korea-ico">🗺️</div>
-          <div>
-            <div class="fg-korea-ttl">위암은 <span>아시아에서 압도적으로 많이 발생</span>하는 암<br>미국 플랫폼에는 위암 데이터가 거의 없습니다</div>
-          </div>
-        </div>
-        <div class="fg-korea-body">
-          <div>
-            <div class="fg-korea-col-ttl">왜 위암인가</div>
-            <div class="fg-korea-item"><div class="fg-korea-item-dot"></div>한국·일본·중국이 전 세계 위암 발생의 <strong>60% 이상</strong> 차지</div>
-            <div class="fg-korea-item"><div class="fg-korea-item-dot"></div>미국의 위암 연간 발생자 수 ≈ 한국의 <strong>1/5 수준</strong></div>
-            <div class="fg-korea-item"><div class="fg-korea-item-dot"></div>PatientsLikeMe·Inspire에서 위암 환자 커뮤니티는 <strong>사실상 부재</strong></div>
-          </div>
-          <div>
-            <div class="fg-korea-col-ttl">온코케어가 가지면</div>
-            <div class="fg-korea-item"><div class="fg-korea-item-dot" style="background:#00d4a0;"></div>한국 위암 환자 <strong>500명의 바이오마커 + PRO 통합 데이터</strong></div>
-            <div class="fg-korea-item"><div class="fg-korea-item-dot" style="background:#00d4a0;"></div>글로벌 빅파마가 <strong>다른 곳에서는 살 수 없는</strong> 데이터</div>
-            <div class="fg-korea-item"><div class="fg-korea-item-dot" style="background:#00d4a0;"></div>아시아 임상 확장 노리는 제약사에게 <strong>구조적 독점 공급원</strong></div>
-          </div>
-        </div>
-        <div class="fg-korea-footer">
-          <div class="fg-korea-cta">
-            온코케어가 한국 위암 환자 500명의 바이오마커+PRO 통합 데이터를 가지면,<br>
-            이건 <strong>글로벌 빅파마가 다른 곳에서는 살 수 없는 데이터</strong>입니다.
-          </div>
-        </div>
-      </div>
-
-      <!-- 결론 -->
-      <div class="cd-insight-box" style="border-color:rgba(0,212,160,0.25); background: linear-gradient(135deg, rgba(0,212,160,0.07), rgba(61,127,255,0.04));">
-        <div class="cd-insight-box-label" style="color:var(--cd-accent2);">결론</div>
-        <div class="cd-insight-box-text">
-          커뮤니티는 수단입니다. 목적은 <strong>전 세계 어디에도 없는 한국인 암환자의 바이오마커 + PRO 통합 데이터셋</strong>을 만드는 것입니다. 이 데이터가 쌓이는 순간, aitrics는 플랫폼 기업이 아니라 <strong>글로벌 빅파마가 반드시 찾아오는 데이터 공급 게임체인저</strong>가 됩니다.
-        </div>
-      </div>
-    </div>
 
   </div><!-- /cd-wrapper -->
 
