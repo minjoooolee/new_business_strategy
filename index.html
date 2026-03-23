@@ -5351,6 +5351,149 @@
           text-transform: uppercase; color: #f0a500; margin-bottom: 6px;
         }
         #cd-s5 .fg-doc-grid {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 0;
+        }
+        #cd-s5 .fg-doc-card {
+          background: rgba(0,212,160,.06); border: 1px solid rgba(0,212,160,.2);
+          border-radius: 10px; padding: 14px 16px;
+        }
+        #cd-s5 .fg-doc-name {
+          font-size: 12.5px; font-weight: 700; color: var(--cd-text); margin-bottom: 6px;
+        }
+        #cd-s5 .fg-doc-items { display: flex; flex-direction: column; gap: 3px; }
+        #cd-s5 .fg-doc-item {
+          font-size: 11.5px; color: var(--cd-text-muted);
+          display: flex; align-items: center; gap: 6px;
+        }
+        #cd-s5 .fg-doc-item::before { content: '·'; color: var(--cd-accent2); font-weight: 700; flex-shrink: 0; }
+        /* 데이터셋 박스 */
+        #cd-s5 .fg-dataset-box {
+          background: linear-gradient(135deg, rgba(61,127,255,.07), rgba(0,212,160,.05));
+          border: 1.5px solid rgba(0,212,160,.4); border-radius: 18px;
+          padding: 28px 32px; margin-bottom: 24px; position: relative; overflow: hidden;
+        }
+        #cd-s5 .fg-dataset-box::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+          background: linear-gradient(90deg, #3d7fff, #00d4a0, #f0a500);
+        }
+        #cd-s5 .fg-dataset-label {
+          font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+          text-transform: uppercase; color: #00d4a0; margin-bottom: 14px;
+          display: flex; align-items: center; gap: 8px;
+        }
+        #cd-s5 .fg-dataset-label::before { content: ''; display: block; width: 20px; height: 1px; background: #00d4a0; }
+        #cd-s5 .fg-equation {
+          display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+        }
+        #cd-s5 .fg-eq-item {
+          background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+          border-radius: 10px; padding: 10px 16px;
+          font-size: 12px; color: var(--text-muted); line-height: 1.6;
+        }
+        #cd-s5 .fg-eq-item strong { color: var(--text); }
+        #cd-s5 .fg-eq-op { font-size: 20px; font-weight: 300; color: var(--text-dim); flex-shrink: 0; }
+        #cd-s5 .fg-result-quote {
+          background: rgba(0,212,160,.06); border-left: 3px solid #00d4a0;
+          border-radius: 0 10px 10px 0; padding: 16px 20px;
+          font-size: 13.5px; font-weight: 700; color: var(--text);
+          line-height: 1.75; margin-bottom: 14px; font-style: italic;
+        }
+        #cd-s5 .fg-result-quote span { color: #00d4a0; font-style: normal; }
+        /* vs 그리드 */
+        #cd-s5 .fg-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+        #cd-s5 .fg-vs-card {
+          background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px;
+        }
+        #cd-s5 .fg-vs-card.us { border-color: rgba(255,92,106,.25); }
+        #cd-s5 .fg-vs-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+        #cd-s5 .fg-vs-card.us .fg-vs-label { color: #ff5c6a; }
+        #cd-s5 .fg-vs-card.oc .fg-vs-label { color: #00d4a0; }
+        #cd-s5 .fg-vs-name { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 12px; letter-spacing: -.3px; }
+        #cd-s5 .fg-vs-row {
+          display: flex; align-items: flex-start; gap: 8px;
+          font-size: 12px; color: var(--text-muted); padding: 6px 0;
+          border-bottom: 1px solid var(--border); line-height: 1.6;
+        }
+        #cd-s5 .fg-vs-row:last-child { border-bottom: none; }
+        #cd-s5 .fg-tag-no {
+          display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+          padding: 1px 7px; border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+          background: rgba(255,92,106,.1); color: #ff5c6a; border: 1px solid rgba(255,92,106,.2);
+        }
+        #cd-s5 .fg-tag-yes {
+          display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+          padding: 1px 7px; border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+          background: rgba(0,212,160,.1); color: #00d4a0; border: 1px solid rgba(0,212,160,.2);
+        }
+        /* 위암 박스 */
+        #cd-s5 .fg-korea-box {
+          background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 24px;
+        }
+        #cd-s5 .fg-korea-header {
+          background: linear-gradient(135deg, #0a0e1a, #0f1a2e); padding: 22px 28px;
+          border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; gap: 14px;
+        }
+        #cd-s5 .fg-korea-ico {
+          width: 44px; height: 44px; border-radius: 12px;
+          background: rgba(61,127,255,.15); border: 1px solid rgba(61,127,255,.3);
+          display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+        }
+        #cd-s5 .fg-korea-ttl { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -.3px; line-height: 1.4; }
+        #cd-s5 .fg-korea-ttl span {
+          background: linear-gradient(90deg, #3d7fff, #00d4a0);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        #cd-s5 .fg-korea-body { padding: 22px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        #cd-s5 .fg-korea-col-ttl { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 10px; }
+        #cd-s5 .fg-korea-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: rgba(255,255,255,.6); padding: 5px 0; line-height: 1.6; }
+        #cd-s5 .fg-korea-item-dot { width: 5px; height: 5px; border-radius: 50%; background: #3d7fff; flex-shrink: 0; margin-top: 6px; }
+        #cd-s5 .fg-korea-item strong { color: rgba(255,255,255,.9); }
+        #cd-s5 .fg-korea-footer { padding: 18px 28px; background: rgba(0,212,160,.06); border-top: 1px solid rgba(0,212,160,.15); }
+        #cd-s5 .fg-korea-cta { font-size: 13px; font-weight: 700; color: #00d4a0; line-height: 1.8; }
+        #cd-s5 .fg-korea-cta strong { color: #fff; }
+      </style>
+        #cd-s5 .fg-step {
+          display: flex; align-items: stretch; gap: 0;
+        }
+        #cd-s5 .fg-step-num {
+          width: 36px; flex-shrink: 0; display: flex; flex-direction: column;
+          align-items: center;
+        }
+        #cd-s5 .fg-step-circle {
+          width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 11px; font-weight: 800; color: #fff;
+          background: var(--cd-accent2);
+        }
+        #cd-s5 .fg-step-line {
+          flex: 1; width: 1.5px; background: var(--cd-border);
+          margin: 4px auto 0;
+        }
+        #cd-s5 .fg-step-body {
+          flex: 1; background: var(--cd-surface);
+          border: 1px solid var(--cd-border); border-radius: 12px;
+          padding: 16px 20px; margin-left: 12px; margin-bottom: 0;
+        }
+        #cd-s5 .fg-step-title {
+          font-size: 13.5px; font-weight: 800; color: var(--cd-text);
+          margin-bottom: 6px;
+        }
+        #cd-s5 .fg-step-desc {
+          font-size: 12.5px; color: var(--cd-text-muted); line-height: 1.75;
+        }
+        #cd-s5 .fg-step-desc strong { color: var(--cd-text); }
+        #cd-s5 .fg-limit-box {
+          background: rgba(240,165,0,.06); border: 1px solid rgba(240,165,0,.25);
+          border-left: 3px solid #f0a500; border-radius: 0 12px 12px 0;
+          padding: 16px 20px; margin: 16px 0 0;
+          font-size: 12.5px; color: var(--cd-text-muted); line-height: 1.8;
+        }
+        #cd-s5 .fg-limit-box strong { color: var(--cd-text); }
+        #cd-s5 .fg-limit-label {
+          font-size: 9px; font-weight: 800; letter-spacing: 2px;
+          text-transform: uppercase; color: #f0a500; margin-bottom: 6px;
+        }
+        #cd-s5 .fg-doc-grid {
           display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
           margin: 12px 0 0;
         }
