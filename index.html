@@ -11026,29 +11026,112 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
     font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace;
   }
   </style>
+  <style>
+  #page-vdoc-appendix .apx-toc {
+    background: var(--paper); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px 32px; margin-bottom: 48px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  }
+  #page-vdoc-appendix .apx-toc-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  #page-vdoc-appendix .apx-toc-list {
+    display: flex; flex-direction: column; gap: 10px;
+    list-style: none;
+  }
+  #page-vdoc-appendix .apx-toc-item {
+    display: flex; align-items: center; gap: 14px;
+  }
+  #page-vdoc-appendix .apx-toc-num {
+    width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+    background: var(--blue-light); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; font-family: 'Space Mono', monospace;
+  }
+  #page-vdoc-appendix .apx-toc-link {
+    font-size: 14px; font-weight: 600; color: var(--navy);
+    text-decoration: none; border-bottom: 1px dashed var(--border);
+    padding-bottom: 1px; transition: color .15s, border-color .15s;
+  }
+  #page-vdoc-appendix .apx-toc-link:hover {
+    color: var(--blue); border-color: var(--blue);
+  }
+  #page-vdoc-appendix .apx-toc-arrow {
+    margin-left: auto; font-size: 12px; color: var(--muted);
+  }
+  #page-vdoc-appendix .apx-doc {
+    margin-bottom: 64px; scroll-margin-top: 80px;
+  }
+  #page-vdoc-appendix .apx-doc-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 24px; background: var(--navy);
+    border-radius: 14px 14px 0 0;
+  }
+  #page-vdoc-appendix .apx-doc-num {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(255,255,255,.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: #fff;
+    font-family: 'Space Mono', monospace;
+  }
+  #page-vdoc-appendix .apx-doc-title {
+    font-size: 15px; font-weight: 700; color: #fff;
+  }
+  #page-vdoc-appendix .apx-doc-frame {
+    width: 100%; border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 14px 14px; display: block;
+    box-shadow: 0 4px 20px rgba(0,0,0,.07);
+  }
+  </style>
+
   <div class="apx-hero">
     <div class="apx-hero-inner">
       <div class="apx-overline">V.Doc Enterprise · Appendix</div>
       <h1 class="apx-title">V.Doc Enterprise<br><span>Appendix</span></h1>
-      <p class="apx-sub">보충 자료 및 참고 문서 모음입니다. 필요한 섹션을 추가해주세요.</p>
+      <p class="apx-sub">보충 분석 자료 모음입니다. 목차에서 원하는 문서로 바로 이동하세요.</p>
     </div>
   </div>
+
   <div class="apx-wrap">
-    <div class="apx-notice">
-      <div class="apx-notice-ico">📌</div>
-      <div>이 페이지는 Appendix 템플릿입니다. <strong>추가할 내용을 말씀해주시면 바로 반영</strong>하겠습니다. 섹션 추가·내용 입력·파일 첨부 등 원하시는 구성을 알려주세요.</div>
+
+    <!-- 목차 -->
+    <div class="apx-toc">
+      <div class="apx-toc-title">Table of Contents</div>
+      <ul class="apx-toc-list">
+        <li class="apx-toc-item">
+          <div class="apx-toc-num">A1</div>
+          <a class="apx-toc-link" href="#apx-doc-1">시장기회 및 규제환경 분석</a>
+          <span class="apx-toc-arrow">↓</span>
+        </li>
+        <li class="apx-toc-item">
+          <div class="apx-toc-num">A2</div>
+          <a class="apx-toc-link" href="#apx-doc-2">경쟁환경 분석</a>
+          <span class="apx-toc-arrow">↓</span>
+        </li>
+      </ul>
     </div>
-    <div class="apx-section">
-      <div class="apx-sec-header">
-        <div class="apx-sec-num">A1</div>
-        <div class="apx-sec-title">추가 예정 섹션</div>
+
+    <!-- A1 -->
+    <div class="apx-doc" id="apx-doc-1">
+      <div class="apx-doc-header">
+        <div class="apx-doc-num">A1</div>
+        <div class="apx-doc-title">시장기회 및 규제환경 분석</div>
       </div>
-      <div class="apx-placeholder">
-        <div class="apx-placeholder-ico">📄</div>
-        <div class="apx-placeholder-title">내용을 입력해주세요</div>
-        <div class="apx-placeholder-desc">추가할 Appendix 내용을 알려주시면 바로 반영합니다.</div>
-      </div>
+      <iframe src="vdoc_market.html" class="apx-doc-frame" height="2800" scrolling="yes"></iframe>
     </div>
+
+    <!-- A2 -->
+    <div class="apx-doc" id="apx-doc-2">
+      <div class="apx-doc-header">
+        <div class="apx-doc-num">A2</div>
+        <div class="apx-doc-title">경쟁환경 분석</div>
+      </div>
+      <iframe src="vdoc_competition.html" class="apx-doc-frame" height="3200" scrolling="yes"></iframe>
+    </div>
+
     <div class="apx-footer">
       <span>aitrics · V.Doc Enterprise · Appendix</span>
       <span>Internal · 2026</span>
