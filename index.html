@@ -45,6 +45,9 @@
     pointer-events: none;
     z-index: 0;
   }
+  body.hide-grid::before {
+    display: none;
+  }
 
   .container {
     position: relative;
@@ -9480,8 +9483,8 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
     ></iframe>
   </div><!-- /page-vcare-bm -->
   <!-- ===== ONCOCARE REPORT PAGE ===== -->
-  <div class="page-section" id="page-vcare-oncoreport" style="padding:0;margin:0;background:#C8CCD4;">
-    <iframe src="oncocare_report_final.html" style="width:100%;border:none;display:block;min-height:100vh;background:#C8CCD4;" scrolling="yes"
+  <div class="page-section" id="page-vcare-oncoreport" style="padding:0;margin:0;background:#C8CCD4;position:relative;z-index:1;">
+    <iframe src="oncocare_report_final.html" style="width:100%;border:none;display:block;min-height:100vh;background:#C8CCD4;position:relative;z-index:1;" scrolling="yes"
       onload="try{this.style.height=this.contentWindow.document.body.scrollHeight+80+'px';}catch(e){this.style.height='12000px';}"></iframe>
   </div><!-- /page-vcare-oncoreport -->
 
@@ -12580,6 +12583,13 @@ function applyHash(hash) {
   const allPages = document.querySelectorAll('.page-section');
   allPages.forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.gnb-link').forEach(l => l.classList.remove('active'));
+
+  // oncoreport 페이지 진입 시 배경 그리드 숨김
+  if (page === 'vcare-oncoreport') {
+    document.body.classList.add('hide-grid');
+  } else {
+    document.body.classList.remove('hide-grid');
+  }
 
   const pageEl = document.getElementById('page-' + page);
   if (pageEl) pageEl.classList.add('active');
