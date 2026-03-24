@@ -5586,58 +5586,6 @@
         </div>
       </div>
 
-      <!-- PRO 라이선싱 설계 -->
-      <div style="margin-top:32px;">
-        <div class="cd-sec-label" style="margin-bottom:14px;">PRO 라이선싱을 위한 설계 — 처음부터 의도된 구조</div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">1</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">검사결과지 2종 한정 수집</strong> — 조직검사 + 종양표지자만 받는 이유는 제약사가 돈을 내는 바이오마커(ER/PR/HER2/Ki-67/CEA/CA19-9 등)가 이 2종에 전부 있기 때문입니다. CBC 같은 일반혈액검사는 처음부터 제외.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">2</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">닉네임에 병기를 넣게 한 것</strong> — "콩가/4기/환우" 같은 닉네임 규칙은 커뮤니티 편의가 아닙니다. 가입 시점부터 병기 정보가 프로필에 있으면, 바이오마커와 결합 시 즉시 코호트 분류가 가능합니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">3</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">원본 이미지 30일 후 파기</strong> — 법적 안전장치이자 데이터 정제 프로세스. 파기 후 남는 건 "ER+, HER2 3+, Ki-67 40%"라는 구조화된 가명 데이터뿐 — 제약사에 팔 수 있는 형태입니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">4</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">user_id 기반 관계형 DB 설계 — Phase 1 초기에 확정</strong> — 바이오마커와 PRO 데이터가 같은 user_id 아래 묶이지 않으면 "이 환자의 HER2 상태 + 주간 부작용 추이"라는 쿼리 자체가 불가합니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">5</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">동의 3단계 설계</strong> — 동의1(서비스) · 동의2(민감정보) · 동의3(AI 학습, 선택·Phase 2). 가명정보보호법 제28조의2 + 환우 자발적 동의라는 이중 법적 근거를 확보하는 구조입니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">6</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">오픈채팅 발화 데이터 분석</strong> — "도세탁셀 맞고 손발 저리다", "투카티닙 어디서 사냐" — 이 대화들이 PRO 설문 문항을 환우의 실제 언어로 설계하는 기초 자료입니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">7</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">암 유튜버 섭외 = 파이프라인의 첫 번째 밸브</strong> — 유튜버 섭외 → 환우 유입 → 검사결과지 업로드 → 바이오마커 추출 → PRO 수집 → 가명 데이터셋 → 제약사 라이선싱. 이 전체 파이프라인의 입구입니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">8</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">닥터앤서 3.0 PRO 모듈 연동 설계</strong> — VD팀이 만드는 위암·대장암 PRO 수집 앱과 API 연동만으로 EORTC QLQ-C30 같은 표준 PRO 도구를 새로 개발 없이 확보합니다.</div>
-          </div>
-
-          <div style="display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
-            <div style="width:26px;height:26px;border-radius:7px;background:rgba(0,212,160,.12);color:#00d4a0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">9</div>
-            <div style="font-size:13px;color:var(--text-muted);line-height:1.75;"><strong style="color:var(--text);">k-익명성 10 기준 + 희귀 조합 제외</strong> — "20대 남성 유방암 4기" 같은 극소 코호트는 데이터셋에서 제외. 법적 요건이면서 동시에 "이 데이터셋은 k-익명성 10 이상 보장"이라고 제약사에 말할 수 있는 품질 기준입니다.</div>
-          </div>
-
-        </div>
-      </div>
     </div>
 
     <div class="cd-divider"></div>
@@ -5972,18 +5920,6 @@
           </div>
         </div>
 
-
-        <!-- 범례 -->
-        <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:28px;font-size:12px;color:var(--text-muted);">
-          <div style="display:flex;align-items:center;gap:7px;">
-            <div style="width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(61,127,255,0.6);background:#0f1219;"></div>
-            <span>상시 투입 필요 영역 (5가지)</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:7px;">
-            <div style="width:16px;height:10px;border-radius:3px;border:1px solid rgba(0,212,160,0.5);background:rgba(0,212,160,0.12);"></div>
-            <span>AI 에이전트 (각 영역 효율화)</span>
-          </div>
-        </div>
 
         <div class="insight-box">
           <div class="insight-box-label">Key Insight — 운영 비용 최소화 및 효율화</div>
@@ -9544,8 +9480,9 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
     ></iframe>
   </div><!-- /page-vcare-bm -->
   <!-- ===== ONCOCARE REPORT PAGE ===== -->
-  <div class="page-section" id="page-vcare-oncoreport" style="padding:0;margin:0;">
-    <iframe src="oncocare_report_final.html" style="width:100%;border:none;display:block;height:9000px;" scrolling="yes"></iframe>
+  <div class="page-section" id="page-vcare-oncoreport" style="padding:0;margin:0;background:#C8CCD4;">
+    <iframe src="oncocare_report_final.html" style="width:100%;border:none;display:block;min-height:100vh;background:#C8CCD4;" scrolling="yes"
+      onload="try{this.style.height=this.contentWindow.document.body.scrollHeight+80+'px';}catch(e){this.style.height='12000px';}"></iframe>
   </div><!-- /page-vcare-oncoreport -->
 
   <!-- ===== VCARE FAQ PAGE ===== -->
