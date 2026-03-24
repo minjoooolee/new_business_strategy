@@ -1,0 +1,479 @@
+<html lang="ko"><head><base target="_blank">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V.Doc Enterprise — PoC 전략</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F9FB;--surface:#FFF;--border:#D8DCE3;--text:#1A1D26;--text-mid:#4A4F5C;--text-dim:#8A8F9C;--navy:#1E3A5F;--navy-bg:#EDF1F7;--navy-border:#C5D0E0;--slate:#334155;--slate-bg:#F1F3F6;--slate-border:#CBD5E1;--steel:#64748B;--steel-bg:#F8F9FB;--gray-bg:#F4F5F7;--dark:#0F1A2E;--red:#9B2C2C;--red-bg:#FFF5F5;--red-border:#FED7D7;--green:#276749;--green-bg:#F0FFF4;--green-border:#C6F6D5;--amber:#92400E;--amber-bg:#FFFBEB;--amber-border:#FDE68A;--teal:#0D9488;--teal-bg:#F0FDFA;--teal-border:#99F6E4;}
+*{margin:0;padding:0;box-sizing:border-box;}
+@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}@page{size:A4 landscape;margin:10mm 12mm;}body{background:#fff!important;}.page{width:100%!important;max-width:100%!important;padding:28px 32px!important;box-shadow:none!important;margin:0!important;}.section{page-break-inside:auto;}.tbl,.co,.ag,.kpi-grid,.flow-grid{page-break-inside:avoid;}h2,h3{page-break-after:avoid;}}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+.page{width:92%;max-width:1280px;margin:0 auto;background:var(--surface);min-height:100vh;padding:36px 48px;box-shadow:0 0 40px rgba(0,0,0,.04);}
+.doc-header{text-align:center;padding-bottom:20px;margin-bottom:28px;border-bottom:2px solid var(--navy);}
+.doc-header .badge{display:inline-block;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--navy);background:var(--navy-bg);border:1px solid var(--navy-border);padding:3px 11px;border-radius:20px;margin-bottom:10px;}
+.doc-header h1{font-size:24px;font-weight:800;color:var(--text);line-height:1.35;margin-bottom:4px;}
+.doc-header h1 span{color:var(--navy);}
+.doc-header .sub{font-size:12px;color:var(--text-mid);font-weight:500;}
+.section{margin-bottom:30px;}
+h2{font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px;padding-bottom:5px;border-bottom:2px solid var(--navy);display:flex;align-items:center;gap:8px;}
+h2 .n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--navy);color:#fff;border-radius:5px;font-size:11px;font-weight:700;flex-shrink:0;}
+h3{font-size:14px;font-weight:700;color:var(--navy);margin:16px 0 8px;}
+.line{font-size:12.5px;color:var(--text-mid);line-height:1.75;margin-bottom:5px;}
+.line strong{color:var(--text);font-weight:600;}
+.co{border-radius:8px;padding:14px 18px;margin:12px 0;border-left:4px solid var(--navy);background:var(--navy-bg);}
+.co-s{border-left-color:var(--slate);background:var(--slate-bg);}
+.co-g{border-left-color:var(--green);background:var(--green-bg);}
+.co-r{border-left-color:var(--red);background:var(--red-bg);}
+.co-a{border-left-color:var(--amber);background:var(--amber-bg);}
+.co-t{border-left-color:var(--teal);background:var(--teal-bg);}
+.co .ct{font-size:11.5px;font-weight:700;margin-bottom:4px;color:var(--navy);}
+.co-s .ct{color:var(--slate);}.co-g .ct{color:var(--green);}.co-r .ct{color:var(--red);}.co-a .ct{color:var(--amber);}.co-t .ct{color:var(--teal);}
+.co .line{font-size:12px;margin-bottom:3px;}
+.ag{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;}
+.ag2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.ag4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:12px 0;}
+.ac{background:var(--surface);border:1.5px solid var(--navy-border);border-radius:8px;padding:11px 13px;border-top:3px solid var(--navy);}
+.ac-s{border-top-color:var(--slate);}.ac-g{border-top-color:var(--green);}.ac-r{border-top-color:var(--red);}.ac-a{border-top-color:var(--amber);}.ac-t{border-top-color:var(--teal);}
+.ac .ab{display:inline-block;font-size:9px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--navy);background:var(--navy-bg);padding:2px 7px;border-radius:4px;margin-bottom:4px;}
+.ac-s .ab{color:var(--slate);background:var(--slate-bg);}
+.ac-g .ab{color:var(--green);background:var(--green-bg);}
+.ac-r .ab{color:var(--red);background:var(--red-bg);}
+.ac-a .ab{color:var(--amber);background:var(--amber-bg);}
+.ac-t .ab{color:var(--teal);background:var(--teal-bg);}
+.ac h4{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.ac .line{font-size:11px;margin-bottom:2px;}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:11.5px;}
+.tbl th{padding:7px 10px;text-align:left;font-weight:700;color:#fff;font-size:10.5px;background:var(--navy);}
+.tbl th:first-child{border-radius:6px 0 0 0;}.tbl th:last-child{border-radius:0 6px 0 0;}
+.tbl td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text-mid);line-height:1.55;vertical-align:top;}
+.tbl td:first-child{font-weight:600;color:var(--text);background:var(--gray-bg);white-space:nowrap;}
+.tbl tr:last-child td:first-child{border-radius:0 0 0 6px;}.tbl tr:last-child td:last-child{border-radius:0 0 6px 0;}
+.tbl .hi{background:var(--navy-bg);}.tbl .neg{color:var(--red);font-weight:600;}.tbl .pos{color:var(--navy);font-weight:600;}.tbl .win{color:var(--green);font-weight:600;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0;}
+.kpi{background:var(--navy-bg);border-radius:8px;padding:12px 14px;text-align:center;border:1px solid var(--navy-border);}
+.kpi .kv{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.kpi .kl{font-size:10px;color:var(--text-mid);font-weight:500;}
+.kpi-r{background:var(--red-bg);border-color:var(--red-border);}.kpi-r .kv{color:var(--red);}
+.kpi-g{background:var(--green-bg);border-color:var(--green-border);}.kpi-g .kv{color:var(--green);}
+.kpi-a{background:var(--amber-bg);border-color:var(--amber-border);}.kpi-a .kv{color:var(--amber);}
+.kpi-t{background:var(--teal-bg);border-color:var(--teal-border);}.kpi-t .kv{color:var(--teal);}
+.sl{list-style:none;counter-reset:sl;margin:10px 0;padding:0;}
+.sl li{counter-increment:sl;padding:10px 12px 10px 42px;margin-bottom:6px;background:var(--gray-bg);border-radius:7px;font-size:12px;color:var(--text-mid);line-height:1.65;position:relative;}
+.sl li::before{content:counter(sl);position:absolute;left:10px;top:10px;width:22px;height:22px;background:var(--navy);color:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.sl li strong{color:var(--text);}
+.doc-footer{text-align:center;padding-top:16px;margin-top:24px;border-top:2px solid var(--border);font-size:9.5px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.flow-grid{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr 28px 1fr;gap:0;margin:14px 0;align-items:stretch;}
+.flow-box{border-radius:8px;padding:12px 14px;border:1.5px solid var(--navy-border);background:var(--surface);}
+.flow-box h4{font-size:11px;font-weight:700;margin-bottom:5px;}
+.flow-box .line{font-size:10.5px;margin-bottom:2px;}
+.flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--navy);}
+.phase-header{display:inline-block;font-size:9px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#fff;padding:2px 8px;border-radius:4px;margin-bottom:6px;}
+.ph-blue{background:var(--navy);}.ph-green{background:var(--green);}.ph-amber{background:var(--amber);}.ph-red{background:var(--red);}.ph-teal{background:var(--teal);}
+.timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin:14px 0;}
+.tl-cell{padding:8px 6px;border:1px solid var(--border);font-size:10px;color:var(--text-mid);line-height:1.5;text-align:center;}
+.tl-cell:first-child{border-radius:6px 0 0 6px;}.tl-cell:last-child{border-radius:0 6px 6px 0;}
+.tl-head{background:var(--navy);color:#fff;font-weight:700;font-size:10px;border-color:var(--navy);}
+.tl-dev{background:var(--navy-bg);}.tl-sales{background:var(--amber-bg);}.tl-pilot{background:var(--green-bg);}.tl-eval{background:var(--red-bg);}
+.verdict-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;}
+.verdict{border-radius:8px;padding:14px 16px;border:1.5px solid;}
+.verdict h4{font-size:12px;font-weight:700;margin-bottom:6px;}
+.verdict .line{font-size:11px;margin-bottom:2px;}
+.v-go{background:var(--green-bg);border-color:var(--green-border);}
+.v-go h4{color:var(--green);}
+.v-pivot{background:var(--amber-bg);border-color:var(--amber-border);}
+.v-pivot h4{color:var(--amber);}
+.v-stop{background:var(--red-bg);border-color:var(--red-border);}
+.v-stop h4{color:var(--red);}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="doc-header">
+    <div class="badge">V.Doc Enterprise · PoC 전략 · 2026.03 · CONFIDENTIAL</div>
+    <h1>V.Doc Enterprise <span>PoC 전략</span></h1>
+    <div class="sub">Proof of Concept 목표 · 핵심 기술 · 필수 KPI · 사업성 평가 프레임워크 — AITRICS Corporation</div>
+  </div>
+
+  <!-- 1. PoC 단 하나의 목표 -->
+  <div class="section">
+    <h2><span class="n">1</span>PoC의 단 하나의 목표</h2>
+
+    <div class="co">
+      <div class="ct">검증 명제</div>
+      <div class="line" style="font-size:14px;"><strong>"건설업 대표가 매월 3분 투자하면, 중대재해법 의무이행 증빙이 자동으로 쌓인다"</strong></div>
+      <div class="line" style="margin-top:6px;">확인할 것은 딱 세 가지다: <strong>대표가 돈을 내는지</strong>, <strong>직원이 참여하는지</strong>, <strong>증빙이 법적으로 의미가 있는지</strong>. 나머지는 전부 PoC 이후다.</div>
+    </div>
+
+    <div class="ag">
+      <div class="ac ac-r">
+        <div class="ab">HYPOTHESIS 1</div>
+        <h4>WTP — 대표가 돈을 내는가?</h4>
+        <div class="line"><strong>검증:</strong> 파일럿 계약 체결 여부</div>
+        <div class="line">3개월 무상이지만, 계약서에 <strong>"4개월차부터 월 45만 원"</strong> 명시</div>
+        <div class="line">무상만 하고 유상 전환 의사 없으면 → <strong>가설 실패</strong></div>
+        <div class="line" style="margin-top:4px;font-size:10px;color:var(--red);font-weight:600;">이 가설이 실패하면 사업 자체를 피벗</div>
+      </div>
+      <div class="ac ac-a">
+        <div class="ab">HYPOTHESIS 2</div>
+        <h4>참여율 — 직원이 하는가?</h4>
+        <div class="line"><strong>목표:</strong> 스크리닝 참여율 <strong>60% 이상</strong></div>
+        <div class="line">HR 공지 + 리마인더 1회 방식</div>
+        <div class="line">법정의무교육 수준의 참여율 달성 여부</div>
+        <div class="line" style="margin-top:4px;font-size:10px;color:var(--amber);font-weight:600;">실패 시 접근 방식 재설계 (사업은 계속)</div>
+      </div>
+      <div class="ac ac-g">
+        <div class="ab">HYPOTHESIS 3</div>
+        <h4>증빙 — 법적으로 되는가?</h4>
+        <div class="line"><strong>검증:</strong> 3단계 전자결재 완료 여부</div>
+        <div class="line">경영자 지시사항 기입 여부</div>
+        <div class="line">생성된 PDF가 법적 증빙으로 인식되는지</div>
+        <div class="line" style="margin-top:4px;font-size:10px;color:var(--green);font-weight:600;">에쓰오일 불기소 사례의 "실질적 이행" 패턴</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. PoC 핵심 기술 구성 -->
+  <div class="section">
+    <h2><span class="n">2</span>핵심 기술 구성 — 만드는 것 vs 안 만드는 것</h2>
+
+    <h3>2.1 PoC에 들어가는 4대 모듈</h3>
+
+    <div class="ag4">
+      <div class="ac">
+        <div class="ab">MODULE 1</div>
+        <h4>직원 스크리닝 웹</h4>
+        <div class="line"><strong>형태:</strong> 모바일 반응형 웹 (앱 X)</div>
+        <div class="line"><strong>진입:</strong> 카카오톡/문자 링크 클릭</div>
+        <div class="line" style="margin-top:4px;"><strong>구성 (약 20문항, 5~7분):</strong></div>
+        <div class="line">① 동의 화면 (민감정보 + 익명통계)</div>
+        <div class="line">② PHQ-9 (9문항) — 우울</div>
+        <div class="line">③ GAD-7 (7문항) — 불안</div>
+        <div class="line">④ 신체건강 간이체크 (3문항)</div>
+        <div class="line" style="margin-top:4px;"><strong>채점:</strong> 룰베이스 if-else</div>
+        <div class="line">PHQ-9: 0~4 정상 / 5~9 경증 / 10~14 중등도 / 15~27 중증</div>
+        <div class="line"><strong>결과:</strong> 본인만 확인, "주의 이상" 시 외부 상담 안내</div>
+      </div>
+      <div class="ac ac-s">
+        <div class="ab">MODULE 2</div>
+        <h4>CEO 월간 레포트</h4>
+        <div class="line"><strong>형태:</strong> PDF 1장 (스크롤 없이 한 화면)</div>
+        <div class="line"><strong>생성:</strong> 반자동 (50% 수동 허용)</div>
+        <div class="line" style="margin-top:4px;"><strong>포함 항목:</strong></div>
+        <div class="line">① 전사 종합지수 (정신+신체+참여율)</div>
+        <div class="line">② 위험도 분포 (양호/관심/주의/위험)</div>
+        <div class="line">③ 부서별 비교 (10명 미만 통합)</div>
+        <div class="line">④ 참여율</div>
+        <div class="line">⑤ 핵심 3줄 요약 + 권고 사항</div>
+        <div class="line">⑥ 전자결재란</div>
+        <div class="line" style="margin-top:4px;"><strong>안 넣는 것:</strong> 트렌드 그래프, ROI, 이직률 예측</div>
+      </div>
+      <div class="ac ac-r">
+        <div class="ab">MODULE 3 · 핵심</div>
+        <h4>전자결재 (3단계)</h4>
+        <div class="line" style="color:var(--red);font-weight:600;">이것이 PoC의 핵심이다</div>
+        <div class="line" style="margin-top:4px;"><strong>3단계 구조:</strong></div>
+        <div class="line">① <strong>담당(HR):</strong> 레포트 확인 + 서명 + 미이행 사유 입력</div>
+        <div class="line">② <strong>검토(안전보건담당자):</strong> 시행령 제5조 체크리스트 3항목 + 서명</div>
+        <div class="line">③ <strong>승인(경영책임자):</strong> 3줄 요약 확인 + <strong>조치 지시사항 입력</strong> + 서명</div>
+        <div class="line" style="margin-top:4px;"><strong>완료 시:</strong></div>
+        <div class="line">PDF 확정 + SHA-256 해시값 + 타임스탬프 + 5년간 삭제/수정 불가</div>
+        <div class="line">→ 전자문서법 제4조의2 충족</div>
+      </div>
+      <div class="ac ac-t">
+        <div class="ab">MODULE 4</div>
+        <h4>익명화 · 프라이버시</h4>
+        <div class="line"><strong>k-익명성:</strong> 10명 기준</div>
+        <div class="line">10명 미만 부서 → 상위 조직 통합</div>
+        <div class="line">교차 필터 없음 (부서 1차원만)</div>
+        <div class="line" style="margin-top:4px;"><strong>개인 데이터:</strong></div>
+        <div class="line">원본 AES-256 암호화 저장</div>
+        <div class="line">대표/HR 포함 <strong>누구도 열람 불가</strong></div>
+        <div class="line">대시보드에는 집계 통계만 표시</div>
+      </div>
+    </div>
+
+    <h3>2.2 PoC에서 의도적으로 빼는 것</h3>
+
+    <div class="ag2">
+      <div class="co co-s">
+        <div class="ct">빼는 것 — Phase 1 이후 구현</div>
+        <div class="line">• 직원 앱 부가 기능 전부 (지난 결과, 트렌드, AI 건강 비서, 교육 콘텐츠)</div>
+        <div class="line">• 실시간 대시보드 (CEO는 월 1회 PDF만 수신)</div>
+        <div class="line">• 건강검진 데이터 연동 및 AI 해석</div>
+        <div class="line">• 근태 데이터 연동 (HR 시스템 연동, 이직률 상관분석)</div>
+        <div class="line">• 고위험자 자동 탐지 → EAP 자동 연계 파이프라인</div>
+        <div class="line">• 건강친화기업 인증 기능 / ESG 리포트</div>
+      </div>
+      <div class="co co-a">
+        <div class="ct">빼는 이유 — PoC의 원칙</div>
+        <div class="line"><strong>"PoC는 제품을 만드는 것이 아니라, 사업 가설을 검증하는 것이다."</strong></div>
+        <div class="line" style="margin-top:4px;">대시보드가 아무리 화려해도 대표가 돈을 안 내면 무의미하다. 교육 콘텐츠가 풍부해도 직원이 스크리닝을 안 하면 무의미하다. <strong>최소 기능으로 핵심 가설 3개만 검증</strong>하고, 나머지는 가설이 통과된 후 만든다.</div>
+        <div class="line" style="margin-top:4px;">트렌드 분석, 상관관계, ROI 계산 등은 데이터가 <strong>3개월 이상 축적</strong>된 후에야 의미가 있다. PoC 3개월로는 물리적으로 불가능하다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 전자결재 — 왜 이것이 핵심인가 -->
+  <div class="section">
+    <h2><span class="n">3</span>전자결재가 PoC의 핵심인 이유</h2>
+
+    <div class="co co-r">
+      <div class="ct">법적 맥락 — 중대재해처벌법 제4조 · 시행령 제5조</div>
+      <div class="line">경영책임자의 안전보건확보의무 핵심은 <strong>"유해·위험요인 확인·개선절차 마련"</strong>과 <strong>"안전보건관리 책임자 등 평가기준 마련"</strong>이다. 단순히 제도를 갖추는 것이 아니라, <strong>"경영책임자가 실질적으로 관여하고 있다"</strong>는 증거가 있어야 한다.</div>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow-box" style="border-top:3px solid var(--slate);">
+        <div class="phase-header ph-blue">STEP 1</div>
+        <h4 style="color:var(--slate);">직원 스크리닝 실시</h4>
+        <div class="line">"점검 기회를 제공했다"는 기록</div>
+        <div class="line">미응답자도 "기회 제공, 본인 미응답"으로 자동 기록</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-top:3px solid var(--navy);">
+        <div class="phase-header ph-blue">STEP 2</div>
+        <h4 style="color:var(--navy);">CEO 레포트 생성</h4>
+        <div class="line">집계 데이터 기반 현황 리포트</div>
+        <div class="line">"위험요인을 파악하고 있다"는 기록</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-top:3px solid var(--red);">
+        <div class="phase-header ph-red">STEP 3 · 핵심</div>
+        <h4 style="color:var(--red);">3단계 전자결재</h4>
+        <div class="line">경영자 지시사항 입력</div>
+        <div class="line"><strong>"실질적으로 관여하고 있다"</strong>는 증거</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="border-top:3px solid var(--green);">
+        <div class="phase-header ph-green">OUTPUT</div>
+        <h4 style="color:var(--green);">법적 증빙 PDF</h4>
+        <div class="line">SHA-256 해시값</div>
+        <div class="line">타임스탬프</div>
+        <div class="line">5년간 삭제/수정 불가</div>
+        <div class="line">전자문서법 제4조의2 충족</div>
+      </div>
+    </div>
+
+    <div class="co co-g">
+      <div class="ct">경영자 지시사항 — 왜 한 줄이 전부를 바꾸는가</div>
+      <div class="line"><strong>"생산2팀 야간근무 조정 검토할 것"</strong> — 이 한 줄이 "경영책임자가 실질적으로 관여하고 있다"는 증거가 된다. 에쓰오일 불기소 사례에서 검찰이 인정한 것이 바로 이런 <strong>"실질적 이행"의 증거</strong>다. V.Doc Enterprise의 전자결재 시스템은 이 증거를 <strong>매월 자동으로</strong> 생성한다.</div>
+    </div>
+  </div>
+
+  <!-- 4. 필수 KPI -->
+  <div class="section">
+    <h2><span class="n">4</span>필수 KPI — PoC 성과 측정 지표</h2>
+
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:6%">#</th><th style="width:16%">KPI</th><th style="width:18%">목표값</th><th style="width:22%">측정 방법</th><th style="width:18%">연결 가설</th><th style="width:20%">판단 기준</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="neg">K1</td>
+          <td><strong>유상 전환 의사</strong></td>
+          <td class="neg">계약서 서명 (월 45만 원)</td>
+          <td>파일럿 종료 후 유상 계약 체결 여부</td>
+          <td>가설 1 (WTP)</td>
+          <td class="neg">Yes/No — 이것이 Go/No-Go 결정</td>
+        </tr>
+        <tr>
+          <td>K2</td>
+          <td><strong>스크리닝 참여율</strong></td>
+          <td class="pos">≥ 60%</td>
+          <td>응답 완료 인원 / 전체 직원 수 × 100</td>
+          <td>가설 2 (참여)</td>
+          <td>60% 미만 → 접근 방식 재설계</td>
+        </tr>
+        <tr>
+          <td>K3</td>
+          <td><strong>전자결재 완료율</strong></td>
+          <td class="pos">100% (매월)</td>
+          <td>3단계 결재 완료 건수 / 발행 건수</td>
+          <td>가설 3 (증빙)</td>
+          <td>미완료 → 결재 프로세스 개선</td>
+        </tr>
+        <tr>
+          <td>K4</td>
+          <td><strong>경영자 지시사항 기입률</strong></td>
+          <td class="pos">100%</td>
+          <td>지시사항 텍스트 입력 여부</td>
+          <td>가설 3 (증빙)</td>
+          <td>미기입 → UX 개선 또는 교육</td>
+        </tr>
+        <tr>
+          <td>K5</td>
+          <td><strong>스크리닝 완료 시간</strong></td>
+          <td>≤ 7분</td>
+          <td>시작~완료 소요 시간 중앙값</td>
+          <td>가설 2 (참여)</td>
+          <td>7분 초과 → 문항 간소화</td>
+        </tr>
+        <tr>
+          <td>K6</td>
+          <td><strong>증빙 만족도</strong></td>
+          <td>≥ 4.0/5.0</td>
+          <td>파일럿 종료 후 고객 설문</td>
+          <td>가설 3 (증빙)</td>
+          <td>"이 PDF가 법적으로 도움이 되는가?"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="co co-r">
+      <div class="ct">KPI 우선순위</div>
+      <div class="line"><strong>K1(유상 전환 의사)이 유일한 Go/No-Go 지표다.</strong> K2~K6는 제품 개선 방향을 알려주는 보조 지표이지만, K1이 실패하면 나머지가 아무리 좋아도 의미가 없다. 대표가 돈을 안 내면 사업이 없다.</div>
+    </div>
+  </div>
+
+  <!-- 5. 사업성 평가 프레임워크 -->
+  <div class="section">
+    <h2><span class="n">5</span>사업성 평가 — PoC가 답하는 질문들</h2>
+
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:25%">사업성 질문</th><th style="width:30%">PoC가 제공하는 답</th><th style="width:25%">판단 기준</th><th style="width:20%">판단 불가 항목 (Phase 1 이후)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>시장이 존재하는가?</td>
+          <td class="hi"><strong>실제 계약 체결로 검증</strong><br>무상→유상 전환 의사 = 최강 증거</td>
+          <td class="win">1사 이상 유상 전환 의사 → 시장 존재</td>
+          <td>시장 규모 추정은 별도 조사 필요</td>
+        </tr>
+        <tr>
+          <td>고객이 가치를 느끼는가?</td>
+          <td class="hi"><strong>증빙 만족도 + 재사용 의사</strong><br>"이 PDF가 있으면 밤에 잘 수 있겠다"</td>
+          <td class="win">만족도 4.0+ → 가치 인식 확인</td>
+          <td>NPS, 구전 효과는 6개월 이후</td>
+        </tr>
+        <tr>
+          <td>제품이 작동하는가?</td>
+          <td class="hi"><strong>참여율 60%+ / 결재 완료 100%</strong><br>End-to-End 플로우 실제 작동 확인</td>
+          <td class="win">2개월 연속 정상 작동 → 기술 검증</td>
+          <td>확장성, 동시접속, 보안 인증은 이후</td>
+        </tr>
+        <tr>
+          <td>가격이 적절한가?</td>
+          <td><strong>월 45만 원(150인 기준)에 계약하는지</strong></td>
+          <td>유상 전환 시 가격 저항 여부 관찰</td>
+          <td>최적 가격점은 10사+ 데이터 필요</td>
+        </tr>
+        <tr>
+          <td>반복 매출이 가능한가?</td>
+          <td><strong>매월 결재를 완료하는지</strong> (습관화)</td>
+          <td>3개월 연속 결재 → 습관화 가능성</td>
+          <td>Churn rate는 12개월 이후 측정</td>
+        </tr>
+        <tr>
+          <td>확장 가능한가?</td>
+          <td>PoC에서는 판단 불가</td>
+          <td>—</td>
+          <td>다업종, 대기업, 해외 등은 Phase 2+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="co co-g">
+      <div class="ct">PoC로 판단할 수 있는 것과 없는 것의 경계</div>
+      <div class="line">PoC 3개월로 <strong>"이 사업을 해야 하는가?"</strong>는 답할 수 있다. <strong>"이 사업이 얼마나 커지는가?"</strong>는 답할 수 없다. 전자가 확인되면 후자를 위한 투자가 정당화된다. PoC는 사업의 <strong>"시작 여부"</strong>를 결정하는 도구이지, <strong>"규모"</strong>를 예측하는 도구가 아니다.</div>
+    </div>
+  </div>
+
+  <!-- 6. 타임라인 -->
+  <div class="section">
+    <h2><span class="n">6</span>실행 타임라인</h2>
+
+    <div class="timeline">
+      <div class="tl-cell tl-head">4월</div>
+      <div class="tl-cell tl-head">5월</div>
+      <div class="tl-cell tl-head">6월</div>
+      <div class="tl-cell tl-head">7월</div>
+      <div class="tl-cell tl-head">8월</div>
+      <div class="tl-cell tl-head">9월</div>
+      <div class="tl-cell tl-head">10월</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-cell tl-sales"><strong>영업</strong><br>대표 미팅 3~5회<br>기존 목업 활용<br>개발 0</div>
+      <div class="tl-cell tl-dev"><strong>개발 ①</strong><br>1~2주: 스크리닝 웹 완료<br>3~4주: 내부 테스트 +<br>레포트 템플릿 설계</div>
+      <div class="tl-cell tl-dev"><strong>개발 ②</strong><br>1~2주: 레포트 자동생성 + 전자결재<br>3~4주: 전체 플로우 내부 테스트<br>(AITRICS 직원 1사이클)</div>
+      <div class="tl-cell tl-pilot"><strong>파일럿 시작</strong><br>1호 기업 온보딩<br>첫 스크리닝 실시<br>참여율 모니터링</div>
+      <div class="tl-cell tl-pilot"><strong>첫 증빙 생성</strong><br>첫 CEO 레포트<br>첫 전자결재 완료<br>첫 법적 증빙 PDF</div>
+      <div class="tl-cell tl-pilot"><strong>2차 사이클</strong><br>2차 스크리닝<br>참여율 추이 확인<br>피드백 수집</div>
+      <div class="tl-cell tl-eval"><strong>판정</strong><br>파일럿 결과 종합<br><strong>유상 전환 의사 확인</strong><br>Go/Pivot/Stop 결정</div>
+    </div>
+
+    <div class="ag2" style="margin-top:14px;">
+      <div class="co co-t">
+        <div class="ct">개발 리소스</div>
+        <div class="line"><strong>기술 스택:</strong> React/Next.js (프론트) + FastAPI/Node.js (백엔드) + PostgreSQL + AWS S3</div>
+        <div class="line"><strong>인력:</strong> 개발자 1명 + UI 디자이너 1명 = <strong>8주</strong></div>
+        <div class="line"><strong>만들어야 할 화면:</strong> 총 5개 — 스크리닝 웹(동의+설문+완료), 직원 결과 화면, CEO 레포트 PDF, 전자결재 화면, 보관함</div>
+        <div class="line"><strong>인증:</strong> 이메일 기반 간이 인증 (SSO는 Phase 1)</div>
+        <div class="line"><strong>채점:</strong> 서버사이드 if-else (AI 모델 불필요)</div>
+      </div>
+      <div class="co">
+        <div class="ct">영업 일정 (4월)</div>
+        <div class="line"><strong>목표:</strong> 건설업 100~300인 기업 3~5곳 미팅</div>
+        <div class="line"><strong>채널:</strong> 대한건설협회, 대한전문건설협회 회원사 소개</div>
+        <div class="line"><strong>영업 도구:</strong> 기존 목업 대시보드 + 사업제안서 + 보조자료 3종</div>
+        <div class="line"><strong>계약 형태:</strong> 3개월 무상 파일럿 + 4개월차 유상 전환 조건 명시</div>
+        <div class="line"><strong>목표:</strong> 파일럿 1호 기업 확보 (7월 시작)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Go/Pivot/Stop 판정 기준 -->
+  <div class="section">
+    <h2><span class="n">7</span>Go / Pivot / Stop — 10월의 판정</h2>
+
+    <div class="verdict-grid">
+      <div class="verdict v-go">
+        <h4>✅ GO → Phase 1 진입</h4>
+        <div class="line"><strong>조건:</strong> 3개 가설 중 <strong>2개 이상 충족</strong></div>
+        <div class="line" style="margin-top:4px;"><strong>특히 가설 1(WTP) 충족 필수</strong></div>
+        <div class="line" style="margin-top:6px;"><strong>다음 단계:</strong></div>
+        <div class="line">• Phase 1 정식 제품 개발 착수</div>
+        <div class="line">• 실시간 대시보드 구현</div>
+        <div class="line">• 건강검진 데이터 연동</div>
+        <div class="line">• 2호~5호 기업 확보 (제조업 포함)</div>
+        <div class="line">• 시리즈 투자 또는 사내 추가 투자 논의</div>
+      </div>
+      <div class="verdict v-pivot">
+        <h4>⚠️ PIVOT → 방향 조정</h4>
+        <div class="line"><strong>조건:</strong> 가설 1 충족 + 가설 2 실패</div>
+        <div class="line">(대표는 돈을 내겠다, 직원이 안 한다)</div>
+        <div class="line" style="margin-top:6px;"><strong>다음 단계:</strong></div>
+        <div class="line">• 스크리닝 방식 재설계</div>
+        <div class="line">  — 문항 수 축소 (10문항 이내)</div>
+        <div class="line">  — 인센티브 도입 (스크리닝 참여 시 혜택)</div>
+        <div class="line">  — 법정의무교육과 연계</div>
+        <div class="line">• 사업 자체는 계속 (WTP 확인됨)</div>
+      </div>
+      <div class="verdict v-stop">
+        <h4>🛑 STOP → 사업 재검토</h4>
+        <div class="line"><strong>조건:</strong> 가설 1 실패</div>
+        <div class="line">(대표가 돈을 안 낸다)</div>
+        <div class="line" style="margin-top:6px;"><strong>검토 옵션:</strong></div>
+        <div class="line">• 세그먼트 변경 (건설→제조, IT)</div>
+        <div class="line">• 가격 변경 (월 45만→월 25만)</div>
+        <div class="line">• 가치 제안 변경 (면책→복지/ESG)</div>
+        <div class="line">• V.Doc Enterprise 자체 피벗</div>
+        <div class="line" style="margin-top:4px;color:var(--red);font-weight:600;">이 판정이 나와도 실패가 아니라 "학습"이다</div>
+      </div>
+    </div>
+
+    <div class="co">
+      <div class="ct">PoC의 가장 중요한 가치</div>
+      <div class="line"><strong>PoC는 성공하든 실패하든 가치가 있다.</strong> 성공하면 사업을 진행할 근거를 얻고, 실패하면 잘못된 방향에 더 큰 자원을 투입하는 것을 막는다. <strong>개발자 1명 + 디자이너 1명 + 8주</strong>의 투자로, "이 사업이 될까?"라는 질문에 데이터 기반 답을 얻는 것이 PoC의 본질이다. 기획서 100장보다 고객 1명의 계약서가 더 강력한 증거다.</div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    AITRICS Corporation · V.Doc Enterprise PoC 전략 · 2026.03 · CONFIDENTIAL<br>
+    본 문서는 내부 의사결정용이며, PoC 실행 과정에서 세부 사항은 조정될 수 있습니다.
+  </div>
+
+</div>
+</body></html>
