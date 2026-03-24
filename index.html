@@ -2742,6 +2742,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
             제안서
           </a>
+          <a href="#" onclick="navigateVcare('oncoreport', event)" class="vcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            제안서(보고용)
+          </a>
           <a href="#" onclick="navigateVcare('bm', event)" class="vcare-menu-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             BM&amp;결론
@@ -11568,6 +11572,12 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
 
   </div><!-- /page-vcare-bm -->
 
+  <!-- ===== ONCOCARE REPORT PAGE ===== -->
+  <div class="page-section" id="page-vcare-oncoreport" style="padding:0;margin:0;background:#C8CCD4;position:relative;z-index:1;">
+    <iframe src="oncocare_report_final.html" style="width:100%;border:none;display:block;min-height:100vh;background:#C8CCD4;position:relative;z-index:1;" scrolling="yes"
+      onload="try{this.style.height=this.contentWindow.document.body.scrollHeight+80+'px';}catch(e){this.style.height='12000px';}"></iframe>
+  </div><!-- /page-vcare-oncoreport -->
+
 
   <!-- ===== DASHBOARD PAGE ===== -->
   <div class="page-section" id="page-dashboard">
@@ -13118,6 +13128,8 @@ function navigateVcare(sub, e) {
     window.location.hash = 'pinkcare-retrospective';
   } else if (sub === 'bm') {
     window.location.hash = 'vcare-bm';
+  } else if (sub === 'oncoreport') {
+    window.location.hash = 'vcare-oncoreport';
   }
 }
 
@@ -13171,7 +13183,7 @@ function applyHash(hash) {
   } else if (page === 'vdoc' || page === 'vdoc-proposal') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
-  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective') {
+  } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'pinkcare-retrospective' || page === 'vcare-oncoreport') {
     const vcareBtn = document.getElementById('vcareBtn');
     if (vcareBtn) vcareBtn.classList.add('active');
   } else {
