@@ -8503,8 +8503,78 @@
 
   </div><!-- /mx-wrap -->
 
-  <!-- 160명 분석 + 확장 가능성 -->
-  <div style="max-width:860px;margin:0 auto;padding:0 40px 60px;">
+<section class="hero">
+  <p class="hero-kicker">핑크케어 PoC 회고 기반</p>
+  <h1 class="hero-title"><em>Phase 2 검토사항 종합</em></h1>
+  <p class="hero-sub">7개 관점별 PoC 학습 사항 및 다음 단계 핵심 고민 정리</p>
+
+  <!-- Phase 로드맵 -->
+  <div style="max-width:720px;width:100%;margin-bottom:48px;opacity:0;animation:fadeUp .65s ease forwards .35s;">
+    <div style="display:flex;align-items:center;gap:0;position:relative;">
+
+      <!-- Phase 1 -->
+      <div style="flex:1;position:relative;">
+        <div style="background:var(--surface);border:1px solid #2a3550;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;transition:border-color .2s;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:.18em;margin-bottom:12px;">PHASE 1</div>
+          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(61,127,255,.12);color:var(--blue);border:1px solid rgba(61,127,255,.25);margin-bottom:14px;">완료</div>
+          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">핑크케어 PoC</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">유방암 단일 질환<br>오픈채팅 기반 검증</div>
+        </div>
+      </div>
+
+      <!-- 화살표 -->
+      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;">
+        <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="8" x2="26" y2="8" stroke="#2a3550" stroke-width="1.5"/>
+          <polyline points="20,3 28,8 20,13" stroke="#2a3550" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="flex:1;position:relative;">
+        <div style="background:linear-gradient(135deg,rgba(0,212,160,.08),rgba(0,212,160,.03));border:1px solid rgba(0,212,160,.35);border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;box-shadow:0 0 32px rgba(0,212,160,.08);">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:.18em;margin-bottom:12px;">PHASE 2</div>
+          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(0,212,160,.15);color:var(--green);border:1px solid rgba(0,212,160,.35);margin-bottom:14px;">● 진행 중</div>
+          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">암종 3종 확장</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">유방암 · 위암 · 대장암<br>온코케어 플랫폼 런칭</div>
+        </div>
+      </div>
+
+      <!-- 화살표 -->
+      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;">
+        <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="8" x2="26" y2="8" stroke="#2a3550" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <polyline points="20,3 28,8 20,13" stroke="#2a3550" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="flex:1;position:relative;">
+        <div style="background:var(--surface);border:1px solid #2a3550;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;opacity:.7;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--pink));"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--purple);letter-spacing:.18em;margin-bottom:12px;">PHASE 3</div>
+          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);margin-bottom:14px;">예정</div>
+          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">전 질환 확장</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">각종 암종 + 만성질환<br>(당뇨·심부전) + 정신건강<br>(우울증·공황장애)</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="perspective-map">
+    <a href="#s1" class="pm-item"><span class="pm-num">01</span><span class="pm-label">서비스<br>기획</span></a>
+    <a href="#s2" class="pm-item"><span class="pm-num">02</span><span class="pm-label">콘텐츠<br>기획</span></a>
+    <a href="#s3" class="pm-item"><span class="pm-num">03</span><span class="pm-label">법률<br>보안</span></a>
+    <a href="#s4" class="pm-item"><span class="pm-num">04</span><span class="pm-label">마케팅</span></a>
+    <a href="#s5" class="pm-item"><span class="pm-num">05</span><span class="pm-label">개발</span></a>
+    <a href="#s6" class="pm-item"><span class="pm-num">06</span><span class="pm-label">운영</span></a>
+    <a href="#s7" class="pm-item"><span class="pm-num">07</span><span class="pm-label">의료진</span></a>
+  </div>
+</section>
+
     <style>
       .exp-section { margin-bottom: 48px; }
       .exp-part-divider {
@@ -8543,35 +8613,6 @@
       }
       .exp-insight strong { color: var(--text); }
     </style>
-
-    <div class="exp-part-divider">
-      <span class="exp-part-badge">PART 3</span>
-      <span class="exp-part-title">160명이 말해주는 것 — 그리고 말해주지 않는 것</span>
-    </div>
-
-    <!-- 160명 분석 -->
-    <div class="exp-section">
-      <div class="exp-label">160명의 의미</div>
-
-      <div class="exp-card" style="margin-bottom:16px;">
-        <div class="exp-card-title">160명이 의미하는 건 하나입니다</div>
-        <div class="exp-card-body">
-          <strong>"암 환우들이 모일 수 있는 공간을 원하고 있었다"</strong>는 것입니다.<br><br>
-          우리가 공간을 만들어서 사람들이 온 게 아니라, 이미 갈 곳을 찾고 있던 사람들에게 문을 열어준 겁니다. 네이버 카페도 있고, 유이카페도 있고, 카카오톡 오픈채팅방도 수십 개 있는데, 그래도 또 들어왔습니다. <strong>기존 공간들이 채워주지 못하는 뭔가가 있다는 뜻입니다.</strong>
-        </div>
-      </div>
-
-      <div class="exp-card" style="margin-bottom:16px;border-top-color:#fbbf24;">
-        <div class="exp-card-title" style="color:#fbbf24;">다만 그 "뭔가"가 무엇인지는 아직 모릅니다</div>
-        <div class="exp-card-body">
-          의료진이 있어서인지, 검사결과지 설명이 있어서인지, 유튜버를 따라온 건지, 아니면 단순히 새로운 방이 열렸으니까 들어와본 건지. <strong>160명이라는 숫자만으로는 이유를 특정할 수 없습니다.</strong> 그걸 알아내는 게 다음 단계의 과제입니다.
-        </div>
-      </div>
-
-      <div class="exp-insight">
-        확실한 건 하나, <strong>이 시장에 사람이 있다는 것.</strong> 그리고 그 사람들이 밤 9시에, 새벽 2시에, 항암 치료 중에도 이 공간에서 이야기하고 있다는 것. 이 정도의 확인은 됐습니다.
-      </div>
-    </div>
 
     <!-- 확장 가능성 -->
     <div class="exp-section">
@@ -8806,77 +8847,8 @@
 }
   </style>
 <!-- HERO -->
-<section class="hero">
-  <p class="hero-kicker">핑크케어 PoC 회고 기반</p>
-  <h1 class="hero-title"><em>Phase 2 검토사항 종합</em></h1>
-  <p class="hero-sub">7개 관점별 PoC 학습 사항 및 다음 단계 핵심 고민 정리</p>
 
-  <!-- Phase 로드맵 -->
-  <div style="max-width:720px;width:100%;margin-bottom:48px;opacity:0;animation:fadeUp .65s ease forwards .35s;">
-    <div style="display:flex;align-items:center;gap:0;position:relative;">
 
-      <!-- Phase 1 -->
-      <div style="flex:1;position:relative;">
-        <div style="background:var(--surface);border:1px solid #2a3550;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;transition:border-color .2s;">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);"></div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:.18em;margin-bottom:12px;">PHASE 1</div>
-          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(61,127,255,.12);color:var(--blue);border:1px solid rgba(61,127,255,.25);margin-bottom:14px;">완료</div>
-          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">핑크케어 PoC</div>
-          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">유방암 단일 질환<br>오픈채팅 기반 검증</div>
-        </div>
-      </div>
-
-      <!-- 화살표 -->
-      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;">
-        <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0" y1="8" x2="26" y2="8" stroke="#2a3550" stroke-width="1.5"/>
-          <polyline points="20,3 28,8 20,13" stroke="#2a3550" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <!-- Phase 2 -->
-      <div style="flex:1;position:relative;">
-        <div style="background:linear-gradient(135deg,rgba(0,212,160,.08),rgba(0,212,160,.03));border:1px solid rgba(0,212,160,.35);border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;box-shadow:0 0 32px rgba(0,212,160,.08);">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);"></div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:.18em;margin-bottom:12px;">PHASE 2</div>
-          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(0,212,160,.15);color:var(--green);border:1px solid rgba(0,212,160,.35);margin-bottom:14px;">● 진행 중</div>
-          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">암종 3종 확장</div>
-          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">유방암 · 위암 · 대장암<br>온코케어 플랫폼 런칭</div>
-        </div>
-      </div>
-
-      <!-- 화살표 -->
-      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;">
-        <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0" y1="8" x2="26" y2="8" stroke="#2a3550" stroke-width="1.5" stroke-dasharray="3 3"/>
-          <polyline points="20,3 28,8 20,13" stroke="#2a3550" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <!-- Phase 3 -->
-      <div style="flex:1;position:relative;">
-        <div style="background:var(--surface);border:1px solid #2a3550;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;opacity:.7;">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--pink));"></div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--purple);letter-spacing:.18em;margin-bottom:12px;">PHASE 3</div>
-          <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);margin-bottom:14px;">예정</div>
-          <div style="font-size:15px;font-weight:900;margin-bottom:8px;letter-spacing:-.01em;">전 질환 확장</div>
-          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.75;">각종 암종 + 만성질환<br>(당뇨·심부전) + 정신건강<br>(우울증·공황장애)</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="perspective-map">
-    <a href="#s1" class="pm-item"><span class="pm-num">01</span><span class="pm-label">서비스<br>기획</span></a>
-    <a href="#s2" class="pm-item"><span class="pm-num">02</span><span class="pm-label">콘텐츠<br>기획</span></a>
-    <a href="#s3" class="pm-item"><span class="pm-num">03</span><span class="pm-label">법률<br>보안</span></a>
-    <a href="#s4" class="pm-item"><span class="pm-num">04</span><span class="pm-label">마케팅</span></a>
-    <a href="#s5" class="pm-item"><span class="pm-num">05</span><span class="pm-label">개발</span></a>
-    <a href="#s6" class="pm-item"><span class="pm-num">06</span><span class="pm-label">운영</span></a>
-    <a href="#s7" class="pm-item"><span class="pm-num">07</span><span class="pm-label">의료진</span></a>
-  </div>
-</section>
 <!-- PoC 인사이트별 해결방안 -->
 <section class="ps reveal" id="s1">
   <div class="ps-items reveal visible">
