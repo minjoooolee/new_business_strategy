@@ -611,7 +611,8 @@ function signDoc(){
   const dateStr=now.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
   const timeStr=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('signTime').textContent=dateStr+' '+timeStr;
-  document.getElementById('docSignDate').innerHTML=dateStr+'<br>'+timeStr;
+  const dsd=document.getElementById('docSignDate');
+  if(dsd) dsd.innerHTML=dateStr+'<br>'+timeStr;
   document.getElementById('signModal').classList.add('open');
   initCanvas();
 }
@@ -750,7 +751,6 @@ function checkSignReady(){
 
 /* ── 서명 실행 ── */
 function doSign(){
-  // 서명 이미지를 문서 결재란에 반영
   const drawActive=document.getElementById('panelDraw').style.display!=='none';
   let imgSrc='';
   if(drawActive){
@@ -758,10 +758,15 @@ function doSign(){
   } else {
     imgSrc=stampDataUrl;
   }
-  const placeholder=document.getElementById('docSignPlaceholder');
-  const preview=document.getElementById('docSignPreview');
-  if(placeholder)placeholder.style.display='none';
-  if(preview){preview.src=imgSrc;preview.style.display='block';}
+
+  // iframe 문서 결재란에 서명 주입
+  const now=new Date();
+  const ts=now.toISOString().replace('T',' ').substring(0,16)+' KST';
+  const frame=document.getElementById('approvalDocFrame');
+  if(frame && frame.contentWindow){
+    frame.contentWindow.postMessage({type:'inject-sign', imgSrc:imgSrc, timestamp:ts}, '*');
+  }
+
   document.getElementById('signModal').classList.remove('open');
   document.getElementById('doneModal').classList.add('open');
 }
