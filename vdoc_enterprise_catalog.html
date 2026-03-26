@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V.Doc Enterprise — 건설업 경영책임자를 위한 안전보건 의무이행 관리 시스템</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:      #1C1C1C;
+  --navy:     #0D2340;
+  --navy-mid: #1E3A5F;
+  --mid:      #3A4A5C;
+  --rule:     #1C1C1C;
+  --rule-lt:  #BEBEBE;
+  --rule-xlt: #E0E0E0;
+  --muted:    #777777;
+  --pale:     #F4F4F3;
+  --pale2:    #EEF2F7;
+  --accent:   #B8001F;
+  --blue:     #1A3D6B;
+  --bg:       #FFFFFF;
+}
+
+html { font-size: 14px; }
+
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  background: #D8D5D0;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── PAGE ─── */
+.page {
+  width: 794px;
+  margin: 20px auto;
+  background: var(--bg);
+  padding: 0 48px 28px;
+  border-top: 5px solid var(--navy);
+}
+
+/* ─── RUNNING HEADER ─── */
+.rh {
+  display: flex;
+  justify-content: flex-end;
+  padding: 7px 0 6px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 20px;
+}
+.rh span {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ─── FOOTER ─── */
+.pf {
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rule-lt);
+  display: flex;
+  justify-content: space-between;
+}
+.pf span { font-size: 9px; color: var(--muted); letter-spacing: 0.5px; }
+
+/* ─── SECTION ─── */
+.sec { margin-bottom: 18px; }
+
+.sec-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.sec-rule { height: 1px; background: var(--rule); margin-bottom: 12px; }
+.sec-rule-lt { height: 1px; background: var(--rule-lt); margin-bottom: 10px; }
+
+/* ─── HOOK BANNER ─── */
+.hook {
+  background: var(--navy);
+  padding: 14px 20px;
+  margin-bottom: 18px;
+}
+.hook-main {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.hook-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+}
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 12px 0;
+  margin-bottom: 14px;
+}
+.stat-div { background: var(--rule-lt); }
+.stat-cell { padding: 0 18px; }
+.stat-cell:first-child { padding-left: 2px; }
+.stat-cell:last-child  { padding-right: 2px; }
+.stat-n {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.stat-n.red { color: var(--accent); }
+.stat-d { font-size: 11px; color: var(--ink); line-height: 1.5; margin-top: 5px; font-weight: 500; }
+.stat-s { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* ─── TABLE ─── */
+table.t {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  border: 1px solid var(--rule);
+}
+table.t thead th {
+  background: var(--navy);
+  color: rgba(255,255,255,0.92);
+  padding: 7px 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-align: left;
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+table.t thead th:last-child { border-right: none; }
+table.t tbody td {
+  padding: 7px 12px;
+  vertical-align: top;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--rule-xlt);
+  border-right: 1px solid var(--rule-xlt);
+  color: var(--ink);
+}
+table.t tbody td:last-child { border-right: none; }
+table.t tbody tr:last-child td { border-bottom: none; }
+table.t tbody tr:nth-child(even) td { background: var(--pale); }
+table.t tbody td:first-child { font-weight: 600; color: var(--navy-mid); white-space: nowrap; }
+.tnote { font-size: 10px; color: var(--muted); margin-top: 4px; text-align: right; }
+
+/* ─── BLOCKQUOTE ─── */
+.bq {
+  border-left: 3px solid var(--rule-lt);
+  padding: 10px 16px;
+  background: var(--pale);
+  margin: 10px 0;
+}
+.bq p {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.85;
+}
+.bq-src { font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+/* ─── DARK BOX ─── */
+.dbox {
+  background: var(--navy);
+  padding: 14px 18px;
+  margin: 10px 0;
+}
+.dbox-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.dbox p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.75;
+  margin-bottom: 7px;
+}
+.dbox p:last-child { margin-bottom: 0; }
+.dbox strong { color: #fff; font-weight: 700; }
+
+/* ─── BODY TEXT ─── */
+.body {
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.78;
+}
+.fn { font-size: 10px; color: var(--muted); line-height: 1.6; margin-top: 5px; }
+
+/* ─── OB GRID (3칸) ─── */
+.ob-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid var(--rule);
+  margin: 10px 0;
+}
+.ob-col {
+  border-right: 1px solid var(--rule-lt);
+  display: flex;
+  flex-direction: column;
+}
+.ob-col:last-child { border-right: none; }
+.ob-head {
+  background: var(--navy);
+  padding: 7px 11px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.4;
+}
+.ob-law {
+  padding: 9px 11px;
+  font-size: 11px;
+  color: var(--mid);
+  line-height: 1.65;
+  border-bottom: 1px solid var(--rule-xlt);
+  background: #F8F8F7;
+  flex: 1;
+}
+.ob-resp { padding: 9px 11px; }
+.ob-resp-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.ob-item {
+  font-size: 11px;
+  color: var(--ink);
+  line-height: 1.6;
+  padding-left: 9px;
+  position: relative;
+  margin-bottom: 2px;
+}
+.ob-item::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+/* ─── LEGAL SUP ─── */
+.lsup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--rule);
+  margin: 10px 0;
+}
+.lsup-col { padding: 11px 14px; border-right: 1px solid var(--rule-lt); }
+.lsup-col:last-child { border-right: none; }
+.lsup-law { font-size: 10.5px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.lsup-body { font-size: 11px; color: var(--muted); line-height: 1.65; margin-bottom: 8px; }
+.lsup-resp {
+  font-size: 11px;
+  color: var(--ink);
+  line-height: 1.65;
+  padding-left: 10px;
+  border-left: 2px solid var(--navy-mid);
+}
+
+/* ─── FLOW TABLE ─── */
+table.flow {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  border: 1px solid var(--rule);
+  margin: 10px 0;
+}
+table.flow thead th {
+  background: var(--navy);
+  color: rgba(255,255,255,0.9);
+  padding: 7px 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-align: left;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+table.flow thead th:last-child { border-right: none; }
+table.flow tbody td {
+  padding: 7px 12px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule-xlt);
+  border-right: 1px solid var(--rule-xlt);
+  line-height: 1.65;
+  color: var(--ink);
+}
+table.flow tbody td:last-child { border-right: none; }
+table.flow tbody tr:last-child td { border-bottom: none; }
+table.flow tbody td:first-child {
+  font-weight: 700;
+  color: var(--navy-mid);
+  white-space: nowrap;
+  background: #F5F5F4;
+  width: 88px;
+}
+table.flow tbody td:nth-child(2) {
+  width: 90px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ─── REPORT MOCK ─── */
+.rmock { border: 1px solid var(--rule); margin: 10px 0; }
+.rmock-hd {
+  background: var(--navy);
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.rmock-hd .rt { font-size: 11px; font-weight: 700; color: #fff; }
+.rmock-hd .rn { font-size: 9.5px; color: rgba(255,255,255,0.38); }
+.rrow { display: flex; border-bottom: 1px solid var(--rule-xlt); }
+.rrow:last-child { border-bottom: none; }
+.rkey {
+  width: 152px; flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 11px; color: var(--muted);
+  background: #F5F5F4;
+  border-right: 1px solid var(--rule-xlt);
+  display: flex; align-items: center;
+}
+.rval {
+  padding: 6px 12px;
+  font-size: 11.5px; font-weight: 500; color: var(--ink);
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+}
+.badge { display: inline-block; padding: 1px 6px; font-size: 9.5px; font-weight: 700; }
+.bg  { background: #D1FAE5; color: #065F46; }
+.by  { background: #FEF3C7; color: #92400E; }
+.br  { background: #FEE2E2; color: #991B1B; }
+.bb  { background: #DBEAFE; color: #1E40AF; }
+
+/* ─── COST ─── */
+.cost { border: 1px solid var(--rule); margin: 10px 0; }
+.cost-top {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 13px 18px 11px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.cost-fig { font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; line-height: 1; }
+.cost-bas { font-size: 11px; color: var(--muted); }
+.cost-cmp { display: grid; grid-template-columns: 1fr 1fr; }
+.cmp-cell { padding: 10px 18px; border-right: 1px solid var(--rule-lt); }
+.cmp-cell:last-child { border-right: none; }
+.cmp-l { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+.cmp-v { font-size: 14px; font-weight: 700; color: var(--navy); }
+.cmp-v.hi { color: var(--blue); }
+.cost-sub {
+  padding: 8px 18px;
+  border-top: 1px solid var(--rule-lt);
+  font-size: 11px; color: var(--muted);
+  background: var(--pale); line-height: 1.65;
+}
+.cost-sub strong { color: var(--ink); font-weight: 600; }
+
+/* ─── TRUST ─── */
+table.trust {
+  width: 100%; border-collapse: collapse;
+  border: 1px solid var(--rule);
+  font-size: 11.5px; margin: 10px 0;
+}
+table.trust td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--rule-xlt);
+  border-right: 1px solid var(--rule-xlt);
+  vertical-align: top; line-height: 1.55;
+}
+table.trust tr:last-child td { border-bottom: none; }
+table.trust td:last-child { border-right: none; }
+table.trust td.tk {
+  font-size: 9.5px; font-weight: 700; color: var(--muted);
+  letter-spacing: 1px; text-transform: uppercase;
+  background: #F5F5F4; white-space: nowrap; width: 90px;
+}
+table.trust td.tv { font-weight: 600; color: var(--navy-mid); width: 150px; }
+table.trust td.ts { font-size: 11px; color: var(--muted); }
+
+/* ─── VALUE COLS ─── */
+.vcols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--rule); margin: 10px 0;
+}
+.vcol { padding: 11px 14px; border-right: 1px solid var(--rule-lt); }
+.vcol:last-child { border-right: none; }
+.vcol-t {
+  font-size: 11px; font-weight: 700; color: var(--navy);
+  padding-bottom: 7px; margin-bottom: 7px;
+  border-bottom: 1px solid var(--rule-xlt);
+}
+.vitem {
+  font-size: 11.5px; color: var(--ink);
+  line-height: 1.65; padding: 2px 0 2px 10px; position: relative;
+}
+.vitem::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 5px; height: 1px; background: var(--navy-mid);
+}
+
+/* ─── PILOT ─── */
+.pilot { border: 1px solid var(--rule); margin: 10px 0; }
+.pilot-hd {
+  background: var(--pale); padding: 7px 14px;
+  font-size: 11px; font-weight: 700; color: var(--navy);
+  border-bottom: 1px solid var(--rule-lt);
+}
+.prow { display: flex; border-bottom: 1px solid var(--rule-xlt); }
+.prow:last-child { border-bottom: none; }
+.pk {
+  width: 60px; flex-shrink: 0; padding: 7px 12px;
+  font-size: 11px; color: var(--muted); font-weight: 500;
+  background: #F5F5F4; border-right: 1px solid var(--rule-xlt);
+}
+.pv { padding: 7px 12px; font-size: 12px; color: var(--ink); line-height: 1.6; }
+.pilot-note {
+  padding: 8px 14px;
+  font-size: 11px; color: var(--muted);
+  border-top: 1px solid var(--rule-lt);
+  background: var(--pale); line-height: 1.7;
+}
+
+/* ─── CONTACT ─── */
+.contact { display: flex; border: 1px solid var(--rule); margin: 10px 0; }
+.ctlabel {
+  width: 52px; flex-shrink: 0; padding: 11px 12px;
+  font-size: 9.5px; font-weight: 700; color: var(--muted);
+  letter-spacing: 1px; text-transform: uppercase;
+  background: #F5F5F4; border-right: 1px solid var(--rule-lt);
+}
+.ctbody { padding: 11px 14px; font-size: 12px; color: var(--ink); line-height: 1.75; }
+.ctbody a { color: var(--blue); text-decoration: none; }
+
+/* ─── DISCLAIMER ─── */
+.disc {
+  margin-top: 12px; padding-top: 8px;
+  border-top: 1px solid var(--rule-xlt);
+  font-size: 9.5px; color: var(--muted); line-height: 1.7;
+}
+
+/* ─── COVER ─── */
+.cv-body { padding-top: 36px; padding-bottom: 8px; }
+.cv-eye {
+  font-size: 9.5px; font-weight: 700; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px;
+}
+.cv-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 22px; font-weight: 700; color: var(--navy);
+  line-height: 1.45; letter-spacing: -0.3px;
+  margin-bottom: 12px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.cv-sub { font-size: 12.5px; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+.cv-meta {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--rule); padding-top: 14px;
+}
+.cm-cell { padding: 0 16px; border-right: 1px solid var(--rule-lt); }
+.cm-cell:first-child { padding-left: 0; }
+.cm-cell:last-child { border-right: none; }
+.cm-l { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 4px; }
+.cm-v { font-size: 12px; font-weight: 600; color: var(--navy); line-height: 1.5; }
+
+/* ─── PRINT ─── */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: A4 portrait; margin: 10mm 14mm; }
+  body { background: #fff; }
+  .page { box-shadow: none; margin: 0; width: 100%; page-break-after: always; }
+  .page:last-child { page-break-after: avoid; }
+}
+@media screen {
+  .page { box-shadow: 0 2px 20px rgba(0,0,0,0.13); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════
+     PAGE 1 표지
+══════════════════════════ -->
+<div class="page">
+  <div class="rh"><span>V.Doc Enterprise</span></div>
+
+  <div class="cv-body">
+    <div class="cv-eye">Product Overview &nbsp;/&nbsp; For Construction Industry CEOs</div>
+    <div class="cv-title">
+      건설업 경영책임자를 위한<br>
+      안전보건 의무이행 관리 시스템
+    </div>
+    <div class="cv-sub">
+      중대재해처벌법 시행령 제4조 · 제5조 대응<br>
+      의무 이행 증빙의 자동 생성 · 보관 · 보고
+    </div>
+
+    <div class="hook">
+      <div class="hook-main">"에쓰오일 CEO는 불기소됐고, 건설사 대표 26명은 유죄 판결을 받았습니다.<br>차이는 단 하나 — 의무 이행의 '실질성'을 입증할 수 있었느냐였습니다."</div>
+      <div class="hook-sub">V.Doc Enterprise는 그 증빙을 자동으로 만들어드립니다.</div>
+    </div>
+
+    <div class="cv-meta">
+      <div class="cm-cell">
+        <div class="cm-l">발행</div>
+        <div class="cm-v">AITRICS<br>신사업전략부서</div>
+      </div>
+      <div class="cm-cell">
+        <div class="cm-l">기준일</div>
+        <div class="cm-v">2026년 3월<br>법령 및 판례 기준</div>
+      </div>
+      <div class="cm-cell">
+        <div class="cm-l">대상</div>
+        <div class="cm-v">건설업 100~300인<br>경영책임자</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf">
+    <span>AITRICS &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; 무단 배포 금지</span>
+    <span>1 / 5</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE 2 규제 환경
+══════════════════════════ -->
+<div class="page">
+  <div class="rh"><span>V.Doc Enterprise</span></div>
+
+  <!-- 후킹 멘트 -->
+  <div class="hook" style="margin-bottom:18px;">
+    <div class="hook-main">건설업 사망사고, 법원은 96%에서 경영책임자를 유죄로 판단했습니다.</div>
+    <div class="hook-sub">하나의 사고에 형사처벌 · 영업정지 · 선분양 제한 · 매출액 3% 과징금이 동시에 적용됩니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">I. 건설업 경영책임자 처벌 현황</div>
+    <div class="sec-rule"></div>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-n">37건</div>
+        <div class="stat-d">중대재해처벌법 시행 이후<br>누적 법원 판결</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-cell">
+        <div class="stat-n">17건 <span style="font-size:15px;font-weight:600;">(46%)</span></div>
+        <div class="stat-d">건설업 판결 비중</div>
+        <div class="stat-s">전 업종 중 최다</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-cell">
+        <div class="stat-n red">96%</div>
+        <div class="stat-d">경영책임자 유죄 비율</div>
+        <div class="stat-s">27건 중 26건 유죄 확정</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">II. 적용 규제 체계</div>
+    <div class="sec-rule"></div>
+
+    <table class="t">
+      <thead>
+        <tr>
+          <th style="width:20%">법령</th>
+          <th style="width:40%">적용 내용</th>
+          <th>처벌 / 제재</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>중대재해처벌법</td><td>경영책임자 안전보건 확보의무</td><td>사망 시 1년 이상 징역 또는 10억 원 이하 벌금</td></tr>
+        <tr><td>산업안전보건법</td><td>안전조치 · 보건조치 의무</td><td>사망 시 7년 이하 징역 또는 1억 원 이하 벌금</td></tr>
+        <tr><td>건설산업기본법</td><td>영업정지 · 벌점 부과</td><td>사고 발생 시 영업정지 + 벌점 부과</td></tr>
+        <tr><td>주택공급 규칙</td><td>선분양 제한</td><td>영업정지 · 벌점에 따라 최대 2년 제한</td></tr>
+        <tr><td>건설안전특별법<br><span style="font-weight:400;font-size:10px;color:var(--muted);">발의 중</span></td><td>과징금 부과</td><td>매출액의 최대 3% <span style="font-size:10px;color:var(--muted);">(입법 진행 중)</span></td></tr>
+      </tbody>
+    </table>
+    <div class="tnote">하나의 사고에 위 규제가 동시에 적용될 수 있습니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="bq">
+      <p>사망사고가 발생하지 않도록 노력해야 하는 것은 당연한 의무입니다. 그러나 형사처벌, 영업정지, 벌점, 선분양 제한에 더해 매출액 3%의 과징금까지 부과하는 것은 기업의 존폐를 좌우합니다.</p>
+      <div class="bq-src">— 대한건설협회</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">III. 최근 판례 동향</div>
+    <div class="sec-rule"></div>
+
+    <div class="dbox">
+      <div class="dbox-label">법원의 판단 기준</div>
+      <p>법원은 형식적 의무 이행과 실질적 의무 이행을 엄격히 구분하고 있습니다. 안전점검 위탁기관의 지적에도 개선하지 않은 사례에서, 유족 합의와 시정조치 완료에도 불구하고 경영책임자에게 실형이 선고된 바 있습니다.</p>
+      <p>반면, 에쓰오일 사례에서는 안전보건 확보의무를 충실히 이행하고 있다는 점이 인정되어 CEO에 대해 불기소 처분이 이루어졌습니다.</p>
+      <p><strong>의무 이행의 "실질성"을 어떻게 입증하느냐가 핵심 쟁점입니다.</strong></p>
+    </div>
+  </div>
+
+  <div class="pf">
+    <span>AITRICS &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; 무단 배포 금지</span>
+    <span>2 / 5</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE 3 제품 소개
+══════════════════════════ -->
+<div class="page">
+  <div class="rh"><span>V.Doc Enterprise</span></div>
+
+  <div class="hook" style="margin-bottom:18px;">
+    <div class="hook-main">점검했다는 사실이 아니라, 점검 결과를 보고하고 조치했다는 전자서명 기록이 면책의 증거가 됩니다.</div>
+    <div class="hook-sub">V.Doc Enterprise는 시행령 제5조 3대 의무를 자동으로 이행하고, 그 기록을 법정 증빙으로 보관합니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">I. 제품 정의</div>
+    <div class="sec-rule"></div>
+    <p class="body">V.Doc Enterprise는 중대재해처벌법이 요구하는 안전보건관리 의무를 체계적으로 이행하고, 그 과정을 전자문서로 자동 기록 · 보관하는 B2B SaaS 시스템입니다. 분기별 건강 점검 실시, 고위험자 탐지 및 조치, 교육 이수 관리, 경영자 보고 및 전자결재까지 — 시행령이 요구하는 절차를 하나의 플랫폼에서 운영합니다.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">II. 시행령 제5조 — 3대 의무 대응</div>
+    <div class="sec-rule"></div>
+
+    <div class="ob-grid">
+      <div class="ob-col">
+        <div class="ob-head">제5조 제1호<br>점검 · 보고</div>
+        <div class="ob-law">안전 · 보건 관계 법령 의무 이행 여부를 반기 1회 이상 점검하고, 경영책임자에게 결과를 보고할 것</div>
+        <div class="ob-resp">
+          <div class="ob-resp-label">V.Doc 대응</div>
+          <div class="ob-item">분기 1회 AI 기반 건강 점검 자동 실시</div>
+          <div class="ob-item">점검 보고서 자동 생성</div>
+          <div class="ob-item">3단계 전자결재 (담당 → 검토 → 승인)</div>
+          <div class="ob-item">경영자 보고 수신 일시 자동 기록</div>
+        </div>
+      </div>
+      <div class="ob-col">
+        <div class="ob-head">제5조 제2호<br>조치</div>
+        <div class="ob-law">의무 미이행 확인 시 인력 배치 · 예산 편성 등 필요한 조치를 할 것</div>
+        <div class="ob-resp">
+          <div class="ob-resp-label">V.Doc 대응</div>
+          <div class="ob-item">고위험 직원 자동 탐지 (익명 집계 기반)</div>
+          <div class="ob-item">외부 전문기관 (EAP · 산업보건의) 자동 연계</div>
+          <div class="ob-item">조치 일시 · 기관명 · 내용 이력 자동 기록</div>
+          <div class="ob-item">경영자 조치 지시사항 기록란 제공</div>
+        </div>
+      </div>
+      <div class="ob-col">
+        <div class="ob-head">제5조 제3호<br>교육</div>
+        <div class="ob-law">유해 · 위험 작업 안전보건 교육 실시 여부를 반기 1회 이상 점검할 것</div>
+        <div class="ob-resp">
+          <div class="ob-resp-label">V.Doc 대응</div>
+          <div class="ob-item">직종별 건강 가이드 · 교육 콘텐츠 제공</div>
+          <div class="ob-item">직원별 이수 이력 자동 기록</div>
+          <div class="ob-item">이수율 보고서 자동 생성</div>
+          <div class="ob-item">미이수자 리마인더 자동 발송</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">III. 서면 보관 · 전자문서 요건</div>
+    <div class="sec-rule"></div>
+
+    <div class="lsup">
+      <div class="lsup-col">
+        <div class="lsup-law">시행령 제13조 — 서면 보관</div>
+        <div class="lsup-body">모든 이행 사항을 전자문서로 작성하여 5년간 보관하여야 합니다.</div>
+        <div class="lsup-resp">결재 완료 시 PDF 확정본 생성 · SHA-256 해시값으로 무결성 보장 · 5년간 삭제 방지 잠금 보관</div>
+      </div>
+      <div class="lsup-col">
+        <div class="lsup-law">전자문서법 제4조의2 — 서면 요건</div>
+        <div class="lsup-body">전자문서가 서면으로 인정받으려면 열람가능성 · 재현가능성 · 보존성을 충족해야 합니다.</div>
+        <div class="lsup-resp">V.Doc 생성 문서 전부 PDF 재현 가능 · 감사 추적 로그 함께 보관</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf">
+    <span>AITRICS &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; 무단 배포 금지</span>
+    <span>3 / 5</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE 4 운영 방식 · 비용
+══════════════════════════ -->
+<div class="page">
+  <div class="rh"><span>V.Doc Enterprise</span></div>
+
+  <div class="hook" style="margin-bottom:18px;">
+    <div class="hook-main">HR 담당자는 월 1회 클릭, 경영책임자는 핵심 3줄 확인 후 서명. 나머지는 시스템이 자동으로 처리합니다.</div>
+    <div class="hook-sub">연 540만 원 — 산업보건의 상근 고용비용(연 4,000~6,000만 원)의 10분의 1 수준입니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">I. 분기별 운영 흐름</div>
+    <div class="sec-rule"></div>
+    <table class="flow">
+      <thead>
+        <tr><th>단계</th><th>시기</th><th>내용</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>건강 점검</td>
+          <td>분기 1회</td>
+          <td>직원 앱 5~7분 소요. HR이 공지 · 관리. 미응답자는 "점검 기회 제공, 본인 미응답"으로 자동 기록 — 기업 의무 이행 확보.</td>
+        </tr>
+        <tr>
+          <td>AI 분석</td>
+          <td>점검 후</td>
+          <td>부서별 건강 지수 산출 (익명 집계, 10명 미만 부서 통합). 고위험자 탐지 시 외부 전문기관 자동 연계. CEO 레포트 자동 생성.</td>
+        </tr>
+        <tr>
+          <td>전자결재</td>
+          <td>매월</td>
+          <td>담당(HR) → 검토(안전보건담당자) → 승인(경영책임자). 핵심 요약 3줄 확인 후 서명. 조치 지시사항 기입 시 실질적 이행 증거 강화.</td>
+        </tr>
+        <tr>
+          <td>증빙 보관</td>
+          <td>결재 즉시</td>
+          <td>PDF + SHA-256 해시값 자동 생성. 전자문서법 요건 충족. 5년 삭제 방지 잠금 보관.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="fn">직원 개별 응답은 본인만 확인. 대시보드에는 부서 단위 익명 집계만 표시. 개인 식별 정보는 경영자 · HR 누구에게도 제공되지 않습니다.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">II. CEO 월간 건강경영 레포트 — 예시</div>
+    <div class="sec-rule"></div>
+    <div class="rmock">
+      <div class="rmock-hd">
+        <span class="rt">CEO 월간 건강경영 레포트</span>
+        <span class="rn">VDOC-CORP-2026-03-001 · 예시</span>
+      </div>
+      <div class="rrow"><div class="rkey">전사 종합 건강경영지수</div><div class="rval">79점 &nbsp;<span class="badge bg">▲ +2.3p</span></div></div>
+      <div class="rrow"><div class="rkey">정신건강 / 신체건강</div><div class="rval"><span class="badge by">정신 72</span><span class="badge bg">신체 84</span></div></div>
+      <div class="rrow"><div class="rkey">위험도 분포</div><div class="rval"><span class="badge bg">양호 58%</span><span class="badge bb">관심 26%</span><span class="badge by">주의 12%</span><span class="badge br">위험 4%</span></div></div>
+      <div class="rrow"><div class="rkey">법적 이행률</div><div class="rval"><span class="badge bg">96%</span><span style="font-size:10.5px;color:var(--muted);">시행령 제5조 · 산안법 체크리스트</span></div></div>
+      <div class="rrow"><div class="rkey">전자결재</div><div class="rval">3단계 서명 + 경영자 조치 지시사항 기입란</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">III. 도입 비용</div>
+    <div class="sec-rule"></div>
+    <div class="cost">
+      <div class="cost-top">
+        <div class="cost-fig">월 45만 원</div>
+        <div class="cost-bas">100~200인 기업 기준 &nbsp;/&nbsp; 연 540만 원</div>
+      </div>
+      <div class="cost-cmp">
+        <div class="cmp-cell"><div class="cmp-l">자체 산업보건의 상근 고용</div><div class="cmp-v">연 4,000 ~ 6,000만 원</div></div>
+        <div class="cmp-cell"><div class="cmp-l">V.Doc Enterprise</div><div class="cmp-v hi">연 540만 원</div></div>
+      </div>
+      <div class="cost-sub"><strong>정부 보조금 활용 가능.</strong>&nbsp; 산업안전보건공단 · 중소기업부 · 고용노동부 지원금으로 도입 비용의 50~100% 보전 가능.</div>
+    </div>
+  </div>
+
+  <div class="pf">
+    <span>AITRICS &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; 무단 배포 금지</span>
+    <span>4 / 5</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════
+     PAGE 5 신뢰 · 다음 단계
+══════════════════════════ -->
+<div class="page">
+  <div class="rh"><span>V.Doc Enterprise</span></div>
+
+  <div class="hook" style="margin-bottom:18px;">
+    <div class="hook-main">3개월 파일럿 — 법적 증빙이 실제로 생성되는지 직접 확인하십시오. 성과 미달 시 전액 환불합니다.</div>
+    <div class="hook-sub">건강친화기업 인증은 전국 93개 기업만 보유. V.Doc 운영 6개월이면 심사 자료의 70% 이상이 자동 준비됩니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">I. AITRICS</div>
+    <div class="sec-rule"></div>
+    <table class="trust">
+      <tbody>
+        <tr>
+          <td class="tk">설립</td><td class="tv">의료 AI 전문 기업 · 10년</td><td class="ts"></td>
+          <td class="tk">글로벌 인증</td><td class="tv">FDA 510(k) 승인</td><td class="ts" style="border-right:none;"></td>
+        </tr>
+        <tr>
+          <td class="tk">AI 엔진</td><td class="tv">자체 의료 AI MOCA</td><td class="ts">5만 건+ 임상 데이터 기반</td>
+          <td class="tk">임상 검증</td><td class="tv">신촌 세브란스</td><td class="ts" style="border-right:none;">전공의 48명 참여</td>
+        </tr>
+        <tr>
+          <td class="tk">병원</td><td class="tv">국내 100개+ 병원</td><td class="ts">VitalCare 도입</td>
+          <td class="tk">재무</td><td class="tv">누적 투자 731억 원</td><td class="ts" style="border-right:none;">2024 매출 100억 원</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">II. 도입 부가 가치</div>
+    <div class="sec-rule"></div>
+    <div class="vcols">
+      <div class="vcol">
+        <div class="vcol-t">중대재해법 의무 이행 증빙</div>
+        <div class="vitem">시행령 제5조 3대 의무 자동 이행</div>
+        <div class="vitem">점검 · 조치 · 교육 증빙 자동 생성</div>
+        <div class="vitem">전자문서 5년 자동 보관</div>
+        <div class="vitem">고용노동부 점검 대비 원클릭 증빙 패키지</div>
+      </div>
+      <div class="vcol">
+        <div class="vcol-t">건강친화기업 인증 획득 지원</div>
+        <div class="vitem">보건복지부 인증 4대 심사 영역 자료 자동 생성</div>
+        <div class="vitem">운영 6개월 시 심사 자료 70%+ 준비 가능</div>
+        <div class="vitem">전국 93개 기업만 보유한 인증</div>
+        <div class="vitem">취업포털 채용관 입점 · 수출보험 우대</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">III. 파일럿 프로그램</div>
+    <div class="sec-rule"></div>
+    <div class="pilot">
+      <div class="pilot-hd">파일럿 프로그램 안내</div>
+      <div class="prow"><div class="pk">대상</div><div class="pv">건설업 100~300인 기업</div></div>
+      <div class="prow"><div class="pk">기간</div><div class="pv">3개월</div></div>
+      <div class="prow"><div class="pk">내용</div><div class="pv">건강 점검 2~3사이클 + CEO 레포트 생성 + 법적 증빙 생성</div></div>
+      <div class="prow"><div class="pk">비용</div><div class="pv">성과 미달 시 전액 환불</div></div>
+      <div class="pilot-note">3개월간 운영하시고, 법적 증빙이 체계적으로 생성되는지 직접 확인해보시기 바랍니다.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">IV. 문의</div>
+    <div class="sec-rule"></div>
+    <div class="contact">
+      <div class="ctlabel">연락처</div>
+      <div class="ctbody">
+        <a href="mailto:minjoo.lee@aitrics.com">minjoo.lee@aitrics.com</a><br>
+        AITRICS &nbsp;·&nbsp; 서울특별시 강남구 테헤란로 218 에이피타워 13F
+      </div>
+    </div>
+  </div>
+
+  <div class="disc">
+    V.Doc Enterprise는 법적 의무 이행을 체계적으로 지원하고 이행 증거를 자동으로 생성 · 보관하는 시스템입니다. 면책 여부는 최종적으로 법원이 판단하며, 본 시스템의 도입이 면책을 보장하는 것은 아닙니다. 본 자료에 포함된 판례 · 법령 정보는 2026년 3월 기준이며, 법률 자문을 대체하지 않습니다.
+  </div>
+
+  <div class="pf">
+    <span>AITRICS &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; 무단 배포 금지</span>
+    <span>5 / 5</span>
+  </div>
+</div>
+
+</body>
+</html>
