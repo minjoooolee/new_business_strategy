@@ -642,10 +642,10 @@ table.ct tbody td.k { font-weight: 600; color: var(--mid); width: 90px; white-sp
             <span class="ap-info-label">부서</span>
             <span class="ap-info-val">안전보건팀</span>
           </div>
-          <div class="ap-sig-area">
-            <div class="sig-text">이민주</div>
+          <div class="ap-sig-area" id="sig-area-1">
+            <div class="sig-text" id="sig-text-1">이민주</div>
           </div>
-          <div class="ap-ts">
+          <div class="ap-ts" id="sig-ts-1">
             서명일시<br>
             2026-04-02T10:30:00+09:00
           </div>
@@ -898,5 +898,32 @@ table.ct tbody td.k { font-weight: 600; color: var(--mid); width: 90px; white-sp
 
 </div>
 
+<script>
+/* ── 서명 주입 (detail_approval.html postMessage 수신) ── */
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'inject-sign') return;
+  const area = document.getElementById('sig-area-1');
+  const tsEl = document.getElementById('sig-ts-1');
+  if (!area) return;
+
+  // 기존 텍스트 서명 제거 후 이미지 삽입
+  area.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = e.data.imgSrc;
+  img.style.cssText = 'max-width:100%;max-height:48px;object-fit:contain;display:block;margin:auto;';
+  area.appendChild(img);
+  area.style.border = '1px solid #0A6640';
+  area.style.background = '#F0FFF8';
+
+  // 서명일시 갱신
+  if (tsEl && e.data.timestamp) {
+    tsEl.innerHTML = '서명일시<br>' + e.data.timestamp;
+    tsEl.style.color = '#0A6640';
+  }
+
+  // 페이지 맨 위 결재란으로 스크롤
+  area.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
 </body>
 </html>
