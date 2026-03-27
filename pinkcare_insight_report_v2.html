@@ -1,16 +1,172 @@
 <style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
 :root {
-  --font-sans: 'Pretendard', 'Noto Sans KR', sans-serif;
+  --font-sans: 'Pretendard', sans-serif;
   --color-text-primary: #f0f3fa;
   --color-text-secondary: #b8c8e0;
-  --color-background-primary: #0f1219;
-  --color-background-secondary: #141824;
-  --color-border-tertiary: #2a3550;
+  --color-background-primary: #111520;
+  --color-background-secondary: #181d2e;
+  --color-border-tertiary: #232a40;
   --border-radius-lg: 14px;
   --border-radius-md: 8px;
+  /* accent */
+  --accent:  #4f7fff;
+  --accent2: #00e5b0;
+  --accent3: #ff6b6b;
+  --accent4: #ffd166;
+  --mx-green: #34d399;
 }
-body { background: #0f1219; padding: 40px; }
+
+body {
+  background: #0a0c14;
+  color: #f0f3fa;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 48px 52px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 기존 클래스 오버라이드 */
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #6b7a9e;
+  margin-bottom: 10px;
+}
+.heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #f0f3fa;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  letter-spacing: -.02em;
+}
+.sub {
+  font-size: 13.5px;
+  color: #b8c8e0;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid #232a40;
+  margin: 40px 0;
+}
+.card {
+  background: #111520;
+  border: 1px solid #232a40;
+  border-radius: 14px;
+  padding: 20px 24px;
+  color: #f0f3fa;
+}
+.card-line {
+  background: #0a0c14;
+  border: 1px solid #232a40;
+  border-radius: 14px;
+  padding: 20px 24px;
+  color: #f0f3fa;
+}
+.stat-big {
+  font-size: 30px;
+  font-weight: 700;
+  color: #f0f3fa;
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -.02em;
+}
+.stat-label {
+  font-size: 11px;
+  color: #6b7a9e;
+  margin-bottom: 6px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.stat-desc {
+  font-size: 12.5px;
+  color: #b8c8e0;
+  line-height: 1.65;
+}
+.insight-block {
+  border-left: 2px solid;
+  padding-left: 16px;
+  margin-bottom: 16px;
+  border-radius: 0 8px 8px 0;
+  background: rgba(255,255,255,.02);
+  padding: 14px 16px;
+}
+.insight-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f0f3fa;
+  margin-bottom: 4px;
+}
+.insight-body {
+  font-size: 12.5px;
+  color: #b8c8e0;
+  line-height: 1.7;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+  font-size: 11.5px;
+  color: #b8c8e0;
+}
+.hub-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #232a40;
+}
+.hub-row:last-child { border-bottom: none; }
+.hub-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #f0f3fa;
+  min-width: 160px;
+}
+.hub-type {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: .05em;
+}
+.hub-desc {
+  font-size: 12.5px;
+  color: #b8c8e0;
+  line-height: 1.6;
+}
+.pill {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 5px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+.pill-blue   { background: rgba(79,127,255,.15); color: #7aaaff; }
+.pill-teal   { background: rgba(0,229,176,.12);  color: #00e5b0; }
+.pill-coral  { background: rgba(255,107,107,.12); color: #ff8a8a; }
+.pill-amber  { background: rgba(255,209,102,.12); color: #ffd166; }
+
+/* 차트 캔버스 영역 */
+canvas { filter: brightness(1.05); }
+
+/* 블록 간격 */
+.block { margin-bottom: 48px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
