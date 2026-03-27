@@ -1,1 +1,929 @@
-see below
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VDOC-BUILDCO-2026-03-001 · 안전보건 의무이행 점검 보고서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #0D2340;
+  --mid:     #1E3A5F;
+  --ink:     #1C1C1C;
+  --muted:   #666;
+  --lt:      #999;
+  --rule:    #1C1C1C;
+  --rule-lt: #BEBEBE;
+  --xlt:     #E0E0E0;
+  --pale:    #F5F5F4;
+  --green:   #0A6640;
+  --red:     #B8001F;
+  --bg:      #FFFFFF;
+}
+
+html { font-size: 13px; }
+body {
+  font-family: 'Pretendard', sans-serif;
+  background: #CCC9C4;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE ── */
+.page {
+  width: 794px;
+  margin: 24px auto;
+  background: var(--bg);
+  padding: 36px 48px 40px;
+  border-top: 5px solid var(--navy);
+}
+
+/* ── 문서 최상단 ── */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 18px;
+}
+.doc-brand { font-size: 11px; font-weight: 700; color: var(--navy); letter-spacing: 1.5px; text-transform: uppercase; }
+.doc-brand span { font-weight: 400; color: var(--muted); }
+.doc-no { font-size: 10px; color: var(--muted); letter-spacing: 0.5px; text-align: right; line-height: 1.6; }
+.doc-no strong { color: var(--navy); font-weight: 700; font-size: 11px; }
+
+/* ── 문서 제목 ── */
+.doc-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.doc-subtitle { font-size: 11px; color: var(--muted); margin-bottom: 16px; letter-spacing: 0.3px; }
+
+/* ── 기본 정보 테이블 ── */
+table.meta {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  border: 1px solid var(--rule);
+  margin-bottom: 18px;
+}
+table.meta td {
+  padding: 5px 11px;
+  border-bottom: 1px solid var(--xlt);
+  border-right: 1px solid var(--xlt);
+  vertical-align: top;
+  line-height: 1.55;
+}
+table.meta tr:last-child td { border-bottom: none; }
+table.meta td:last-child { border-right: none; }
+table.meta td.k {
+  width: 110px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  background: var(--pale);
+  white-space: nowrap;
+}
+table.meta td.v { font-weight: 500; color: var(--ink); }
+table.meta td.v .mono { font-family: 'Courier New', monospace; font-size: 10.5px; color: var(--mid); }
+
+/* ── 섹션 헤더 ── */
+.sec-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.sec-rule { height: 1px; background: var(--rule); margin-bottom: 10px; }
+
+.sec { margin-bottom: 16px; }
+
+/* ── 콘텐츠 테이블 ── */
+table.ct {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  border: 1px solid var(--rule);
+  margin-bottom: 8px;
+}
+table.ct thead th {
+  background: var(--navy);
+  color: rgba(255,255,255,0.92);
+  padding: 6px 11px;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: 0.3px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+table.ct thead th:last-child { border-right: none; }
+table.ct tbody td {
+  padding: 6px 11px;
+  border-bottom: 1px solid var(--xlt);
+  border-right: 1px solid var(--xlt);
+  line-height: 1.6;
+  vertical-align: top;
+}
+table.ct tbody td:last-child { border-right: none; }
+table.ct tbody tr:last-child td { border-bottom: none; }
+table.ct tbody tr:nth-child(even) td { background: var(--pale); }
+table.ct tbody td.k { font-weight: 600; color: var(--mid); width: 90px; white-space: nowrap; }
+
+/* ── 건강 현황 수치 ── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--rule);
+  margin-bottom: 10px;
+}
+.kpi-cell {
+  padding: 9px 12px;
+  border-right: 1px solid var(--rule-lt);
+}
+.kpi-cell:last-child { border-right: none; }
+.kpi-l { font-size: 9.5px; color: var(--muted); margin-bottom: 3px; }
+.kpi-v { font-size: 18px; font-weight: 800; color: var(--navy); line-height: 1; }
+.kpi-v.red { color: var(--red); }
+.kpi-v.green { color: var(--green); }
+.kpi-s { font-size: 9px; color: var(--muted); margin-top: 2px; }
+
+/* ── 조치 이력 ── */
+.action-box {
+  border: 1px solid var(--rule);
+  margin-bottom: 10px;
+}
+.action-hd {
+  background: var(--pale);
+  padding: 5px 11px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  border-bottom: 1px solid var(--rule-lt);
+}
+.action-row {
+  display: flex;
+  border-bottom: 1px solid var(--xlt);
+  font-size: 11.5px;
+}
+.action-row:last-child { border-bottom: none; }
+.ak {
+  width: 80px;
+  flex-shrink: 0;
+  padding: 5px 10px;
+  font-size: 10px;
+  color: var(--muted);
+  background: #F8F8F7;
+  border-right: 1px solid var(--xlt);
+  font-weight: 600;
+}
+.av { padding: 5px 10px; color: var(--ink); line-height: 1.6; }
+
+/* ── 경영자 지시사항 ── */
+.directive-box {
+  border: 1px solid var(--rule);
+  margin-bottom: 14px;
+}
+.directive-hd {
+  background: var(--navy);
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.5px;
+}
+.directive-body {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.75;
+  min-height: 48px;
+  background: #FAFAF9;
+}
+.directive-note { padding: 5px 12px 7px; font-size: 9.5px; color: var(--muted); border-top: 1px solid var(--xlt); }
+
+/* ── 전자결재란 ── */
+.approval-section { margin-bottom: 16px; }
+
+.approval-title {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.approval-rule { height: 1px; background: var(--rule); margin-bottom: 10px; }
+
+.approval-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid var(--rule);
+}
+.ap-col {
+  border-right: 1px solid var(--rule-lt);
+  display: flex;
+  flex-direction: column;
+}
+.ap-col:last-child { border-right: none; }
+
+.ap-head {
+  background: var(--navy);
+  padding: 6px 12px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.5px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.ap-head .ap-role { font-size: 8.5px; color: rgba(255,255,255,0.55); display: block; margin-top: 1px; }
+
+.ap-body { padding: 10px 12px; flex: 1; }
+
+.ap-info-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; font-size: 11px; }
+.ap-info-label { font-size: 9.5px; color: var(--muted); min-width: 40px; }
+.ap-info-val { font-weight: 600; color: var(--ink); }
+
+.ap-sig-area {
+  margin-top: 8px;
+  border: 1px dashed var(--rule-lt);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #FAFAFA;
+}
+
+/* 서명 이미지 (실제 서명 시뮬레이션) */
+.sig-stamp {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: -0.5px;
+  opacity: 0.88;
+  transform: rotate(-8deg);
+  font-family: 'Noto Serif KR', serif;
+}
+.sig-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  opacity: 0.75;
+  transform: rotate(-3deg) skewX(-5deg);
+  letter-spacing: -1px;
+}
+.sig-pending {
+  font-size: 10px;
+  color: var(--lt);
+  letter-spacing: 0.5px;
+}
+
+.ap-ts {
+  margin-top: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: var(--green);
+  line-height: 1.5;
+  background: #F0FAF5;
+  padding: 4px 7px;
+  border-left: 2px solid var(--green);
+}
+.ap-ts-pending {
+  margin-top: 6px;
+  font-size: 9.5px;
+  color: var(--lt);
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* ── 해시값 ── */
+.hash-box {
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 14px;
+}
+.hash-label {
+  background: var(--navy);
+  padding: 7px 12px;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.hash-val {
+  padding: 7px 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--mid);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  line-height: 1.5;
+}
+.hash-note {
+  padding: 7px 12px;
+  font-size: 9.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  border-left: 1px solid var(--xlt);
+  white-space: nowrap;
+}
+
+/* ── 법적 검토 섹션 ── */
+.legal-review {
+  border: 1px solid var(--rule);
+  margin-bottom: 14px;
+  page-break-inside: avoid;
+}
+.lr-head {
+  background: var(--navy);
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.lr-head .lrt { font-size: 11.5px; font-weight: 700; color: #fff; }
+.lr-head .lrs { font-size: 9.5px; color: rgba(255,255,255,0.5); }
+
+.lr-body { padding: 12px 14px 10px; }
+
+.lr-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--xlt);
+  font-size: 11.5px;
+}
+.lr-row:last-child { border-bottom: none; }
+
+.lr-badge {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 2px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-top: 1px;
+}
+.lb-ok  { background: #D1FAE5; color: #065F46; }
+.lb-cond { background: #FEF3C7; color: #92400E; }
+.lb-no  { background: #FEE2E2; color: #991B1B; }
+
+.lr-item-title { font-weight: 700; color: var(--navy); margin-bottom: 3px; font-size: 11.5px; }
+.lr-item-body  { font-size: 11px; color: var(--ink); line-height: 1.65; }
+.lr-item-note  { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.55; }
+
+.lr-conclusion {
+  background: var(--pale);
+  border-top: 1px solid var(--rule-lt);
+  padding: 9px 14px;
+  font-size: 11.5px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.lr-conclusion strong { color: var(--navy); font-weight: 700; }
+
+/* ── 각주 ── */
+.footnote {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid var(--xlt);
+  font-size: 9.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── PRINT ── */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: A4 portrait; margin: 10mm 13mm; }
+  body { background: #fff; }
+  .page { box-shadow: none; margin: 0; width: 100%; page-break-after: always; }
+  .page:last-child { page-break-after: avoid; }
+}
+@media screen {
+  .page { box-shadow: 0 2px 24px rgba(0,0,0,0.14); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════
+     PAGE 1 — 결재 문서 본문
+══════════════════════ -->
+<div class="page" style="position:relative;overflow:hidden;">
+  <!-- 워터마크 -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-family:'Noto Serif KR',serif;font-size:96px;font-weight:700;color:rgba(13,35,64,0.065);letter-spacing:16px;white-space:nowrap;pointer-events:none;user-select:none;z-index:0;">SAMPLE</div>
+
+  <!-- 문서 헤더 -->
+  <div class="doc-header">
+    <div>
+      <div class="doc-brand">V.Doc Enterprise &nbsp;<span>· AITRICS</span></div>
+      <div style="font-size:9px;color:var(--muted);margin-top:3px;letter-spacing:0.5px;">안전보건 의무이행 관리 시스템</div>
+    </div>
+    <div class="doc-no">
+      <strong>VDOC-BUILDCO-2026-03-001</strong><br>
+      보관기한: 2031-03-31 (5년) · 삭제방지 잠금
+    </div>
+  </div>
+
+  <!-- 문서 제목 -->
+  <div class="doc-title">안전보건 의무이행 점검 보고서</div>
+  <div class="doc-subtitle">중대재해처벌법 시행령 제5조 제1호~제3호 이행 증빙 문서 &nbsp;·&nbsp; 2026년 3월</div>
+
+  <!-- 문서 기본 정보 -->
+  <table class="meta">
+    <tr>
+      <td class="k">문서번호</td>
+      <td class="v"><span class="mono">VDOC-BUILDCO-2026-03-001</span></td>
+      <td class="k">점검기간</td>
+      <td class="v">2026년 3월 1일 ~ 3월 31일</td>
+    </tr>
+    <tr>
+      <td class="k">작성일시</td>
+      <td class="v"><span class="mono">2026-04-02T09:15:32+09:00</span></td>
+      <td class="k">작성주체</td>
+      <td class="v">빌드코건설 주식회사 / 이민주 (안전보건팀)</td>
+    </tr>
+    <tr>
+      <td class="k">수신자</td>
+      <td class="v">홍길동 &nbsp;<span style="font-size:10px;color:var(--muted);">대표이사 · 경영책임자</span></td>
+      <td class="k">대상 인원</td>
+      <td class="v">180명 (현장직 142명 · 사무직 38명)</td>
+    </tr>
+    <tr>
+      <td class="k">근거 법령</td>
+      <td class="v" colspan="3">중대재해처벌법 시행령 제5조, 산업안전보건법 제15~19조, 전자문서 및 전자거래 기본법 제4조의2</td>
+    </tr>
+  </table>
+
+  <!-- 1. 건강 점검 현황 -->
+  <div class="sec">
+    <div class="sec-label">1. 건강 점검 실시 현황 — 시행령 제5조 제1호</div>
+    <div class="sec-rule"></div>
+
+    <div class="kpi-row">
+      <div class="kpi-cell">
+        <div class="kpi-l">점검 참여율</div>
+        <div class="kpi-v green">81%</div>
+        <div class="kpi-s">146명 / 180명 응답</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-l">종합 건강지수</div>
+        <div class="kpi-v">79점</div>
+        <div class="kpi-s">전월 대비 ▲ +2.3p</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-l">위험군 비율</div>
+        <div class="kpi-v red">4%</div>
+        <div class="kpi-s">7명 · 외부기관 연계 완료</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-l">법적 이행률</div>
+        <div class="kpi-v green">96%</div>
+        <div class="kpi-s">시행령 체크리스트 기준</div>
+      </div>
+    </div>
+
+    <table class="ct">
+      <thead>
+        <tr>
+          <th style="width:18%">구분</th>
+          <th style="width:20%">실시 일시</th>
+          <th style="width:15%">대상/참여</th>
+          <th>결과 요약</th>
+          <th style="width:14%">미응답 처리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="k">분기 점검</td>
+          <td>2026-03-03 ~ 03-14</td>
+          <td>180명 / 146명</td>
+          <td>정신건강 평균 72점, 신체건강 평균 84점. 건설현장 근골격계 위험 집중 관찰.</td>
+          <td>34명<br><span style="font-size:10px;color:var(--muted);">기회 제공·미응답 기록</span></td>
+        </tr>
+        <tr>
+          <td class="k">건강검진 연계</td>
+          <td>2026-01-15 업로드</td>
+          <td>180명 전원</td>
+          <td>2025년 건강검진 결과 반영. 혈압·혈당 위험군 12명 추가 식별.</td>
+          <td>해당없음</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. 조치 이력 -->
+  <div class="sec">
+    <div class="sec-label">2. 고위험자 탐지 및 조치 — 시행령 제5조 제2호</div>
+    <div class="sec-rule"></div>
+
+    <div class="action-box">
+      <div class="action-hd">조치 이력 (2026년 3월)</div>
+      <div class="action-row">
+        <div class="ak">조치 일시</div>
+        <div class="av">2026-03-15T14:30:00+09:00</div>
+      </div>
+      <div class="action-row">
+        <div class="ak">대상</div>
+        <div class="av">위험군 7명 (익명 집계 기반 · 개인 식별 정보 비포함)</div>
+      </div>
+      <div class="action-row">
+        <div class="ak">조치 내용</div>
+        <div class="av">외부 EAP 기관 연계 (한국근로자건강센터) · 산업보건의 면담 안내 발송 · 자발적 참여 기반</div>
+      </div>
+      <div class="action-row">
+        <div class="ak">연계 기관</div>
+        <div class="av">한국근로자건강센터 &nbsp;|&nbsp; 연계 확인번호: EAP-2026-0315-007</div>
+      </div>
+      <div class="action-row">
+        <div class="ak">이행 상태</div>
+        <div class="av"><span style="color:var(--green);font-weight:700;">완료</span> &nbsp;—&nbsp; 7명 전원 연계 완료, 2명 자발적 상담 신청</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 교육 이수 현황 -->
+  <div class="sec">
+    <div class="sec-label">3. 안전보건 교육 이수 현황 — 시행령 제5조 제3호</div>
+    <div class="sec-rule"></div>
+
+    <table class="ct">
+      <thead>
+        <tr>
+          <th>교육 과정</th>
+          <th style="width:16%">이수율</th>
+          <th style="width:18%">미이수자</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>건설현장 근골격계 질환 예방</td>
+          <td><span style="font-weight:700;color:var(--green);">94%</span> (169명)</td>
+          <td>11명</td>
+          <td>리마인더 2회 발송 완료 · 3월 31일 마감 예정</td>
+        </tr>
+        <tr>
+          <td>직업성 폐질환 예방 (석면·분진)</td>
+          <td><span style="font-weight:700;color:var(--green);">100%</span> (180명)</td>
+          <td>0명</td>
+          <td>법정의무교육 이수 완료</td>
+        </tr>
+        <tr>
+          <td>정신건강 자기관리 가이드</td>
+          <td><span style="font-weight:700;color:var(--muted);">73%</span> (131명)</td>
+          <td>49명</td>
+          <td>자율 이수 과정 · 리마인더 발송 중</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 경영자 지시사항 -->
+  <div class="sec">
+    <div class="sec-label">4. 경영책임자 조치 지시사항</div>
+    <div class="sec-rule"></div>
+    <div class="directive-box">
+      <div class="directive-hd">경영책임자 지시사항 &nbsp;—&nbsp; 홍길동 대표이사</div>
+      <div class="directive-body">
+        근골격계 위험군 현장직 직원에 대한 작업환경 개선을 4월 중 실시하고, 정신건강 자기관리 교육 미이수자에 대한 추가 독려를 진행하기 바람. 외부 EAP 연계 결과는 다음 보고 시 이행 여부 포함하여 보고할 것.
+      </div>
+      <div class="directive-note">※ 본 지시사항은 시행령 제5조 제2호 "필요한 조치"의 이행 근거로 기록됩니다.</div>
+    </div>
+  </div>
+
+  <!-- 전자결재란 -->
+  <div class="approval-section">
+    <div class="approval-title">전자결재 — 3단계 서명</div>
+    <div class="approval-rule"></div>
+
+    <div class="approval-grid">
+
+      <!-- 1단계: 담당 -->
+      <div class="ap-col">
+        <div class="ap-head">
+          1단계 &nbsp;·&nbsp; 담당
+          <span class="ap-role">HR 안전보건 담당자</span>
+        </div>
+        <div class="ap-body">
+          <div class="ap-info-row">
+            <span class="ap-info-label">성명</span>
+            <span class="ap-info-val">이민주</span>
+          </div>
+          <div class="ap-info-row">
+            <span class="ap-info-label">부서</span>
+            <span class="ap-info-val">안전보건팀</span>
+          </div>
+          <div class="ap-sig-area" id="sig-area-1">
+            <div class="sig-text" id="sig-text-1">이민주</div>
+          </div>
+          <div class="ap-ts" id="sig-ts-1">
+            서명일시<br>
+            2026-04-02T10:30:00+09:00
+          </div>
+        </div>
+      </div>
+
+      <!-- 2단계: 검토 -->
+      <div class="ap-col">
+        <div class="ap-head">
+          2단계 &nbsp;·&nbsp; 검토
+          <span class="ap-role">안전보건관리책임자</span>
+        </div>
+        <div class="ap-body">
+          <div class="ap-info-row">
+            <span class="ap-info-label">성명</span>
+            <span class="ap-info-val">김안전</span>
+          </div>
+          <div class="ap-info-row">
+            <span class="ap-info-label">부서</span>
+            <span class="ap-info-val">안전관리부</span>
+          </div>
+          <div class="ap-sig-area">
+            <div class="sig-stamp">김안전</div>
+          </div>
+          <div class="ap-ts">
+            서명일시<br>
+            2026-04-03T14:00:00+09:00
+          </div>
+        </div>
+      </div>
+
+      <!-- 3단계: 승인 -->
+      <div class="ap-col">
+        <div class="ap-head">
+          3단계 &nbsp;·&nbsp; 승인
+          <span class="ap-role">경영책임자 · 대표이사</span>
+        </div>
+        <div class="ap-body">
+          <div class="ap-info-row">
+            <span class="ap-info-label">성명</span>
+            <span class="ap-info-val">홍길동</span>
+          </div>
+          <div class="ap-info-row">
+            <span class="ap-info-label">직위</span>
+            <span class="ap-info-val">대표이사</span>
+          </div>
+          <div class="ap-sig-area">
+            <div class="sig-text">홍길동</div>
+          </div>
+          <div class="ap-ts">
+            서명일시<br>
+            2026-04-05T14:22:17+09:00
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 문서 무결성 해시 -->
+  <div class="hash-box">
+    <div class="hash-label">SHA-256<br>해시값</div>
+    <div class="hash-val">a3f2b7c8d9e1045f6a2b8c3d4e5f6071829a0b1c2d3e4f5061728394a5b6c7d8e9f0a1b2c3d4e5f607182</div>
+    <div class="hash-note">결재 완료 시 자동 생성<br>위변조 검증용</div>
+  </div>
+
+  <div class="footnote">
+    본 문서는 V.Doc Enterprise에 의해 자동 생성되었습니다. 전자문서 및 전자거래 기본법 제4조의2에 따른 서면 요건(열람가능성·재현가능성·보존성)을 충족하며, 중대재해처벌법 시행령 제13조에 따라 2031-03-31까지 삭제 방지 잠금 상태로 보관됩니다.
+  </div>
+</div>
+
+
+<!-- ══════════════════════
+     PAGE 2 — 법적 효력 검토
+══════════════════════ -->
+<div class="page">
+
+  <div class="doc-header">
+    <div>
+      <div class="doc-brand">V.Doc Enterprise &nbsp;<span>· AITRICS</span></div>
+      <div style="font-size:9px;color:var(--muted);margin-top:3px;">법적 효력 검토 의견</div>
+    </div>
+    <div class="doc-no">
+      <strong>VDOC-BUILDCO-2026-03-001</strong><br>
+      별첨 &nbsp;—&nbsp; 법적 효력 검토
+    </div>
+  </div>
+
+  <div class="doc-title">전자결재 문서 법적 효력 검토</div>
+  <div class="doc-subtitle">중대재해처벌법 · 전자문서법 · 전자서명법 충족 여부 분석 &nbsp;·&nbsp; 2026년 3월 기준</div>
+
+  <!-- 법적 검토 본문 -->
+  <div class="sec" style="margin-bottom:14px;">
+    <div class="sec-label">검토 개요</div>
+    <div class="sec-rule"></div>
+    <p style="font-size:12px;color:var(--ink);line-height:1.8;">
+      V.Doc Enterprise가 생성·보관하는 전자결재 문서가 중대재해처벌법 시행령 제5조 의무 이행 증빙으로서 법적 효력을 갖는지, 그리고 수사기관·법원 제출 시 서면 요건을 충족하는지를 아래에서 항목별로 검토합니다. 본 검토는 2026년 3월 현행 법령 기준이며, 법률 자문을 대체하지 않습니다.
+    </p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">항목별 검토</div>
+    <div class="sec-rule"></div>
+
+    <div class="legal-review">
+      <div class="lr-head">
+        <span class="lrt">중대재해처벌법 시행령 제5조 — 의무 이행 증빙</span>
+        <span class="lrs">핵심 쟁점</span>
+      </div>
+      <div class="lr-body">
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">제1호 — 반기 1회 이상 점검 및 경영책임자 보고</div>
+            <div class="lr-item-body">V.Doc은 분기 1회 점검을 자동 실시하고, 결과 보고서를 경영책임자에게 전송합니다. 경영책임자의 전자결재 승인 타임스탬프(ISO 8601)가 "보고를 받았다"는 사실을 법정 증거 수준으로 기록합니다.</div>
+            <div class="lr-item-note">에쓰오일 불기소 사례에서 법원은 "정기적 보고 체계 존재 + 경영책임자의 실제 수신 기록"을 의무 이행 판단의 핵심 요소로 봤습니다.</div>
+          </div>
+        </div>
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">제2호 — 의무 미이행 확인 시 필요한 조치</div>
+            <div class="lr-item-body">고위험자 탐지 → 외부 전문기관 자동 연계 → 조치 일시·기관명·내용이 전자문서에 자동 기록됩니다. 경영책임자 지시사항 기입란은 "실질적 조치 의지"를 입증하는 핵심 근거가 됩니다.</div>
+            <div class="lr-item-note">단, 조치의 실질성(실제 개선 여부)은 시스템 외부의 후속 이행에 달려 있습니다. V.Doc은 조치 지시 및 연계 사실만 증빙하며, 현장 개선 이행은 별도 관리가 필요합니다.</div>
+          </div>
+        </div>
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">제3호 — 유해·위험 작업 안전보건 교육 점검</div>
+            <div class="lr-item-body">직원별 교육 이수 이력이 자동 기록되고, 이수율 보고서가 결재 문서에 포함됩니다. 미이수자 리마인더 발송 이력도 "점검 노력"의 증거로 기록됩니다.</div>
+            <div class="lr-item-note">이수율 100% 미달 시에도, "점검을 실시하고 미이수자에게 리마인더를 발송했다"는 기록 자체가 의무 이행의 증거가 됩니다.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="lr-conclusion"><strong>종합:</strong> 시행령 제5조 제1~3호 의무 이행 요건을 충족합니다. 특히 경영책임자의 전자결재 타임스탬프와 지시사항 기록은 "실질적 의무 이행"의 핵심 증거로 기능합니다.</div>
+    </div>
+
+    <div class="legal-review">
+      <div class="lr-head">
+        <span class="lrt">전자문서 및 전자거래 기본법 제4조의2 — 서면 요건</span>
+        <span class="lrs">법원 제출 가능성</span>
+      </div>
+      <div class="lr-body">
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">열람가능성 — 언제든지 내용을 볼 수 있을 것</div>
+            <div class="lr-item-body">결재 완료 문서는 PDF로 변환·보관되어 5년간 언제든 다운로드·출력이 가능합니다.</div>
+          </div>
+        </div>
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">재현가능성 — 동일한 내용이 동일하게 재현될 것</div>
+            <div class="lr-item-body">SHA-256 해시값이 결재 완료 시 생성되어, 문서의 위변조 여부를 언제든 검증할 수 있습니다. 해시값이 일치하면 원본과 동일함이 수학적으로 증명됩니다.</div>
+          </div>
+        </div>
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">보존성 — 내용이 변경되지 않을 것</div>
+            <div class="lr-item-body">결재 완료 후 삭제 방지 잠금 상태로 5년간 보관됩니다. 시스템 관리자도 삭제·수정이 불가합니다. 모든 열람·다운로드 행위는 감사 추적 로그에 기록됩니다.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="lr-conclusion"><strong>종합:</strong> 전자문서법 제4조의2의 3대 요건을 충족하므로, 본 문서는 법원 및 수사기관 제출 시 서면과 동일한 법적 효력을 가집니다.</div>
+    </div>
+
+    <div class="legal-review">
+      <div class="lr-head">
+        <span class="lrt">전자서명법 — 서명의 효력</span>
+        <span class="lrs">조건부 충족</span>
+      </div>
+      <div class="lr-body">
+
+        <div class="lr-row">
+          <span class="lr-badge lb-cond">조건부</span>
+          <div>
+            <div class="lr-item-title">공인전자서명 vs. 일반 전자서명</div>
+            <div class="lr-item-body">V.Doc의 전자결재는 현재 "일반 전자서명(공인인증서 미사용)" 방식입니다. 전자서명법상 일반 전자서명도 당사자 간 합의 시 법적 효력을 가지나, 공인전자서명보다 증명력이 낮을 수 있습니다.</div>
+            <div class="lr-item-note"><strong>실무적 함의:</strong> 중대재해처벌법은 서명 방식을 특정하지 않으므로, 현재 방식으로도 "의무 이행 증빙"으로 유효합니다. 다만 분쟁 시 강도 높은 증명이 필요하다면 공인전자서명(GPKI/NPKI) 연동을 권고합니다.</div>
+          </div>
+        </div>
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">서명자 식별 — 누가 서명했는지 특정 가능</div>
+            <div class="lr-item-body">2FA 인증(경영책임자·HR 필수) + 로그인 이력 + 타임스탬프의 조합으로 서명자를 특정할 수 있습니다. 법원은 이를 서명자 동일성 증거로 인정합니다.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="lr-conclusion"><strong>종합:</strong> 현재 방식으로 중대재해처벌법 의무 이행 증빙 목적은 충족됩니다. 추가적 법적 안전성을 원한다면 공인전자서명 연동을 권고합니다.</div>
+    </div>
+
+    <div class="legal-review">
+      <div class="lr-head">
+        <span class="lrt">시행령 제13조 — 5년 보관 의무</span>
+        <span class="lrs">보관 요건</span>
+      </div>
+      <div class="lr-body">
+
+        <div class="lr-row">
+          <span class="lr-badge lb-ok">충족</span>
+          <div>
+            <div class="lr-item-title">보관 기간 및 방식</div>
+            <div class="lr-item-body">결재 완료 즉시 5년 보관 타이머가 설정되고, 삭제 방지 잠금이 자동 적용됩니다. AES-256 암호화 저장, TLS 1.3 전송, 감사 추적 로그 전수 기록.</div>
+          </div>
+        </div>
+
+        <div class="lr-row">
+          <span class="lr-badge lb-cond">권고</span>
+          <div>
+            <div class="lr-item-title">서버 소재지 및 데이터 주권</div>
+            <div class="lr-item-body">국내 데이터센터 보관 여부를 계약 시 확인하십시오. 수사기관의 자료 제출 요청 시 국내 서버 소재가 신속 대응에 유리합니다.</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="lr-conclusion"><strong>종합:</strong> 시행령 제13조의 보관 의무를 충족합니다. 계약 시 국내 서버 소재 조항을 명시할 것을 권고합니다.</div>
+    </div>
+
+  </div>
+
+  <!-- 최종 의견 -->
+  <div style="border:1px solid var(--rule);margin-bottom:14px;">
+    <div style="background:var(--navy);padding:8px 14px;">
+      <span style="font-size:12px;font-weight:700;color:#fff;">종합 의견</span>
+    </div>
+    <div style="padding:12px 14px;font-size:12px;color:var(--ink);line-height:1.8;">
+      V.Doc Enterprise가 생성하는 전자결재 문서는 <strong>중대재해처벌법 시행령 제5조 의무 이행 증빙으로서 법적 효력을 가집니다.</strong> 전자문서법상 서면 3대 요건(열람가능성·재현가능성·보존성)을 충족하고, 5년 보관 의무도 이행됩니다.<br><br>
+      단, 면책 여부는 <strong>법원이 최종 판단</strong>합니다. V.Doc은 "의무 이행 사실과 그 기록"을 제공할 뿐, 사고 발생 후 면책을 보장하지 않습니다. 에쓰오일 사례처럼 <strong>지속적·실질적 이행 + 기록의 조합</strong>이 면책의 실제 근거임을 유념하십시오.<br><br>
+      보다 강력한 법적 효력을 위해서는 공인전자서명 연동을 별도로 검토하십시오.
+    </div>
+  </div>
+
+  <div class="footnote">
+    본 법적 효력 검토는 2026년 3월 현행 법령 기준의 일반적 분석이며, 개별 사안에 대한 법률 자문을 대체하지 않습니다. 구체적 법률 판단은 변호사 또는 법률 전문가에게 문의하십시오. &nbsp;|&nbsp; AITRICS &nbsp;·&nbsp; V.Doc Enterprise
+  </div>
+
+</div>
+
+<script>
+/* ── 서명 주입 (detail_approval.html postMessage 수신) ── */
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'inject-sign') return;
+  const area = document.getElementById('sig-area-1');
+  const tsEl = document.getElementById('sig-ts-1');
+  if (!area) return;
+
+  // 기존 텍스트 서명 제거 후 이미지 삽입
+  area.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = e.data.imgSrc;
+  img.style.cssText = 'max-width:100%;max-height:48px;object-fit:contain;display:block;margin:auto;';
+  area.appendChild(img);
+  area.style.border = '1px solid #0A6640';
+  area.style.background = '#F0FFF8';
+
+  // 서명일시 갱신
+  if (tsEl && e.data.timestamp) {
+    tsEl.innerHTML = '서명일시<br>' + e.data.timestamp;
+    tsEl.style.color = '#0A6640';
+  }
+
+  // 페이지 맨 위 결재란으로 스크롤
+  area.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
+</body>
+</html>

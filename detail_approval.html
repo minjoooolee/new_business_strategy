@@ -1,1 +1,785 @@
-see below
+<!DOCTYPE html>
+<html lang="ko">
+<head><title>전자결재 — V.Doc Enterprise</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4F4F1;--surface:#FFF;--border:rgba(0,0,0,.07);--border-2:rgba(0,0,0,.13);
+  --t1:#181816;--t2:#484845;--t3:#909090;--sw:232px;
+  --ba:#2563EB;--bm:#3B82F6;--bl:#EFF6FF;--bb:#BFDBFE;
+  --ma:#7C3AED;--mm:#8B5CF6;--ml:#F5F3FF;--mb:#DDD6FE;
+  --green:#16A34A;--gl:#F0FDF4;--amber:#D97706;--al:#FFFBEB;--red:#DC2626;--rl:#FEF2F2;
+  --ai-bg:#F8F7FF;--ai-b:#E0DBFF;--ai-t:#5B21B6;
+}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.6;display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sb{width:var(--sw);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100}
+.sb-logo{padding:22px 18px 18px;border-bottom:1px solid var(--border)}
+.logo-w{display:flex;align-items:center;gap:10px}
+.logo-i{width:30px;height:30px;background:var(--t1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.logo-t{font-size:13.5px;font-weight:700;color:var(--t1)}
+.logo-s{font-size:10.5px;color:var(--t3);margin-top:1px}
+.nav-sec{padding:14px 10px 4px}
+.nav-lbl{font-size:9.5px;font-weight:700;color:var(--t3);letter-spacing:.9px;text-transform:uppercase;padding:0 8px;margin-bottom:3px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:7px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:400;border:none;background:none;width:100%;text-align:left;transition:background .12s}
+.ni:hover{background:var(--bg)}
+.ni.on{background:var(--t1);color:#fff;font-weight:500}
+.ni-ico{width:18px;text-align:center;font-size:14px;flex-shrink:0;opacity:.7}
+.ni.on .ni-ico{opacity:1}
+.ni-chip{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:600;padding:1px 6px;border-radius:100px}
+.ni.on .ni-chip{background:rgba(255,255,255,.22)}
+.sb-foot{margin-top:auto;padding:14px 10px;border-top:1px solid var(--border)}
+.u-row{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;background:var(--bg)}
+.u-ava{width:30px;height:30px;border-radius:50%;background:var(--ba);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.u-nm{font-size:12.5px;font-weight:600}
+.u-rl{font-size:11px;color:var(--t3)}
+
+/* TOPBAR */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-l{display:flex;align-items:center;gap:8px}
+.crumb{font-size:12.5px;color:var(--t3)}
+.crumb-sep{color:var(--t3);margin:0 4px}
+.crumb-cur{font-size:12.5px;font-weight:600;color:var(--t1)}
+.tb-r{display:flex;align-items:center;gap:10px}
+.seg{display:flex;background:var(--bg);border-radius:7px;padding:3px;gap:2px}
+.seg-btn{padding:4px 11px;border-radius:5px;font-size:11.5px;font-weight:500;color:var(--t3);cursor:pointer;border:none;background:none;transition:all .12s}
+.seg-btn.on{background:var(--surface);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pb{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;border:1px solid var(--border-2);background:var(--surface);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer}
+.pb:hover{background:var(--bg)}
+.ib{width:34px;height:34px;border-radius:7px;border:1px solid var(--border-2);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;position:relative}
+.ib:hover{background:var(--bg)}
+.ndot{position:absolute;top:6px;right:6px;width:6px;height:6px;background:var(--red);border-radius:50%;border:1.5px solid #fff}
+
+/* MAIN */
+.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.content{padding:24px 28px 40px;flex:1}
+
+/* WARN */
+.warn{display:flex;align-items:center;gap:10px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:9px;padding:10px 14px;margin-bottom:22px}
+.warn .ico{font-size:14px}
+.warn .msg{font-size:12.5px;color:#92400E;flex:1}
+.warn .msg strong{font-weight:700}
+.warn .cls{background:none;border:none;font-size:17px;color:#92400E;cursor:pointer;opacity:.5;padding:0 4px}
+
+/* STRIP */
+.strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:box-shadow .15s}
+.sc:hover{box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.sc-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sc-lbl{font-size:11px;color:var(--t3);font-weight:500}
+.sc-val{font-size:22px;font-weight:700;letter-spacing:-.8px;color:var(--t1);line-height:1}
+.sc-d{font-size:11px;font-weight:500;margin-top:3px}
+.sc-d.dg{color:var(--green)}
+.sc-d.st{color:var(--t3)}
+.sc-d.am{color:var(--amber)}
+
+/* HEALTH 2-COL */
+.hcols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+.ch{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:9px 9px 0 0}
+.ch.body{background:var(--bl);border:1px solid var(--bb);border-bottom:none}
+.ch.mind{background:var(--ml);border:1px solid var(--mb);border-bottom:none}
+.ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ch-dot.b{background:var(--ba)}
+.ch-dot.m{background:var(--ma)}
+.ch-ttl{font-size:12px;font-weight:700}
+.ch-ttl.b{color:var(--ba)}
+.ch-ttl.m{color:var(--ma)}
+.ch-sub{font-size:11px;margin-left:auto}
+.ch-sub.b{color:var(--bm)}
+.ch-sub.m{color:var(--mm)}
+.cstack{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:0 0 10px 10px;border:1px solid;border-top:none}
+.cstack.b{border-color:var(--bb);background:rgba(239,246,255,.35)}
+.cstack.m{border-color:var(--mb);background:rgba(245,243,255,.35)}
+
+/* METRIC CARD */
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px 0;cursor:pointer;transition:box-shadow .15s}
+.mc:hover{box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.mc-lbl{font-size:11.5px;font-weight:600;color:var(--t3)}
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px}
+.badge.ub{background:var(--rl);color:var(--red)}
+.badge.dg{background:var(--gl);color:var(--green)}
+.badge.st{background:var(--bg);color:var(--t3)}
+.badge.am{background:var(--al);color:var(--amber)}
+.mc-body{display:flex;align-items:flex-end;gap:10px;margin-bottom:10px}
+.mc-val{font-size:32px;font-weight:700;letter-spacing:-1.5px;line-height:1;color:var(--t1)}
+.mc-unit{font-size:15px;font-weight:400}
+.mc-prev{font-size:12px;color:var(--t3);padding-bottom:4px}
+.mc-bar{height:3px;border-radius:100px;margin-bottom:10px;overflow:hidden;background:var(--bg)}
+.mc-bf{height:100%;border-radius:100px}
+.bds{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.bd{font-size:11px;padding:3px 8px;border-radius:100px;font-weight:500}
+.bd.b{background:var(--bl);color:var(--ba)}
+.bd.m{background:var(--ml);color:var(--ma)}
+
+/* AI INSIGHT */
+.ai{display:flex;align-items:flex-start;gap:7px;background:var(--ai-bg);border-top:1px solid var(--ai-b);padding:9px 12px 10px;margin:0 -18px;border-radius:0 0 10px 10px}
+.ai-chip{display:inline-flex;align-items:center;background:var(--ml);border:1px solid var(--mb);padding:1px 7px;border-radius:100px;font-size:10px;font-weight:700;color:var(--ma);flex-shrink:0;margin-top:1px;white-space:nowrap}
+.ai-txt{font-size:11.5px;color:var(--ai-t);line-height:1.5}
+.ai-box{display:flex;align-items:flex-start;gap:7px;background:var(--ai-bg);border:1px solid var(--ai-b);border-radius:8px;padding:9px 12px;margin-top:12px}
+
+/* MID */
+.midrow{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:24px}
+.cc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.cc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.cc-ttl{font-size:13.5px;font-weight:700;color:var(--t1)}
+.cc-sub{font-size:11.5px;color:var(--t3);margin-top:2px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--t3)}
+.ld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cw{position:relative;height:200px}
+
+/* RESP */
+.rc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column}
+.rbig{font-size:38px;font-weight:700;letter-spacing:-2px;color:var(--t1);line-height:1}
+.rtrack{height:6px;background:var(--bg);border-radius:100px;margin:12px 0 16px;overflow:hidden}
+.rfill{height:100%;border-radius:100px}
+.rrow{display:flex;align-items:center;gap:8px;padding:5px 0}
+.rdname{font-size:12px;color:var(--t2);width:62px;flex-shrink:0}
+.rbar{flex:1;height:4px;background:var(--bg);border-radius:100px;overflow:hidden}
+.rbf{height:100%;border-radius:100px}
+.rpct{font-size:11.5px;font-weight:600;color:var(--t3);min-width:28px;text-align:right}
+
+/* HEATMAP */
+.hm-sec{margin-bottom:24px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-ttl{font-size:12.5px;font-weight:700;color:var(--t2)}
+.lk{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--t3)}
+.lk-i{display:flex;align-items:center;gap:4px}
+.lk-d{width:7px;height:7px;border-radius:50%}
+.twrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--bg);border-bottom:1px solid var(--border)}
+th{padding:9px 14px;font-size:10.5px;font-weight:700;color:var(--t3);letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;text-align:left}
+th:not(:first-child){text-align:center}
+td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:12.5px}
+td:not(:first-child){text-align:center}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{cursor:pointer;transition:background .12s}
+tbody tr:hover{background:var(--bg)}
+.dnm{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap}
+.pill.g{background:var(--gl);color:var(--green)}
+.pill.a{background:var(--al);color:var(--amber)}
+.pill.r{background:var(--rl);color:var(--red)}
+.scell{display:flex;align-items:center;justify-content:center;gap:6px}
+.half{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hlbl{font-size:9px;font-weight:700;letter-spacing:.3px}
+.hlbl.b{color:var(--bm)}
+.hlbl.m{color:var(--mm)}
+.hdiv{width:1px;height:28px;background:var(--border-2)}
+.dl{font-size:11px;font-weight:600}
+.dl.up{color:var(--red)}
+.dl.dn{color:var(--green)}
+.dl.st{color:var(--t3)}
+.rtag{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:100px;background:var(--rl);color:var(--red);margin-left:5px}
+
+/* BOTTOM */
+.botrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:24px}
+.aprc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.aprc-ttl{font-size:13.5px;font-weight:700;margin-bottom:4px}
+.aprc-no{font-size:11px;color:var(--t3);margin-bottom:14px}
+.astep{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.astep:last-of-type{border-bottom:none}
+.snum{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.s-done{background:var(--gl);color:var(--green)}
+.s-cur{background:var(--bl);color:var(--ba)}
+.s-wait{background:var(--bg);color:var(--t3)}
+.sinfo{flex:1}
+.snm{font-size:12.5px;font-weight:600}
+.swho{font-size:11px;color:var(--t3)}
+.swhen{font-size:10.5px;color:var(--t3);margin-top:1px}
+.stag{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:100px}
+.stag.done{background:var(--gl);color:var(--green)}
+.stag.cur{background:var(--bl);color:var(--ba)}
+.stag.wait{background:var(--bg);color:var(--t3)}
+.dlbox{margin-top:12px;padding:10px 12px;background:var(--bl);border-radius:7px}
+.dlbox .dl-ttl{color:var(--ba);font-weight:700;font-size:11px;margin-bottom:2px}
+.dlbox .dl-dt{font-size:12px;color:var(--t2)}
+.abtn{width:100%;margin-top:14px;padding:10px;background:var(--t1);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.abtn:hover{opacity:.82}
+
+.alc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.alitem{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.alitem:last-child{border-bottom:none}
+.aldot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.alnm{font-size:12.5px;font-weight:600}
+.alds{font-size:11.5px;color:var(--t3);margin-top:1px}
+.aldt{font-size:10.5px;color:var(--t3);margin-top:3px}
+
+/* MODAL */
+.bkdrop{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:200;display:none;align-items:center;justify-content:center}
+.bkdrop.open{display:flex}
+.modal{background:var(--surface);border-radius:14px;width:640px;max-width:94vw;max-height:88vh;overflow-y:auto;padding:26px;position:relative}
+.modal-cls{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:7px;border:1px solid var(--border-2);background:none;cursor:pointer;font-size:17px;color:var(--t3);display:flex;align-items:center;justify-content:center}
+.modal-h1{font-size:17px;font-weight:700;margin-bottom:3px}
+.modal-sub{font-size:12px;color:var(--t3);margin-bottom:20px}
+.modal-ks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.mk{background:var(--bg);border-radius:8px;padding:12px}
+.mk .l{font-size:10.5px;color:var(--t3);font-weight:600}
+.mk .v{font-size:21px;font-weight:700;letter-spacing:-.5px;margin-top:2px}
+.modal-desc{font-size:13px;color:var(--t2);line-height:1.8}
+.modal-ai{display:flex;align-items:flex-start;gap:7px;background:var(--ai-bg);border:1px solid var(--ai-b);border-radius:8px;padding:10px 12px;margin-top:16px}
+
+.pg-foot{font-size:11px;color:var(--t3);text-align:center;padding:14px 0;border-top:1px solid var(--border)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:100px}
+
+@media print{
+  .sb,.topbar,.abtn,.bkdrop,.warn{display:none !important}
+  .main{margin-left:0 !important}
+  .content{padding:12px !important}
+  body{background:white}
+}
+
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1;color:var(--t1)}
+.kpi-sub{font-size:11px;font-weight:500;margin-top:4px}
+.kpi-sub.up{color:var(--red)}.kpi-sub.dn{color:var(--green)}.kpi-sub.st{color:var(--t3)}
+.sec-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:20px}
+.sec-ttl2{font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-ttl2::before{content:"";width:3px;height:16px;border-radius:2px;background:var(--ba);flex-shrink:0}
+.sec-ttl2.purple::before{background:var(--ma)}.sec-ttl2.green::before{background:var(--green)}.sec-ttl2.red::before{background:var(--red)}.sec-ttl2.amber::before{background:var(--amber)}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-lbl{font-size:12px;color:var(--t2);width:80px;flex-shrink:0;font-weight:500}
+.bar-track{flex:1;height:8px;background:var(--bg);border-radius:100px;overflow:hidden}
+.bar-fill{height:100%;border-radius:100px}
+.bar-val{font-size:12px;font-weight:600;color:var(--t1);width:36px;text-align:right}
+.chart-wrap{position:relative;height:220px}
+.chart-wrap-lg{position:relative;height:280px}
+.timeline-item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.timeline-item:last-child{border-bottom:none}
+.tl-date{font-size:10.5px;color:var(--t3);font-weight:600;width:64px;flex-shrink:0;padding-top:3px}
+.tl-body{flex:1}
+.tl-ttl{font-size:12.5px;font-weight:600;color:var(--t1)}
+.tl-desc{font-size:11.5px;color:var(--t3);margin-top:2px;line-height:1.5}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.foot-note{font-size:11px;color:var(--t3);text-align:center;padding:20px 0 8px;border-top:1px solid var(--border);margin-top:8px}
+.prog-bar{height:6px;background:var(--bg);border-radius:100px;overflow:hidden;margin-top:6px}
+.prog-fill{height:100%;border-radius:100px;background:var(--ba)}
+.compliance-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.compliance-tbl th{background:var(--bg);padding:9px 14px;font-size:11px;font-weight:700;color:var(--t3);text-align:left;border-bottom:1px solid var(--border)}
+.compliance-tbl td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--t2)}
+.compliance-tbl tr:last-child td{border-bottom:none}
+.compliance-tbl tr:hover td{background:var(--bg)}
+.check-row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--t2);padding:5px 0}
+.check-ico{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.check-ico.ok{background:var(--gl);color:var(--green)}
+.check-ico.ng{background:var(--rl);color:var(--red)}
+.check-ico.am{background:var(--al);color:var(--amber)}
+.cert-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+
+</style>
+</head>
+<body>
+<aside class="sb">
+  <div class="sb-logo"><div class="logo-w"><div class="logo-i">V</div><div><div class="logo-t">V.Doc Enterprise</div><div class="logo-s">aitrics · 건강관리 플랫폼</div></div></div></div>
+  <div class="nav-sec"><div class="nav-lbl">메인</div><a class="ni" href="vdoc_dashboard_v2.html" style="text-decoration:none"><span class="ni-ico">⊞</span>대시보드</a>
+    <a class="ni" href="detail_mental.html" style="text-decoration:none"><span class="ni-ico">🧠</span>정신건강 지수</a>
+    <a class="ni" href="detail_physical.html" style="text-decoration:none"><span class="ni-ico">💪</span>신체건강 지수</a>
+    <a class="ni" href="detail_trends.html" style="text-decoration:none"><span class="ni-ico">📈</span>트렌드 분석</a>
+    <a class="ni" href="detail_department.html" style="text-decoration:none"><span class="ni-ico">🏢</span>부서 상세 분석</a>
+    <a class="ni" href="detail_alerts.html" style="text-decoration:none"><span class="ni-ico">⚠️</span>위험 알림 센터<span class="ni-chip">3</span></a>
+    <a class="ni on" href="detail_approval.html" style="text-decoration:none"><span class="ni-ico">✎</span>전자결재<span class="ni-chip">1</span></a>
+    <a class="ni" href="detail_compliance.html" style="text-decoration:none"><span class="ni-ico">📋</span>법적 증빙 로그<span class="ni-chip">1</span></a>
+    <a class="ni" href="detail_certification.html" style="text-decoration:none"><span class="ni-ico">🏆</span>건강친화 인증</a>
+    </div>
+  <div class="sb-foot"><div class="u-row"><div class="u-ava">김</div><div><div class="u-nm">김민수</div><div class="u-rl">HR 관리자</div></div></div></div>
+</aside>
+<div class="main">
+  <header class="topbar">
+    <div class="tb-l"><span class="crumb">대시보드</span><span class="crumb-sep">›</span><span class="crumb-cur">전자결재</span></div>
+    <div class="tb-r"><button class="pb" onclick="window.print()">🖨 PDF 출력</button><div class="ib">🔔<div class="ndot"></div></div></div>
+  </header>
+  <div class="content">
+
+    <!-- 헤더 -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+      <div>
+        <div style="font-size:22px;font-weight:800;color:var(--t1)">✎ 전자결재</div>
+        <div style="font-size:12px;color:var(--t3);margin-top:4px">중대재해처벌법 시행령 제5조 이행 보고서 · 경영자 결재 관리</div>
+      </div>
+      <button onclick="openNewDoc()" style="padding:10px 20px;background:var(--ba);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">＋ 신규 보고서 생성</button>
+    </div>
+
+    <!-- 미결재 긴급 배너 -->
+    <div style="background:#FEF2F2;border:1.5px solid #DC2626;border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:20px">🔴</span>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:#DC2626">미결재 보고서 1건 — 즉시 처리 필요</div>
+        <div style="font-size:12px;color:#92400E;margin-top:2px">VD-2026-004 · 2026년 3월 점검 보고서 · 담당자 서명 대기 중 · 미확인 알림 1건 포함</div>
+      </div>
+      <button onclick="openDoc('VD-2026-004')" style="padding:8px 16px;background:#DC2626;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer">지금 결재하기</button>
+    </div>
+
+    <!-- KPI 스트립 -->
+    <div class="kpi-strip">
+      <div class="kpi"><div class="kpi-lbl">전체 보고서</div><div class="kpi-val">4<span style="font-size:16px">건</span></div><div class="kpi-sub st">2025.10 ~ 2026.03</div></div>
+      <div class="kpi" style="background:#F0FDF4;border-color:var(--green)"><div class="kpi-lbl">결재 완료</div><div class="kpi-val" style="color:var(--green)">3<span style="font-size:16px">건</span></div><div class="kpi-sub dn">완료율 75%</div></div>
+      <div class="kpi" style="background:#FEF2F2;border-color:var(--red)"><div class="kpi-lbl">미결재</div><div class="kpi-val" style="color:var(--red)">1<span style="font-size:16px">건</span></div><div class="kpi-sub up">즉시 처리 필요</div></div>
+      <div class="kpi"><div class="kpi-lbl">평균 결재 소요일</div><div class="kpi-val">1.8<span style="font-size:16px">일</span></div><div class="kpi-sub dn">▼ -0.4일 개선</div></div>
+    </div>
+
+    <!-- 결재 대기 문서 -->
+    <div class="sec-wrap" style="border-color:var(--red)">
+      <div class="sec-ttl2 red">결재 대기</div>
+
+      <!-- 미결재 카드 -->
+      <div style="border:1px solid var(--border);border-radius:10px;padding:20px;background:#FFFBEB">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--t3);margin-bottom:4px">VD-2026-004</div>
+            <div style="font-size:16px;font-weight:800;color:var(--t1)">2026년 3월 안전보건 점검 보고서</div>
+            <div style="font-size:12px;color:var(--t3);margin-top:4px">점검기간: 2026.03.01 ~ 2026.03.31 · 생성일: 2026.03.31</div>
+          </div>
+          <span class="pill r" style="font-size:12px;padding:5px 12px">미결재</span>
+        </div>
+
+        <!-- 결재선 -->
+        <div style="display:flex;align-items:center;gap:0;margin-bottom:16px">
+          <div style="flex:1;text-align:center">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--gl);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px">✓</div>
+            <div style="font-size:11px;font-weight:700;color:var(--green);margin-top:6px">작성</div>
+            <div style="font-size:11px;color:var(--t3)">V.Doc 시스템</div>
+            <div style="font-size:10.5px;color:var(--green);margin-top:2px">2026.03.31</div>
+          </div>
+          <div style="flex:none;width:40px;height:1px;background:var(--amber)"></div>
+          <div style="flex:1;text-align:center">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--al);border:2px dashed var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px">⏳</div>
+            <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:6px">담당</div>
+            <div style="font-size:11px;color:var(--t3)">김민수 HR</div>
+            <div style="font-size:10.5px;color:var(--amber);margin-top:2px">서명 대기</div>
+          </div>
+          <div style="flex:none;width:40px;height:1px;background:var(--border-2)"></div>
+          <div style="flex:1;text-align:center">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px;color:var(--t3)">—</div>
+            <div style="font-size:11px;font-weight:700;color:var(--t3);margin-top:6px">검토</div>
+            <div style="font-size:11px;color:var(--t3)">안전보건팀장</div>
+            <div style="font-size:10.5px;color:var(--t3);margin-top:2px">대기 중</div>
+          </div>
+          <div style="flex:none;width:40px;height:1px;background:var(--border-2)"></div>
+          <div style="flex:1;text-align:center">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px;color:var(--t3)">—</div>
+            <div style="font-size:11px;font-weight:700;color:var(--t3);margin-top:6px">최종 승인</div>
+            <div style="font-size:11px;color:var(--t3)">대표이사</div>
+            <div style="font-size:10.5px;color:var(--t3);margin-top:2px">대기 중</div>
+          </div>
+        </div>
+
+        <!-- 보고서 주요 내용 요약 -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:14px">
+          <div style="font-size:11.5px;font-weight:700;color:var(--t3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">보고서 주요 내용</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12.5px">
+            <div><span style="color:var(--t3)">점검 인원</span><br><strong>243명 (참여율 82%)</strong></div>
+            <div><span style="color:var(--t3)">고위험 탐지</span><br><strong style="color:var(--red)">4건 탐지 / 3건 연계</strong></div>
+            <div><span style="color:var(--t3)">교육 이수율</span><br><strong>73% (177명)</strong></div>
+            <div><span style="color:var(--t3)">미확인 알림</span><br><strong style="color:var(--red)">1건 미조치 ⚠</strong></div>
+            <div><span style="color:var(--t3)">제5조 이행</span><br><strong style="color:var(--amber)">제2호 일부 미완</strong></div>
+            <div><span style="color:var(--t3)">법정 보관</span><br><strong>5년 자동 보관 예정</strong></div>
+          </div>
+        </div>
+
+        <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:7px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#854D0E">
+          ⚠️ <strong>미확인 알림 1건(생산2팀 3개월 연속 악화)이 조치되지 않았습니다.</strong> 결재 전 <a href="detail_alerts.html" style="color:var(--ba);font-weight:600">알림 센터</a>에서 확인 및 조치 내용을 입력해주세요.
+        </div>
+
+        <div style="display:flex;gap:8px">
+          <button onclick="openPreview()" style="flex:1;padding:11px;background:var(--bg);border:1px solid var(--border-2);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;color:var(--t1)">📄 보고서 미리보기</button>
+          <button onclick="signDoc()" style="flex:2;padding:11px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer">✍️ 전자서명 및 결재</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 결재 완료 이력 -->
+    <div class="sec-wrap">
+      <div class="sec-ttl2 green">결재 완료 이력</div>
+      <table class="compliance-tbl">
+        <thead>
+          <tr>
+            <th>문서번호</th>
+            <th>보고서명</th>
+            <th>점검기간</th>
+            <th>담당 서명</th>
+            <th>검토 서명</th>
+            <th>최종 승인</th>
+            <th>상태</th>
+            <th>문서 해시</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;color:var(--ba)">VD-2026-003</td>
+            <td>2026년 2월 안전보건 점검</td>
+            <td>2026.01~02</td>
+            <td style="font-size:11px">2026.02.28<br><span style="color:var(--green)">김민수</span></td>
+            <td style="font-size:11px">2026.03.01<br><span style="color:var(--green)">이안전</span></td>
+            <td style="font-size:11px">2026.03.01<br><span style="color:var(--green)">박대표</span></td>
+            <td><span class="pill g">결재완료</span></td>
+            <td style="font-size:10px;color:var(--t3);font-family:monospace">a3f8…c1d2</td>
+            <td><button class="pb" style="font-size:11px;padding:4px 10px">PDF</button></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--ba)">VD-2026-002</td>
+            <td>2025년 12월 안전보건 점검</td>
+            <td>2025.11~12</td>
+            <td style="font-size:11px">2025.12.30<br><span style="color:var(--green)">김민수</span></td>
+            <td style="font-size:11px">2025.12.31<br><span style="color:var(--green)">이안전</span></td>
+            <td style="font-size:11px">2026.01.02<br><span style="color:var(--green)">박대표</span></td>
+            <td><span class="pill g">결재완료</span></td>
+            <td style="font-size:10px;color:var(--t3);font-family:monospace">b7e2…f4a1</td>
+            <td><button class="pb" style="font-size:11px;padding:4px 10px">PDF</button></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--ba)">VD-2026-001</td>
+            <td>2025년 10월 안전보건 점검</td>
+            <td>2025.09~10</td>
+            <td style="font-size:11px">2025.10.31<br><span style="color:var(--green)">김민수</span></td>
+            <td style="font-size:11px">2025.11.01<br><span style="color:var(--green)">이안전</span></td>
+            <td style="font-size:11px">2025.11.01<br><span style="color:var(--green)">박대표</span></td>
+            <td><span class="pill g">결재완료</span></td>
+            <td style="font-size:10px;color:var(--t3);font-family:monospace">c9d4…e2b3</td>
+            <td><button class="pb" style="font-size:11px;padding:4px 10px">PDF</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;padding:10px 14px;background:var(--bl);border-radius:7px;font-size:12px;color:var(--ba)">
+        🔒 결재 완료 문서는 공인전자문서보관소(KISA)에 원본 보관됩니다. 문서 해시값으로 위변조 여부를 언제든 검증할 수 있습니다. <strong>5년 자동 보관 보장.</strong>
+      </div>
+    </div>
+
+    <!-- 결재 보고서 미리보기 모달 -->
+    <div class="bkdrop" id="previewModal">
+      <div class="modal" style="width:720px;max-height:90vh">
+        <button class="modal-cls" onclick="closePreview()">×</button>
+        <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">결재 문서 미리보기</div>
+        <div class="modal-h1">2026년 3월 안전보건 점검 보고서</div>
+        <div class="modal-sub">VD-2026-004 · 2026.03.01 ~ 2026.03.31 · 작성: V.Doc Enterprise</div>
+
+        <div style="border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">시행령 제5조 이행 현황</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">✓</span>
+              <div><strong>제1호</strong> — 반기 점검 실시 및 경영자 보고<br><span style="color:var(--t3);font-size:12px">점검 완료 · 243명 참여(82%) · 보고서 자동 생성</span></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--al);color:var(--amber);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">!</span>
+              <div><strong>제2호</strong> — 고위험자 발견 시 필요한 조치<br><span style="color:var(--t3);font-size:12px">탐지 4건 · 연계 완료 3건 · <strong style="color:var(--red)">미확인 1건 잔여</strong></span></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--gl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">✓</span>
+              <div><strong>제3호</strong> — 안전보건 교육 콘텐츠 제공 및 이력 기록<br><span style="color:var(--t3);font-size:12px">콘텐츠 890건 열람 · 이수율 73%(177명)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-ks">
+          <div class="mk"><div class="l">문서번호</div><div class="v">VD-2026-004</div></div>
+          <div class="mk"><div class="l">점검기간</div><div class="v">2026.03.01~31</div></div>
+          <div class="mk"><div class="l">대상 인원</div><div class="v">243명</div></div>
+          <div class="mk"><div class="l">생성일시</div><div class="v">2026.03.31 23:59</div></div>
+          <div class="mk"><div class="l">보관기한</div><div class="v">2031.03.31 (5년)</div></div>
+          <div class="mk"><div class="l">보관방식</div><div class="v">KISA 공인보관</div></div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button onclick="closePreview()" style="flex:1;padding:10px;background:var(--bg);border:1px solid var(--border-2);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer">닫기</button>
+          <button onclick="signDoc()" style="flex:2;padding:10px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer">✍️ 전자서명 및 결재 진행</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 전자서명 모달 (모두사인 스타일) -->
+    <div class="bkdrop" id="signModal">
+      <div class="modal" style="width:1100px;max-width:96vw;padding:0;overflow:hidden;border-radius:14px">
+        <!-- 헤더 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);background:var(--surface)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:28px;height:28px;background:var(--ba);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff">✍</div>
+            <div>
+              <div style="font-size:15px;font-weight:700;color:var(--t1)">전자결재 서명</div>
+              <div style="font-size:11px;color:var(--t3)">VD-2026-004 · 2026년 3월 안전보건 점검 보고서</div>
+            </div>
+          </div>
+          <button onclick="closeSign()" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border-2);background:none;cursor:pointer;font-size:17px;color:var(--t3);display:flex;align-items:center;justify-content:center">×</button>
+        </div>
+
+        <div style="display:flex;height:85vh">
+          <!-- 왼쪽: 문서 미리보기 (vdoc_approval_sample.html) -->
+          <div style="flex:1;overflow:hidden;border-right:1px solid var(--border);display:flex;flex-direction:column;">
+            <iframe id="approvalDocFrame" src="vdoc_approval_sample.html"
+              style="width:100%;flex:1;border:none;background:#CCC9C4;"
+              title="결재 보고서 미리보기"></iframe>
+          </div>
+
+          <!-- 오른쪽: 서명 패널 -->
+          <div style="width:300px;display:flex;flex-direction:column;background:var(--surface)">
+            <div style="padding:16px 18px;flex:1;overflow-y:auto">
+              <!-- 서명자 -->
+              <div style="background:var(--bg);border-radius:8px;padding:11px 13px;margin-bottom:14px">
+                <div style="font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">서명자</div>
+                <div style="font-size:13px;font-weight:700">김민수</div>
+                <div style="font-size:11.5px;color:var(--t3)">HR 관리자 · 담당 서명</div>
+                <div style="font-size:11px;color:var(--t3);margin-top:3px" id="signTime"></div>
+              </div>
+              <!-- 경고 -->
+              <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:7px;padding:8px 11px;margin-bottom:14px;font-size:11.5px;color:#854D0E">
+                ⚠️ 미확인 알림 1건 포함 상태로 서명 시 보고서에 기록됩니다.
+              </div>
+              <!-- 탭 -->
+              <div style="margin-bottom:12px">
+                <div style="font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:7px">서명 방식</div>
+                <div style="display:flex;background:var(--bg);border-radius:8px;padding:3px;gap:2px">
+                  <button id="tabDraw" onclick="switchTab('draw')" style="flex:1;padding:6px 4px;border-radius:6px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:var(--surface);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.08)">✏️ 마우스 서명</button>
+                  <button id="tabUpload" onclick="switchTab('upload')" style="flex:1;padding:6px 4px;border-radius:6px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:none;color:var(--t3)">🖼 직인 업로드</button>
+                </div>
+              </div>
+              <!-- 마우스 서명 -->
+              <div id="panelDraw">
+                <div style="font-size:11px;color:var(--t3);margin-bottom:6px">아래 영역에 마우스 또는 터치로 서명하세요</div>
+                <div style="position:relative;border:2px dashed var(--border-2);border-radius:8px;background:#fafafa;overflow:hidden">
+                  <canvas id="sigCanvas" width="260" height="120" style="display:block;width:100%;cursor:crosshair;touch-action:none"></canvas>
+                  <div id="canvasHint" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;color:#ccc;font-size:12px">서명을 그려주세요</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap">
+                  <span style="font-size:11px;color:var(--t2)">색상</span>
+                  <input type="color" id="penColor" value="#1a1816" style="width:22px;height:22px;border:none;background:none;cursor:pointer;padding:0">
+                  <span style="font-size:11px;color:var(--t2)">굵기</span>
+                  <input type="range" id="penSize" min="1" max="8" value="2" style="width:56px">
+                  <button onclick="clearCanvas()" style="margin-left:auto;padding:3px 10px;background:var(--bg);border:1px solid var(--border-2);border-radius:5px;font-size:11px;cursor:pointer;color:var(--t2)">지우기</button>
+                </div>
+              </div>
+              <!-- 직인 업로드 -->
+              <div id="panelUpload" style="display:none">
+                <div style="font-size:11px;color:var(--t3);margin-bottom:7px">직인 이미지를 업로드하세요 (PNG 투명배경 권장)</div>
+                <label id="uploadLabel" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:2px dashed var(--border-2);border-radius:8px;padding:20px 12px;cursor:pointer;background:#fafafa">
+                  <span style="font-size:26px">🖼</span>
+                  <span style="font-size:12px;font-weight:600;color:var(--t2)">클릭하여 파일 선택</span>
+                  <span style="font-size:10.5px;color:var(--t3)">PNG, JPG · 최대 2MB</span>
+                  <input type="file" id="stampInput" accept="image/*" style="display:none" onchange="handleStampUpload(event)">
+                </label>
+                <div id="stampPreviewWrap" style="display:none;margin-top:10px;text-align:center">
+                  <img id="stampPreview" src="" alt="직인 미리보기" style="max-width:100%;max-height:90px;object-fit:contain;border:1px solid var(--border);border-radius:6px;padding:6px;background:#fff">
+                  <button onclick="removeStamp()" style="display:block;margin:8px auto 0;padding:4px 12px;background:var(--rl);border:1px solid var(--red);border-radius:5px;font-size:11px;cursor:pointer;color:var(--red)">삭제</button>
+                </div>
+              </div>
+            </div>
+            <!-- 하단 버튼 -->
+            <div style="padding:12px 18px;border-top:1px solid var(--border);background:var(--surface)">
+              <div id="signReadyMsg" style="display:none;background:var(--gl);border-radius:6px;padding:6px 10px;font-size:11.5px;color:var(--green);font-weight:600;margin-bottom:9px;text-align:center">서명 준비 완료 ✓</div>
+              <button id="btnConfirmSign" onclick="doSign()" style="width:100%;padding:11px;background:#aaa;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:not-allowed;transition:all .15s" disabled>✍️ 서명 및 결재 진행</button>
+              <button onclick="closeSign()" style="width:100%;margin-top:7px;padding:8px;background:none;border:1px solid var(--border-2);border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t2)">취소</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 서명 완료 모달 -->
+    <div class="bkdrop" id="doneModal">
+      <div class="modal" style="width:400px;text-align:center">
+        <div style="font-size:48px;margin-bottom:12px">✅</div>
+        <div style="font-size:18px;font-weight:800;margin-bottom:8px">서명 완료</div>
+        <div style="font-size:13px;color:var(--t3);margin-bottom:20px">검토자(이안전 안전보건팀장)에게 전달되었습니다.</div>
+        <button onclick="closeDone()" style="padding:10px 24px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer">확인</button>
+      </div>
+    </div>
+
+<script>
+/* ── 미리보기/문서 모달 ── */
+function openPreview(){document.getElementById('previewModal').classList.add('open');}
+function closePreview(){document.getElementById('previewModal').classList.remove('open');}
+function openDoc(id){openPreview();}
+function openNewDoc(){alert('새 보고서는 다음 점검 주기(2026.04.30) 이후 자동 생성됩니다.');}
+
+/* ── 전자서명 모달 열기 ── */
+function signDoc(){
+  closePreview();
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
+  const timeStr=now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('signTime').textContent=dateStr+' '+timeStr;
+  const dsd=document.getElementById('docSignDate');
+  if(dsd) dsd.innerHTML=dateStr+'<br>'+timeStr;
+  document.getElementById('signModal').classList.add('open');
+  initCanvas();
+}
+function closeSign(){
+  document.getElementById('signModal').classList.remove('open');
+  clearCanvas();
+  removeStamp();
+}
+
+/* ── 탭 전환 ── */
+function switchTab(tab){
+  const isDraw=(tab==='draw');
+  document.getElementById('panelDraw').style.display=isDraw?'block':'none';
+  document.getElementById('panelUpload').style.display=isDraw?'none':'block';
+  const tDraw=document.getElementById('tabDraw');
+  const tUp=document.getElementById('tabUpload');
+  if(isDraw){
+    tDraw.style.background='var(--surface)';tDraw.style.color='var(--t1)';tDraw.style.boxShadow='0 1px 3px rgba(0,0,0,.08)';
+    tUp.style.background='none';tUp.style.color='var(--t3)';tUp.style.boxShadow='none';
+  } else {
+    tUp.style.background='var(--surface)';tUp.style.color='var(--t1)';tUp.style.boxShadow='0 1px 3px rgba(0,0,0,.08)';
+    tDraw.style.background='none';tDraw.style.color='var(--t3)';tDraw.style.boxShadow='none';
+  }
+  checkSignReady();
+}
+
+/* ── 캔버스 드로잉 ── */
+let isDrawing=false, lastX=0, lastY=0, canvasHasContent=false;
+function initCanvas(){
+  const canvas=document.getElementById('sigCanvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  canvasHasContent=false;
+  document.getElementById('canvasHint').style.display='flex';
+  checkSignReady();
+
+  function getPos(e){
+    const r=canvas.getBoundingClientRect();
+    const scaleX=canvas.width/r.width;
+    const scaleY=canvas.height/r.height;
+    if(e.touches){
+      return{x:(e.touches[0].clientX-r.left)*scaleX,y:(e.touches[0].clientY-r.top)*scaleY};
+    }
+    return{x:(e.clientX-r.left)*scaleX,y:(e.clientY-r.top)*scaleY};
+  }
+  function startDraw(e){
+    e.preventDefault();
+    isDrawing=true;
+    const p=getPos(e);
+    lastX=p.x;lastY=p.y;
+    document.getElementById('canvasHint').style.display='none';
+  }
+  function draw(e){
+    e.preventDefault();
+    if(!isDrawing)return;
+    const p=getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(p.x,p.y);
+    ctx.strokeStyle=document.getElementById('penColor').value;
+    ctx.lineWidth=parseInt(document.getElementById('penSize').value);
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+    ctx.stroke();
+    lastX=p.x;lastY=p.y;
+    canvasHasContent=true;
+    checkSignReady();
+  }
+  function stopDraw(){isDrawing=false;}
+  canvas.removeEventListener('mousedown',canvas._md);
+  canvas.removeEventListener('mousemove',canvas._mm);
+  canvas.removeEventListener('mouseup',canvas._mu);
+  canvas.removeEventListener('touchstart',canvas._ts);
+  canvas.removeEventListener('touchmove',canvas._tm);
+  canvas.removeEventListener('touchend',canvas._te);
+  canvas._md=startDraw;canvas._mm=draw;canvas._mu=stopDraw;
+  canvas._ts=startDraw;canvas._tm=draw;canvas._te=stopDraw;
+  canvas.addEventListener('mousedown',canvas._md);
+  canvas.addEventListener('mousemove',canvas._mm);
+  canvas.addEventListener('mouseup',canvas._mu);
+  canvas.addEventListener('touchstart',canvas._ts);
+  canvas.addEventListener('touchmove',canvas._tm);
+  canvas.addEventListener('touchend',canvas._te);
+}
+function clearCanvas(){
+  const canvas=document.getElementById('sigCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  canvasHasContent=false;
+  document.getElementById('canvasHint').style.display='flex';
+  checkSignReady();
+}
+
+/* ── 직인 업로드 ── */
+let stampDataUrl=null;
+function handleStampUpload(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){alert('파일 크기는 2MB 이하로 업로드해주세요.');return;}
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    stampDataUrl=ev.target.result;
+    document.getElementById('stampPreview').src=stampDataUrl;
+    document.getElementById('stampPreviewWrap').style.display='block';
+    document.getElementById('uploadLabel').style.display='none';
+    checkSignReady();
+  };
+  reader.readAsDataURL(file);
+}
+function removeStamp(){
+  stampDataUrl=null;
+  const inp=document.getElementById('stampInput');
+  if(inp)inp.value='';
+  const wrap=document.getElementById('stampPreviewWrap');
+  const lbl=document.getElementById('uploadLabel');
+  if(wrap)wrap.style.display='none';
+  if(lbl)lbl.style.display='flex';
+  checkSignReady();
+}
+
+/* ── 서명 준비 상태 확인 ── */
+function checkSignReady(){
+  const drawActive=document.getElementById('panelDraw').style.display!=='none';
+  const ready=drawActive?canvasHasContent:(stampDataUrl!==null);
+  const btn=document.getElementById('btnConfirmSign');
+  const msg=document.getElementById('signReadyMsg');
+  if(ready){
+    btn.disabled=false;btn.style.background='var(--ba)';btn.style.cursor='pointer';
+    msg.style.display='block';
+  } else {
+    btn.disabled=true;btn.style.background='#aaa';btn.style.cursor='not-allowed';
+    msg.style.display='none';
+  }
+}
+
+/* ── 서명 실행 ── */
+function doSign(){
+  const drawActive=document.getElementById('panelDraw').style.display!=='none';
+  let imgSrc='';
+  if(drawActive){
+    imgSrc=document.getElementById('sigCanvas').toDataURL('image/png');
+  } else {
+    imgSrc=stampDataUrl;
+  }
+
+  // iframe 문서 결재란에 서명 주입
+  const now=new Date();
+  const ts=now.toISOString().replace('T',' ').substring(0,16)+' KST';
+  const frame=document.getElementById('approvalDocFrame');
+  if(frame && frame.contentWindow){
+    frame.contentWindow.postMessage({type:'inject-sign', imgSrc:imgSrc, timestamp:ts}, '*');
+  }
+
+  document.getElementById('signModal').classList.remove('open');
+  document.getElementById('doneModal').classList.add('open');
+}
+function closeDone(){
+  document.getElementById('doneModal').classList.remove('open');
+  document.querySelector('.kpi-val[style*="red"]').textContent='0건';
+}
+
+document.querySelectorAll('.bkdrop').forEach(b=>{
+  b.addEventListener('click',e=>{if(e.target===b){b.classList.remove('open');}});
+});
+</script>
+    <div class="foot-note">본 데이터는 익명 집계 기반이며 개인 식별 정보를 포함하지 않습니다 · (주) 샘플테크 코리아 243명 · V.Doc Enterprise</div>
+  </div>
+</div>
+</body></html>
