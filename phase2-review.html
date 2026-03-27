@@ -182,10 +182,10 @@ footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; al
 .footer-meta { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); }
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-.reveal { opacity:0; transform:translateY(32px); transition:opacity .75s ease,transform .75s ease; }
+.reveal { opacity:1; transform:none; }
 .reveal.visible { opacity:1; transform:none; }
-.reveal-d1 { transition-delay:.12s; }
-.reveal-d2 { transition-delay:.22s; }
+.reveal-d1 { }
+.reveal-d2 { }
 
 @media(max-width:860px){
   nav{padding:0 20px;}
