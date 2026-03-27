@@ -946,6 +946,12 @@ body{font-family:var(--sans);color:var(--navy);background:var(--white);-webkit-f
   .i-cover{min-height:auto;padding:40px;break-after:page}
   .i-section,.i-bar{padding:30px 40px}
   body{font-size:11px}
+  /* 작은 블록은 중간에 잘리지 않게 */
+  .i-hook,.i-cta,.i-stat,.i-stats,.i-pain,.i-feat,.i-step,.i-price-card,.i-pilot-card,.i-case,.i-comp-table tr { break-inside: avoid; }
+  /* 테이블 헤더가 고아로 남지 않게 */
+  .i-comp-table thead { break-after: avoid; }
+  /* 샘플 문서는 반드시 새 페이지에서 시작 */
+  .page { break-before: page; }
 }
 
 /* ═══════ UNIFIED PRINT ═══════ */
