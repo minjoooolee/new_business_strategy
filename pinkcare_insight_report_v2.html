@@ -1,0 +1,263 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary)}
+.page{padding:0 0 3rem}
+.block{margin-bottom:2.5rem}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:.5rem}
+.heading{font-size:20px;font-weight:500;line-height:1.3;margin-bottom:.5rem}
+.sub{font-size:14px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:1rem}
+.divider{border:none;border-top:.5px solid var(--color-border-tertiary);margin:2rem 0}
+.chart-wrap{position:relative;width:100%}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;margin-right:4px;margin-bottom:4px}
+.pill-blue{background:#E6F1FB;color:#185FA5}
+.pill-teal{background:#E1F5EE;color:#0F6E56}
+.pill-coral{background:#FAECE7;color:#993C1D}
+.pill-amber{background:#FAEEDA;color:#854F0B}
+.card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem}
+.card-line{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem}
+.stat-big{font-size:32px;font-weight:500;line-height:1;margin-bottom:4px}
+.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:8px}
+.stat-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.55}
+.insight-block{border-left:3px solid;padding-left:14px;margin-bottom:16px;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.insight-title{font-size:15px;font-weight:500;margin-bottom:4px}
+.insight-body{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:12px;color:var(--color-text-secondary)}
+.lsq{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle}
+.hub-row{display:flex;align-items:baseline;gap:8px;padding:10px 0;border-bottom:.5px solid var(--color-border-tertiary)}
+.hub-row:last-child{border-bottom:none}
+.hub-name{font-size:14px;font-weight:500;min-width:160px}
+.hub-type{font-size:11px;font-weight:500;padding:2px 7px;border-radius:3px}
+.hub-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+</style>
+
+<div class="page">
+
+<div style="padding:2rem 0 1.5rem">
+  <div class="eyebrow">핑크케어 오픈채팅방 · 회고 분석 · 2/27–3/27</div>
+  <div style="font-size:26px;font-weight:500;line-height:1.2;margin-bottom:.75rem">커뮤니티는 계획대로 자랐나?<br>데이터가 말하는 4주의 궤적</div>
+  <div class="sub">165명의 채팅방, 2,081건의 메시지. 숫자 뒤에 있는 패턴을 읽는다.</div>
+</div>
+
+<hr class="divider">
+
+<!-- 1. 주차별 궤적 -->
+<div class="block">
+  <div class="eyebrow">커뮤니티 성장 궤적</div>
+  <div class="heading">2주차에 폭발하고, 3주차에 가라앉고, 그래도 살아남았다</div>
+  <div class="sub">1주차 운영자 주도 → 2주차 자생 폭발 → 3주차 소수 충성층 유지 → 이후 간헐적 재폭발. 성장이 직선이 아니라 파도 형태라는 게 핵심이다.</div>
+  <div class="legend">
+    <span><span class="lsq" style="background:#1D9E75"></span>환우 발화</span>
+    <span><span class="lsq" style="background:#D85A30"></span>운영자 발화</span>
+    <span><span class="lsq" style="background:#B4B2A9"></span>의료진</span>
+  </div>
+  <div class="chart-wrap" style="height:200px"><canvas id="weeklyStack"></canvas></div>
+  <div class="grid3" style="margin-top:14px">
+    <div class="card">
+      <span class="pill pill-coral" style="margin-bottom:8px;display:inline-block">1주차 3/6~12</span>
+      <div class="stat-desc">운영자가 27%를 끌고 갔다. 신규 유입이 폭발적이었지만 환우들은 아직 구경꾼에 가까웠다. 커뮤니티가 형태를 잡아가는 시기.</div>
+    </div>
+    <div class="card">
+      <span class="pill pill-teal" style="margin-bottom:8px;display:inline-block">2주차 3/13~19 ★</span>
+      <div class="stat-desc">PoC의 진짜 성과가 나온 주간. 환우 발화 87%로 역전, 970건으로 최다. 사라·찌니·보리 등 새 허브가 한꺼번에 등장했다.</div>
+    </div>
+    <div class="card">
+      <span class="pill pill-amber" style="margin-bottom:8px;display:inline-block">3주차 3/20~26</span>
+      <div class="stat-desc">메시지가 크게 줄었지만 환우 비율은 87%로 유지. 소수 충성층이 채팅방을 지켰고, 3/26 찌니의 폭발로 재점화됐다.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 2. 자생력 -->
+<div class="block">
+  <div class="eyebrow">자생력 지표</div>
+  <div class="heading">운영자가 빠질수록 커뮤니티는 더 자생적으로 돌아갔다</div>
+  <div class="sub">환우 자생 세션 비율(운영자 없이 환우끼리만 대화가 이어진 비율)은 불규칙하게 오르내리지만 장기 추세는 명확히 우상향이다. 운영자 개입이 많은 날은 수치가 낮아지는 구조인데, 자생력이 줄어서가 아니라 운영자가 대화 공간을 채웠기 때문이다.</div>
+  <div class="chart-wrap" style="height:190px"><canvas id="selfChart"></canvas></div>
+  <div style="margin-top:12px" class="card">
+    <div class="stat-desc">3/19·3/21처럼 운영자가 거의 없는 날 자생 세션이 75%·60%로 올라갔다는 건, <strong style="font-weight:500;color:var(--color-text-primary)">운영자 없이도 커뮤니티가 돌아간다는 실증 데이터</strong>다. 2주차 이후부터는 운영자의 역할이 '대화 주도'가 아니라 '정보 투하'로 바뀌었음을 의미한다.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 3. 발화 시간 -->
+<div class="block">
+  <div class="eyebrow">시간대 패턴</div>
+  <div class="heading">이 커뮤니티엔 두 개의 시간이 있다 — 오후 4시와 밤 10시</div>
+  <div class="sub">낮의 대화와 밤의 대화는 성격이 다르다. 두 피크는 각각 다른 사람들이 다른 이유로 채팅방을 여는 시간이다.</div>
+  <div class="chart-wrap" style="height:180px"><canvas id="hourChart"></canvas></div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card-line">
+      <div style="font-size:13px;font-weight:500;margin-bottom:6px">오후 4시 — 정보 소비 피크</div>
+      <div class="stat-desc">항암 치료 후 귀가하거나 낮 입원 대기 중인 환우들이 몰리는 시간. 운영자의 신약·임상 정보글에 반응하는 패턴이 집중된다. 콘텐츠 투하에 최적인 골든 타임.</div>
+    </div>
+    <div class="card-line">
+      <div style="font-size:13px;font-weight:500;margin-bottom:6px">밤 10시 — 감정 공유 피크</div>
+      <div class="stat-desc">병원 일과가 끝나고 조용한 시간. 운영자 없이 환우끼리 경험담·감정·공감을 나누는 자생 루프가 이 시간대에 집중된다.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 4. 콩가 -->
+<div class="block">
+  <div class="eyebrow">콩가 의존도 분석</div>
+  <div class="heading">콩가가 없는 날, 커뮤니티 활동량은 절반 이하로 떨어졌다</div>
+  <div class="sub">19일 참여, 3일 비참여. 참여일 평균 100건 vs 비참여일 평균 44건의 격차가 이 커뮤니티의 구조적 취약점을 드러낸다.</div>
+  <div class="chart-wrap" style="height:200px"><canvas id="kongaBar"></canvas></div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card">
+      <div style="font-size:13px;font-weight:500;margin-bottom:6px">콩가는 대화의 시작자가 아닌 유지자다</div>
+      <div class="stat-desc">3/26처럼 콩가가 거의 안 쓴 날 찌니가 48건을 터뜨렸다. 콩가가 공간을 비워줬을 때 다른 허브가 성장한다. 앰배서더 역할을 의도적으로 분산시키는 게 자생력을 높이는 방법이다.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:500;margin-bottom:6px">3/20~23 침묵 구간 = 콩가 피로 구간</div>
+      <div class="stat-desc">저활동 기간과 콩가의 최저 발화 시기가 정확히 겹친다. 앰배서더 계약에 건강 면제 조항이 필요한 이유가 데이터로 입증된다.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 5. 허브 유형 -->
+<div class="block">
+  <div class="eyebrow">코어 유저 허브 분류</div>
+  <div class="heading">많이 쓰는 사람 ≠ 깊이 쓰는 사람 — 허브의 역할은 제각각이다</div>
+  <div class="sub">건수와 평균 글자수로 허브 유형을 나누면, 커뮤니티가 필요로 하는 서로 다른 기능들이 보인다.</div>
+  <div class="card-line">
+    <div class="hub-row">
+      <div class="hub-name">콩가 · 귀하의채널</div>
+      <span class="hub-type" style="background:#E6F1FB;color:#185FA5">균형형 허브</span>
+      <div class="hub-desc">건수도 많고 글자도 길다. 반응과 정보를 동시에 담당하는 커뮤니티의 축. 이 두 사람이 동시에 이탈하는 것이 최대 리스크다.</div>
+    </div>
+    <div class="hub-row">
+      <div class="hub-name">귀하의채널 · 보리 · 완성</div>
+      <span class="hub-type" style="background:#E1F5EE;color:#0F6E56">정보형 허브</span>
+      <div class="hub-desc">건수는 중간이지만 평균 95자·77자·62자로 긴 글을 쓴다. 경험담·치료 정보·신약 해석을 상세하게 공유하는 역할. 깊이 있는 콘텐츠의 실질적 생산자.</div>
+    </div>
+    <div class="hub-row">
+      <div class="hub-name">찌니 · 극단적생존자 · 사라 · KJH</div>
+      <span class="hub-type" style="background:#FAEEDA;color:#854F0B">반응형 허브</span>
+      <div class="hub-desc">짧고 빠른 공감 메시지로 대화를 살린다. 9~24자의 짧은 발화지만 다른 환우가 계속 말하게 만드는 윤활유 역할. 없으면 대화가 끊긴다.</div>
+    </div>
+    <div class="hub-row">
+      <div class="hub-name">어하홍 · k.a · 미라클쭈</div>
+      <span class="hub-type" style="background:#EEEDFE;color:#3C3489">집중 폭발형</span>
+      <div class="hub-desc">활동일은 2~4일로 짧지만 그 기간 동안 집중적으로 발화했다. 특정 주제나 감정적 계기가 생겼을 때 갑자기 활성화되는 패턴.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 6. 신규 유입 -->
+<div class="block">
+  <div class="eyebrow">신규 유입 패턴</div>
+  <div class="heading">유입은 뭉텅이로 온다 — 허브가 부르거나, 운영자가 오픈하거나</div>
+  <div class="sub">3/6 오픈(55명), 3/13~14 사라 등장 주간(88명), 3/26 찌니 폭발(27명). 신규 유입은 특정 허브의 외부 활동이나 커뮤니티 내 폭발적 대화에 연동되는 패턴이 뚜렷하다.</div>
+  <div class="chart-wrap" style="height:170px"><canvas id="newUserChart"></canvas></div>
+  <div class="card" style="margin-top:12px">
+    <div class="stat-desc">3/20~25 저활동 기간에도 매일 2~6명이 꾸준히 입장했다. <strong style="font-weight:500;color:var(--color-text-primary)">유입이 없어도 커뮤니티가 죽지 않는 이유는 충성층이 버텨주기 때문이다.</strong></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- KEY INSIGHTS -->
+<div class="block">
+  <div class="eyebrow">Key Insights</div>
+  <div class="heading">데이터가 말하는 것들</div>
+  <div style="margin-top:1.25rem">
+    <div class="insight-block" style="border-color:#3266ad">
+      <div class="insight-title">이 커뮤니티의 자생력은 이미 증명됐다</div>
+      <div class="insight-body">3/19·3/21처럼 운영자가 없는 날 환우끼리 자생 세션이 75%·60%를 기록했다. 커뮤니티가 운영자에 의존해서 유지되는 구조가 아니라, 환우들 사이에 실제 관계가 형성됐다는 증거다. Phase 2 앱에서는 운영자 역할을 '촉진'으로 재정의해도 된다.</div>
+    </div>
+    <div class="insight-block" style="border-color:#D85A30">
+      <div class="insight-title">콩가 한 명에 대한 의존도가 여전히 위험 수준이다</div>
+      <div class="insight-body">콩가 비참여일 활동량은 참여일의 44% 수준. 앰배서더가 1인에게 집중된 구조는 그 사람의 번아웃이나 이탈 시 커뮤니티 전체에 충격을 준다. 3/20~23 침묵 구간이 실제로 그 리스크를 보여줬다. 찌니·귀하의채널을 공동 허브로 육성하는 게 급선무다.</div>
+    </div>
+    <div class="insight-block" style="border-color:#1D9E75">
+      <div class="insight-title">3/26 밤 10시는 커뮤니티의 다음 단계를 예고했다</div>
+      <div class="insight-body">찌니 한 명이 저활동 구간을 혼자 돌파했고, 96건이 밤 10시에 터졌다. 이건 운영자도 콩가도 없이 일어난 일이다. 콩가 이후의 허브가 이미 자라고 있다는 신호이며, Phase 2에서는 이 새 허브들을 중심으로 커뮤니티 구조를 재설계할 수 있다.</div>
+    </div>
+    <div class="insight-block" style="border-color:#EF9F27">
+      <div class="insight-title">목·금 오후 4시와 밤 10시가 이 커뮤니티의 황금 시간이다</div>
+      <div class="insight-body">요일별로 목·금이 가장 활발하고, 시간대별로 오후 4시(정보 소비)와 밤 10시(감정 공유)가 쌍봉 피크를 형성한다. 운영자의 콘텐츠 투하, 앰배서더 활동, 알림 발송 모두 이 타이밍에 맞추는 것이 가장 효율적이다.</div>
+    </div>
+    <div class="insight-block" style="border-color:#7F77DD">
+      <div class="insight-title">2주차(3/13~19)가 PoC의 진짜 성과다</div>
+      <div class="insight-body">970건·환우 87%로 역대 최고 주간을 기록했고, 사라·찌니·보리·미라클쭈 등 신규 허브가 이 주에 집중 등장했다. 이 시기에 형성된 관계망이 3주차 침묵 구간에도 커뮤니티를 지탱했다. 유입이 폭발한 1주차보다 자생력이 형성된 2주차가 더 중요하다.</div>
+    </div>
+    <div class="insight-block" style="border-color:#B4B2A9">
+      <div class="insight-title">의료진은 신뢰 자산이지만 활용이 저조하다</div>
+      <div class="insight-body">의료진 발화 비율은 전체 기간 평균 4% 수준. 환우들이 의료진 포지셔닝에 대한 불만을 두 번 이상 직접 표출했음에도 개선이 없었다. Phase 2에서 의료진 역할을 온보딩 메시지에 명확히 명시하지 않으면 동일한 불만이 반복된다.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+Chart.defaults.font.family='var(--font-sans)';
+Chart.defaults.color='#888780';
+
+const dLabels=['3/6','3/7','3/8','3/9','3/10','3/11','3/12','3/13','3/14','3/15','3/16','3/17','3/18','3/19','3/20','3/21','3/22','3/23','3/24','3/25','3/26','3/27'];
+const totals=[143,77,70,69,47,85,145,196,139,118,144,114,194,65,46,35,21,21,49,21,176,53];
+const usrPct=[60,86,83,80,66,71,61,85,86,90,79,92,88,91,63,91,76,67,96,62,97,92];
+const opPct=[36,13,17,19,32,19,36,11,9,8,21,6,9,9,35,0,19,29,2,33,3,8];
+const medPct=[4,1,0,1,2,11,3,5,6,2,0,2,3,0,2,9,5,5,2,5,0,0];
+const selfPct=[0,56,33,0,43,23,0,35,25,33,30,38,46,75,33,60,0,33,67,25,67,67];
+const newU=[55,29,16,10,10,25,38,45,43,19,25,19,15,18,6,6,5,3,5,2,27,2];
+const kongaCnt=[8,14,14,17,11,7,6,31,6,18,19,4,6,0,0,8,2,0,7,2,2,1];
+const isKonga=[1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,1,1,1,1];
+
+const usrAbs=totals.map((t,i)=>Math.round(t*usrPct[i]/100));
+const opAbs=totals.map((t,i)=>Math.round(t*opPct[i]/100));
+const medAbs=totals.map((t,i)=>Math.round(t*medPct[i]/100));
+
+new Chart(document.getElementById('weeklyStack'),{
+  type:'bar',
+  data:{labels:dLabels,datasets:[
+    {label:'환우',data:usrAbs,backgroundColor:'#1D9E75',stack:'s',borderRadius:2},
+    {label:'운영자',data:opAbs,backgroundColor:'#D85A30',stack:'s'},
+    {label:'의료진',data:medAbs,backgroundColor:'#B4B2A9',stack:'s'}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},y:{stacked:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10}}}}}
+});
+
+new Chart(document.getElementById('selfChart'),{
+  type:'line',
+  data:{labels:dLabels,datasets:[{data:selfPct,borderColor:'#7F77DD',backgroundColor:'rgba(127,119,221,0.08)',tension:0.35,pointRadius:3,fill:true}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},y:{min:0,max:100,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},callback:v=>v+'%'}}}}
+});
+
+const hrLabels=Array.from({length:24},(_,i)=>i+'시');
+const hrData=[24,3,3,7,2,1,9,42,76,60,87,155,99,125,143,148,190,129,83,92,123,169,188,114];
+new Chart(document.getElementById('hourChart'),{
+  type:'bar',
+  data:{labels:hrLabels,datasets:[{data:hrData,backgroundColor:hrData.map((v,i)=>(i===16||i===22)?'#3266ad':(i>=19||i<=7)?'#AFA9EC':'#85B7EB'),borderRadius:2}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10}}}}}
+});
+
+new Chart(document.getElementById('kongaBar'),{
+  type:'bar',
+  data:{labels:dLabels,datasets:[
+    {type:'bar',label:'총메시지',data:totals,backgroundColor:isKonga.map(v=>v?'rgba(50,102,173,0.7)':'rgba(180,178,169,0.5)'),borderRadius:3,yAxisID:'y'},
+    {type:'line',label:'콩가',data:kongaCnt,borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',tension:0.3,pointRadius:3,fill:false,yAxisID:'y2'}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10}}},y2:{position:'right',grid:{display:false},max:40,ticks:{font:{size:10}}}}}
+});
+
+new Chart(document.getElementById('newUserChart'),{
+  type:'bar',
+  data:{labels:dLabels,datasets:[{data:newU,backgroundColor:newU.map(v=>v>=30?'#D85A30':v>=15?'#EF9F27':'#B4B2A9'),borderRadius:3}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10},maxRotation:45,autoSkip:false}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10}}}}}
+});
+</script>
