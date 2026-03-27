@@ -9500,7 +9500,11 @@ function navigatePinkcare(sub, e) {
   } else if (sub === 'kpi') {
     window.location.hash = 'pinkcare-kpi';
   } else if (sub === 'matrix') {
-    window.location.hash = 'pinkcare-matrix';
+    if (window.location.hash === '#pinkcare-matrix') {
+      applyHash('#pinkcare-matrix');
+    } else {
+      window.location.hash = 'pinkcare-matrix';
+    }
   }
 }
 
