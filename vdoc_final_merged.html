@@ -946,10 +946,17 @@ body{font-family:var(--sans);color:var(--navy);background:var(--white);-webkit-f
   .i-cover{min-height:auto;padding:40px;break-after:page}
   .i-section,.i-bar{padding:30px 40px}
   body{font-size:11px}
+  /* 푸터 숨김 */
+  .i-footer { display: none; }
   /* 작은 블록은 중간에 잘리지 않게 */
   .i-hook,.i-cta,.i-stat,.i-stats,.i-pain,.i-feat,.i-step,.i-price-card,.i-pilot-card,.i-case,.i-comp-table tr { break-inside: avoid; }
   /* 테이블 헤더가 고아로 남지 않게 */
   .i-comp-table thead { break-after: avoid; }
+  /* 03, 04, 08: 새 페이지에서 시작 */
+  #sec-03, #sec-04, #sec-08 { break-before: page; }
+  /* 05: flow 전체가 한 페이지에 오도록, 각 스텝은 잘리지 않게 */
+  #sec-05 { break-inside: avoid; }
+  #sec-05 .i-flow-step { break-inside: avoid; }
   /* 샘플 문서는 반드시 새 페이지에서 시작 */
   .page { break-before: page; }
 }
@@ -1088,7 +1095,7 @@ body{font-family:var(--sans);color:var(--navy);background:var(--white);-webkit-f
 
 
 <!-- ═══════════ 3. 면책 논리 ═══════════ -->
-<div class="i-bar bar-gray">
+<div id="sec-03" class="i-bar bar-gray">
   <div class="i-bar-inner">
     <div class="i-sec-num">03 · 면책 논리</div>
     <p class="i-sec-title">V.Doc은 어떻게 대표님을 보호합니까</p>
@@ -1146,7 +1153,7 @@ body{font-family:var(--sans);color:var(--navy);background:var(--white);-webkit-f
 
 
 <!-- ═══════════ 4. 핵심 기능 ═══════════ -->
-<div class="i-section">
+<div id="sec-04" class="i-section">
   <div class="i-sec-num">04 · 핵심 기능</div>
   <p class="i-sec-title">V.Doc Enterprise가 하는 일</p>
   <div class="i-sec-rule"></div>
@@ -1199,7 +1206,7 @@ body{font-family:var(--sans);color:var(--navy);background:var(--white);-webkit-f
 
 
 <!-- ═══════════ 5. WORKFLOW ═══════════ -->
-<div class="i-bar bar-gray">
+<div id="sec-05" class="i-bar bar-gray">
   <div class="i-bar-inner">
     <div class="i-sec-num">05 · 작동 방식</div>
     <p class="i-sec-title">대표님이 하실 일은 '서명' 하나입니다</p>
@@ -1331,7 +1338,7 @@ body{font-family:var(--sans);color:var(--navy);background:var(--white);-webkit-f
 
 
 <!-- ═══════════ 8. PILOT ═══════════ -->
-<div class="i-section">
+<div id="sec-08" class="i-section">
   <div class="i-sec-num">08 · 파일럿 제안</div>
   <p class="i-sec-title">3개월 파일럿, 효과를 확인한 후 결정하세요</p>
   <div class="i-sec-rule"></div>
