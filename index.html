@@ -2784,6 +2784,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             Web Prototype
           </a>
+          <a href="#" onclick="navigateVdoc('customer', event)" class="pinkcare-menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            고객 전달 자료
+          </a>
           <div class="pinkcare-menu-divider"></div>
           <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_employee_app.html" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeVdocDropdown()" style="color:var(--accent2);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
@@ -10799,6 +10803,16 @@ document.querySelectorAll('#page-pinkcare-nextstep .reveal').forEach(el => obs.o
       onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='2000px';}})(this)"></iframe>
   </div><!-- /page-vdoc-report -->
 
+  <div class="page-section" id="page-vdoc-customer" style="padding:0;margin:0;background:#f4f4f4;">
+    <iframe
+      src="vdoc_final_merged.html"
+      id="vdoc-customer-iframe"
+      style="width:100%;border:none;display:block;min-height:100vh;"
+      scrolling="no"
+      onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='8000px';}})(this)"
+    ></iframe>
+  </div><!-- /page-vdoc-customer -->
+
 
 
 <!-- DETAIL MODAL -->
@@ -11223,6 +11237,8 @@ function navigateVdoc(sub, e) {
     window.location.hash = 'vdoc-proposal';
   } else if (sub === 'report') {
     window.location.hash = 'vdoc-report';
+  } else if (sub === 'customer') {
+    window.location.hash = 'vdoc-customer';
   }
 }
 
@@ -11334,7 +11350,7 @@ function applyHash(hash) {
   const pinkcarePages = ['pinkcare-retrospective', 'pinkcare-proposal', 'pinkcare-kpi', 'pinkcare-matrix', 'pinkcare-nextstep'];
   if (pinkcarePages.includes(page)) {
     document.getElementById('pinkcareBtn').classList.add('active');
-  } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report') {
+  } else if (page === 'vdoc' || page === 'vdoc-proposal' || page === 'vdoc-report' || page === 'vdoc-customer') {
     const vdocBtn = document.getElementById('vdocBtn');
     if (vdocBtn) vdocBtn.classList.add('active');
   } else if (page === 'vcare-features' || page === 'vcare-bm' || page === 'vcare-oncoreport' || page === 'pinkcare-retrospective' || page === 'vcare-faq') {
