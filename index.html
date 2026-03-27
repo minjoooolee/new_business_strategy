@@ -35,15 +35,7 @@
   /* Grid background */
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 48px 48px;
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: 0;
+    display: none;
   }
   body.hide-grid::before {
     display: none;
@@ -2786,6 +2778,21 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
             직원용 APP
             <span style="margin-left:auto;font-size:10px;background:rgba(0,229,176,0.15);color:var(--accent2);padding:2px 7px;border-radius:10px;font-weight:700;letter-spacing:0.5px;">NEW</span>
+          </a>
+          <div class="pinkcare-menu-divider"></div>
+          <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_approval_sample.html" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeVdocDropdown()" style="color:var(--accent4);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 7h4m-4 4h10"/></svg>
+            CEO 레포트
+          </a>
+          <div class="pinkcare-menu-divider"></div>
+          <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_enterprise_catalog.html" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeVdocDropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            영업 자료
+          </a>
+          <div class="pinkcare-menu-divider"></div>
+          <a href="https://minjoooolee.github.io/new_business_strategy/vdoc_dev_spec.html" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeVdocDropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            개발 스펙
           </a>
 
         </div>
@@ -10879,8 +10886,8 @@ document.querySelectorAll('#page-pinkcare-matrix .reveal').forEach(el => obs.obs
 
 
   <div class="page-section" id="page-vdoc-report" style="padding:0;margin:0;background:#f4f4f4;">
-    <iframe src="vdoc_proposal.html" id="vdoc-proposal-iframe" style="width:100%;border:none;display:block;" scrolling="yes"
-      onload="(function(f){try{f.style.height=f.contentWindow.document.body.scrollHeight+'px';}catch(e){f.style.height='4000px';}})(this)"></iframe>
+    <iframe src="vdoc_proposal.html" id="vdoc-proposal-iframe" style="width:100%;border:none;display:block;height:8000px;" scrolling="yes"
+      onload="(function(f){try{var h=f.contentWindow.document.body.scrollHeight;if(h>200)f.style.height=h+'px';}catch(e){}})(this)"></iframe>
 
   </div><!-- /page-vdoc-report -->
   <!-- ===== VDOC APPENDIX PAGE ===== -->
