@@ -592,11 +592,17 @@ tbody tr:hover{background:var(--bg)}
 
     <!-- 서명 완료 모달 -->
     <div class="bkdrop" id="doneModal">
-      <div class="modal" style="width:400px;text-align:center">
-        <div style="font-size:48px;margin-bottom:12px">✅</div>
-        <div style="font-size:18px;font-weight:800;margin-bottom:8px">서명 완료</div>
-        <div style="font-size:13px;color:var(--t3);margin-bottom:20px">검토자(이안전 안전보건팀장)에게 전달되었습니다.</div>
-        <button onclick="closeDone()" style="padding:10px 24px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer">확인</button>
+      <div class="modal" style="width:440px;text-align:center">
+        <div style="font-size:48px;margin-bottom:12px">📁</div>
+        <div style="font-size:18px;font-weight:800;margin-bottom:6px">결재 완료 · 문서 보관</div>
+        <div style="font-size:13px;color:var(--t3);margin-bottom:18px">최종 결재가 완료되어 문서가 안전하게 보관되었습니다.</div>
+        <div style="background:var(--gl);border-radius:10px;padding:14px 16px;text-align:left;margin-bottom:18px;font-size:12.5px;color:#14532D;display:flex;flex-direction:column;gap:7px">
+          <div>✅ <strong>결재자:</strong> 대표이사 (최종 승인)</div>
+          <div>🔒 <strong>보관처:</strong> KISA 공인전자문서보관소</div>
+          <div>📅 <strong>보관기한:</strong> 2031.03.31까지 (5년)</div>
+          <div id="doneHashLine">🔑 <strong>문서 해시(SHA-256):</strong> <span style="font-family:monospace;font-size:11px" id="doneHash">생성 중...</span></div>
+        </div>
+        <button onclick="closeDone()" style="width:100%;padding:11px 24px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer">확인</button>
       </div>
     </div>
 
@@ -773,6 +779,13 @@ function doSign(){
   document.getElementById('signModal').classList.remove('open');
   document.getElementById('doneModal').classList.add('open');
   markSigned();
+
+  // SHA-256 모의 해시 생성
+  const hashEl=document.getElementById('doneHash');
+  if(hashEl){
+    const mockHash=Array.from({length:8},()=>Math.floor(Math.random()*0xFFFFFF).toString(16).padStart(6,'0')).join('').substring(0,16)+'…'+Array.from({length:4},()=>Math.floor(Math.random()*0xFFFF).toString(16).padStart(4,'0')).join('');
+    hashEl.textContent=mockHash;
+  }
 }
 
 function markSigned(){
@@ -796,9 +809,9 @@ function markSigned(){
   const icon=document.getElementById('urgencyIcon');
   if(icon) icon.textContent='✅';
   const title=document.getElementById('urgencyTitle');
-  if(title){title.style.color='var(--green)';title.textContent='결재 서명 완료 — 최종 승인 대기 중';}
+  if(title){title.style.color='var(--green)';title.textContent='결재 완료 — 문서 보관 완료';}
   const desc=document.getElementById('urgencyDesc');
-  if(desc){desc.style.color='#166534';desc.textContent='VD-2026-004 · 2026년 3월 점검 보고서 · 대표이사 최종 승인 대기 중';}
+  if(desc){desc.style.color='#166534';desc.textContent='VD-2026-004 · 2026년 3월 점검 보고서 · KISA 공인전자문서보관소 보관 완료';}
   const btn=document.getElementById('urgencyBtn');
   if(btn) btn.style.display='none';
 
@@ -840,19 +853,18 @@ function markSigned(){
   if(s3s){s3s.textContent='2026.04.01';s3s.style.color='var(--green)';}
   if(c2) c2.style.background='var(--green)';
 
-  // 최종 승인 → 대기(현재)
+  // 최종 승인 → 완료
   const s4c=document.getElementById('step4Circle');
   const s4l=document.getElementById('step4Label');
   const s4s=document.getElementById('step4Sub');
   const c3=document.getElementById('conn3');
-  if(s4c){s4c.style.cssText='width:44px;height:44px;border-radius:50%;background:var(--al);border:2px dashed var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px';s4c.textContent='⏳';s4c.style.color='';}
-  if(s4l) s4l.style.color='var(--amber)';
-  if(s4s){s4s.textContent='승인 대기';s4s.style.color='var(--amber)';}
-  if(c3) c3.style.background='var(--amber)';
+  if(s4c){s4c.style.cssText='width:44px;height:44px;border-radius:50%;background:var(--gl);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px';s4c.textContent='✓';s4c.style.color='';}
+  if(s4l) s4l.style.color='var(--green)';
+  if(s4s){s4s.textContent='2026.04.01';s4s.style.color='var(--green)';}
+  if(c3) c3.style.background='var(--green)';
 }
 function closeDone(){
   document.getElementById('doneModal').classList.remove('open');
-  document.querySelector('.kpi-val[style*="red"]').textContent='0건';
 }
 
 document.querySelectorAll('.bkdrop').forEach(b=>{
