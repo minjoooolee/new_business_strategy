@@ -545,6 +545,9 @@ function submitAction(){
   if(!typeEl||!note)return;
   const actionText=typeEl.value+' · '+note;
 
+  // 전자결재 페이지에 상태 전달
+  localStorage.setItem('alert_004_resolved', JSON.stringify({text:actionText, time:new Date().toISOString()}));
+
   // 알림 카드 업데이트: 미확인 → 조치 완료
   const card=document.querySelector('#unconfirmedActions').closest('div[style*="FEF2F2"]');
   if(card){

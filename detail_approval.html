@@ -347,33 +347,33 @@ tbody tr:hover{background:var(--bg)}
         </div>
 
         <!-- 결재선 -->
-        <div style="display:flex;align-items:center;gap:0;margin-bottom:16px">
+        <div id="approvalStepper" style="display:flex;align-items:center;gap:0;margin-bottom:16px">
           <div style="flex:1;text-align:center">
             <div style="width:44px;height:44px;border-radius:50%;background:var(--gl);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px">✓</div>
             <div style="font-size:11px;font-weight:700;color:var(--green);margin-top:6px">작성</div>
             <div style="font-size:11px;color:var(--t3)">V.Doc 시스템</div>
             <div style="font-size:10.5px;color:var(--green);margin-top:2px">2026.03.31</div>
           </div>
-          <div style="flex:none;width:40px;height:1px;background:var(--amber)"></div>
+          <div id="conn1" style="flex:none;width:40px;height:1px;background:var(--amber)"></div>
           <div style="flex:1;text-align:center">
-            <div style="width:44px;height:44px;border-radius:50%;background:var(--al);border:2px dashed var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px">⏳</div>
-            <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:6px">담당</div>
+            <div id="step2Circle" style="width:44px;height:44px;border-radius:50%;background:var(--al);border:2px dashed var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px">⏳</div>
+            <div id="step2Label" style="font-size:11px;font-weight:700;color:var(--amber);margin-top:6px">담당</div>
             <div style="font-size:11px;color:var(--t3)">김민수 HR</div>
-            <div style="font-size:10.5px;color:var(--amber);margin-top:2px">서명 대기</div>
+            <div id="step2Sub" style="font-size:10.5px;color:var(--amber);margin-top:2px">서명 대기</div>
           </div>
-          <div style="flex:none;width:40px;height:1px;background:var(--border-2)"></div>
+          <div id="conn2" style="flex:none;width:40px;height:1px;background:var(--border-2)"></div>
           <div style="flex:1;text-align:center">
-            <div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px;color:var(--t3)">—</div>
-            <div style="font-size:11px;font-weight:700;color:var(--t3);margin-top:6px">검토</div>
+            <div id="step3Circle" style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px;color:var(--t3)">—</div>
+            <div id="step3Label" style="font-size:11px;font-weight:700;color:var(--t3);margin-top:6px">검토</div>
             <div style="font-size:11px;color:var(--t3)">안전보건팀장</div>
-            <div style="font-size:10.5px;color:var(--t3);margin-top:2px">대기 중</div>
+            <div id="step3Sub" style="font-size:10.5px;color:var(--t3);margin-top:2px">대기 중</div>
           </div>
-          <div style="flex:none;width:40px;height:1px;background:var(--border-2)"></div>
+          <div id="conn3" style="flex:none;width:40px;height:1px;background:var(--border-2)"></div>
           <div style="flex:1;text-align:center">
-            <div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px;color:var(--t3)">—</div>
-            <div style="font-size:11px;font-weight:700;color:var(--t3);margin-top:6px">최종 승인</div>
+            <div id="step4Circle" style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px;color:var(--t3)">—</div>
+            <div id="step4Label" style="font-size:11px;font-weight:700;color:var(--t3);margin-top:6px">최종 승인</div>
             <div style="font-size:11px;color:var(--t3)">대표이사</div>
-            <div style="font-size:10.5px;color:var(--t3);margin-top:2px">대기 중</div>
+            <div id="step4Sub" style="font-size:10.5px;color:var(--t3);margin-top:2px">대기 중</div>
           </div>
         </div>
 
@@ -384,14 +384,17 @@ tbody tr:hover{background:var(--bg)}
             <div><span style="color:var(--t3)">점검 인원</span><br><strong>243명 (참여율 82%)</strong></div>
             <div><span style="color:var(--t3)">고위험 탐지</span><br><strong style="color:var(--red)">4건 탐지 / 3건 연계</strong></div>
             <div><span style="color:var(--t3)">교육 이수율</span><br><strong>73% (177명)</strong></div>
-            <div><span style="color:var(--t3)">미확인 알림</span><br><strong style="color:var(--red)">1건 미조치 ⚠</strong></div>
+            <div id="unconfirmedCell"><span style="color:var(--t3)">미확인 알림</span><br><strong style="color:var(--red)">1건 미조치 ⚠</strong></div>
             <div><span style="color:var(--t3)">제5조 이행</span><br><strong style="color:var(--amber)">제2호 일부 미완</strong></div>
             <div><span style="color:var(--t3)">법정 보관</span><br><strong>5년 자동 보관 예정</strong></div>
           </div>
         </div>
 
-        <div style="background:#FEF9C3;border:1px solid #FDE047;border-radius:7px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#854D0E">
+        <div id="alertWarnBox" style="background:#FEF9C3;border:1px solid #FDE047;border-radius:7px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#854D0E">
           ⚠️ <strong>미확인 알림 1건(생산2팀 3개월 연속 악화)이 조치되지 않았습니다.</strong> 결재 전 <a href="detail_alerts.html" style="color:var(--ba);font-weight:600">알림 센터</a>에서 확인 및 조치 내용을 입력해주세요.
+        </div>
+        <div id="alertResolvedBox" style="display:none;background:var(--gl);border:1px solid var(--green);border-radius:7px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#14532D">
+          ✅ <strong>미확인 알림이 조치 완료 처리되었습니다.</strong> 전자서명 후 최종 승인을 요청하세요.
         </div>
 
         <div style="display:flex;gap:8px">
@@ -778,6 +781,59 @@ function closeDone(){
 document.querySelectorAll('.bkdrop').forEach(b=>{
   b.addEventListener('click',e=>{if(e.target===b){b.classList.remove('open');}});
 });
+
+/* ── 알림 조치 완료 상태 반영 (localStorage) ── */
+function applyAlertResolution(){
+  const raw=localStorage.getItem('alert_004_resolved');
+  if(!raw)return;
+
+  // 요약 셀: 미조치 → 조치 완료
+  const cell=document.getElementById('unconfirmedCell');
+  if(cell) cell.innerHTML='<span style="color:var(--t3)">미확인 알림</span><br><strong style="color:var(--green)">조치 완료 ✓</strong>';
+
+  // 경고 박스 교체
+  const warnBox=document.getElementById('alertWarnBox');
+  const resolvedBox=document.getElementById('alertResolvedBox');
+  if(warnBox) warnBox.style.display='none';
+  if(resolvedBox) resolvedBox.style.display='block';
+
+  // 스테퍼: 담당 → 완료, 검토 → 완료, 최종 승인 → 대기(현재 단계)
+  const s2c=document.getElementById('step2Circle');
+  const s2l=document.getElementById('step2Label');
+  const s2s=document.getElementById('step2Sub');
+  const s3c=document.getElementById('step3Circle');
+  const s3l=document.getElementById('step3Label');
+  const s3s=document.getElementById('step3Sub');
+  const s4c=document.getElementById('step4Circle');
+  const s4l=document.getElementById('step4Label');
+  const s4s=document.getElementById('step4Sub');
+  const c1=document.getElementById('conn1');
+  const c2=document.getElementById('conn2');
+  const c3=document.getElementById('conn3');
+
+  if(s2c){s2c.style.cssText='width:44px;height:44px;border-radius:50%;background:var(--gl);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px';s2c.textContent='✓';}
+  if(s2l){s2l.style.color='var(--green)';}
+  if(s2s){s2s.textContent='2026.04.01';s2s.style.color='var(--green)';}
+  if(c1) c1.style.background='var(--green)';
+
+  if(s3c){s3c.style.cssText='width:44px;height:44px;border-radius:50%;background:var(--gl);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px';s3c.textContent='✓';s3c.style.color='';}
+  if(s3l){s3l.style.color='var(--green)';}
+  if(s3s){s3s.textContent='2026.04.01';s3s.style.color='var(--green)';}
+  if(c2) c2.style.background='var(--green)';
+
+  if(s4c){s4c.style.cssText='width:44px;height:44px;border-radius:50%;background:var(--al);border:2px dashed var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:18px';s4c.textContent='⏳';s4c.style.color='';}
+  if(s4l){s4l.style.color='var(--amber)';}
+  if(s4s){s4s.textContent='승인 대기';s4s.style.color='var(--amber)';}
+  if(c3) c3.style.background='var(--amber)';
+
+  // 미결재 배너 문구 업데이트
+  const banner=document.querySelector('[style*="FEF2F2"][style*="1.5px solid #DC2626"]');
+  if(banner){
+    const desc=banner.querySelector('div[style*="color:#92400E"]');
+    if(desc) desc.textContent='VD-2026-004 · 알림 조치 완료 · 최종 승인(대표이사) 대기 중';
+  }
+}
+document.addEventListener('DOMContentLoaded', applyAlertResolution);
 </script>
     <div class="foot-note">본 데이터는 익명 집계 기반이며 개인 식별 정보를 포함하지 않습니다 · (주) 샘플테크 코리아 243명 · V.Doc Enterprise</div>
   </div>
