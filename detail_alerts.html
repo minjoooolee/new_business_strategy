@@ -327,7 +327,11 @@ tbody tr:hover{background:var(--bg)}
         </div>
         <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px">생산2팀 — 정신건강 지수 3개월 연속 하락</div>
         <div style="font-size:12px;color:var(--t3)">10월 71점 → 11월 68점 → 12월 63점 · 동일 부서 동일 카테고리 3개월 연속 악화</div>
-        <button style="margin-top:12px;padding:6px 14px;background:var(--t1);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">확인 및 조치 입력</button>
+        <div id="unconfirmedActions" style="margin-top:12px;display:flex;gap:8px">
+          <button onclick="openActionModal()" style="padding:7px 16px;background:var(--t1);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">확인 및 조치 입력</button>
+          <button onclick="openDetailModal()" style="padding:7px 14px;background:none;border:1px solid var(--border-2);border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;color:var(--t2)">알림 상세 보기</button>
+        </div>
+        <div id="actionDoneRow" style="display:none;margin-top:10px;font-size:12px;color:var(--green)">✓ 조치 내용: <span id="actionDoneText"></span></div>
       </div>
 
       <div style="border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:12px">
@@ -375,6 +379,227 @@ tbody tr:hover{background:var(--bg)}
     <div style="text-align:center;margin-top:8px">
       <button style="padding:12px 28px;background:var(--ba);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">📥 전체 이력 다운로드 (PDF) — 법적 증빙용</button>
     </div>
+
+<!-- 조치 입력 모달 -->
+<div class="bkdrop" id="actionModal">
+  <div class="modal" style="width:520px">
+    <button class="modal-cls" onclick="closeActionModal()">×</button>
+    <div style="font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">⚠ 미확인 알림 · 조치 입력</div>
+    <div class="modal-h1" style="font-size:16px">생산2팀 — 정신건강 지수 3개월 연속 하락</div>
+    <div class="modal-sub">트리거 ④ · 2026.03.18 09:14 발생 · 10월 71점→11월 68점→12월 63점</div>
+
+    <!-- 알림 요약 -->
+    <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:12px 14px;margin-bottom:18px;font-size:12.5px;color:#7F1D1D">
+      동일 부서 동일 카테고리 <strong>3개월 연속 악화</strong> 감지. 중대재해처벌법 시행령 제5조 제2호에 따라 고위험자 조치 기록이 필요합니다.
+    </div>
+
+    <!-- 조치 유형 선택 -->
+    <div style="margin-bottom:14px">
+      <div style="font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:8px">조치 유형 <span style="color:var(--red)">*</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="actionTypeGrid">
+        <label id="at-eap" class="at-opt" style="display:flex;align-items:center;gap:8px;border:1px solid var(--border-2);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:12.5px;transition:all .12s">
+          <input type="radio" name="actionType" value="EAP 연계" onchange="selectActionType('at-eap')"> EAP 심리상담 연계
+        </label>
+        <label id="at-meet" class="at-opt" style="display:flex;align-items:center;gap:8px;border:1px solid var(--border-2);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:12.5px;transition:all .12s">
+          <input type="radio" name="actionType" value="HR 면담 실시" onchange="selectActionType('at-meet')"> HR 면담 실시
+        </label>
+        <label id="at-report" class="at-opt" style="display:flex;align-items:center;gap:8px;border:1px solid var(--border-2);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:12.5px;transition:all .12s">
+          <input type="radio" name="actionType" value="경영자 보고" onchange="selectActionType('at-report')"> 경영자 보고
+        </label>
+        <label id="at-etc" class="at-opt" style="display:flex;align-items:center;gap:8px;border:1px solid var(--border-2);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:12.5px;transition:all .12s">
+          <input type="radio" name="actionType" value="기타" onchange="selectActionType('at-etc')"> 기타 조치
+        </label>
+      </div>
+    </div>
+
+    <!-- 조치 내용 입력 -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:6px">조치 내용 상세 <span style="color:var(--red)">*</span></div>
+      <textarea id="actionNote" placeholder="실시한 조치 내용을 구체적으로 입력해주세요.&#10;예) EAP 상담 연계 2건 완료, 팀장 개별 면담 실시, 익월 재모니터링 예정" style="width:100%;height:90px;border:1px solid var(--border-2);border-radius:8px;padding:10px 12px;font-size:12.5px;font-family:inherit;resize:none;outline:none;line-height:1.6" oninput="checkActionReady()"></textarea>
+    </div>
+
+    <!-- 담당자 확인 -->
+    <div style="background:var(--bg);border-radius:8px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:var(--t2);display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">👤</span>
+      <span>조치 담당자: <strong>김민수</strong> (HR 관리자) · <span id="actionTimestamp"></span></span>
+    </div>
+
+    <div style="display:flex;gap:8px">
+      <button onclick="closeActionModal()" style="flex:1;padding:10px;background:var(--bg);border:1px solid var(--border-2);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;color:var(--t2)">취소</button>
+      <button id="btnSubmitAction" onclick="submitAction()" disabled style="flex:2;padding:10px;background:#aaa;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:not-allowed;transition:all .15s">조치 완료 기록</button>
+    </div>
+  </div>
+</div>
+
+<!-- 알림 상세 모달 -->
+<div class="bkdrop" id="detailModal">
+  <div class="modal" style="width:560px">
+    <button class="modal-cls" onclick="closeDetailModal()">×</button>
+    <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">트리거 ④ · 3개월 연속 악화</div>
+    <div class="modal-h1">생산2팀 정신건강 지수 연속 하락 상세</div>
+    <div class="modal-sub">2026.03.18 09:14 발생 · 알림 ID: ALT-2026-004</div>
+
+    <div style="background:var(--bg);border-radius:8px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">월별 지수 추이</div>
+      <div style="display:flex;align-items:flex-end;gap:6px;height:80px;margin-bottom:8px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+          <div style="font-size:11px;font-weight:700;color:var(--ba)">71</div>
+          <div style="width:100%;background:var(--ba);border-radius:3px 3px 0 0;height:57px;opacity:.7"></div>
+          <div style="font-size:10px;color:var(--t3)">10월</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+          <div style="font-size:11px;font-weight:700;color:var(--amber)">68</div>
+          <div style="width:100%;background:var(--amber);border-radius:3px 3px 0 0;height:54px;opacity:.7"></div>
+          <div style="font-size:10px;color:var(--t3)">11월</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+          <div style="font-size:11px;font-weight:700;color:var(--red)">63</div>
+          <div style="width:100%;background:var(--red);border-radius:3px 3px 0 0;height:50px;opacity:.8"></div>
+          <div style="font-size:10px;color:var(--t3)">12월</div>
+        </div>
+        <div style="width:1px;height:80px;background:var(--border-2);margin:0 4px"></div>
+        <div style="flex:2;font-size:11.5px;color:var(--t2);line-height:1.6">
+          <strong style="color:var(--red)">−8점</strong> 3개월 누적 하락<br>
+          연속 하락 기준(3개월)<br>초과 → 자동 트리거
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">연관 분석</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--t2)">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--rl);border-radius:7px">
+          <span>🔴</span><span><strong>야간근무 +38%</strong> 증가 (2월~3월) — 피로도 상관관계 0.82</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--al);border-radius:7px">
+          <span>🟡</span><span>스크리닝 참여율 <strong>54%</strong> (타 부서 평균 78%)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bl);border-radius:7px">
+          <span>🔵</span><span>해당 부서 고위험 비율 <strong>16%</strong> (전사 평균 6.2%)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-box" style="margin-bottom:18px">
+      <span class="ai-chip">✦ AI 권고</span>
+      <span class="ai-txt">야간근무 확대가 주요 원인으로 추정됩니다. 단기적으로 EAP 상담 연계(2~3명)와 팀장 개별 면담이 필요하며, 익월 스크리닝 결과 재모니터링을 권장합니다.</span>
+    </div>
+
+    <div style="display:flex;gap:8px">
+      <button onclick="closeDetailModal()" style="flex:1;padding:10px;background:var(--bg);border:1px solid var(--border-2);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;color:var(--t2)">닫기</button>
+      <button onclick="closeDetailModal();openActionModal();" style="flex:2;padding:10px;background:var(--t1);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer">확인 및 조치 입력하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 조치 완료 확인 모달 -->
+<div class="bkdrop" id="actionDoneModal">
+  <div class="modal" style="width:400px;text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">✅</div>
+    <div style="font-size:18px;font-weight:800;margin-bottom:8px">조치 기록 완료</div>
+    <div style="font-size:13px;color:var(--t3);margin-bottom:6px">조치 내용이 성공적으로 기록되었습니다.</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:20px">전자결재 보고서에 반영 완료 · 5년 보관 적용</div>
+    <div style="background:var(--gl);border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--green);margin-bottom:20px;text-align:left">
+      ✓ 미확인 알림 <strong>0건</strong>으로 해소됨<br>
+      ✓ 전자결재 진행 시 경고 없이 진행 가능
+    </div>
+    <div style="display:flex;gap:8px">
+      <button onclick="closeDoneModal()" style="flex:1;padding:10px;background:var(--bg);border:1px solid var(--border-2);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer">닫기</button>
+      <button onclick="closeDoneModal();window.location.href='detail_approval.html'" style="flex:1;padding:10px;background:var(--ba);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer">전자결재로 이동</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── 조치 입력 모달 ─── */
+function openActionModal(){
+  const now=new Date();
+  document.getElementById('actionTimestamp').textContent=now.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('actionModal').classList.add('open');
+}
+function closeActionModal(){document.getElementById('actionModal').classList.remove('open');}
+
+function selectActionType(id){
+  document.querySelectorAll('.at-opt').forEach(el=>{
+    el.style.borderColor='var(--border-2)';el.style.background='';
+  });
+  const el=document.getElementById(id);
+  el.style.borderColor='var(--ba)';el.style.background='var(--bl)';
+  checkActionReady();
+}
+
+function checkActionReady(){
+  const typeSelected=document.querySelector('input[name="actionType"]:checked');
+  const noteVal=document.getElementById('actionNote').value.trim();
+  const btn=document.getElementById('btnSubmitAction');
+  const ready=typeSelected&&noteVal.length>=5;
+  btn.disabled=!ready;
+  btn.style.background=ready?'var(--green)':'#aaa';
+  btn.style.cursor=ready?'pointer':'not-allowed';
+}
+
+function submitAction(){
+  const typeEl=document.querySelector('input[name="actionType"]:checked');
+  const note=document.getElementById('actionNote').value.trim();
+  if(!typeEl||!note)return;
+  const actionText=typeEl.value+' · '+note;
+
+  // 알림 카드 업데이트: 미확인 → 조치 완료
+  const card=document.querySelector('#unconfirmedActions').closest('div[style*="FEF2F2"]');
+  if(card){
+    card.style.background='';card.style.border='1px solid var(--border)';
+    const badge=card.querySelector('span[style*="DC2626"][style*="font-weight:700"]');
+    if(badge){badge.style.background='var(--gl)';badge.style.color='var(--green)';badge.textContent='조치 완료';}
+  }
+
+  document.getElementById('actionDoneText').textContent=actionText;
+  document.getElementById('actionDoneRow').style.display='block';
+  document.getElementById('unconfirmedActions').style.display='none';
+
+  // KPI 업데이트
+  updateKpis();
+  // 배너 숨기기
+  const banner=document.querySelector('[style*="FEF2F2"][style*="border-radius:9px"]');
+  if(banner)banner.style.display='none';
+
+  closeActionModal();
+  document.getElementById('actionDoneModal').classList.add('open');
+}
+
+function updateKpis(){
+  // 미확인 KPI → 0
+  const kpiVals=document.querySelectorAll('.kpi-val');
+  kpiVals.forEach(el=>{
+    if(el.style.color.includes('226') && el.innerHTML.includes('1')){
+      el.innerHTML='0<span style="font-size:16px">건</span>';
+      el.style.color='var(--t1)';
+      el.closest('.kpi').style.borderColor='';
+      el.closest('.kpi').style.background='';
+      const sub=el.closest('.kpi').querySelector('.kpi-sub');
+      if(sub){sub.textContent='모두 처리 완료';sub.className='kpi-sub dn';}
+    }
+  });
+  // 조치 완료 KPI → 4
+  kpiVals.forEach(el=>{
+    if(el.style.color.includes('22A') || (el.innerHTML.includes('3') && el.closest('.kpi'))){
+      const lbl=el.closest('.kpi')&&el.closest('.kpi').querySelector('.kpi-lbl');
+      if(lbl&&lbl.textContent.includes('조치 완료')){
+        el.innerHTML='4<span style="font-size:16px">건</span>';
+        const sub=el.closest('.kpi').querySelector('.kpi-sub');
+        if(sub)sub.textContent='완료율 100%';
+      }
+    }
+  });
+}
+
+function openDetailModal(){document.getElementById('detailModal').classList.add('open');}
+function closeDetailModal(){document.getElementById('detailModal').classList.remove('open');}
+function closeDoneModal(){document.getElementById('actionDoneModal').classList.remove('open');}
+
+document.querySelectorAll('.bkdrop').forEach(b=>{
+  b.addEventListener('click',e=>{if(e.target===b)b.classList.remove('open');});
+});
+</script>
 
 <script>
 new Chart(document.getElementById('alertChart'),{type:'bar',data:{labels:['10월','11월','12월','1월','2월','3월'],datasets:[{label:'알림 건수',data:[1,2,1,2,2,4],backgroundColor:['#2563EB','#2563EB','#2563EB','#2563EB','#2563EB','#DC2626'],borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:10},stepSize:1}}}}});
