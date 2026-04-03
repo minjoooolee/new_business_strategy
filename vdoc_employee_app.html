@@ -212,6 +212,11 @@ body { font-family:'Pretendard',-apple-system,sans-serif; background:var(--bg); 
       <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:7px;letter-spacing:0.5px;">비밀번호</div>
       <input id="loginPw" type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:13px;font-size:15px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
+    <div style="width:100%;margin-bottom:20px;display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="toggleAutoLogin()">
+      <div id="autoLoginCheck" style="width:20px;height:20px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.15s;flex-shrink:0;"></div>
+      <div style="font-size:13.5px;color:var(--text);font-weight:500;">자동 로그인</div>
+      <div style="font-size:11.5px;color:var(--text-muted);margin-left:auto;">다음 접속 시 자동 로그인</div>
+    </div>
     <button class="btn btn-primary btn-full" onclick="doLogin()">로그인</button>
     <div style="margin-top:20px;font-size:12.5px;color:var(--text-muted);text-align:center;line-height:1.6;">🔒 개인 건강기록은 인사팀에 절대 공유되지 않으며,<br>산업안전보건법 준수를 위한 통계자료로만 보고됩니다.</div>
   </div>
@@ -805,17 +810,34 @@ function buildResultScreen(){
 // ═══════════════════════════════════
 // 로그인 / 로그아웃
 // ═══════════════════════════════════
+var autoLogin=false;
+function toggleAutoLogin(){
+  autoLogin=!autoLogin;
+  var el=document.getElementById('autoLoginCheck');
+  if(autoLogin){el.style.background='var(--accent)';el.style.borderColor='var(--accent)';el.style.color='white';el.textContent='✓';}
+  else{el.style.background='';el.style.borderColor='var(--border)';el.style.color='';el.textContent='';}
+}
+
+function applyLoginUI(name,empNo,company){
+  document.querySelector('.greeting-name').innerHTML='안녕하세요,<br>'+name+' 님 👋';
+  document.querySelector('.user-btn').textContent=name+' 님 ▾';
+  document.querySelector('.user-dropdown').querySelector('div').textContent=empNo+' · '+company;
+}
+
 function doLogin(){
   var name=document.getElementById('loginName').value.trim();
   var empNo=document.getElementById('loginEmpNo').value.trim();
   var company=document.getElementById('loginCompany').value.trim();
   var pw=document.getElementById('loginPw').value;
   if(!name||!empNo||!company||!pw){alert('모든 항목을 입력해 주세요.');return;}
+  // 자동 로그인 저장
+  if(autoLogin){
+    try{localStorage.setItem('vdoc_auto',JSON.stringify({name:name,empNo:empNo,company:company,pw:pw}));}catch(e){}
+  } else {
+    try{localStorage.removeItem('vdoc_auto');}catch(e){}
+  }
   // 실제 인증은 서버에서 처리 — 여기서는 UI 전환만
-  // 로그인한 이름을 홈 화면에 반영
-  document.querySelector('.greeting-name').innerHTML='안녕하세요,<br>'+name+' 님 👋';
-  document.querySelector('.user-btn').textContent=name+' 님 ▾';
-  document.querySelector('.user-dropdown').querySelector('div').textContent=empNo+' · '+company;
+  applyLoginUI(name,empNo,company);
   showScreen('homeScreen');
   setTimeout(function(){
     document.getElementById('checkModal').classList.remove('hidden');
@@ -831,6 +853,11 @@ function doLogout(){
   document.getElementById('loginEmpNo').value='';
   document.getElementById('loginCompany').value='';
   document.getElementById('loginPw').value='';
+  // 자동 로그인 해제
+  autoLogin=false;
+  var ac=document.getElementById('autoLoginCheck');
+  ac.style.background='';ac.style.borderColor='var(--border)';ac.style.color='';ac.textContent='';
+  try{localStorage.removeItem('vdoc_auto');}catch(e){}
   // 동의 체크 초기화
   ['c1','c2','c3'].forEach(function(id){
     var el=document.getElementById(id);
@@ -856,7 +883,27 @@ document.addEventListener('click',function(e){
 });
 
 window.onload=function(){
-  // 로그인 화면부터 시작
+  // 자동 로그인 체크
+  try{
+    var saved=localStorage.getItem('vdoc_auto');
+    if(saved){
+      var d=JSON.parse(saved);
+      if(d.name&&d.empNo&&d.company&&d.pw){
+        document.getElementById('loginName').value=d.name;
+        document.getElementById('loginEmpNo').value=d.empNo;
+        document.getElementById('loginCompany').value=d.company;
+        document.getElementById('loginPw').value=d.pw;
+        autoLogin=true;
+        var ac=document.getElementById('autoLoginCheck');
+        ac.style.background='var(--accent)';ac.style.borderColor='var(--accent)';ac.style.color='white';ac.textContent='✓';
+        applyLoginUI(d.name,d.empNo,d.company);
+        showScreen('homeScreen');
+        setTimeout(function(){document.getElementById('checkModal').classList.remove('hidden');},300);
+        return;
+      }
+    }
+  }catch(e){}
+  // 저장 정보 없으면 로그인 화면
   showScreen('loginScreen');
 };
 </script>
