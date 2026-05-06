@@ -2864,6 +2864,24 @@
           </div>
         </div>
       </div>
+      <div class="gnb-dropdown-wrap" id="danswer3Wrap">
+        <a class="gnb-link" id="danswer3Btn" onclick="toggleDanswer3(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2z"/><path d="M12 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/><path d="M17 8h1a2 2 0 0 1 0 4h-1"/></svg>
+          <span>닥터앤서3.0</span>
+          <svg class="pinkcare-caret" id="danswer3Caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="pinkcare-dropdown" id="danswer3Dropdown">
+          <a href="#" class="pinkcare-menu-item" onclick="closeDanswer3Dropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            5질환
+          </a>
+          <div class="pinkcare-menu-divider"></div>
+          <a href="#" class="pinkcare-menu-item" onclick="closeDanswer3Dropdown()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M8 12h1"/></svg>
+            6질환
+          </a>
+        </div>
+      </div>
       </a>
     </div>
   </div>
@@ -12263,7 +12281,35 @@ document.addEventListener('click', function(e) {
   if (vdocWrap && !vdocWrap.contains(e.target)) {
     closeVdocDropdown();
   }
+
+  const danswer3Wrap = document.getElementById('danswer3Wrap');
+  if (danswer3Wrap && !danswer3Wrap.contains(e.target)) {
+    closeDanswer3Dropdown();
+  }
 });
+
+// ===== 닥터앤서3.0 드롭다운 =====
+function closeDanswer3Dropdown() {
+  const dropdown = document.getElementById('danswer3Dropdown');
+  const btn = document.getElementById('danswer3Btn');
+  const caret = document.getElementById('danswer3Caret');
+  if (dropdown) dropdown.classList.remove('open');
+  if (btn) btn.classList.remove('active');
+  if (caret) caret.style.transform = '';
+}
+
+function toggleDanswer3(el) {
+  const dropdown = document.getElementById('danswer3Dropdown');
+  const caret = document.getElementById('danswer3Caret');
+  const isOpen = dropdown.classList.contains('open');
+  if (isOpen) {
+    closeDanswer3Dropdown();
+  } else {
+    dropdown.classList.add('open');
+    el.classList.add('active');
+    if (caret) caret.style.transform = 'rotate(180deg)';
+  }
+}
 
 // ===== 브이닥 엔터프라이즈 드롭다운 =====
 function closeVdocDropdown() {
