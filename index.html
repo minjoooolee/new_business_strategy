@@ -2871,10 +2871,19 @@
           <svg class="pinkcare-caret" id="danswer3Caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="pinkcare-dropdown" id="danswer3Dropdown">
-          <a href="#" class="pinkcare-menu-item" onclick="closeDanswer3Dropdown()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            2질환
-          </a>
+          <div class="vdoc-subgroup">
+            <button class="vdoc-subgroup-toggle" onclick="toggleDanswer3Subgroup(event, 'danswer32jilhwanItems')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              2질환
+              <svg class="vdoc-subgroup-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="vdoc-subgroup-items" id="danswer32jilhwanItems">
+              <a href="https://minjoooolee.github.io/new_business_strategy/pedi_air_user_flow.svg" target="_blank" rel="noopener" class="pinkcare-menu-item" onclick="closeDanswer3Dropdown()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+                user flow
+              </a>
+            </div>
+          </div>
           <div class="pinkcare-menu-divider"></div>
           <a href="#" class="pinkcare-menu-item" onclick="closeDanswer3Dropdown()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
@@ -12301,6 +12310,10 @@ function closeDanswer3Dropdown() {
   if (dropdown) dropdown.classList.remove('open');
   if (btn) btn.classList.remove('active');
   if (caret) caret.style.transform = '';
+  if (dropdown) {
+    dropdown.querySelectorAll('.vdoc-subgroup-toggle').forEach(t => t.classList.remove('open'));
+    dropdown.querySelectorAll('.vdoc-subgroup-items').forEach(i => i.classList.remove('open'));
+  }
 }
 
 function toggleDanswer3(el) {
@@ -12314,6 +12327,15 @@ function toggleDanswer3(el) {
     el.classList.add('active');
     if (caret) caret.style.transform = 'rotate(180deg)';
   }
+}
+
+function toggleDanswer3Subgroup(event, itemsId) {
+  event.preventDefault();
+  event.stopPropagation();
+  const toggle = event.currentTarget;
+  const items = document.getElementById(itemsId);
+  toggle.classList.toggle('open');
+  items.classList.toggle('open');
 }
 
 // ===== 브이닥 엔터프라이즈 드롭다운 =====
