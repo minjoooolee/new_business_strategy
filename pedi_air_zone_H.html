@@ -1,0 +1,298 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{display:flex;gap:14px;padding:1rem 0;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;align-items:center;gap:8px}
+.zone-label{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-align:center;padding:3px 10px;background:var(--color-background-secondary);border-radius:20px;border:0.5px solid var(--color-border-tertiary)}
+.phone{width:240px;background:#f0f4f8;border-radius:30px;border:2.5px solid #cbd5e1;overflow:hidden;font-size:11px}
+.notch{height:18px;background:#1e293b;display:flex;align-items:center;justify-content:center}
+.np{width:60px;height:7px;background:#0f172a;border-radius:8px}
+.sbar{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:4px 12px;font-size:9px;color:#64748b;border-bottom:0.5px solid #e2e8f0}
+.hdr-dark{background:#1e3a5f;padding:10px 14px}
+.hdr-sub-t{color:rgba(255,255,255,.6);font-size:8px;margin-bottom:4px}
+.hdr-title{color:#fff;font-size:13px;font-weight:600}
+.hdr-sub{color:rgba(255,255,255,.65);font-size:9px;margin-top:2px}
+.sec{font-size:8px;font-weight:600;color:#94a3b8;letter-spacing:.4px;text-transform:uppercase;padding:7px 12px 3px}
+.navbar{background:#fff;display:flex;border-top:0.5px solid #e2e8f0;padding:6px 0 8px}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px}
+.ni i{font-size:16px;color:#94a3b8}
+.ni i.act{color:#2563eb}
+.ni-t{font-size:7px;color:#94a3b8}
+.ni-t.act{color:#2563eb;font-weight:600}
+
+/* 일별 기록 */
+.stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:0 10px;margin-bottom:6px}
+.stat-card{border-radius:8px;padding:6px 8px;text-align:center}
+.stat-g{background:#f0fdf4;border:0.5px solid #bbf7d0}
+.stat-a{background:#fffbeb;border:0.5px solid #fde68a}
+.stat-r{background:#fef2f2;border:0.5px solid #fecaca}
+.stat-lbl{font-size:7px;font-weight:600;margin-bottom:2px}
+.stat-num{font-size:17px;font-weight:600}
+.stat-unit{font-size:7px}
+.stat-lbl-g{color:#059669}.stat-num-g{color:#065f46}.stat-unit-g{color:#94a3b8}
+.stat-lbl-a{color:#d97706}.stat-num-a{color:#b45309}.stat-unit-a{color:#94a3b8}
+.stat-lbl-r{color:#dc2626}.stat-num-r{color:#991b1b}.stat-unit-r{color:#94a3b8}
+
+.hist-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:0 10px 5px;overflow:hidden}
+.hc-head{padding:5px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid #f1f5f9}
+.hc-date{font-size:10px;font-weight:600;color:#1e293b}
+.badge{font-size:8px;padding:2px 7px;border-radius:20px}
+.bg-g{background:#dcfce7;color:#15803d}
+.bg-a{background:#fef3c7;color:#92400e}
+.hc-body{padding:6px 10px}
+.hr-row{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.hr-lbl{font-size:8px;color:#94a3b8;min-width:48px}
+.hr-bg{flex:1;height:3px;background:#f1f5f9;border-radius:4px;overflow:hidden}
+.hr-fill{height:3px;border-radius:4px}
+.hr-val{font-size:8px;color:#374151;min-width:30px;text-align:right}
+
+/* 주간 리포트 */
+.weekly-ai{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:0 10px 5px;padding:9px 12px}
+.wa-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.wa-title{font-size:10px;font-weight:600;color:#1e293b}
+.wa-badge{font-size:7px;background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:20px;font-weight:600}
+.wa-body{font-size:9px;color:#374151;line-height:1.5;background:#f8fafc;border-radius:6px;padding:7px 8px;border-left:2px solid #2563eb}
+
+.mini-chart{padding:6px 10px}
+.mc-wrap{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;padding:8px 10px}
+.mc-title{font-size:9px;font-weight:600;color:#374151;margin-bottom:6px}
+.mc-bars{display:flex;align-items:flex-end;gap:3px;height:36px}
+.mc-b{flex:1;border-radius:2px 2px 0 0;min-height:3px}
+.mc-xlbl{display:flex;gap:3px;margin-top:3px}
+.mc-xl{flex:1;font-size:7px;color:#94a3b8;text-align:center}
+.triage-dots{display:flex;gap:3px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.td-dot{width:10px;height:10px;border-radius:50%}
+
+/* 의료진 전송 카드 */
+.send-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:0 10px 5px;padding:9px 12px}
+.sc-head{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.sc-icon{width:26px;height:26px;background:#eff6ff;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-title{font-size:10px;font-weight:600;color:#1e293b}
+.sc-sub{font-size:8px;color:#6b7280;margin-top:1px}
+.sc-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:0.5px solid #f1f5f9}
+.sc-lbl{font-size:8px;color:#6b7280}
+.sc-val{font-size:8px;color:#374151;font-weight:500}
+.sc-val-g{color:#059669;font-weight:600}
+.sc-val-a{color:#d97706;font-weight:600}
+.send-btn{width:100%;padding:7px;background:#2563eb;border-radius:7px;color:#fff;font-size:10px;font-weight:600;text-align:center;margin-top:7px}
+
+/* 의료진 대시보드 뷰 */
+.dash-hdr{background:#1e3a5f;padding:10px 14px}
+.dash-body{background:#f8fafc;min-height:540px}
+.dash-pt-row{display:flex;align-items:center;gap:7px;padding:7px 10px;background:#fff;border-bottom:0.5px solid #e2e8f0}
+.dash-pt-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:#fff;flex-shrink:0}
+.dash-pt-name{font-size:10px;font-weight:600;color:#1e293b}
+.dash-pt-sub{font-size:8px;color:#6b7280}
+.dash-tl{font-size:14px;margin-left:auto}
+
+.dash-kpi{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px 10px}
+.kpi{background:#fff;border-radius:8px;border:0.5px solid #e2e8f0;padding:6px 8px}
+.kpi-lbl{font-size:7px;color:#94a3b8;margin-bottom:2px}
+.kpi-val{font-size:14px;font-weight:600;color:#1e293b}
+.kpi-sub{font-size:7px;color:#94a3b8;margin-top:1px}
+.kpi-warn{color:#d97706}
+
+.weekly-sum{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:0 10px 5px;padding:9px 12px}
+.ws-title{font-size:10px;font-weight:600;color:#1e293b;margin-bottom:5px}
+.ws-tag{display:inline-flex;align-items:center;gap:3px;background:#fef3c7;border-radius:20px;padding:2px 7px;font-size:8px;color:#92400e;font-weight:600;margin-bottom:5px}
+.ws-body{font-size:9px;color:#374151;line-height:1.5;background:#f8fafc;border-radius:6px;padding:6px 8px;border-left:2px solid #d97706}
+
+.param-table{padding:0 10px;margin-bottom:6px}
+.pt-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;overflow:hidden}
+.pt-head{background:#f8fafc;padding:4px 10px;border-bottom:0.5px solid #e2e8f0}
+.pt-head-t{font-size:9px;font-weight:600;color:#374151}
+.pt-row{display:flex;align-items:center;gap:5px;padding:4px 10px;border-bottom:0.5px solid #f1f5f9}
+.pt-param{font-size:8px;color:#6b7280;min-width:44px}
+.pt-trend-bg{flex:1;height:3px;background:#f1f5f9;border-radius:4px;overflow:hidden}
+.pt-trend-fill{height:3px;border-radius:4px}
+.pt-status{font-size:8px;min-width:36px;text-align:right}
+.st-ok{color:#059669;font-weight:600}
+.st-warn{color:#d97706;font-weight:600}
+</style>
+
+<div class="wrap">
+
+<!-- 일별 기록 화면 -->
+<div class="col">
+  <div class="zone-label">Zone H — 일별 기록 화면 (보호자)</div>
+  <div class="phone">
+    <div class="notch"><div class="np"></div></div>
+    <div class="sbar"><span>09:30</span><span><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></span></div>
+    <div style="background:#f0f4f8;min-height:580px">
+      <div class="hdr-dark">
+        <div class="hdr-sub-t">김민준 (5세) · 기록</div>
+        <div class="hdr-title">Ventilator 기록</div>
+        <div class="hdr-sub">5월 1일 – 5월 8일</div>
+      </div>
+
+      <div style="padding:7px 10px 3px">
+        <div class="stat-row">
+          <div class="stat-card stat-g"><div class="stat-lbl stat-lbl-g">안정</div><div class="stat-num stat-num-g">5</div><div class="stat-unit stat-unit-g">일</div></div>
+          <div class="stat-card stat-a"><div class="stat-lbl stat-lbl-a">관찰</div><div class="stat-num stat-num-a">2</div><div class="stat-unit stat-unit-a">일</div></div>
+          <div class="stat-card stat-r"><div class="stat-lbl stat-lbl-r">위험</div><div class="stat-num stat-num-r">0</div><div class="stat-unit stat-unit-r">일</div></div>
+        </div>
+      </div>
+
+      <div class="mini-chart">
+        <div class="mc-wrap">
+          <div class="mc-title">이번 주 Daily Triage</div>
+          <div class="mc-bars">
+            <div class="mc-b" style="height:28px;background:#bbf7d0"></div>
+            <div class="mc-b" style="height:32px;background:#bbf7d0"></div>
+            <div class="mc-b" style="height:20px;background:#fde68a"></div>
+            <div class="mc-b" style="height:30px;background:#bbf7d0"></div>
+            <div class="mc-b" style="height:26px;background:#bbf7d0"></div>
+            <div class="mc-b" style="height:22px;background:#fde68a"></div>
+            <div class="mc-b" style="height:28px;background:#bbf7d0"></div>
+          </div>
+          <div class="mc-xlbl">
+            <div class="mc-xl">월</div><div class="mc-xl">화</div><div class="mc-xl">수</div>
+            <div class="mc-xl">목</div><div class="mc-xl">금</div><div class="mc-xl">토</div><div class="mc-xl">일</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">일별 상세 기록</div>
+
+      <div class="hist-card">
+        <div class="hc-head"><div class="hc-date">5월 8일 (오늘)</div><div class="badge bg-a">🟡 관찰 중</div></div>
+        <div class="hc-body">
+          <div class="hr-row"><div class="hr-lbl">PIP</div><div class="hr-bg"><div class="hr-fill" style="width:45%;background:#059669"></div></div><div class="hr-val">18 cmH₂O</div></div>
+          <div class="hr-row"><div class="hr-lbl">VTe</div><div class="hr-bg"><div class="hr-fill" style="width:58%;background:#059669"></div></div><div class="hr-val">142 mL</div></div>
+          <div class="hr-row"><div class="hr-lbl">RR</div><div class="hr-bg"><div class="hr-fill" style="width:72%;background:#d97706"></div></div><div class="hr-val">28 ↑</div></div>
+          <div class="hr-row"><div class="hr-lbl">Leak</div><div class="hr-bg"><div class="hr-fill" style="width:38%;background:#059669"></div></div><div class="hr-val">19 L/m</div></div>
+          <div class="hr-row" style="margin-bottom:0"><div class="hr-lbl">MinVent</div><div class="hr-bg"><div class="hr-fill" style="width:52%;background:#d97706"></div></div><div class="hr-val">3.97 ↓</div></div>
+        </div>
+      </div>
+
+      <div class="hist-card">
+        <div class="hc-head"><div class="hc-date">5월 7일</div><div class="badge bg-g">🟢 안정</div></div>
+        <div class="hc-body">
+          <div class="hr-row"><div class="hr-lbl">PIP</div><div class="hr-bg"><div class="hr-fill" style="width:42%;background:#059669"></div></div><div class="hr-val">17</div></div>
+          <div class="hr-row" style="margin-bottom:0"><div class="hr-lbl">MinVent</div><div class="hr-bg"><div class="hr-fill" style="width:62%;background:#059669"></div></div><div class="hr-val">4.52</div></div>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="ni"><i class="ti ti-home" aria-hidden="true"></i><div class="ni-t">홈</div></div>
+        <div class="ni"><i class="ti ti-clock act" aria-hidden="true"></i><div class="ni-t act">기록</div></div>
+        <div class="ni"><i class="ti ti-chart-bar" aria-hidden="true"></i><div class="ni-t">리포트</div></div>
+        <div class="ni"><i class="ti ti-user" aria-hidden="true"></i><div class="ni-t">내 정보</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 주간 리포트 + 의료진 전송 -->
+<div class="col">
+  <div class="zone-label">Zone H — 주간 리포트 · 의료진 전송</div>
+  <div class="phone">
+    <div class="notch"><div class="np"></div></div>
+    <div class="sbar"><span>09:30</span><span><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></span></div>
+    <div style="background:#f0f4f8;min-height:580px">
+      <div class="hdr-dark">
+        <div class="hdr-sub-t">김민준 (5세) · 리포트</div>
+        <div class="hdr-title">주간 리포트</div>
+        <div class="hdr-sub">5/1 – 5/8 · 자동 생성</div>
+      </div>
+
+      <div class="sec">AI 추론 요약</div>
+      <div class="weekly-ai">
+        <div class="wa-head"><div class="wa-title">이번 주 종합 소견</div><div class="wa-badge">의료진 공유 예정</div></div>
+        <div class="wa-body">전반적으로 안정적인 한 주였습니다. 5/8(일) 오전 RR이 기준 대비 18% 상승하고 MinVent가 소폭 감소하는 추세가 관찰되었습니다. 나머지 지표는 기준 범위를 유지했습니다. 지속 관찰이 권장됩니다.</div>
+      </div>
+
+      <div class="param-table">
+        <div class="pt-card">
+          <div class="pt-head"><div class="pt-head-t">파라미터별 주간 추세</div></div>
+          <div class="pt-row"><div class="pt-param">PIP</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:45%;background:#059669"></div></div><div class="pt-status st-ok">안정</div></div>
+          <div class="pt-row"><div class="pt-param">VTe</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:58%;background:#059669"></div></div><div class="pt-status st-ok">안정</div></div>
+          <div class="pt-row"><div class="pt-param">RR</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:68%;background:#d97706"></div></div><div class="pt-status st-warn">↑ 주의</div></div>
+          <div class="pt-row"><div class="pt-param">Leak</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:38%;background:#059669"></div></div><div class="pt-status st-ok">안정</div></div>
+          <div class="pt-row" style="border:none"><div class="pt-param">MinVent</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:52%;background:#d97706"></div></div><div class="pt-status st-warn">↓ 주의</div></div>
+        </div>
+      </div>
+
+      <div class="send-card">
+        <div class="sc-head">
+          <div class="sc-icon"><i class="ti ti-stethoscope" style="font-size:14px;color:#2563eb" aria-hidden="true"></i></div>
+          <div><div class="sc-title">의료진 전송 준비</div><div class="sc-sub">이○○ 교수팀 · 세브란스병원</div></div>
+        </div>
+        <div class="sc-row"><div class="sc-lbl">다음 외래일</div><div class="sc-val">2026. 5. 15</div></div>
+        <div class="sc-row"><div class="sc-lbl">안정일 / 관찰일</div><div class="sc-val"><span class="sc-val-g">5일</span> / <span class="sc-val-a">2일</span></div></div>
+        <div class="sc-row"><div class="sc-lbl">PRO 응답률</div><div class="sc-val">87%</div></div>
+        <div class="sc-row" style="border:none"><div class="sc-lbl">알람 발생</div><div class="sc-val">3회 (High Pressure)</div></div>
+        <div class="send-btn">주간 리포트 의료진 전송</div>
+      </div>
+
+      <div class="navbar">
+        <div class="ni"><i class="ti ti-home" aria-hidden="true"></i><div class="ni-t">홈</div></div>
+        <div class="ni"><i class="ti ti-clock" aria-hidden="true"></i><div class="ni-t">기록</div></div>
+        <div class="ni"><i class="ti ti-chart-bar act" aria-hidden="true"></i><div class="ni-t act">리포트</div></div>
+        <div class="ni"><i class="ti ti-user" aria-hidden="true"></i><div class="ni-t">내 정보</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 의료진 대시보드 뷰 (웹) -->
+<div class="col">
+  <div class="zone-label">Zone H — 의료진 대시보드 (웹 뷰)</div>
+  <div class="phone">
+    <div class="notch"><div class="np"></div></div>
+    <div class="sbar"><span>09:30</span><span><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></span></div>
+    <div style="background:#f8fafc;min-height:580px">
+      <div class="dash-hdr">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div><div style="color:rgba(255,255,255,.6);font-size:8px">의료진 대시보드</div><div style="color:#fff;font-size:13px;font-weight:600;margin-top:2px">환자 모니터링</div></div>
+          <div style="background:rgba(255,255,255,.15);border-radius:7px;padding:4px 8px;font-size:8px;color:#fff">세브란스병원</div>
+        </div>
+      </div>
+
+      <div class="dash-body">
+        <div class="sec">등록 환자 현황</div>
+
+        <div class="dash-pt-row">
+          <div class="dash-pt-av" style="background:#059669">KJ</div>
+          <div><div class="dash-pt-name">김민준 (5세)</div><div class="dash-pt-sub">마지막 동기화 09:23</div></div>
+          <div class="dash-tl">🟡</div>
+        </div>
+        <div class="dash-pt-row">
+          <div class="dash-pt-av" style="background:#059669">LH</div>
+          <div><div class="dash-pt-name">이하늘 (8세)</div><div class="dash-pt-sub">마지막 동기화 08:51</div></div>
+          <div class="dash-tl">🟢</div>
+        </div>
+        <div class="dash-pt-row" style="border-bottom:0.5px solid #e2e8f0">
+          <div class="dash-pt-av" style="background:#dc2626">PY</div>
+          <div><div class="dash-pt-name">박유준 (3세)</div><div class="dash-pt-sub">마지막 동기화 09:28</div></div>
+          <div class="dash-tl">🟢</div>
+        </div>
+
+        <div class="dash-kpi">
+          <div class="kpi"><div class="kpi-lbl">이번 주 Amber 이상</div><div class="kpi-val">2</div><div class="kpi-sub">환자 1명 · 2회</div></div>
+          <div class="kpi"><div class="kpi-lbl">평균 PRO 응답률</div><div class="kpi-val">84<span style="font-size:10px">%</span></div><div class="kpi-sub">3환자 평균</div></div>
+          <div class="kpi"><div class="kpi-lbl">알람 발생 (주간)</div><div class="kpi-val kpi-warn">6</div><div class="kpi-sub">High Pressure 4 / Apnea 2</div></div>
+          <div class="kpi"><div class="kpi-lbl">다음 외래 예정</div><div class="kpi-val">2명</div><div class="kpi-sub">5월 15일 · 22일</div></div>
+        </div>
+
+        <div class="sec">김민준 AI 주간 소견</div>
+        <div class="weekly-sum">
+          <div class="ws-tag"><i class="ti ti-alert-circle" style="font-size:10px" aria-hidden="true"></i>주의 관찰 권장</div>
+          <div class="ws-body">RR 18% 상승 및 MinVent 소폭 감소 추세 관찰. 기도 분비물 증가 가능성. 외래 시 기도 상태 확인 및 환기기 설정 검토를 권고합니다. High Pressure 알람 3회 (분비물 관련 추정).</div>
+        </div>
+
+        <div class="param-table">
+          <div class="pt-card">
+            <div class="pt-head"><div class="pt-head-t">파라미터 7일 추세 (김민준)</div></div>
+            <div class="pt-row"><div class="pt-param">PIP</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:42%;background:#059669"></div></div><div class="pt-status st-ok">정상</div></div>
+            <div class="pt-row"><div class="pt-param">RR</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:68%;background:#d97706"></div></div><div class="pt-status st-warn">↑ 주의</div></div>
+            <div class="pt-row" style="border:none"><div class="pt-param">MinVent</div><div class="pt-trend-bg"><div class="pt-trend-fill" style="width:50%;background:#d97706"></div></div><div class="pt-status st-warn">↓ 주의</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
