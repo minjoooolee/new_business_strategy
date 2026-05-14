@@ -1,0 +1,255 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif}
+.wrap{display:flex;gap:0;padding:1rem 0;justify-content:center;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.col{display:flex;flex-direction:column;align-items:center;gap:8px}
+.zone-label{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.5px;text-align:center;padding:4px 12px;background:var(--color-background-secondary);border-radius:20px;border:0.5px solid var(--color-border-tertiary)}
+.phone{width:280px;background:#f0f4f8;border-radius:36px;border:2.5px solid #cbd5e1;overflow:hidden;font-size:12px}
+.notch{height:22px;background:#1e293b;display:flex;align-items:center;justify-content:center}
+.notch-pill{width:72px;height:8px;background:#0f172a;border-radius:8px}
+.sbar{background:#ffffff;display:flex;justify-content:space-between;align-items:center;padding:5px 14px;font-size:10px;color:#64748b;border-bottom:0.5px solid #e2e8f0}
+/* ── Login ── */
+.login-bg{background:#1e3a5f;min-height:580px;display:flex;flex-direction:column;align-items:center;padding:32px 20px 24px}
+.login-logo{width:56px;height:56px;background:#2563eb;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.login-title{color:#fff;font-size:18px;font-weight:600;letter-spacing:-.3px}
+.login-sub{color:rgba(255,255,255,.6);font-size:11px;margin-top:3px;margin-bottom:32px}
+.login-card{background:#fff;border-radius:16px;padding:20px 18px;width:100%}
+.input-lbl{font-size:10px;color:#64748b;margin-bottom:4px}
+.input-box{width:100%;border:1px solid #e2e8f0;border-radius:8px;padding:9px 12px;font-size:12px;color:#1e293b;background:#f8fafc;margin-bottom:12px}
+.bio-row{display:flex;gap:8px;margin-top:4px}
+.bio-btn{flex:1;padding:10px 6px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.bio-icon{font-size:20px}
+.bio-txt{font-size:9px;color:#64748b}
+.login-btn{width:100%;padding:11px;background:#2563eb;border-radius:10px;color:#fff;font-size:13px;font-weight:600;text-align:center;margin-top:16px;cursor:pointer}
+.login-link{color:#3b82f6;font-size:10px;text-align:center;margin-top:10px}
+.login-footer{margin-top:auto;color:rgba(255,255,255,.4);font-size:9px;text-align:center}
+/* ── Home ── */
+.home-bg{background:#f0f4f8;min-height:640px}
+.topbar{background:#fff;padding:10px 14px 8px;border-bottom:0.5px solid #e2e8f0}
+.topbar-row{display:flex;align-items:center;justify-content:space-between}
+.logo-row{display:flex;align-items:center;gap:6px}
+.logo-sq{width:24px;height:24px;background:#2563eb;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.logo-t{font-size:14px;font-weight:600;color:#1e3a5f}
+.logo-s{font-size:9px;color:#94a3b8;margin-top:1px}
+.bell{width:28px;height:28px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.pt-bar{background:#1e3a5f;padding:8px 14px}
+.pt-name{color:#fff;font-size:12px;font-weight:600}
+.pt-sub{color:rgba(255,255,255,.65);font-size:9px;margin-top:1px}
+.sync-pill{display:inline-flex;align-items:center;gap:3px;background:rgba(255,255,255,.15);border-radius:20px;padding:2px 7px;font-size:8px;color:#fff;margin-top:4px}
+.dot{width:5px;height:5px;background:#4ade80;border-radius:50%;animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.sec-lbl{font-size:9px;font-weight:600;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase;padding:8px 14px 4px}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 10px}
+.vc{background:#fff;border-radius:10px;padding:8px 10px;border:0.5px solid #e2e8f0;position:relative;overflow:hidden}
+.vc-wide{grid-column:span 2}
+.vc-lbl{font-size:8px;color:#94a3b8;letter-spacing:.4px;text-transform:uppercase}
+.vc-val{font-size:18px;font-weight:600;line-height:1.1;margin:2px 0 1px}
+.vc-unit{font-size:9px;color:#94a3b8}
+.vc-note{font-size:8px;margin-top:3px}
+.vc-bar{position:absolute;bottom:0;left:0;right:0;height:2.5px;border-radius:0 0 10px 10px}
+.green{color:#059669}.amber{color:#d97706}.red-c{color:#dc2626}
+.bg-green{background:#059669}.bg-amber{background:#d97706}.bg-red{background:#dc2626}
+.sparkline{height:18px;display:flex;align-items:flex-end;gap:1.5px;margin-top:3px}
+.sp{width:5px;border-radius:1px 1px 0 0;background:#e0e7ff;min-height:3px}
+.sp.hi{background:#3b82f6}
+.sp.warn{background:#d97706}
+.triage-wrap{padding:8px 10px}
+.triage-card{border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.triage-amber{background:#fffbeb;border:1.5px solid #fde68a}
+.tlight{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.tl-a{background:#fef3c7;border:2px solid #fbbf24}
+.tri-main{font-size:11px;font-weight:600;color:#92400e}
+.tri-sub{font-size:9px;color:#b45309;margin-top:2px;line-height:1.4}
+.tri-time{font-size:8px;color:#d97706;margin-top:3px}
+.ai-wrap{padding:4px 10px 10px}
+.ai-card{background:#fff;border-radius:12px;border:0.5px solid #e2e8f0;overflow:hidden}
+.ai-head{background:#1e3a5f;padding:7px 12px;display:flex;align-items:center;gap:5px}
+.ai-head-t{font-size:10px;font-weight:600;color:#fff}
+.ai-bub{background:#eff6ff;border-radius:0 8px 8px 8px;padding:8px 10px;margin:10px 12px 8px;font-size:10px;color:#1e3a5f;line-height:1.5;border-left:2px solid #3b82f6}
+.ai-q{font-size:11px;font-weight:500;color:#1e293b;padding:0 12px;margin-bottom:8px}
+.ai-btns{display:flex;gap:6px;padding:0 12px 12px}
+.btn-ok{flex:1;padding:8px;background:#059669;border-radius:7px;color:#fff;font-size:11px;font-weight:600;text-align:center}
+.btn-worry{flex:1;padding:8px;background:#fff;border:1.5px solid #dc2626;border-radius:7px;color:#dc2626;font-size:11px;font-weight:600;text-align:center}
+.navbar{background:#fff;display:flex;border-top:0.5px solid #e2e8f0;padding:7px 0 9px}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.ni-icon{font-size:18px;color:#94a3b8}
+.ni-icon.act{color:#2563eb}
+.ni-t{font-size:8px;color:#94a3b8}
+.ni-t.act{color:#2563eb;font-weight:600}
+</style>
+
+<div class="wrap">
+
+<!-- Zone A: 로그인 -->
+<div class="col">
+  <div class="zone-label">Zone A — 앱 진입 · 로그인</div>
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="sbar"><span>09:24</span><span style="display:flex;gap:5px;align-items:center;font-size:13px">
+      <i class="ti ti-wifi" style="font-size:12px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:12px" aria-hidden="true"></i>
+    </span></div>
+    <div class="login-bg">
+      <div class="login-logo">
+        <i class="ti ti-lungs" style="font-size:26px;color:#fff" aria-hidden="true"></i>
+      </div>
+      <div class="login-title">Pedi-Air</div>
+      <div class="login-sub">닥터앤서 3.0 · 소아 만성호흡부전</div>
+      <div class="login-card">
+        <div class="input-lbl">환자 등록번호</div>
+        <div class="input-box" style="color:#94a3b8">P-2024-0381</div>
+        <div class="input-lbl">비밀번호</div>
+        <div class="input-box" style="letter-spacing:4px">••••••</div>
+        <div class="login-btn">로그인</div>
+        <div style="display:flex;align-items:center;gap:8px;margin:14px 0 6px">
+          <div style="flex:1;height:0.5px;background:#e2e8f0"></div>
+          <span style="font-size:9px;color:#94a3b8">또는 간편 인증</span>
+          <div style="flex:1;height:0.5px;background:#e2e8f0"></div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-btn">
+            <i class="ti ti-fingerprint" style="font-size:20px;color:#2563eb" aria-hidden="true"></i>
+            <div class="bio-txt">지문인식</div>
+          </div>
+          <div class="bio-btn">
+            <i class="ti ti-eye" style="font-size:20px;color:#2563eb" aria-hidden="true"></i>
+            <div class="bio-txt">Face ID</div>
+          </div>
+        </div>
+        <div class="login-link">비밀번호를 잊으셨나요?</div>
+      </div>
+      <div class="login-footer" style="margin-top:20px">세브란스병원 · 서울아산병원 공동 운영<br>닥터앤서 3.0 국책과제 / 식약처 인허가 추진 중</div>
+    </div>
+  </div>
+</div>
+
+<!-- Zone B: 홈 대시보드 -->
+<div class="col">
+  <div class="zone-label">Zone B — 홈 · Ventilator 대시보드</div>
+  <div class="phone">
+    <div class="notch"><div class="notch-pill"></div></div>
+    <div class="sbar"><span>09:24</span><span style="display:flex;gap:5px;align-items:center">
+      <i class="ti ti-wifi" style="font-size:12px" aria-hidden="true"></i>
+      <i class="ti ti-battery-2" style="font-size:12px" aria-hidden="true"></i>
+    </span></div>
+    <div class="home-bg">
+      <div class="topbar">
+        <div class="topbar-row">
+          <div class="logo-row">
+            <div class="logo-sq"><i class="ti ti-lungs" style="font-size:13px;color:#fff" aria-hidden="true"></i></div>
+            <div><div class="logo-t">Pedi-Air</div><div class="logo-s">닥터앤서 3.0</div></div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <div class="bell"><i class="ti ti-bell" style="font-size:14px;color:#64748b" aria-hidden="true"></i></div>
+            <div class="bell"><i class="ti ti-settings" style="font-size:14px;color:#64748b" aria-hidden="true"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="pt-bar">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div class="pt-name">김민준 (5세, 남아)</div>
+            <div class="pt-sub">세브란스병원 · 이○○ 교수</div>
+            <div class="sync-pill"><div class="dot"></div>동기화 중</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:8px;color:rgba(255,255,255,.5)">마지막 동기화</div>
+            <div style="font-size:11px;color:#fff;font-weight:600">09:23</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.45);margin-top:2px">Trilogy 200</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-lbl">V-PEP 실시간 환기 지표 (5종)</div>
+      <div class="vgrid">
+        <!-- PIP -->
+        <div class="vc">
+          <div class="vc-lbl">PIP</div>
+          <div style="display:flex;align-items:baseline;gap:3px"><div class="vc-val green">18</div><div class="vc-unit">cmH₂O</div></div>
+          <div class="vc-note green">기준 ±2 · 정상</div>
+          <div class="sparkline"><div class="sp" style="height:8px"></div><div class="sp" style="height:11px"></div><div class="sp" style="height:9px"></div><div class="sp hi" style="height:12px"></div><div class="sp hi" style="height:11px"></div></div>
+          <div class="vc-bar bg-green"></div>
+        </div>
+        <!-- VTe -->
+        <div class="vc">
+          <div class="vc-lbl">VTe</div>
+          <div style="display:flex;align-items:baseline;gap:3px"><div class="vc-val green">142</div><div class="vc-unit">mL</div></div>
+          <div class="vc-note green">정상 범위</div>
+          <div class="sparkline"><div class="sp" style="height:12px"></div><div class="sp" style="height:11px"></div><div class="sp hi" style="height:14px"></div><div class="sp hi" style="height:12px"></div><div class="sp hi" style="height:13px"></div></div>
+          <div class="vc-bar bg-green"></div>
+        </div>
+        <!-- RR -->
+        <div class="vc">
+          <div class="vc-lbl">RR</div>
+          <div style="display:flex;align-items:baseline;gap:3px"><div class="vc-val amber">28</div><div class="vc-unit">bpm</div></div>
+          <div class="vc-note amber">+18% 상승 ↑</div>
+          <div class="sparkline"><div class="sp" style="height:6px"></div><div class="sp" style="height:8px"></div><div class="sp" style="height:10px"></div><div class="sp warn" style="height:14px"></div><div class="sp warn" style="height:16px"></div></div>
+          <div class="vc-bar bg-amber"></div>
+        </div>
+        <!-- Leak -->
+        <div class="vc">
+          <div class="vc-lbl">Leak</div>
+          <div style="display:flex;align-items:baseline;gap:3px"><div class="vc-val green">19</div><div class="vc-unit">L/min</div></div>
+          <div class="vc-note green">허용 범위</div>
+          <div class="sparkline"><div class="sp" style="height:10px"></div><div class="sp hi" style="height:12px"></div><div class="sp" style="height:9px"></div><div class="sp hi" style="height:11px"></div><div class="sp hi" style="height:10px"></div></div>
+          <div class="vc-bar bg-green"></div>
+        </div>
+        <!-- MinVent wide -->
+        <div class="vc vc-wide">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div>
+              <div class="vc-lbl">MinVent (분당환기량)</div>
+              <div style="display:flex;align-items:baseline;gap:3px"><div class="vc-val amber" style="font-size:20px">3.97</div><div class="vc-unit">L/min</div></div>
+              <div class="vc-note amber">설정치 -12% · 추세 주의</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:8px;color:#94a3b8;margin-bottom:2px">6시간 추세</div>
+              <div class="sparkline" style="justify-content:flex-end">
+                <div class="sp hi" style="height:14px"></div><div class="sp hi" style="height:12px"></div><div class="sp hi" style="height:13px"></div><div class="sp hi" style="height:10px"></div><div class="sp warn" style="height:9px"></div><div class="sp warn" style="height:8px"></div>
+              </div>
+            </div>
+          </div>
+          <div class="vc-bar bg-amber"></div>
+        </div>
+      </div>
+
+      <!-- Traffic Light -->
+      <div class="triage-wrap">
+        <div class="triage-card triage-amber">
+          <div class="tlight tl-a">🟡</div>
+          <div>
+            <div class="tri-main">관찰 필요 (Amber)</div>
+            <div class="tri-sub">RR · MinVent 변화 감지됨.<br>아이 상태 확인이 필요합니다.</div>
+            <div class="tri-time">분석: 09:23 · 다음: 10:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 질문 -->
+      <div class="ai-wrap">
+        <div class="ai-card">
+          <div class="ai-head">
+            <i class="ti ti-robot" style="font-size:13px;color:#93c5fd" aria-hidden="true"></i>
+            <div class="ai-head-t">AI 모니터링 에이전트</div>
+          </div>
+          <div class="ai-bub">호흡수(RR)가 기준치보다 높습니다. 지금 민준이 상태가 어때요?</div>
+          <div class="ai-q">지금 아이가 평소와 비교해서 어떤가요?</div>
+          <div class="ai-btns">
+            <div class="btn-ok">괜찮아요</div>
+            <div class="btn-worry">걱정돼요</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <div class="ni"><i class="ti ti-home ni-icon act" aria-hidden="true"></i><div class="ni-t act">홈</div></div>
+        <div class="ni"><i class="ti ti-clock ni-icon" aria-hidden="true"></i><div class="ni-t">기록</div></div>
+        <div class="ni"><i class="ti ti-chart-bar ni-icon" aria-hidden="true"></i><div class="ni-t">리포트</div></div>
+        <div class="ni"><i class="ti ti-user ni-icon" aria-hidden="true"></i><div class="ni-t">내 정보</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
