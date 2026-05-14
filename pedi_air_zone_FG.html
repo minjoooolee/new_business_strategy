@@ -1,0 +1,258 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{display:flex;gap:14px;padding:1rem 0;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;align-items:center;gap:8px}
+.zone-label{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-align:center;padding:3px 10px;background:var(--color-background-secondary);border-radius:20px;border:0.5px solid var(--color-border-tertiary)}
+.phone{width:240px;background:#f0f4f8;border-radius:30px;border:2.5px solid #cbd5e1;overflow:hidden;font-size:11px}
+.notch{height:18px;background:#1e293b;display:flex;align-items:center;justify-content:center}
+.np{width:60px;height:7px;background:#0f172a;border-radius:8px}
+.sbar{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:4px 12px;font-size:9px;color:#64748b;border-bottom:0.5px solid #e2e8f0}
+.hdr-blue{background:#2563eb;padding:10px 14px}
+.hdr-back{display:flex;align-items:center;gap:4px;color:rgba(255,255,255,.75);font-size:9px;margin-bottom:5px}
+.hdr-title{color:#fff;font-size:13px;font-weight:600}
+.hdr-sub{color:rgba(255,255,255,.7);font-size:9px;margin-top:2px}
+.ctx-bar{display:flex;align-items:center;gap:6px;padding:6px 12px;background:#fffbeb;border-bottom:0.5px solid #fde68a}
+.ctx-txt{font-size:9px;color:#92400e;font-weight:500}
+.pro-sec{padding:6px 10px 0}
+.pro-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin-bottom:6px;overflow:hidden}
+.pc-head{background:#f8fafc;padding:5px 10px;border-bottom:0.5px solid #e2e8f0;display:flex;align-items:center;gap:5px}
+.pc-num{width:15px;height:15px;background:#2563eb;border-radius:50%;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pc-q{font-size:9px;font-weight:600;color:#374151}
+.pc-body{padding:7px 10px}
+.opt-row{display:flex;gap:4px;flex-wrap:wrap}
+.opt{padding:3px 7px;border-radius:20px;border:1px solid #e2e8f0;font-size:8px;color:#374151;background:#fff}
+.opt.sel{background:#dbeafe;border-color:#3b82f6;color:#1d4ed8;font-weight:600}
+.face-row{display:flex;gap:4px}
+.face{flex:1;padding:4px 2px;border-radius:7px;border:1px solid #e2e8f0;background:#fff;text-align:center;font-size:13px}
+.face.sel{border-color:#f59e0b;background:#fffbeb}
+.face-lbl{font-size:7px;color:#6b7280;margin-top:1px}
+.spo2-row{display:flex;align-items:center;gap:5px;background:#f9fafb;border-radius:6px;padding:5px 7px;border:0.5px solid #e2e8f0}
+.submit-b{margin:4px 10px 10px;width:calc(100% - 20px);padding:8px;background:#2563eb;border-radius:8px;color:#fff;font-size:11px;font-weight:600;text-align:center}
+/* AI 결과 카드 */
+.result-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:0 10px 6px;padding:10px 12px}
+.rc-title{font-size:10px;font-weight:600;color:#1e293b;margin-bottom:4px}
+.rc-body{font-size:9px;color:#374151;line-height:1.5;background:#f0f9ff;border-radius:6px;padding:7px 8px;border-left:2px solid #3b82f6}
+.navbar{background:#fff;display:flex;border-top:0.5px solid #e2e8f0;padding:6px 0 8px}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px}
+.ni i{font-size:16px;color:#94a3b8}
+.ni i.act{color:#2563eb}
+.ni-t{font-size:7px;color:#94a3b8}
+.ni-t.act{color:#2563eb;font-weight:600}
+
+/* Zone G */
+.hdr-amber{background:#d97706;padding:10px 14px}
+.alarm-strip{background:#fee2e2;padding:7px 12px;display:flex;align-items:center;gap:6px;border-bottom:0.5px solid #fecaca}
+.alarm-type{font-size:9px;font-weight:600;color:#991b1b}
+.alarm-time{font-size:8px;color:#dc2626}
+.cause-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:6px 10px 0;padding:10px 12px}
+.cause-title{font-size:10px;font-weight:600;color:#1e293b;margin-bottom:5px}
+.cause-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.cause-pct{min-width:28px;font-size:9px;font-weight:600;color:#2563eb;text-align:right}
+.cause-bar-bg{flex:1;height:4px;background:#f1f5f9;border-radius:4px;overflow:hidden}
+.cause-bar{height:4px;border-radius:4px}
+.cause-name{font-size:8px;color:#374151;min-width:62px}
+.guide-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:6px 10px 0;padding:10px 12px}
+.g-title{font-size:10px;font-weight:600;color:#1e293b;margin-bottom:5px}
+.g-step{display:flex;gap:5px;align-items:flex-start;margin-bottom:5px}
+.g-num{width:15px;height:15px;border-radius:50%;background:#d97706;color:#fff;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.g-txt{font-size:9px;color:#374151;line-height:1.4}
+.resolved-card{background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:6px 10px 0;padding:8px 12px}
+.res-title{font-size:9px;font-weight:600;color:#374151;margin-bottom:5px}
+.res-row{display:flex;gap:6px}
+.res-ok{flex:1;padding:7px;background:#059669;border-radius:7px;color:#fff;font-size:9px;font-weight:600;text-align:center}
+.res-no{flex:1;padding:7px;background:#fff;border:1px solid #dc2626;border-radius:7px;color:#dc2626;font-size:9px;font-weight:600;text-align:center}
+.repeat-warn{background:#fff;border-radius:10px;border:0.5px solid #fde68a;margin:6px 10px 0;padding:7px 10px;display:flex;gap:6px;align-items:flex-start}
+.rw-txt{font-size:8px;color:#92400e;line-height:1.4}
+</style>
+
+<div class="wrap">
+
+<!-- Zone F: PRO 상세 문진 -->
+<div class="col">
+  <div class="zone-label">Zone F — PRO 상세 문진 화면</div>
+  <div class="phone">
+    <div class="notch"><div class="np"></div></div>
+    <div class="sbar"><span>09:25</span><span><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></span></div>
+    <div style="background:#f8fafc;min-height:600px">
+      <div class="hdr-blue">
+        <div class="hdr-back"><i class="ti ti-arrow-left" style="font-size:11px" aria-hidden="true"></i>홈으로</div>
+        <div class="hdr-title">상태 확인 문진</div>
+        <div class="hdr-sub">AI가 현재 상태를 파악합니다</div>
+      </div>
+      <div class="ctx-bar">
+        <span style="font-size:11px">🟡</span>
+        <span class="ctx-txt">RR · MinVent 변화 감지 · 09:23</span>
+      </div>
+
+      <div class="pro-sec">
+        <!-- Q1 -->
+        <div class="pro-card">
+          <div class="pc-head"><div class="pc-num">1</div><div class="pc-q">지금 아이의 숨쉬기 상태는?</div></div>
+          <div class="pc-body">
+            <div class="opt-row">
+              <div class="opt sel">평소와 같아요</div>
+              <div class="opt">좀 힘들어요</div>
+              <div class="opt">매우 힘들어요</div>
+            </div>
+          </div>
+        </div>
+        <!-- Q2 -->
+        <div class="pro-card">
+          <div class="pc-head"><div class="pc-num">2</div><div class="pc-q">SpO₂ 수치를 확인했나요?</div></div>
+          <div class="pc-body">
+            <div class="opt-row" style="margin-bottom:5px">
+              <div class="opt">아직 안 봤어요</div>
+              <div class="opt sel">확인했어요</div>
+            </div>
+            <div class="spo2-row">
+              <i class="ti ti-heart" style="font-size:12px;color:#dc2626" aria-hidden="true"></i>
+              <span style="font-size:8px;color:#64748b">SpO₂</span>
+              <div style="width:36px;border:1px solid #d1d5db;border-radius:4px;padding:2px 4px;font-size:10px;font-weight:600;text-align:center;background:#fff">96</div>
+              <span style="font-size:8px;color:#64748b">%</span>
+            </div>
+          </div>
+        </div>
+        <!-- Q3 -->
+        <div class="pro-card">
+          <div class="pc-head"><div class="pc-num">3</div><div class="pc-q">아이 전반적 컨디션은?</div></div>
+          <div class="pc-body">
+            <div class="face-row">
+              <div class="face sel"><div>😊</div><div class="face-lbl">매우 좋음</div></div>
+              <div class="face"><div>🙂</div><div class="face-lbl">좋음</div></div>
+              <div class="face"><div>😐</div><div class="face-lbl">보통</div></div>
+              <div class="face"><div>😟</div><div class="face-lbl">안 좋음</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Q4 -->
+        <div class="pro-card">
+          <div class="pc-head"><div class="pc-num">4</div><div class="pc-q">기침 · 분비물이 늘었나요?</div></div>
+          <div class="pc-body">
+            <div class="opt-row">
+              <div class="opt sel">아니요</div>
+              <div class="opt">조금 늘었어요</div>
+              <div class="opt">많이 늘었어요</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-b">입력 완료 · AI에게 전달하기</div>
+
+      <!-- AI 결과 -->
+      <div class="result-card">
+        <div class="rc-title">AI 종합 분석 결과</div>
+        <div class="rc-body">PRO 응답과 Ventilator 데이터를 종합한 결과, 현재 임상적으로 주의 깊은 변화는 관찰되지 않습니다. RR 상승은 일시적인 것으로 판단됩니다. 1시간 후 재분석합니다.</div>
+      </div>
+
+      <div class="navbar">
+        <div class="ni"><i class="ti ti-home" aria-hidden="true"></i><div class="ni-t">홈</div></div>
+        <div class="ni"><i class="ti ti-clock act" aria-hidden="true"></i><div class="ni-t act">기록</div></div>
+        <div class="ni"><i class="ti ti-chart-bar" aria-hidden="true"></i><div class="ni-t">리포트</div></div>
+        <div class="ni"><i class="ti ti-user" aria-hidden="true"></i><div class="ni-t">내 정보</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Zone G: Alarm 이벤트 -->
+<div class="col">
+  <div class="zone-label">Zone G — 알람 이벤트 · 행동 가이드</div>
+  <div class="phone">
+    <div class="notch"><div class="np"></div></div>
+    <div class="sbar"><span>09:31</span><span><i class="ti ti-battery-2" style="font-size:11px" aria-hidden="true"></i></span></div>
+    <div style="background:#fffbeb;min-height:600px">
+      <div class="hdr-amber">
+        <div class="hdr-back"><i class="ti ti-arrow-left" style="font-size:11px" aria-hidden="true"></i>홈으로</div>
+        <div class="hdr-title">알람 해석</div>
+        <div class="hdr-sub">AI가 알람 원인을 분석했습니다</div>
+      </div>
+
+      <div class="alarm-strip">
+        <i class="ti ti-alert-triangle" style="font-size:13px;color:#dc2626" aria-hidden="true"></i>
+        <div>
+          <div class="alarm-type">High Pressure Alarm 발생</div>
+          <div class="alarm-time">09:31:04 · 지속 시간 18초</div>
+        </div>
+      </div>
+
+      <!-- 원인 분석 -->
+      <div class="cause-card">
+        <div class="cause-title">AI 원인 추정</div>
+        <div class="cause-row">
+          <div class="cause-name">분비물 축적</div>
+          <div class="cause-bar-bg"><div class="cause-bar" style="width:68%;background:#3b82f6"></div></div>
+          <div class="cause-pct">68%</div>
+        </div>
+        <div class="cause-row">
+          <div class="cause-name">체위 변경</div>
+          <div class="cause-bar-bg"><div class="cause-bar" style="width:22%;background:#94a3b8"></div></div>
+          <div class="cause-pct">22%</div>
+        </div>
+        <div class="cause-row">
+          <div class="cause-name">기도 폐색</div>
+          <div class="cause-bar-bg"><div class="cause-bar" style="width:10%;background:#fbbf24"></div></div>
+          <div class="cause-pct">10%</div>
+        </div>
+        <div style="margin-top:6px;background:#f0f9ff;border-radius:6px;padding:5px 7px;border-left:2px solid #3b82f6">
+          <div style="font-size:8px;color:#1e40af;line-height:1.4">PIP 급상승 + VTe 소폭 감소 패턴이 감지됩니다. 기도 분비물 흡입이 필요할 수 있습니다.</div>
+        </div>
+      </div>
+
+      <!-- 행동 가이드 -->
+      <div class="guide-card">
+        <div class="g-title">행동 가이드</div>
+        <div class="g-step">
+          <div class="g-num">1</div>
+          <div class="g-txt">아이 자세를 확인하세요 (고개 기울어짐 여부)</div>
+        </div>
+        <div class="g-step">
+          <div class="g-num">2</div>
+          <div class="g-txt">흡입 카테터로 구강·비강 분비물을 제거하세요</div>
+        </div>
+        <div class="g-step">
+          <div class="g-num">3</div>
+          <div class="g-txt">회로 연결 상태 및 마스크 위치를 확인하세요</div>
+        </div>
+        <div class="g-step" style="margin-bottom:0">
+          <div class="g-num">4</div>
+          <div class="g-txt">처치 후 알람이 반복되면 의료진에게 연락하세요</div>
+        </div>
+      </div>
+
+      <!-- 재측정 결과 표시 -->
+      <div style="background:#fff;border-radius:10px;border:0.5px solid #e2e8f0;margin:6px 10px 0;padding:8px 12px">
+        <div style="font-size:9px;font-weight:600;color:#374151;margin-bottom:4px">재측정 결과 (1분 후)</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:9px;color:#6b7280">PIP</div>
+          <div style="font-size:9px;color:#059669;font-weight:600">정상화 중 ↓</div>
+        </div>
+      </div>
+
+      <!-- 해결 여부 -->
+      <div class="resolved-card">
+        <div class="res-title">알람이 해결되었나요?</div>
+        <div class="res-row">
+          <div class="res-ok">해결됐어요</div>
+          <div class="res-no">아직 계속돼요</div>
+        </div>
+      </div>
+
+      <!-- 반복 패턴 경고 -->
+      <div class="repeat-warn">
+        <i class="ti ti-info-circle" style="font-size:13px;color:#d97706;flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
+        <div class="rw-txt">같은 알람이 오늘 3회 이상 반복되고 있습니다. 주간 리포트에 포함되어 의료진에게 전달됩니다.</div>
+      </div>
+
+      <div class="navbar">
+        <div class="ni"><i class="ti ti-home act" aria-hidden="true"></i><div class="ni-t act">홈</div></div>
+        <div class="ni"><i class="ti ti-clock" aria-hidden="true"></i><div class="ni-t">기록</div></div>
+        <div class="ni"><i class="ti ti-chart-bar" aria-hidden="true"></i><div class="ni-t">리포트</div></div>
+        <div class="ni"><i class="ti ti-user" aria-hidden="true"></i><div class="ni-t">내 정보</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
